@@ -17,11 +17,11 @@ export class CreateEditNamespaceComponent {
   @Output() create = new EventEmitter<boolean>();
   opened: boolean;
   defaultMetaData = `{
-  'imagePullSecrets': [],
-  'env':[],
-  'clusterMeta': {
+  "imagePullSecrets": [],
+  "env":[],
+  "clusterMeta": {
   },
-  'namespace': ''
+  "namespace": ""
 }`;
   namespaceForm: NgForm;
   @ViewChild('namespaceForm')
