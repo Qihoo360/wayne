@@ -98,7 +98,7 @@ $ docker run --rm  -e GOPATH=/go -v /tmp/dev.conf:/opt/wayne/conf/dev.conf -p 80
 
 ## 贡献者
 
-- 请参照 [贡献者](https://github.com/Qihoo360/wayne/wiki/coder)
+- 请参照 [贡献者](https://github.com/Qihoo360/wayne/wiki/contributors)
 
 ## License
 
