@@ -25,6 +25,9 @@ spec:
           periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 1
+        command:
+          - /opt/wayne/backend
+          - apiserver
         image: 360cloud/wayne:latest
         name: wayne
         resources:
