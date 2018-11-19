@@ -1,0 +1,16 @@
+<clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="''">
+  <h3 class="modal-title">用户信息</h3>
+  <div class="modal-body">
+    <hr>
+    <div style="padding-top: 10px">
+      <span>登录命令：
+        <br> sftp -P {{userInfo?.port}} {{userInfo?.user}}@{{userInfo?.server}}</span>
+      <br>
+      <br>
+      <span>
+        登录密码：
+        <br> {{userInfo?.password}}
+      </span>
+    </div>
+  </div>
+</clr-modal>

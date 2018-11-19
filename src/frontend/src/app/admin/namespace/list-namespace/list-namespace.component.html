@@ -1,0 +1,57 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)">
+  <clr-dg-column class="col-id">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      ID
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'name'" class="col-app-name">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      名称
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      K8S命名空间
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: true}">
+      元数据
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      创建者
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column class="col-time">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      创建时间
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column class="col-time">
+    <ng-container *clrDgHideableColumn="{hidden: true}">
+      更新时间
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-row *ngFor="let ns of namespaces" [clrDgItem]="ns">
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="editNamespace(ns)" >编辑</button>
+      <button class="action-item" (click)="deleteNamespace(ns)">删除</button>
+    </clr-dg-action-overflow>
+      <clr-dg-cell class="col-id">{{ns.id}}</clr-dg-cell>
+      <clr-dg-cell class="col-app-name copy"><a href="javascript:void(0)" (click)="goToLink(ns, 'app')">{{ns.name}}</a></clr-dg-cell>
+      <clr-dg-cell class="copy">{{ns.metaDataObj.namespace}}</clr-dg-cell>
+      <clr-dg-cell>{{ns.metaData}}</clr-dg-cell>
+      <clr-dg-cell>{{ns.user}}</clr-dg-cell>
+      <clr-dg-cell class="col-time">{{ns.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
+      <clr-dg-cell class="col-time">{{ns.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
+  </clr-dg-row>
+  <wayne-paginate
+    [(currentPage)]="currentPage"
+    [total]="page.totalCount"
+    [pageSizes]="[10, 20, 50]"
+    (sizeChange)="pageSizeChange($event)"
+  >
+  </wayne-paginate>
+</clr-datagrid>

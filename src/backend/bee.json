@@ -1,0 +1,17 @@
+{
+  "version": 0,
+  "go_install": true,
+  "watch_ext": [],
+  "dir_structure": {
+    "watch_all": false,
+    "controllers": "",
+    "models": "",
+    "others": []
+  },
+  "cmd_args": [],
+  "envs": [],
+  "database": {
+    "driver": "mysql"
+  },
+  "enable_reload": false
+}

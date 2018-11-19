@@ -1,0 +1,51 @@
+<clr-main-container class="main-container">
+  <header class="header header-6">
+    <div class="branding" style="min-width: auto">
+      <a class="nav-link">
+        <clr-icon shape="terminal"></clr-icon>
+        <span class="title"> {{cluster}}</span>
+      </a>
+    </div>
+    <div class="header-nav">
+      <a href="javascript://" class="active nav-link nav-text">{{resourceName}}</a>
+    </div>
+
+    <div class="header-actions">
+      <clr-dropdown>
+        <button class="nav-text" clrDropdownTrigger>
+          {{selectedPod.name}}
+          <clr-icon shape="caret down"></clr-icon>
+        </button>
+        <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right"  style="max-width:30rem;direction: rtl;">
+          <h4 class="dropdown-header">Pod</h4>
+          <a *ngFor="let pod of pods" href="javascript:void(0)"
+             clrDropdownItem (click)="selectedPod=pod;podChange();">
+            {{pod.name}}
+          </a>
+        </clr-dropdown-menu>
+      </clr-dropdown>
+      <clr-dropdown>
+        <button class="nav-text" clrDropdownTrigger>
+          {{selectedContainer}}
+          <clr-icon shape="caret down"></clr-icon>
+        </button>
+        <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+          <h4 class="dropdown-header">容器</h4>
+          <a *ngFor="let c of containers" href="javascript:void(0)"
+             clrDropdownItem (click)="selectedContainer=c.name;containerChange();">
+            {{c.name}}
+          </a>
+        </clr-dropdown-menu>
+      </clr-dropdown>
+    </div>
+  </header>
+
+  <div style="height:100%;width: 100%;">
+    <div class="terminal-parent">
+      <div #terminal></div>
+    </div>
+  </div>
+</clr-main-container>
+
+
+

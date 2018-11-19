@@ -1,0 +1,60 @@
+<div class="row" style="padding-left: 5%;">
+  <div class="row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
+    <h3 class="header-title">创建配置集模版</h3>
+  </div>
+  <form [formGroup]="currentForm" style="padding-right: 30px;width: 100%">
+    <section class="form-block wrap">
+      <div *ngIf="clusters" formArrayName="clusters" class="form-group form-group-padding">
+        <label class="col-md-3 form-group-label-override required">机房</label>
+        <div *ngFor="let cluster of clusters;let i=index"
+             style="padding-right: 15px" class="checkbox-inline"
+             [formGroupName]="i">
+          <input formControlName="checked"
+                 type="checkbox"
+                 id="{{cluster.id}}-check">
+          <label for="{{cluster.id}}-check">{{cluster.name}}</label>
+        </div>
+      </div>
+      <div class="form-group form-group-padding">
+        <label class="col-md-3 form-group-label-override required">发布说明</label>
+        <textarea formControlName="description"
+                  rows="3"
+                  style="width: 65%"
+                  required>
+        </textarea>
+      </div>
+      <div formArrayName="datas">
+        <div *ngFor="let data of datas.controls; let i = index"
+             [formGroupName]="i">
+          <div class="form-group form-group-padding">
+            <label class="col-md-3 form-group-label-override required">数据内容</label>
+            <input type="text"
+                   size="45"
+                   formControlName="dataName"
+                   required
+                   placeholder="配置key">
+            <a href="javascript:void(0)">
+              <clr-icon (click)="onDeleteData(i)" shape="trash" title="删除数据" class="is-solid clr-icon"></clr-icon>
+            </a>
+            <a href="javascript:void(0)">
+              <clr-icon (click)="onAddData(i)" shape="plus-circle" title="添加数据" class="is-solid clr-icon"></clr-icon>
+            </a>
+          </div>
+          <div class="form-group" style="padding-left: 170px;">
+           <textarea class="textarea-font" style="width: 65%"
+                     formControlName="dataValue"
+                     required
+                     placeholder="配置value">
+          </textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+  </form>
+</div>
+<div class="clr-wizard-footer-buttons tpl-bottom" [style.top.px]="top">
+  <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
+  <button type="button" class="btn btn-primary" (click)="openModal()">高级配置</button>
+  <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
+</div>
+<wayne-ace-editor (outputObj)="saveConfigMapTpl($event)"></wayne-ace-editor>

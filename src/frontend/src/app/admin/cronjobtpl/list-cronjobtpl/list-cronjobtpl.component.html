@@ -1,0 +1,56 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)">
+  <clr-dg-column [clrDgField]="'id'" class="col-query-id">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      ID
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'name'" class="col-app-name">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      名称
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'description'" class="col-description">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      描述
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column class="col-metadata">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      元数据
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'user'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      创建者
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgSortBy]="'createTime'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      创建时间
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-row *ngFor="let cronjobTpl of cronjobTpls" [clrDgItem]="cronjobTpl">
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="editCronjobTpl(cronjobTpl)" >编辑</button>
+      <button class="action-item" (click)="deleteCronjobTpl(cronjobTpl)">删除</button>
+    </clr-dg-action-overflow>
+    <clr-dg-cell class="col-query-id">{{cronjobTpl.id}}</clr-dg-cell>
+    <clr-dg-cell class="col-app-name copy">{{cronjobTpl.name}}</clr-dg-cell>
+    <clr-dg-cell class="col-description">{{cronjobTpl.description}}</clr-dg-cell>
+    <clr-dg-cell class="col-metadata">
+      <div class="text-overflow">
+        <a href="javascript:;" (click)="detailMetaDataTpl(cronjobTpl.template)">{{cronjobTpl.template}}</a>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell>{{cronjobTpl.user}}</clr-dg-cell>
+    <clr-dg-cell>{{cronjobTpl.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
+  </clr-dg-row>
+
+  <wayne-paginate
+    [(currentPage)]="currentPage"
+    [total]="page.totalCount"
+    [pageSizes]="[10, 20, 50]"
+    (sizeChange)="pageSizeChange($event)"
+  >
+  </wayne-paginate>
+</clr-datagrid>

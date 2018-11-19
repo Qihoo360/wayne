@@ -1,0 +1,14 @@
+<clr-modal [clrModalSize]="'lg'" [(clrModalOpen)]="modalOpened" #modal>
+  <h3 class="modal-title">{{title}}
+    <wayne-modal-operate [modal]="modal" *ngIf="modalOpened"></wayne-modal-operate>
+  </h3>
+
+  <div class="modal-body">
+    <wayne-ace-editor-box (modalChange)="modalInfo($event)"></wayne-ace-editor-box>
+  </div>
+  <div [hidden]="hiddenFooter" class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">保存</button>
+  </div>
+</clr-modal>
+

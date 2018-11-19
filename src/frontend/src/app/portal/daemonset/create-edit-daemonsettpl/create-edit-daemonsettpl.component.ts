@@ -1,0 +1,599 @@
+import {Component, OnInit, ViewChild, AfterViewInit, Inject, OnDestroy} from '@angular/core';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import {Location} from '@angular/common';
+import {DOCUMENT, EventManager} from '@angular/platform-browser';
+import {FormBuilder, NgForm} from '@angular/forms';
+import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
+import {
+  ConfigMapKeySelector,
+  Container, DaemonSetUpdateStrategy,
+  EnvVar,
+  EnvVarSource,
+  ExecAction,
+  HTTPGetAction,
+  KubeDaemonSet,
+  Probe,
+  ResourceRequirements,
+  SecretKeySelector,
+  TCPSocketAction
+} from '../../../shared/model/v1/kubernetes/daemonset';
+import 'rxjs/add/observable/combineLatest';
+import {ActivatedRoute, Router} from '@angular/router';
+import {App} from '../../../shared/model/v1/app';
+import {AppService} from '../../../shared/client/v1/app.service';
+import {ActionType, appLabelKey, defaultResources, namespaceLabelKey} from '../../../shared/shared.const';
+import {CacheService} from '../../../shared/auth/cache.service';
+import {Observable} from 'rxjs/Observable';
+import {AuthService} from '../../../shared/auth/auth.service';
+import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
+import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import {DaemonSetTemplate} from '../../../shared/model/v1/daemonsettpl';
+import {DaemonSet} from '../../../shared/model/v1/daemonset';
+import {DaemonSetService} from '../../../shared/client/v1/daemonset.service';
+import {DaemonSetTplService} from '../../../shared/client/v1/daemonsettpl.service';
+import {defaultDaemonSet} from '../../../shared/default-models/daemonset.const';
+import {ResourceUnitConvertor} from '../../../shared/utils';
+import {ConfigMapEnvSource, EnvFromSource, SecretEnvSource} from '../../../shared/model/v1/kubernetes/deployment';
+
+const templateDom = [
+  {
+    id: '创建守护进程集模版',
+    child: [
+      {
+        id: '发布信息',
+      },
+      {
+        id: '更新策略'
+      }
+    ]
+  }
+];
+
+const containerDom = {
+  id: '容器配置',
+  child: [
+    {
+      id: '镜像配置'
+    },
+    {
+      id: '环境变量配置'
+    },
+    {
+      id: '可用性检查'
+    },
+    {
+      id: '存活检查'
+    }
+  ]
+};
+
+@Component({
+  selector: 'create-edit-daemonsettpl',
+  templateUrl: 'create-edit-daemonsettpl.component.html',
+  styleUrls: ['create-edit-daemonsettpl.scss']
+})
+export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, OnDestroy {
+  ngForm: NgForm;
+  @ViewChild('ngForm')
+  currentForm: NgForm;
+
+  actionType: ActionType;
+  daemonSetTpl = new DaemonSetTemplate();
+  isSubmitOnGoing: boolean = false;
+  app: App;
+  daemonSet: DaemonSet;
+  kubeDaemonSet = new KubeDaemonSet();
+
+  cpuUnitPrice = 30;
+  memoryUnitPrice = 10;
+  top: number;
+  box: HTMLElement;
+  naviList: string = JSON.stringify(templateDom);
+  eventList: any = new Array();
+
+  constructor(private daemonSetTplService: DaemonSetTplService,
+              private fb: FormBuilder,
+              private router: Router,
+              private aceEditorService: AceEditorService,
+              public authService: AuthService,
+              private location: Location,
+              private daemonSetService: DaemonSetService,
+              private appService: AppService,
+              public cacheService: CacheService,
+              private route: ActivatedRoute,
+              private messageHandlerService: MessageHandlerService,
+              @Inject(DOCUMENT) private document: any,
+              private eventManager: EventManager
+              ) {
+
+  }
+
+  ngAfterViewInit() {
+    this.box = this.document.querySelector('.content-area');
+    this.box.style.paddingBottom = '60px';
+    this.eventList.push(
+      this.eventManager.addEventListener(this.box, 'scroll', this.scrollEvent.bind(this, true)),
+      this.eventManager.addGlobalEventListener('window', 'resize', this.scrollEvent.bind(this, false))
+    );
+    this.scrollEvent(false);
+  }
+
+  ngOnDestroy() {
+    this.eventList.forEach(item => {
+      item();
+    });
+    this.box.style.paddingBottom = '.75rem';
+  }
+
+  scrollEvent(scroll: boolean, event?) {
+    let top = 0;
+    if (event && scroll) {
+      top = event.target.scrollTop;
+      this.top = top + this.box.offsetHeight - 48;
+    } else {
+      // hack
+      setTimeout(() => {
+        this.top = this.box.scrollTop + this.box.offsetHeight - 48;
+      }, 0)
+    }
+  }
+
+  get containersLength(): number {
+    try{
+      return this.kubeDaemonSet.spec.template.spec.containers.length;
+    } catch(error) {
+      return 0;
+    }
+  }
+
+  setContainDom(i) {
+    let dom = JSON.parse(JSON.stringify(containerDom));
+    dom.id += i ? i : '';
+    dom.child.forEach(item => {
+      item.id += i ? i : '';
+    })
+    return dom
+  }
+
+  initNavList() {
+    this.naviList = null;
+    let naviList = JSON.parse(JSON.stringify(templateDom));
+    for(let key = 0; key < this.containersLength; key++) {
+      naviList[0].child.push(this.setContainDom(key));
+    }
+    this.naviList = JSON.stringify(naviList);
+  }
+
+  checkIfInvalid(index: number, field: string): boolean {
+    const control = this.currentForm.controls[field + index];
+    if (control && control.dirty && !control.valid) {
+      return true;
+    }
+    return false;
+  }
+
+  checkMemory(memory: string): boolean {
+    return memory === '' ? true : parseFloat(memory) <= this.memoryLimit && parseFloat(memory) > 0
+  }
+
+  checkCpu(cpu: string): boolean {
+    return cpu === '' ? true : parseFloat(cpu) <= this.cpuLimit && parseFloat(cpu) > 0
+  }
+
+  get memoryLimit(): number {
+    let memoryLimit = defaultResources.memoryLimit;
+    if (this.daemonSet && this.daemonSet.metaData) {
+      let metaData = JSON.parse(this.daemonSet.metaData);
+      if (metaData.resources &&
+        metaData.resources.memoryLimit) {
+        memoryLimit = parseInt(metaData.resources.memoryLimit)
+      }
+    }
+    return memoryLimit
+  }
+
+  get cpuLimit(): number {
+    let cpuLimit = defaultResources.cpuLimit;
+    if (this.daemonSet && this.daemonSet.metaData) {
+      let metaData = JSON.parse(this.daemonSet.metaData);
+      if (metaData.resources &&
+        metaData.resources.cpuLimit) {
+        cpuLimit = parseInt(metaData.resources.cpuLimit)
+      }
+    }
+    return cpuLimit
+  }
+
+  ngOnInit(): void {
+    this.initDefault();
+    let appId = parseInt(this.route.parent.snapshot.params['id']);
+    let namespaceId = this.cacheService.namespaceId;
+    let daemonSetId = parseInt(this.route.snapshot.params['daemonSetId']);
+    let tplId = parseInt(this.route.snapshot.params['tplId']);
+    let observables = Array(
+      this.appService.getById(appId, namespaceId),
+      this.daemonSetService.getById(daemonSetId, appId)
+    );
+    if (tplId) {
+      this.actionType = ActionType.EDIT;
+      observables.push(this.daemonSetTplService.getById(tplId, appId));
+    } else {
+      this.actionType = ActionType.ADD_NEW;
+    }
+    Observable.combineLatest(observables).subscribe(
+      response => {
+        this.app = response[0].data;
+        this.daemonSet = response[1].data;
+        let tpl = response[2];
+        if (tpl) {
+          this.daemonSetTpl = tpl.data;
+          // 克隆置空发布说明
+          this.daemonSetTpl.description = null;
+          this.saveDaemonSet(JSON.parse(this.daemonSetTpl.template));
+        }
+        this.initNavList();
+      },
+      error => {
+        this.messageHandlerService.handleError(error);
+      }
+    );
+  }
+
+  buildLabels(labels: {}) {
+    if (!labels) {
+      labels = {};
+    }
+    labels[this.authService.config[appLabelKey]] = this.app.name;
+    labels[this.authService.config[namespaceLabelKey]] = this.cacheService.currentNamespace.name;
+    labels['app'] = this.daemonSet.name;
+    return labels;
+  }
+
+  buildSelectorLabels(labels: {}) {
+    if (!labels) {
+      labels = {};
+    }
+    labels[this.authService.config[appLabelKey]] = this.app.name;
+    labels['app'] = this.daemonSet.name;
+    delete labels[this.authService.config[namespaceLabelKey]];
+    return labels;
+  }
+
+  fillLabel(kubeDaemonSet: KubeDaemonSet): KubeDaemonSet {
+    kubeDaemonSet.metadata.name = this.daemonSet.name;
+    kubeDaemonSet.metadata.labels = this.buildLabels(this.kubeDaemonSet.metadata.labels);
+    kubeDaemonSet.spec.selector.matchLabels = this.buildSelectorLabels(this.kubeDaemonSet.spec.selector.matchLabels);
+    kubeDaemonSet.spec.template.metadata.labels = this.buildLabels(this.kubeDaemonSet.spec.template.metadata.labels);
+    return kubeDaemonSet
+  }
+
+  initDefault() {
+    this.kubeDaemonSet = JSON.parse(defaultDaemonSet);
+    this.kubeDaemonSet.spec.template.spec.containers.push(this.defaultContainer());
+    this.initNavList();
+  }
+
+  onDeleteContainer(index: number) {
+    this.kubeDaemonSet.spec.template.spec.containers.splice(index, 1);
+    this.initNavList();
+  }
+
+  onAddContainer() {
+    this.kubeDaemonSet.spec.template.spec.containers.push(this.defaultContainer());
+  }
+
+  onAddEnv(index: number) {
+    if (!this.kubeDaemonSet.spec.template.spec.containers[index].env) {
+      this.kubeDaemonSet.spec.template.spec.containers[index].env = [];
+    }
+    this.kubeDaemonSet.spec.template.spec.containers[index].env.push(this.defaultEnv(0));
+  }
+
+  onAddEnvFrom(index: number) {
+    if (!this.kubeDaemonSet.spec.template.spec.containers[index].envFrom) {
+      this.kubeDaemonSet.spec.template.spec.containers[index].envFrom = [];
+    }
+    this.kubeDaemonSet.spec.template.spec.containers[index].envFrom.push(this.defaultEnvFrom(1));
+  }
+
+  onDeleteEnv(i: number, j: number) {
+    this.kubeDaemonSet.spec.template.spec.containers[i].env.splice(j, 1);
+  }
+
+  onDeleteEnvFrom(i: number, j: number) {
+    this.kubeDaemonSet.spec.template.spec.containers[i].envFrom.splice(j, 1);
+  }
+
+  envChange(type: number, i: number, j: number) {
+    this.kubeDaemonSet.spec.template.spec.containers[i].env[j] = this.defaultEnv(type);
+  }
+
+  envFromChange(type: number, i: number, j: number) {
+    this.kubeDaemonSet.spec.template.spec.containers[i].envFrom[j] = this.defaultEnvFrom(type);
+  }
+
+  defaultEnvFrom(type: number): EnvFromSource {
+    let envFrom = new EnvFromSource();
+    switch (parseInt(type.toString())) {
+      case 1:
+        envFrom.configMapRef = new ConfigMapEnvSource();
+        break;
+      case 2:
+        envFrom.secretRef = new SecretEnvSource();
+        break;
+    }
+    return envFrom;
+  }
+
+  readinessProbeChange(i: number) {
+    let probe = this.kubeDaemonSet.spec.template.spec.containers[i].readinessProbe;
+    if (probe) {
+      probe = undefined;
+    } else {
+      probe = new Probe();
+      probe.httpGet = new HTTPGetAction();
+      probe.timeoutSeconds = 1;
+      probe.periodSeconds = 10;
+      probe.failureThreshold = 10;
+    }
+    this.kubeDaemonSet.spec.template.spec.containers[i].readinessProbe = probe;
+  }
+
+  livenessProbeChange(i: number) {
+    let probe = this.kubeDaemonSet.spec.template.spec.containers[i].livenessProbe;
+    if (probe) {
+      probe = undefined;
+    } else {
+      probe = new Probe();
+      probe.httpGet = new HTTPGetAction();
+      probe.timeoutSeconds = 1;
+      probe.periodSeconds = 10;
+      probe.failureThreshold = 10;
+      probe.initialDelaySeconds = 30;
+    }
+    this.kubeDaemonSet.spec.template.spec.containers[i].livenessProbe = probe;
+  }
+
+  probeTypeChange(probe: Probe, type: number) {
+    switch (parseInt(type.toString())) {
+      case 0:
+        probe.httpGet = new HTTPGetAction();
+        probe.tcpSocket = undefined;
+        probe.exec = undefined;
+        break;
+      case 1:
+        probe.tcpSocket = new TCPSocketAction();
+        probe.httpGet = undefined;
+        probe.exec = undefined;
+        break;
+      case 2:
+        probe.exec = new ExecAction();
+        probe.exec.command = [];
+        probe.exec.command.push('');
+        probe.httpGet = undefined;
+        probe.tcpSocket = undefined;
+        break;
+    }
+
+  }
+
+  livenessProbeTypeChange(type: number, i: number) {
+    this.probeTypeChange(this.kubeDaemonSet.spec.template.spec.containers[i].livenessProbe, type);
+  }
+
+  readinessProbeTypeChange(type: number, i: number) {
+    this.probeTypeChange(this.kubeDaemonSet.spec.template.spec.containers[i].readinessProbe, type);
+  }
+
+  trackByFn(index, item) {
+    return index;
+  }
+
+  defaultContainer(): Container {
+    let container = new Container();
+    container.resources = new ResourceRequirements();
+    container.resources.limits = {'memory': '', 'cpu': ''};
+    container.env = [];
+    container.envFrom = [];
+    return container;
+  }
+
+  defaultEnv(type: number): EnvVar {
+    let env = new EnvVar();
+    switch (parseInt(type.toString())) {
+      case 0:
+        env.value = '';
+        break;
+      case 1:
+        env.valueFrom = new EnvVarSource();
+        env.valueFrom.configMapKeyRef = new ConfigMapKeySelector();
+        break;
+      case 2:
+        env.valueFrom = new EnvVarSource();
+        env.valueFrom.secretKeyRef = new SecretKeySelector();
+        break;
+      case 3:
+        break;
+    }
+    return env;
+  }
+
+  onSubmit() {
+    if (this.isSubmitOnGoing) {
+      return;
+    }
+    this.isSubmitOnGoing = true;
+    // let copy = Object.assign({}, myObject).
+    // but this wont work for nested objects. SO an alternative would be
+    let newDaemonSet = JSON.parse(JSON.stringify(this.kubeDaemonSet));
+    newDaemonSet = this.generateDaemonSet(newDaemonSet);
+    this.daemonSetTpl.daemonSetId = this.daemonSet.id;
+    this.daemonSetTpl.template = JSON.stringify(newDaemonSet);
+    this.daemonSetTpl.id = undefined;
+    this.daemonSetTpl.name = this.daemonSet.name;
+    this.daemonSetTplService.create(this.daemonSetTpl, this.app.id).subscribe(
+      status => {
+        this.isSubmitOnGoing = false;
+        this.messageHandlerService.showSuccess('创建模版成功！');
+        this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/daemonset/${this.daemonSet.id}`]);
+      },
+      error => {
+        this.isSubmitOnGoing = false;
+        this.messageHandlerService.handleError(error);
+
+      }
+    );
+
+  }
+
+  addResourceUnit(kubeDaemonSet: KubeDaemonSet): KubeDaemonSet {
+    let cpuRequestLimitPercent = 0.5;
+    let memoryRequestLimitPercent = 1;
+    if (this.daemonSet.metaData) {
+      let metaData = JSON.parse(this.daemonSet.metaData);
+      if (metaData.resources && metaData.resources.cpuRequestLimitPercent) {
+        if (metaData.resources.cpuRequestLimitPercent.indexOf('%') > -1) {
+          cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent.replace('%', '')) / 100
+        } else {
+          cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent)
+        }
+      }
+      if (metaData.resources && metaData.resources.memoryRequestLimitPercent) {
+        if (metaData.resources.memoryRequestLimitPercent.indexOf('%') > -1) {
+          memoryRequestLimitPercent = parseFloat(metaData.resources.memoryRequestLimitPercent.replace('%', '')) / 100
+        } else {
+          memoryRequestLimitPercent = parseFloat(metaData.resources.memoryRequestLimitPercent)
+        }
+      }
+    }
+
+    for (let container of kubeDaemonSet.spec.template.spec.containers) {
+      let memoryLimit = container.resources.limits['memory'];
+      let cpuLimit = container.resources.limits['cpu'];
+      if (!container.resources.requests) {
+        container.resources.requests = {};
+      }
+      if (memoryLimit) {
+        container.resources.limits['memory'] = memoryLimit + 'Gi';
+        container.resources.requests['memory'] = parseFloat(memoryLimit) * memoryRequestLimitPercent + 'Gi';
+      }
+      if (cpuLimit) {
+        container.resources.limits['cpu'] = cpuLimit.toString();
+        container.resources.requests['cpu'] = (parseFloat(cpuLimit) * cpuRequestLimitPercent).toString();
+      }
+    }
+    return kubeDaemonSet
+  }
+
+
+  get totalFee() {
+    let fee = 0;
+    if (this.kubeDaemonSet.spec.template.spec.containers) {
+      for (let container of this.kubeDaemonSet.spec.template.spec.containers) {
+        let limit = container.resources.limits;
+        let cpu = limit['cpu'];
+        let memory = limit['memory'];
+        if (cpu) {
+          fee += parseFloat(cpu) * this.cpuUnitPrice
+        }
+        if (memory) {
+          fee += parseFloat(memory) * this.memoryUnitPrice
+        }
+
+      }
+    }
+    return fee
+  }
+
+  saveDaemonSet(kubeDaemonSet: KubeDaemonSet) {
+    this.fillDefault(kubeDaemonSet);
+    this.convertProbeCommandToText(kubeDaemonSet);
+    this.kubeDaemonSet = kubeDaemonSet;
+    this.initNavList();
+  }
+
+  convertProbeCommandToText(kubeDaemonSet: KubeDaemonSet) {
+    if (kubeDaemonSet.spec.template.spec.containers && kubeDaemonSet.spec.template.spec.containers.length > 0) {
+      for (let container of kubeDaemonSet.spec.template.spec.containers) {
+        if (container.livenessProbe && container.livenessProbe.exec && container.livenessProbe.exec.command && container.livenessProbe.exec.command.length > 0) {
+          let commands = container.livenessProbe.exec.command;
+          container.livenessProbe.exec.command = Array();
+          container.livenessProbe.exec.command.push(commands.join('\n'));
+        }
+        if (container.readinessProbe && container.readinessProbe.exec && container.readinessProbe.exec.command && container.readinessProbe.exec.command.length > 0) {
+          let commands = container.readinessProbe.exec.command;
+          container.readinessProbe.exec.command = Array();
+          container.readinessProbe.exec.command.push(commands.join('\n'));
+        }
+      }
+    }
+
+    return kubeDaemonSet;
+  }
+
+  fillDefault(kubeDaemonSet: KubeDaemonSet) {
+    if (!kubeDaemonSet.spec.updateStrategy) {
+      kubeDaemonSet.spec.updateStrategy = DaemonSetUpdateStrategy.emptyObject();
+      kubeDaemonSet.spec.updateStrategy.type = 'OnDelete';
+    }
+    if (kubeDaemonSet.spec.template.spec.containers && kubeDaemonSet.spec.template.spec.containers.length > 0) {
+      for (let container of kubeDaemonSet.spec.template.spec.containers) {
+        if (!container.resources) {
+          container.resources = ResourceRequirements.emptyObject()
+        }
+        if (!container.resources.limits) {
+          container.resources.limits = {'cpu': '0', 'memory': '0Gi'}
+        }
+        container.resources.limits['cpu'] = ResourceUnitConvertor.cpuCoreValue(container.resources.limits['cpu']);
+        container.resources.limits['memory'] = ResourceUnitConvertor.memoryGiValue(container.resources.limits['memory']);
+      }
+    }
+  }
+
+  generateDaemonSet(kubeDaemonSet: KubeDaemonSet): KubeDaemonSet {
+    kubeDaemonSet = this.convertProbeCommandToArray(kubeDaemonSet);
+    kubeDaemonSet = this.addResourceUnit(kubeDaemonSet);
+    kubeDaemonSet = this.fillLabel(kubeDaemonSet);
+    return kubeDaemonSet
+  }
+
+  convertProbeCommandToArray(kubeDaemonSet: KubeDaemonSet): KubeDaemonSet {
+    if (kubeDaemonSet.spec.template.spec.containers && kubeDaemonSet.spec.template.spec.containers.length > 0) {
+      for (let container of kubeDaemonSet.spec.template.spec.containers) {
+        if (container.livenessProbe && container.livenessProbe.exec && container.livenessProbe.exec.command && container.livenessProbe.exec.command.length > 0) {
+          container.livenessProbe.exec.command = container.livenessProbe.exec.command[0].split('\n');
+        }
+        if (container.readinessProbe && container.readinessProbe.exec && container.readinessProbe.exec.command && container.readinessProbe.exec.command.length > 0) {
+          container.readinessProbe.exec.command = container.readinessProbe.exec.command[0].split('\n');
+        }
+      }
+    }
+
+    return kubeDaemonSet;
+  }
+
+  openModal(): void {
+    // let copy = Object.assign({}, myObject).
+    // but this wont work for nested objects. SO an alternative would be
+    let newDaemonSet = JSON.parse(JSON.stringify(this.kubeDaemonSet));
+    newDaemonSet = this.generateDaemonSet(newDaemonSet);
+    this.aceEditorService.announceMessage(AceEditorMsg.Instance(newDaemonSet, true));
+  }
+
+  onCancel() {
+    this.currentForm.reset();
+    this.location.back();
+  }
+
+  public get isValid(): boolean {
+    return this.currentForm &&
+      this.currentForm.valid &&
+      !this.isSubmitOnGoing;
+  }
+
+  getImagePrefixReg() {
+    let imagePrefix = this.authService.config['system.image-prefix'];
+    return imagePrefix
+  }
+}

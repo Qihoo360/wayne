@@ -1,0 +1,66 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)">
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      ID
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column style="min-width: 206px;">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+     类型
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column  style="min-width: 206px;">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      标题
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column style="min-width: 206px;">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      创建人
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column  style="min-width: 206px;">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      状态
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column  style="min-width: 206px;">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      创建时间
+    </ng-container>
+  </clr-dg-column>
+
+  <clr-dg-row *ngFor="let n of notifications; let i = index" [clrDgItem]="notification">
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="showPushNotifyModal(n)">广播</button>
+    </clr-dg-action-overflow>
+    <clr-dg-cell>{{n.id}}</clr-dg-cell>
+    <clr-dg-cell class="copy">{{n.type}}</clr-dg-cell>
+    <clr-dg-cell class="copy">{{n.title}}</clr-dg-cell>
+    <clr-dg-cell class="copy">{{n.from.name}}</clr-dg-cell>
+    <clr-dg-cell class="copy">
+      <div *ngIf="n.is_published">已广播</div>
+      <div *ngIf="!n.is_published">未广播</div>
+    </clr-dg-cell>
+    <clr-dg-cell>{{n.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
+  </clr-dg-row>
+
+  <wayne-paginate
+    [(currentPage)]="currentPage"
+    [total]="page.totalCount"
+    [pageSizes]="[10, 20, 50]"
+    (sizeChange)="pageSizeChange($event)"
+  >
+  </wayne-paginate>
+</clr-datagrid>
+
+<clr-modal [(clrModalOpen)]="notificationModal" [clrModalSize]="'xl'">
+  <h3 class="modal-title">是否广播如下内容:</h3>
+  <div class="modal-body">
+    <markdown ngPreserveWhitespaces [data]="notification.message"></markdown>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="cancelPushNotify()">取消</button>
+    <button type="button" class="btn btn-primary" (click)="pushNotify()">广播</button>
+  </div>
+</clr-modal>

@@ -1,0 +1,33 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)">
+  <clr-dg-column class="col-id">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      ID
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column class="col-key">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Key
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Value
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-row *ngFor="let config of configs" [clrDgItem]="config">
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="editConfig(config)">编辑</button>
+      <button class="action-item" (click)="deleteConfig(config)">删除</button>
+    </clr-dg-action-overflow>
+    <clr-dg-cell class="col-id">{{config.id}}</clr-dg-cell>
+    <clr-dg-cell class="col-key">{{config.name}}</clr-dg-cell>
+    <clr-dg-cell>{{config.value}}</clr-dg-cell>
+  </clr-dg-row>
+
+  <wayne-paginate
+    [(currentPage)]="currentPage"
+    [total]="page.totalCount"
+    [pageSizes]="[10, 20, 50]"
+    (sizeChange)="pageSizeChange($event)">
+  </wayne-paginate>
+</clr-datagrid>

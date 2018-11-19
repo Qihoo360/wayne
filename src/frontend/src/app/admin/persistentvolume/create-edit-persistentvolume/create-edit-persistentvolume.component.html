@@ -1,0 +1,127 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row flex-items-xs-between flex-items-xs-top" style="padding-left: 50px;">
+      <h2 class="header-title">{{title}}[{{cluster?.name}}]</h2>
+    </div>
+    <form [formGroup]="currentForm">
+      <section class="form-block" style="padding:0 20px 0 40px">
+        <div class="form-group row">
+          <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            <label for="pv_name" class="required">PV名称</label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <input class="form-control"
+                   formControlName="name"
+                   type="text"
+                   name="pv_name"
+                   id="pv_name"
+                   placeholder="pv名称"
+                   size="45">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            <label for="pv_type" class="required">PV类型</label>
+          </div>
+          <div class="col-lg-4 col-md-8 col-sm-12 col-xs-12">
+            <div class="select form-control">
+              <select formControlName="type" id="pv_type">
+                <option value="rbd">rbd</option>
+                <option value="cephfs">cephfs</option>
+                <option value="0">其它</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="currentForm.get('type').value =='rbd'">
+          <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            <label for="rbd_name" class="required">RBD镜像名称</label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <input class="form-control"
+                   formControlName="rbdImage"
+                   type="text"
+                   name="rbd_name"
+                   id="rbd_name"
+                   placeholder="rbd镜像名称"
+                   size="45">
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="currentForm.get('type').value =='cephfs'">
+          <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            <label for="cephfs_path" class="required">cephfs路径</label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <input class="form-control"
+                   formControlName="cephfsPath"
+                   type="text"
+                   name="cephfs_path"
+                   id="cephfs_path"
+                   placeholder="cephfs路径"
+                   size="45">
+          </div>
+        </div>
+        <div formArrayName="labels">
+          <div *ngFor="let label of labels.controls; let i = index"
+               [formGroupName]="i" class="form-group row">
+            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+              <label class="required">标签</label>
+            </div>
+            <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
+              <input formControlName="key" class="form-control" type="text" id="pv_label_key" placeholder="key"
+                     size="45">
+            </div>
+            <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
+              <input formControlName="value" class="form-control" type="text" id="pv_label_value" placeholder="value"
+                     size="45">
+            </div>
+            <a href="javascript:void(0)">
+              <clr-icon (click)="onDeleteLabel(i)"
+                        shape="trash" title="删除标签" class="is-solid clr-icon"></clr-icon>
+            </a>
+            <a href="javascript:void(0)">
+              <clr-icon (click)="onAddLabel(i)"
+                        shape="plus-circle" title="添加标签" class="is-solid clr-icon"></clr-icon>
+            </a>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            <label for="pv_storage" class="required">容量大小</label>
+          </div>
+          <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
+            <input formControlName="storage" class="form-control" type="number" id="pv_storage" placeholder="容量大小"
+                   size="45">
+          </div>
+          <div class="col-lg-3 col-md-5 col-sm-12 col-xs-12">
+            <span>Gi</span>
+          </div>
+        </div>
+        <div class="form-group row" formGroupName="accessModes">
+          <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            <label class="required">访问模式</label>
+          </div>
+          <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
+            <clr-checkbox formControlName="ReadWriteOnce" [clrInline]="true" class="col-md-8">
+              ReadWriteOnce
+            </clr-checkbox>
+            <clr-checkbox formControlName="ReadOnlyMany" class="form-group form-group-padding"
+                          [clrInline]="true" class="col-md-8">
+              ReadOnlyMany
+            </clr-checkbox>
+            <clr-checkbox formControlName="ReadWriteMany" class="form-group form-group-padding"
+                          [clrInline]="true" class="col-md-8">
+              ReadWriteMany
+            </clr-checkbox>
+          </div>
+        </div>
+        <div class="clr-wizard-footer-buttons" style="padding-top: 30px">
+          <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
+          <button type="button" class="btn btn-primary" (click)="openModal()">高级配置</button>
+          <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
+        </div>
+      </section>
+    </form>
+  </div>
+</div>
+<wayne-ace-editor (outputObj)="savePv($event)"></wayne-ace-editor>

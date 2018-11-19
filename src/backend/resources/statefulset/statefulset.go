@@ -1,0 +1,86 @@
+package statefulset
+
+import (
+	"github.com/Qihoo360/wayne/src/backend/client"
+	"github.com/Qihoo360/wayne/src/backend/resources/common"
+	"github.com/Qihoo360/wayne/src/backend/resources/event"
+	"github.com/Qihoo360/wayne/src/backend/resources/pod"
+	"github.com/Qihoo360/wayne/src/backend/util/maps"
+	"k8s.io/api/apps/v1beta1"
+	"k8s.io/apimachinery/pkg/api/errors"
+	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/labels"
+	"k8s.io/client-go/kubernetes"
+)
+
+type Statefulset struct {
+	ObjectMeta common.ObjectMeta `json:"objectMeta"`
+	Pods       common.PodInfo    `json:"pods"`
+}
+
+func GetStatefulsetResource(cli *kubernetes.Clientset, statefulSet *v1beta1.StatefulSet) (*common.ResourceList, error) {
+	old, err := cli.AppsV1beta1().StatefulSets(statefulSet.Namespace).Get(statefulSet.Name, metaV1.GetOptions{})
+	if err != nil {
+		if errors.IsNotFound(err) {
+			return common.StatefulsetResourceList(statefulSet), nil
+		}
+		return nil, err
+	}
+	oldResourceList := common.StatefulsetResourceList(old)
+	newResourceList := common.StatefulsetResourceList(statefulSet)
+
+	return &common.ResourceList{
+		Cpu:    newResourceList.Cpu - oldResourceList.Cpu,
+		Memory: newResourceList.Memory - oldResourceList.Memory,
+	}, nil
+}
+
+func CreateOrUpdateStatefulset(cli *kubernetes.Clientset, statefulSet *v1beta1.StatefulSet) (*v1beta1.StatefulSet, error) {
+	old, err := cli.AppsV1beta1().StatefulSets(statefulSet.Namespace).Get(statefulSet.Name, metaV1.GetOptions{})
+	if err != nil {
+		if errors.IsNotFound(err) {
+			return cli.AppsV1beta1().StatefulSets(statefulSet.Namespace).Create(statefulSet)
+		}
+		return nil, err
+	}
+	old.Labels = maps.MergeLabels(old.Labels, statefulSet.Labels)
+	oldTemplateLabels := old.Spec.Template.Labels
+	old.Spec = statefulSet.Spec
+	old.Spec.Template.Labels = maps.MergeLabels(oldTemplateLabels, statefulSet.Spec.Template.Labels)
+
+	return cli.AppsV1beta1().StatefulSets(statefulSet.Namespace).Update(old)
+}
+
+func GetStatefulsetDetail(cli *kubernetes.Clientset, indexer *client.CacheIndexer, name, namespace string) (*Statefulset, error) {
+	statefulSet, err := cli.AppsV1beta1().StatefulSets(namespace).Get(name, metaV1.GetOptions{})
+	if err != nil {
+		return nil, err
+	}
+
+	result := &Statefulset{
+		ObjectMeta: common.NewObjectMeta(statefulSet.ObjectMeta),
+	}
+
+	podInfo := common.PodInfo{}
+	podInfo.Current = statefulSet.Status.ReadyReplicas
+	podInfo.Desired = *statefulSet.Spec.Replicas
+
+	podSelector := labels.SelectorFromSet(statefulSet.Spec.Template.Labels).String()
+	pods, err := pod.GetPodsBySelector(cli, namespace, podSelector)
+	if err != nil {
+		return nil, err
+	}
+
+	podInfo.Warnings = event.GetPodsWarningEvents(indexer, pods)
+
+	result.Pods = podInfo
+
+	return result, nil
+}
+
+func DeleteStatefulset(cli *kubernetes.Clientset, name, namespace string) error {
+	deletionPropagation := metaV1.DeletePropagationBackground
+	return cli.AppsV1beta1().
+		StatefulSets(namespace).
+		Delete(name, &metaV1.DeleteOptions{PropagationPolicy: &deletionPropagation})
+}

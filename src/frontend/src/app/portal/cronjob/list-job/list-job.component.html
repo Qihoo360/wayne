@@ -1,0 +1,71 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)" class="wayne-clr-datagrid">
+  <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      名称
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column >
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      所属集群 
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column >
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      状态
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column >
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      失败原因 
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      开始时间 
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      结束时间 
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-row *clrDgItems="let job of jobs">
+    <clr-dg-cell class="copy">{{job.kubeJob.metadata.name}}</clr-dg-cell>
+    <clr-dg-cell>{{job.cluster}}</clr-dg-cell>
+    <clr-dg-cell>
+      <a href="javascript:void(0)" (click)="listPod(job)" class="label"
+         [class.label-success]="job.kubeJob.status.detail=='active'"
+         [class.label-warning]="job.kubeJob.status.detail=='warnings'">
+        {{job.kubeJob.status.detail}}
+      </a>
+      <a href="javascript:void(0)"
+         *ngIf="job.kubeJob.status.warnings"
+         (click)="listEvent(job.kubeJob.status.warnings)"
+         style="color:#a32100">
+        <clr-icon shape="error-standard"></clr-icon>
+      </a>
+    </clr-dg-cell>
+    <clr-dg-cell>
+      <span
+         *ngIf="job.kubeJob.status.conditions"
+      >
+      {{job.kubeJob.status.conditions[0]['message']}}
+      </span>
+    </clr-dg-cell>
+    <clr-dg-cell>{{job.kubeJob.status.startTime | date: "yyyy-MM-dd HH:mm:ss"}}</clr-dg-cell>
+    <clr-dg-cell>{{job.kubeJob.status.completionTime | date: "yyyy-MM-dd HH:mm:ss"}}</clr-dg-cell>
+  </clr-dg-row>
+  <clr-dg-footer>
+    <ng-container *ngIf="page.totalCount">
+      <wayne-select [(ngModel)]="pageSize" style="width: 50px; height: 24px;margin-left: 12px;" [type]="'page'" [cursor]="'pointer'">
+        <wayne-option *ngFor="let pagesize of pageSizes" [value]="pagesize">{{pagesize}}</wayne-option>
+      </wayne-select>
+      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}}
+    </ng-container>
+    共{{page.totalCount}} 条记录
+    <clr-dg-pagination #pagination [clrDgPageSize]="pageSize"></clr-dg-pagination>
+  </clr-dg-footer>
+</clr-datagrid>
+<list-pod></list-pod>
+<list-event></list-event>

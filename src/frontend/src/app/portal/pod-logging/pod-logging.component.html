@@ -1,0 +1,70 @@
+<global-message></global-message>
+<clr-main-container class="main-container">
+  <header class="header header-6">
+    <div class="branding" style="min-width: auto">
+      <a class="nav-link">
+        <clr-icon shape="list"></clr-icon>
+        <span class="title"> {{cluster}}</span>
+      </a>
+    </div>
+    <div class="header-nav">
+      <a href="javascript://" class="active nav-link nav-text">{{resourceName}}</a>
+    </div>
+
+    <div class="header-actions">
+      <clr-dropdown>
+        <button class="nav-text" clrDropdownTrigger>
+          {{selectedPod.name}}
+          <clr-icon shape="caret down"></clr-icon>
+        </button>
+        <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+          <h4 class="dropdown-header">Pod</h4>
+          <a *ngFor="let pod of pods" href="javascript:void(0)"
+             clrDropdownItem (click)="selectedPod=pod;podChange();">
+            {{pod.name}}
+          </a>
+        </clr-dropdown-menu>
+      </clr-dropdown>
+      <clr-dropdown>
+        <button class="nav-text" clrDropdownTrigger>
+          {{selectedContainer}}
+          <clr-icon shape="caret down"></clr-icon>
+        </button>
+        <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+          <h4 class="dropdown-header">容器</h4>
+          <a *ngFor="let c of containers" href="javascript:void(0)"
+             clrDropdownItem (click)="selectedContainer=c.name;containerChange();">
+            {{c.name}}
+          </a>
+        </clr-dropdown-menu>
+      </clr-dropdown>
+      <clr-dropdown>
+        <button class="nav-text" clrDropdownTrigger>
+          {{logTails}}
+          <clr-icon shape="caret down"></clr-icon>
+        </button>
+        <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+          <h4 class="dropdown-header">日志显示行数</h4>
+          <a href="javascript:void(0)" clrDropdownItem (click)="logTails=10;refreshLog()"> 10 </a>
+          <a href="javascript:void(0)" clrDropdownItem (click)="logTails=20;refreshLog()"> 20 </a>
+          <a href="javascript:void(0)" clrDropdownItem (click)="logTails=50;refreshLog()"> 50 </a>
+          <a href="javascript:void(0)" clrDropdownItem (click)="logTails=100;refreshLog()"> 100 </a>
+        </clr-dropdown-menu>
+      </clr-dropdown>
+      <a href="javascript:void(0)" (click)="refreshLog()" class="nav-link nav-text">
+        刷新
+      </a>
+      <a href="javascript:void(0)" *ngIf="logSource"  class="nav-link nav-text" (click)="copyLogCommand()">
+        {{isCopied ? '复制成功' : '复制查询命令'}}</a>
+
+    </div>
+  </header>
+  <div class="card-block" style="background: black;color: white;">
+    <div class="card-text" style="height: 100%;overflow-y: auto" [innerHTML]="prettyLog">
+    </div>
+
+  </div>
+</clr-main-container>
+
+
+

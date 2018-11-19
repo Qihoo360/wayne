@@ -1,0 +1,52 @@
+<header style="background-color: #1D2143" class="header">
+  <div class="branding" style="min-width: auto">
+    <a routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/app" class="nav-link">
+      <img src="assets/images/wayne-logo.svg" width="60px" alt="">
+      <span class="title">{{getTitle()}}</span>
+    </a>
+  </div>
+
+  <div class="header-actions">
+    <wayne-dropdown size="small">
+      <clr-icon href="javascript:void(0)" shape="bell" [class.has-badge]="mind" style="margin-right: 5px"></clr-icon>
+      <wayne-dropdown-item>
+        <ng-container *ngIf="notificationLogs && notificationLogs.length > 0">
+            <div *ngFor="let n of notificationLogs" href="javascript:void(0)"
+              (click)="showNotification(n)" style="white-space: nowrap;">
+            <label class="label label-info"  [class.label-info]="n.is_readed" [class.label-warning]="!n.is_readed">{{n.is_readed? '已读':'未读'}}</label>
+            {{n.notification.from.name}} 广播了《{{n.notification.title}}》的{{n.notification.type}}
+          </div>
+        </ng-container>
+        <span *ngIf="!notificationLogs || notificationLogs.length === 0">无通知</span>
+      </wayne-dropdown-item>
+    </wayne-dropdown>
+    <wayne-dropdown [size]="authService.currentUser?.namespaces.length > 10 ? 'middle' : 'small'">
+        <clr-icon shape="organization" style="margin-right: 5px"></clr-icon>
+        {{cacheService.currentNamespace?.name}}
+        <clr-icon shape="caret down" size="12" style="margin-left: 5px;"></clr-icon>
+        <wayne-dropdown-item [name]="authService.currentUser?.namespaces.length > 10 ? '部门' : ''">
+          <span style="white-space: nowrap;" *ngFor="let n of authService.currentUser?.namespaces"  (click)='switchNamespace(n)'>{{n.name}}</span>
+        </wayne-dropdown-item>
+    </wayne-dropdown>
+    <wayne-dropdown size="small" last>
+        <clr-icon shape="user" style="margin-right: 5px"></clr-icon>
+        {{authService.currentUser?.display}}
+        <clr-icon shape="caret down" size="12" style="margin-left: 5px;"></clr-icon>
+        <wayne-dropdown-item>
+          <span (click)="goBack()" *ngIf="authService.currentUser.admin">进入后台</span>
+          <span (click)="logout()">注销登录</span>
+        </wayne-dropdown-item>
+    </wayne-dropdown>
+  </div>
+</header>
+
+<clr-modal [(clrModalOpen)]="notificationModal"  [clrModalSize]="'xl'"  [clrModalClosable]="false">
+  <a class="modal-title"><span class="label label-info">{{notification.type}}</span> {{notification.title}}</a>
+  <div class="modal-body">
+    <markdown [data]="notification.message"></markdown>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="closeNotification()"> 确认 </button>
+  </div>
+</clr-modal>
+

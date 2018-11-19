@@ -1,0 +1,99 @@
+<clr-modal [(clrModalOpen)]="opened" [clrModalSize]="'lg'" #modal>
+  <h3 class="modal-title">{{nsTitle}}
+    <wayne-modal-operate [modal]="modal"  *ngIf="opened"></wayne-modal-operate>
+  </h3>
+  <div class="modal-body">
+    <form #namespaceForm="ngForm">
+      <section class="form-block">
+        <div class="form-group" style="padding-left: 135px;">
+          <label for="ns_name" class="col-md-3 form-group-label-override required">名称</label>
+          <label for="ns_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
+                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+            <input type="text" id="ns_name" [(ngModel)]="ns.name"
+                   name="ns_name" size="36"
+                   required
+                   pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
+                   maxlength="24"
+                   (keyup)='handleValidation()'>
+            <span class="tooltip-content">
+              命名空间名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?
+            </span>
+          </label>
+          <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
+        </div>
+        <div class="form-group" style="padding-left: 135px;">
+          <label for="kubernetes_namespace" class="col-md-3 form-group-label-override required">K8S命名空间</label>
+            <input type="text"
+                   id="kubernetes_namespace"
+                   [(ngModel)]="ns.metaDataObj.namespace"
+                   name="kubernetes_namespace"
+                   size="36"
+                   required
+                   pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
+                   maxlength="36">
+        </div>
+        <div *ngFor="let cluster of clusters;let i=index" class="form-group" style="padding-left: 135px;">
+          <label *ngIf="i === 0" class="col-md-3 form-group-label-override required">可用机房</label>
+          <div class="checkbox-inline" style="margin-top: 0.1rem;margin-bottom: 0.1rem;">
+            <div class="checkbox">
+              <input [(ngModel)]="clusterMetas[cluster.name].checked"
+                     type="checkbox"
+                     id="{{cluster.name}}-check"
+                     name="{{cluster.name}}-check">
+              <label style="width: 100px" for="{{cluster.name}}-check">{{cluster.name}}</label>
+              <input style="width: 175px" placeholder="CPU限制(核)0代表无限制"
+                     [(ngModel)]="clusterMetas[cluster.name].cpu"
+                     id="{{cluster.name}}-cpu"
+                     name="{{cluster.name}}-cpu"
+                     type="number">
+              <input style="width: 175px" placeholder="内存限制(G)0代表无限制"
+                     [(ngModel)]="clusterMetas[cluster.name].memory"
+                     id="{{cluster.name}}-memory"
+                     name="{{cluster.name}}-memory"
+                     type="number">
+            </div>
+          </div>
+        </div>
+        <div class="container-box">
+          <label style="padding-left: 10px;color: #000;font-size: 0.65rem;padding-bottom: 20px;" class="form-group-label-override">环境变量配置
+            <button (click)="onAddEnv()" style="margin-left: 10px;" class="wayne-button primary"><clr-icon shape="add"></clr-icon>添加</button>
+          </label>
+          <div *ngFor="let env of ns.metaDataObj.env; let i = index" class="form-group" style="padding-left: 135px;">
+            <label for="kubernetes_env_name_{{i}}" class="col-md-3 form-group-label-override">Env</label>
+            <input [(ngModel)]="env.name"
+                   style="width: 200px"
+                   type="text"
+                   placeholder="环境变量名称"
+                   name="kubernetes_env_name_{{i}}">
+            <input [(ngModel)]="env.value"
+                   style="margin-left:30px;width: 200px"
+                   type="text"
+                   placeholder="环境变量值"
+                   name="kubernetes_env_value_{{i}}">
+            <clr-icon style="margin-top: 10px" (click)="onDeleteEnv(i)" shape="trash" title="删除环境变量" class="is-solid"></clr-icon>
+          </div>
+        </div>
+        <div class="container-box">
+          <label style="padding-left: 10px;color: #000;font-size: 0.65rem;padding-bottom: 20px;" class="form-group-label-override">ImagePullSecrets
+            <button (click)="onAddSecret()" style="margin-left: 10px;" class="wayne-button primary"><clr-icon shape="add"></clr-icon>添加</button>
+          </label>
+          <div *ngFor="let imagePullSecret of ns.metaDataObj.imagePullSecrets; let i = index" class="form-group"
+               style="padding-left: 135px;">
+            <label for="kubernetes_imagepullsecrets_{{i}}"
+                   class="col-md-3 form-group-label-override">Secret</label>
+            <input [(ngModel)]="imagePullSecret.name"
+                   type="text"
+                   style="width: 500px"
+                   placeholder="Secret名称"
+                   name="kubernetes_imagepullsecrets_{{i}}">
+            <clr-icon style="margin-top: 10px" (click)="onDeleteSecret(i)" shape="trash" title="删除Secret" class="is-solid"></clr-icon>
+          </div>
+        </div>
+      </section>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
+  </div>
+</clr-modal>

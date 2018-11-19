@@ -1,0 +1,158 @@
+<clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'lg'">
+  <h3 class="modal-title">{{title}}</h3>
+  <div class="modal-body">
+    <form #deploymentForm="ngForm" style="padding-right: 30px;width: 100%">
+      <section class="form-block">
+        <div class="form-group" style="padding-left: 135px;">
+          <label for="deployment_name" class="col-md-3 form-group-label-override required">名称</label>
+          <label for="deployment_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
+                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+            <span *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</span>
+            <input type="text" id="deployment_name" [(ngModel)]="deployment.name"
+                   name="deployment_name"
+                   style="width: 15rem"
+                   required
+                   *ngIf="app && actionType==0"
+                   [readonly]="actionType==1"
+                   placeholder="英文小写，中划线分隔"
+                   pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
+                   maxlength="64"
+                   (keyup)='handleValidation()'>
+            <span *ngIf="app && actionType==1">{{deployment.name}}</span>
+            <span class="tooltip-content">
+              部署名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?
+        </span>
+          </label>
+          <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
+        </div>
+        <div class="form-group" style="padding-left: 135px;">
+          <label class="col-md-3 form-group-label-override required">机房</label>
+          <div *ngFor="let cluster of clusters" class="checkbox-inline">
+            <div class="checkbox">
+              <input [(ngModel)]="clusterMetas[cluster.name].checked"
+                     type="checkbox"
+                     id="{{cluster.name}}-check"
+                     name="{{cluster.name}}-check">
+              <label for="{{cluster.name}}-check">{{cluster.name}}</label>
+              <label aria-haspopup="true"
+                     role="tooltip"
+                     [class.invalid]="!replicaValidation(cluster.name)"
+                     class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+                <input placeholder="部署份数" [(ngModel)]="clusterMetas[cluster.name].value"
+                       id="{{cluster.name}}-replica"
+                       name="{{cluster.name}}-replica"
+                       type="number">
+                <span class="tooltip-content">
+                    部署份数超过系统最大限制{{replicaLimit}}
+              </span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" style="padding-left: 135px;">
+          <label for="deployment_description" class="col-md-3 form-group-label-override">描述</label>
+          <textarea id="deployment_description" [(ngModel)]="deployment.description"
+                    name="deployment_description"
+                    rows="3">
+          </textarea>
+        </div>
+        <div class="inline-flex-box" *ngIf="authService.currentUser.admin">
+          <div class="form-group inline-box-item" style="padding-left: 135px;">
+            <label for="cpuLimit" class="col-md-4 form-group-label-override">CPU限制</label>
+            <label for="cpuLimit"
+                   aria-haspopup="true"
+                   role="tooltip"
+                   class="tooltip tooltip-validation tooltip-md"
+            >
+              <input type="text" id="cpuLimit" placeholder="CPU限制"
+                     name="cpuLimit"
+                     type="number"
+                     [(ngModel)]="resourcesMetas.cpuLimit"
+                     #cpuLimit="ngModel">
+              <span class="tooltip-content">
+                    请填写CPU限制.
+                </span>
+            </label>
+          </div>
+          <div class="form-group inline-box-item" style="padding-left: 135px;">
+            <label for="cpuRequestLimitPercent" class="col-md-5 form-group-label-override">CPU限制百分比</label>
+            <label for="cpuRequestLimitPercent"
+                   aria-haspopup="true"
+                   role="tooltip"
+                   class="tooltip tooltip-validation tooltip-md"
+                   [class.invalid]="!resourcesValidation('cpuRequestLimitPercent') && cpuRequestLimitPercent.touched">
+              <input type="text" id="cpuRequestLimitPercent" placeholder="CPU限制百分比"
+                     type="number"
+                     style="width: 110px;"
+                     name="cpuRequestLimitPercent"
+                     [(ngModel)]="resourcesMetas.cpuRequestLimitPercent"
+                     #cpuRequestLimitPercent="ngModel">
+              <span class="tooltip-content">
+                    请填写正确CPU限制百分比.
+                </span>
+            </label>
+            <div class="percent-label">%</div>
+          </div>
+          <div class="form-group inline-box-item" style="padding-left: 135px;">
+            <label for="memoryLimit" class="col-md-5 form-group-label-override">内存限制</label>
+            <label for="memoryLimit"
+                   aria-haspopup="true"
+                   role="tooltip"
+                   class="tooltip tooltip-validation tooltip-md"
+            >
+              <input type="text" id="memoryLimit" placeholder="内存限制"
+                     type="number"
+                     name="memoryLimit"
+                     [(ngModel)]="resourcesMetas.memoryLimit"
+                     #memoryLimit="ngModel">
+              <span class="tooltip-content">
+                    请填写内存限制份数.
+                </span>
+            </label>
+          </div>
+          <div class="form-group inline-box-item" style="padding-left: 135px;">
+            <label for="memoryRequestLimitPercent" class="col-md-5 form-group-label-override">内存限制百分比</label>
+            <label for="memoryRequestLimitPercent"
+                   aria-haspopup="true"
+                   role="tooltip"
+                   class="tooltip tooltip-validation tooltip-md"
+                   [class.invalid]="!resourcesValidation('memoryRequestLimitPercent') && memoryRequestLimitPercent.touched">
+              <input type="text" id="memoryRequestLimitPercent" placeholder="内存限制百分比"
+                     style="width: 110px;"
+                     type="number"
+                     name="memoryRequestLimitPercent"
+                     [(ngModel)]="resourcesMetas.memoryRequestLimitPercent"
+                     #memoryRequestLimitPercent="ngModel">
+              <span class="tooltip-content">
+                    请填写正确内存限制百分比.
+                </span>
+            </label>
+            <div class="percent-label">%</div>
+          </div>
+          <div class="form-group inline-box-item" style="padding-left: 135px;">
+            <label for="replicaLimit" class="col-md-5 form-group-label-override">复制限制</label>
+            <label for="replicaLimit"
+                   aria-haspopup="true"
+                   role="tooltip"
+                   class="tooltip tooltip-validation tooltip-md"
+            >
+              <input type="text" id="replicaLimit" placeholder="复制限制"
+                     type="number"
+                     name="replicaLimit"
+                     [(ngModel)]="resourcesMetas.replicaLimit"
+                     #replicaLimit="ngModel">
+              <span class="tooltip-content">
+                    请填写复制限制.
+                </span>
+            </label>
+          </div>
+        </div>
+      </section>
+    </form>
+  </div>
+  <div class="modal-footer" style="padding-right: 5%">
+    <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
+  </div>
+</clr-modal>
+

@@ -1,0 +1,49 @@
+<clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'xl'">
+  <h3 class="modal-title">发布历史 - {{ resourceName }}</h3>
+  <div class="modal-body">
+    <hr>
+    <clr-datagrid (clrDgRefresh)="refresh($event)">
+      <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          发布时间
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          发布者
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          模版ID
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          机房
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          状态
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-row *ngFor="let history of publishHistories" [clrDgItem]="history">
+        <clr-dg-cell>{{history.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
+        <clr-dg-cell>{{history.user}}</clr-dg-cell>
+        <clr-dg-cell>{{history.templateId}}</clr-dg-cell>
+        <clr-dg-cell>{{history.cluster}}</clr-dg-cell>
+        <clr-dg-cell>{{history.status==1?'成功':history.message}}</clr-dg-cell>
+      </clr-dg-row>
+      <wayne-paginate
+        [(currentPage)]="currentPage"
+        [total]="pageState.page.totalCount"
+        [pageSizes]="[10, 20, 50]"
+        (sizeChange)="pageSizeChange($event)"
+      >
+      </wayne-paginate>
+    </clr-datagrid>
+  </div>
+</clr-modal>
+

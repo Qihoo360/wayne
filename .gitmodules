@@ -1,0 +1,6 @@
+[submodule "src/backend/plugins"]
+	path = src/backend/plugins
+	url = git@github.com:Qihoo360/wayne-backend-plugins.git
+[submodule "src/frontend/lib"]
+	path = src/frontend/lib
+	url = git@github.com:Qihoo360/wayne-frontend-plugins.git

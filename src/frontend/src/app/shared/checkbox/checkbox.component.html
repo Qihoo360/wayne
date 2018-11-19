@@ -1,0 +1,5 @@
+<div class="check-box" [class.checked]="checked" (click)="changeEvent()"></div>
+<label>
+  <ng-content></ng-content>
+  <input type="checkbox" [(ngModel)]="checked" [value]="value">
+</label>

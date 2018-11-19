@@ -1,0 +1,21 @@
+<clr-modal [(clrModalOpen)]="createAppOpened">
+  <h3 class="modal-title">创建存储快照</h3>
+  <div class="modal-body">
+    <form #snapForm="ngForm">
+      <section class="form-block">
+        <div class="form-group" style="padding-left: 135px;">
+          <label for="version" class="col-md-3 form-group-label-override required">版本</label>
+          <input class="form-control" type="text" id="version" name="version" [(ngModel)]="snapshotVersion"
+                 required
+                 placeholder="快照版本"
+                 maxlength="32">
+        </div>
+
+      </section>
+    </form>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
+      <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
+    </div>
+  </div>
+</clr-modal>

@@ -1,0 +1,24 @@
+<header style="background-color: #1D2143" class="header">
+  <div class="branding">
+    <a routerLink="/admin/reportform/overview" class="nav-link">
+      <img src="assets/images/wayne-logo.svg" width="60px" alt="">
+      <span class="title">{{getTitle()}}</span>
+    </a>
+  </div>
+
+
+  <div class="header-actions">
+    <wayne-dropdown size="small">
+      <clr-icon shape="organization" style="margin-right: 5px"></clr-icon>
+      {{authService.currentUser?.display}}
+      <clr-icon shape="caret down" size="12" style="margin-left: 5px;"></clr-icon>
+      <wayne-dropdown-item>
+        <span (click)="goFront()" *ngIf="authService.currentUser.admin">返回前台</span>
+        <span href="javascript:void(0)" (click)="logout()">注销登录</span>
+      </wayne-dropdown-item>
+    </wayne-dropdown>
+  </div>
+</header>
+
+
+

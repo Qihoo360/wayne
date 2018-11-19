@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+    <div class="table-search">
+      <div class="table-search-left">
+        <button class="wayne-button normal" (click)="openModal()">
+          创建持久化存储
+        </button>
+
+        <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
+          <wayne-checkbox-group [(ngModel)]="showList">
+            <wayne-checkbox>名称</wayne-checkbox>
+            <wayne-checkbox>总量</wayne-checkbox>
+            <wayne-checkbox>访问模式</wayne-checkbox>
+            <wayne-checkbox>回收策略</wayne-checkbox>
+            <wayne-checkbox>状态</wayne-checkbox>
+            <wayne-checkbox>已绑定PVC</wayne-checkbox>
+            <wayne-checkbox>原因</wayne-checkbox>
+            <wayne-checkbox>开始时间</wayne-checkbox>
+          </wayne-checkbox-group>
+        </wayne-filter-box>
+      </div>
+    </div>
+
+    <list-persistentvolume
+      [persistentVolumes]="persistentVolumes"
+      [cluster]="cluster"
+      (refresh)="refresh($event)"
+      (delete)="deletePv($event)"
+      (edit)="editPv($event)"
+      [showState]="showState">
+    </list-persistentvolume>
+  </div>
+</div>
+<wayne-float-window value="{{cluster}}">
+  <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster" (click)="jumpTo(cluster)"></wayne-float-window-item>
+</wayne-float-window>

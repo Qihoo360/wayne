@@ -1,0 +1,58 @@
+<button (click)="createDaemonSet()" class="wayne-button primary" *ngIf="authService.currentAppPermission.daemonSet?.create || authService.currentUser.admin">
+  创建守护进程集
+</button>
+<create-edit-daemonset (create)="create($event)"></create-edit-daemonset>
+<div *ngIf="daemonSetId && daemonSets?.length>0">
+  <wayne-tabs>
+    <wayne-tab (click)="tabClick(daemonSet.id)"
+                [id]="daemonSet.id"
+                *ngFor="let daemonSet of daemonSets"
+                [active]="daemonSet.id==daemonSetId"
+                [description]="daemonSet.description"
+                >
+      {{daemonSet.name}}
+    </wayne-tab>
+  </wayne-tabs>
+  <div class="table-search">
+    <div class="table-search-left">
+      <button (click)="createDaemonSetTpl()" class="wayne-button normal" *ngIf="authService.currentAppPermission.daemonSet?.create || authService.currentUser.admin">
+        创建守护进程集模版
+      </button>
+      <button (click)="editDaemonSet()" class="wayne-button normal" *ngIf="authService.currentAppPermission.daemonSet?.update || authService.currentUser.admin">
+        编辑守护进程集
+      </button>
+      <button (click)="publishHistory()" class="wayne-button normal" *ngIf="authService.currentAppPermission.daemonSet?.read || authService.currentUser.admin">
+        发布历史
+      </button>
+      <button (click)="deleteDaemonSet()" class="wayne-button normal" *ngIf="authService.currentAppPermission.daemonSet?.offline || authService.currentUser.admin">
+        删除守护进程集
+      </button>
+      <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
+        <wayne-checkbox-group [(ngModel)]="showList">
+          <wayne-checkbox>创建时间</wayne-checkbox>
+          <wayne-checkbox>版本</wayne-checkbox>
+          <wayne-checkbox>上线机房</wayne-checkbox>
+          <wayne-checkbox>发布说明</wayne-checkbox>
+          <wayne-checkbox>创建者</wayne-checkbox>
+          <wayne-checkbox>操作</wayne-checkbox>
+        </wayne-checkbox-group>
+      </wayne-filter-box>
+    </div>
+    <div class="table-search-right">
+      <div class="toggle-switch">
+        <input type="checkbox" id="toggle_1" [(ngModel)]="isOnline" (change)="onlineChange()">
+        <label for="toggle_1">只显示上线模板</label>
+      </div>
+    </div>
+  </div>
+  <list-daemonset [daemonSetTpls]="changedDaemonSetTpls"
+                   (paginate)="retrieve($event)"
+                   (edit)="editDaemonSet($event)"
+                   (createTpl)="createDaemonSetTpl($event)"
+                   (cloneTpl)="cloneDaemonSetTpl($event)"
+                   [appId]="appId"
+                   [page]="pageState.page"
+                   [showState]="showState">
+  </list-daemonset>
+</div>
+

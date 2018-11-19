@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: infra-wayne
+  name: infra-wayne
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: infra-wayne
+  template:
+    metadata:
+      labels:
+        app: infra-wayne
+    spec:
+      containers:
+      - readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: healthz
+            port: 8080
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        image: 360cloud/wayne:v1.0.0-alpha1
+        name: wayne
+        resources:
+          limits:
+            cpu: "2"
+            memory: 4Gi
+          requests:
+            cpu: "1"
+            memory: 2Gi
+        volumeMounts:
+        - mountPath: /opt/wayne/conf/
+          name: config
+      volumes:
+      - name: config
+        configMap:
+          name: infra-wayne

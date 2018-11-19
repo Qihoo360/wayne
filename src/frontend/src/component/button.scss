@@ -1,0 +1,87 @@
+.wayne-button{
+  background:#ffffff;
+  border-width:1px;
+  border-style: solid;
+  border-color: #cccccc;
+  border-radius:2px;
+  height:22px;
+  padding: 0 8px;
+  margin: 0;
+  outline: none;
+  font-size:12px;
+  color: #777;
+  text-align:center;
+  letter-spacing: .45px;
+  line-height:22px;
+  outline: none;
+  cursor: pointer;
+  &:focus{
+    outline: none;
+  }
+  &.active{
+    color:#377aec;
+    border:1px solid #377aec;
+  }
+  &.no-border{
+    border: none !important;
+  }
+  &.text{
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0 8px;
+    color: #377aec;
+    &:hover{
+      color: #1164f1;
+    }
+  }
+  &.primary{
+    background: #4a87ee;
+    border: none;
+    color: #fff;
+  }
+  &.default{
+    background: #eaeaea;
+    border: none;
+    color: #999;
+  }
+  &.normal {
+    background: #ffffff;
+    border-color: #4a87ee;
+    color: #4a87ee;
+    &:hover {
+      background: #4a87ee;
+      color: #fff;
+    }
+    &:active, &.active {
+      background: #1164f1;
+      color: #fff;
+    }
+  }
+  &.error{
+    background:#ffffff;
+    border-color:#FF3434;
+    color: #FF3434;
+    &:hover{
+      background: #FF3434;
+      color: #fff;
+    }
+    &:active, &.active{
+      background: #FF3434;
+      color: #fff;
+    }
+  }
+  &.invalid{
+    background:#ffffff;
+    color: #999999;
+    border-color:#999999;
+    &:hover{
+      background: #999999;
+      color: #fff;
+    }
+    &:active, &.active{
+      background: #999999;
+      color: #fff;
+    }
+  }
+}

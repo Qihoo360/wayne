@@ -1,0 +1,45 @@
+## Local copies of dependencies that should stay on developers' local machines
+node_modules/
+bower_components/
+*.tmp
+## Build and test artifacts
+.go_workspace/
+.sass-cache/
+.tmp/
+coverage/
+dist/
+.tools/
+
+## OS files
+# Mac OS
+.DS_Store
+
+## Vs Code
+.vscode/
+
+## IDE specific files
+# IntelliJ
+.idea/
+*.iml
+# Vi temporary files
+*.swp
+
+## Project
+.env
+src/backend/conf/dev.conf
+_dev/
+_build/
+_bus/
+src/backend/static
+src/backend/routers/commentsRouter__*
+src/backend/backend
+src/backend/lastupdate.tmp
+src/backend/views/index.html
+
+## Doc
+src/backend/swagger/swagger.json
+src/backend/swagger/swagger.yml
+
+##script
+src/frontend/src/app/js-rename.js
+/src/backend/openapi.swagger.json

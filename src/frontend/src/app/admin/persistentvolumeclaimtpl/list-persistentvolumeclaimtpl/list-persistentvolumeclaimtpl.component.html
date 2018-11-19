@@ -1,0 +1,47 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)">
+  <clr-dg-column class="col-query-id">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      ID
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'name'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      名称
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      描述
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      创建者
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+          创建时间
+      </ng-container>
+  </clr-dg-column>
+  <clr-dg-row *ngFor="let tpl of pvcTpls" [clrDgItem]="tpl">
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="editPvcTpl(tpl)" >编辑</button>
+      <button class="action-item" (click)="deletePvcTpl(tpl)">删除</button>
+    </clr-dg-action-overflow>
+    <clr-dg-cell class="col-query-id">{{tpl.id}}</clr-dg-cell>
+    <clr-dg-cell class="copy">{{tpl.name}}</clr-dg-cell>
+    <clr-dg-cell>{{tpl.description}}</clr-dg-cell>
+    <clr-dg-cell>{{tpl.user}}</clr-dg-cell>
+    <clr-dg-cell>{{tpl.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
+  </clr-dg-row>
+
+
+  <wayne-paginate
+    [(currentPage)]="currentPage"
+    [total]="page.totalCount"
+    [pageSizes]="[10, 20, 50]"
+    (sizeChange)="pageSizeChange($event)"
+  >
+  </wayne-paginate>
+</clr-datagrid>

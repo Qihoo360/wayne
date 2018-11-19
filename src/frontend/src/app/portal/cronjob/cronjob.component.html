@@ -1,0 +1,67 @@
+<button (click)="createCronjob()" class="wayne-button primary" *ngIf="authService.currentAppPermission.cronjob.create || authService.currentUser.admin">
+  创建计划任务
+</button>
+<create-edit-cronjob (create)="create($event)"></create-edit-cronjob>
+<div *ngIf="cronjobId && cronjobs?.length>0">
+  <wayne-tabs>
+    <wayne-tab (click)="tabClick(cronjob.id, cronjob.name)"
+                [id]="cronjob.id"
+                *ngFor="let cronjob of cronjobs"
+                [active]="cronjob.id==cronjobId"
+                [description]="cronjob.description"
+                >
+      {{cronjob.name}}
+    </wayne-tab>
+  </wayne-tabs>
+  <div class="table-search">
+    <div class="table-search-left">
+      <button (click)="createCronjobTpl()" class="wayne-button normal" *ngIf="authService.currentAppPermission.cronjob.create || authService.currentUser.admin">
+        创建计划任务模版
+      </button>
+      <button (click)="editCronjob()" class="wayne-button normal" *ngIf="authService.currentAppPermission.cronjob.update || authService.currentUser.admin">
+        编辑计划任务
+      </button>
+      <button (click)="publishHistory()" class="wayne-button normal" *ngIf="authService.currentAppPermission.cronjob.read || authService.currentUser.admin">
+        发布历史
+      </button>
+      <button (click)="deleteCronjob()" class="wayne-button normal" *ngIf="authService.currentAppPermission.cronjob.offline || authService.currentUser.admin">
+        删除计划任务
+      </button>
+      <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
+        <wayne-checkbox-group [(ngModel)]="showList">
+          <wayne-checkbox>创建时间</wayne-checkbox>
+          <wayne-checkbox>版本</wayne-checkbox>
+          <wayne-checkbox>已上线时间</wayne-checkbox>
+          <wayne-checkbox>调度间隔</wayne-checkbox>
+          <wayne-checkbox>发布说明</wayne-checkbox>
+          <wayne-checkbox>创建者</wayne-checkbox>
+          <wayne-checkbox>操作</wayne-checkbox>
+        </wayne-checkbox-group>
+      </wayne-filter-box>
+    </div>
+    <div class="table-search-right">
+      <div class="toggle-switch">
+        <input type="checkbox" id="toggle_1" [(ngModel)]="isOnline" (change)="onlineChange()">
+        <label for="toggle_1">只显示上线模板</label>
+      </div>
+    </div>
+  </div>
+  <list-cronjob [cronjobTpls]="changedCronjobTpls"
+                   (paginate)="retrieve($event)"
+                   (edit)="editCronjob($event)"
+                   (createTpl)="createCronjobTpl($event)"
+                   (cloneTpl)="cloneCronjobTpl($event)"
+                   [appId]="appId"
+                   [showState]="showState"
+                   [page]="pageState.page"></list-cronjob>
+</div>
+<div *ngIf="cronjobName && cronjobs?.length" >
+  <div class="row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
+    <h2 class="header-title">任务列表</h2>
+  </div>
+  <list-job  [jobs]="changedJobs"
+             [currentCronjobName]="cronjobName"
+             (paginate)="retrieveJob($event)"
+             [page]="jobPageState.page"
+             ></list-job>
+</div>

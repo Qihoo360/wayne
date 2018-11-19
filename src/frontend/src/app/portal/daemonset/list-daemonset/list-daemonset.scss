@@ -1,0 +1,20 @@
+.option-right {
+  padding-right: 16px;
+}
+
+.datagrid-cell:last-child a {
+  padding-right: 5px;
+}
+
+.text-overflow{
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  line-height: normal;
+  overflow: hidden;
+}
+
+.pagination-select{
+	margin-right: 10px;
+}

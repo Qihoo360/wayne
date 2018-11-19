@@ -1,0 +1,11 @@
+.card-block{
+    flex: 1;
+}
+.card{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.card-block{
+    overflow-y: auto;
+}

@@ -1,0 +1,109 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)" class="wayne-clr-datagrid">
+  <clr-dg-placeholder>暂无数据</clr-dg-placeholder>
+  <clr-dg-column [clrDgField]="'id'" class="col-id">
+    <ng-container>
+      ID
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgSortBy]="'createTime'" class="col-time">
+    <ng-container *clrDgHideableColumn="showState['创建时间']">
+      创建时间
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column class="col-version">
+    <ng-container *clrDgHideableColumn="showState['版本']">
+      版本
+    </ng-container>
+  </clr-dg-column>
+  <!-- 防止事件图标换行-->
+  <clr-dg-column class="col-cluster">
+    <ng-container *clrDgHideableColumn="showState['上线机房']">
+      上线机房
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'description'">
+    <ng-container *clrDgHideableColumn="showState['发布说明']">
+      发布说明
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'user'" class="col-user">
+    <ng-container *clrDgHideableColumn="showState['创建者']">
+      创建者
+    </ng-container>
+  </clr-dg-column>
+  <!-- 防止操作图标换行-->
+  <clr-dg-column style="min-width: 145px">
+    <ng-container *clrDgHideableColumn="showState['操作']">
+      操作
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-row *ngFor="let daemonSetTpl of daemonSetTpls" [clrDgItem]="daemonSetTpl">
+    <clr-dg-cell class="col-id">{{daemonSetTpl.id}}</clr-dg-cell>
+    <clr-dg-cell class="col-time">{{daemonSetTpl.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
+    <clr-dg-cell class="col-version">
+      <div *ngFor="let version of daemonSetTpl.containerVersions" class="version-text">
+         <a href="javascript:;" (click)="versionDetail(version)">
+           {{version}}
+         </a>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell class="col-cluster">
+      <div class="form-group" style="padding-bottom: 2px"
+           *ngFor="let status of daemonSetTpl.status">
+        <a href="javascript:void(0)" (click)="listPod(status,daemonSetTpl)" class="label clickable"
+           [class.clickable]="status.state!=2"
+           [class.label-success]="status.state==0"
+           [class.label-warning]="status.state==1">
+          {{status.cluster}}
+          <span *ngIf="status.desired">({{status.current}}/{{status.desired}})</span>
+        </a>
+        <a href="javascript:void(0)"
+           *ngIf="status.warnings"
+           (click)="listEvent(status.warnings)"
+           style="color:#a32100">
+          <clr-icon shape="error-standard"></clr-icon>
+        </a>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell>
+      <div class="text-overflow"><a href="javascript:void(0)" (click)="tplDetail(daemonSetTpl)">{{daemonSetTpl.description}}</a>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell class="col-user">{{daemonSetTpl.user}}</clr-dg-cell>
+    <clr-dg-cell>
+      <button class="wayne-button text"
+         (click)="publishTpl(daemonSetTpl)"
+         *ngIf="authService.currentAppPermission.daemonSet?.deploy || authService.currentUser.admin">
+         发布</button>
+      <button class="wayne-button text"
+         (click)="daemonSetTplDetail(daemonSetTpl)"
+         *ngIf="authService.currentAppPermission.daemonSet?.read || authService.currentUser.admin">
+         详情</button>
+      <button class="wayne-button text"
+         (click)="cloneDaemonSetTpl(daemonSetTpl)"
+         *ngIf="authService.currentAppPermission.daemonSet?.create || authService.currentUser.admin">
+         克隆</button>
+      <button class="wayne-button text"
+         *ngIf="!daemonSetTpl.status && (authService.currentAppPermission.daemonSet?.delete || authService.currentUser.admin)"
+         (click)="deleteDaemonSetTpl(daemonSetTpl)">
+         删除</button>
+      <button class="wayne-button text"
+         (click)="offlineDaemonSet(daemonSetTpl)"
+         *ngIf="daemonSetTpl.status && (authService.currentAppPermission.daemonSet?.offline || authService.currentUser.admin)">
+         下线</button>
+    </clr-dg-cell>
+  </clr-dg-row>
+
+
+  <wayne-paginate
+    [(currentPage)]="currentPage"
+    [total]="page.totalCount"
+    [pageSizes]="[10, 20, 50]"
+    (sizeChange)="pageSizeChange($event)"
+  >
+  </wayne-paginate>
+</clr-datagrid>
+<wayne-ace-editor></wayne-ace-editor>
+<list-event></list-event>
+<list-pod></list-pod>
+<daemonset-publish-tpl (published)="published($event)"></daemonset-publish-tpl>

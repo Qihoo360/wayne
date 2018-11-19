@@ -1,0 +1,55 @@
+<clr-modal [clrModalSize]="''" [(clrModalOpen)]="modalOpened">
+  <h3 class="modal-title">{{title}}</h3>
+  <div class="modal-body">
+    <form #publishForm="ngForm">
+      <section class="form-block">
+        <div class="form-group" style="padding-left: 100px;">
+          <label class="col-md-3 form-group-label-override required">机房</label>
+          <div *ngFor="let cluster of clusters;let i=index" class="checkbox-inline" style="margin-top: 0px">
+            <div class="checkbox">
+              <input [(ngModel)]="clusterMetas[cluster].checked"
+                     type="checkbox"
+                     id="{{i}}-check"
+                     name="{{i}}-check">
+              <label for="{{i}}-check">{{cluster}}</label>
+              <label *ngIf="actionType==0 || actionType==2"
+                     aria-haspopup="true"
+                     role="tooltip"
+                     [class.invalid]="!replicaValidation(cluster)"
+                     class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+                <input placeholder="部署份数"
+                       [(ngModel)]="clusterMetas[cluster].value"
+                       id="{{cluster}}-replica"
+                       [readonly]="actionType!=0"
+                       name="{{cluster}}-replica"
+                       type="number">
+                <span class="tooltip-content">
+                    部署份数超过系统最大限制{{replicaLimit}}
+              </span>
+              </label>
+            </div>
+
+
+          </div>
+        </div>
+        <div *ngIf="actionType==3" class="form-group" style="padding-left: 135px;">
+          <label class="col-md-3 form-group-label-override">强制下线
+            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
+              <clr-icon shape="info-circle" size="24"></clr-icon>
+              <span class="tooltip-content">确认资源已经不存在于Kubernetes，可以打开此开关强制下线</span>
+            </a>
+          </label>
+          <div class="toggle-switch" style="top: .25rem">
+            <input [(ngModel)]="forceOffline" type="checkbox" id="force-offline-id" name="force-offline">
+            <label for="force-offline-id"></label>
+          </div>
+        </div>
+      </section>
+    </form>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
+      <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">确定</button>
+    </div>
+  </div>
+
+</clr-modal>

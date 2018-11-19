@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="table-search">
+      <div class="table-search-left">
+        <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
+          <wayne-checkbox-group [(ngModel)]="showList">
+            <wayne-checkbox>名称</wayne-checkbox>
+            <wayne-checkbox>标签</wayne-checkbox>
+            <wayne-checkbox>Taints</wayne-checkbox>
+            <wayne-checkbox>Ready</wayne-checkbox>
+            <wayne-checkbox>可调度</wayne-checkbox>
+            <wayne-checkbox>CPU(Core)</wayne-checkbox>
+            <wayne-checkbox>Memory(G)</wayne-checkbox>
+            <wayne-checkbox>Kubelet版本</wayne-checkbox>
+            <wayne-checkbox>Age</wayne-checkbox>
+            <wayne-checkbox>kubeProxy版本</wayne-checkbox>
+            <wayne-checkbox>系统版本</wayne-checkbox>
+            <wayne-checkbox>内核版本</wayne-checkbox>
+            <wayne-checkbox>CRI版本</wayne-checkbox>
+          </wayne-checkbox-group>
+        </wayne-filter-box>
+      </div>
+    </div>
+
+    <list-nodes
+      [nodes]="nodes"
+      [cluster]="cluster"
+      (refresh)="refresh($event)"
+      (delete)="deleteNode($event)"
+      (edit)="editNode($event)"
+      [showState]="showState">
+    </list-nodes>
+  </div>
+</div>
+<wayne-ace-editor (outputObj)="saveNode($event)"></wayne-ace-editor>
+<wayne-float-window value="{{cluster}}">
+  <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster" (click)="jumpTo(cluster)"></wayne-float-window-item>
+</wayne-float-window>

@@ -1,0 +1,51 @@
+.form-group-label-override {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.access-level-label {
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: -4px;
+  margin-right: 12px;
+  top: -6px;
+  position: relative;
+}
+
+.form-group-padding {
+  margin-top: 30px;
+  padding-left: 170px;
+}
+
+.clr-icon {
+  margin-left: 20px;
+}
+
+body {
+  font-size: 11px;
+  font-family: 'Open Sans', sans-serif;
+  color: #4A4A4A;
+  text-align: center;
+}
+
+.textarea-font {
+  font-family: "Courier New", Consolas, Menlo;
+}
+
+.wrap {
+  background: #fff;
+  margin: 0;
+  display: block;
+  width: 95%;
+  padding: 20px;
+}
+
+p {
+  margin-top: 15px;
+  text-align: justify;
+}
+
+input:read-only, input:disabled {
+  border-bottom: 1px dashed #696161;
+  background-color: #dcdada;
+}

@@ -1,0 +1,136 @@
+<clr-vertical-nav  [clrVerticalNavCollapsible]="true">
+  <a
+    clrVerticalNavLink
+    title="项目概览"
+    routerLink="detail"
+    routerLinkActive="active"
+    *ngIf="authService.currentAppPermission.app.read || authService.currentUser.admin">
+    <clr-icon clrVerticalNavIcon shape="help-info"></clr-icon>
+    项目概览
+  </a>
+  <div class="nav-divider"></div>
+  <a
+    clrVerticalNavLink
+    title="部署"
+    routerLink="deployment"
+    routerLinkActive="active"
+    *ngIf="authService.currentAppPermission.deployment.read || authService.currentUser.admin">
+    <clr-icon clrVerticalNavIcon shape="event"></clr-icon>
+    部署
+  </a>
+  <a
+    clrVerticalNavLink
+    title="状态副本集"
+    routerLink="statefulset"
+    routerLinkActive="active"
+    *ngIf="authService.currentAppPermission.statefulset?.read || authService.currentUser.admin">
+    <clr-icon clrVerticalNavIcon shape="blocks-group"></clr-icon>
+    状态副本集
+  </a>
+  <a
+    clrVerticalNavLink
+    title="守护进程集"
+    routerLink="daemonset"
+    routerLinkActive="active"
+    *ngIf="authService.currentAppPermission.daemonSet.read || authService.currentUser.admin">
+    <clr-icon clrVerticalNavIcon shape="layers"></clr-icon>
+    守护进程集
+  </a>
+  <a
+    clrVerticalNavLink
+    title="计划任务"
+    routerLink="cronjob"
+    routerLinkActive="active"
+    *ngIf="authService.currentAppPermission.cronjob.read || authService.currentUser.admin">
+    <clr-icon clrVerticalNavIcon shape="clock"></clr-icon>
+    计划任务
+  </a>
+  <div class="nav-divider" *ngIf="authService.currentAppPermission.deployment.read ||
+                                  authService.currentAppPermission.statefulset.read ||
+                                  authService.currentAppPermission.cronjob.read ||
+                                  authService.currentUser.admin"></div>
+  <ng-container>
+    <ng-container>
+      <a
+        clrVerticalNavLink
+        title="负载均衡"
+        routerLink="service"
+        routerLinkActive="active"
+        *ngIf="authService.currentAppPermission.service.read || authService.currentUser.admin">
+        <clr-icon clrVerticalNavIcon shape="network-globe"></clr-icon>
+        负载均衡
+      </a>
+      <div class="nav-divider" *ngIf="authService.currentAppPermission.service.read ||
+                                      authService.currentUser.admin"></div>
+    </ng-container>
+  </ng-container>
+  <a
+    clrVerticalNavLink
+    title="配置集"
+    routerLink="configmap"
+    routerLinkActive="active"
+    *ngIf="authService.currentAppPermission.configmap.read || authService.currentUser.admin">
+    <clr-icon clrVerticalNavIcon shape="file-settings"></clr-icon>
+    配置集
+  </a>
+  <a
+    clrVerticalNavLink
+    title="加密字典"
+    routerLink="secret"
+    routerLinkActive="active"
+    *ngIf="authService.currentAppPermission.secret.read || authService.currentUser.admin">
+    <clr-icon clrVerticalNavIcon shape="certificate"></clr-icon>
+    加密字典
+  </a>
+  <a
+    clrVerticalNavLink
+    title="PVC"
+    routerLink="persistentvolumeclaim"
+    routerLinkActive="active"
+    *ngIf="authService.currentAppPermission.pvc.read || authService.currentUser.admin">
+    <clr-icon clrVerticalNavIcon shape="storage"></clr-icon>
+    PVC
+  </a>
+  <div class="nav-divider" *ngIf="authService.currentAppPermission.configmap.read ||
+                                  authService.currentAppPermission.secret.read ||
+                                  authService.currentAppPermission.pvc.read ||
+                                  authService.currentUser.admin"></div>
+  <a
+    clrVerticalNavLink
+    title="成员管理"
+    routerLink="user"
+    routerLinkActive="active"
+    *ngIf="authService.currentAppPermission.appUser.read || authService.currentUser.admin">
+    <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
+    成员管理
+  </a>
+  <a
+    clrVerticalNavLink
+    title="APIKeys"
+    *ngIf="authService.currentAppPermission.apiKey.read || authService.currentUser.admin"
+    routerLink="apikey"
+    routerLinkActive="active">
+    <clr-icon clrVerticalNavIcon shape="key"></clr-icon>
+    APIKeys
+  </a>
+  <a
+    clrVerticalNavLink
+    title="Webhooks"
+    routerLink="webhook"
+    routerLinkActive="active"
+    *ngIf="authService.currentAppPermission.webHook.read || authService.currentUser.admin">
+    <clr-icon clrVerticalNavIcon shape="pin"></clr-icon>
+    Webhooks
+  </a>
+  <a
+    clrVerticalNavLink
+    title="查看监控"
+    (click)="goToMonitor()"
+    href="javascript:void(0)"
+    *ngIf="getMonitorUri() && (authService.currentAppPermission.appUser.read || authService.currentUser.admin)">
+    <clr-icon clrVerticalNavIcon shape="dashboard"></clr-icon>
+    查看监控
+  </a>
+  <a href="javascript:;" style="flex: 1;"></a>
+  <wayne-footer></wayne-footer>
+</clr-vertical-nav>

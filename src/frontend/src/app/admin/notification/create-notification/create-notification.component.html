@@ -1,0 +1,34 @@
+<clr-modal [(clrModalOpen)]="opened" [clrModalSize]="'xl'">
+  <h3 class="modal-title">创建通知</h3>
+  <div class="modal-body">
+    <form>
+      <section class="form-block">
+        <div class="form-group">
+          <label class="col-md-3 form-group-label-override required">标题</label>
+          <label class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+            <input type="text" size="1024" [(ngModel)]="notify.title" [ngModelOptions]="{standalone: true}" required>
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 form-group-label-override required">类型</label>
+          <div class="select">
+            <select [(ngModel)]="notify.type"  [ngModelOptions]="{standalone: true}" type="string">
+              <option [ngValue]="'公告'">公告</option>
+              <option [ngValue]="'警告'">警告</option>
+            </select>
+          </div>
+        </div>
+
+      </section>
+    </form>
+    <textarea [(ngModel)]="notify.message"></textarea>
+
+    <markdown [data]="notify.message"></markdown>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-outline" type="button" (click)="cancelCreateNotification()">取消</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid()" (click)="doCreateNotifycation()">
+      创建
+    </button>
+  </div>
+</clr-modal>

@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Wayne</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="icon" type="image/x-icon" href="favicon.ico">-->
+    <link rel="icon"
+          type="image/png"
+          href="public/assets/images/kubernetes-logo.png"/>
+</head>
+<body>
+<wayne-root>
+      <span style="margin-top: 20%;margin-left: 45%" class="spinner">
+                Loading...
+      </span>
+</wayne-root>
+<script type="text/javascript" src="public/inline.bundle.js?version=__version__"></script>
+<script type="text/javascript" src="public/polyfills.bundle.js?version=__version__"></script>
+<script type="text/javascript" src="public/scripts.bundle.js?version=__version__"></script>
+<script type="text/javascript" src="public/styles.bundle.js?version=__version__"></script>
+<script type="text/javascript" src="public/vendor.bundle.js?version=__version__"></script>
+<script type="text/javascript" src="public/main.bundle.js?version=__version__"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'lg'">
+  <h3 class="modal-title">{{webHookTitle}}</h3>
+  <div class="modal-body">
+    <form #webHookForm="ngForm">
+      <section class="form-block">
+        <div class="form-group" style="padding-left: 135px;">
+          <label for="webhook-name" class="col-md-3 form-group-label-override required">名称</label>
+          <label for="webhook-name" aria-haspopup="true" role="tooltip" [class.invalid]="!validateName()" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
+            <input class="form-control" type="text" id="webhook-name"  [(ngModel)]="webHook.name"
+                   name="webhook-name"
+                   required
+                   size="32"
+                   maxlength="32"
+                   placeholder="名称">
+            <span class="tooltip-content">
+              名称不符合格式要求
+            </span>
+          </label>
+          <span class="spinner spinner-inline" [hidden]="!requestLocked"></span>
+        </div>
+        <div class="form-group" style="padding-left: 135px;">
+          <label for="webhook-url" class="col-md-3 form-group-label-override required">地址</label>
+          <label for="webhook-url" aria-haspopup="true" role="tooltip" [class.invalid]="!validateUrl()" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
+            <input class="form-control" type="text" id="webhook-url"  [(ngModel)]="webHook.url"
+                   name="webhook-url"
+                   required
+                   placeholder="推送地址"
+                   pattern="(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]">
+            <span class="tooltip-content">
+              Url不符合格式要求 
+            </span>
+          </label>
+          <span class="spinner spinner-inline" [hidden]="!requestLocked"></span>
+        </div>
+        <div class="form-group" style="padding-left: 135px;">
+          <label for="webhook-secret" class="col-md-3 form-group-label-override">暗号</label>
+          <label for="webhook-secret" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
+            <input class="form-control" type="text" id="webhook-secret"  [(ngModel)]="webHook.secret"
+                   name="webhook-secret"
+                   maxlength="120"
+                   placeholder="用于简单验证请求是平台发出（可选）">
+          </label>
+          <span class="spinner spinner-inline" [hidden]="!requestLocked"></span>
+        </div>
+        <div class="form-group" style="padding-left: 135px;height:250px;">
+          <label for="webhook-events" class="col-md-3 form-group-label-override required">关注事件</label>
+          <label for="webhook-events" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+            <ng2-dual-list-box name="webhook-events"
+                               [data]="hookEvents"
+                               valueField="key"
+                               textField="name"
+                               availableText="可选"
+                               selectedText="已选"
+                               [(ngModel)]="watchEventKeys"
+            >
+            </ng2-dual-list-box>
+          </label>
+        </div>
+      </section>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
+  </div>
+</clr-modal>

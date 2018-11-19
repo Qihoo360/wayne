@@ -1,0 +1,85 @@
+import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
+import {ClusterService} from '../../shared/client/v1/cluster.service';
+import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
+import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
+import {Cluster} from '../../shared/model/v1/cluster';
+import {DomSanitizer, EventManager} from '@angular/platform-browser';
+
+@Pipe({ name: 'safe' })
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) { }
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+}
+
+@Component({
+  selector: 'wayne-kubernetes-dashboard',
+  templateUrl: './kubernetes-dashboard.component.html',
+  styleUrls: ['./kubernetes-dashboard.component.scss']
+})
+export class KubernetesDashboardComponent implements OnInit {
+
+  cluster: string;
+  clusters: Array<any>;
+  kubernetesDashboardUri: string;
+  eventList: any[] = new Array();
+
+  constructor(private clusterService: ClusterService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private messageHandlerService: MessageHandlerService,
+              private eventManager: EventManager
+              ) {
+  }
+
+  ngOnInit() {
+    this.cluster = this.route.snapshot.params['cluster'];
+    this.clusterService.getNames().subscribe(
+      resp => {
+        let data = resp.data;
+        if (data) {
+          this.clusters = data.map(item => item.name);
+          if (data.length > 0 && !this.cluster || this.clusters.indexOf(this.cluster) === -1) {
+            let cluster = data[0];
+            this.jumpTo(cluster.name);
+          } else {
+            this.iframeJump(this.cluster);
+          }
+        }
+      },
+      error => {
+        this.messageHandlerService.handleError(error);
+      }
+    );
+  }
+  
+  iframeJump(cluster: string) {
+    this.clusterService.getByName(cluster).subscribe(
+      resp => {
+        let data: Cluster = resp.data;
+        let metaData = JSON.parse(data.metaData);
+        if (metaData.kubernetesDashboard) {
+          this.kubernetesDashboardUri = metaData.kubernetesDashboard;
+        } else {
+          this.kubernetesDashboardUri = '';
+        }
+      },
+      error => {
+        this.messageHandlerService.handleError(error);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+
+  }
+
+  jumpTo(cluster: string) {
+    this.cluster = cluster;
+    this.router.navigateByUrl(`admin/kubernetes/dashboard/${cluster}`);
+    this.iframeJump(cluster);
+  }
+
+
+}
