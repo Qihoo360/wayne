@@ -17,7 +17,6 @@ matrix:
         - mysql -e 'CREATE DATABASE wayne;'
       script:
         - pwd
-        - git submodule update --init --recursive
         - echo '' >  /home/travis/gopath/src/github.com/Qihoo360/wayne/src/backend/conf/dev.conf
         - cd src/backend && go run main.go -h
     - language: node_js
@@ -27,7 +26,6 @@ matrix:
       node_js:
         - 8.9.4
       before_install:
-        - git submodule update --init --recursive
         - cd src/frontend && npm install
       script:
         - # npm run test Wayne 前端测试尚未编排
