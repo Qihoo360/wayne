@@ -6,6 +6,7 @@ import * as ace from 'brace';
 import 'brace/mode/json';
 import 'brace/mode/yaml';
 import * as YAML from 'js-yaml';
+import {MessageHandlerService} from '../../message-handler/message-handler.service';
 
 @Component({
   selector: 'wayne-ace-editor-box',
@@ -22,7 +23,10 @@ export class AceEditorBoxComponent implements OnInit, OnDestroy {
   aceEditorMsgSub: Subscription;
   @Output() modalChange = new EventEmitter<any>();
 
-  constructor(public el: ElementRef, private aceEditorService: AceEditorService) {
+  constructor(
+    public el: ElementRef, 
+    private aceEditorService: AceEditorService,
+    private messageHandle: MessageHandlerService) {
   }
 
   ngOnInit() {
@@ -114,6 +118,10 @@ export class AceEditorBoxComponent implements OnInit, OnDestroy {
     } else {
       return JSON.stringify(YAML.load(this.editor.getValue()));
     }
+  }
+
+  clickEvent() {
+    this.messageHandle.showError('请检查文本格式是否正确，且文本不能为空' + (this.aceMode == 'ace/mode/json' ? ',json必须用{}包裹' : ''));
   }
 
   get isValid(): boolean {
