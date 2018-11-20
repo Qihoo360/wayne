@@ -28,7 +28,7 @@
   </clr-dg-column>
 <clr-dg-row *ngFor="let data of datas;let i=index" [clrDgItem]="data">
   <clr-dg-cell class="col-id">{{i}}</clr-dg-cell>
-  <clr-dg-cell class="col-time">{{data.date | date:'yyyy-MM-dd'}}</clr-dg-cell>
+  <clr-dg-cell class="col-time">{{data.date | date:'MM-dd-yyyy'}}</clr-dg-cell>
   <clr-dg-cell>{{data.count}}</clr-dg-cell>
 </clr-dg-row>
 </clr-datagrid>
