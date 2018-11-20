@@ -134,20 +134,20 @@
             <div class="percent-label">%</div>
           </div>
           <div class="form-group self-item">
-            <label for="replicaLimit" class="col-md-5 form-group-label-override">副本限制</label>
+            <label for="replicaLimit" class="col-md-5 form-group-label-override">副本数限制</label>
             <label for="replicaLimit"
                    aria-haspopup="true"
                    role="tooltip"
                    class="tooltip tooltip-validation tooltip-md"
             >
-              <input type="text" id="replicaLimit" placeholder="副本限制"
+              <input type="text" id="replicaLimit" placeholder="副本数限制"
                      type="number"
                      name="replicaLimit"
                      style="width: 110px;"
                      [(ngModel)]="resourcesMetas.replicaLimit"
                      #replicaLimit="ngModel">
               <span class="tooltip-content">
-                    请填写副本限制.
+                    请填写副本数限制.
                 </span>
             </label>
             <div class="percent-label">份</div>
