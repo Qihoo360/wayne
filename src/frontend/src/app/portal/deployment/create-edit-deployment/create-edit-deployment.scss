@@ -28,9 +28,11 @@
 }
 .percent-label{
     position: absolute;
-    right: -13px;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translate(115px, -50%);
     font-size: 15px;
-    font-weight: 600;
+}
+.self-item{
+    width: 50%;
+    padding-left: 135px;
 }
