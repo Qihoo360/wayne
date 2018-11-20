@@ -7,7 +7,7 @@ services:
     networks:
     - default
     ports:
-    - "${DEV_MQ_PORT}:5672"
+    - "5672:5672"
   mysql:
     image: mysql:5.6.41
     environment:
@@ -19,4 +19,4 @@ services:
     expose:
       - "3306"
     ports:
-      - "${DEV_DB_PORT}:3306"
+      - "3306:3306"
