@@ -1,6 +1,6 @@
 # Wayne
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Build](https://travis-ci.org/Qihoo360/wayne.svg?branch=master)](https://travis-ci.org/Qihoo360/wayne)
 
 Wayne 是一个通用的、基于 Web 的 **[Kubernetes](https://kubernetes.io)  多集群管理平台**。通过可视化 Kubernetes 对象模板编辑的方式，降低业务接入成本，
 拥有完整的权限管理系统，适应多租户场景，是一款适合企业级集群使用的**发布平台**。
@@ -99,7 +99,3 @@ $ docker run --rm  -e GOPATH=/go -v /tmp/dev.conf:/opt/wayne/conf/dev.conf -p 80
 ## 贡献者
 
 - 请参照 [贡献者](https://github.com/Qihoo360/wayne/wiki/contributors)
-
-## License
-
-[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
