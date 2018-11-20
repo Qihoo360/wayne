@@ -59,6 +59,7 @@ export class NamespaceMetaData {
   constructor() {
     this.imagePullSecrets = [];
     this.env = [];
+    this.clusterMeta = {};
   }
 
   //[NamespaceMetaData:]
