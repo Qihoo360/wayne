@@ -57,7 +57,7 @@
           </textarea>
         </div>
         <div class="inline-flex-box" *ngIf="authService.currentUser.admin">
-          <div class="form-group inline-box-item" style="padding-left: 135px;">
+          <div class="form-group self-item">
             <label for="cpuLimit" class="col-md-4 form-group-label-override">CPU限制</label>
             <label for="cpuLimit"
                    aria-haspopup="true"
@@ -67,14 +67,16 @@
               <input type="text" id="cpuLimit" placeholder="CPU限制"
                      name="cpuLimit"
                      type="number"
+                     style="width: 110px;"
                      [(ngModel)]="resourcesMetas.cpuLimit"
                      #cpuLimit="ngModel">
               <span class="tooltip-content">
                     请填写CPU限制.
                 </span>
             </label>
+            <div class="percent-label">核</div>
           </div>
-          <div class="form-group inline-box-item" style="padding-left: 135px;">
+          <div class="form-group self-item">
             <label for="cpuRequestLimitPercent" class="col-md-5 form-group-label-override">CPU限制百分比</label>
             <label for="cpuRequestLimitPercent"
                    aria-haspopup="true"
@@ -93,7 +95,7 @@
             </label>
             <div class="percent-label">%</div>
           </div>
-          <div class="form-group inline-box-item" style="padding-left: 135px;">
+          <div class="form-group self-item">
             <label for="memoryLimit" class="col-md-5 form-group-label-override">内存限制</label>
             <label for="memoryLimit"
                    aria-haspopup="true"
@@ -103,14 +105,16 @@
               <input type="text" id="memoryLimit" placeholder="内存限制"
                      type="number"
                      name="memoryLimit"
+                     style="width: 110px;"
                      [(ngModel)]="resourcesMetas.memoryLimit"
                      #memoryLimit="ngModel">
               <span class="tooltip-content">
                     请填写内存限制份数.
                 </span>
             </label>
+            <div class="percent-label">Gi</div>
           </div>
-          <div class="form-group inline-box-item" style="padding-left: 135px;">
+          <div class="form-group self-item">
             <label for="memoryRequestLimitPercent" class="col-md-5 form-group-label-override">内存限制百分比</label>
             <label for="memoryRequestLimitPercent"
                    aria-haspopup="true"
@@ -129,22 +133,24 @@
             </label>
             <div class="percent-label">%</div>
           </div>
-          <div class="form-group inline-box-item" style="padding-left: 135px;">
-            <label for="replicaLimit" class="col-md-5 form-group-label-override">复制限制</label>
+          <div class="form-group self-item">
+            <label for="replicaLimit" class="col-md-5 form-group-label-override">副本限制</label>
             <label for="replicaLimit"
                    aria-haspopup="true"
                    role="tooltip"
                    class="tooltip tooltip-validation tooltip-md"
             >
-              <input type="text" id="replicaLimit" placeholder="复制限制"
+              <input type="text" id="replicaLimit" placeholder="副本限制"
                      type="number"
                      name="replicaLimit"
+                     style="width: 110px;"
                      [(ngModel)]="resourcesMetas.replicaLimit"
                      #replicaLimit="ngModel">
               <span class="tooltip-content">
-                    请填写复制限制.
+                    请填写副本限制.
                 </span>
             </label>
+            <div class="percent-label">份</div>
           </div>
         </div>
       </section>
