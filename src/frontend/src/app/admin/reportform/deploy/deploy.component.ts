@@ -3,6 +3,7 @@ import {BreadcrumbService} from '../../../shared/client/v1/breadcrumb.service';
 import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
 import {PublishService} from '../../../shared/client/v1/publish.service';
 import {State} from '@clr/angular';
+import * as moment from "moment";
 
 @Component({
   selector: 'wayne-deploy',
@@ -23,17 +24,10 @@ export class DeployComponent implements OnInit {
 
   ngOnInit() {
     const now = new Date();
-    this.startTime = this.formatDate(new Date(now.getTime() - 1000 * 3600 * 24 * 7));
-    this.endTime = this.formatDate(now);
+    this.startTime = moment(new Date(now.getTime() - 1000 * 3600 * 24 * 7)).format("MM/DD/YYYY");
+    this.endTime = moment(now).format("MM/DD/YYYY");
+
   }
-
-  formatDate(time: Date) {
-    const year: number = time.getFullYear();
-    const month: any = (time.getMonth() + 1) < 10 ? '0' + (time.getMonth() + 1) : (time.getMonth() + 1);
-    const day: any = time.getDate() < 10 ? '0' + time.getDate() : time.getDate();
-    return year + '-' + month + '-' + day;
-  };
-
 
   search() {
     this.refresh();
@@ -43,7 +37,7 @@ export class DeployComponent implements OnInit {
   }
 
   refresh(state?: State) {
-    this.publishService.getDeployStatistics(this.startTime + 'T00:00:00Z', this.endTime + 'T00:00:00Z').subscribe(
+    this.publishService.getDeployStatistics(moment(this.startTime).format("YYYY-MM-DDTHH:mm:SS")+'Z', moment(this.endTime).format("YYYY-MM-DDTHH:mm:SS")+'Z').subscribe(
       resp => {
         this.datas = resp.data;
       },
