@@ -58,7 +58,7 @@ cd /tmp && touch dev.conf
 
 - 启动MySQL（可选）
 
-若您没有可用的MySQL服务，可以通过docker-compose快速创建：
+若您没有可用的 MySQL 服务，可以通过 docker-compose 快速创建：
 
 ```bash
 docker-compose up mysql
@@ -81,7 +81,7 @@ DBPasswd = root
 $ docker run --rm  -e GOPATH=/go -v /tmp/dev.conf:/opt/wayne/conf/dev.conf -p 8080:8080 360cloud/wayne /opt/wayne/backend apiserver
 ```
 
-通过上述命令，您可以从通过 http://127.0.0.1:8080/admin 访问本地 Wayne, 默认管理员账号admin:admin。
+通过上述命令，您可以从通过 http://127.0.0.1:8080/admin 访问本地 Wayne, 默认管理员账号 admin:admin。
 
 > 注意：项目启动后还需要配置集群和Namespace等信息才可正常使用。详见 [集群配置](https://github.com/Qihoo360/wayne/wiki/Wayne-admin-cluster)
 

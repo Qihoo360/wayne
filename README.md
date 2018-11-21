@@ -6,22 +6,22 @@
 
 [English](https://github.com/Qihoo360/wayne/blob/master/README.md) | [中文](https://github.com/Qihoo360/wayne/blob/master/README-CN.md)
 
-Wayne is a universal, web-based **[Kubernetes](https://kubernetes.io) multi-cluster management platform**. Reduce business access costs by visualizing Kubernetes object template editing
-With a complete rights management system and adapting to multi-tenant scenarios, it is a **publishing platform** suitable for enterprise-level clusters.
+Wayne is a universal, web-based **[Kubernetes](https://kubernetes.io) multi-cluster management platform**. It reduces service access costs by visualizing Kubernetes object template editing.
+With a complete permission management system and adapting to multi-tenant scenarios, it is a **publish platform** suitable for enterprise-level clusters.
 
-Wayne has been serving [360 search](https://www.so.com/?src=wayne) on a large scale, carrying most of the internal business, stably managing nearly a thousand businesses, tens of thousands of containers, running for more than two years, withstood the test of production.
+Wayne has been serving [360 search](https://www.so.com/?src=wayne) on a large scale, carrying most of the online services, stably managing nearly a thousand applications, tens of thousands of containers, running for more than two years, withstood the test of production.
 
-> Origin of the name:Most of the projects developed by the 360 ​​Search Private Cloud team are named after DC comics, and [Wayne](https://en.wikipedia.org/wiki/Batman#Bruce_Wayne) is no exception. Wayne is the name of the famous superhero, Batman Bruce Wayne.
+> Why Named **Wayne**:Most of the projects developed by the team of 360 ​​Search Private Cloud are named after DC comics, and [Wayne](https://en.wikipedia.org/wiki/Batman#Bruce_Wayne) is no exception. "Wayne" is the name of the famous superhero, Batman Bruce Wayne.
 
 ![Dashboard UI workloads page](https://raw.githubusercontent.com/wiki/Qihoo360/wayne/image/dashboard-ui.png)
 
 ## Features
 
 - Permissions management based on RBAC (Role based access control): Users are associated with departments and projects through roles, and department roles allow operations department resources, and project roles allow operation of project resources, which is more suitable for multi-tenant scenarios.
-- Simplified Kubernetes object creation: Provides a basic Kubernetes object configuration file addition method, while supporting advanced mode to directly edit Json/Yaml files to create Kubernetes objects.
+- Simplified the process of kubernetes object creation: Provides a basic Kubernetes object configuration file addition method, while supporting advanced mode to directly edit Json/Yaml files to create Kubernetes objects.
 - LDAP/OAuth 2.0/DB Multiple login mode support: Integrate enterprise-level LDAP login and DB login mode, and also enable OAuth2 login.
 - Support multi-cluster, multi-tenancy: You can manage multiple Kubernetes clusters at the same time, and add specific configurations to each other, making it easier for multi-cluster and multi-tenant management.
-- Provide a complete auditing module: complete auditing for each operation, tracking for operational history, and support for user-defined webhook.
+- Provide a complete auditing module: Wayne provides a complete auditing module (really named audit) for each operation, tracking for operational history, and support for user-defined webhook.
 - Provide APIKey-based open interface calls: Users can apply for related APIKeys and manage their own departments and projects. Operation and maintenance personnel can also apply for global APIKey for global management of specific resources.
 - Keep a complete release history: Users can easily find any historical release, easily roll back, and update Kubernetes resources based on a specific historical version.
 - Complete resource reporting: Users can easily access reports and charts of resource usage and historical online frequency (days) and other basic data.
