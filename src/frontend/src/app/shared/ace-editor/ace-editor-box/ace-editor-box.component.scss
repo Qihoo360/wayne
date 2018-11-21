@@ -31,3 +31,15 @@ div.aceeditor-menu {
   width: 100%;
   min-height: 535px;
 }
+.select-box{
+  display: inline-block;
+  position: relative;
+  .select-mask{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+  }
+}

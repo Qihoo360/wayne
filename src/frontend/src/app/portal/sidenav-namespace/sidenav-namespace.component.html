@@ -20,7 +20,7 @@
   title="APIKeys"
   routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/apikey"
   routerLinkActive="active"
-  *ngIf="authService.currentNamespacePermission.apiKey.read || authService.currentUser.admin">
+  *ngIf="this.authService.config['enableApiKeys'] && (authService.currentNamespacePermission.apiKey.read || authService.currentUser.admin)">
   <clr-icon clrVerticalNavIcon shape="key"></clr-icon>
   APIKeys
 </a>
