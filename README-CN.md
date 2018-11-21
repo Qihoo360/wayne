@@ -53,7 +53,7 @@ Wayne已大规模服务于360搜索，承载了内部绝大部分业务，稳定
 - 创建配置文件
 
 ```bash
-cd /tmp && touch dev.conf
+$ cd /tmp && touch dev.conf
 ```
 
 - 启动MySQL（可选）
@@ -61,7 +61,7 @@ cd /tmp && touch dev.conf
 若您没有可用的 MySQL 服务，可以通过 docker-compose 快速创建：
 
 ```bash
-docker-compose up mysql
+$ docker-compose up mysql
 ```
 
 - 写入数据库相关配置（请修改为数据库实际地址）

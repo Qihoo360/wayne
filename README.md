@@ -52,7 +52,7 @@ The whole system adopts the separation of front and back ends, in which the fron
 - Create configuration file
 
 ```bash
-cd /tmp && touch dev.conf
+$ cd /tmp && touch dev.conf
 ```
 
 - Start MySQL(Optional)
@@ -60,7 +60,7 @@ cd /tmp && touch dev.conf
 If you don't have a MySQL service available, you can quickly create it with docker-compose:
 
 ```bash
-docker-compose up mysql
+$ docker-compose up mysql
 ```
 
 - Write database related configuration (Please modify to the actual address of the database.)
