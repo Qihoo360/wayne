@@ -6,6 +6,7 @@ import * as ace from 'brace';
 import 'brace/mode/json';
 import 'brace/mode/yaml';
 import * as YAML from 'js-yaml';
+import {MessageHandlerService} from '../../message-handler/message-handler.service';
 
 @Component({
   selector: 'wayne-ace-editor-box',
@@ -22,7 +23,10 @@ export class AceEditorBoxComponent implements OnInit, OnDestroy {
   aceEditorMsgSub: Subscription;
   @Output() modalChange = new EventEmitter<any>();
 
-  constructor(public el: ElementRef, private aceEditorService: AceEditorService) {
+  constructor(
+    public el: ElementRef, 
+    private aceEditorService: AceEditorService,
+    private messageHandle: MessageHandlerService) {
   }
 
   ngOnInit() {
@@ -85,12 +89,14 @@ export class AceEditorBoxComponent implements OnInit, OnDestroy {
 
   aceModeChange() {
     this.editor.getSession().setMode(this.aceMode);
-    if (this.aceMode == 'ace/mode/json') {
-      let obj = YAML.load(this.editor.getValue());
-      this.editor.setValue(JSON.stringify(obj, null, 2));
-    } else {
-      let obj = JSON.parse(this.editor.getValue());
-      this.editor.setValue(YAML.dump(obj));
+    if (this.editor.getValue().trim() !== '') {
+      if (this.aceMode == 'ace/mode/json') {
+        let obj = YAML.load(this.editor.getValue());
+        this.editor.setValue(JSON.stringify(obj, null, 2));
+      } else {
+        let obj = JSON.parse(this.editor.getValue());
+        this.editor.setValue(YAML.dump(obj));
+      }
     }
     localStorage.setItem('aceMode', this.aceMode);
   }
@@ -112,12 +118,17 @@ export class AceEditorBoxComponent implements OnInit, OnDestroy {
     if (this.aceMode == 'ace/mode/json') {
       return this.editor.getValue();
     } else {
-      return JSON.stringify(YAML.load(this.editor.getValue()));
+      return JSON.stringify(YAML.load(this.editor.getValue())) || '';
     }
+  }
+
+  clickEvent() {
+    this.messageHandle.showError('请检查文本格式是否正确');
   }
 
   get isValid(): boolean {
     try {
+      if (this.editor.getValue().trim() === '') return true;
       if (this.aceMode == 'ace/mode/json') {
         JSON.parse(this.editor.getValue())
       } else {

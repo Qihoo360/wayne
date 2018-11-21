@@ -62,7 +62,9 @@ export class MessageComponent implements OnInit, OnDestroy {
       message => {
         const index = this.infoList.length;
         message.state = 'show';
-        this.posiChange();
+        setTimeout(() => {
+          this.posiChange();
+        }, 0);
         this.infoList.push(message);
         this.timer[index] = setTimeout(() => {
           this.close(index);

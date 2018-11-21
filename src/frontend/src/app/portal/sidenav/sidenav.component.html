@@ -107,7 +107,7 @@
   <a
     clrVerticalNavLink
     title="APIKeys"
-    *ngIf="authService.currentAppPermission.apiKey.read || authService.currentUser.admin"
+    *ngIf="this.authService.config['enableApiKeys'] && (authService.currentAppPermission.apiKey.read || authService.currentUser.admin)"
     routerLink="apikey"
     routerLinkActive="active">
     <clr-icon clrVerticalNavIcon shape="key"></clr-icon>
