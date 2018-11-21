@@ -4,101 +4,100 @@
 [![Build Tag](https://img.shields.io/github/tag/Qihoo360/wayne.svg)](https://github.com/Qihoo360/wayne/releases)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/Qihoo360/wayne/blob/master/LICENSE)
 
-[English](https://github.com/Qihoo360/wayne/blob/master/README.md) | [中文](https://github.com/Qihoo360/wayne/blob/master/README-CN.md)
+Wayne 是一个通用的、基于 Web 的 **[Kubernetes](https://kubernetes.io)  多集群管理平台**。通过可视化 Kubernetes 对象模板编辑的方式，降低业务接入成本，
+拥有完整的权限管理系统，适应多租户场景，是一款适合企业级集群使用的**发布平台**。
 
-Wayne is a universal, web-based **[Kubernetes](https://kubernetes.io) multi-cluster management platform**. Reduce business access costs by visualizing Kubernetes object template editing
-With a complete rights management system and adapting to multi-tenant scenarios, it is a **publishing platform** suitable for enterprise-level clusters.
+Wayne已大规模服务于360搜索，承载了内部绝大部分业务，稳定管理了近千个业务，上万个容器，运行了两年多时间，经受住了生产的考验。
 
-Wayne has been serving [360 search](https://www.so.com/?src=wayne) on a large scale, carrying most of the internal business, stably managing nearly a thousand businesses, tens of thousands of containers, running for more than two years, withstood the test of production.
-
-> Origin of the name:Most of the projects developed by the 360 ​​Search Private Cloud team are named after DC comics, and [Wayne](https://en.wikipedia.org/wiki/Batman#Bruce_Wayne) is no exception. Wayne is the name of the famous superhero, Batman Bruce Wayne.
+> 命名起源：360 搜索私有云团队多数项目命名都来源于 DC 漫画的角色，Wayne 也不例外，[Wayne](https://en.wikipedia.org/wiki/Batman#Bruce_Wayne) 是声名显赫的超级英雄蝙蝠侠 Bruce Wayne 的名字。
 
 ![Dashboard UI workloads page](https://raw.githubusercontent.com/wiki/Qihoo360/wayne/image/dashboard-ui.png)
 
 ## Features
 
-- Permissions management based on RBAC (Role based access control): Users are associated with departments and projects through roles, and department roles allow operations department resources, and project roles allow operation of project resources, which is more suitable for multi-tenant scenarios.
-- Simplified Kubernetes object creation: Provides a basic Kubernetes object configuration file addition method, while supporting advanced mode to directly edit Json/Yaml files to create Kubernetes objects.
-- LDAP/OAuth 2.0/DB Multiple login mode support: Integrate enterprise-level LDAP login and DB login mode, and also enable OAuth2 login.
-- Support multi-cluster, multi-tenancy: You can manage multiple Kubernetes clusters at the same time, and add specific configurations to each other, making it easier for multi-cluster and multi-tenant management.
-- Provide a complete auditing module: complete auditing for each operation, tracking for operational history, and support for user-defined webhook.
-- Provide APIKey-based open interface calls: Users can apply for related APIKeys and manage their own departments and projects. Operation and maintenance personnel can also apply for global APIKey for global management of specific resources.
-- Keep a complete release history: Users can easily find any historical release, easily roll back, and update Kubernetes resources based on a specific historical version.
-- Complete resource reporting: Users can easily access reports and charts of resource usage and historical online frequency (days) and other basic data.
-- Provide a Web shell based on strict permission checking: Users can enter the published Pod through the Web shell to operate, with full permission verification.
-- Provide an in-site notification system: facilitates administrators to push clusters, service notifications, and troubleshooting reports.
+- 基于 RBAC（Role based access control）的权限管理：用户通过角色与部门和项目关联，拥有部门角色允许操作部门资源，拥有项目角色允许操作项目资源，更加适合多租户场景。
+- 简化 Kubernetes 对象创建：提供基础 Kubernetes 对象配置文件添加方式，同时支持高级模式直接编辑 Json/Yaml文件创建 Kubernetes 对象。
+- LDAP/OAuth 2.0/DB 多种登录模式支持：集成企业级 LDAP 登录及 DB 登录模式，同时还可以实现 OAuth2 登录。
+- 支持多集群、多租户：可以同时管理多个 Kubernetes 集群，并针对性添加特定配置，更方便的多集群、多租户管理。
+- 提供完整审计模块：每次操作都会有完整的审计功能，追踪用于操作历史，同时支持用户自定义 webhook。
+- 提供基于 APIKey 的开放接口调用：用户可自主申请相关 APIKey 并管理自己的部门和项目，运维人员也可以申请全局 APIKey 进行特定资源的全局管理。
+- 保留完整的发布历史：用户可以便捷的找到任何一次历史发布，并可轻松进行回滚，以及基于特定历史版本更新 Kubernetes 资源。
+- 具备完善的资源报表：用户可以轻松获取各项目的资源使用占比和历史上线频次（天级）以及其他基础数据的报表和图表。
+- 提供基于严密权限校验的 Web shell：用户可以通过 Web shell 的形式进入发布的 Pod 进行操作，自带完整的权限校验。 
+- 提供站内通知系统：方便管理员推送集群、业务通知和故障处理报告等。
 
-## Architecture
+## 架构图
 
-The whole system adopts the separation of front and back ends, in which the front end uses Angular framework for data interaction and display, and the Ace editor is used for Kubernetes resource template editing. The backend uses the Beego framework for data interface processing, Client-go to interact with Kubernetes, and data for MySQL storage.
+整体采用前后端分离的方案，其中前端采用 Angular 框架进行数据交互和展示，使用Ace编辑器进行 Kubernetes 资源模版编辑。后端采用 Beego 框架做数据接口处理，使用 Client-go 与 Kubernetes 进行交互，数据使用 MySQL 存储。
+
 ![Dashboard UI workloads page](https://raw.githubusercontent.com/wiki/Qihoo360/wayne/image/architecture.png)
 
-## Component
+## 组件
 
-- Web UI:Provide complete business development and platform operation and maintenance experience.
-- Worker:Extend a range of message queue-based features, such as auditing components such as Audit and Webhooks.
+- Web UI: 提供完整的业务开发和平台运维功能体验。
+- Worker: 扩展一系列基于消息队列的功能，例如 Audit 和 Webhooks 等审计组件。
 
-## Dependence
+## 项目依赖
 
 - Golang 1.9+([installation manual](https://golang.org/dl/))
 - Docker 17.05+ ([installation manual](https://docs.docker.com/install))
-- Bee  ([installation manual](https://github.com/wilhelmguo/bee))(Be sure to use the link version, don't use the official version of beego, there are some customizations.)
+- Bee  ([installation manual](https://github.com/wilhelmguo/bee)) (请务必使用链接版本，不要使用 beego 官方版本，存在一些定制)
 - Node.js 8+ and npm 5+ ([installation with nvm](https://github.com/creationix/nvm#usage))
-- MySQL 5.6+  (Most of the data is in MySQL.)
-- RabbitMQ (Optionally, you need to deploy if you need to extend auditing features such as operational auditing and Webhooks.)
+- MySQL 5.6+  (Wayne 主要数据都存在 MySQL 中)
+- RabbitMQ (可选，如需扩展审计功能，例如操作审计和 Webhooks 等，则需部署)
 
-## Quickly tart
+## 快速启动
 
-- Create configuration file
+- 创建配置文件
 
 ```bash
 cd /tmp && touch dev.conf
 ```
 
-- Start MySQL(Optional)
+- 启动MySQL（可选）
 
-If you don't have a MySQL service available, you can quickly create it with docker-compose:
+若您没有可用的MySQL服务，可以通过docker-compose快速创建：
 
 ```bash
 docker-compose up mysql
 ```
 
-- Write database related configuration (Please modify to the actual address of the database.)
+- 写入数据库相关配置（请修改为数据库实际地址）
 
 ```bash
 DBName = wayne
-# MySQL address,if MySQL is started via docker-compose,
-# Cannot be accessed directly through 127.0.0.1 under Mac OS.Please change to actual IP.
+# MySQL address，如果MySQL是通过docker-compose启动的，
+# Mac OS 下无法直接通过127.0.0.1访问，请修改为实际IP 
 DBTns = tcp(127.0.0.1:3306)
 DBUser = root
 DBPasswd = root
 ```
 
-- Run start command
+- 运行启动命令
 
 ```bash
 $ docker run --rm  -e GOPATH=/go -v /tmp/dev.conf:/opt/wayne/conf/dev.conf -p 8080:8080 360cloud/wayne /opt/wayne/backend apiserver
 ```
 
-With the above command, you can access the local Wayne from http://127.0.0.1:8080/admin, the default administrator account admin:admin.
+通过上述命令，您可以从通过 http://127.0.0.1:8080/admin 访问本地 Wayne, 默认管理员账号admin:admin。
 
-> Note: After Wayne is started, you need to configure information such as cluster and Namespace for normal use. See details [Cluster Configuration](https://github.com/Qihoo360/wayne/wiki/Wayne-admin-cluster)
+> 注意：项目启动后还需要配置集群和Namespace等信息才可正常使用。详见 [集群配置](https://github.com/Qihoo360/wayne/wiki/Wayne-admin-cluster)
 
 
-## Document
+## 文档
 
-- Refer [Wiki](https://github.com/Qihoo360/wayne/wiki)
+- 请参照 [Wiki](https://github.com/Qihoo360/wayne/wiki)
 
 ## Roadmap
 
-- i18n
-- Support for migration of existing projects in kubernetes
-- Support for migration from Helm
-- Support for importing objects from Yaml/Json with one click
-- Support for other objects such as HPA
-- Improve operation and maintenance Kubernetes cluster function, providing complete Kubectl function
-- Support for more complete reporting and open API system
+- 国际化
+- 支持 Kubernetes 已有项目迁移
+- 支持从 Helm 迁移
+- 支持一键从 Yaml/Json 导入对象
+- 支持 HPA 等其他对象
+- 完善运维 Kubernetes 集群功能，提供完整的 Kubectl 功能
+- 支持更完整的报表和开放 API 系统
 
-## Contributors
+## 贡献者
 
-- Refer [contributors](https://github.com/Qihoo360/wayne/wiki/contributors)
+- 请参照 [贡献者](https://github.com/Qihoo360/wayne/wiki/contributors)
