@@ -25,6 +25,8 @@ export class CreateEditUserComponent {
   checkOnGoing: boolean = false;
   isSubmitOnGoing: boolean = false;
   isNameValid: boolean = true;
+  isDisplayValid: boolean = true;
+  isEmailValid: boolean = true;
 
   userTitle: string;
   actionType: ActionType;
@@ -109,14 +111,20 @@ export class CreateEditUserComponent {
       this.currentForm.valid &&
       !this.isSubmitOnGoing &&
       this.isNameValid &&
-      !this.checkOnGoing;
+      !this.checkOnGoing && this.isEmailValid && this.isDisplayValid;
   }
 
   // Handle the form validation
-  handleValidation(): void {
+  handleNameValidation(): void {
     let cont = this.currentForm.controls['user_name'];
     if (cont) {
       this.isNameValid = cont.valid
+    }
+  }
+  handleEmailValidation(): void {
+    let cont = this.currentForm.controls['user_email'];
+    if (cont) {
+      this.isEmailValid = cont.valid
     }
   }
 }
