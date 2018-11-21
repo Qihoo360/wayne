@@ -92,7 +92,7 @@ func (c *KubeNamespaceController) Resources() {
 		}(manager)
 	}
 	wg.Wait()
-	if len(errs) == len(managers) {
+	if len(errs) == len(managers) && len(errs) > 0 {
 		c.HandleError(utilerrors.NewAggregate(errs))
 		return
 	}
@@ -152,7 +152,7 @@ func (c *KubeNamespaceController) Statistics() {
 		}(manager)
 	}
 	wg.Wait()
-	if len(errs) == len(managers) {
+	if len(errs) == len(managers) && len(errs) > 0 {
 		c.HandleError(utilerrors.NewAggregate(errs))
 		return
 	}
