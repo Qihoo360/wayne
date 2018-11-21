@@ -47,7 +47,7 @@ The whole system adopts the separation of front and back ends, in which the fron
 - MySQL 5.6+  (Most of the data is in MySQL.)
 - RabbitMQ (Optionally, you need to deploy if you need to extend auditing features such as operational auditing and Webhooks.)
 
-## Quickly tart
+## Quickly Start
 
 - Create configuration file
 
