@@ -41,9 +41,10 @@
     "GO_BACK": "Go Back",
     "LOGOUT": "Log Out"
   },
-  "OF": "of",
-  "HOME": {
-    "TITLE": "Hello Angular with ngx-translate!",
-    "SELECT": "Change language"
-  }
+  "SIDE_NAV": {
+    "DEPARTMENT": "Department",
+    "PRODUCT": "Product",
+    "MEMBER": "Member"
+  },
+  "OF": "of"
 }
