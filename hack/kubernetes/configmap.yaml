@@ -59,7 +59,7 @@ data:
     EnableApiKeys = true
 
     # Bus
-    BusEnable = false
+    BusEnable = true
     BusRabbitMQURL = "amqp://guest:guest@127.0.0.1:5672"
 
     # other

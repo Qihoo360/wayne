@@ -46,4 +46,98 @@ spec:
           periodSeconds: 10
           failureThreshold: 3
         imagePullPolicy: Always
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: infra-wayne-woker
+  namespace: default
+  labels:
+    app: infra-wayne-woker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: infra-wayne-woker
+  template:
+    metadata:
+      labels:
+        app: infra-wayne-woker
+    spec:
+      volumes:
+      - name: config
+        configMap:
+          name: infra-wayne
+      containers:
+      - name: wayne
+        image: '360cloud/wayne:latest'
+        command:
+        - /opt/wayne/backend
+        args:
+        - worker
+        - '-t'
+        - AuditWorker
+        - '-c'
+        - '1'
+        env:
+        - name: GOPATH
+          value: /go
+        resources:
+          limits:
+            cpu: '0.5'
+            memory: 0.5Gi
+          requests:
+            cpu: '0.5'
+            memory: 0.5Gi
+        volumeMounts:
+        - name: config
+          mountPath: /opt/wayne/conf/
+        imagePullPolicy: Always
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: infra-wayne-webhook
+  namespace: default
+  labels:
+    app: infra-wayne-webhook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: infra-wayne-webhook
+  template:
+    metadata:
+      labels:
+        app: infra-wayne-webhook
+    spec:
+      volumes:
+      - name: config
+        configMap:
+          name: infra-wayne
+      containers:
+      - name: wayne
+        image: '360cloud/wayne:latest'
+        command:
+        - /opt/wayne/backend
+        args:
+        - worker
+        - '-t'
+        - WebhookWorker
+        - '-c'
+        - '1'
+        env:
+        - value: /go
+          name: GOPATH
+        resources:
+          limits:
+            cpu: '0.5'
+            memory: 0.5Gi
+          requests:
+            cpu: '0.5'
+            memory: 0.5Gi
+        volumeMounts:
+        - name: config
+          mountPath: /opt/wayne/conf/
+        imagePullPolicy: Always
 
