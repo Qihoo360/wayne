@@ -33,7 +33,7 @@ data:
     # database configuration:
     ## mysql
     DBName = "wayne"
-    DBTns = "tcp(127.0.0.1:3306)"
+    DBTns = "tcp(mysql-wayne:3306)"
     DBUser = "root"
     DBPasswd = "root"
     DBLoc = "Asia%2FShanghai"
@@ -60,7 +60,7 @@ data:
 
     # Bus
     BusEnable = true
-    BusRabbitMQURL = "amqp://guest:guest@127.0.0.1:5672"
+    BusRabbitMQURL = "amqp://guest:guest@rabbitmq-wayne:5672"
 
     # other
     # Use Canary/Production Update
