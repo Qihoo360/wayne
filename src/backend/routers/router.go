@@ -24,6 +24,7 @@ import (
 	kcronjob "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/cronjob"
 	kdaemonset "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/daemonset"
 	kdeployment "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/deployment"
+	kingress "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/ingress"
 	kjob "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/job"
 	klog "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/log"
 	knamespace "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/namespace"
@@ -216,6 +217,11 @@ func init() {
 		beego.NSNamespace("/kubernetes/apps/:appid([0-9]+)/services",
 			beego.NSInclude(
 				&kservice.KubeServiceController{},
+			),
+		),
+		beego.NSNamespace("/kubernetes/apps/:appid([0-9]+)/ingress",
+			beego.NSInclude(
+				&kingress.KubeIngressController{},
 			),
 		),
 		beego.NSNamespace("/kubernetes/apps/:appid([0-9]+)/secrets",

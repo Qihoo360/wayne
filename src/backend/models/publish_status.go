@@ -14,6 +14,7 @@ const (
 	PublishTypeCronJob
 	PublishTypeStatefulSet
 	PublishTypeDaemonSet
+	PublishTypeIngress
 
 	TableNamePublishStatus = "publish_status"
 )
