@@ -1,4 +1,7 @@
 {
+  "NAV": {
+    "LANG": "语言"
+  },
   "HOME": {
     "TITLE": "名称",
     "SELECT": "改变"

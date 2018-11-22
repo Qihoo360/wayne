@@ -9,6 +9,8 @@ import {Notification, NotificationLog} from '../../shared/model/v1/notification'
 import {PageState} from '../../shared/page/page-state';
 import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
 import {LoginTokenKey} from '../../shared/shared.const';
+import {TranslateService} from '@ngx-translate/core';
+import {StorageService} from '../../shared/client/v1/storage.service';
 
 @Component({
   selector: 'wayne-nav',
@@ -30,6 +32,8 @@ export class NavComponent implements OnInit, OnDestroy {
               public cacheService: CacheService,
               private notificationService: NotificationService,
               private messageHandlerService: MessageHandlerService,
+              public translate: TranslateService,
+              private storage: StorageService,
               public authService: AuthService) {
     // override the route reuse strategy
     // this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -70,6 +74,19 @@ export class NavComponent implements OnInit, OnDestroy {
 
   goBack() {
     if (window) window.location.href = '/admin/reportform/overview';
+  }
+
+  showLang(lang: string): string {
+    switch(lang) {
+      case 'en': return 'English';
+      case 'zh-Hans': return '中文简体';
+      default: return '';
+    }
+  }
+
+  changeLang(lang: string) {
+    this.translate.use(lang);
+    this.storage.save('lang', lang);
   }
 
   logout() {

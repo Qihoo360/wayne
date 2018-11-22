@@ -1,4 +1,7 @@
 {
+  "NAV": {
+    "LANG": "Language"
+  },
   "HOME": {
     "TITLE": "Hello Angular with ngx-translate!",
     "SELECT": "Change language"
