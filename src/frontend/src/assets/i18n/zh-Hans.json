@@ -2,6 +2,14 @@
   "NAV": {
     "LANG": "语言"
   },
+  "MESSAGE": {
+    "READED": "已读",
+    "UNREAD": "未读",
+    "SEND": "广播了",
+    "ANNOUNCEMENT": "公告",
+    "NONE": "无通知"
+  },
+  "OF": "的",
   "HOME": {
     "TITLE": "名称",
     "SELECT": "改变"

@@ -13,11 +13,11 @@
         <ng-container *ngIf="notificationLogs && notificationLogs.length > 0">
             <div *ngFor="let n of notificationLogs" href="javascript:void(0)"
               (click)="showNotification(n)" style="white-space: nowrap;">
-            <label class="label label-info"  [class.label-info]="n.is_readed" [class.label-warning]="!n.is_readed">{{n.is_readed? '已读':'未读'}}</label>
-            {{n.notification.from.name}} 广播了《{{n.notification.title}}》的{{n.notification.type}}
+            <label class="label label-info"  [class.label-info]="n.is_readed" [class.label-warning]="!n.is_readed">{{(n.is_readed ? 'MESSAGE.READED' : 'MESSAGE.UNREAD') | translate}}</label>
+            {{n.notification.from.name}} {{'MESSAGE.SEND' | translate}}《{{n.notification.title}}》{{'OF' | translate}}{{n.notification.type}}
           </div>
         </ng-container>
-        <span *ngIf="!notificationLogs || notificationLogs.length === 0">无通知</span>
+        <span *ngIf="!notificationLogs || notificationLogs.length === 0">{{'MESSAGE.NONE' | translate}}</span>
       </wayne-dropdown-item>
     </wayne-dropdown>
     <wayne-dropdown size="small">
@@ -43,8 +43,8 @@
         {{authService.currentUser?.display}}
         <clr-icon shape="caret down" size="12" style="margin-left: 5px;"></clr-icon>
         <wayne-dropdown-item>
-          <span (click)="goBack()" *ngIf="authService.currentUser.admin">进入后台</span>
-          <span (click)="logout()">注销登录</span>
+          <span (click)="goBack()" *ngIf="authService.currentUser.admin">{{'ACCOUNT.GO_BACK' | translate}}</span>
+          <span (click)="logout()">{{'ACCOUNT.LOGOUT' | translate}}</span>
         </wayne-dropdown-item>
     </wayne-dropdown>
   </div>
@@ -56,7 +56,7 @@
     <markdown [data]="notification.message"></markdown>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="closeNotification()"> 确认 </button>
+    <button type="button" class="btn btn-primary" (click)="closeNotification()">{{'BUTTON.CONFIRM' | translate}}</button>
   </div>
 </clr-modal>
 

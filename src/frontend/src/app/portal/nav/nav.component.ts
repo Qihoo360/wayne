@@ -35,10 +35,6 @@ export class NavComponent implements OnInit, OnDestroy {
               public translate: TranslateService,
               private storage: StorageService,
               public authService: AuthService) {
-    // override the route reuse strategy
-    // this.router.routeReuseStrategy.shouldReuseRoute = function () {
-    //   return false;
-    // }
   }
 
   ngOnDestroy(): void {
@@ -62,7 +58,6 @@ export class NavComponent implements OnInit, OnDestroy {
 
   switchNamespace(namespace: Namespace) {
     this.namespace = namespace;
-    // this.authService.setNamespacePermissionById(namespace.id);
     this.cacheService.setNamespace(namespace);
     this.hackNavigateReload(`/portal/namespace/${namespace.id}/app`);
   }

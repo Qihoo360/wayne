@@ -2,6 +2,46 @@
   "NAV": {
     "LANG": "Language"
   },
+  "MESSAGE": {
+    "READED": "Readed",
+    "UNREAD": "Unread",
+    "SEND": "broadcast",
+    "ANNOUNCEMENT": "announcement",
+    "NONE": "no message"
+  },
+  "BUTTON": {
+    "CANCEL": "CANCEL",
+    "OK": "OK",
+    "DELETE": "DELETE",
+    "LOG_IN": "LOG IN",
+    "SIGN_UP_LINK": "Sign up for an account",
+    "SIGN_UP": "SIGN UP",
+    "CONFIRM": "CONFIRM",
+    "SEND": "SEND",
+    "SAVE": "SAVE",
+    "TEST_MAIL": "TEST MAIL SERVER",
+    "CLOSE": "CLOSE",
+    "TEST_LDAP": "TEST LDAP SERVER",
+    "MORE_INFO": "More info...",
+    "YES": "YES",
+    "NO": "NO",
+    "NEGATIVE": "NEGATIVE",
+    "COPY": "COPY",
+    "EDIT": "EDIT",
+    "SWITCH": "SWITCH",
+    "REPLICATE": "REPLICATE",
+    "ACTIONS": "Actions",
+    "BROWSE": "Browse",
+    "UPLOAD": "Upload",
+    "NO_FILE": "No file selected"
+  },
+  "USER": {
+  },
+  "ACCOUNT": {
+    "GO_BACK": "Go Back",
+    "LOGOUT": "Log Out"
+  },
+  "OF": "of",
   "HOME": {
     "TITLE": "Hello Angular with ngx-translate!",
     "SELECT": "Change language"
