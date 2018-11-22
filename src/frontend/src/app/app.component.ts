@@ -1,6 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import {ScrollBarService} from './shared/client/v1/scrollBar.service';
 import {SelectCopyService} from './shared/client/v1/select-copy.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'wayne-root',
@@ -11,9 +12,14 @@ export class AppComponent implements AfterViewInit {
 
   constructor(
     private scrollBar: ScrollBarService,
-    private selectCopyService: SelectCopyService
+    private selectCopyService: SelectCopyService,
+    public translate: TranslateService
   ) {
-    
+    translate.addLangs(['en', 'zh']);
+    translate.setDefaultLang('en');
+    const browserLang = translate.getBrowserLang();
+    console.log(browserLang);
+    translate.use(browserLang.match(/en|fr|zh/) ? browserLang : 'en');
   }
 
   ngAfterViewInit() {
