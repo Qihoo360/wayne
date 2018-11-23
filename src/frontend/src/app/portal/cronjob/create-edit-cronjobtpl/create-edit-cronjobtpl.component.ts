@@ -358,7 +358,7 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
     this.isSubmitOnGoing = true;
 
     let newState = JSON.parse(JSON.stringify(this.kubeCronjob));
-    newState = this.generateDeployment(newState);
+    newState = this.generateCronJob(newState);
     this.cronjobTpl.cronjobId = this.cronjob.id;
     this.cronjobTpl.template = JSON.stringify(newState);
 
@@ -377,11 +377,12 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
     );
   }
 
-  generateDeployment(kubeCronjob: KubeCronJob): KubeCronJob {
+  generateCronJob(kubeCronjob: KubeCronJob): KubeCronJob {
+    kubeCronjob = mergeDeep(JSON.parse(defaultCronJob), kubeCronjob);
+    this.kubeCronjob = mergeDeep(JSON.parse(defaultCronJob), this.kubeCronjob);
     kubeCronjob = this.addResourceUnit(kubeCronjob);
     kubeCronjob = this.fillCronjobLabel(kubeCronjob);
 
-    kubeCronjob = mergeDeep(JSON.parse(defaultCronJob), kubeCronjob);
     return kubeCronjob
   }
 
@@ -467,7 +468,7 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
     // let copy = Object.assign({}, myObject).
     // but this wont work for nested objects. SO an alternative would be
     let newState = JSON.parse(JSON.stringify(this.kubeCronjob));
-    newState = this.generateDeployment(newState);
+    newState = this.generateCronJob(newState);
     this.aceEditorService.announceMessage(AceEditorMsg.Instance(newState, true));
   }
 
