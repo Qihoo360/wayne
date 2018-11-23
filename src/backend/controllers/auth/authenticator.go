@@ -59,7 +59,7 @@ func (c *AuthController) Login() {
 	authType := c.Ctx.Input.Param(":type")
 	oauth2Name := c.Ctx.Input.Param(":name")
 	next := c.Ctx.Input.Query("next")
-	if authType == "" {
+	if authType == "" || username == "admin" {
 		authType = models.AuthTypeDB
 	}
 	logs.Info("auth type is", authType)
