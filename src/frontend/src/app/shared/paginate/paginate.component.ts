@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {StorageService} from '../client/v1/storage.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'wayne-paginate',
@@ -30,6 +31,9 @@ export class PaginateComponent implements OnInit {
 	set current(value: number) {
 		this.currentPageChange.emit(value);
 	};
+	get showTotal() {
+		return {value: this.total};
+	}
 	
 	get lastPage():number {
 		try {
@@ -54,7 +58,10 @@ export class PaginateComponent implements OnInit {
 	get showSize() {
 		return this.pageSizes !== undefined;
 	};
-  constructor(private storage: StorageService) {
+  constructor(
+		private storage: StorageService,
+		public translate: TranslateService
+		) {
 	}
 
   ngOnInit() {

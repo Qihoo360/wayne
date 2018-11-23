@@ -8,6 +8,7 @@ import {AppStarredService} from '../../../shared/client/v1/appstarred.service';
 import {AppStarred} from '../../../shared/model/v1/app-starred';
 import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
 import {CacheService} from '../../../shared/auth/cache.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'list-app',
@@ -30,7 +31,8 @@ export class ListAppComponent implements OnInit {
               public cacheService: CacheService,
               private appStarredService: AppStarredService,
               private messageHandlerService: MessageHandlerService,
-              public authService: AuthService) {
+              public authService: AuthService,
+              public translate: TranslateService) {
   }
 
   ngOnInit(): void {
