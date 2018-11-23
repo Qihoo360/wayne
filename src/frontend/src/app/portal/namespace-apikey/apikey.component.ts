@@ -19,13 +19,13 @@ import {ApiKey} from '../../shared/model/v1/apikey';
 import {ApiKeyService} from '../../shared/client/v1/apikey.service';
 
 const showState = {
-  '名称': {hidden: false},
-  '角色': {hidden: false},
-  '创建时间': {hidden: false},
-  '过期时间': {hidden: false},
-  '创建者': {hidden: false},
-  '描述': {hidden: false},
-  '操作': {hidden: false}
+  'name': {hidden: false},
+  'role': {hidden: false},
+  'create_time': {hidden: false},
+  'expire_time': {hidden: false},
+  'create_user': {hidden: false},
+  'description': {hidden: false},
+  'action': {hidden: false}
 };
 
 @Component({

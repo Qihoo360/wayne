@@ -12,6 +12,7 @@ import {CreateEditApiKeyComponent} from './create-edit-apikey/create-edit-apikey
 import {ApiKey} from '../../shared/model/v1/apikey';
 import {ApiKeyService} from '../../shared/client/v1/apikey.service';
 import {ActivatedRoute} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 
 const showState = {
   '名称': {hidden: false},
@@ -46,6 +47,7 @@ export class AppApiKeyComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               public authService: AuthService,
               private messageHandlerService: MessageHandlerService,
+              public translate: TranslateService,
               private deletionDialogService: ConfirmationDialogService) {
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&

@@ -71,7 +71,10 @@
     "NAME": "Name",
     "DESCRIPTION": "Description",
     "CREATE_USER": "Create User",
-    "ACTION": "Action"
+    "ACTION": "Action",
+    "LIST": "List",
+    "ROLE": "Role",
+    "EXPIRE_TIME": "Expire Time"
   },
   "ACTION": {
     "UNFOLD": "UnFold",
@@ -82,7 +85,8 @@
     "MONITOR": "Monitor",
     "EDIT": "Edit",
     "DELETE": "Delete",
-    "CHOOSE_SHOW_COLUMN": "Choose Columns"
+    "CHOOSE_SHOW_COLUMN": "Choose Columns",
+    "CREATE": "Create"
   },
   "PLACEHOLDER": {
     "PRODUCT": "Click Here to filter Product",
