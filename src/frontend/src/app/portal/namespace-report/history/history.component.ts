@@ -17,6 +17,7 @@ import {
   KubeApiTypeService,
   KubeApiTypeStatefulSet
 } from '../../../shared/shared.const';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'report-history',
@@ -28,14 +29,25 @@ export class HistoryComponent implements OnInit, AfterViewInit {
   @ViewChild('basic') elementBasicView;
   private basicOption: EChartOption;
   private basicChart: ECharts;
+  text: string;
+  subText: string;
+  dataDone: boolean;
   historys: any;
   constructor(private namespaceClient: NamespaceClient,
               private router: Router,
               private appService: AppService,
               public cacheService: CacheService,
               private messageHandlerService: MessageHandlerService,
+              public translate: TranslateService
   ) { }
   ngOnInit() {
+    this.translate.stream(['TITEL.DEPLOY_FREQ', 'TITEL.LATE_DAY'], {value: 90}).subscribe(
+      res => {
+        this.text = res['TITEL.DEPLOY_FREQ'];
+        this.subText = res['TITEL.LATE_DAY'];
+        if (this.dataDone) this.initHistoryOptions();
+      }
+    );
   }
 
   ngAfterViewInit(): void {
@@ -45,7 +57,6 @@ export class HistoryComponent implements OnInit, AfterViewInit {
       response => {
         this.historys = response.data;
         this.initHistoryOptions();
-        this.basicChart.setOption(this.basicOption);
       },
       error => this.messageHandlerService.handleError(error)
     );
@@ -53,6 +64,7 @@ export class HistoryComponent implements OnInit, AfterViewInit {
 
 
   initHistoryOptions() {
+    const _this = this;
     let data = [];
     for( let key in this.historys) {
       data.push({value: [ this.historys[key].date, this.historys[key].count]});
@@ -60,14 +72,14 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     this.basicOption = <EChartOption>{
       title: {
         left: 'center',
-        text: '部署上线频数',
-        subtext: '最近 90 天'
+        text: this.text,
+        subtext: this.subText
       },
       tooltip : {
         trigger: 'axis',
         formatter: function (params) {
           params = params[0];
-          return new Date(params.value[0]).toLocaleDateString(['cn-CN'], { weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric' }) + '<br> 频数： ' + params.value[1];
+          return new Date(params.value[0]).toLocaleDateString([_this.translate.currentLang], { weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric' }) + '<br> Freq： ' + params.value[1];
         },
         axisPointer: {
           type : 'shadow',
@@ -99,5 +111,6 @@ export class HistoryComponent implements OnInit, AfterViewInit {
         barMaxWidth: 20,
       }]
     };
+    this.basicChart.setOption(this.basicOption);
   }
 }

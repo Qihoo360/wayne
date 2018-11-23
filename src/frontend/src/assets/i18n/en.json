@@ -41,10 +41,29 @@
     "GO_BACK": "Go Back",
     "LOGOUT": "Log Out"
   },
-  "SIDE_NAV": {
+  "MENU": {
     "DEPARTMENT": "Department",
     "PRODUCT": "Product",
-    "MEMBER": "Member"
+    "MEMBER": "Member",
+    "OVERVIEW": "Overview",
+    "SOURCE_STAT": "Source Stat",
+    "RELEASE_RECORD": "Release Record",
+    "DEPLOYMENT": "Deployment",
+    "STATEFULSET": "Statefulset",
+    "DAEMONSET": "Daemonset",
+    "CRONJOB": "Cronjob",
+    "SERVICE": "Service",
+    "CONFIGMAP": "Configmap",
+    "SECRET": "Secret"
   },
+  "TITEL": {
+    "DEPARTMENT_NAME": "Department Name",
+    "CREATE_TIME": "Create Time",
+    "CPU_USAGE": "CPU Usage(Core)",
+    "MEMORY_USAGE": "Memory Usage(G)",
+    "DEPLOY_FREQ": "Deployment Release Frequence",
+    "LATE_DAY": "Lately {{value}} Days"
+  },
+  "OTHER": "Other",
   "OF": "of"
 }

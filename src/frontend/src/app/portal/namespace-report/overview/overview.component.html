@@ -4,7 +4,7 @@
       <section class="form-block form-box">
         <div class="row group">
           <div class="col-sm-2">
-            部门名称
+            {{'TITEL.DEPARTMENT_NAME' | translate}}
           </div>
           <div class="col-sm-10">
             {{cacheService?.namespace.name}}
@@ -12,7 +12,7 @@
         </div>
         <div class="row group">
           <div class="col-sm-2">
-            创建时间
+            {{'TITEL.CREATE_TIME' | translate}}
           </div>
           <div class="col-sm-10">
             {{cacheService?.namespace.createTime | date:'yyyy-MM-dd HH:mm:ss'}}
@@ -21,8 +21,8 @@
         <div class="row group">
           <div class="col-sm-2">
             <div class="flex" style="height:70px;flex-direction: column; justify-content:space-around;">
-              <span>CPU使用(核)</span>
-              <span>内存使用(G)</span>
+              <span>{{'TITEL.CPU_USAGE' | translate}}</span>
+              <span>{{'TITEL.MEMORY_USAGE' | translate}}</span>
             </div>
           </div>
           <div class="col-sm-10">
@@ -39,25 +39,25 @@
         </div>
         <div class="row group">
           <wayne-card class="wayne-card">
-            <div class="card-title">部署</div>
+            <div class="card-title">{{'MENU.DEPLOYMENT' | translate}}</div>
             <p class="card-text">
               {{resourceCount(deployment)}}
             </p>
           </wayne-card>
           <wayne-card class="wayne-card">
-            <div class="card-title">状态副本集</div>
+            <div class="card-title">{{'MENU.STATEFULSET' | translate}}</div>
             <p class="card-text">
               {{resourceCount(statefulSet)}}
             </p>
           </wayne-card>
           <wayne-card class="wayne-card">
-            <div class="card-title">守护进程集</div>
+            <div class="card-title">{{'MENU.DAEMONSET' | translate}}</div>
             <p class="card-text">
               {{resourceCount(daemonSet)}}
             </p>
           </wayne-card>
           <wayne-card class="wayne-card">
-            <div class="card-title">计划任务</div>
+            <div class="card-title">{{'MENU.CRONJOB' | translate}}</div>
             <p class="card-text">
               {{resourceCount(cronJob)}}
             </p>
@@ -65,19 +65,19 @@
         </div>
         <div class="row group">
           <wayne-card class="wayne-card">
-            <div class="card-title">负载均衡</div>
+            <div class="card-title">{{'MENU.SERVICE' | translate}}</div>
             <p class="card-text">
               {{resourceCount(service)}}
             </p>
           </wayne-card>
           <wayne-card class="wayne-card">
-            <div class="card-title">配置集</div>
+            <div class="card-title">{{'MENU.CONFIGMAP' | translate}}</div>
             <p class="card-text">
               {{resourceCount(configMap)}}
             </p>
           </wayne-card>
           <wayne-card class="wayne-card">
-            <div class="card-title">加密字典</div>
+            <div class="card-title">{{'MENU.SECRET' | translate}}</div>
             <p class="card-text">
               {{resourceCount(secret)}}
             </p>

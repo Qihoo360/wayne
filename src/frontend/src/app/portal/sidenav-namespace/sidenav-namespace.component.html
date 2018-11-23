@@ -1,19 +1,19 @@
 <clr-vertical-nav [clrVerticalNavCollapsible]="true">
   <a
   clrVerticalNavLink
-  [title]="'SIDE_NAV.DEPARTMENT' | translate"
+  [title]="'MENU.DEPARTMENT' | translate"
   routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/overview"
   routerLinkActive="active">
   <clr-icon clrVerticalNavIcon shape="help-info"></clr-icon>
-  {{'SIDE_NAV.DEPARTMENT' | translate}}
+  {{'MENU.DEPARTMENT' | translate}}
 </a>
   <a
   clrVerticalNavLink
-  [title]="'SIDE_NAV.PRODUCT' | translate"
+  [title]="'MENU.PRODUCT' | translate"
   routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/app"
   routerLinkActive="active">
   <clr-icon clrVerticalNavIcon shape="applications"></clr-icon>
-  {{'SIDE_NAV.PRODUCT' | translate}}
+  {{'MENU.PRODUCT' | translate}}
 </a>
   <a
   clrVerticalNavLink
@@ -35,11 +35,11 @@
 </a>
   <a
   clrVerticalNavLink
-  [title]="'SIDE_NAV.MEMBER' | translate"
+  [title]="'MENU.MEMBER' | translate"
   routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/users"
   routerLinkActive="active">
   <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
-  {{'SIDE_NAV.MEMBER' | translate}}
+  {{'MENU.MEMBER' | translate}}
 </a>
 <a href="javascript:;" style="flex: 1;"></a>
   <wayne-footer></wayne-footer>

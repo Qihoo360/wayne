@@ -9,6 +9,12 @@
     "ANNOUNCEMENT": "公告",
     "NONE": "无通知"
   },
+  "TITEL": {
+    "DEPARTMENT_NAME": "Department Name",
+    "CREATE_TIME": "Create Time",
+    "CPU_USAGE": "CPU 使用",
+    "MEMORY_USAGE": "Memory Usage(G)"
+  },
   "OF": "的",
   "HOME": {
     "TITLE": "名称",
