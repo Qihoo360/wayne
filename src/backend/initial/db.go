@@ -28,10 +28,8 @@ func InitDb() {
 	if err != nil {
 		panic(err)
 	}
-	ttl, err := beego.AppConfig.Int("DBConnTTL")
-	if err != nil {
-		panic(err)
-	}
+	ttl := beego.AppConfig.DefaultInt("DBConnTTL", 30)
+
 	db.SetConnMaxLifetime(time.Duration(ttl) * time.Second)
 
 	orm.Debug = beego.AppConfig.DefaultBool("ShowSql", false)

@@ -31,14 +31,8 @@ func run(cmd *cobra.Command, args []string) {
 	// K8S Client
 	initial.InitClient()
 
-	// 初始化数据库配置
-	// InitConf()
-
 	// 初始化RabbitMQ
-	busEnable, err := beego.AppConfig.Bool("BusEnable")
-	if err != nil {
-		panic(err)
-	}
+	busEnable := beego.AppConfig.DefaultBool("BusEnable", false)
 	if busEnable {
 		initial.InitBus()
 	}
