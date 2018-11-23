@@ -13,7 +13,8 @@ var _ OAuther = &OAuth2Qihoo{}
 
 type OAuth2Qihoo struct {
 	*oauth2.Config
-	ApiUrl string
+	ApiUrl     string
+	ApiMapping map[string]string
 }
 
 func (o *OAuth2Qihoo) UserInfo(token string) (*BasicUserInfo, error) {
@@ -30,9 +31,25 @@ func (o *OAuth2Qihoo) UserInfo(token string) (*BasicUserInfo, error) {
 		return nil, err
 	}
 
-	err = json.Unmarshal(result, userinfo)
-	if err != nil {
-		return nil, fmt.Errorf("Error Unmarshal user info: %s", err)
+	if len(o.ApiMapping) == 0 {
+		err = json.Unmarshal(result, userinfo)
+		if err != nil {
+			return nil, fmt.Errorf("Error Unmarshal user info: %s", err)
+		}
+	} else {
+		usermap := make(map[string]interface{})
+		if err := json.Unmarshal(result, &usermap); err != nil {
+			return nil, fmt.Errorf("Error Unmarshal user info: %s", err)
+		}
+		if usermap[o.ApiMapping["name"]] != nil {
+			userinfo.Name = usermap[o.ApiMapping["name"]].(string)
+		}
+		if usermap[o.ApiMapping["email"]] != nil {
+			userinfo.Email = usermap[o.ApiMapping["email"]].(string)
+		}
+		if usermap[o.ApiMapping["display"]] != nil {
+			userinfo.Display = usermap[o.ApiMapping["display"]].(string)
+		}
 	}
 
 	return userinfo, nil
