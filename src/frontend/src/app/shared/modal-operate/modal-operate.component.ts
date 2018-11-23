@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,ElementRef } from '@angular/core';
 
 @Component({
   selector: 'wayne-modal-operate',
@@ -9,7 +9,10 @@ export class ModalOperateComponent implements OnInit {
 
 	@Input() modal: any;
   fullPage: boolean;
-  constructor() { }
+  element: Element;
+  constructor(private el: ElementRef) {
+    this.element = el.nativeElement;
+  }
 
   ngOnInit() {
   }
@@ -17,8 +20,16 @@ export class ModalOperateComponent implements OnInit {
   fullPageChange(full: boolean) {
     this.fullPage = full;
     if (!this.modal) throw Error('请绑定modal');
-    if (this.fullPage) this.modal.focusTrap.elementRef.nativeElement.querySelector('.modal-dialog').classList.add('fullPage');
-    else this.modal.focusTrap.elementRef.nativeElement.querySelector('.modal-dialog').classList.remove('fullPage');
+    const target = this.getParentBody(this.element).querySelector('.modal-dialog');
+    if (this.fullPage) target.classList.add('fullPage');
+    else target.classList.remove('fullPage');
+  }
+
+  getParentBody(element: Element) {
+    while(!element.classList.contains('modal')) {
+      element = element.parentElement;
+    }
+    return element;
   }
 
 }
