@@ -15,7 +15,7 @@ func init() {
 			Params:           nil,
 		},
 		beego.ControllerComments{
-			Method:           "offline",
+			Method:           "Offline",
 			Router:           `/:ingress/namespaces/:namespace/clusters/:cluster`,
 			AllowHTTPMethods: []string{"delete"},
 			MethodParams:     param.Make(),
@@ -24,7 +24,7 @@ func init() {
 		beego.ControllerComments{
 			Method:           "Deploy",
 			Router:           `/:ingressId/tpls/:tplId/clusters/:cluster`,
-			AllowHTTPMethods: []string{"port"},
+			AllowHTTPMethods: []string{"post"},
 			MethodParams:     param.Make(),
 			Params:           nil,
 		})

@@ -20,6 +20,7 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/controllers/cronjob"
 	"github.com/Qihoo360/wayne/src/backend/controllers/daemonset"
 	"github.com/Qihoo360/wayne/src/backend/controllers/deployment"
+	"github.com/Qihoo360/wayne/src/backend/controllers/ingress"
 	kconfigmap "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/configmap"
 	kcronjob "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/cronjob"
 	kdaemonset "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/daemonset"
@@ -159,6 +160,16 @@ func init() {
 		beego.NSNamespace("/apps/:appid([0-9]+)/apikeys",
 			beego.NSInclude(
 				&apikey.ApiKeyController{},
+			),
+		),
+		beego.NSNamespace("/apps/:appid([0-9]+)/ingress",
+			beego.NSInclude(
+				&ingress.IngressController{},
+			),
+		),
+		beego.NSNamespace("/app/appid([0-9]+)/ingress/tpls",
+			beego.NSInclude(
+				&ingress.IngressTplController{},
 			),
 		),
 	)
