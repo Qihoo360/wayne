@@ -116,7 +116,7 @@ func (c *AuthController) Login() {
 	}
 
 	// default token exp time is 3600s.
-	expSecond := beego.AppConfig.DefaultInt64("TokenLifeTime", 3600)
+	expSecond := beego.AppConfig.DefaultInt64("TokenLifeTime", 86400)
 	token := jwt.NewWithClaims(jwt.SigningMethodRS256, jwt.MapClaims{
 		// 签发者
 		"iss": "wayne",
