@@ -20,10 +20,12 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/controllers/cronjob"
 	"github.com/Qihoo360/wayne/src/backend/controllers/daemonset"
 	"github.com/Qihoo360/wayne/src/backend/controllers/deployment"
+	"github.com/Qihoo360/wayne/src/backend/controllers/ingress"
 	kconfigmap "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/configmap"
 	kcronjob "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/cronjob"
 	kdaemonset "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/daemonset"
 	kdeployment "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/deployment"
+	kingress "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/ingress"
 	kjob "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/job"
 	klog "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/log"
 	knamespace "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/namespace"
@@ -160,6 +162,16 @@ func init() {
 				&apikey.ApiKeyController{},
 			),
 		),
+		beego.NSNamespace("/apps/:appid([0-9]+)/ingress",
+			beego.NSInclude(
+				&ingress.IngressController{},
+			),
+		),
+		beego.NSNamespace("/app/appid([0-9]+)/ingress/tpls",
+			beego.NSInclude(
+				&ingress.IngressTplController{},
+			),
+		),
 	)
 
 	nsWithKubernetes := beego.NewNamespace("/api/v1",
@@ -216,6 +228,11 @@ func init() {
 		beego.NSNamespace("/kubernetes/apps/:appid([0-9]+)/services",
 			beego.NSInclude(
 				&kservice.KubeServiceController{},
+			),
+		),
+		beego.NSNamespace("/kubernetes/apps/:appid([0-9]+)/ingress",
+			beego.NSInclude(
+				&kingress.KubeIngressController{},
 			),
 		),
 		beego.NSNamespace("/kubernetes/apps/:appid([0-9]+)/secrets",
