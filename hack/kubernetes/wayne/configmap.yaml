@@ -67,13 +67,3 @@ data:
     # If set app metaData {"mode":"beta"}，the app will auto redirect to BetaUrl
     BetaUrl = "https://beta.wayne.cloud"
     AppUrl = "https://www.wayne.cloud"
-
-    # oauth2
-    RedirectUrl = "https://www.wayne.cloud"
-
-    [auth.qihoo]
-    enabled = false
-    #ldap config
-    #enable ldap login
-    [auth.ldap]
-    enabled = false
