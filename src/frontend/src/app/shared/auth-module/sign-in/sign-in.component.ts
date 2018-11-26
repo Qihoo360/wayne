@@ -13,7 +13,6 @@ import * as particlesJS from 'particlesjs/dist/particles';
 })
 export class SignInComponent implements OnInit {
   version: String = require('../../../../../package.json').version;
-  qihooLoginTitle: String = this.authService.config['system.oauth2-title'] ? this.authService.config['system.oauth2-title'] : 'OAuth 2.0 Login';
   errMsg: string;
   username: string;
   password: string;
@@ -75,10 +74,15 @@ export class SignInComponent implements OnInit {
 
   }
 
-  qihooLogin() {
+  oauth2Login() {
     let currentUrl = document.location.origin;
     let ref = this.route.snapshot.queryParams['ref'] ? this.route.snapshot.queryParams['ref'] : '/';
-    window.location.replace(`/login/oauth2/qihoo?next=${currentUrl}/sign-in?ref=${ref}`);
+    window.location.replace(`/login/oauth2/oauth2?next=${currentUrl}/sign-in?ref=${ref}`);
+  }
+
+  getOAuth2Title(){
+    let oauth2Title = this.authService.config['system.oauth2-title'];
+    return oauth2Title ? oauth2Title : 'OAuth 2.0 Login';
   }
 
   getTitle() {
