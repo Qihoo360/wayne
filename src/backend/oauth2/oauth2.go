@@ -39,6 +39,7 @@ type OAuth2Info struct {
 	TokenUrl     string
 	ApiUrl       string // get user info
 	Enabled      bool
+	ApiMapping   map[string]string
 }
 
 type OAuther interface {
@@ -77,6 +78,13 @@ func NewOAuth2Service() {
 			ApiUrl:       section["api_url"],
 			Enabled:      enabled,
 		}
+		info.ApiMapping = make(map[string]string)
+		if section["api_mapping"] != "" {
+			for _, km := range strings.Split(section["api_mapping"], ",") {
+				arr := strings.Split(km, ":")
+				info.ApiMapping[arr[0]] = arr[1]
+			}
+		}
 
 		OAuth2Infos[OAuth2TypeQihoo] = info
 
@@ -93,9 +101,11 @@ func NewOAuth2Service() {
 
 		if name == OAuth2TypeQihoo {
 			OAutherMap[OAuth2TypeQihoo] = &OAuth2Qihoo{
-				Config: &config,
-				ApiUrl: info.ApiUrl,
+				Config:     &config,
+				ApiUrl:     info.ApiUrl,
+				ApiMapping: info.ApiMapping,
 			}
+			fmt.Println(info.ApiMapping)
 		}
 
 	}

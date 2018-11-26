@@ -13,6 +13,7 @@ import * as particlesJS from 'particlesjs/dist/particles';
 })
 export class SignInComponent implements OnInit {
   version: String = require('../../../../../package.json').version;
+  qihooLoginTitle: String = this.authService.config['system.oauth2-title'] ? this.authService.config['system.oauth2-title'] : 'OAuth 2.0 Login';
   errMsg: string;
   username: string;
   password: string;

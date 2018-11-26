@@ -18,7 +18,7 @@
     </div>
     <div *ngIf="authService.config?.qihooLogin"  style="padding-bottom:5px;text-align:center;">
       <hr style="width: 240px;"/>
-      <button style="margin-top: 10px; width:240px;height: 40px;font-size: 16px;" type="submit" (click)="qihooLogin()" class="wayne-button normal">360 域账号登录</button>
+      <button style="margin-top: 10px; width:240px;height: 40px;font-size: 16px;" type="submit" (click)="qihooLogin()" class="wayne-button normal">{{qihooLoginTitle}}</button>
     </div>
   </form>
 </div>
