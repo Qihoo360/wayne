@@ -10,7 +10,15 @@
     "NONE": "无通知",
     "NO_USER": "用户不存在",
     "ONLY_ONLINE_TEMPLATE": "只显示上线模板",
-    "NO_MESSAGE": "暂无数据"
+    "NO_MESSAGE": "暂无数据",
+    "LOAD_GROUP": "批量从配置集或加密字典加载环境变量",
+    "SUPPORT_ENVIRONMENT": "其它类型的环境变量只支持高级模式编辑",
+    "USABLE": "定期检查服务状态，只有检查通过才会提供服务，检查失败将会从可用服务列表移除",
+    "EXTEND_TIME": "单位秒，请求超时时间",
+    "CHECK_CYCLE": "单位秒，执行检查间隔",
+    "LIVE_CHECK": "定期检查容器状态，检查失败将会重启容器（适用于可能假死并需要重启的服务）",
+    "CHECK_DELAY": "单位秒，启动多久之后开始存活检查，适用于启动时间较长的服务",
+    "LIFE_CYCLE": "容器生命周期钩子，可以在postStart/preStop两个阶段定义额外的操作"
   },
   "BUTTON": {
     "CANCEL": "取消",
@@ -43,7 +51,9 @@
     "RESTART": "重启",
     "DETAIL": "详情",
     "CLONE": "克隆",
-    "DROP": "下线"
+    "DROP": "下线",
+    "ADD_CONTAINER": "添加容器",
+    "ADVANCED_CONFIG": "高级配置"
   },
   "USER": {
   },
@@ -111,7 +121,41 @@
     "MAX_LIMIT": "最大不可用",
     "CONTAINER_CONFIG": "容器配置",
     "IMAGE_CONFIG": "镜像配置",
-    "CONTAINER": "容器"
+    "CONTAINER": "容器",
+    "IMAGE_ADDRESS": "镜像地址",
+    "MEMORY_NUM": "内存容量",
+    "ENVIRONMENT_VAR": "环境变量配置",
+    "ADD_GROUP": "批量加载",
+    "ADD_ONE": "逐个加载",
+    "LOAD_GROUP": "批量加载",
+    "LOAD_CONFIGMAP": "从配置集加载",
+    "LOAD_SECRET": "从加密字典加载",
+    "ADD_ENVIRONMENT": "添加环境变量",
+    "DELETE_ENVIRONMENT": "删除环境变量",
+    "CONFIGMAP_NAME": "配置集名称",
+    "SECRET_NAME": "加密字典名称",
+    "LOAD_ENVIRONMENT": "自定义环境变量",
+    "ENVIRONMENT_NAME": "环境变量名称",
+    "ENVIRONMENT_NUM": "环境变量值",
+    "CONFIGMAP_KEY": "配置集key",
+    "SECRET_KEY": "加密字典key",
+    "USABLE_CHECK": "可用性检查（建议开启）",
+    "EXTEND_TIME": "超时时间",
+    "CHECK_CYCLE": "检查周期",
+    "FAIL_NUM": "失败重试次数",
+    "USABLE_CHECK_WAY": "可用性检查方式",
+    "HTTP_REQUEST": "HTTP请求",
+    "TCP_PORT": "TCP端口",
+    "EXECUTE_COMMAND": "执行命令",
+    "REQUEST_HTTP_PORT": "请求HTTP端口",
+    "REQUEST_URL": "请求URL",
+    "REQUEST_TCP_PORT": "请求TCP端口",
+    "LIVE_CHECK": "存活检查",
+    "CHECK_DELAY": "检查延迟",
+    "LIFE_CYCLE": "生命周期",
+    "NOT_USE": "不启用",
+    "SAFE_QUIT": "安全退出",
+    "PRICE_TOTAL": "单实例费用总计："
   },
   "ACTION": {
     "UNFOLD": "展开",
@@ -127,13 +171,18 @@
     "LOOK_UP": "查看"
   },
   "UNIT": {
-    "CORE": "核"
+    "CORE": "核",
+    "PRICE": "元/月",
+    "CORE_NUM": "核数"
   },
   "PLACEHOLDER": {
     "PRODUCT": "点击输入筛选过滤项目",
     "CHOOSE": "点击选择",
     "APP_NAME": "英文小写，中划线分隔",
-    "EXPIRE_TIME": "单位秒，0代表永久有效"
+    "EXPIRE_TIME": "单位秒，0代表永久有效",
+    "ENVIRONMENT": "为所有环境变量添加相同的前缀，可为空",
+    "SECOND": "单位秒",
+    "COMMAND": "多个命令换行输入，例如: \n/bin/healthz.sh\n--arg1\nfoo\n--arg2\nbar"
   },
   "PAGE": {
     "PAGE": "页",
@@ -143,7 +192,9 @@
     "REGEXT": "不符合规范，验证规则",
     "SCROLL": "滚动更新中最多可超过指定实例的总数量,数字或百分比",
     "NUMBER": "数量应为数字或百分比",
-    "CONTAINER": "英文，dns域名规则"
+    "CONTAINER": "英文，dns域名规则",
+    "MEMROY": "内存大小应该在0~{{value}}G之间",
+    "CPU": "CPU大小应该在0~{{value}}核之间"
   },
   "OTHER": "其他",
   "OF": "的"
