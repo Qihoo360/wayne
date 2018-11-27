@@ -28,7 +28,7 @@ Wayne已大规模服务于360搜索，承载了内部绝大部分业务，稳定
 - 提供基于严密权限校验的 Web shell：用户可以通过 Web shell 的形式进入发布的 Pod 进行操作，自带完整的权限校验。 
 - 提供站内通知系统：方便管理员推送集群、业务通知和故障处理报告等。
 
-## 架构图
+## 架构设计
 
 整体采用前后端分离的方案，其中前端采用 Angular 框架进行数据交互和展示，使用Ace编辑器进行 Kubernetes 资源模版编辑。后端采用 Beego 框架做数据接口处理，使用 Client-go 与 Kubernetes 进行交互，数据使用 MySQL 存储。
 
@@ -50,10 +50,10 @@ Wayne已大规模服务于360搜索，承载了内部绝大部分业务，稳定
 
 ## 快速启动
 
-- 创建配置文件
+- 克隆代码仓库
 
 ```bash
-$ cd /tmp && touch dev.conf
+$ go get https://github.com/Qihoo360/wayne
 ```
 
 - 启动MySQL（可选）
@@ -62,6 +62,12 @@ $ cd /tmp && touch dev.conf
 
 ```bash
 $ docker-compose up mysql
+```
+
+- 创建配置文件
+
+```bash
+$ cd src/backend/conf && touch dev.conf
 ```
 
 - 写入数据库相关配置（请修改为数据库实际地址）
@@ -75,10 +81,12 @@ DBUser = root
 DBPasswd = root
 ```
 
-- 运行启动命令
+- 启动Wayne服务
+
+进入Wayne根目录，执行
 
 ```bash
-$ docker run --rm  -e GOPATH=/go -v /tmp/dev.conf:/opt/wayne/conf/dev.conf -p 8080:8080 360cloud/wayne /opt/wayne/backend apiserver
+$ docker-compose up wayne
 ```
 
 通过上述命令，您可以从通过 http://127.0.0.1:8080/admin 访问本地 Wayne, 默认管理员账号 admin:admin。

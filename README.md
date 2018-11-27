@@ -31,7 +31,7 @@ Wayne has been serving [360 search](https://www.so.com/?src=wayne) on a large sc
 ## Architecture
 
 The whole system adopts the separation of front and back ends, in which the front end uses Angular framework for data interaction and display, and the Ace editor is used for Kubernetes resource template editing. The backend uses the Beego framework for data interface processing, Client-go to interact with Kubernetes, and data for MySQL storage.
-![Dashboard UI workloads page](https://raw.githubusercontent.com/wiki/Qihoo360/wayne/image/architecture.png)
+![Dashboard UI workloads page](https://raw.githubusercontent.com/wiki/Qihoo360/wayne/image/architecture-en.png)
 
 ## Component
 
@@ -49,10 +49,10 @@ The whole system adopts the separation of front and back ends, in which the fron
 
 ## Quickly Start
 
-- Create configuration file
+- Clone
 
 ```bash
-$ cd /tmp && touch dev.conf
+$ go get https://github.com/Qihoo360/wayne
 ```
 
 - Start MySQL(Optional)
@@ -61,6 +61,12 @@ If you don't have a MySQL service available, you can quickly create it with dock
 
 ```bash
 $ docker-compose up mysql
+```
+
+- Create configuration file
+
+```bash
+$ cd src/backend/conf && touch dev.conf
 ```
 
 - Write database related configuration (Please modify to the actual address of the database.)
@@ -74,10 +80,12 @@ DBUser = root
 DBPasswd = root
 ```
 
-- Run start command
+- Start Wayne
+
+cd Wayne root directory and execute
 
 ```bash
-$ docker run --rm  -e GOPATH=/go -v /tmp/dev.conf:/opt/wayne/conf/dev.conf -p 8080:8080 360cloud/wayne /opt/wayne/backend apiserver
+$ docker-compose up wayne
 ```
 
 With the above command, you can access the local Wayne from http://127.0.0.1:8080/admin, the default administrator account admin:admin.

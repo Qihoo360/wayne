@@ -59,7 +59,7 @@ func (c *AuthController) Login() {
 	authType := c.Ctx.Input.Param(":type")
 	oauth2Name := c.Ctx.Input.Param(":name")
 	next := c.Ctx.Input.Query("next")
-	if authType == "" {
+	if authType == "" || username == "admin" {
 		authType = models.AuthTypeDB
 	}
 	logs.Info("auth type is", authType)
@@ -116,7 +116,7 @@ func (c *AuthController) Login() {
 	}
 
 	// default token exp time is 3600s.
-	expSecond := beego.AppConfig.DefaultInt64("TokenLifeTime", 3600)
+	expSecond := beego.AppConfig.DefaultInt64("TokenLifeTime", 86400)
 	token := jwt.NewWithClaims(jwt.SigningMethodRS256, jwt.MapClaims{
 		// 签发者
 		"iss": "wayne",

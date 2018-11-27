@@ -22,7 +22,7 @@ var (
 )
 
 const (
-	OAuth2TypeQihoo = "qihoo"
+	OAuth2TypeDefault = "oauth2"
 )
 
 type BasicUserInfo struct {
@@ -39,6 +39,7 @@ type OAuth2Info struct {
 	TokenUrl     string
 	ApiUrl       string // get user info
 	Enabled      bool
+	ApiMapping   map[string]string
 }
 
 type OAuther interface {
@@ -50,7 +51,7 @@ type OAuther interface {
 }
 
 func NewOAuth2Service() {
-	allOauthes := []string{OAuth2TypeQihoo}
+	allOauthes := []string{OAuth2TypeDefault}
 
 	for _, name := range allOauthes {
 		section, err := beego.AppConfig.GetSection("auth." + name)
@@ -77,8 +78,15 @@ func NewOAuth2Service() {
 			ApiUrl:       section["api_url"],
 			Enabled:      enabled,
 		}
+		info.ApiMapping = make(map[string]string)
+		if section["api_mapping"] != "" {
+			for _, km := range strings.Split(section["api_mapping"], ",") {
+				arr := strings.Split(km, ":")
+				info.ApiMapping[arr[0]] = arr[1]
+			}
+		}
 
-		OAuth2Infos[OAuth2TypeQihoo] = info
+		OAuth2Infos[OAuth2TypeDefault] = info
 
 		config := oauth2.Config{
 			ClientID:     info.ClientId,
@@ -87,15 +95,17 @@ func NewOAuth2Service() {
 				AuthURL:  info.AuthUrl,
 				TokenURL: info.TokenUrl,
 			},
-			RedirectURL: fmt.Sprintf("%s/login/oauth2/%s", beego.AppConfig.String("RedirectUrl"), name),
+			RedirectURL: fmt.Sprintf("%s/login/oauth2/%s", section["redirect_url"], name),
 			Scopes:      info.Scopes,
 		}
 
-		if name == OAuth2TypeQihoo {
-			OAutherMap[OAuth2TypeQihoo] = &OAuth2Qihoo{
-				Config: &config,
-				ApiUrl: info.ApiUrl,
+		if name == OAuth2TypeDefault {
+			OAutherMap[OAuth2TypeDefault] = &OAuth2Default{
+				Config:     &config,
+				ApiUrl:     info.ApiUrl,
+				ApiMapping: info.ApiMapping,
 			}
+			fmt.Println(info.ApiMapping)
 		}
 
 	}

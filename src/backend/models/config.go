@@ -17,6 +17,8 @@ const (
 	// none: do nothing with the ApiName
 	ConfigKeyApiNameGenerateRule ConfigKey = "system.api-name-generate-rule"
 
+	ConfigKeyOauth2Title ConfigKey = "system.oauth2-title"
+
 	TableNameConfig = "config"
 )
 

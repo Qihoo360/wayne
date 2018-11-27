@@ -33,7 +33,7 @@ func (c *BaseConfigController) ListBase() {
 	configMap["namespaceLabelKey"] = util.NamespaceLabelKey
 	configMap["enableRobin"] = beego.AppConfig.DefaultBool("EnableRobin", false)
 	configMap["ldapLogin"] = parseAuthEnabled("auth.ldap")
-	configMap["qihooLogin"] = parseAuthEnabled("auth.qihoo")
+	configMap["oauth2Login"] = parseAuthEnabled("auth.oauth2")
 	configMap["enableApiKeys"] = beego.AppConfig.DefaultBool("EnableApiKeys", false)
 
 	var configs []models.Config

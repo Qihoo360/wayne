@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: infra-wayne
+  name: infra-wayne
+  namespace: default
+data:
+  app.conf: |-
+    appname = wayne
+    httpport = 8080
+    runmode = prod
+    autorender = false
+    copyrequestbody = true
+    EnableDocs = true
+    EnableAdmin = true
+    StaticDir = public:static
+    # Custom config
+    ShowSql = false
+    ## if enable username and password login
+    EnableDBLogin = true
+    # token, generate jwt token
+    RsaPrivateKey = "./apikey/rsa-private.pem"
+    RsaPublicKey = "./apikey/rsa-public.pem"
+    # token end time. second
+    TokenLifeTime=86400
+
+    # kubernetes labels config
+    AppLabelKey= wayne-app
+    NamespaceLabelKey = wayne-ns
+    PodAnnotationControllerKindLabelKey = wayne.cloud/controller-kind
+
+    # database configuration:
+    ## mysql
+    DBName = "wayne"
+    DBTns = "tcp(mysql-wayne:3306)"
+    DBUser = "root"
+    DBPasswd = "root"
+    DBLoc = "Asia%2FShanghai"
+    DBConnTTL = 30
+
+    # web shell auth
+    appKey = "860af247a91a19b2368d6425797921c6"
+
+    # Set demo namespace and group id
+    DemoGroupId = "1"
+    DemoNamespaceId = "1"
+
+    # Sentry
+    LogLevel = "4"
+    SentryEnable = false
+    SentryDSN = ""
+    SentryLogLevel = "4"
+
+    # Robin
+    EnableRobin = false
+
+    # api-keys
+    EnableApiKeys = true
+
+    # Bus
+    BusEnable = true
+    BusRabbitMQURL = "amqp://guest:guest@rabbitmq-wayne:5672"
+
+    # Webhook
+    EnableWebhook = true
+    WebhookClientTimeout = 10
+    WebhookClientWindowSize = 16
