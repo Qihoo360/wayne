@@ -62,8 +62,7 @@ data:
     BusEnable = true
     BusRabbitMQURL = "amqp://guest:guest@rabbitmq-wayne:5672"
 
-    # other
-    # Use Canary/Production Update
-    # If set app metaData {"mode":"beta"}，the app will auto redirect to BetaUrl
-    BetaUrl = "https://beta.wayne.cloud"
-    AppUrl = "https://www.wayne.cloud"
+    # Webhook
+    EnableWebhook = true
+    WebhookClientTimeout = 10
+    WebhookClientWindowSize = 16
