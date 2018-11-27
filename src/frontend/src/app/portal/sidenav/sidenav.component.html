@@ -49,21 +49,27 @@
                                   authService.currentAppPermission.statefulset.read ||
                                   authService.currentAppPermission.cronjob.read ||
                                   authService.currentUser.admin"></div>
-  <ng-container>
-    <ng-container>
-      <a
-        clrVerticalNavLink
-        title="负载均衡"
-        routerLink="service"
-        routerLinkActive="active"
-        *ngIf="authService.currentAppPermission.service.read || authService.currentUser.admin">
-        <clr-icon clrVerticalNavIcon shape="network-globe"></clr-icon>
-        负载均衡
-      </a>
-      <div class="nav-divider" *ngIf="authService.currentAppPermission.service.read ||
+  <a
+    clrVerticalNavLink
+    title="负载均衡"
+    routerLink="service"
+    routerLinkActive="active"
+    *ngIf="authService.currentAppPermission.service.read || authService.currentUser.admin">
+    <clr-icon clrVerticalNavIcon shape="network-globe"></clr-icon>
+    负载均衡
+  </a>
+  <a
+    clrVerticalNavLink
+    title="Ingress"
+    routerLink="ingress"
+    routerLinkActive="active"
+    *ngIf="authService.currentAppPermission.ingress.read || authService.currentUser.admin">
+    <clr-icon clrVerticalNavIcon shape="network-switch"></clr-icon>
+    Ingress
+  </a>
+  <div class="nav-divider" *ngIf="authService.currentAppPermission.service.read ||
+                                  authService.currentAppPermission.ingress.read ||
                                       authService.currentUser.admin"></div>
-    </ng-container>
-  </ng-container>
   <a
     clrVerticalNavLink
     title="配置集"

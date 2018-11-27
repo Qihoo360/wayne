@@ -30,6 +30,7 @@ import {PublishHistoryModule} from './common/publish-history/publish-history.mod
 import {TplDetailModule} from './common/tpl-detail/tpl-detail.module';
 import {MarkdownModule} from 'ngx-markdown';
 import {LibraryPortalModule} from "../../../lib/portal/library-portal.module";
+import {IngressModule} from './ingress/ingress.module';
 
 @NgModule({
   imports: [
@@ -55,6 +56,7 @@ import {LibraryPortalModule} from "../../../lib/portal/library-portal.module";
     TplDetailModule,
     PublishHistoryModule,
     LibraryPortalModule,
+    IngressModule,
     MarkdownModule.forRoot(),
   ],
   providers: [

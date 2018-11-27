@@ -1,0 +1,63 @@
+<button (click)="createIngress()" class="wayne-button primary" *ngIf="authService.currentAppPermission.ingress.create || authService.currentUser.admin">
+  创建 Ingress
+</button>
+<create-edit-ingress (create)="create($event)"></create-edit-ingress>
+
+<div *ngIf="ingressId && ingresses?.length>0">
+  <wayne-tabs>
+    <wayne-tab (click)="tabClick(ingress.id)"
+               [id]="ingress.id"
+               *ngFor="let ingress of ingresses"
+               [active]="ingress.id==ingressId"
+               [description]="ingress.description">
+      {{ingress.name}}
+    </wayne-tab>
+  </wayne-tabs>
+  <div class="table-search">
+    <div class="table-search-left">
+      <button (click)="createIngressTpl()" class="wayne-button normal"
+              *ngIf="ingressTpls?.length <= 0 && (authService.currentAppPermission.ingress.create || authService.currentUser.admin)">
+        创建 ingress 模版
+      </button>
+      <button (click)="editIngress()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.ingress.update || authService.currentUser.admin">
+        编辑 ingress
+      </button>
+      <button (click)="publishHistory()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.ingress.read || authService.currentUser.admin">
+        发布历史
+      </button>
+      <button (click)="deleteIngress()" class="wayne-button normal" *ngIf="authService.currentAppPermission.ingress.offline || authService.currentUser.admin">
+        删除 ingress
+      </button>
+      <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
+        <wayne-checkbox-group [(ngModel)]="showList">
+          <wayne-checkbox>创建时间</wayne-checkbox>
+          <wayne-checkbox>端口号</wayne-checkbox>
+          <wayne-checkbox>上线机房</wayne-checkbox>
+          <wayne-checkbox>发布说明</wayne-checkbox>
+          <wayne-checkbox>创建者</wayne-checkbox>
+          <wayne-checkbox>操作</wayne-checkbox>
+        </wayne-checkbox-group>
+      </wayne-filter-box>
+    </div>
+    <div class="table-search-right">
+      <div class="toggle-switch">
+        <input type="checkbox" id="toggle_1" [(ngModel)]="isOnline" (change)="onlineChange()">
+        <label for="toggle_1">只显示上线模板</label>
+      </div>
+    </div>
+  </div>
+  <list-ingress
+    [ingresses]="ingresses"
+    [ingressTpls]="ingressTpls"
+    [appId]="appId"
+    [showState]="showState"
+    [page]="pageState.page"
+  ></list-ingress>
+</div>
+
+<!--(cloneTpl)="cloneIngressTpl($event)"-->
+
+<!--(edit)="editIngress($event)"-->
+<!--(paginate)="retrieve($event)"-->
