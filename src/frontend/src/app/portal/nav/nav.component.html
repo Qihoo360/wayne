@@ -22,7 +22,7 @@
     </wayne-dropdown>
     <wayne-dropdown size="small">
       <clr-icon shape="world" style="margin-right: 5px"></clr-icon>
-      {{'NAV.LANG' | translate}}
+      {{showLang(currentLang)}}
       <clr-icon shape="caret down" size="12" style="margin-left: 5px;"></clr-icon>
       <wayne-dropdown-item>
         <ng-container *ngFor="let lang of translate.getLangs()">

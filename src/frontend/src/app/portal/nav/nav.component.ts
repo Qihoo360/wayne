@@ -9,7 +9,7 @@ import {Notification, NotificationLog} from '../../shared/model/v1/notification'
 import {PageState} from '../../shared/page/page-state';
 import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
 import {LoginTokenKey} from '../../shared/shared.const';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
 import {StorageService} from '../../shared/client/v1/storage.service';
 
 @Component({
@@ -24,6 +24,7 @@ export class NavComponent implements OnInit, OnDestroy {
   notificationModal = false;
   pageState: PageState = new PageState();
   mind = false;
+  currentLang: string;
 
 
   constructor(private router: Router,
@@ -41,6 +42,10 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.currentLang = this.translate.currentLang;
+    this.translate.onLangChange.subscribe((event:  LangChangeEvent) => {
+      this.currentLang = event.lang;
+    });
     this.namespace = this.cacheService.currentNamespace;
     let nid = this.route.snapshot.params['nid'];
     if (this.cacheService.currentNamespace && nid != this.cacheService.namespaceId) {
