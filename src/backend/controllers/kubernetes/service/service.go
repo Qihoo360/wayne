@@ -10,7 +10,7 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/resources/service"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/Qihoo360/wayne/src/backend/workers/webhook"
-	kapi "k8s.io/api/core/v1"
+	"k8s.io/api/core/v1"
 )
 
 type KubeServiceController struct {
@@ -21,6 +21,8 @@ func (c *KubeServiceController) URLMapping() {
 	c.Mapping("Get", c.Get)
 	c.Mapping("Offline", c.Offline)
 	c.Mapping("Deploy", c.Deploy)
+	c.Mapping("GetDetail", c.GetDetail)
+	c.Mapping("List", c.List)
 }
 
 func (c *KubeServiceController) Prepare() {
@@ -42,6 +44,56 @@ func (c *KubeServiceController) Prepare() {
 	}
 }
 
+// @Title GetDetail
+// @Description find Deployment by cluster
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace		path 	string	true		"the namespace name"
+// @Success 200 {object} service.ServiceDetail success
+// @router /:service/detail/namespaces/:namespace/clusters/:cluster [get]
+func (c *KubeServiceController) GetDetail() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	namespace := c.Ctx.Input.Param(":namespace")
+	name := c.Ctx.Input.Param(":service")
+	manager, err := client.Manager(cluster)
+	if err != nil {
+		c.AbortBadRequestFormat("Cluster")
+	}
+	serviceDetail, err := service.GetServiceDetail(manager.Client, manager.Indexer, namespace, namespace)
+	if err != nil {
+		logs.Error("get kubernetes(%s) namespace(%s) service(%s) detail error: %s", cluster, namespace, name, err.Error())
+		c.AbortInternalServerError("get kubernetes service detail error.")
+	}
+	c.Success(serviceDetail)
+}
+
+// @Title List service
+// @Description get all ingress in a kubernetes cluster
+// @Param	pageNo		query 	int	false		"the page current no"
+// @Param	pageSize		query 	int	false		"the page size"
+// @Param	filter		query 	string	false		"column filter, ex. filter=name=test"
+// @Param	sortby		query 	string	false		"column sorted by, ex. sortby=-id, '-' representation desc, and sortby=id representation asc"
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace		path 	string	true		"the namespace name"
+// @Success 200 {object} common.Page success
+// @router /namespaces/:namespace/clusters/:cluster [get]
+func (c *KubeServiceController) List() {
+	param := c.BuildQueryParam()
+	cluster := c.Ctx.Input.Param(":cluster")
+	namespace := c.Ctx.Input.Param(":namespace")
+
+	manager, err := client.Manager(cluster)
+	if err != nil {
+		c.AbortBadRequestFormat("Cluster")
+	}
+	res, err := service.GetServicePage(manager.Client, namespace, param)
+	if err != nil {
+		logs.Error("list kubernetes(%s) namespace(%s) services error %v", cluster, namespace, err)
+		c.HandleError(err)
+		return
+	}
+	c.Success(res)
+}
+
 // @Title deploy
 // @Description deploy tpl
 // @Param	body	body 	string	true	"The tpl content"
@@ -50,7 +102,7 @@ func (c *KubeServiceController) Prepare() {
 func (c *KubeServiceController) Deploy() {
 	serviceId := c.GetIntParamFromURL(":serviceId")
 	tplId := c.GetIntParamFromURL(":tplId")
-	var kubeService kapi.Service
+	var kubeService v1.Service
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &kubeService)
 	if err != nil {
 		logs.Error("Invalid service tpl %v", string(c.Ctx.Input.RequestBody))

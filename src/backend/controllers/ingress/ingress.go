@@ -39,7 +39,7 @@ func (c *IngressController) Prepare() {
 		perAction = models.PermissionDelete
 	}
 	if perAction != "" {
-		c.CheckPermission(models.PermissionTypeStatefulset, perAction)
+		c.CheckPermission(models.PerMissionTypeIngress, perAction)
 	}
 }
 
