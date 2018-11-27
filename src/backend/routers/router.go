@@ -162,12 +162,12 @@ func init() {
 				&apikey.ApiKeyController{},
 			),
 		),
-		beego.NSNamespace("/apps/:appid([0-9]+)/ingress",
+		beego.NSNamespace("/apps/:appid([0-9]+)/ingresses",
 			beego.NSInclude(
 				&ingress.IngressController{},
 			),
 		),
-		beego.NSNamespace("/app/appid([0-9]+)/ingress/tpls",
+		beego.NSNamespace("/app/appid([0-9]+)/ingresses/tpls",
 			beego.NSInclude(
 				&ingress.IngressTplController{},
 			),
