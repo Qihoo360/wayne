@@ -20,3 +20,16 @@ services:
       - "3306"
     ports:
       - "3306:3306"
+  wayne:
+    image: 360cloud/wayne:latest
+    command: /opt/wayne/backend apiserver
+    environment:
+      GOPATH: "/go"
+    volumes:
+      - ./src/backend/conf:/opt/wayne/conf:z
+    networks:
+      - default
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"

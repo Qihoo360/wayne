@@ -64,9 +64,9 @@ if [ "$CONFIRM0" = "Y" ]; then
     else
         git checkout -b $RELEASE_BRANCH
     fi
-    echo "$(tput setaf 2)成功切换到分支： [$RELEASE_BRANCH] $(tput sgr0)"
+    echo "$(tput setaf 2) Success checkout to branch: [$RELEASE_BRANCH] $(tput sgr0)"
 else
-    echo "拒绝切换分支，退出！"
+    echo "Refuse to switch branches and quit!"
     exit 1
 fi
 
@@ -82,7 +82,7 @@ if [ "$CONFIRM1" = "Y" ]; then
     git changelog --no-merges --tag $NEXT_VERSION $CHANGELOG
 
     COMMITLOG="
-发布版本 v$NEXT_VERSION
+Release v$NEXT_VERSION
 
 $(git changelog -x -n -p -l)
 "

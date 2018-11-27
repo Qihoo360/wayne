@@ -109,7 +109,7 @@ func (c *OpenAPIController) GetDeploymentStatus() {
 	param := DeploymentStatusParam{
 		c.GetString("deployment"),
 		c.GetString("namespace"),
-		strings.ToUpper(c.GetString("cluster")),
+		c.GetString("cluster"),
 	}
 	if !c.CheckoutRoutePermission(GetDeploymentStatusAction) {
 		return
@@ -221,7 +221,7 @@ func (c *OpenAPIController) UpgradeDeployment() {
 	param := UpgradeDeploymentParam{
 		Deployment:  c.GetString("deployment"),
 		Namespace:   c.GetString("namespace"),
-		Cluster:     strings.ToUpper(c.GetString("cluster")),
+		Cluster:     c.GetString("cluster"),
 		Description: c.GetString("description"),
 		Images:      c.GetString("images"),
 	}
@@ -383,7 +383,7 @@ func (c *OpenAPIController) ScaleDeployment() {
 	param := ScaleDeploymentParam{
 		Deployment: c.GetString("deployment"),
 		Namespace:  c.GetString("namespace"),
-		Cluster:    strings.ToUpper(c.GetString("cluster")),
+		Cluster:    c.GetString("cluster"),
 	}
 	if !c.CheckoutRoutePermission(ScaleDeploymentAction) {
 		return

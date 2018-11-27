@@ -41,7 +41,7 @@ export class AppReportFormComponent implements OnInit, AfterViewInit {
     let data = this.getData(datas.details);
     this.options = {
       title: {
-        text: '项目总数：' + datas.total,
+        text: '项目总数：' + (datas.total || 0),
       },
       tooltip: {
         trigger: 'item',

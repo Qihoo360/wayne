@@ -54,10 +54,7 @@ func preRunE(cmd *cobra.Command, args []string) error {
 }
 
 func run(cmd *cobra.Command, args []string) {
-	busEnable, err := beego.AppConfig.Bool("BusEnable")
-	if err != nil {
-		panic(err)
-	}
+	busEnable := beego.AppConfig.DefaultBool("BusEnable", false)
 	if !busEnable {
 		panic("Running workers requires BUS FEATURE enabled.")
 	}
