@@ -18,7 +18,19 @@
     "CHECK_CYCLE": "单位秒，执行检查间隔",
     "LIVE_CHECK": "定期检查容器状态，检查失败将会重启容器（适用于可能假死并需要重启的服务）",
     "CHECK_DELAY": "单位秒，启动多久之后开始存活检查，适用于启动时间较长的服务",
-    "LIFE_CYCLE": "容器生命周期钩子，可以在postStart/preStop两个阶段定义额外的操作"
+    "LIFE_CYCLE": "容器生命周期钩子，可以在postStart/preStop两个阶段定义额外的操作",
+    "CPU": "请填写CPU限制",
+    "CPU_PERCENT": "请填写正确CPU限制百分比",
+    "MEMORY": "请填写内存限制份数",
+    "MEMORY_PERCENT": "请填写正确内存限制百分比",
+    "REPLICA": "请填写副本数限制"
+  },
+  "LIMIT": {
+    "DELOYMENT": "部署份数超过系统最大限制",
+    "CPU": "CPU限制",
+    "CPU_PERCENT": "CPU限制百分比",
+    "MEMORY": "内存限制",
+    "REPLICA": "副本数限制"
   },
   "BUTTON": {
     "CANCEL": "取消",
@@ -77,7 +89,7 @@
     "CONFIGMAP": "配置集",
     "SECRET": "加密字典"
   },
-  "TITEL": {
+  "TITLE": {
     "CREATE_PRODUCT": "创建项目",
     "DEPARTMENT_NAME": "部门名称",
     "CREATE_TIME": "创建时间",
@@ -173,7 +185,8 @@
   "UNIT": {
     "CORE": "核",
     "PRICE": "元/月",
-    "CORE_NUM": "核数"
+    "CORE_NUM": "核数",
+    "PIECE": "份"
   },
   "PLACEHOLDER": {
     "PRODUCT": "点击输入筛选过滤项目",

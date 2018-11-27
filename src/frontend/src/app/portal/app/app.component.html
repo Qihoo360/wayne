@@ -8,18 +8,18 @@
                 <svg style="width: 16px; height: 16px;fill: #377aec; margin-right: 5px;" viewBox="0, 0, 40 , 40" xmlns="http://www.w3.org/2000/svg">
                   <rect x="0" y="18.5" width="40" height="3" rx="1.5" ry="1.5"></rect>
                   <rect x="18.5" y="0" width="3" height="40" rx="1.5" ry="1.5"></rect>
-                </svg> {{'TITEL.CREATE_PRODUCT' | translate}}
+                </svg> {{'TITLE.CREATE_PRODUCT' | translate}}
             </div>
           </wayne-card>
           <ng-container *ngFor="let cluster of clusters; let i = index">
             <wayne-card @cardState *ngIf="cluster.state" [header]="cluster.name">
               <div style="flex: 1; margin-top: 12px; display: flex; flex-direction: column; justify-content: space-around;">
                 <div style="display: flex;">
-                  <div style="font-family: monospace;">{{'TITEL.CPU_USAGE_SHORT' | translate}}</div>
+                  <div style="font-family: monospace;">{{'TITLE.CPU_USAGE_SHORT' | translate}}</div>
                   <wayne-progress [count]="resources[cluster.name].usage.cpu" [total]="dealLimitLogic(resources[cluster.name].limit.cpu)"></wayne-progress>
                 </div>
                 <div style="display: flex;">
-                  <div style="font-family: monospace;">{{'TITEL.MEMORY_USAGE_SHORT' | translate}}</div>
+                  <div style="font-family: monospace;">{{'TITLE.MEMORY_USAGE_SHORT' | translate}}</div>
                   <wayne-progress [count]="resources[cluster.name].usage.memory" [total]="dealLimitLogic(resources[cluster.name].limit.memory)"></wayne-progress>
                 </div>
               </div>
@@ -40,15 +40,15 @@
         <wayne-box>
           <div class="table-search" style="padding: 0 15px;">
             <div class="table-search-left">
-              <button class="wayne-button active" [class.active]="!starredFilter" (click)="starredChange(false)">{{'TITEL.ALL_CONTENT' | translate}}</button>
-              <button class="wayne-button" [class.active]="starredFilter" (click)="starredChange(true)">{{'TITEL.COLLECTED' | translate}}</button>
+              <button class="wayne-button active" [class.active]="!starredFilter" (click)="starredChange(false)">{{'TITLE.ALL_CONTENT' | translate}}</button>
+              <button class="wayne-button" [class.active]="starredFilter" (click)="starredChange(true)">{{'TITLE.COLLECTED' | translate}}</button>
               <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
                 <wayne-checkbox-group class=".filter-body-content" [(ngModel)]="showList">
-                  <wayne-checkbox value="name">{{'TITEL.NAME' | translate}}</wayne-checkbox>
-                  <wayne-checkbox value="description">{{'TITEL.DESCRIPTION' | translate}}</wayne-checkbox>
-                  <wayne-checkbox value="create_time">{{'TITEL.CREATE_TIME' | translate}}</wayne-checkbox>
-                  <wayne-checkbox value="create_user">{{'TITEL.CREATE_USER' | translate}}</wayne-checkbox>
-                  <wayne-checkbox value="action">{{'TITEL.ACTION' | translate}}</wayne-checkbox>
+                  <wayne-checkbox value="name">{{'TITLE.NAME' | translate}}</wayne-checkbox>
+                  <wayne-checkbox value="description">{{'TITLE.DESCRIPTION' | translate}}</wayne-checkbox>
+                  <wayne-checkbox value="create_time">{{'TITLE.CREATE_TIME' | translate}}</wayne-checkbox>
+                  <wayne-checkbox value="create_user">{{'TITLE.CREATE_USER' | translate}}</wayne-checkbox>
+                  <wayne-checkbox value="action">{{'TITLE.ACTION' | translate}}</wayne-checkbox>
                 </wayne-checkbox-group>
               </wayne-filter-box>
             </div>

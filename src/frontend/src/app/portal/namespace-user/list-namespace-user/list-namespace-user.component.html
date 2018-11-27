@@ -6,29 +6,29 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user.name'" *ngIf="listType === 'namespace'">
     <ng-container *clrDgHideableColumn="showState['name']">
-      {{'TITEL.USER' | translate}}{{'TITEL.NAME' | translate}}
+      {{'TITLE.USER' | translate}}{{'TITLE.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'namespace.name'" *ngIf="listType === 'user'">
     <ng-container *clrDgHideableColumn="showState['namespace']">
-      {{'TITEL.NAMESPACE' | translate}}
+      {{'TITLE.NAMESPACE' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['group']">
-      {{'TITEL.GROUP' | translate}}
+      {{'TITLE.GROUP' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['create_time']">
-      {{'TITEL.CREATE_TIME' | translate}}
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column
       *ngIf="authService.currentNamespacePermission.namespaceUser.update || authService.currentNamespacePermission.namespaceUser.delete ||  authService.currentUser.admin"
     >
     <ng-container *clrDgHideableColumn="showState['action']">
-      {{'TITEL.ACTION' | translate}}
+      {{'TITLE.ACTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let namespaceUser of namespaceUsers" [clrDgItem]="namespaceUser">

@@ -12,6 +12,7 @@ import {DeploymentService} from '../../../shared/client/v1/deployment.service';
 import {App} from '../../../shared/model/v1/app';
 import {AuthService} from '../../../shared/auth/auth.service';
 import {ApiNameGenerateRule} from '../../../shared/utils';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'create-edit-deployment',
@@ -40,6 +41,7 @@ export class CreateEditDeploymentComponent implements OnInit {
 
   constructor(private deploymentService: DeploymentService,
               public authService: AuthService,
+              public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
   }
 

@@ -38,10 +38,10 @@ export class ResourceComponent implements OnInit, AfterViewInit {
               private messageHandlerService: MessageHandlerService,
   ) { }
   ngOnInit() {
-    this.translate.stream(['OTHER', 'TITEL.CPU_USAGE', 'TITEL.MEMORY_USAGE', 'MENU.PRODUCT']).subscribe(res => {
+    this.translate.stream(['OTHER', 'TITLE.CPU_USAGE', 'TITLE.MEMORY_USAGE', 'MENU.PRODUCT']).subscribe(res => {
       this.otherName = res['OTHER'];
-      this.cpuName = res['TITEL.CPU_USAGE'];
-      this.memName = res['TITEL.MEMORY_USAGE'];
+      this.cpuName = res['TITLE.CPU_USAGE'];
+      this.memName = res['TITLE.MEMORY_USAGE'];
       this.seriesName = res['MENU.PRODUCT'];
       if (this.dataDone) this.initOptions();
     });

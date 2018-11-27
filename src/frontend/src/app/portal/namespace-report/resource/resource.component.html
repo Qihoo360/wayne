@@ -4,8 +4,8 @@
 </div>
 <clr-datagrid>
   <clr-dg-column [clrDgField]="'app'">{{'MENU.PRODUCT' | translate}}</clr-dg-column>
-  <clr-dg-column [clrDgSortBy]="'cpu'">{{'TITEL.CPU_USAGE' | translate}}</clr-dg-column>
-  <clr-dg-column [clrDgSortBy]="'memory'">{{'TITEL.MEMORY_USAGE' | translate}}</clr-dg-column>
+  <clr-dg-column [clrDgSortBy]="'cpu'">{{'TITLE.CPU_USAGE' | translate}}</clr-dg-column>
+  <clr-dg-column [clrDgSortBy]="'memory'">{{'TITLE.MEMORY_USAGE' | translate}}</clr-dg-column>
   <clr-dg-row *clrDgItems="let rs of ResourceList">
       <clr-dg-cell>{{rs.app}}</clr-dg-cell>
       <clr-dg-cell>{{rs.cpu}}</clr-dg-cell>

@@ -41,10 +41,10 @@ export class HistoryComponent implements OnInit, AfterViewInit {
               public translate: TranslateService
   ) { }
   ngOnInit() {
-    this.translate.stream(['TITEL.DEPLOY_FREQ', 'TITEL.LATE_DAY'], {value: 90}).subscribe(
+    this.translate.stream(['TITLE.DEPLOY_FREQ', 'TITLE.LATE_DAY'], {value: 90}).subscribe(
       res => {
-        this.text = res['TITEL.DEPLOY_FREQ'];
-        this.subText = res['TITEL.LATE_DAY'];
+        this.text = res['TITLE.DEPLOY_FREQ'];
+        this.subText = res['TITLE.LATE_DAY'];
         if (this.dataDone) this.initHistoryOptions();
       }
     );

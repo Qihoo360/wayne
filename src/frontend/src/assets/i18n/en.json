@@ -56,7 +56,7 @@
         "CONFIGMAP": "Configmap",
         "SECRET": "Secret"
     },
-    "TITEL": {
+    "TITLE": {
         "CREATE_PRODUCT": "Create App",
         "DEPARTMENT_NAME": "Department Name",
         "CREATE_TIME": "Create Time",

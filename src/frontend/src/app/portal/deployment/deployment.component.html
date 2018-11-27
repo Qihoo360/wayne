@@ -16,7 +16,7 @@
   <div class="table-search">
     <div class="table-search-left">
       <button class="wayne-button normal" (click)="createDeploymentTpl()" *ngIf="authService.currentAppPermission.deployment.create || authService.currentUser.admin">
-        {{'ACTION.CREATE' | translate}}{{'TITEL.TEMPLATE' | translate}}
+        {{'ACTION.CREATE' | translate}}{{'TITLE.TEMPLATE' | translate}}
       </button>
       <button class="wayne-button normal" (click)="editDeployment()" *ngIf="authService.currentAppPermission.deployment.update || authService.currentUser.admin">
         {{'ACTION.EDIT' | translate}}{{'MENU.DEPLOYMENT' | translate}}
@@ -29,12 +29,12 @@
       </button>
       <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
         <wayne-checkbox-group [(ngModel)]="showList">
-          <wayne-checkbox value="create_time">{{'TITEL.CREATE_TIME' | translate}}</wayne-checkbox>
-          <wayne-checkbox value="version">{{'TITEL.VERSION' | translate}}</wayne-checkbox>
-          <wayne-checkbox value="online_cluster">{{'TITEL.ONLINE_CLUSTER' | translate}}</wayne-checkbox>
-          <wayne-checkbox value="release_explain">{{'TITEL.RELEASE' | translate}}{{'TITEL.EXPLAIN' | translate}}</wayne-checkbox>
-          <wayne-checkbox value="create_user">{{'TITEL.CREATE_USER' | translate}}</wayne-checkbox>
-          <wayne-checkbox value="action">{{'TITEL.ACTION' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="create_time">{{'TITLE.CREATE_TIME' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="version">{{'TITLE.VERSION' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="online_cluster">{{'TITLE.ONLINE_CLUSTER' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="release_explain">{{'TITLE.RELEASE' | translate}}{{'TITLE.EXPLAIN' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="create_user">{{'TITLE.CREATE_USER' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="action">{{'TITLE.ACTION' | translate}}</wayne-checkbox>
         </wayne-checkbox-group>
       </wayne-filter-box>
     </div>

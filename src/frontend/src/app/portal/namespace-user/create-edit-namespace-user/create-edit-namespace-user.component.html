@@ -4,7 +4,7 @@
     <form #namespaceUserForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="name" class="col-md-3 form-group-label-override required">{{'TITEL.NAME' | translate}}</label>
+          <label for="name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <input class="form-control" type="text" id="namespace_user_name"  [(ngModel)]="namespaceUser.user.name"
                    name="name" size="32"
@@ -19,15 +19,15 @@
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;height:250px;">
-          <label for="namespace_user_group" class="col-md-3 form-group-label-override required">{{'TITEL.GROUP' | translate}}</label>
+          <label for="namespace_user_group" class="col-md-3 form-group-label-override required">{{'TITLE.GROUP' | translate}}</label>
           <label for="namespace_user_group" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <ng2-dual-list-box name="namespace_user_group"
                                [data]="allGroups"
                                valueField="id"
                                textField="name"
-                               [availableText]="'TITEL.AVAIL_ITEM' | translate"
-                               [selectedText]="'TITEL.CHOOSED_ITEM' | translate"
+                               [availableText]="'TITLE.AVAIL_ITEM' | translate"
+                               [selectedText]="'TITLE.CHOOSED_ITEM' | translate"
                                [(ngModel)]="selectGroups"
             >
             </ng2-dual-list-box>

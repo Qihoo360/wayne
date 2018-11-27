@@ -6,7 +6,7 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'name'" style="min-width: 206px;">
     <ng-container *clrDgHideableColumn="showState['name']">
-      {{'TITEL.NAME' | translate}}
+      {{'TITLE.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
@@ -16,17 +16,17 @@
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['status']">
-      {{'TITEL.STATUS' | translate}}
+      {{'TITLE.STATUS' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user'">
     <ng-container *clrDgHideableColumn="showState['create_user']">
-      {{'TITEL.CREATE_USER' | translate}} 
+      {{'TITLE.CREATE_USER' | translate}} 
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['create_time']">
-      {{'TITEL.CREATE_TIME' | translate}} 
+      {{'TITLE.CREATE_TIME' | translate}} 
     </ng-container>
   </clr-dg-column>
   <clr-dg-column
@@ -38,7 +38,7 @@
       authService.currentUser.admin"
   >
     <ng-container *clrDgHideableColumn="showState['action']">
-      {{'TITEL.ACTION' | translate}} 
+      {{'TITLE.ACTION' | translate}} 
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let w of webHooks; let i = index" [clrDgItem]="webHook">
