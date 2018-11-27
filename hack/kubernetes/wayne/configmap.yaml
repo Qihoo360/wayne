@@ -27,6 +27,7 @@ data:
 
     # kubernetes labels config
     AppLabelKey= wayne-app
+    ComponentLabelKey = wayne-component
     NamespaceLabelKey = wayne-ns
     PodAnnotationControllerKindLabelKey = wayne.cloud/controller-kind
 

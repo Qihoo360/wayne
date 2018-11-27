@@ -25,8 +25,8 @@ import {Cronjob} from '../../../shared/model/v1/cronjob';
 import {CronjobTplService} from '../../../shared/client/v1/cronjobtpl.service';
 import {CronjobService} from '../../../shared/client/v1/cronjob.service';
 import {AppService} from '../../../shared/client/v1/app.service';
-import {ActionType, appLabelKey, defaultResources, namespaceLabelKey} from '../../../shared/shared.const';
-import {mergeDeep, ResourceUnitConvertor} from '../../../shared/utils';
+import {ActionType, defaultResources, appLabelKey, componentLabelKey, namespaceLabelKey} from '../../../shared/shared.const';
+import {mergeDeep, ResourceUnitConvertor, ApiNameGenerateRule} from '../../../shared/utils';
 import {CacheService} from '../../../shared/auth/cache.service';
 import {AuthService} from '../../../shared/auth/auth.service';
 import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
@@ -265,6 +265,7 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
       labels = {};
     }
     labels[this.authService.config[appLabelKey]] = this.app.name;
+    labels[this.authService.config[componentLabelKey]] = ApiNameGenerateRule.extractName(this.cronjob.name, this.app.name);
     labels[this.authService.config[namespaceLabelKey]] = this.cacheService.currentNamespace.name;
     labels['app'] = this.cronjob.name;
     return labels;

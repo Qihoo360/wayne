@@ -22,7 +22,7 @@ import 'rxjs/add/observable/combineLatest';
 import {ActivatedRoute, Router} from '@angular/router';
 import {App} from '../../../shared/model/v1/app';
 import {AppService} from '../../../shared/client/v1/app.service';
-import {ActionType, appLabelKey, defaultResources, namespaceLabelKey} from '../../../shared/shared.const';
+import {ActionType, defaultResources, appLabelKey, componentLabelKey, namespaceLabelKey} from '../../../shared/shared.const';
 import {CacheService} from '../../../shared/auth/cache.service';
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from '../../../shared/auth/auth.service';
@@ -33,7 +33,7 @@ import {DaemonSet} from '../../../shared/model/v1/daemonset';
 import {DaemonSetService} from '../../../shared/client/v1/daemonset.service';
 import {DaemonSetTplService} from '../../../shared/client/v1/daemonsettpl.service';
 import {defaultDaemonSet} from '../../../shared/default-models/daemonset.const';
-import {ResourceUnitConvertor} from '../../../shared/utils';
+import {ResourceUnitConvertor, ApiNameGenerateRule} from '../../../shared/utils';
 import {ConfigMapEnvSource, EnvFromSource, SecretEnvSource} from '../../../shared/model/v1/kubernetes/deployment';
 
 const templateDom = [
@@ -245,6 +245,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
       labels = {};
     }
     labels[this.authService.config[appLabelKey]] = this.app.name;
+    labels[this.authService.config[componentLabelKey]] = ApiNameGenerateRule.extractName(this.daemonSet.name, this.app.name);
     labels[this.authService.config[namespaceLabelKey]] = this.cacheService.currentNamespace.name;
     labels['app'] = this.daemonSet.name;
     return labels;

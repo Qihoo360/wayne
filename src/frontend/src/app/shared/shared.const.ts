@@ -30,6 +30,7 @@ export const defaultResources = {
 };
 
 export const appLabelKey = 'appLabelKey';
+export const componentLabelKey = 'componentLabelKey';
 export const namespaceLabelKey = 'namespaceLabelKey';
 
 export const defaultRoutingUrl = 'portal/namespace/0/app';

@@ -30,6 +30,7 @@ func (c *BaseConfigController) ListBase() {
 	configMap["betaUrl"] = beego.AppConfig.String("BetaUrl")
 	configMap["enableDBLogin"] = beego.AppConfig.DefaultBool("EnableDBLogin", false)
 	configMap["appLabelKey"] = util.AppLabelKey
+	configMap["componentLabelKey"] = util.ComponentLabelKey
 	configMap["namespaceLabelKey"] = util.NamespaceLabelKey
 	configMap["enableRobin"] = beego.AppConfig.DefaultBool("EnableRobin", false)
 	configMap["ldapLogin"] = parseAuthEnabled("auth.ldap")

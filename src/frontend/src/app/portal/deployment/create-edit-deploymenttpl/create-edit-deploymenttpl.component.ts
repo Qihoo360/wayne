@@ -34,8 +34,8 @@ import {Deployment} from '../../../shared/model/v1/deployment';
 import {DeploymentTplService} from '../../../shared/client/v1/deploymenttpl.service';
 import {DeploymentService} from '../../../shared/client/v1/deployment.service';
 import {AppService} from '../../../shared/client/v1/app.service';
-import {ActionType, appLabelKey, defaultResources, namespaceLabelKey} from '../../../shared/shared.const';
-import {ResourceUnitConvertor} from '../../../shared/utils';
+import {ActionType, defaultResources, appLabelKey, componentLabelKey, namespaceLabelKey} from '../../../shared/shared.const';
+import {ResourceUnitConvertor, ApiNameGenerateRule} from '../../../shared/utils';
 import {CacheService} from '../../../shared/auth/cache.service';
 import {AuthService} from '../../../shared/auth/auth.service';
 import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
@@ -279,6 +279,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
       labels = {};
     }
     labels[this.authService.config[appLabelKey]] = this.app.name;
+    labels[this.authService.config[componentLabelKey]] = ApiNameGenerateRule.extractName(this.deployment.name, this.app.name);
     labels[this.authService.config[namespaceLabelKey]] = this.cacheService.currentNamespace.name;
     labels['app'] = this.deployment.name;
     return labels;

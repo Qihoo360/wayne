@@ -173,8 +173,8 @@ export class CreateEditDeploymentComponent implements OnInit {
     this.deployment.metaData = this.formatMetaData();
     switch (this.actionType) {
       case ActionType.ADD_NEW:
-        this.deployment.name = ApiNameGenerateRule.generateName(ApiNameGenerateRule.config(
-          this.authService.config[configKeyApiNameGenerateRule], this.app.metaData),
+        this.deployment.name = ApiNameGenerateRule.generateName(
+          ApiNameGenerateRule.config(this.authService.config[configKeyApiNameGenerateRule], this.app.metaData),
           this.deployment.name, this.app.name);
         this.deploymentService.create(this.deployment).subscribe(
           response => {

@@ -24,7 +24,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {App} from '../../../shared/model/v1/app';
 import {StatefulsetService} from '../../../shared/client/v1/statefulset.service';
 import {AppService} from '../../../shared/client/v1/app.service';
-import {ActionType, appLabelKey, defaultResources, namespaceLabelKey} from '../../../shared/shared.const';
+import {ActionType, defaultResources, appLabelKey, componentLabelKey, namespaceLabelKey} from '../../../shared/shared.const';
 import {CacheService} from '../../../shared/auth/cache.service';
 import {Statefulset} from '../../../shared/model/v1/statefulset';
 import {StatefulsetTplService} from '../../../shared/client/v1/statefulsettpl.service';
@@ -34,7 +34,7 @@ import {Observable} from 'rxjs/Observable';
 import {AuthService} from '../../../shared/auth/auth.service';
 import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
 import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
-import {ResourceUnitConvertor} from '../../../shared/utils';
+import {ResourceUnitConvertor, ApiNameGenerateRule} from '../../../shared/utils';
 import {ConfigMapEnvSource, EnvFromSource, SecretEnvSource} from '../../../shared/model/v1/kubernetes/deployment';
 
 const templateDom = [
@@ -246,6 +246,7 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
       labels = {};
     }
     labels[this.authService.config[appLabelKey]] = this.app.name;
+    labels[this.authService.config[componentLabelKey]] = ApiNameGenerateRule.extractName(this.statefulset.name, this.app.name);
     labels[this.authService.config[namespaceLabelKey]] = this.cacheService.currentNamespace.name;
     labels['app'] = this.statefulset.name;
     return labels;

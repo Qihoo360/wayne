@@ -78,6 +78,13 @@ export class ApiNameGenerateRule {
     }
     return apiName;
   }
+
+  static extractName(apiName: string, appName: string): string {
+    if (apiName.length <= appName.length) {
+      return apiName;
+    }
+    return apiName.startsWith(appName) ? apiName.slice(appName.length + 1) : apiName;
+  }
 }
 
 export class ResourceUnitConvertor {
