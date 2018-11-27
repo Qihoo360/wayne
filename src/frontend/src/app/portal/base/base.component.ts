@@ -29,7 +29,7 @@ export class BaseComponent {
         let app: App = response.data;
         // 缓存app信息到 appService 中
         this.appService.app = response.data;
-        if (this.appBetaMode(app.metaData) && window.location.origin != wayneBetaUrl) {
+        if (this.appBetaMode(app.metaData) && wayneBetaUrl && window.location.origin != wayneBetaUrl) {
           window.location.href = `${wayneBetaUrl}${this.router.url}`;
           return;
         }
