@@ -3,7 +3,6 @@ package openapi
 import (
 	"fmt"
 	"net/http"
-	"strings"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/models"
@@ -57,7 +56,7 @@ func (c *OpenAPIController) GetPodInfo() {
 	clis := client.Clients()
 	podList := resppodlist{}
 	podList.Body.Code = http.StatusOK
-	params := PodInfoParam{c.GetString("labelSelector"), strings.ToUpper(c.GetString("cluster"))}
+	params := PodInfoParam{c.GetString("labelSelector"), c.GetString("cluster")}
 	if params.Cluster == "" {
 		c.AddErrorAndResponse("Invalid cluster parameter:must required!", http.StatusBadRequest)
 		return
