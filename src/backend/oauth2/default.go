@@ -9,15 +9,15 @@ import (
 	"golang.org/x/oauth2"
 )
 
-var _ OAuther = &OAuth2Qihoo{}
+var _ OAuther = &OAuth2Default{}
 
-type OAuth2Qihoo struct {
+type OAuth2Default struct {
 	*oauth2.Config
 	ApiUrl     string
 	ApiMapping map[string]string
 }
 
-func (o *OAuth2Qihoo) UserInfo(token string) (*BasicUserInfo, error) {
+func (o *OAuth2Default) UserInfo(token string) (*BasicUserInfo, error) {
 	userinfo := &BasicUserInfo{}
 
 	response, err := httplib.Get(o.ApiUrl).Header("Authorization", fmt.Sprintf("Bearer %s", token)).DoRequest()

@@ -16,9 +16,9 @@
         <button style="margin-top: 20px; width:240px;height: 40px;font-size: 16px;" type="submit" class="wayne-button" [class.normal]="isValid" [class.invalid]="!isValid" (click)="onSubmit()">立即登录</button>
       </div>
     </div>
-    <div *ngIf="authService.config?.qihooLogin"  style="padding-bottom:5px;text-align:center;">
+    <div *ngIf="authService.config?.oauth2Login"  style="padding-bottom:5px;text-align:center;">
       <hr style="width: 240px;"/>
-      <button style="margin-top: 10px; width:240px;height: 40px;font-size: 16px;" type="submit" (click)="qihooLogin()" class="wayne-button normal">{{qihooLoginTitle}}</button>
+      <button style="margin-top: 10px; width:240px;height: 40px;font-size: 16px;" type="submit" (click)="oauth2Login()" class="wayne-button normal">{{getOAuth2Title()}}</button>
     </div>
   </form>
 </div>
