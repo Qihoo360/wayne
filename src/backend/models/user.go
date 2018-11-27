@@ -94,11 +94,11 @@ func (*userModel) AddUser(m *User) (id int64, err error) {
 
 func addDefaultNamespace(user *User) (err error) {
 	// 添加默认命名空间开发者权限
-	demoNSId, err := strconv.ParseInt(beego.AppConfig.String("DemoNamespaceId"), 10, 64)
+	demoNSId, err := strconv.ParseInt(beego.AppConfig.DefaultString("DemoNamespaceId", "0"), 10, 64)
 	if err != nil {
 		return
 	}
-	demoGroupId, err := strconv.ParseInt(beego.AppConfig.String("DemoGroupId"), 10, 64)
+	demoGroupId, err := strconv.ParseInt(beego.AppConfig.DefaultString("DemoGroupId", "0"), 10, 64)
 	if err != nil {
 		return
 	}
