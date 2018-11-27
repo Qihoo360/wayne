@@ -5,8 +5,8 @@
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'name'" style="min-width: 206px;">
-    <ng-container *clrDgHideableColumn="showState['名称']">
-      名称
+    <ng-container *clrDgHideableColumn="showState['name']">
+      {{'TITEL.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
@@ -15,18 +15,18 @@
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['启用状态']">
-      启用状态
+    <ng-container *clrDgHideableColumn="showState['status']">
+      {{'TITEL.STATUS' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user'">
-    <ng-container *clrDgHideableColumn="showState['创建用户']">
-      创建用户 
+    <ng-container *clrDgHideableColumn="showState['create_user']">
+      {{'TITEL.CREATE_USER' | translate}} 
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['创建时间']">
-      创建时间
+    <ng-container *clrDgHideableColumn="showState['create_time']">
+      {{'TITEL.CREATE_TIME' | translate}} 
     </ng-container>
   </clr-dg-column>
   <clr-dg-column
@@ -37,8 +37,8 @@
       authService.currentAppPermission.webHook.delete ||
       authService.currentUser.admin"
   >
-    <ng-container *clrDgHideableColumn="showState['操作']">
-      操作
+    <ng-container *clrDgHideableColumn="showState['action']">
+      {{'TITEL.ACTION' | translate}} 
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let w of webHooks; let i = index" [clrDgItem]="webHook">
@@ -72,14 +72,14 @@
         authService.currentAppPermission.webHook.update ||
         authService.currentUser.admin"
         (click)="editWebhook(w)">
-        编辑</button>
+        {{'ACTION.EDIT' | translate}}</button>
       <button class="wayne-button text"
         *ngIf="
         authService.currentNamespacePermission.webHook.delete ||
         authService.currentAppPermission.webHook.delete ||
         authService.currentUser.admin"
         (click)="deleteWebhook(w)">
-        删除</button>
+        {{'ACTION.DELETE' | translate}}</button>
     </clr-dg-cell>
   </clr-dg-row>
 

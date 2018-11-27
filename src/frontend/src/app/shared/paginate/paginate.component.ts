@@ -31,9 +31,6 @@ export class PaginateComponent implements OnInit {
 	set current(value: number) {
 		this.currentPageChange.emit(value);
 	};
-	get showTotal() {
-		return {value: this.total};
-	}
 	
 	get lastPage():number {
 		try {

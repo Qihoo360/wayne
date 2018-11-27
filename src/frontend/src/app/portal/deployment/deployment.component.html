@@ -1,5 +1,5 @@
 <button (click)="createDeployment()" class="wayne-button primary" *ngIf="authService.currentAppPermission.deployment.create || authService.currentUser.admin">
-  创建部署
+  {{'ACTION.CREATE' | translate}}{{'MENU.DEPLOYMENT' | translate}}
 </button>
 <create-edit-deployment (create)="create($event)"></create-edit-deployment>
 <div *ngIf="deploymentId && deployments?.length>0">
@@ -16,32 +16,32 @@
   <div class="table-search">
     <div class="table-search-left">
       <button class="wayne-button normal" (click)="createDeploymentTpl()" *ngIf="authService.currentAppPermission.deployment.create || authService.currentUser.admin">
-        创建模版
+        {{'ACTION.CREATE' | translate}}{{'TITEL.TEMPLATE' | translate}}
       </button>
       <button class="wayne-button normal" (click)="editDeployment()" *ngIf="authService.currentAppPermission.deployment.update || authService.currentUser.admin">
-        编辑部署
+        {{'ACTION.EDIT' | translate}}{{'MENU.DEPLOYMENT' | translate}}
       </button>
       <button class="wayne-button normal" (click)="publishHistory()" *ngIf="authService.currentAppPermission.deployment.read || authService.currentUser.admin">
-        发布历史
+        {{'BUTTON.HISTORY' | translate}}
       </button>
       <button class="wayne-button normal" (click)="deleteDeployment()" *ngIf="authService.currentAppPermission.deployment.offline || authService.currentUser.admin">
-        删除部署
+        {{'ACTION.DELETE' | translate}}{{'MENU.DEPLOYMENT' | translate}}
       </button>
       <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
         <wayne-checkbox-group [(ngModel)]="showList">
-          <wayne-checkbox>创建时间</wayne-checkbox>
-          <wayne-checkbox>版本</wayne-checkbox>
-          <wayne-checkbox>上线机房</wayne-checkbox>
-          <wayne-checkbox>发布说明</wayne-checkbox>
-          <wayne-checkbox>创建者</wayne-checkbox>
-          <wayne-checkbox>操作</wayne-checkbox>
+          <wayne-checkbox value="create_time">{{'TITEL.CREATE_TIME' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="version">{{'TITEL.VERSION' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="online_cluster">{{'TITEL.ONLINE_CLUSTER' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="release_explain">{{'TITEL.RELEASE' | translate}}{{'TITEL.EXPLAIN' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="create_user">{{'TITEL.CREATE_USER' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="action">{{'TITEL.ACTION' | translate}}</wayne-checkbox>
         </wayne-checkbox-group>
       </wayne-filter-box>
     </div>
     <div class="table-search-right">
       <div class="toggle-switch">
         <input type="checkbox" id="toggle_1" [(ngModel)]="isOnline" (change)="onlineChange()">
-        <label for="toggle_1">只显示上线模板</label>
+        <label for="toggle_1">{{'MESSAGE.ONLY_ONLINE_TEMPLATE' | translate}}</label>
       </div>
     </div>
   </div>

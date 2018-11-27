@@ -4,6 +4,7 @@ import {ClrDatagridStateInterface} from '@clr/angular';
 import {WebHook} from '../../../shared/model/v1/webhook';
 import {AuthService} from '../../../shared/auth/auth.service';
 import {Page} from '../../../shared/page/page-state';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'list-namespace-webhook',
@@ -24,7 +25,8 @@ export class ListNamespaceWebHookComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private router: Router
+    private router: Router,
+    public translate: TranslateService
   ) {
   }
 

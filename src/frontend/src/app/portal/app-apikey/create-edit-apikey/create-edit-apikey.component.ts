@@ -10,6 +10,7 @@ import {GroupService} from '../../../shared/client/v1/group.service';
 import {Group} from '../../../shared/model/v1/group';
 import {ActivatedRoute} from '@angular/router';
 import {PageState} from '../../../shared/page/page-state';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'create-edit-apikey',
@@ -36,6 +37,7 @@ export class CreateEditApiKeyComponent implements OnInit {
   constructor(private messageHandlerService: MessageHandlerService,
               private route: ActivatedRoute,
               private apiKeyService: ApiKeyService,
+              public translate: TranslateService,
               private groupService: GroupService) {
   }
 
@@ -57,7 +59,7 @@ export class CreateEditApiKeyComponent implements OnInit {
     this.modalOpened = true;
     if (id) {
       this.actionType = ActionType.EDIT;
-      this.title = '编辑APIKey';
+      this.title = 'ACTION.EDIT';
       this.apiKeyService.getById(id, null, this.appId).subscribe(
         status => {
           this.apiKey = status.data
@@ -68,7 +70,7 @@ export class CreateEditApiKeyComponent implements OnInit {
         });
     } else {
       this.actionType = ActionType.ADD_NEW;
-      this.title = '创建APIKey';
+      this.title = 'ACTION.CREATE';
       this.apiKey = new ApiKey();
     }
   }

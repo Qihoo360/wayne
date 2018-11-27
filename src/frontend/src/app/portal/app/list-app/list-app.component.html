@@ -22,7 +22,7 @@
     <clr-dg-cell>{{app.user}}</clr-dg-cell>
     <clr-dg-cell class="col-operate">
       <button *ngIf="!app.starred" class="wayne-button text" (click)="starredApp(app)">{{'ACTION.COLLECT' | translate}}</button>
-      <button *ngIf="app.starred" class="wayne-button text" (click)="unstarredApp(app)">{{'ACTION.CANCEL_COLLECT' | translate}}</button>
+      <button *ngIf="app.starred" class="wayne-button text" (click)="unstarredApp(app)">{{'ACTION.CANCEL_COLLECTED' | translate}}</button>
       <button class="wayne-button text" (click)="enterApp(app)">{{'ACTION.DETAIL' | translate}}</button>
       <button *ngIf="getMonitorUri()"  class="wayne-button text"  (click)="goToMonitor(app)">{{'ACTION.MONITOR' | translate}}</button>
       <button *ngIf="authService.currentNamespacePermission.app.update || authService.currentUser.admin" class="wayne-button text" (click)="editApp(app)">{{'ACTION.EDIT' | translate}}</button>
