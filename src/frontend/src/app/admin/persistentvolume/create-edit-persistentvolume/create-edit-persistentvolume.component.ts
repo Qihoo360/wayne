@@ -48,19 +48,19 @@ export class CreateEditPersistentVolumeComponent implements OnInit {
   }
 
   defaultPv() {
-    let pv = `{
-  'metadata': {
-    'name': '',
-    'labels': {}
+    const pv = `{
+  "metadata": {
+    "name": "",
+    "labels": {}
   },
-  'spec': {
-    'capacity': {
-      'storage': '10Gi'
+  "spec": {
+    "capacity": {
+      "storage": "10Gi"
     },
-    'accessModes': [
-      'ReadWriteOnce'
+    "accessModes": [
+      "ReadWriteOnce"
     ],
-    'persistentVolumeReclaimPolicy': 'Retain'
+    "persistentVolumeReclaimPolicy": "Retain"
   }
 }`;
     return JSON.parse(pv);
