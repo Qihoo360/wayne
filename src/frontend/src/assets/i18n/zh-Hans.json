@@ -91,7 +91,7 @@
     "SECRET": "加密字典"
   },
   "TITLE": {
-    "CREATE_PRODUCT": "创建项目",
+    "CREATE_APP": "创建项目",
     "DEPARTMENT_NAME": "部门名称",
     "CREATE_TIME": "创建时间",
     "CPU_USAGE": "CPU 使用(核)",

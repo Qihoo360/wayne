@@ -57,7 +57,7 @@
         "SECRET": "Secret"
     },
     "TITLE": {
-        "CREATE_PRODUCT": "Create App",
+        "CREATE_APP": "Create App",
         "DEPARTMENT_NAME": "Department Name",
         "CREATE_TIME": "Create Time",
         "CPU_USAGE": "CPU Usage(Core)",
