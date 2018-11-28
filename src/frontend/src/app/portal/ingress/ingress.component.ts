@@ -27,6 +27,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {PageState} from '../../shared/page/page-state';
 import {TabDragService} from '../../shared/client/v1/tab-drag.service';
 import {OrderItem} from '../../shared/model/v1/order';
+import {ListIngressComponent} from './list-ingress/list-ingress.component';
 
 const showState = {
   '创建时间': {hidden: false},
@@ -45,6 +46,8 @@ const showState = {
 export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
   @ViewChild(CreateEditIngressComponent)
   createEditIngress: CreateEditIngressComponent;
+  @ViewChild(ListIngressComponent)
+  listIngressComponent: ListIngressComponent;
 
   pageState: PageState = new PageState();
 
@@ -106,7 +109,9 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) this.showList.push(key);
+      if (!this.showState[key].hidden) {
+        this.showList.push(key);
+      }
     })
   }
 
