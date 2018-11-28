@@ -52,7 +52,8 @@ The whole system adopts the separation of front and back ends, in which the fron
 - Clone
 
 ```bash
-$ go get https://github.com/Qihoo360/wayne
+$ mkdir -p $GOPATH/src/github.com/Qihoo360 && cd $GOPATH/src/github.com/Qihoo360
+$ git clone https://github.com/Qihoo360/wayne.git
 ```
 
 - Start MySQL(Optional)
