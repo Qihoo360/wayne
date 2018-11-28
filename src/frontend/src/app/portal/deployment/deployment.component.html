@@ -1,5 +1,5 @@
 <button (click)="createDeployment()" class="wayne-button primary" *ngIf="authService.currentAppPermission.deployment.create || authService.currentUser.admin">
-  {{'ACTION.CREATE' | translate}}{{'MENU.DEPLOYMENT' | translate}}
+  {{'DEPLOYMENT.CREATE' | translate}}
 </button>
 <create-edit-deployment (create)="create($event)"></create-edit-deployment>
 <div *ngIf="deploymentId && deployments?.length>0">
@@ -16,16 +16,16 @@
   <div class="table-search">
     <div class="table-search-left">
       <button class="wayne-button normal" (click)="createDeploymentTpl()" *ngIf="authService.currentAppPermission.deployment.create || authService.currentUser.admin">
-        {{'ACTION.CREATE' | translate}}{{'TITLE.TEMPLATE' | translate}}
+        {{'DEPLOYMENT.CREATE_TMP' | translate}}
       </button>
       <button class="wayne-button normal" (click)="editDeployment()" *ngIf="authService.currentAppPermission.deployment.update || authService.currentUser.admin">
-        {{'ACTION.EDIT' | translate}}{{'MENU.DEPLOYMENT' | translate}}
+        {{'DEPLOYMENT.EDIT' | translate}}
       </button>
       <button class="wayne-button normal" (click)="publishHistory()" *ngIf="authService.currentAppPermission.deployment.read || authService.currentUser.admin">
         {{'BUTTON.HISTORY' | translate}}
       </button>
       <button class="wayne-button normal" (click)="deleteDeployment()" *ngIf="authService.currentAppPermission.deployment.offline || authService.currentUser.admin">
-        {{'ACTION.DELETE' | translate}}{{'MENU.DEPLOYMENT' | translate}}
+        {{'DEPLOYMENT.DELETE' | translate}}
       </button>
       <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
         <wayne-checkbox-group [(ngModel)]="showList">

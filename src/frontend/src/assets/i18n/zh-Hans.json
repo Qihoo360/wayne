@@ -30,6 +30,7 @@
     "CPU": "CPU限制",
     "CPU_PERCENT": "CPU限制百分比",
     "MEMORY": "内存限制",
+    "MEMORY_PERCENT": "内存限制百分比",
     "REPLICA": "副本数限制"
   },
   "BUTTON": {
@@ -124,7 +125,12 @@
     "CLUSTER": "机房",
     "RELEASE": "发布",
     "ONLINE_CLUSTER": "上线机房",
-    "MESSAGE": "信息",
+    "MESSAGE": "信息"
+  },
+  "TMP": {
+    "CONTAINER_NAME": "容器名称",
+    "RELEASE_MESSAGE": "发布信息",
+    "RELEASE_EXPLAIN": "发布说明",
     "UPDATE_STRATEGY": "更新策略",
     "UPDATE_WAY": "更新方式",
     "SCROLL_UPDATE": "滚动更新",
@@ -169,6 +175,9 @@
     "SAFE_QUIT": "安全退出",
     "PRICE_TOTAL": "单实例费用总计："
   },
+  "CREATE": {
+
+  },
   "ACTION": {
     "UNFOLD": "展开",
     "FOLD": "收起",
@@ -186,7 +195,8 @@
     "CORE": "核",
     "PRICE": "元/月",
     "CORE_NUM": "核数",
-    "PIECE": "份"
+    "PIECE": "份",
+    "MEMROY": "单位 G"
   },
   "PLACEHOLDER": {
     "PRODUCT": "点击输入筛选过滤项目",
@@ -208,6 +218,12 @@
     "CONTAINER": "英文，dns域名规则",
     "MEMROY": "内存大小应该在0~{{value}}G之间",
     "CPU": "CPU大小应该在0~{{value}}核之间"
+  },
+  "DEPLOYMENT": {
+    "CREATE": "创建部署",
+    "CREATE_TMP": "创建部署模板",
+    "EDIT": "编辑部署",
+    "DELETE": "删除部署"
   },
   "OTHER": "其他",
   "OF": "的"
