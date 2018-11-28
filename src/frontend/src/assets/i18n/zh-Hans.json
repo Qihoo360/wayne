@@ -11,14 +11,6 @@
     "NO_USER": "用户不存在",
     "ONLY_ONLINE_TEMPLATE": "只显示上线模板",
     "NO_MESSAGE": "暂无数据",
-    "LOAD_GROUP": "批量从配置集或加密字典加载环境变量",
-    "SUPPORT_ENVIRONMENT": "其它类型的环境变量只支持高级模式编辑",
-    "USABLE": "定期检查服务状态，只有检查通过才会提供服务，检查失败将会从可用服务列表移除",
-    "EXTEND_TIME": "单位秒，请求超时时间",
-    "CHECK_CYCLE": "单位秒，执行检查间隔",
-    "LIVE_CHECK": "定期检查容器状态，检查失败将会重启容器（适用于可能假死并需要重启的服务）",
-    "CHECK_DELAY": "单位秒，启动多久之后开始存活检查，适用于启动时间较长的服务",
-    "LIFE_CYCLE": "容器生命周期钩子，可以在postStart/preStop两个阶段定义额外的操作",
     "CPU": "请填写CPU限制",
     "CPU_PERCENT": "请填写正确CPU限制百分比",
     "MEMORY": "请填写内存限制份数",
@@ -134,9 +126,12 @@
     "RELEASE_EXPLAIN": "发布说明",
     "UPDATE_STRATEGY": "更新策略",
     "UPDATE_WAY": "更新方式",
+    "DELETE_UPDATE": "仅删除时更新",
     "SCROLL_UPDATE": "滚动更新",
     "REBUILD": "删除重建",
+    "DELETE_CONTAINER": "删除容器",
     "SCROLL_NUM": "滚动数量",
+    "CORE_NUM": "CPU核数",
     "MAX_LIMIT": "最大不可用",
     "CONTAINER_CONFIG": "容器配置",
     "IMAGE_CONFIG": "镜像配置",
@@ -174,7 +169,15 @@
     "LIFE_CYCLE": "生命周期",
     "NOT_USE": "不启用",
     "SAFE_QUIT": "安全退出",
-    "PRICE_TOTAL": "单实例费用总计："
+    "PRICE_TOTAL": "单实例费用总计：",
+    "LOAD_GROUP_MESSAGE": "批量从配置集或加密字典加载环境变量",
+    "SUPPORT_ENVIRONMENT_MESSAGE": "其它类型的环境变量只支持高级模式编辑",
+    "USABLE_MESSAGE": "定期检查服务状态，只有检查通过才会提供服务，检查失败将会从可用服务列表移除",
+    "EXTEND_TIME_MESSAGE": "单位秒，请求超时时间",
+    "CHECK_CYCLE_MESSAGE": "单位秒，执行检查间隔",
+    "LIVE_CHECK_MESSAGE": "定期检查容器状态，检查失败将会重启容器（适用于可能假死并需要重启的服务）",
+    "CHECK_DELAY_MESSAGE": "单位秒，启动多久之后开始存活检查，适用于启动时间较长的服务",
+    "LIFE_CYCLE_MESSAGE": "容器生命周期钩子，可以在postStart/preStop两个阶段定义额外的操作"
   },
   "CREATE": {
 
@@ -195,7 +198,6 @@
   "UNIT": {
     "CORE": "核",
     "PRICE": "元/月",
-    "CORE_NUM": "核数",
     "PIECE": "份",
     "MEMROY": "单位 G"
   },

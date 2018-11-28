@@ -102,7 +102,7 @@
             </label>
           </div>
           <div class="form-group form-group-padding">
-            <label class="col-md-3 form-group-label-override required">CPU{{'UNIT.CORE_NUM' | translate}}</label>
+            <label class="col-md-3 form-group-label-override required">{{'TMP.CORE_NUM' | translate}}</label>
             <label aria-haspopup="true" [class.invalid]="!checkCpu(container.resources.limits.cpu)" style="padding-right: 0;margin-right: 0;padding-left: 0"
               role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
               <input type="number" name="container.resources.limits.cpu_{{i}}" [(ngModel)]="container.resources.limits.cpu" style="width:inherit"
@@ -127,7 +127,7 @@
               <label for="envFromType-{{i}}-{{j}}" class="col-md-3 form-group-label-override required">{{'TMP.LOAD_GROUP' | translate}}
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
-                  <span class="tooltip-content">{{'MESSAGE.LOAD_GROUP' | translate}}</span>
+                  <span class="tooltip-content">{{'TMP.LOAD_GROUP_MESSAGE' | translate}}</span>
                 </a>
               </label>
               <div class="select">
@@ -159,7 +159,7 @@
               <label for="envType-{{i}}-{{j}}" class="col-md-3 form-group-label-override required">{{'TMP.ADD_ONE' | translate}}
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
-                  <span class="tooltip-content">{{'MESSAGE.SUPPORT_ENVIRONMENT' | translate}}</span>
+                  <span class="tooltip-content">{{'TMP.SUPPORT_ENVIRONMENT_MESSAGE' | translate}}</span>
                 </a>
               </label>
               <div class="select">
@@ -200,7 +200,7 @@
             <label class="label-level2" [id]="i ? '可用性检查' + i : '可用性检查'" for="readinessProbe{{i}}">{{'TMP.USABLE_CHECK' | translate}}
               <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
                 <clr-icon shape="info-circle" size="24"></clr-icon>
-                <span class="tooltip-content">{{'MESSAGE.USABLE' | translate}}</span>
+                <span class="tooltip-content">{{'TMP.USABLE_MESSAGE' | translate}}</span>
               </a>
             </label>
           </div>
@@ -210,7 +210,7 @@
               <label class="col-md-3 form-group-label-override">{{'TMP.EXTEND_TIME' | translate}}
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
-                  <span class="tooltip-content">{{'MESSAGE.EXTEND_TIME' | translate}}</span>
+                  <span class="tooltip-content">{{'TMP.EXTEND_TIME_MESSAGE' | translate}}</span>
                 </a>
               </label>
               <input type="number" required name="container.readinessProbe.timeoutSeconds_{{i}}" [(ngModel)]="container.readinessProbe.timeoutSeconds"
@@ -218,7 +218,7 @@
               <label class="col-md-3 form-group-label-override">{{'TMP.CHECK_CYCLE' | translate}}
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
-                  <span class="tooltip-content">{{'MESSAGE.CHECK_CYCLE' | translate}}</span>
+                  <span class="tooltip-content">{{'TMP.CHECK_CYCLE_MESSAGE' | translate}}</span>
                 </a>
               </label>
               <input type="number" required name="container.readinessProbe.periodSeconds{{i}}" [(ngModel)]="container.readinessProbe.periodSeconds"
@@ -265,7 +265,7 @@
             <label class="label-level2" [id]="i ? '存活检查' + i : '存活检查'" for="livenessProbe{{i}}">{{'TMP.LIVE_CHECK' | translate}}
               <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
                 <clr-icon shape="info-circle" size="24"></clr-icon>
-                <span class="tooltip-content">{{'MESSAGE.LIVE_CHECK' | translate}}</span>
+                <span class="tooltip-content">{{'TMP.LIVE_CHECK_MESSAGE' | translate}}</span>
               </a>
             </label>
           </div>
@@ -283,7 +283,7 @@
               <label class="col-md-3 form-group-label-override">{{'TMP.CHECK_CYCLE' | translate}}
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
-                  <span class="tooltip-content">{{'MESSAGE.CHECK_CYCLE' | translate}}</span>
+                  <span class="tooltip-content">{{'TMP.CHECK_CYCLE_MESSAGE' | translate}}</span>
                 </a>
               </label>
               <input type="number" required name="container.livenessProbe.periodSeconds{{i}}" [(ngModel)]="container.livenessProbe.periodSeconds"
@@ -295,7 +295,7 @@
               <label class="col-md-3 form-group-label-override">{{'TMP.CHECK_DELAY' | translate}}
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
-                  <span class="tooltip-content">{{'MESSAGE.CHECK_DELAY' | translate}}</span>
+                  <span class="tooltip-content">{{'TMP.CHECK_DELAY_MESSAGE' | translate}}</span>
                 </a>
               </label>
               <input type="number" required name="container.livenessProbe.initialDelaySeconds{{i}}" [(ngModel)]="container.livenessProbe.initialDelaySeconds"
@@ -337,7 +337,7 @@
             <label class="label-level2" [id]="i ? '生命周期' + i : '生命周期'" for="lifecycle{{i}}">{{'TMP.LIFE_CYCLE' | translate}}
               <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
                 <clr-icon shape="info-circle" size="24"></clr-icon>
-                <span class="tooltip-content">{{'MESSAGE.LIFE_CYCLE' | translate}}</span>
+                <span class="tooltip-content">{{'TMP.LIFE_CYCLE_MESSAGE' | translate}}</span>
               </a>
             </label>
           </div>
