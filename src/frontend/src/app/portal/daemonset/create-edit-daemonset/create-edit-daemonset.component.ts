@@ -11,6 +11,7 @@ import {DaemonSetService} from '../../../shared/client/v1/daemonset.service';
 import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
 import {AuthService} from '../../../shared/auth/auth.service';
 import {ApiNameGenerateRule} from '../../../shared/utils';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'create-edit-daemonset',
@@ -36,6 +37,7 @@ export class CreateEditDaemonSetComponent implements OnInit {
 
   constructor(private daemonSetService: DaemonSetService,
               private authService: AuthService,
+              public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
   }
 
