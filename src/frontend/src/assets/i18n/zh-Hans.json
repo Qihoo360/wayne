@@ -125,7 +125,8 @@
     "CLUSTER": "机房",
     "RELEASE": "发布",
     "ONLINE_CLUSTER": "上线机房",
-    "MESSAGE": "信息"
+    "MESSAGE": "信息",
+    "RELEASE_EXPLAIN": "发布说明"
   },
   "TMP": {
     "CONTAINER_NAME": "容器名称",
@@ -224,6 +225,12 @@
     "CREATE_TMP": "创建部署模板",
     "EDIT": "编辑部署",
     "DELETE": "删除部署"
+  },
+  "STATEFULSET": {
+    "CREATE": "创建状态副本集",
+    "CREATE_TMP": "创建状态副本集模板",
+    "EDIT": "编辑状态副本集",
+    "DELETE": "删除状态副本集"
   },
   "OTHER": "其他",
   "OF": "的"
