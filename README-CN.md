@@ -53,8 +53,7 @@ Wayne已大规模服务于360搜索，承载了内部绝大部分业务，稳定
 - 克隆代码仓库
 
 ```bash
-$ mkdir -p $GOPATH/src/github.com/Qihoo360 && cd $GOPATH/src/github.com/Qihoo360
-$ git clone https://github.com/Qihoo360/wayne.git
+$ go get github.com/Qihoo360/wayne
 ```
 
 - 启动MySQL（可选）
