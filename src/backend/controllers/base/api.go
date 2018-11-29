@@ -228,11 +228,13 @@ func (c *APIController) BuildQueryParam() *common.QueryParam {
 	}
 
 	no, err := strconv.ParseInt(pageNo, 10, 64)
-	if err != nil {
+	// pageNo must bigger than zero.
+	if err != nil || no < 1 {
 		c.AbortBadRequest("Invalid pageNo in query.")
 	}
+	// pageSize must bigger than zero.
 	size, err := strconv.ParseInt(pageSize, 10, 64)
-	if err != nil {
+	if err != nil || size < 1 {
 		c.AbortBadRequest("Invalid pageSize in query.")
 	}
 
