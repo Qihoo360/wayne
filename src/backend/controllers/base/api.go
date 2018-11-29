@@ -11,7 +11,7 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	"github.com/Qihoo360/wayne/src/backend/util/slice"
+	"github.com/Qihoo360/wayne/src/backend/util/snaker"
 	"github.com/astaxie/beego/orm"
 	"github.com/go-sql-driver/mysql"
 	"k8s.io/apimachinery/pkg/api/errors"
@@ -273,13 +273,7 @@ func (c *APIController) BuildQueryParam() *common.QueryParam {
 		relate = c.Input().Get("relate")
 	}
 
-	var sortbys []string
-	sortby := c.Input().Get("sortby")
-	if sortby != "" {
-		sortbys = slice.CamelToSnake(strings.Split(sortby, ","))
-	}
-
-	return &common.QueryParam{PageNo: no, PageSize: size, Query: qmap, Sortby: sortbys, Relate: relate}
+	return &common.QueryParam{PageNo: no, PageSize: size, Query: qmap, Sortby: snaker.CamelToSnake(c.Input().Get("sortby")), Relate: relate}
 }
 
 func (c *APIController) GetIDFromURL() int64 {

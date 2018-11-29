@@ -24,7 +24,7 @@ func BuildQuery(qb orm.QueryBuilder, query map[string]interface{}) (orm.QueryBui
 		querySql := make([]string, 0)
 
 		for key, value := range query {
-			queryCondition := strings.Split(key, "__")
+			queryCondition := strings.Split(key, ListFilterExprSep)
 			// 不符合查询条件定义规则，跳过条件拼接
 			if len(queryCondition) > 2 || len(queryCondition) == 0 {
 				continue
@@ -63,20 +63,18 @@ func BuildGroupBy(qb orm.QueryBuilder, groupby []string) orm.QueryBuilder {
 	return qb
 }
 
-func BuildOrder(qb orm.QueryBuilder, order []string) orm.QueryBuilder {
-	if len(order) > 0 {
-		for _, sort := range order {
-			asc := true
-			if strings.Index(sort, "-") == 0 {
-				asc = false
-				sort = sort[1:]
-			}
-			qb = qb.OrderBy("T0." + sort)
-			if asc {
-				qb = qb.Asc()
-			} else {
-				qb = qb.Desc()
-			}
+func BuildOrder(qb orm.QueryBuilder, sort string) orm.QueryBuilder {
+	if sort != "" {
+		asc := true
+		if strings.Index(sort, "-") == 0 {
+			asc = false
+			sort = sort[1:]
+		}
+		qb = qb.OrderBy("T0." + sort)
+		if asc {
+			qb = qb.Asc()
+		} else {
+			qb = qb.Desc()
 		}
 	}
 	return qb

@@ -4,7 +4,7 @@ type QueryParam struct {
 	PageNo   int64                  `json:"pageNo"`
 	PageSize int64                  `json:"pageSize"`
 	Query    map[string]interface{} `json:"query"`
-	Sortby   []string               `json:"sortby"`
+	Sortby   string                 `json:"sortby"`
 	Groupby  []string               `json:"groupby"`
 	Relate   string                 `json:"relate"`
 }

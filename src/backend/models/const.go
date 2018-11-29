@@ -25,3 +25,5 @@ var TableToKubeApiTypeMap = map[string]KubeApiType{
 	TableNameSecret:                KubeApiTypeSecret,
 	TableNamePersistentVolumeClaim: KubeApiTypePersistentVolumeClaim,
 }
+
+const ListFilterExprSep = "__"
