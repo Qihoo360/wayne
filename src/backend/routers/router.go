@@ -230,7 +230,7 @@ func init() {
 				&kservice.KubeServiceController{},
 			),
 		),
-		beego.NSNamespace("/kubernetes/apps/:appid([0-9]+)/ingress",
+		beego.NSNamespace("/kubernetes/apps/:appid([0-9]+)/ingresses",
 			beego.NSInclude(
 				&kingress.KubeIngressController{},
 			),
