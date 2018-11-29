@@ -33,7 +33,17 @@
   <clr-dg-row *ngFor="let ingressTpl of ingressTpls" [clrDgItem]="ingressTpl">
     <clr-dg-cell class="col-id">{{ingressTpl.id}}</clr-dg-cell>
     <clr-dg-cell class="col-time">{{ingressTpl.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
-    <clr-dg-cell class="col-cluster" ></clr-dg-cell>
+    <clr-dg-cell class="col-cluster" >
+      <div class="form-group" style="padding-bottom: 2px"
+           *ngFor="let status of ingressTpl.status">
+        <a href="javascript:void(0)" (click)="ingressState(status,ingressTpl)" title="查看 ngress 状态" class="label"
+           [class.clickable]="status.state!=2"
+           [class.label-success]="status.state==0"
+           [class.label-warning]="status.state==1">
+          {{status.cluster}}
+        </a>
+      </div>
+    </clr-dg-cell>
     <clr-dg-cell class="col-description">{{ingressTpl.description}}</clr-dg-cell>
     <clr-dg-cell class="col-user">{{ingressTpl.user}}</clr-dg-cell>
     <clr-dg-cell class="col-operate">

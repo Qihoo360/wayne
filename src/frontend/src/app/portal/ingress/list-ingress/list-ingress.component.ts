@@ -120,12 +120,13 @@ export class ListIngressComponent implements OnInit, OnDestroy {
 
   }
 
-  // ingressState(status: PublishStatus, tpl: IngressTpl) {
-  //   if (status.cluster && status.state != TemplateState.NOT_FOUND) {
-  //     this.ingressStatus.newServiceStatus(status.cluster, tpl)
-  //   }
-  //
-  // }
+  ingressState(status: PublishStatus, tpl: IngressTpl) {
+    if (status.cluster && status.state !== TemplateState.NOT_FOUND) {
+      // TODO
+      // this.ingressStatus.newServiceStatus(status.cluster, tpl)
+    }
+
+  }
 
   // offlineIngressTpl(tpl: IngressTpl) {
   //   this.ingressService.getById(tpl.ingressId, this.appId).subscribe(
