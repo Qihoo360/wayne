@@ -35,6 +35,7 @@ import {DaemonSetTplService} from '../../../shared/client/v1/daemonsettpl.servic
 import {defaultDaemonSet} from '../../../shared/default-models/daemonset.const';
 import {ResourceUnitConvertor} from '../../../shared/utils';
 import {ConfigMapEnvSource, EnvFromSource, SecretEnvSource} from '../../../shared/model/v1/kubernetes/deployment';
+import {TranslateService} from '@ngx-translate/core';
 
 const templateDom = [
   {
@@ -104,6 +105,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
               private route: ActivatedRoute,
               private messageHandlerService: MessageHandlerService,
               @Inject(DOCUMENT) private document: any,
+              public translate: TranslateService,
               private eventManager: EventManager
               ) {
 

@@ -5,7 +5,7 @@
 
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="app_id" class="col-md-3 form-group-label-override required">项目</label>
+          <label for="app_id" class="col-md-3 form-group-label-override required">应用</label>
           <div class="select form-control">
             <select id="app_id" [(ngModel)]="daemonset.appId" [disabled]="actionType==1" name="app_id">
               <option *ngFor="let app of apps" [ngValue]="app.id" [selected]="app.id == daemonset.appId">{{app.name}}
@@ -44,7 +44,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
-    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
+    <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
   </div>
 </clr-modal>

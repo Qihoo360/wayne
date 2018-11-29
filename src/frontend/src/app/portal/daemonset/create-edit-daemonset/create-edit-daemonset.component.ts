@@ -57,7 +57,7 @@ export class CreateEditDaemonSetComponent implements OnInit {
     }
     if (id) {
       this.actionType = ActionType.EDIT;
-      this.title = '编辑守护进程集';
+      this.title = 'DAEMONSET.EDIT';
       this.daemonSetService.getById(id, this.app.id).subscribe(
         status => {
           let data = status.data;
@@ -82,7 +82,7 @@ export class CreateEditDaemonSetComponent implements OnInit {
         });
     } else {
       this.actionType = ActionType.ADD_NEW;
-      this.title = '创建守护进程集';
+      this.title = 'DAEMONSET.CREATE';
       this.daemonSet = new DaemonSet();
     }
   }

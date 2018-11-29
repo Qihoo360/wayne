@@ -32,6 +32,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {PageState} from '../../shared/page/page-state';
 import {TabDragService} from '../../shared/client/v1/tab-drag.service';
 import {OrderItem} from '../../shared/model/v1/order';
+import {TranslateService} from '@ngx-translate/core';
 
 const showState = {
   '创建时间': {hidden: false},
@@ -80,6 +81,7 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
               private deletionDialogService: ConfirmationDialogService,
               public authService: AuthService,
               private configMapTplService: ConfigMapTplService,
+              public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
                 this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
                   if (over) this.tabChange();

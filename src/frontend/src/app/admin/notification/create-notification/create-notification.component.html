@@ -26,7 +26,7 @@
     <markdown [data]="notify.message"></markdown>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-outline" type="button" (click)="cancelCreateNotification()">取消</button>
+    <button class="btn btn-outline" type="button" (click)="cancelCreateNotification()">{{'BUTTON.CANCEL' | translate}}</button>
     <button type="button" class="btn btn-primary" [disabled]="!isValid()" (click)="doCreateNotifycation()">
       创建
     </button>

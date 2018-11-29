@@ -1,5 +1,5 @@
 <clr-modal [(clrModalOpen)]="modalOpened">
-    <h3 class="modal-title">{{title}}</h3>
+    <h3 class="modal-title">{{title | translate}}</h3>
   <div class="modal-body">
     <form #ngForm="ngForm">
       <section class="form-block">
@@ -42,7 +42,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline" (click)="onCancel()">{{'TITLE.CANCEL' | translate}}</button>
-    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'TITLE.SUBMIT' | translate}}</button>
+    <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
   </div>
 </clr-modal>

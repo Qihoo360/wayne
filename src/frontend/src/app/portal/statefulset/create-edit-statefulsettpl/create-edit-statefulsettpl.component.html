@@ -69,7 +69,7 @@
             <label aria-haspopup="true" [class.invalid]="!checkMemory(container.resources.limits.memory)" style="padding-right: 0;margin-right: 0;padding-left: 0"
               role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
               <input type="number" style="width:inherit" name="container.resources.limits.memory_{{i}}" required [(ngModel)]="container.resources.limits.memory"
-                [placeholder]="'UNIT.MEMROY' | translate">
+                [placeholder]="'UNIT.MEMORY' | translate">
               <span translate="'RULE.MEMORY'" translateParams="{value: memoryLimit}" class="tooltip-content">
               </span>
             </label>
@@ -82,7 +82,7 @@
             <label aria-haspopup="true" [class.invalid]="!checkCpu(container.resources.limits.cpu)" style="padding-right: 0;margin-right: 0;padding-left: 0"
               role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
               <input type="number" name="container.resources.limits.cpu_{{i}}" [(ngModel)]="container.resources.limits.cpu" style="width:inherit"
-                required placeholder="单位个">
+                required [placeholder]="'UNIT.CPU' | translate">
               <span translate="'RULE.CPU'" translateParams="{value: cpuLimit}" class="tooltip-content">
               </span>
             </label>

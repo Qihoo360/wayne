@@ -37,6 +37,7 @@ import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation
 import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import {Subscription} from 'rxjs/Subscription';
 import {PageState} from '../../shared/page/page-state';
+import {TranslateService} from '@ngx-translate/core';
 
 const showState = {
   '创建时间': {hidden: false},
@@ -101,6 +102,7 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
               private appService: AppService,
               private deletionDialogService: ConfirmationDialogService,
               private clusterService: ClusterService,
+              public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
                 this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
                   if (over) this.tabChange();
