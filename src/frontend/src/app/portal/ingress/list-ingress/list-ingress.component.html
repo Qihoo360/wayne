@@ -49,10 +49,10 @@
               (click)="cloneIngressTpl(ingressTpl)"
               *ngIf="authService.currentAppPermission.ingress.create || authService.currentUser.admin">
         克隆</button>
-      <!--<button class="wayne-button text"-->
-              <!--*ngIf="!serviceTpl.status && (authService.currentAppPermission.service.delete || authService.currentUser.admin)"-->
-              <!--(click)="deleteServiceTpl(serviceTpl)">-->
-        <!--删除</button>-->
+      <button class="wayne-button text"
+              *ngIf="!ingressTpl.status && (authService.currentAppPermission.ingress.delete || authService.currentUser.admin)"
+              (click)="deleteIngressTpl(ingressTpl)">
+        删除</button>
       <!--<button class="wayne-button text"-->
               <!--(click)="offlineServiceTpl(serviceTpl)"-->
               <!--*ngIf="serviceTpl.status && (authService.currentAppPermission.service.offline || authService.currentUser.admin)">-->

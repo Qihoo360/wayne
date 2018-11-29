@@ -140,16 +140,16 @@ export class ListIngressComponent implements OnInit, OnDestroy {
   //
   // }
 
-  // deleteIngressTpl(tpl: IngressTpl): void {
-  //   let deletionMessage = new ConfirmationMessage(
-  //     '删除 ingress 模版确认',
-  //     `你确认删除 ingress 模版 ${tpl.name}？`,
-  //     tpl.id,
-  //     ConfirmationTargets.INGRESS_TPL,
-  //     ConfirmationButtons.DELETE_CANCEL
-  //   );
-  //   this.deletionDialogService.openComfirmDialog(deletionMessage);
-  // }
+  deleteIngressTpl(tpl: IngressTpl): void {
+    let deletionMessage = new ConfirmationMessage(
+      '删除 ingress 模版确认',
+      `你确认删除 ingress 模版 ${tpl.name}？`,
+      tpl.id,
+      ConfirmationTargets.INGRESS_TPL,
+      ConfirmationButtons.DELETE_CANCEL
+    );
+    this.deletionDialogService.openComfirmDialog(deletionMessage);
+  }
 
   refresh(state?: State) {
     this.state = state;
