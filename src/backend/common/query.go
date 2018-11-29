@@ -10,7 +10,11 @@ type QueryParam struct {
 }
 
 func (q *QueryParam) Offset() int64 {
-	return (q.PageNo - 1) * q.PageSize
+	offset := (q.PageNo - 1) * q.PageSize
+	if offset < 0 {
+		offset = 0
+	}
+	return offset
 }
 
 func (q *QueryParam) Limit() int64 {

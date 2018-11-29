@@ -18,6 +18,15 @@ type Deployment struct {
 	Pods       common.PodInfo    `json:"pods"`
 }
 
+func GetDeploymentList(cli *kubernetes.Clientset, namespace string, opts metaV1.ListOptions) ([]v1beta1.Deployment, error) {
+	deployments, err := cli.AppsV1beta1().Deployments(namespace).List(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	return deployments.Items, nil
+}
+
 func GetDeploymentResource(cli *kubernetes.Clientset, deployment *v1beta1.Deployment) (*common.ResourceList, error) {
 	old, err := cli.AppsV1beta1().Deployments(deployment.Namespace).Get(deployment.Name, metaV1.GetOptions{})
 	if err != nil {
@@ -58,7 +67,7 @@ func GetDeployment(cli *kubernetes.Clientset, name, namespace string) (*v1beta1.
 }
 
 func GetDeploymentDetail(cli *kubernetes.Clientset, indexer *client.CacheIndexer, name, namespace string) (*Deployment, error) {
-	deployment, err := cli.ExtensionsV1beta1().Deployments(namespace).Get(name, metaV1.GetOptions{})
+	deployment, err := cli.AppsV1beta1().Deployments(namespace).Get(name, metaV1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}

@@ -26,6 +26,7 @@ type KubeDeploymentController struct {
 }
 
 func (c *KubeDeploymentController) URLMapping() {
+	c.Mapping("List", c.List)
 	c.Mapping("Get", c.Get)
 	c.Mapping("Offline", c.Offline)
 	c.Mapping("Deploy", c.Deploy)
@@ -47,6 +48,37 @@ func (c *KubeDeploymentController) Prepare() {
 	}
 	if perAction != "" {
 		c.CheckPermission(models.PermissionTypeDeployment, perAction)
+	}
+}
+
+// @Title List deployment
+// @Description get all deployment
+// @Param	cluster		query 	string	true		"the cluster name"
+// @Param	namespace	query 	string	true		"the namespace name"
+// @Param	pageNo		query 	int	false		"the page current no"
+// @Param	pageSize		query 	int	false		"the page size"
+// @Param	filter		query 	string	false		"column filter, ex. filter=name=test"
+// @Param	sortby		query 	string	false		"column sorted by, ex. sortby=-id, '-' representation desc, and sortby=id representation asc"
+// @Success 200 {object} common.Page success
+// @router / [get]
+func (c *KubeDeploymentController) List() {
+	param := c.BuildQueryParam()
+
+	cluster := c.Input().Get("cluster")
+	logs.Error(cluster)
+	namespace := c.Input().Get("namespace")
+
+	manager, err := client.Manager(cluster)
+	if err == nil {
+		result, err := deployment.GetDeploymentPage(manager.Client, namespace, param)
+		if err != nil {
+			logs.Error("list kubernetes deployments error.", cluster, namespace, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
 	}
 }
 
