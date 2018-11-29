@@ -184,25 +184,8 @@ export class CreateEditIngressTplComponent implements OnInit {
   }
 
   generateIngress(kubeIngress: KubeIngress): KubeIngress {
-    // if (this.labelSelector && this.labelSelector.length > 0) {
-    //   kubeIngress.spec.selector = {};
-    //   for (let selector of this.labelSelector) {
-    //     kubeService.spec.selector[selector.key] = selector.value;
-    //   }
-    // }
-    // if (this.headless) {
-    //   kubeService.spec.clusterIP = 'None';
-    // } else {
-    //   kubeService.spec.clusterIP = undefined;
-    // }
-    // if (kubeService.spec.ports && kubeService.spec.ports.length > 0) {
-    //   for (let i = 0; i < kubeService.spec.ports.length; i++) {
-    //     kubeService.spec.ports[i].name = this.ingress.name + '-' + kubeService.spec.ports[i].port;
-    //   }
-    // }
-    //
-    // kubeService.metadata.name = this.ingress.name;
-    // kubeService.metadata.labels = this.buildLabels(this.kubeService.metadata.labels);
+    kubeIngress.metadata.name = this.ingress.name;
+    kubeIngress.metadata.labels = this.buildLabels(this.kubeIngress.metadata.labels);
     return kubeIngress;
   }
 
