@@ -167,7 +167,7 @@ func init() {
 				&ingress.IngressController{},
 			),
 		),
-		beego.NSNamespace("/apps/appid([0-9]+)/ingresses/tpls",
+		beego.NSNamespace("/apps/:appid([0-9]+)/ingresses/tpls",
 			beego.NSInclude(
 				&ingress.IngressTplController{},
 			),
