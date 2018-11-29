@@ -12,12 +12,12 @@
         </button>
         <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
           <wayne-checkbox-group [(ngModel)]="showList">
-            <wayne-checkbox>名称</wayne-checkbox>
+            <wayne-checkbox>{{'TITLE.NAME' | translate}}</wayne-checkbox>
             <wayne-checkbox>URL</wayne-checkbox>
             <wayne-checkbox>启用状态</wayne-checkbox>
             <wayne-checkbox>创建用户</wayne-checkbox>
             <wayne-checkbox value="create_time">{{'TITLE.CREATE_TIME' | translate}}</wayne-checkbox>
-            <wayne-checkbox value="action">{{'TITLE.ACTION'}}</wayne-checkbox>
+            <wayne-checkbox value="action">{{'TITLE.ACTION' | translate}}</wayne-checkbox>
           </wayne-checkbox-group>
         </wayne-filter-box>
       </div>

@@ -230,7 +230,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
         let tpl = response[2];
         if (tpl) {
           this.daemonSetTpl = tpl.data;
-          // 克隆置空发布说明
+          
           this.daemonSetTpl.description = null;
           this.saveDaemonSet(JSON.parse(this.daemonSetTpl.template));
         }

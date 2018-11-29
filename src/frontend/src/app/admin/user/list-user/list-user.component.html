@@ -44,7 +44,7 @@
       <button class="action-item" (click)="resetPassword(user)" >重置密码</button>
       <button class="action-item" (click)="changeAdminRole(user)" >{{adminActions(user)}}</button>
       <button class="action-item" (click)="editUser(user)" >编辑</button>
-      <button class="action-item" (click)="deleteUser(user)">删除</button>
+      <button class="action-item" (click)="deleteUser(user)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
       <clr-dg-cell class="col-id">{{user.id}}</clr-dg-cell>
       <!-- <clr-dg-cell><a href="javascript:void(0)" (click)="goToLink(user, 'app')">{{user.name}}</a></clr-dg-cell> -->

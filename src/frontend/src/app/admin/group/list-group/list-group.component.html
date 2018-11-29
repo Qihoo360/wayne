@@ -22,7 +22,7 @@
   <clr-dg-row *ngFor="let group of groups" [clrDgItem]="group">
     <clr-dg-action-overflow >
       <button class="action-item" (click)="editGroup(group)" >编辑</button>
-      <button class="action-item" (click)="deleteGroup(group)">删除</button>
+      <button class="action-item" (click)="deleteGroup(group)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
       <clr-dg-cell class="col-id">{{group.id}}</clr-dg-cell>
       <clr-dg-cell class="copy">{{group.name}}</clr-dg-cell>

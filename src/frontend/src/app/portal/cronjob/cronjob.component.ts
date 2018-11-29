@@ -42,8 +42,8 @@ import {TranslateService} from '@ngx-translate/core';
 const showState = {
   'create_time': {hidden: false},
   'version': {hidden: false},
-  '已上线时间': {hidden: false},
-  '调度间隔': {hidden: false},
+  'online_cluster': {hidden: false},
+  'scheduling_interval': {hidden: false},
   'release_explain': {hidden: false},
   'create_user': {hidden: false},
   'action': {hidden: false}

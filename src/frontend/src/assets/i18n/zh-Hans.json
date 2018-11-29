@@ -10,7 +10,7 @@
     "NONE": "无通知",
     "NO_USER": "用户不存在",
     "ONLY_ONLINE_TEMPLATE": "只显示上线模板",
-    "NO_MESSAGE": "暂无数据",
+    "NO_MESSAGE": "暂无数据！",
     "CPU": "请填写CPU限制",
     "CPU_PERCENT": "请填写正确CPU限制百分比",
     "MEMORY": "请填写内存限制份数",
@@ -58,7 +58,8 @@
     "CLONE": "克隆",
     "DROP": "下线",
     "ADD_CONTAINER": "添加容器",
-    "ADVANCED_CONFIG": "高级配置"
+    "ADVANCED_CONFIG": "高级配置",
+    "LANG_UP": "挂起"
   },
   "USER": {
   },
@@ -118,7 +119,8 @@
     "RELEASE": "发布",
     "ONLINE_CLUSTER": "上线机房",
     "MESSAGE": "信息",
-    "RELEASE_EXPLAIN": "发布说明"
+    "RELEASE_EXPLAIN": "发布说明",
+    "SCHEDULING_INTERVAL": "调度间隔"
   },
   "TMP": {
     "CONTAINER_NAME": "容器名称",
@@ -240,6 +242,14 @@
     "CREATE_TMP": "创建守护进程集模板",
     "EDIT": "编辑守护进程集",
     "DELETE": "删除守护进程集"
+  },
+  "CRONJOB": {
+    "CREATE": "创建计划任务",
+    "CREATE_TMP": "创建计划任务模板",
+    "EDIT": "编辑计划任务",
+    "DELETE": "删除计划任务",
+    "LIST": "计划任务列表",
+    "DELETE_LIST": "已删除计划任务列表"
   },
   "OTHER": "其他",
   "OF": "的"

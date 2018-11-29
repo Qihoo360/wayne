@@ -4,7 +4,7 @@
     <form #cronjobForm="ngForm" style="padding-right: 30px;width: 100%">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="cronjob_name" class="col-md-3 form-group-label-override required">名称</label>
+          <label for="cronjob_name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="cronjob_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <label *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</label>
@@ -12,18 +12,18 @@
                    name="cronjob_name" size="40"
                    required
                    [readonly]="actionType==1"
-                   placeholder="英文小写，中划线分隔"
+                   [placeholder]="'PLACEHOLDER.APP_NAME' | translate"
                    pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
                    maxlength="64"
                    (keyup)='handleValidation()'>
             <span class="tooltip-content">
-              名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?
+              {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
         </span>
           </label>
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label class="col-md-3 form-group-label-override required">机房</label>
+          <label class="col-md-3 form-group-label-override required">{{'TITLE.CLUSTER' | translate}}</label>
           <div *ngFor="let cluster of clusters" class="checkbox-inline">
             <div class="checkbox">
               <input [(ngModel)]="clusterMetas[cluster.name].checked"
@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="cronjob_description" class="col-md-3 form-group-label-override">描述</label>
+          <label for="cronjob_description" class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="cronjob_description" [(ngModel)]="cronjob.description"
                     name="cronjob_description"
                     rows="3">

@@ -28,7 +28,7 @@
       <button (click)="publishHistory()"
               class="wayne-button normal"
               *ngIf="authService.currentAppPermission.pvc.read || authService.currentUser.admin">
-        发布历史
+        {{'BUTTON.HISTORY' | translate}}
       </button>
       <button (click)="deletePvc()" class="wayne-button normal" *ngIf="authService.currentAppPermission.pvc.offline || authService.currentUser.admin">
         删除PVC

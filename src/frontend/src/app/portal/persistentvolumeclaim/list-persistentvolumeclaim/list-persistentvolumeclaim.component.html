@@ -1,5 +1,5 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)" class="wayne-clr-datagrid">
-  <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+  <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
   <clr-dg-column class="col-id">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       #
@@ -7,7 +7,7 @@
   </clr-dg-column>
   <clr-dg-column class="col-time">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建时间
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-cluster">
@@ -17,22 +17,22 @@
   </clr-dg-column>
   <clr-dg-column class="col-cluster">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      已上线机房
+      {{'TITLE.ONLINE_CLUSTER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-description">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      发布说明
+      {{'TITLE.RELEASE_EXPLAIN' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建者
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-operate">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      操作
+      {{'TITLE.ACTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let tpl of pvcTpls" [clrDgItem]="tpl">
@@ -94,7 +94,7 @@
 </span>
 
 <clr-datagrid *ngIf="!loading" class="wayne-clr-datagrid">
-  <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+  <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
   <clr-dg-column style="width: 5%">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       机房
@@ -132,7 +132,7 @@
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      操作
+      {{'TITLE.ACTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <div *ngFor="let tpl of pvcTpls">

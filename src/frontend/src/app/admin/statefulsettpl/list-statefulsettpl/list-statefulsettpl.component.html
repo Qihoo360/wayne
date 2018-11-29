@@ -17,18 +17,18 @@
 
   <clr-dg-column [clrDgField]="'user'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建者
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgSortBy]="'createTime'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建时间
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let statefulsetTpl of statefulsetTpls" [clrDgItem]="statefulsetTpl">
     <clr-dg-action-overflow >
       <button class="action-item" (click)="editStatefulsetTpl(statefulsetTpl)" >编辑</button>
-      <button class="action-item" (click)="deleteStatefulsetTpl(statefulsetTpl)">删除</button>
+      <button class="action-item" (click)="deleteStatefulsetTpl(statefulsetTpl)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell>{{statefulsetTpl.id}}</clr-dg-cell>
     <clr-dg-cell class="copy">{{statefulsetTpl.name}}</clr-dg-cell>

@@ -1,9 +1,9 @@
 <clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'xl'">
-  <h3 class="modal-title">发布历史 - {{ resourceName }}</h3>
+  <h3 class="modal-title">{{'BUTTON.HISTORY' | translate}} - {{ resourceName }}</h3>
   <div class="modal-body">
     <hr>
     <clr-datagrid (clrDgRefresh)="refresh($event)">
-      <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+      <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
           发布时间

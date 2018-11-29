@@ -21,7 +21,7 @@
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['create_time']">
-      创建时间
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column
@@ -33,7 +33,7 @@
       authService.currentUser.admin"
   >
     <ng-container *clrDgHideableColumn="showState['action']">
-      操作
+      {{'TITLE.ACTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let appUser of appUsers" [clrDgItem]="appUser">
@@ -63,7 +63,7 @@
         authService.currentAppPermission.appUser.delete ||
         authService.currentUser.admin"
         (click)="deleteAppUser(appUser)">
-        删除</button>
+        {{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-cell>
   </clr-dg-row>
 

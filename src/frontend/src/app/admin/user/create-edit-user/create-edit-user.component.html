@@ -4,7 +4,7 @@
     <form #userForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="user_name" class="col-md-3 form-group-label-override required">名称</label>
+          <label for="user_name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="user_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" id="user_name"  [(ngModel)]="user.name"
                    name="user_name" size="36"

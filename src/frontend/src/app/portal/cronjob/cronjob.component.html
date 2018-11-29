@@ -1,5 +1,5 @@
 <button (click)="createCronjob()" class="wayne-button primary" *ngIf="authService.currentAppPermission.cronjob.create || authService.currentUser.admin">
-  创建计划任务
+  {{'CRONJOB.CREATE' | translate}}
 </button>
 <create-edit-cronjob (create)="create($event)"></create-edit-cronjob>
 <div *ngIf="cronjobId && cronjobs?.length>0">
@@ -16,26 +16,26 @@
   <div class="table-search">
     <div class="table-search-left">
       <button (click)="createCronjobTpl()" class="wayne-button normal" *ngIf="authService.currentAppPermission.cronjob.create || authService.currentUser.admin">
-        创建计划任务模版
+        {{'CRONJOB.CREATE_TMP' | translate}}
       </button>
       <button (click)="editCronjob()" class="wayne-button normal" *ngIf="authService.currentAppPermission.cronjob.update || authService.currentUser.admin">
-        编辑计划任务
+        {{'CRONJOB.EDIT' | translate}}
       </button>
       <button (click)="publishHistory()" class="wayne-button normal" *ngIf="authService.currentAppPermission.cronjob.read || authService.currentUser.admin">
-        发布历史
+        {{'BUTTON.HISTORY' | translate}}
       </button>
       <button (click)="deleteCronjob()" class="wayne-button normal" *ngIf="authService.currentAppPermission.cronjob.offline || authService.currentUser.admin">
-        删除计划任务
+        {{'CRONJOB.DELETE' | translate}}
       </button>
       <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
         <wayne-checkbox-group [(ngModel)]="showList">
           <wayne-checkbox value="create_time">{{'TITLE.CREATE_TIME' | translate}}</wayne-checkbox>
-          <wayne-checkbox>版本</wayne-checkbox>
-          <wayne-checkbox>已上线时间</wayne-checkbox>
-          <wayne-checkbox>调度间隔</wayne-checkbox>
+          <wayne-checkbox value="version">{{'TITLE.VERSION' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="online_cluster">{{'TITLE.ONLINE_CLUSTER' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="scheduling_interval">{{'TITLE.SCHEDULING_INTERVAL' | translate}}</wayne-checkbox>
           <wayne-checkbox value="release_explain">{{'TITLE.RELEASE_EXPLAIN' | translate}}</wayne-checkbox>
           <wayne-checkbox value="create_user">{{'TITLE.CREATE_USER' | translate}}</wayne-checkbox>
-          <wayne-checkbox value="action">{{'TITLE.ACTION'}}</wayne-checkbox>
+          <wayne-checkbox value="action">{{'TITLE.ACTION' | translate}}</wayne-checkbox>
         </wayne-checkbox-group>
       </wayne-filter-box>
     </div>
@@ -57,7 +57,7 @@
 </div>
 <div *ngIf="cronjobName && cronjobs?.length" >
   <div class="row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
-    <h2 class="header-title">任务列表</h2>
+    <h2 class="header-title">{{'CRONJOB.LIST' | translate}}</h2>
   </div>
   <list-job  [jobs]="changedJobs"
              [currentCronjobName]="cronjobName"

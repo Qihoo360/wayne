@@ -21,18 +21,18 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建者
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgSortBy]="'createTime'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建时间
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let cronjobTpl of cronjobTpls" [clrDgItem]="cronjobTpl">
     <clr-dg-action-overflow>
       <button class="action-item" (click)="editCronjobTpl(cronjobTpl)" >编辑</button>
-      <button class="action-item" (click)="deleteCronjobTpl(cronjobTpl)">删除</button>
+      <button class="action-item" (click)="deleteCronjobTpl(cronjobTpl)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{cronjobTpl.id}}</clr-dg-cell>
     <clr-dg-cell class="col-app-name copy">{{cronjobTpl.name}}</clr-dg-cell>

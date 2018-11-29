@@ -35,7 +35,7 @@
         </div>
         <div class="form-group row" *ngIf="currentForm.get('type').value =='rbd'">
           <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-            <label for="rbd_name" class="required">RBD镜像名称</label>
+            <label for="rbd_name" class="required">RBD镜像{{'TITLE.NAME' | translate}}</label>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <input class="form-control"

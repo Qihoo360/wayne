@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="deployment_name" class="col-md-3 form-group-label-override required">名称</label>
+          <label for="deployment_name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="deployment_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <input class="form-control" type="text" id="deployment_name" [(ngModel)]="deployment.name"
@@ -37,7 +37,7 @@
 
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="deployment_description" class="col-md-3 form-group-label-override">描述</label>
+          <label for="deployment_description" class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="deployment_description" [(ngModel)]="deployment.description"
                     name="deployment_description"
                     rows="3">

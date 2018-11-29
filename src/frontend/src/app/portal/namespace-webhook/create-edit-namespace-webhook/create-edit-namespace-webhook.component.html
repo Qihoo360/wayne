@@ -4,7 +4,7 @@
     <form #webHookForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="webhook-name" class="col-md-3 form-group-label-override required">名称</label>
+          <label for="webhook-name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="webhook-name" aria-haspopup="true" role="tooltip" [class.invalid]="!validateName()" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <input class="form-control" type="text" id="webhook-name"  [(ngModel)]="webHook.name"
                    name="webhook-name"
