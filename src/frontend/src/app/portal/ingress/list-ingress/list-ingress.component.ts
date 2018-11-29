@@ -17,6 +17,7 @@ import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/con
 import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmation-message';
 import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
 import {PublishStatus} from '../../../shared/model/v1/publish-status';
+import {PublishIngressTplComponent} from '../publish-tpl/publish-tpl.component';
 import {
   ConfirmationButtons,
   ConfirmationState,
@@ -33,8 +34,8 @@ import {
 })
 export class ListIngressComponent implements OnInit, OnDestroy {
   @Input() showState: object;
-  // @ViewChild(PublishIngressTplComponent)
-  // publishTpl: PublishIngressTplComponent;
+  @ViewChild(PublishIngressTplComponent)
+  publishTpl: PublishIngressTplComponent;
   // @ViewChild(IngressStatusComponent)
   // ingressStatus: IngressStatusComponent;
 
@@ -94,11 +95,11 @@ export class ListIngressComponent implements OnInit, OnDestroy {
     this.paginate.emit(this.state);
   }
 
-  cloneServiceTpl(tpl: IngressTpl) {
+  cloneIngressTpl(tpl: IngressTpl) {
     this.cloneTpl.emit(tpl);
   }
 
-  detailServiceTpl(tpl: IngressTpl) {
+  viewIngressTpl(tpl: IngressTpl) {
     this.aceEditorService.announceMessage(AceEditorMsg.Instance(JSON.parse(tpl.template), false));
   }
 
@@ -106,18 +107,18 @@ export class ListIngressComponent implements OnInit, OnDestroy {
     this.tplDetailService.openModal(tpl.description);
   }
 
-  // publishServiceTpl(tpl: IngressTpl) {
-  //   this.ingressService.getById(tpl.ingressId, this.appId).subscribe(
-  //     response => {
-  //       let ingress = response.data;
-  //       this.publishTpl.newPublishTpl(ingress, tpl, ResourcesActionType.PUBLISH)
-  //     },
-  //     error => {
-  //       this.messageHandlerService.handleError(error);
-  //     }
-  //   );
-  //
-  // }
+  publishIngressTpl(tpl: IngressTpl) {
+    this.ingressService.getById(tpl.ingressId, this.appId).subscribe(
+      response => {
+        let ingress = response.data;
+        this.publishTpl.newPublishTpl(ingress, tpl, ResourcesActionType.PUBLISH)
+      },
+      error => {
+        this.messageHandlerService.handleError(error);
+      }
+    );
+
+  }
 
   // ingressState(status: PublishStatus, tpl: IngressTpl) {
   //   if (status.cluster && status.state != TemplateState.NOT_FOUND) {

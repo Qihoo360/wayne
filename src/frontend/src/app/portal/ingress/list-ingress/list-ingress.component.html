@@ -10,11 +10,6 @@
       创建时间
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column class="col-port">
-    <ng-container *clrDgHideableColumn="showState['端口号']">
-      端口号
-    </ng-container>
-  </clr-dg-column>
   <clr-dg-column class="col-cluster">
     <ng-container *clrDgHideableColumn="showState['上线机房']">
       上线机房
@@ -35,52 +30,36 @@
       操作
     </ng-container>
   </clr-dg-column>
-  <clr-dg-row *ngFor="let serviceTpl of serviceTpls" [clrDgItem]="serviceTpl">
-    <clr-dg-cell class="col-id">{{serviceTpl.id}}</clr-dg-cell>
-    <clr-dg-cell class="col-time">{{serviceTpl.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
-    <clr-dg-cell class="col-port">{{serviceTpl.ports}}</clr-dg-cell>
-    <clr-dg-cell class="col-cluster">
-      <div class="form-group" style="padding-bottom: 2px"
-           *ngFor="let status of serviceTpl.status">
-        <a href="javascript:void(0)" (click)="serviceState(status,serviceTpl)" title="查看负载均衡状态" class="label"
-           [class.clickable]="status.state!=2"
-           [class.label-success]="status.state==0"
-           [class.label-warning]="status.state==1">
-          {{status.cluster}}
-        </a>
-      </div>
-    </clr-dg-cell>
-    <clr-dg-cell class="col-description">
-      <div class="text-overflow">
-        <a href="javascript:void(0)" (click)="tplDetail(serviceTpl)">{{serviceTpl.description}}</a>
-      </div>
-    </clr-dg-cell>
-    <clr-dg-cell>{{serviceTpl.user}}</clr-dg-cell>
+  <clr-dg-row *ngFor="let ingressTpl of ingressTpls" [clrDgItem]="ingressTpl">
+    <clr-dg-cell class="col-id">{{ingressTpl.id}}</clr-dg-cell>
+    <clr-dg-cell class="col-time">{{ingressTpl.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
+    <clr-dg-cell class="col-cluster" ></clr-dg-cell>
+    <clr-dg-cell class="col-description">{{ingressTpl.description}}</clr-dg-cell>
+    <clr-dg-cell class="col-user">{{ingressTpl.user}}</clr-dg-cell>
     <clr-dg-cell class="col-operate">
       <button class="wayne-button text"
-              (click)="publishServiceTpl(serviceTpl)"
-              *ngIf="authService.currentAppPermission.service.deploy || authService.currentUser.admin">
+              (click)="publishIngressTpl(ingressTpl)"
+              *ngIf="authService.currentAppPermission.ingress.deploy || authService.currentUser.admin">
         发布</button>
       <button class="wayne-button text"
-              (click)="detailServiceTpl(serviceTpl)"
-              *ngIf="authService.currentAppPermission.service.read || authService.currentUser.admin">
+              (click)="viewIngressTpl(ingressTpl)"
+              *ngIf="authService.currentAppPermission.ingress.read || authService.currentUser.admin">
         详情</button>
       <button class="wayne-button text"
-              (click)="cloneServiceTpl(serviceTpl)"
-              *ngIf="authService.currentAppPermission.service.create || authService.currentUser.admin">
+              (click)="cloneIngressTpl(ingressTpl)"
+              *ngIf="authService.currentAppPermission.ingress.create || authService.currentUser.admin">
         克隆</button>
-      <button class="wayne-button text"
-              *ngIf="!serviceTpl.status && (authService.currentAppPermission.service.delete || authService.currentUser.admin)"
-              (click)="deleteServiceTpl(serviceTpl)">
-        删除</button>
-      <button class="wayne-button text"
-              (click)="offlineServiceTpl(serviceTpl)"
-              *ngIf="serviceTpl.status && (authService.currentAppPermission.service.offline || authService.currentUser.admin)">
-        下线</button>
+      <!--<button class="wayne-button text"-->
+              <!--*ngIf="!serviceTpl.status && (authService.currentAppPermission.service.delete || authService.currentUser.admin)"-->
+              <!--(click)="deleteServiceTpl(serviceTpl)">-->
+        <!--删除</button>-->
+      <!--<button class="wayne-button text"-->
+              <!--(click)="offlineServiceTpl(serviceTpl)"-->
+              <!--*ngIf="serviceTpl.status && (authService.currentAppPermission.service.offline || authService.currentUser.admin)">-->
+        <!--下线</button>-->
 
     </clr-dg-cell>
   </clr-dg-row>
-
   <wayne-paginate
     [(currentPage)]="currentPage"
     [total]="page.totalCount"
@@ -90,5 +69,5 @@
   </wayne-paginate>
 </clr-datagrid>
 <wayne-ace-editor></wayne-ace-editor>
-<!--<status></status>-->
-<!--<publish-tpl [appId]="appId" (published)="published($event)"></publish-tpl>-->
+<publish-tpl [appId]="appId" (published)="published($event)"></publish-tpl>
+

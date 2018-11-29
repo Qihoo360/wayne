@@ -5,7 +5,8 @@ import {ListIngressComponent} from './list-ingress/list-ingress.component';
 import {CreateEditIngressComponent} from './create-edit-ingress/create-edit-ingress.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CreateEditIngressTplComponent} from './create-edit-ingresstpl/create-edit-ingresstpl.component';
-// import {PublishIngressTplComponent} from './publish-tpl/publish-tpl.component';
+import {IngressClient} from '../../shared/client/v1/kubernetes/ingress';
+import {PublishIngressTplComponent} from './publish-tpl/publish-tpl.component';
 // import {ListEventComponent} from './list-event/list-event.component';
 // import {ListPodComponent} from './list-pod/list-pod.component';
 // import {IngressClient} from '../../shared/client/v1/kubernetes/ingress';
@@ -26,7 +27,7 @@ import {ClusterService} from '../../shared/client/v1/cluster.service';
     IngressService,
     IngressTplService,
     ClusterService,
-    // IngressClient,
+    IngressClient,
     // PublicService,
     // PodClient,
     // PublishStatusService,
@@ -41,7 +42,7 @@ import {ClusterService} from '../../shared/client/v1/cluster.service';
     CreateEditIngressComponent,
     ListIngressComponent,
     CreateEditIngressTplComponent,
-    // PublishIngressTplComponent,
+    PublishIngressTplComponent,
     // ListEventComponent,
     // ListPodComponent
   ]

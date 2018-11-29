@@ -15,8 +15,8 @@ import {PublishHistoryService} from '../common/publish-history/publish-history.s
 import {
   ConfirmationButtons,
   ConfirmationState,
-  ConfirmationTargets,
-  PublishType,
+  ConfirmationTargets, httpStatusCode,
+  PublishType, TemplateState,
 } from '../../shared/shared.const';
 import {AuthService} from '../../shared/auth/auth.service';
 import {PublishService} from '../../shared/client/v1/publish.service';
@@ -28,6 +28,14 @@ import {PageState} from '../../shared/page/page-state';
 import {TabDragService} from '../../shared/client/v1/tab-drag.service';
 import {OrderItem} from '../../shared/model/v1/order';
 import {ListIngressComponent} from './list-ingress/list-ingress.component';
+import {IngressTplService} from '../../shared/client/v1/ingresstpl.service';
+import {DeploymentStatus, DeploymentTpl} from '../../shared/model/v1/deploymenttpl';
+import {IngressTpl} from '../../shared/model/v1/ingresstpl';
+import {KubeDeployment} from '../../shared/model/v1/kubernetes/deployment';
+import {IngressStatus, KubeIngress} from '../../shared/model/v1/kubernetes/ingress';
+import {KubeService} from '../../../../lib/shared/model/kubernetes/service';
+import {IngressClient} from '../../shared/client/v1/kubernetes/ingress';
+import {ServiceTpl} from '../../../../lib/shared/model/servicetpl';
 
 const showState = {
   '创建时间': {hidden: false},
@@ -57,6 +65,7 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
   appId: number;
   clusters: Cluster[];
   ingresses: Ingress[];
+  changedIngressTpls: IngressTpl[];
   private timer: any = null;
   publishStatus: PublishStatus[];
   subscription: Subscription;
@@ -66,6 +75,8 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
   orderCache: Array<OrderItem>;
 
   constructor(private ingressService: IngressService,
+              private ingressTplService: IngressTplService,
+              private ingressClient: IngressClient,
               private publishHistoryService: PublishHistoryService,
               private route: ActivatedRoute,
               private router: Router,
@@ -80,12 +91,14 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
               private el: ElementRef,
               private messageHandlerService: MessageHandlerService) {
     this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
-      if (over) this.tabChange();
+      if (over) {
+        this.tabChange();
+      }
     })
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
-        message.source === ConfirmationTargets.DEPLOYMENT) {
+        message.source === ConfirmationTargets.INGRESS) {
         let ingressId = message.data;
         this.ingressService.deleteById(ingressId, this.appId)
           .subscribe(
@@ -146,7 +159,9 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
         order: index
       }
     });
-    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) return;
+    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) {
+      return;
+    }
     this.ingressService.updateOrder(this.appId, orderList).subscribe(
       response => {
         if (response.data === 'ok!') {
@@ -315,6 +330,103 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
     }
     this.pageState.params['deleted'] = false;
     this.pageState.params['isOnline'] = this.isOnline;
+
+    if (!this.ingressId) {
+      return
+    }
+    if (state) {
+      this.pageState = PageState.fromState(state, {
+        totalPage: this.pageState.page.totalPage,
+        totalCount: this.pageState.page.totalCount
+      });
+    }
+    this.pageState.params['deleted'] = false;
+    this.pageState.params['isOnline'] = this.isOnline;
+    Observable.combineLatest(
+      this.ingressTplService.listPage(this.pageState, this.appId, this.ingressId.toString()),
+      this.publishService.listStatus(PublishType.INGRESS, this.ingressId)
+    ).subscribe(
+      response => {
+        this.publishStatus = response[1].data;
+        const tpls = response[0].data;
+        this.pageState.page.totalPage = tpls.totalPage;
+        this.pageState.page.totalCount = tpls.totalCount;
+        this.changedIngressTpls = this.buildTplList(tpls.list, response[1].data);
+        this.syncStatus();
+      },
+      error => this.messageHandlerService.handleError(error)
+    );
+  }
+
+  buildTplList(ingressTpls: IngressTpl[], status: PublishStatus[]): IngressTpl[] {
+    let tplStatusMap = {};
+    if (status && status.length > 0) {
+      for (let state of status) {
+        if (!tplStatusMap[state.templateId]) {
+          tplStatusMap[state.templateId] = Array<PublishStatus>();
+        }
+        state.errNum = 0;
+        tplStatusMap[state.templateId].push(state);
+      }
+    }
+    if (ingressTpls && ingressTpls.length > 0) {
+      for (let i = 0; i < ingressTpls.length; i++) {
+        let ing: KubeIngress = JSON.parse(ingressTpls[i].template);
+        if (ing.spec.rules && ing.spec.rules.length > 0) {
+
+          let publishStatus = tplStatusMap[ingressTpls[i].id];
+          if (publishStatus && publishStatus.length > 0) {
+            ingressTpls[i].status = publishStatus;
+          }
+        }
+      }
+    }
+    return ingressTpls
+  }
+
+  syncStatus(): void {
+    if (this.changedIngressTpls && this.changedIngressTpls.length > 0) {
+      for (let i = 0; i < this.changedIngressTpls.length; i++) {
+        let tpl = this.changedIngressTpls[i];
+        if (tpl.status && tpl.status.length > 0) {
+          for (let j = 0; j < tpl.status.length; j++) {
+            let status = tpl.status[j];
+            if (status.errNum > 2) continue;
+            this.ingressClient.get(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
+              response => {
+                let code = response.statusCode | response.status;
+                if (code === httpStatusCode.NoContent) {
+                  this.changedIngressTpls[i].status[j].state = TemplateState.NOT_FOUND;
+                  return
+                }
+                if (response.data &&
+                  this.changedIngressTpls &&
+                  this.changedIngressTpls[i] &&
+                  this.changedIngressTpls[i].status &&
+                  this.changedIngressTpls[i].status[j]) {
+                  this.changedIngressTpls[i].status[j].state = TemplateState.SUCCESS;
+                } else {
+                  this.changedIngressTpls[i].status[j].state = TemplateState.FAILD;
+                }
+              },
+              error => {
+                if (this.changedIngressTpls &&
+                  this.changedIngressTpls[i] &&
+                  this.changedIngressTpls[i].status &&
+                  this.changedIngressTpls[i].status[j]) {
+                  this.changedIngressTpls[i].status[j].errNum += 1;
+                  this.messageHandlerService.showError(`${status.cluster}请求错误次数 ${this.changedIngressTpls[i].status[j].errNum} 次`);
+                  if (this.changedIngressTpls[i].status[j].errNum === 3) {
+                    this.messageHandlerService.showError(`${status.cluster}的错误请求已经停止，请联系管理员解决`);
+                  }
+                }
+                console.log(error)
+              }
+            );
+          }
+        }
+      }
+    }
   }
 
   retrieveIngresss() {
@@ -331,6 +443,13 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
 
   createIngressTpl() {
     this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/ingress/${this.ingressId}/tpl`]);
+  }
+
+  cloneIngressTpl(tpl: ServiceTpl) {
+    if (tpl) {
+      this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/ingress/${this.ingressId}/tpl/${tpl.id}`]);
+    }
+
   }
 
 

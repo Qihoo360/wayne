@@ -50,14 +50,16 @@
   </div>
   <list-ingress
     [ingresses]="ingresses"
-    [ingressTpls]="ingressTpls"
+    [ingressTpls]="changedIngressTpls"
     [appId]="appId"
     [showState]="showState"
     [page]="pageState.page"
+    (paginate)="retrieve($event)"
+    (cloneTpl)="cloneIngressTpl($event)"
   ></list-ingress>
 </div>
 
-<!--(cloneTpl)="cloneIngressTpl($event)"-->
+<!--"(cloneTpl)="cloneIngressTpl($event)-->
 
 <!--(edit)="editIngress($event)"-->
 <!--(paginate)="retrieve($event)"-->

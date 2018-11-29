@@ -51,7 +51,7 @@ export class CreateEditIngressComponent implements OnInit {
     this.clusterMetas = {};
     if (id) {
       this.actionType = ActionType.EDIT;
-      this.title = '编辑 ingress';
+      this.title = '编辑 Ingress';
       this.ingressService.getById(id, app.id).subscribe(
         status => {
           this.ingress = status.data;
@@ -61,7 +61,7 @@ export class CreateEditIngressComponent implements OnInit {
         });
     } else {
       this.actionType = ActionType.ADD_NEW;
-      this.title = '创建 ingress';
+      this.title = '创建 Ingress';
       this.ingress = new Ingress();
       this.resourcesMetas = Object.assign({}, defaultResources);
       this.ingress.metaData = '{}';
@@ -103,6 +103,15 @@ export class CreateEditIngressComponent implements OnInit {
     }
     this.isSubmitOnGoing = true;
     this.ingress.appId = this.app.id;
+    let metaData = JSON.parse(this.ingress.metaData);
+    let checkedCluster = Array<string>();
+    this.clusters.map(cluster => {
+      if (cluster.checked) {
+        checkedCluster.push(cluster.name)
+      }
+    });
+    metaData['clusters'] = checkedCluster;
+    this.ingress.metaData = JSON.stringify(metaData);
     switch (this.actionType) {
       case ActionType.ADD_NEW:
         this.ingress.name = ApiNameGenerateRule.generateName(ApiNameGenerateRule.config(
