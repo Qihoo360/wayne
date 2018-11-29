@@ -11,7 +11,7 @@ import {Subscription} from 'rxjs/Subscription';
 export class TplDetailComponent implements OnInit, OnDestroy {
   modalOpened: boolean;
   text: string;
-  title: string = '发布说明';
+  title: string = 'release_explain';
   textSub: Subscription;
 
   constructor(private tplDetailService: TplDetailService) {

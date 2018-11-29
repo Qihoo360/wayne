@@ -17,11 +17,11 @@ import {TranslateService} from '@ngx-translate/core';
 const showState = {
   '名称': {hidden: false},
   '角色': {hidden: false},
-  '创建时间': {hidden: false},
+  'create_time': {hidden: false},
   '过期时间': {hidden: false},
-  '创建者': {hidden: false},
+  'create_user': {hidden: false},
   '描述': {hidden: false},
-  '操作': {hidden: false}
+  'action': {hidden: false}
 };
 
 @Component({

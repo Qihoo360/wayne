@@ -40,13 +40,13 @@ import {PageState} from '../../shared/page/page-state';
 import {TranslateService} from '@ngx-translate/core';
 
 const showState = {
-  '创建时间': {hidden: false},
-  '版本': {hidden: false},
+  'create_time': {hidden: false},
+  'version': {hidden: false},
   '已上线时间': {hidden: false},
   '调度间隔': {hidden: false},
-  '发布说明': {hidden: false},
-  '创建者': {hidden: false},
-  '操作': {hidden: false}
+  'release_explain': {hidden: false},
+  'create_user': {hidden: false},
+  'action': {hidden: false}
 };
 
 @Component({
