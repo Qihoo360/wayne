@@ -1,7 +1,7 @@
-import {Component, OnInit, Input, ViewChild, ElementRef, Inject} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import * as d3Scale from 'd3-scale';
-import {interpolateRdYlGn} from 'd3-scale-chromatic';
-import {TipService} from '../client/v1/tip.service';
+import { interpolateRdYlGn } from 'd3-scale-chromatic';
+import { TipService } from '../client/v1/tip.service';
 
 @Component({
   selector: 'wayne-progress',
@@ -14,14 +14,15 @@ export class ProgressComponent implements OnInit {
   private _enter: boolean = false;
   private _timer: any;
   Infinity: number = Infinity;
-  colorRange:any
+  colorRange: any;
 
   constructor(private tipService: TipService) {
 
   }
+
   ngOnInit() {
     this.colorRange = d3Scale.scaleSequential(interpolateRdYlGn)
-    .domain([100, 0]);
+      .domain([100, 0]);
   }
 
   @Input() label: string;
@@ -29,8 +30,9 @@ export class ProgressComponent implements OnInit {
   @Input() total: number | string;
   @Input() text: boolean = true;
   @ViewChild('box') box: ElementRef;
-  get percent() :number {
-    if (typeof parseFloat(this.count + '') === 'number' && typeof parseFloat(this.total + '') === 'number'){
+
+  get percent(): number {
+    if (typeof parseFloat(this.count + '') === 'number' && typeof parseFloat(this.total + '') === 'number') {
       return parseInt(parseInt(this.count + '') / parseFloat(this.total + '') * 100 + '');
     } else {
       return 0;
@@ -53,7 +55,7 @@ export class ProgressComponent implements OnInit {
       top: Math.floor(posi.top),
       background: this.endColor,
       text: `${this.count} / ${this.total}`
-    }
+    };
     this.tipService.open(info);
   }
 
@@ -62,6 +64,6 @@ export class ProgressComponent implements OnInit {
       this._enter = false;
       let info = `${this.count} / ${this.total}`;
       this.tipService.close(info);
-    }, 100)
+    }, 100);
   }
 }

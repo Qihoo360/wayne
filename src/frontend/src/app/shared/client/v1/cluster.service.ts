@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {Cluster} from '../../model/v1/cluster';
-import {PageState} from '../../page/page-state';
-import {isNotEmpty} from '../../utils';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { Cluster } from '../../model/v1/cluster';
+import { PageState } from '../../page/page-state';
+import { isNotEmpty } from '../../utils';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class ClusterService {
@@ -20,7 +20,7 @@ export class ClusterService {
     return this.http
       .get('/api/v1/clusters/names')
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   list(pageState: PageState, deleted?: string,): Observable<any> {
@@ -40,12 +40,12 @@ export class ClusterService {
       let value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
-          filterList.push(`${key}=${value}`)
+          filterList.push(`${key}=${value}`);
         } else {
           filterList.push(`${key}__contains=${value}`);
         }
       }
-    })
+    });
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }
@@ -57,7 +57,7 @@ export class ClusterService {
     return this.http
       .get('/api/v1/clusters', {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   create(cluster: Cluster): Observable<any> {
@@ -75,11 +75,11 @@ export class ClusterService {
   }
 
   deleteByName(name: string, logical?: boolean): Observable<any> {
-    let options : any = {};
+    let options: any = {};
     if (logical != null) {
       let params = new HttpParams();
       params = params.set('logical', logical + '');
-      options.params = params
+      options.params = params;
     }
 
     return this.http

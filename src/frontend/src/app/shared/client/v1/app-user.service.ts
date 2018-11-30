@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {AppUser} from '../../model/v1/app-user';
-import {PageState} from '../../page/page-state';
-import {isNotEmpty} from '../../utils';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { AppUser } from '../../model/v1/app-user';
+import { PageState } from '../../page/page-state';
+import { isNotEmpty } from '../../utils';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class AppUserService {
@@ -42,12 +42,12 @@ export class AppUserService {
       let value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
-          filterList.push(`${key}=${value}`)
+          filterList.push(`${key}=${value}`);
         } else {
           filterList.push(`${key}__contains=${value}`);
         }
       }
-    })
+    });
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }
@@ -58,7 +58,7 @@ export class AppUserService {
     }
     return this.http.get(`/api/v1/apps/${appId}/users`, {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   create(appUser: AppUser): Observable<any> {
@@ -74,7 +74,7 @@ export class AppUserService {
   }
 
   deleteById(id: number, appId: number): Observable<any> {
-    let options : any = {};
+    let options: any = {};
     return this.http.delete(`/api/v1/apps/${appId}/users/${id}`, options)
 
       .catch(error => Observable.throw(error));

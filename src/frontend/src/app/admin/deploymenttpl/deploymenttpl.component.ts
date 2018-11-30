@@ -1,17 +1,17 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {Router, ActivatedRoute, Params} from '@angular/router';
-import {State} from '@clr/angular';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {ListDeploymentTplComponent} from './list-deploymenttpl/list-deploymenttpl.component';
-import {CreateEditDeploymentTplComponent} from './create-edit-deploymenttpl/create-edit-deploymenttpl.component';
-import {DeploymentTpl} from '../../shared/model/v1/deploymenttpl';
-import {DeploymentTplService} from '../../shared/client/v1/deploymenttpl.service';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
+import { ActivatedRoute } from '@angular/router';
+import { State } from '@clr/angular';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { ListDeploymentTplComponent } from './list-deploymenttpl/list-deploymenttpl.component';
+import { CreateEditDeploymentTplComponent } from './create-edit-deploymenttpl/create-edit-deploymenttpl.component';
+import { DeploymentTpl } from '../../shared/model/v1/deploymenttpl';
+import { DeploymentTplService } from '../../shared/client/v1/deploymenttpl.service';
+import { PageState } from '../../shared/page/page-state';
 
 @Component({
   selector: 'wayne-deploymenttpl',
@@ -60,10 +60,10 @@ export class DeploymentTplComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.deploymentId = params['did'];
-      if (typeof(this.deploymentId) == 'undefined') {
-          this.deploymentId = ''
+      if (typeof (this.deploymentId) == 'undefined') {
+        this.deploymentId = '';
       }
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -91,7 +91,7 @@ export class DeploymentTplComponent implements OnInit {
 
   createDeployment(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

@@ -1,5 +1,5 @@
 // 判断某对象为空..返回true 否则 false
-import {configKeyApiNameGenerateRule, defaultApiNameGenerateRule} from './shared.const';
+import { configKeyApiNameGenerateRule, defaultApiNameGenerateRule } from './shared.const';
 
 export const isEmpty = function (obj: any): boolean {
   if (obj === false) {
@@ -12,7 +12,7 @@ export const isEmpty = function (obj: any): boolean {
 };
 // 判断某对象不为空..返回true 否则 false
 export const isNotEmpty = function (obj: any): boolean {
-  return !isEmpty(obj)
+  return !isEmpty(obj);
 };
 
 export const isArrayEmpty = function (obj: any): boolean {
@@ -45,10 +45,10 @@ export function mergeDeep(target, ...sources) {
   if (isObject(target) && isObject(source)) {
     for (const key in source) {
       if (isObject(source[key])) {
-        if (!target[key]) Object.assign(target, { [key]: {} });
+        if (!target[key]) Object.assign(target, {[key]: {}});
         mergeDeep(target[key], source[key]);
       } else {
-        Object.assign(target, { [key]: source[key] });
+        Object.assign(target, {[key]: source[key]});
       }
     }
   }
@@ -62,14 +62,14 @@ export class ApiNameGenerateRule {
     // this.authService.config[configKeyApiNameGenerateRule]
     let apiNameGenerateRule = globalConfig ?
       globalConfig : defaultApiNameGenerateRule;
-    if (appMetaData){
+    if (appMetaData) {
       let metaData = JSON.parse(appMetaData);
       if (metaData[configKeyApiNameGenerateRule]) {
-        apiNameGenerateRule = metaData[configKeyApiNameGenerateRule]
+        apiNameGenerateRule = metaData[configKeyApiNameGenerateRule];
       }
     }
 
-    return apiNameGenerateRule
+    return apiNameGenerateRule;
   }
 
   static generateName(config: string, apiName: string, appName: string): string {
@@ -86,7 +86,7 @@ export class ResourceUnitConvertor {
       return 0;
     }
     if (cpu.toString().indexOf('m') > -1) {
-      return parseFloat(cpu) / 1000
+      return parseFloat(cpu) / 1000;
     }
     return parseFloat(cpu);
   }
@@ -96,13 +96,13 @@ export class ResourceUnitConvertor {
       return 0;
     }
     if (memory.toString().indexOf('Gi') > -1) {
-      return parseFloat(memory)
+      return parseFloat(memory);
     }
     if (memory.toString().indexOf('Mi') > -1) {
-      return parseFloat(memory) / 1024
+      return parseFloat(memory) / 1024;
     }
     if (memory.toString().indexOf('Ki') > -1) {
-      return parseFloat(memory) / (1024 * 1024)
+      return parseFloat(memory) / (1024 * 1024);
     }
 
     return parseFloat(memory);

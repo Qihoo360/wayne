@@ -5,11 +5,14 @@
     </div>
     <div class="row flex-items-xs-between" style="height:32px;">
       <div class="option-left">
-        <button class="btn btn-link" (click)="openModal()"><clr-icon shape="add"></clr-icon>{{'CONFIGMAP.CREATE_TMP' | translate}}</button>
+        <button class="btn btn-link" (click)="openModal()">
+          <clr-icon shape="add"></clr-icon>
+          {{'CONFIGMAP.CREATE_TMP' | translate}}</button>
         <create-edit-cronjobtpl (create)="createCronjobTpl($event)"></create-edit-cronjobtpl>
       </div>
     </div>
     <list-cronjobtpl [cronjobTpls]="cronjobTpls" (delete)="deleteCronjobTpl($event)"
-                       (edit)="editCronjobTpl($event)" (paginate)="retrieve($event)" [page]="pageState.page"></list-cronjobtpl>
+                     (edit)="editCronjobTpl($event)" (paginate)="retrieve($event)"
+                     [page]="pageState.page"></list-cronjobtpl>
   </div>
 </div>

@@ -1,15 +1,15 @@
 .form-group-label-override {
-    font-size: 14px;
-    font-weight: 400;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .access-level-label {
-    font-size: 14px;
-    font-weight: 400;
-    margin-left: -4px;
-    margin-right: 12px;
-    top: -6px;
-    position: relative;
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: -4px;
+  margin-right: 12px;
+  top: -6px;
+  position: relative;
 }
 
 .statistic-wrapper {
@@ -35,7 +35,7 @@
   font-family: Metropolis, "Avenir Next", "Helvetica Neue", Arial, sans-serif;
 }
 
-.statistic-unit{
+.statistic-unit {
   font-size: 11px;
 }
 
@@ -75,46 +75,50 @@
   display: inline-block;
 }
 
-.cluster-more{
+.cluster-more {
   display: inline-flex;
   position: relative;
   width: 20px;
   cursor: pointer;
+
   & > * {
     position: absolute;
-    color:#0077b7;
+    color: #0077b7;
     bottom: -45px;
     right: 0;
     transform: translateY(-50%) rotate(90deg) scaleX(1);
   }
 }
 
-.group{
+.group {
   margin-bottom: 15px;
-  .col-sm-2{
+
+  .col-sm-2 {
     font-weight: 800;
   }
 }
-.card-text{
-    font-size: 1.8rem;
-    color: #377AEC;
-    font-weight: 600;
-    text-align:center;
+
+.card-text {
+  font-size: 1.8rem;
+  color: #377AEC;
+  font-weight: 600;
+  text-align: center;
 }
 
-.wayne-card{
-   width: 185px;
-   height: 116px;
+.wayne-card {
+  width: 185px;
+  height: 116px;
 }
 
-.resource-label{
-   font-weight: 600;
-   color: #022c42;
+.resource-label {
+  font-weight: 600;
+  color: #022c42;
 }
-.card-title{
-  font-size:16px;
-  color:#222222;
-  letter-spacing:1px;
-  line-height:24px;
-  text-align:center;
+
+.card-title {
+  font-size: 16px;
+  color: #222222;
+  letter-spacing: 1px;
+  line-height: 24px;
+  text-align: center;
 }

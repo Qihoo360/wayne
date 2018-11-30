@@ -1,16 +1,9 @@
-import {Injectable} from '@angular/core';
-import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-  CanActivate,
-  CanActivateChild,
-  Router,
-  RouterStateSnapshot
-} from '@angular/router';
-import {MessageHandlerService} from '../message-handler/message-handler.service';
-import {AuthService} from './auth.service';
-import {CacheService} from './cache.service';
-import {AppService} from '../client/v1/app.service';
+import { Injectable } from '@angular/core';
+import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
+import { MessageHandlerService } from '../message-handler/message-handler.service';
+import { AuthService } from './auth.service';
+import { CacheService } from './cache.service';
+import { AppService } from '../client/v1/app.service';
 
 @Injectable()
 export class AuthCheckGuard implements CanActivate, CanActivateChild {
@@ -31,7 +24,7 @@ export class AuthCheckGuard implements CanActivate, CanActivateChild {
       if (!this.authService.currentUser) {
         this.authService.retrieveUser().then(() => {
           this.setCache(state);
-          resolve(true)
+          resolve(true);
         }).catch(
           error => {
             this.messageHandlerService.handleError(error);

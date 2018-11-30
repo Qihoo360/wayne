@@ -1,13 +1,12 @@
-import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
-import {NamespaceClient} from '../../../shared/client/v1/kubernetes/namespace';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {AppResource } from './resource';
-
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { AppResource } from './resource';
+import * as echarts from 'echarts';
+import { TranslateService } from '@ngx-translate/core';
 import ECharts = echarts.ECharts;
 import EChartOption = echarts.EChartOption;
-import * as echarts from 'echarts';
-import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'report-resource',
@@ -32,11 +31,14 @@ export class ResourceComponent implements OnInit, AfterViewInit {
   private memOption: EChartOption;
   private cpuChart: ECharts;
   private memChart: ECharts;
+
   constructor(private namespaceClient: NamespaceClient,
               public cacheService: CacheService,
               public translate: TranslateService,
               private messageHandlerService: MessageHandlerService,
-  ) { }
+  ) {
+  }
+
   ngOnInit() {
     this.translate.stream(['OTHER', 'TITLE.CPU_USAGE', 'TITLE.MEMORY_USAGE', 'MENU.PRODUCT']).subscribe(res => {
       this.otherName = res['OTHER'];
@@ -56,14 +58,14 @@ export class ResourceComponent implements OnInit, AfterViewInit {
         this.dataDone = true;
         this.resources = response.data;
         this.ResourceList.push(...Object.keys(this.resources).map(app => {
-            let rs = new AppResource();
-            rs.app = app;
-            rs.cpu = this.resources[app].cpu;
-            rs.memory = this.resources[app].memory;
-            this.cpu_sum += this.resources[app].cpu;
-            this.mem_sum += this.resources[app].memory;
-            return rs;
-          }));
+          let rs = new AppResource();
+          rs.app = app;
+          rs.cpu = this.resources[app].cpu;
+          rs.memory = this.resources[app].memory;
+          this.cpu_sum += this.resources[app].cpu;
+          this.mem_sum += this.resources[app].memory;
+          return rs;
+        }));
         this.initOptions();
       },
       error => this.messageHandlerService.handleError(error)
@@ -86,12 +88,12 @@ export class ResourceComponent implements OnInit, AfterViewInit {
     app.push(this.otherName);
     cpu.push({name: this.otherName, value: this.cpu_sum - cnt});
     this.cpuOption = {
-      title : {
+      title: {
         text: this.cpuName,
         subtext: 'top 5',
         left: 'center'
       },
-      tooltip : {
+      tooltip: {
         trigger: 'item',
         formatter: '{a} <br/>{b} : {c} Core ({d}%)'
       },
@@ -100,11 +102,11 @@ export class ResourceComponent implements OnInit, AfterViewInit {
         left: 'left',
         data: app
       },
-      series : [
+      series: [
         {
           name: this.seriesName,
           type: 'pie',
-          radius : '55%',
+          radius: '55%',
           center: ['50%', '60%'],
           data: cpu,
           itemStyle: {
@@ -134,7 +136,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
     mem.push({name: this.otherName, value: this.mem_sum - cnt});
 
     this.memOption = {
-      title : {
+      title: {
         text: this.memName,
         subtext: 'top 5',
         left: 'center',
@@ -148,11 +150,11 @@ export class ResourceComponent implements OnInit, AfterViewInit {
         left: 'left',
         data: app
       },
-      series : [
+      series: [
         {
           name: this.seriesName,
           type: 'pie',
-          radius : '55%',
+          radius: '55%',
           center: ['50%', '60%'],
           data: mem,
           itemStyle: {

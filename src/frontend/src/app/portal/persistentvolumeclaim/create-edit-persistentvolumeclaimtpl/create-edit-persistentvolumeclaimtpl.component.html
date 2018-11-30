@@ -74,8 +74,10 @@
     </section>
     <div class="clr-wizard-footer-buttons tpl-bottom" [style.top.px]="top">
       <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-      <button type="button" class="btn btn-primary" (click)="openModal()">{{'BUTTON.ADVANCED_CONFIG' | translate}}</button>
-      <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+      <button type="button" class="btn btn-primary"
+              (click)="openModal()">{{'BUTTON.ADVANCED_CONFIG' | translate}}</button>
+      <button type="button" class="btn btn-primary" [disabled]="!isValid"
+              (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
     </div>
   </form>
 </div>

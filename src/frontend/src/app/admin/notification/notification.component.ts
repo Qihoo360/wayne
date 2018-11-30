@@ -1,16 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {NotificationService} from '../../shared/client/v1/notification.service';
-import {ListNotificationComponent} from './list-notification/list-notification.component';
-import {AuthService} from '../../shared/auth/auth.service';
-import {PageState} from '../../shared/page/page-state';
-import {CacheService} from '../../shared/auth/cache.service';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {Subscription} from 'rxjs/Subscription';
-import {ActivatedRoute} from '@angular/router';
-import {ClrDatagridStateInterface} from '@clr/angular';
-import {Notification} from '../../shared/model/v1/notification';
-import {CreateNotificationComponent} from './create-notification/create-notification.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
+import { NotificationService } from '../../shared/client/v1/notification.service';
+import { ListNotificationComponent } from './list-notification/list-notification.component';
+import { AuthService } from '../../shared/auth/auth.service';
+import { PageState } from '../../shared/page/page-state';
+import { CacheService } from '../../shared/auth/cache.service';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute } from '@angular/router';
+import { ClrDatagridStateInterface } from '@clr/angular';
+import { Notification } from '../../shared/model/v1/notification';
+import { CreateNotificationComponent } from './create-notification/create-notification.component';
 
 @Component({
   selector: 'wayne-notification',
@@ -35,7 +35,7 @@ export class NotificationComponent implements OnInit {
               private contextService: CacheService,
               private notificationService: NotificationService,
               private messageHandlerService: MessageHandlerService,
-              ) {
+  ) {
     breadcrumbService.addFriendlyNameForRoute('/admin/notification', '通知');
   }
 
@@ -67,19 +67,19 @@ export class NotificationComponent implements OnInit {
 
   refresh(dirty: boolean) {
     if (dirty) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 
   createNotification(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 
   updateNotification(updated: boolean) {
     if (updated) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

@@ -1,6 +1,6 @@
 /* Do not change, this code is generated from Golang structs */
 
-import {Group} from './group';
+import { Group } from './group';
 
 export class ApiKey {
   constructor() {

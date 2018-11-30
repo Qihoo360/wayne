@@ -1,30 +1,35 @@
-<button (click)="createStatefulset()" class="wayne-button primary" *ngIf="authService.currentAppPermission.statefulset?.create || authService.currentUser.admin">
+<button (click)="createStatefulset()" class="wayne-button primary"
+        *ngIf="authService.currentAppPermission.statefulset?.create || authService.currentUser.admin">
   {{'STATEFULSET.CREATE' | translate}}
 </button>
 <create-edit-statefulset (create)="create($event)"></create-edit-statefulset>
 <div *ngIf="statefulsetId && statefulsets?.length>0">
   <wayne-tabs>
     <wayne-tab (click)="tabClick(statefulset.id)"
-                [id]="statefulset.id"
-                *ngFor="let statefulset of statefulsets"
-                [active]="statefulset.id==statefulsetId"
-                [description]="statefulset.description"
-                >
+               [id]="statefulset.id"
+               *ngFor="let statefulset of statefulsets"
+               [active]="statefulset.id==statefulsetId"
+               [description]="statefulset.description"
+    >
       {{statefulset.name}}
     </wayne-tab>
   </wayne-tabs>
   <div class="table-search">
     <div class="table-search-left">
-      <button (click)="createStatefulsetTpl()" class="wayne-button normal" *ngIf="authService.currentAppPermission.statefulset?.create || authService.currentUser.admin">
+      <button (click)="createStatefulsetTpl()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.statefulset?.create || authService.currentUser.admin">
         {{'STATEFULSET.CREATE_TMP' | translate}}
       </button>
-      <button (click)="editStatefulset()" class="wayne-button normal" *ngIf="authService.currentAppPermission.statefulset?.update || authService.currentUser.admin">
+      <button (click)="editStatefulset()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.statefulset?.update || authService.currentUser.admin">
         {{'STATEFULSET.EDIT' | translate}}
       </button>
-      <button (click)="publishHistory()" class="wayne-button normal" *ngIf="authService.currentAppPermission.statefulset?.read || authService.currentUser.admin">
+      <button (click)="publishHistory()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.statefulset?.read || authService.currentUser.admin">
         {{'BUTTON.HISTORY' | translate}}
       </button>
-      <button (click)="deleteStatefulset()" class="wayne-button normal" *ngIf="authService.currentAppPermission.statefulset.offline || authService.currentUser.admin">
+      <button (click)="deleteStatefulset()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.statefulset.offline || authService.currentUser.admin">
         {{'STATEFULSET.DELETE' | translate}}
       </button>
       <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
@@ -46,13 +51,13 @@
     </div>
   </div>
   <list-statefulset [statefulsetTpls]="changedStatefulsetTpls"
-                   (paginate)="retrieve($event)"
-                   (edit)="editStatefulset($event)"
-                   (createTpl)="createStatefulsetTpl($event)"
-                   (cloneTpl)="cloneStatefulsetTpl($event)"
-                   [appId]="appId"
-                   [page]="pageState.page"
-                   [showState]="showState">
+                    (paginate)="retrieve($event)"
+                    (edit)="editStatefulset($event)"
+                    (createTpl)="createStatefulsetTpl($event)"
+                    (cloneTpl)="cloneStatefulsetTpl($event)"
+                    [appId]="appId"
+                    [page]="pageState.page"
+                    [showState]="showState">
   </list-statefulset>
 </div>
 

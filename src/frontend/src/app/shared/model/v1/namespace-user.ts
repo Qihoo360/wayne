@@ -1,6 +1,6 @@
-import {Namespace} from './namespace';
-import {User} from './user';
-import {Group} from './group';
+import { Namespace } from './namespace';
+import { User } from './user';
+import { Group } from './group';
 
 export class NamespaceUser {
   id: number;

@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {PageState} from '../../page/page-state';
-import {isNotEmpty} from '../../utils';
-import {Statefulset} from 'app/shared/model/v1/statefulset';
-import {OrderItem} from '../../model/v1/order';
+import { PageState } from '../../page/page-state';
+import { isNotEmpty } from '../../utils';
+import { Statefulset } from 'app/shared/model/v1/statefulset';
+import { OrderItem } from '../../model/v1/order';
 
 @Injectable()
 export class StatefulsetService {
@@ -19,13 +19,13 @@ export class StatefulsetService {
 
   getNames(appId?: number): Observable<any> {
     let params = new HttpParams();
-    if (typeof(appId) === 'undefined') {
+    if (typeof (appId) === 'undefined') {
       appId = 0;
     }
     return this.http
       .get(`/api/v1/apps/${appId}/statefulsets/names`, {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   listPage(pageState: PageState, appId: number, deleted?: string,): Observable<any> {
@@ -47,12 +47,12 @@ export class StatefulsetService {
       let value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
-          filterList.push(`${key}=${value}`)
+          filterList.push(`${key}=${value}`);
         } else {
           filterList.push(`${key}__contains=${value}`);
         }
       }
-    })
+    });
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }
@@ -66,7 +66,7 @@ export class StatefulsetService {
     return this.http
       .get(`/api/v1/apps/${appId}/statefulsets`, {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   create(obj: Statefulset): Observable<any> {
@@ -91,11 +91,11 @@ export class StatefulsetService {
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
-    let options : any = {};
+    let options: any = {};
     if (logical != null) {
       let params = new HttpParams();
       params = params.set('logical', logical + '');
-      options.params = params
+      options.params = params;
     }
 
     return this.http

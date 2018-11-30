@@ -1,13 +1,12 @@
-import {NgModule} from '@angular/core';
-import {TplDetailComponent} from './tpl-detail.component';
-import {SharedModule} from '../../../shared/shared.module';
+import { NgModule } from '@angular/core';
+import { TplDetailComponent } from './tpl-detail.component';
+import { SharedModule } from '../../../shared/shared.module';
 
 @NgModule({
   imports: [
     SharedModule,
   ],
-  providers: [
-  ],
+  providers: [],
   exports: [TplDetailComponent],
   declarations: [TplDetailComponent
   ]

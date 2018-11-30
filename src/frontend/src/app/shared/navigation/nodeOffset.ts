@@ -1,4 +1,4 @@
-export interface NodeOffset{
+export interface NodeOffset {
   id: string;
   offset: number;
 }

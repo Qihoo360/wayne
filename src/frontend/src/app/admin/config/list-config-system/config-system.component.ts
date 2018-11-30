@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {Subscription} from 'rxjs/Subscription';
-import {ConfigService} from '../../../shared/client/v1/config.service';
-import {BreadcrumbService} from '../../../shared/client/v1/breadcrumb.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { Subscription } from 'rxjs/Subscription';
+import { ConfigService } from '../../../shared/client/v1/config.service';
+import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
 
 @Component({
   selector: 'config-system',

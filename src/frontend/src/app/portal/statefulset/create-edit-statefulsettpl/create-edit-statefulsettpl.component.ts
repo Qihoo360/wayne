@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild, AfterViewInit, Inject, OnDestroy} from '@angular/core';
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {Location} from '@angular/common';
-import {FormBuilder, NgForm} from '@angular/forms';
-import {DOCUMENT, EventManager} from '@angular/platform-browser';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
+import { Location } from '@angular/common';
+import { FormBuilder, NgForm } from '@angular/forms';
+import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import {
   ConfigMapKeySelector,
   Container,
@@ -20,22 +20,22 @@ import {
   TCPSocketAction
 } from '../../../shared/model/v1/kubernetes/statefulset';
 import 'rxjs/add/observable/combineLatest';
-import {ActivatedRoute, Router} from '@angular/router';
-import {App} from '../../../shared/model/v1/app';
-import {StatefulsetService} from '../../../shared/client/v1/statefulset.service';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {ActionType, appLabelKey, defaultResources, namespaceLabelKey} from '../../../shared/shared.const';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {Statefulset} from '../../../shared/model/v1/statefulset';
-import {StatefulsetTplService} from '../../../shared/client/v1/statefulsettpl.service';
-import {StatefulsetTemplate} from '../../../shared/model/v1/statefulsettpl';
-import {defaultStatefulset} from '../../../shared/default-models/statefulset.const';
-import {Observable} from 'rxjs/Observable';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
-import {ResourceUnitConvertor} from '../../../shared/utils';
-import {ConfigMapEnvSource, EnvFromSource, SecretEnvSource} from '../../../shared/model/v1/kubernetes/deployment';
+import { ActivatedRoute, Router } from '@angular/router';
+import { App } from '../../../shared/model/v1/app';
+import { StatefulsetService } from '../../../shared/client/v1/statefulset.service';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { ActionType, appLabelKey, defaultResources, namespaceLabelKey } from '../../../shared/shared.const';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { Statefulset } from '../../../shared/model/v1/statefulset';
+import { StatefulsetTplService } from '../../../shared/client/v1/statefulsettpl.service';
+import { StatefulsetTemplate } from '../../../shared/model/v1/statefulsettpl';
+import { defaultStatefulset } from '../../../shared/default-models/statefulset.const';
+import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { ResourceUnitConvertor } from '../../../shared/utils';
+import { ConfigMapEnvSource, EnvFromSource, SecretEnvSource } from '../../../shared/model/v1/kubernetes/deployment';
 
 const templateDom = [
   {
@@ -75,7 +75,7 @@ const containerDom = {
   styleUrls: ['create-edit-statefulsettpl.scss']
 })
 
-export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit, OnDestroy{
+export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit, OnDestroy {
   ngForm: NgForm;
   @ViewChild('ngForm')
   currentForm: NgForm;
@@ -106,7 +106,7 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
               private messageHandlerService: MessageHandlerService,
               @Inject(DOCUMENT) private document: any,
               private eventManager: EventManager
-            ) {
+  ) {
 
   }
 
@@ -136,14 +136,14 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
       // hack
       setTimeout(() => {
         this.top = this.box.scrollTop + this.box.offsetHeight - 48;
-      }, 0)
+      }, 0);
     }
   }
 
   get containersLength(): number {
-    try{
+    try {
       return this.kubeStatefulSet.spec.template.spec.containers.length;
-    } catch(error) {
+    } catch (error) {
       return 0;
     }
   }
@@ -153,14 +153,14 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
     dom.id += i ? i : '';
     dom.child.forEach(item => {
       item.id += i ? i : '';
-    })
-    return dom
+    });
+    return dom;
   }
 
   initNavList() {
     this.naviList = null;
     let naviList = JSON.parse(JSON.stringify(templateDom));
-    for(let key = 0; key < this.containersLength; key++) {
+    for (let key = 0; key < this.containersLength; key++) {
       naviList[0].child.push(this.setContainDom(key));
     }
     this.naviList = JSON.stringify(naviList);
@@ -175,11 +175,11 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
   }
 
   checkMemory(memory: string): boolean {
-    return memory === '' ? true : parseFloat(memory) <= this.memoryLimit && parseFloat(memory) > 0
+    return memory === '' ? true : parseFloat(memory) <= this.memoryLimit && parseFloat(memory) > 0;
   }
 
   checkCpu(cpu: string): boolean {
-    return cpu === '' ? true : parseFloat(cpu) <= this.cpuLimit && parseFloat(cpu) > 0
+    return cpu === '' ? true : parseFloat(cpu) <= this.cpuLimit && parseFloat(cpu) > 0;
   }
 
   get memoryLimit(): number {
@@ -188,10 +188,10 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
       let metaData = JSON.parse(this.statefulset.metaData);
       if (metaData.resources &&
         metaData.resources.memoryLimit) {
-        memoryLimit = parseInt(metaData.resources.memoryLimit)
+        memoryLimit = parseInt(metaData.resources.memoryLimit);
       }
     }
-    return memoryLimit
+    return memoryLimit;
   }
 
   get cpuLimit(): number {
@@ -200,10 +200,10 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
       let metaData = JSON.parse(this.statefulset.metaData);
       if (metaData.resources &&
         metaData.resources.cpuLimit) {
-        cpuLimit = parseInt(metaData.resources.cpuLimit)
+        cpuLimit = parseInt(metaData.resources.cpuLimit);
       }
     }
-    return cpuLimit
+    return cpuLimit;
   }
 
   ngOnInit(): void {
@@ -229,7 +229,7 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
         let tpl = response[2];
         if (tpl) {
           this.statefulsetTpl = tpl.data;
-          
+
           this.statefulsetTpl.description = null;
           this.saveStatefulset(JSON.parse(this.statefulsetTpl.template));
         }
@@ -454,16 +454,16 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
       let metaData = JSON.parse(this.statefulset.metaData);
       if (metaData.resources && metaData.resources.cpuRequestLimitPercent) {
         if (metaData.resources.cpuRequestLimitPercent.indexOf('%') > -1) {
-          cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent.replace('%', '')) / 100
+          cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent.replace('%', '')) / 100;
         } else {
-          cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent)
+          cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent);
         }
       }
       if (metaData.resources && metaData.resources.memoryRequestLimitPercent) {
         if (metaData.resources.memoryRequestLimitPercent.indexOf('%') > -1) {
-          memoryRequestLimitPercent = parseFloat(metaData.resources.memoryRequestLimitPercent.replace('%', '')) / 100
+          memoryRequestLimitPercent = parseFloat(metaData.resources.memoryRequestLimitPercent.replace('%', '')) / 100;
         } else {
-          memoryRequestLimitPercent = parseFloat(metaData.resources.memoryRequestLimitPercent)
+          memoryRequestLimitPercent = parseFloat(metaData.resources.memoryRequestLimitPercent);
         }
       }
     }
@@ -483,7 +483,7 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
         container.resources.requests['cpu'] = (parseFloat(cpuLimit) * cpuRequestLimitPercent).toString();
       }
     }
-    return kubeStatefulSet
+    return kubeStatefulSet;
   }
 
   get totalFee() {
@@ -494,15 +494,15 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
         let cpu = limit['cpu'];
         let memory = limit['memory'];
         if (cpu) {
-          fee += parseFloat(cpu) * this.cpuUnitPrice
+          fee += parseFloat(cpu) * this.cpuUnitPrice;
         }
         if (memory) {
-          fee += parseFloat(memory) * this.memoryUnitPrice
+          fee += parseFloat(memory) * this.memoryUnitPrice;
         }
 
       }
     }
-    return fee
+    return fee;
   }
 
   saveStatefulset(kubeStatefulSet: KubeStatefulSet) {
@@ -540,10 +540,10 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
     if (kubeStatefulSet.spec.template.spec.containers && kubeStatefulSet.spec.template.spec.containers.length > 0) {
       for (let container of kubeStatefulSet.spec.template.spec.containers) {
         if (!container.resources) {
-          container.resources = ResourceRequirements.emptyObject()
+          container.resources = ResourceRequirements.emptyObject();
         }
         if (!container.resources.limits) {
-          container.resources.limits = {'cpu': '0', 'memory': '0Gi'}
+          container.resources.limits = {'cpu': '0', 'memory': '0Gi'};
         }
         container.resources.limits['cpu'] = ResourceUnitConvertor.cpuCoreValue(container.resources.limits['cpu']);
         container.resources.limits['memory'] = ResourceUnitConvertor.memoryGiValue(container.resources.limits['memory']);
@@ -555,7 +555,7 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
     kubeStatefulSet = this.convertProbeCommandToArray(kubeStatefulSet);
     kubeStatefulSet = this.addResourceUnit(kubeStatefulSet);
     kubeStatefulSet = this.fillStatefulsetLabel(kubeStatefulSet);
-    return kubeStatefulSet
+    return kubeStatefulSet;
   }
 
   convertProbeCommandToArray(kubeStatefulSet: KubeStatefulSet): KubeStatefulSet {
@@ -594,6 +594,6 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
 
   getImagePrefixReg() {
     let imagePrefix = this.authService.config['system.image-prefix'];
-    return imagePrefix
+    return imagePrefix;
   }
 }

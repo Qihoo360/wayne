@@ -1,8 +1,8 @@
-import {NgModule} from '@angular/core';
-import {SharedModule} from '../../shared/shared.module';
-import {RouterModule} from '@angular/router';
-import {SidenavComponent} from './sidenav.component';
-import {FooterModule} from '../../shared/footer/footer.module';
+import { NgModule } from '@angular/core';
+import { SharedModule } from '../../shared/shared.module';
+import { RouterModule } from '@angular/router';
+import { SidenavComponent } from './sidenav.component';
+import { FooterModule } from '../../shared/footer/footer.module';
 
 @NgModule({
   imports: [
@@ -10,8 +10,7 @@ import {FooterModule} from '../../shared/footer/footer.module';
     RouterModule,
     FooterModule
   ],
-  providers: [
-  ],
+  providers: [],
   exports: [SidenavComponent],
   declarations: [
     SidenavComponent

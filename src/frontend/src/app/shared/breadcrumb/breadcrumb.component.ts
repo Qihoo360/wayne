@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import {BreadcrumbService} from '../client/v1/breadcrumb.service';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { BreadcrumbService } from '../client/v1/breadcrumb.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -10,23 +10,25 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class BreadcrumbComponent implements OnInit, OnDestroy {
 
-  @Input() prefix: string  = '';
-	urls: string[] = new Array();
+  @Input() prefix: string = '';
+  urls: string[] = new Array();
   private routerSubscription: Subscription;
-  constructor(public router: Router, private breadcrumbService: BreadcrumbService) { }
+
+  constructor(public router: Router, private breadcrumbService: BreadcrumbService) {
+  }
 
   ngOnInit() {
     this.generateTrail(this.router.url);
-  	this.routerSubscription = this.router.events.subscribe(event => {
-  		if (event instanceof NavigationEnd) {
+    this.routerSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
         this.urls.length = 0;
-	  		this.generateTrail(event.url);
-  		}
-  	})
+        this.generateTrail(event.url);
+      }
+    });
   }
 
   navigateTo(url: string, avail: boolean) {
-  	if (avail) this.router.navigateByUrl(url);
+    if (avail) this.router.navigateByUrl(url);
   }
 
   generateTrail(url: string) {

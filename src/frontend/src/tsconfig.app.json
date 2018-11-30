@@ -4,7 +4,9 @@
     "outDir": "../out-tsc/app",
     "module": "esnext",
     "baseUrl": "",
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
   "exclude": [
     "test.ts",

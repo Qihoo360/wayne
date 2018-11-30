@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {PageState} from '../../page/page-state';
-import {isNotEmpty} from '../../utils';
-import {DeploymentTpl} from '../../model/v1/deploymenttpl';
+import { PageState } from '../../page/page-state';
+import { isNotEmpty } from '../../utils';
+import { DeploymentTpl } from '../../model/v1/deploymenttpl';
 
 @Injectable()
 export class DeploymentTplService {
@@ -21,11 +21,11 @@ export class DeploymentTplService {
     params = params.set('pageNo', pageState.page.pageNo + '');
     params = params.set('pageSize', pageState.page.pageSize + '');
     params = params.set('sortby', '-id');
-    if ((typeof(appId) === 'undefined') || (!appId)) {
-        appId = 0;
+    if ((typeof (appId) === 'undefined') || (!appId)) {
+      appId = 0;
     }
     params = params.set('deploymentId', deploymentId === undefined ? '' : deploymentId + '');
-    if (needStatus){
+    if (needStatus) {
       params = params.set('needStatus', needStatus);
     }
     Object.getOwnPropertyNames(pageState.params).map(key => {
@@ -45,7 +45,7 @@ export class DeploymentTplService {
           filterList.push(`${key}__contains=${value}`);
         }
       }
-    })
+    });
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }
@@ -56,7 +56,7 @@ export class DeploymentTplService {
     return this.http
       .get(`/api/v1/apps/${appId}/deployments/tpls`, {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   create(tpl: DeploymentTpl, appId: number): Observable<any> {
@@ -74,11 +74,11 @@ export class DeploymentTplService {
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
-    let options : any = {};
+    let options: any = {};
     if (logical != null) {
       let params = new HttpParams();
       params = params.set('logical', logical + '');
-      options.params = params
+      options.params = params;
     }
 
     return this.http

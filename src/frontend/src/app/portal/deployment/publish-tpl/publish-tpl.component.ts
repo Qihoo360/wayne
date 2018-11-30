@@ -1,18 +1,18 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ClusterMeta, Deployment} from '../../../shared/model/v1/deployment';
-import {DeploymentStatus, DeploymentTpl} from '../../../shared/model/v1/deploymenttpl';
-import {KubeDeployment} from '../../../shared/model/v1/kubernetes/deployment';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {defaultResources, ResourcesActionType} from '../../../shared/shared.const';
-import {PublishStatusService} from '../../../shared/client/v1/publishstatus.service';
-import {DeploymentClient} from '../../../shared/client/v1/kubernetes/deployment';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ClusterMeta, Deployment } from '../../../shared/model/v1/deployment';
+import { DeploymentStatus, DeploymentTpl } from '../../../shared/model/v1/deploymenttpl';
+import { KubeDeployment } from '../../../shared/model/v1/kubernetes/deployment';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { defaultResources, ResourcesActionType } from '../../../shared/shared.const';
+import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
+import { DeploymentClient } from '../../../shared/client/v1/kubernetes/deployment';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'publish-tpl',
@@ -50,9 +50,9 @@ export class PublishDeploymentTplComponent {
     let clusterMeta = this.clusterMetas[cluster];
     if (this.deployment && this.deployment.metaData && clusterMeta) {
       if (!clusterMeta.checked) {
-        return true
+        return true;
       }
-      return parseInt(clusterMeta.value) <= this.replicaLimit
+      return parseInt(clusterMeta.value) <= this.replicaLimit;
     }
     return false;
   }
@@ -63,10 +63,10 @@ export class PublishDeploymentTplComponent {
       let metaData = JSON.parse(this.deployment.metaData);
       if (metaData.resources &&
         metaData.resources.replicaLimit) {
-        replicaLimit = parseInt(metaData.resources.replicaLimit)
+        replicaLimit = parseInt(metaData.resources.replicaLimit);
       }
     }
-    return replicaLimit
+    return replicaLimit;
   }
 
   newPublishTpl(deployment: Deployment, deploymentTpl: DeploymentTpl, actionType: ResourcesActionType) {
@@ -86,7 +86,7 @@ export class PublishDeploymentTplComponent {
           clusterMeta.value = replicas[state.cluster];
           this.clusterMetas[state.cluster] = clusterMeta;
           this.clusters.push(state.cluster);
-        })
+        });
       } else {
         Object.getOwnPropertyNames(replicas).map(key => {
           if ((actionType == ResourcesActionType.PUBLISH || this.getStatusByCluster(deploymentTpl.status, key) != null)
@@ -121,24 +121,24 @@ export class PublishDeploymentTplComponent {
     if (status && status.length > 0) {
       for (let state of status) {
         if (state.cluster == cluster) {
-          return state
+          return state;
         }
       }
     }
-    return null
+    return null;
   }
 
   getReplicas(deployment: Deployment): {} {
     if (!deployment.metaData) {
       this.messageHandlerService.showWarning('部署实例数未配置，请先到编辑部署配置实例数！');
-      return null
+      return null;
     }
     let replicas = JSON.parse(deployment.metaData)['replicas'];
     if (!replicas) {
       this.messageHandlerService.showWarning('部署实例数未配置，请先到编辑部署配置实例数！');
-      return null
+      return null;
     }
-    return replicas
+    return replicas;
   }
 
   onCancel() {
@@ -177,9 +177,9 @@ export class PublishDeploymentTplComponent {
             this.deletePublishStatus(state.id);
           },
           error => {
-            if (this.forceOffline){
+            if (this.forceOffline) {
               this.deletePublishStatus(state.id);
-            }else {
+            } else {
               this.messageHandlerService.handleError(error);
             }
           }
@@ -236,7 +236,7 @@ export class PublishDeploymentTplComponent {
     if (this.clusters) {
       for (let clu of this.clusters) {
         if (!this.replicaValidation(clu)) {
-          return false
+          return false;
         }
       }
     }

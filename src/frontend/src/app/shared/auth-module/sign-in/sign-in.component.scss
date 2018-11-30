@@ -1,9 +1,9 @@
 .container {
   width: 332px;
   max-height: 453px;
-  overflow:auto;
+  overflow: auto;
   margin-top: 10%;
-  margin-right:15%;
+  margin-right: 15%;
   padding: 10px 50px 20px 50px;
   background-color: #fff;
   box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.06), 0 1px 0 0 rgba(0, 0, 0, 0.02);
@@ -18,7 +18,8 @@
   z-index: -1;
   background-color: #F4F7FB;
 }
+
 .error {
-  color:#FF3434;
+  color: #FF3434;
   font-size: 5px;
 }

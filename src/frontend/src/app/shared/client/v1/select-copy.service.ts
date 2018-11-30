@@ -1,11 +1,11 @@
-import {Injectable, Inject, Renderer2, RendererFactory2, OnDestroy, AfterViewInit} from '@angular/core';
-import {DOCUMENT, EventManager} from '@angular/platform-browser';
-import {CopyService} from './copy.service';
+import { AfterViewInit, Inject, Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
+import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { CopyService } from './copy.service';
 
 @Injectable()
 
-export class SelectCopyService implements OnDestroy, AfterViewInit{
-  
+export class SelectCopyService implements OnDestroy, AfterViewInit {
+
   render: Renderer2;
   range: number = 30;
   globalEventList: Array<any> = new Array();
@@ -22,7 +22,7 @@ export class SelectCopyService implements OnDestroy, AfterViewInit{
   }
 
   isButton(element: any): boolean {
-    while(element.tagName.toLowerCase() !== 'body') {
+    while (element.tagName.toLowerCase() !== 'body') {
       if (element.tagName.toLowerCase() === 'button') {
         return true;
       }
@@ -30,9 +30,9 @@ export class SelectCopyService implements OnDestroy, AfterViewInit{
     }
     return false;
   }
-  
+
   isCopyButton(element: any): boolean {
-    while(element.tagName && element.tagName.toLowerCase() !== 'body') {
+    while (element.tagName && element.tagName.toLowerCase() !== 'body') {
       if (element.id === 'copy-button') {
         return true;
       }
@@ -44,11 +44,11 @@ export class SelectCopyService implements OnDestroy, AfterViewInit{
   isInput(element: any): boolean {
     return element.tagName.toLowerCase() === 'input' || element.tagName.toLowerCase() === 'textarea';
   }
-  
+
   get supportSelection() {
     return this.document.selection;
   }
-  
+
   init() {
     if (window) {
       this.globalEventList.push(
@@ -57,10 +57,10 @@ export class SelectCopyService implements OnDestroy, AfterViewInit{
       );
     }
   }
-  
+
   // 滚动时候清除button
   boxAddScroll(target) {
-    while(target.tagName && target.tagName.toLowerCase() !== 'html') {
+    while (target.tagName && target.tagName.toLowerCase() !== 'html') {
       if (target.offsetHeight < target.scrollHeight || target.offsetWidth < target.scrollWidth) {
         this.scrollBoxList.push(this.eventManage.addEventListener(target, 'scroll', this.cancelCopyEvent.bind(this, target)));
       }
@@ -75,7 +75,7 @@ export class SelectCopyService implements OnDestroy, AfterViewInit{
     if (this.globalEventList.length !== 0) {
       this.globalEventList.forEach(item => {
         item();
-      })
+      });
       this.globalEventList = [];
     }
   }
@@ -85,19 +85,19 @@ export class SelectCopyService implements OnDestroy, AfterViewInit{
       this.removeCopyButton();
     }
   }
-  
+
   removeCopyButton() {
     if (this.scrollBoxList.length !== 0) {
       this.scrollBoxList.forEach(item => {
         item();
-      })
+      });
       this.scrollBoxList = [];
     }
     [].slice.call(this.document.querySelectorAll('#copy-button')).forEach(item => {
       this.render.removeChild(this.document.body, item);
-    })
+    });
   }
-  
+
   mouseUpEvent(event) {
     const target = event.target;
     if (this.getSelectText().trim() === '') return;
@@ -106,12 +106,12 @@ export class SelectCopyService implements OnDestroy, AfterViewInit{
     dom.id = 'copy-button';
     let result = this.buttonPosition(event, this.getSelectPosition());
     dom.style.cssText = `width: 30px;height: 30px; position: fixed;z-index: 1051;left: ${result.left}px; top: ${result.top}px`;
-    dom.innerHTML =  '<svg width="25" height="25" class="copy-svg" viewBox="0 0 448 512"><path fill="black" d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"></path></svg>';
+    dom.innerHTML = '<svg width="25" height="25" class="copy-svg" viewBox="0 0 448 512"><path fill="black" d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"></path></svg>';
     this.render.appendChild(this.document.body, dom);
     this.boxAddScroll(target);
     this.isCopy = true;
   }
-  
+
   mouseDownEvent(event) {
     const eventDom = event.target;
     if (this.isCopyButton(eventDom)) {
@@ -123,7 +123,7 @@ export class SelectCopyService implements OnDestroy, AfterViewInit{
   }
 
   isAceBox(element: any): Boolean {
-    while(element.tagName.toLowerCase() !== 'body') {
+    while (element.tagName.toLowerCase() !== 'body') {
       if (element.classList.contains('ace_content')) {
         return true;
       }
@@ -135,7 +135,7 @@ export class SelectCopyService implements OnDestroy, AfterViewInit{
   removeSelect() {
     this.supportSelection ? this.document.selection.removeAllRanges() : this.document.getSelection().removeAllRanges();
   }
-  
+
   buttonPosition(event: any, selectPosi: any) {
     if (this.isInput(event.target)) {
       return {left: event.clientX + 5, top: event.clientY - 40};

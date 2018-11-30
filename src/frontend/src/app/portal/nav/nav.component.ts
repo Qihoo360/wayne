@@ -1,16 +1,16 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Namespace} from '../../shared/model/v1/namespace';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService} from '../../shared/auth/auth.service';
-import {CacheService} from '../../shared/auth/cache.service';
-import {AuthoriseService} from '../../shared/client/v1/auth.service';
-import {NotificationService} from '../../shared/client/v1/notification.service';
-import {Notification, NotificationLog} from '../../shared/model/v1/notification';
-import {PageState} from '../../shared/page/page-state';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {LoginTokenKey} from '../../shared/shared.const';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
-import {StorageService} from '../../shared/client/v1/storage.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Namespace } from '../../shared/model/v1/namespace';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../shared/auth/auth.service';
+import { CacheService } from '../../shared/auth/cache.service';
+import { AuthoriseService } from '../../shared/client/v1/auth.service';
+import { NotificationService } from '../../shared/client/v1/notification.service';
+import { Notification, NotificationLog } from '../../shared/model/v1/notification';
+import { PageState } from '../../shared/page/page-state';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { LoginTokenKey } from '../../shared/shared.const';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { StorageService } from '../../shared/client/v1/storage.service';
 
 @Component({
   selector: 'wayne-nav',
@@ -43,7 +43,7 @@ export class NavComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.currentLang = this.translate.currentLang;
-    this.translate.onLangChange.subscribe((event:  LangChangeEvent) => {
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.currentLang = event.lang;
     });
     this.namespace = this.cacheService.currentNamespace;
@@ -77,10 +77,13 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   showLang(lang: string): string {
-    switch(lang) {
-      case 'en': return 'English';
-      case 'zh-Hans': return '中文简体';
-      default: return '';
+    switch (lang) {
+      case 'en':
+        return 'English';
+      case 'zh-Hans':
+        return '中文简体';
+      default:
+        return '';
     }
   }
 
@@ -91,20 +94,20 @@ export class NavComponent implements OnInit, OnDestroy {
 
   logout() {
     localStorage.removeItem(LoginTokenKey);
-    this.router.navigateByUrl('/sign-in')
+    this.router.navigateByUrl('/sign-in');
   }
 
   pullNotification() {
     this.notificationService.subscribe(this.pageState).subscribe(
       response => {
         this.notificationLogs = response.data;
-        this.mind = false
+        this.mind = false;
         for (let n of this.notificationLogs) {
-          this.mind = this.mind || !n.is_readed
+          this.mind = this.mind || !n.is_readed;
         }
       },
       error => this.messageHandlerService.handleError(error)
-    )
+    );
   }
 
   showNotification(notificationlog: NotificationLog) {
@@ -114,8 +117,7 @@ export class NavComponent implements OnInit, OnDestroy {
       response => {
       },
       error => this.messageHandlerService.handleError(error)
-
-    )
+    );
   }
 
   closeNotification() {

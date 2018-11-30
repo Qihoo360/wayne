@@ -1,4 +1,4 @@
-import {State} from '@clr/angular';
+import { State } from '@clr/angular';
 
 export class PageState {
   page? = new Page();
@@ -32,10 +32,10 @@ export class PageState {
     if (state.filters) {
       for (let filter of state.filters) {
         let {property, value} = <{ property: string, value: string }>filter;
-        pageState.filters[property] = value
+        pageState.filters[property] = value;
       }
     }
-    return pageState
+    return pageState;
   }
 }
 

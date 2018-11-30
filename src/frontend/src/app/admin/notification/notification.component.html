@@ -7,16 +7,19 @@
         </div>
         <div class="row flex-items-xs-between" style="height:32px;">
           <div class="option-left">
-            <button class="btn btn-link" (click)="openCreateModal()"><clr-icon shape="add"></clr-icon>创建通知</button>
+            <button class="btn btn-link" (click)="openCreateModal()">
+              <clr-icon shape="add"></clr-icon>
+              创建通知
+            </button>
             <wayne-create-notification (create)="createNotification($event)"></wayne-create-notification>
           </div>
         </div>
         <wayne-list-notification
-            (updated)="updateNotification($event)"
-            [notifications]="notifications"
-            (paginate)="retrieve($event)"
-            [page]="pageState.page"
-          ></wayne-list-notification>
+          (updated)="updateNotification($event)"
+          [notifications]="notifications"
+          (paginate)="retrieve($event)"
+          [page]="pageState.page"
+        ></wayne-list-notification>
       </div>
     </div>
   </div>

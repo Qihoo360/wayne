@@ -4,9 +4,9 @@ export class HookEvent {
   description: string;
 
   constructor(data: Object) {
-    this.key = data['key']
-    this.name = data['name']
-    this.description = data['description']
+    this.key = data['key'];
+    this.name = data['name'];
+    this.description = data['description'];
   }
 }
 

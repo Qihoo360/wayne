@@ -31,9 +31,9 @@
         </ng-container>
       </clr-dg-column>
       <clr-dg-row *ngFor="let statefulsetTpl of statefulsetTpls" [clrDgItem]="statefulsetTpl">
-        <clr-dg-action-overflow >
-          <button class="action-item" (click)="tplDetail(statefulsetTpl)" >模板详情</button>
-          <button class="action-item" (click)="recoverStatefulsetTpl(statefulsetTpl)" >恢复</button>
+        <clr-dg-action-overflow>
+          <button class="action-item" (click)="tplDetail(statefulsetTpl)">模板详情</button>
+          <button class="action-item" (click)="recoverStatefulsetTpl(statefulsetTpl)">恢复</button>
           <button class="action-item" (click)="deleteStatefulsetTpl(statefulsetTpl)">彻底删除</button>
         </clr-dg-action-overflow>
         <clr-dg-cell>{{statefulsetTpl.id}}</clr-dg-cell>

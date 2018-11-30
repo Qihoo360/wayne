@@ -6,7 +6,8 @@
     <create-edit-app-webhook (create)="refresh($event)" (update)="refresh($event)"></create-edit-app-webhook>
     <div class="table-search">
       <div class="table-search-left">
-        <button *ngIf="authService.currentNamespacePermission.webHook.create || authService.currentAppPermission.webHook.create || authService.currentUser.admin"
+        <button
+          *ngIf="authService.currentNamespacePermission.webHook.create || authService.currentAppPermission.webHook.create || authService.currentUser.admin"
           class="wayne-button normal" (click)="openModal()">
           创建新的{{ resourceLabel }}
         </button>

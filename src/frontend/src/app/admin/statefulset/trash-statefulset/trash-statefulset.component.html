@@ -3,61 +3,61 @@
     <div class="row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
       <h2 class="header-title">已删除状态副本集列表</h2>
     </div>
-<clr-datagrid (clrDgRefresh)="refresh($event)">
-  <clr-dg-column [clrDgField]="'id'" class="col-query-id">
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      ID
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column [clrDgField]="'name'" class="col-app-name">
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      名称
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column class="col-metadata">
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      元数据
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      描述
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column [clrDgField]="'user'">
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      {{'TITLE.CREATE_USER' | translate}}
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column  [clrDgSortBy]="'createTime'" class="col-time">
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      {{'TITLE.CREATE_TIME' | translate}}
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-row *ngFor="let statefulset of statefulsets" [clrDgItem]="statefulset">
-    <clr-dg-action-overflow >
-      <button class="action-item" (click)="recoverStatefulset(statefulset)" >恢复</button>
-      <button class="action-item" (click)="deleteStatefulset(statefulset)">彻底删除</button>
-    </clr-dg-action-overflow>
-    <clr-dg-cell class="col-query-id">{{statefulset.id}}</clr-dg-cell>
-    <clr-dg-cell class="col-app-name copy">{{statefulset.name}}</clr-dg-cell>
-    <clr-dg-cell class="col-metadata">
-      <div class="text-overflow">
-        <a href="javascript:;" (click)="detailMetaDataTpl(statefulset.metaData)">{{statefulset.metaData}}</a>
-      </div>
-    </clr-dg-cell>
-    <clr-dg-cell>{{statefulset.description}}</clr-dg-cell>
-    <clr-dg-cell>{{statefulset.user}}</clr-dg-cell>
-    <clr-dg-cell class="col-time">{{statefulset.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
-  </clr-dg-row>
+    <clr-datagrid (clrDgRefresh)="refresh($event)">
+      <clr-dg-column [clrDgField]="'id'" class="col-query-id">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          ID
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgField]="'name'" class="col-app-name">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          名称
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column class="col-metadata">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          元数据
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          描述
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgField]="'user'">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'TITLE.CREATE_USER' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgSortBy]="'createTime'" class="col-time">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'TITLE.CREATE_TIME' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-row *ngFor="let statefulset of statefulsets" [clrDgItem]="statefulset">
+        <clr-dg-action-overflow>
+          <button class="action-item" (click)="recoverStatefulset(statefulset)">恢复</button>
+          <button class="action-item" (click)="deleteStatefulset(statefulset)">彻底删除</button>
+        </clr-dg-action-overflow>
+        <clr-dg-cell class="col-query-id">{{statefulset.id}}</clr-dg-cell>
+        <clr-dg-cell class="col-app-name copy">{{statefulset.name}}</clr-dg-cell>
+        <clr-dg-cell class="col-metadata">
+          <div class="text-overflow">
+            <a href="javascript:;" (click)="detailMetaDataTpl(statefulset.metaData)">{{statefulset.metaData}}</a>
+          </div>
+        </clr-dg-cell>
+        <clr-dg-cell>{{statefulset.description}}</clr-dg-cell>
+        <clr-dg-cell>{{statefulset.user}}</clr-dg-cell>
+        <clr-dg-cell class="col-time">{{statefulset.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
+      </clr-dg-row>
 
-  <wayne-paginate
-    [(currentPage)]="currentPage"
-    [total]="pageState.page.totalCount"
-    [pageSizes]="[10, 20, 50]"
-    (sizeChange)="pageSizeChange($event)"
-  >
-  </wayne-paginate>
-</clr-datagrid>
+      <wayne-paginate
+        [(currentPage)]="currentPage"
+        [total]="pageState.page.totalCount"
+        [pageSizes]="[10, 20, 50]"
+        (sizeChange)="pageSizeChange($event)"
+      >
+      </wayne-paginate>
+    </clr-datagrid>
   </div>
 </div>
