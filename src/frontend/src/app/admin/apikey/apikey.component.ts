@@ -1,17 +1,17 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {State} from '@clr/angular';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {CacheService} from '../../shared/auth/cache.service';
-import {AuthService} from '../../shared/auth/auth.service';
-import {PageState} from '../../shared/page/page-state';
-import {ListApiKeyComponent} from './list-apikey/list-apikey.component';
-import {CreateEditApiKeyComponent} from './create-edit-apikey/create-edit-apikey.component';
-import {ApiKey} from '../../shared/model/v1/apikey';
-import {ApiKeyService} from '../../shared/client/v1/apikey.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { State } from '@clr/angular';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { CacheService } from '../../shared/auth/cache.service';
+import { AuthService } from '../../shared/auth/auth.service';
+import { PageState } from '../../shared/page/page-state';
+import { ListApiKeyComponent } from './list-apikey/list-apikey.component';
+import { CreateEditApiKeyComponent } from './create-edit-apikey/create-edit-apikey.component';
+import { ApiKey } from '../../shared/model/v1/apikey';
+import { ApiKeyService } from '../../shared/client/v1/apikey.service';
 
 @Component({
   selector: 'wayne-apikey',
@@ -83,7 +83,7 @@ export class ApiKeyComponent implements OnInit {
 
   createApiKey(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

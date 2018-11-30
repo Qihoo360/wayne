@@ -4,7 +4,8 @@
     <form #ngForm="ngForm" style="padding-right: 30px;width: 100%">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="statefulset_name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
+          <label for="statefulset_name"
+                 class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="statefulset_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <span *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</span>
@@ -50,7 +51,8 @@
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="statefulset_description" class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
+          <label for="statefulset_description"
+                 class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="statefulset_description" [(ngModel)]="statefulset.description"
                     name="statefulset_description"
                     rows="3">
@@ -62,7 +64,8 @@
   </div>
   <div class="modal-footer" style="padding-right: 5%">
     <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid"
+            (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
   </div>
 </clr-modal>
 

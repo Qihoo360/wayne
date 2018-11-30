@@ -1,4 +1,4 @@
-import {User} from './user';
+import { User } from './user';
 
 export class Notification {
   id: number;
@@ -18,7 +18,7 @@ export class Notification {
   }
 }
 
-export class  NotificationLog {
+export class NotificationLog {
   id: number;
   is_readed: boolean;
   notification: Notification;

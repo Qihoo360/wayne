@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
+import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'token-detail',
@@ -16,7 +16,7 @@ export class TokenDetailComponent {
 
   viewToken(token: string) {
     this.modalOpened = true;
-    this.token = token
+    this.token = token;
   }
 
 

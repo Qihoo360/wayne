@@ -34,13 +34,14 @@
               <span class="tooltip-content">计划任务的定时周期,Cron表达式</span>
             </a>
           </label>
-          <label aria-haspopup="true" role="tooltip" [class.invalid]="!isScheduleValid" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+          <label aria-haspopup="true" role="tooltip" [class.invalid]="!isScheduleValid"
+                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" name="schedule"
                    [(ngModel)]="kubeCronjob.spec.schedule"
                    size="40"
                    required
                    class="tooltip tooltip-validation tooltip-md tooltip-bottom-left"
-              placeholder="cron表达式">
+                   placeholder="cron表达式">
             <span class="tooltip-content">
               cron表达式填写不正确
             </span>
@@ -71,9 +72,11 @@
               <span class="tooltip-content">任务执行后，最大的执行时间，超出后会被中止</span>
             </a>
           </label>
-          <label aria-haspopup="true" role="tooltip" [class.invalid]="formValid('activeDeadlineSeconds')" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="number" name="activeDeadlineSeconds" [(ngModel)]="kubeCronjob.spec.jobTemplate.spec.activeDeadlineSeconds" size="45" required
-                 placeholder="最大执行时间"> 秒
+          <label aria-haspopup="true" role="tooltip" [class.invalid]="formValid('activeDeadlineSeconds')"
+                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+            <input type="number" name="activeDeadlineSeconds"
+                   [(ngModel)]="kubeCronjob.spec.jobTemplate.spec.activeDeadlineSeconds" size="45" required
+                   placeholder="最大执行时间"> 秒
           </label>
         </div>
         <!--
@@ -103,7 +106,8 @@
         </div>-->
       </div>
     </section>
-    <section *ngFor="let container of kubeCronjob.spec.jobTemplate.spec.template.spec.containers; let i = index" class="form-block wrap">
+    <section *ngFor="let container of kubeCronjob.spec.jobTemplate.spec.template.spec.containers; let i = index"
+             class="form-block wrap">
       <div>
         <label class="label-level1" [id]="i ? '容器配置' + i : '容器配置'">{{'TMP.CONTAINER_CONFIG' | translate}}
           <clr-icon (click)="onDeleteContainer(i)" shape="trash" title="删除容器" class="is-solid"></clr-icon>
@@ -112,9 +116,11 @@
           <label class="label-level2" [id]="i ? '镜像配置' + i : '镜像配置'">{{'TMP.IMAGE_CONFIG' | translate}}</label>
           <div class="form-group form-group-padding">
             <label class="col-md-3 form-group-label-override required">{{'TMP.CONTAINER_NAME' | translate}}</label>
-            <label aria-haspopup="true" role="tooltip" [class.invalid]="containerIsInvalid(i,'container.name_')" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="text" size="90" class="col-sm-12" required name="container.name_{{i}}" pattern="[a-z]([-a-z0-9]*[a-z0-9])?" [(ngModel)]="container.name"
-                [placeholder]="'RULE.CONTAINER' | translate">
+            <label aria-haspopup="true" role="tooltip" [class.invalid]="containerIsInvalid(i,'container.name_')"
+                   class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="text" size="90" class="col-sm-12" required name="container.name_{{i}}"
+                     pattern="[a-z]([-a-z0-9]*[a-z0-9])?" [(ngModel)]="container.name"
+                     [placeholder]="'RULE.CONTAINER' | translate">
               <span class="tooltip-content">
                 {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
               </span>
@@ -122,9 +128,11 @@
           </div>
           <div class="form-group form-group-padding">
             <label class="col-md-3 form-group-label-override required">{{'TMP.IMAGE_ADDRESS' | translate}}</label>
-            <label aria-haspopup="true" role="tooltip" [class.invalid]="containerIsInvalid(i,'container.image_')" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="text" size="90" class="col-sm-12" name="container.image_{{i}}" required pattern="{{getImagePrefixReg()}}" [(ngModel)]="container.image"
-                [placeholder]="'TMP.IMAGE_ADDRESS' | translate">
+            <label aria-haspopup="true" role="tooltip" [class.invalid]="containerIsInvalid(i,'container.image_')"
+                   class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="text" size="90" class="col-sm-12" name="container.image_{{i}}" required
+                     pattern="{{getImagePrefixReg()}}" [(ngModel)]="container.image"
+                     [placeholder]="'TMP.IMAGE_ADDRESS' | translate">
               <span class="tooltip-content">
                 {{'RULE.REGEXT' | translate}} {{getImagePrefixReg()}}
               </span>
@@ -132,10 +140,12 @@
           </div>
           <div class="form-group form-group-padding">
             <label class="col-md-3 form-group-label-override required">{{'TMP.MEMORY_NUM' | translate}}</label>
-            <label aria-haspopup="true" [class.invalid]="!checkMemory(container.resources.limits.memory)" style="padding-right: 0;margin-right: 0;padding-left: 0"
-              role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="number" style="width:inherit" name="container.resources.limits.memory_{{i}}" required [(ngModel)]="container.resources.limits.memory"
-                [placeholder]="'UNIT.MEMORY' | translate">
+            <label aria-haspopup="true" [class.invalid]="!checkMemory(container.resources.limits.memory)"
+                   style="padding-right: 0;margin-right: 0;padding-left: 0"
+                   role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="number" style="width:inherit" name="container.resources.limits.memory_{{i}}" required
+                     [(ngModel)]="container.resources.limits.memory"
+                     [placeholder]="'UNIT.MEMORY' | translate">
               <span translate="'RULE.MEMORY'" [translateParams]="{value: memoryLimit}" class="tooltip-content">
               </span>
             </label>
@@ -144,10 +154,12 @@
           </div>
           <div class="form-group form-group-padding">
             <label class="col-md-3 form-group-label-override required">{{'TMP.CORE_NUM' | translate}}</label>
-            <label aria-haspopup="true" [class.invalid]="!checkCpu(container.resources.limits.cpu)" style="padding-right: 0;margin-right: 0;padding-left: 0"
-              role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="number" name="container.resources.limits.cpu_{{i}}" [(ngModel)]="container.resources.limits.cpu" style="width:inherit"
-                required [placeholder]="'UNIT.CPU' | translate">
+            <label aria-haspopup="true" [class.invalid]="!checkCpu(container.resources.limits.cpu)"
+                   style="padding-right: 0;margin-right: 0;padding-left: 0"
+                   role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="number" name="container.resources.limits.cpu_{{i}}"
+                     [(ngModel)]="container.resources.limits.cpu" style="width:inherit"
+                     required [placeholder]="'UNIT.CPU' | translate">
               <span translate="'RULE.CPU' | translate" [translateParams]="{value: cpuLimit}" class="tooltip-content">
               </span>
             </label>
@@ -159,76 +171,98 @@
 
         <div class="container-box">
           <label class="label-level2" [id]="i ? '环境变量配置' + i : '环境变量配置'">{{'TMP.ENVIRONMENT_VAR' | translate}}
-            <button (click)="onAddEnvFrom(i)" style="margin-left: 10px;" class="wayne-button primary"><clr-icon shape="add-text"></clr-icon>{{'TMP.ADD_GROUP' | translate}}</button>
-            <button (click)="onAddEnv(i)" style="margin-left: 10px;" class="wayne-button primary"><clr-icon shape="add"></clr-icon>{{'TMP.ADD_ONE' | translate}}</button>
+            <button (click)="onAddEnvFrom(i)" style="margin-left: 10px;" class="wayne-button primary">
+              <clr-icon shape="add-text"></clr-icon>
+              {{'TMP.ADD_GROUP' | translate}}</button>
+            <button (click)="onAddEnv(i)" style="margin-left: 10px;" class="wayne-button primary">
+              <clr-icon shape="add"></clr-icon>
+              {{'TMP.ADD_ONE' | translate}}</button>
           </label>
           <div *ngFor="let envFrom of container.envFrom; let j = index">
             <div class="form-group form-group-padding">
-              <label for="envFromType-{{i}}-{{j}}" class="col-md-3 form-group-label-override required">{{'TMP.ADD_GROUP' | translate}}
+              <label for="envFromType-{{i}}-{{j}}"
+                     class="col-md-3 form-group-label-override required">{{'TMP.ADD_GROUP' | translate}}
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
                   <span class="tooltip-content">{{'TMP.LOAD_GROUP_MESSAGE' | translate}}</span>
                 </a>
               </label>
               <div class="select">
-                <select id="envFromType-{{i}}-{{j}}" name="envFrom.type_{{i}}_{{j}}" (change)="envFromChange($event.target.value,i,j)">
+                <select id="envFromType-{{i}}-{{j}}" name="envFrom.type_{{i}}_{{j}}"
+                        (change)="envFromChange($event.target.value,i,j)">
                   <option value="1" [selected]="envFrom.configMapRef">{{'TMP.LOAD_CONFIGMAP' | translate}}</option>
                   <option value="2" [selected]="envFrom.secretRef">{{'TMP.LOAD_SECRET' | translate}}</option>
                 </select>
               </div>
 
-              <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnvFrom(i)" shape="plus-circle" [title]="'TMP.ADD_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
-              <clr-icon style="margin-top: 10px" (click)="onDeleteEnvFrom(i,j)" shape="trash" [title]="'TMP.DELETE_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
+              <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnvFrom(i)" shape="plus-circle"
+                        [title]="'TMP.ADD_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
+              <clr-icon style="margin-top: 10px" (click)="onDeleteEnvFrom(i,j)" shape="trash"
+                        [title]="'TMP.DELETE_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
             </div>
             <div *ngIf="envFrom" class="form-group form-group-padding">
-              <input type="text" size="40" name="envFrom.prefix_{{i}}_{{j}}" [(ngModel)]="envFrom.prefix" [placeholder]="'PLACEHOLDER.ENVIRONMENT' | translate">
+              <input type="text" size="40" name="envFrom.prefix_{{i}}_{{j}}" [(ngModel)]="envFrom.prefix"
+                     [placeholder]="'PLACEHOLDER.ENVIRONMENT' | translate">
             </div>
             <div *ngIf="envFrom && envFrom.configMapRef" class="form-group form-group-padding">
-              <input type="text" size="40" required name="envFrom.configMapRef.name_{{i}}_{{j}}" [(ngModel)]="envFrom.configMapRef.name"
-                [placeholder]="'TMP.CONFIGMAP_NAME' | translate">
+              <input type="text" size="40" required name="envFrom.configMapRef.name_{{i}}_{{j}}"
+                     [(ngModel)]="envFrom.configMapRef.name"
+                     [placeholder]="'TMP.CONFIGMAP_NAME' | translate">
             </div>
             <div *ngIf="envFrom && envFrom.secretRef" class="form-group form-group-padding">
-              <input type="text" size="40" required name="envFrom.secretRef.name_{{i}}_{{j}}" [(ngModel)]="envFrom.secretRef.name" [placeholder]="'TMP.SECRET_NAME' | translate">
+              <input type="text" size="40" required name="envFrom.secretRef.name_{{i}}_{{j}}"
+                     [(ngModel)]="envFrom.secretRef.name" [placeholder]="'TMP.SECRET_NAME' | translate">
             </div>
 
           </div>
 
           <div *ngFor="let env of container.env; let j = index">
             <div class="form-group form-group-padding">
-              <label for="envType-{{i}}-{{j}}" class="col-md-3 form-group-label-override required">{{'TMP.ADD_ONE' | translate}}
+              <label for="envType-{{i}}-{{j}}"
+                     class="col-md-3 form-group-label-override required">{{'TMP.ADD_ONE' | translate}}
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
                   <span class="tooltip-content">{{'TMP.SUPPORT_ENVIRONMENT_MESSAGE' | translate}}</span>
                 </a>
               </label>
               <div class="select">
-                <select id="envType-{{i}}-{{j}}" name="env.type_{{i}}_{{j}}" (change)="envChange($event.target.value,i,j)">
+                <select id="envType-{{i}}-{{j}}" name="env.type_{{i}}_{{j}}"
+                        (change)="envChange($event.target.value,i,j)">
                   <option value="0" [selected]="env.value!=null">{{'TMP.LOAD_ENVIRONMENT' | translate}}</option>
-                  <option value="1" [selected]="env.valueFrom?.configMapKeyRef">{{'TMP.LOAD_CONFIGMAP' | translate}}</option>
+                  <option value="1"
+                          [selected]="env.valueFrom?.configMapKeyRef">{{'TMP.LOAD_CONFIGMAP' | translate}}</option>
                   <option value="2" [selected]="env.valueFrom?.secretKeyRef">{{'TMP.LOAD_SECRET' | translate}}</option>
                   <option value="3" selected>{{'OTHER' | translate}}</option>
                 </select>
               </div>
-              <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnv(i)" shape="plus-circle" [title]="'TMP.ADD_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
-              <clr-icon style="margin-top: 10px" (click)="onDeleteEnv(i,j)" shape="trash" [title]="'TMP.DELETE_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
+              <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnv(i)" shape="plus-circle"
+                        [title]="'TMP.ADD_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
+              <clr-icon style="margin-top: 10px" (click)="onDeleteEnv(i,j)" shape="trash"
+                        [title]="'TMP.DELETE_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
             </div>
             <div class="form-group form-group-padding">
-              <input [(ngModel)]="env.name" required name="env.name_{{i}}_{{j}}" type="text" size="45" [placeholder]="'TMP.ENVIRONMENT_NAME' | translate">
+              <input [(ngModel)]="env.name" required name="env.name_{{i}}_{{j}}" type="text" size="45"
+                     [placeholder]="'TMP.ENVIRONMENT_NAME' | translate">
             </div>
             <div *ngIf="env.value != null" class="form-group form-group-padding">
-              <input [(ngModel)]="env.value" required name="env.value_{{i}}_{{j}}" type="text" size="45" [placeholder]="'TMP.ENVIRONMENT_VAR' | translate">
+              <input [(ngModel)]="env.value" required name="env.value_{{i}}_{{j}}" type="text" size="45"
+                     [placeholder]="'TMP.ENVIRONMENT_VAR' | translate">
             </div>
             <div *ngIf="env.valueFrom && env.valueFrom.configMapKeyRef" class="form-group form-group-padding">
-              <input type="text" size="40" required name="env.valueFrom.configMapKeyRef.name_{{i}}_{{j}}" [(ngModel)]="env.valueFrom.configMapKeyRef.name"
-                [placeholder]="'TMP.CONFIGMAP_NAME' | translate">
-              <input type="text" size="40" required name="env.valueFrom.configMapKeyRef.key_{{i}}_{{j}}" [(ngModel)]="env.valueFrom.configMapKeyRef.key"
-                [placeholder]="'TMP.CONFIGMAP_KEY' | translate">
+              <input type="text" size="40" required name="env.valueFrom.configMapKeyRef.name_{{i}}_{{j}}"
+                     [(ngModel)]="env.valueFrom.configMapKeyRef.name"
+                     [placeholder]="'TMP.CONFIGMAP_NAME' | translate">
+              <input type="text" size="40" required name="env.valueFrom.configMapKeyRef.key_{{i}}_{{j}}"
+                     [(ngModel)]="env.valueFrom.configMapKeyRef.key"
+                     [placeholder]="'TMP.CONFIGMAP_KEY' | translate">
             </div>
             <div *ngIf="env.valueFrom && env.valueFrom.secretKeyRef" class="form-group form-group-padding">
-              <input type="text" size="40" required name="env.valueFrom.secretKeyRef.name_{{i}}_{{j}}" [(ngModel)]="env.valueFrom.secretKeyRef.name"
-                [placeholder]="'TMP.SECRET_NAME' | translate">
-              <input type="text" size="40" required name="env.valueFrom.secretKeyRef.key_{{i}}_{{j}}" [(ngModel)]="env.valueFrom.secretKeyRef.key"
-                [placeholder]="'TMP.SECRET_KEY' | translate">
+              <input type="text" size="40" required name="env.valueFrom.secretKeyRef.name_{{i}}_{{j}}"
+                     [(ngModel)]="env.valueFrom.secretKeyRef.name"
+                     [placeholder]="'TMP.SECRET_NAME' | translate">
+              <input type="text" size="40" required name="env.valueFrom.secretKeyRef.key_{{i}}_{{j}}"
+                     [(ngModel)]="env.valueFrom.secretKeyRef.key"
+                     [placeholder]="'TMP.SECRET_KEY' | translate">
             </div>
 
           </div>
@@ -241,9 +275,11 @@
 </div>
 <div class="clr-wizard-footer-buttons tpl-bottom" [style.top.px]="top">
   <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-  <button type="button" class="btn btn-primary" (click)="onAddContainer()">{{'BUTTON.ADD_CONTAINER' | translate}}</button>
+  <button type="button" class="btn btn-primary"
+          (click)="onAddContainer()">{{'BUTTON.ADD_CONTAINER' | translate}}</button>
   <button type="button" class="btn btn-primary" (click)="openModal()">{{'BUTTON.ADVANCED_CONFIG' | translate}}</button>
-  <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+  <button type="button" class="btn btn-primary" [disabled]="!isValid"
+          (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
 </div>
 
 <wayne-ace-editor (outputObj)="saveCronjob($event)"></wayne-ace-editor>

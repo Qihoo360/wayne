@@ -1,21 +1,21 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 
-import {KubeStatefulSet} from '../../../shared/model/v1/kubernetes/statefulset';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {defaultResources, ResourcesActionType} from '../../../shared/shared.const';
-import {PublishStatusService} from '../../../shared/client/v1/publishstatus.service';
-import {StatefulsetClient} from '../../../shared/client/v1/kubernetes/statefulset';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import {Statefulset} from '../../../shared/model/v1/statefulset';
-import {StatefulsetTemplate} from '../../../shared/model/v1/statefulsettpl';
-import {TemplateStatus} from '../../../shared/model/v1/status';
-import {ClusterMeta} from '../../../shared/model/v1/cluster';
+import { KubeStatefulSet } from '../../../shared/model/v1/kubernetes/statefulset';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { defaultResources, ResourcesActionType } from '../../../shared/shared.const';
+import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
+import { StatefulsetClient } from '../../../shared/client/v1/kubernetes/statefulset';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { Statefulset } from '../../../shared/model/v1/statefulset';
+import { StatefulsetTemplate } from '../../../shared/model/v1/statefulsettpl';
+import { TemplateStatus } from '../../../shared/model/v1/status';
+import { ClusterMeta } from '../../../shared/model/v1/cluster';
 
 @Component({
   selector: 'statefulset-publish-tpl',
@@ -53,9 +53,9 @@ export class PublishStatefulsetTplComponent {
     let clusterMeta = this.clusterMetas[cluster];
     if (this.statefulset && this.statefulset.metaData && clusterMeta) {
       if (!clusterMeta.checked) {
-        return true
+        return true;
       }
-      return parseInt(clusterMeta.value) <= this.replicaLimit
+      return parseInt(clusterMeta.value) <= this.replicaLimit;
     }
     return false;
   }
@@ -66,10 +66,10 @@ export class PublishStatefulsetTplComponent {
       let metaData = JSON.parse(this.statefulset.metaData);
       if (metaData.resources &&
         metaData.resources.replicaLimit) {
-        replicaLimit = parseInt(metaData.resources.replicaLimit)
+        replicaLimit = parseInt(metaData.resources.replicaLimit);
       }
     }
-    return replicaLimit
+    return replicaLimit;
   }
 
   newPublishTpl(statefulset: Statefulset, statefulsetTpl: StatefulsetTemplate, actionType: ResourcesActionType) {
@@ -87,7 +87,7 @@ export class PublishStatefulsetTplComponent {
         statefulsetTpl.status.map(state => {
           this.clusters.push(state.cluster);
           this.clusterMetas[state.cluster] = new ClusterMeta(false);
-        })
+        });
       } else {
         Object.getOwnPropertyNames(replicas).map(key => {
           if ((actionType == ResourcesActionType.PUBLISH || this.getStatusByCluster(statefulsetTpl.status, key) != null)
@@ -120,24 +120,24 @@ export class PublishStatefulsetTplComponent {
     if (status && status.length > 0) {
       for (let state of status) {
         if (state.cluster == cluster) {
-          return state
+          return state;
         }
       }
     }
-    return null
+    return null;
   }
 
   getReplicas(statefulset: Statefulset): {} {
     if (!statefulset.metaData) {
       this.messageHandlerService.showWarning('状态副本集实例数未配置，请先到编辑状态副本集配置实例数！');
-      return null
+      return null;
     }
     let replicas = JSON.parse(statefulset.metaData)['replicas'];
     if (!replicas) {
       this.messageHandlerService.showWarning('状态副本集实例数未配置，请先到编辑状态副本集配置实例数！');
-      return null
+      return null;
     }
-    return replicas
+    return replicas;
   }
 
   onCancel() {
@@ -176,9 +176,9 @@ export class PublishStatefulsetTplComponent {
             this.deletePublishStatus(state.id);
           },
           error => {
-            if (this.forceOffline){
+            if (this.forceOffline) {
               this.deletePublishStatus(state.id);
-            }else {
+            } else {
               this.messageHandlerService.handleError(error);
             }
           }
@@ -234,7 +234,7 @@ export class PublishStatefulsetTplComponent {
     if (this.clusters) {
       for (let clu of this.clusters) {
         if (!this.replicaValidation(clu)) {
-          return false
+          return false;
         }
       }
     }

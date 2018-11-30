@@ -5,12 +5,16 @@
     </div>
     <div class="row flex-items-xs-between" style="height:32px;">
       <div class="option-left">
-        <button class="btn btn-link" (click)="openModal()"><clr-icon shape="add"></clr-icon>创建部署</button>
+        <button class="btn btn-link" (click)="openModal()">
+          <clr-icon shape="add"></clr-icon>
+          创建部署
+        </button>
         <create-edit-deployment (create)="createDeployment($event)"></create-edit-deployment>
       </div>
     </div>
-    <list-deployment [deployments]="changedDeployments" (delete)="deleteDeployment($event)" (edit)="editDeployment($event)" (paginate)="retrieve($event)"
-    [page]="pageState.page" >
+    <list-deployment [deployments]="changedDeployments" (delete)="deleteDeployment($event)"
+                     (edit)="editDeployment($event)" (paginate)="retrieve($event)"
+                     [page]="pageState.page">
     </list-deployment>
   </div>
 </div>

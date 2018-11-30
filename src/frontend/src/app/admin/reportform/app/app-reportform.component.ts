@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import * as echarts from 'echarts';
-import {BreadcrumbService} from '../../../shared/client/v1/breadcrumb.service';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
+import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import ECharts = echarts.ECharts;
 import EChartOption = echarts.EChartOption;
 

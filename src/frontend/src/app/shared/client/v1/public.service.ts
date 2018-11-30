@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable()
 
@@ -11,8 +11,8 @@ export class PublicService {
 
   getShellToken(namespace: string, podName: string): Observable<any> {
     let headers = new HttpHeaders();
-    const username = 'publicV1'
-    const password = 'a1b2c3d4E'
+    const username = 'publicV1';
+    const password = 'a1b2c3d4E';
     headers.append('Authorization', 'Basic ' + btoa(username + ':' + password));
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     const options: any = {'headers': headers};

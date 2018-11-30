@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {ClrDatagridStateInterface} from '@clr/angular';
-import {WebHook} from '../../../shared/model/v1/webhook';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {Page} from '../../../shared/page/page-state';
-import {TranslateService} from '@ngx-translate/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { ClrDatagridStateInterface } from '@clr/angular';
+import { WebHook } from '../../../shared/model/v1/webhook';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { Page } from '../../../shared/page/page-state';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'list-namespace-webhook',

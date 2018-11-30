@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {PageState} from '../../page/page-state';
-import {isNotEmpty} from '../../utils';
-import {DaemonSetTemplate} from '../../model/v1/daemonsettpl';
+import { PageState } from '../../page/page-state';
+import { isNotEmpty } from '../../utils';
+import { DaemonSetTemplate } from '../../model/v1/daemonsettpl';
 
 @Injectable()
 export class DaemonSetTplService {
@@ -33,12 +33,12 @@ export class DaemonSetTplService {
       let value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
-          filterList.push(`${key}=${value}`)
+          filterList.push(`${key}=${value}`);
         } else {
           filterList.push(`${key}__contains=${value}`);
         }
       }
-    })
+    });
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }
@@ -52,7 +52,7 @@ export class DaemonSetTplService {
     return this.http
       .get(`/api/v1/apps/${appId}/daemonsets/tpls`, {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   create(tpl: DaemonSetTemplate, appId: number): Observable<any> {
@@ -70,11 +70,11 @@ export class DaemonSetTplService {
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
-    let options : any = {};
+    let options: any = {};
     if (logical != null) {
       let params = new HttpParams();
       params = params.set('logical', logical + '');
-      options.params = params
+      options.params = params;
     }
 
     return this.http

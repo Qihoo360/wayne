@@ -9,7 +9,8 @@ export class FooterComponent implements OnInit {
   version: String = require('../../../../package.json').version;
   year: String = new Date().getFullYear().toString();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

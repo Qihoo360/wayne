@@ -1,26 +1,26 @@
-import {Component, OnInit, ViewChild, AfterViewInit, Inject, OnDestroy} from '@angular/core';
-import {Location} from '@angular/common';
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType, appLabelKey, namespaceLabelKey} from '../../../shared/shared.const';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import {DOCUMENT, EventManager} from '@angular/platform-browser';
-import {SecretTpl} from '../../../shared/model/v1/secrettpl';
-import {App} from '../../../shared/model/v1/app';
-import {Secret} from '../../../shared/model/v1/secret';
-import {KubeSecret, ObjectMeta} from '../../../shared/model/v1/kubernetes/secret';
-import {SecretTplService} from '../../../shared/client/v1/secrettpl.service';
-import {SecretService} from '../../../shared/client/v1/secret.service';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {Cluster} from '../../../shared/model/v1/cluster';
-import {ClusterService} from '../../../shared/client/v1/cluster.service';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
-import {AuthService} from '../../../shared/auth/auth.service';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType, appLabelKey, namespaceLabelKey } from '../../../shared/shared.const';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { SecretTpl } from '../../../shared/model/v1/secrettpl';
+import { App } from '../../../shared/model/v1/app';
+import { Secret } from '../../../shared/model/v1/secret';
+import { KubeSecret, ObjectMeta } from '../../../shared/model/v1/kubernetes/secret';
+import { SecretTplService } from '../../../shared/client/v1/secrettpl.service';
+import { SecretService } from '../../../shared/client/v1/secret.service';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { Cluster } from '../../../shared/model/v1/cluster';
+import { ClusterService } from '../../../shared/client/v1/cluster.service';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { AuthService } from '../../../shared/auth/auth.service';
 
 @Component({
   selector: 'create-edit-secrettpl',
@@ -57,7 +57,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
               private messageHandlerService: MessageHandlerService,
               @Inject(DOCUMENT) private document: any,
               private eventManager: EventManager
-            ) {
+  ) {
   }
 
   ngAfterViewInit() {
@@ -86,7 +86,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
       // hack
       setTimeout(() => {
         this.top = this.box.scrollTop + this.box.offsetHeight - 48;
-      }, 0)
+      }, 0);
     }
   }
 
@@ -108,7 +108,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
 
   onDeleteData(index: number) {
     if (this.datas.controls.length <= 1) {
-      return
+      return;
     }
     this.datas.removeAt(index);
   }
@@ -193,10 +193,10 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
     );
   }
 
-  filterCluster(clusters:Cluster[]): Cluster[] {
+  filterCluster(clusters: Cluster[]): Cluster[] {
     return clusters.filter((clusterObj: Cluster) => {
       return this.cacheService.namespace.metaDataObj.clusterMeta &&
-        this.cacheService.namespace.metaDataObj.clusterMeta[clusterObj.name]
+        this.cacheService.namespace.metaDataObj.clusterMeta[clusterObj.name];
     });
   }
 
@@ -279,7 +279,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
   }
 
   openModal(): void {
-    this.aceEditorService.announceMessage(AceEditorMsg.Instance(this.getKubeSecretByForm(),true));
+    this.aceEditorService.announceMessage(AceEditorMsg.Instance(this.getKubeSecretByForm(), true));
   }
 
   saveSecretTpl(kubeSecret: KubeSecret) {
@@ -290,7 +290,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
         datas.push(this.fb.group({
           dataName: key,
           dataValue: atob(kubeSecret.data[key]),
-        }),)
+        }),);
       });
       this.currentForm.setControl('datas', this.fb.array(datas));
     }

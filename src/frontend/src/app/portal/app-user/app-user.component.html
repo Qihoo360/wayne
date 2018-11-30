@@ -6,7 +6,8 @@
     <create-edit-app-user (create)="createAppUser($event)"></create-edit-app-user>
     <div class="table-search">
       <div class="table-search-left">
-        <button *ngIf="authService.currentNamespacePermission.appUser.create || authService.currentAppPermission.appUser.create || authService.currentUser.admin"
+        <button
+          *ngIf="authService.currentNamespacePermission.appUser.create || authService.currentAppPermission.appUser.create || authService.currentUser.admin"
           class="wayne-button normal" (click)="openModal()">
           关联项目用户
         </button>

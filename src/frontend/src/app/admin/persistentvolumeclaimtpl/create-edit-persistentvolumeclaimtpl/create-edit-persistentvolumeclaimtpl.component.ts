@@ -1,25 +1,25 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {ActionType} from '../../../shared/shared.const';
-import {isUndefined} from 'util';
-import {PersistentVolumeClaimTpl} from '../../../shared/model/v1/persistentvolumeclaimtpl';
-import {PersistentVolumeClaim} from '../../../shared/model/v1/persistentvolumeclaim';
-import {PersistentVolumeClaimTplService} from '../../../shared/client/v1/persistentvolumeclaimtpl.service';
-import {PersistentVolumeClaimService} from '../../../shared/client/v1/persistentvolumeclaim.service';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {AceEditorBoxComponent} from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { NgForm } from '@angular/forms';
+import { ActionType } from '../../../shared/shared.const';
+import { isUndefined } from 'util';
+import { PersistentVolumeClaimTpl } from '../../../shared/model/v1/persistentvolumeclaimtpl';
+import { PersistentVolumeClaim } from '../../../shared/model/v1/persistentvolumeclaim';
+import { PersistentVolumeClaimTplService } from '../../../shared/client/v1/persistentvolumeclaimtpl.service';
+import { PersistentVolumeClaimService } from '../../../shared/client/v1/persistentvolumeclaim.service';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'create-edit-persistentvolumeclaimtpl',
   templateUrl: 'create-edit-persistentvolumeclaimtpl.component.html',
   styleUrls: ['create-edit-persistentvolumeclaimtpl.scss']
 })
-export class CreateEditPersistentVolumeClaimTplComponent implements OnInit{
+export class CreateEditPersistentVolumeClaimTplComponent implements OnInit {
   @Output() create = new EventEmitter<boolean>();
   modalOpened: boolean;
 
@@ -37,6 +37,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit{
   pvcs: PersistentVolumeClaim[];
 
   @ViewChild(AceEditorBoxComponent) aceBox: any;
+
   constructor(private pvcTplService: PersistentVolumeClaimTplService,
               private pvcService: PersistentVolumeClaimService,
               private messageHandlerService: MessageHandlerService,
@@ -45,11 +46,11 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit{
 
   ngOnInit(): void {
     this.pvcService.getNames().subscribe(
-        response => {
-          this.pvcs = response.data;
-        },
-        error => this.messageHandlerService.handleError(error)
-      );
+      response => {
+        this.pvcs = response.data;
+      },
+      error => this.messageHandlerService.handleError(error)
+    );
   }
 
   initJsonEditor(): void {
@@ -100,7 +101,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit{
     this.pvcTpl.template = this.aceBox.getValue();
     for (let svc of this.pvcs) {
       if (svc.id == this.pvcTpl.persistentVolumeClaimId) {
-        this.pvcTpl.name = svc.name
+        this.pvcTpl.name = svc.name;
       }
     }
     switch (this.actionType) {
@@ -143,7 +144,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit{
     return this.currentForm &&
       this.currentForm.valid &&
       !this.isSubmitOnGoing &&
-      !this.checkOnGoing&&
+      !this.checkOnGoing &&
       !isUndefined(this.pvcTpl.persistentVolumeClaimId);
   }
 

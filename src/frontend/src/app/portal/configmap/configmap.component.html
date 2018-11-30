@@ -1,30 +1,35 @@
-<button (click)="openModal()" class="wayne-button primary" *ngIf="authService.currentAppPermission.configmap.create || authService.currentUser.admin">
+<button (click)="openModal()" class="wayne-button primary"
+        *ngIf="authService.currentAppPermission.configmap.create || authService.currentUser.admin">
   {{'CONFIGMAP.CREATE' | translate}}
 </button>
 <create-edit-configmap (create)="createConfigMap($event)"></create-edit-configmap>
 <div *ngIf="configMapId && configMaps?.length>0">
   <wayne-tabs>
     <wayne-tab (click)="tabClick(configMap.id)"
-                [id]="configMap.id"
-                *ngFor="let configMap of configMaps"
-                [active]="configMap.id==configMapId"
-                [description]="configMap.description"
-                >
+               [id]="configMap.id"
+               *ngFor="let configMap of configMaps"
+               [active]="configMap.id==configMapId"
+               [description]="configMap.description"
+    >
       {{configMap.name}}
     </wayne-tab>
   </wayne-tabs>
   <div class="table-search">
     <div class="table-search-left">
-      <button (click)="createConfigMapTpl()" class="wayne-button normal" *ngIf="authService.currentAppPermission.configmap.create || authService.currentUser.admin">
+      <button (click)="createConfigMapTpl()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.configmap.create || authService.currentUser.admin">
         {{'CONFIGMAP.CREATE_TMP' | translate}}
       </button>
-      <button (click)="editConfigMap()" class="wayne-button normal" *ngIf="authService.currentAppPermission.configmap.update || authService.currentUser.admin">
+      <button (click)="editConfigMap()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.configmap.update || authService.currentUser.admin">
         {{'CONFIGMAP.EDIT' | translate}}
       </button>
-      <button (click)="publishHistory()" class="wayne-button normal" *ngIf="authService.currentAppPermission.configmap.read || authService.currentUser.admin">
+      <button (click)="publishHistory()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.configmap.read || authService.currentUser.admin">
         {{'BUTTON.HISTORY' | translate}}
       </button>
-      <button (click)="deleteConfigMap()" class="wayne-button normal" *ngIf="authService.currentAppPermission.configmap.offline || authService.currentUser.admin">
+      <button (click)="deleteConfigMap()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.configmap.offline || authService.currentUser.admin">
         {{'CONFIGMAP.DELETE' | translate}}
       </button>
       <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
@@ -46,12 +51,12 @@
     </div>
   </div>
   <list-configmap [configMaps]="configMaps"
-                (cloneTpl)="cloneConfigMapTpl($event)"
-                [configMapTpls]="configMapTpls"
-                (edit)="editConfigMap($event)"
-                (paginate)="retrieve($event)"
-                [app]="app"
-                [showState]="showState"
-                [page]="pageState.page"></list-configmap>
+                  (cloneTpl)="cloneConfigMapTpl($event)"
+                  [configMapTpls]="configMapTpls"
+                  (edit)="editConfigMap($event)"
+                  (paginate)="retrieve($event)"
+                  [app]="app"
+                  [showState]="showState"
+                  [page]="pageState.page"></list-configmap>
 </div>
 

@@ -5,30 +5,31 @@
 
 .embeded-datagrid {
   width: 98%;
-  float:right; /*add for issue #2688*/
+  float: right; /*add for issue #2688*/
 }
 
 .hidden-tag {
-  display: block; height: 0;
+  display: block;
+  height: 0;
 }
 
-:host >>> .datagrid {
+:host > > > .datagrid {
   margin: 0;
 }
 
-:host >>> .datagrid-placeholder {
+:host > > > .datagrid-placeholder {
   display: none;
 }
 
-:host >>> .datagrid .datagrid-body {
+:host > > > .datagrid .datagrid-body {
   background-color: #eee;
 }
 
-:host >>> .datagrid .datagrid-head .datagrid-row {
+:host > > > .datagrid .datagrid-head .datagrid-row {
   background-color: #eee;
 }
 
-:host >>> .datagrid .datagrid-body .datagrid-row-master {
+:host > > > .datagrid .datagrid-body .datagrid-row-master {
   background-color: #eee;
 }
 
@@ -36,7 +37,7 @@
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
 }
 
 .copy-failed {
@@ -44,6 +45,6 @@
   margin-right: 6px;
 }
 
-:host >>> .datagrid clr-dg-column {
+:host > > > .datagrid clr-dg-column {
   min-width: 80px;
 }

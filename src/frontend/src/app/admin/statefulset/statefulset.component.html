@@ -5,7 +5,10 @@
     </div>
     <div class="row flex-items-xs-between" style="height:32px;">
       <div class="option-left">
-        <button class="btn btn-link" (click)="openModal()"><clr-icon shape="add"></clr-icon>创建状态副本集</button>
+        <button class="btn btn-link" (click)="openModal()">
+          <clr-icon shape="add"></clr-icon>
+          创建状态副本集
+        </button>
         <create-edit-statefulset (create)="createStatefulset($event)"></create-edit-statefulset>
       </div>
     </div>

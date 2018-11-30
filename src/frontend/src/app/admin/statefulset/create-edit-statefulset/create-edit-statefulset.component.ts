@@ -1,18 +1,18 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType} from '../../../shared/shared.const';
-import {isUndefined} from 'util';
-import {App} from '../../../shared/model/v1/app';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {Statefulset} from '../../../shared/model/v1/statefulset';
-import {StatefulsetService} from '../../../shared/client/v1/statefulset.service';
-import {AceEditorBoxComponent} from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType } from '../../../shared/shared.const';
+import { isUndefined } from 'util';
+import { App } from '../../../shared/model/v1/app';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { Statefulset } from '../../../shared/model/v1/statefulset';
+import { StatefulsetService } from '../../../shared/client/v1/statefulset.service';
+import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'create-edit-statefulset',
@@ -36,7 +36,7 @@ export class CreateEditStatefulsetComponent implements OnInit {
   isNameValid: boolean = true;
 
   title: string;
-  resourceName='状态副本集';
+  resourceName = '状态副本集';
   actionType: ActionType;
 
   apps: App[];
@@ -66,7 +66,7 @@ export class CreateEditStatefulsetComponent implements OnInit {
       this.title = `编辑${this.resourceName}`;
       this.statefulsetService.getById(id, 0).subscribe(
         status => {
-          this.statefulset = status.data
+          this.statefulset = status.data;
           this.statefulset.metaDataObj = JSON.parse(this.statefulset.metaData ? this.statefulset.metaData : '{}');
           this.initJsonEditor();
         },
@@ -147,7 +147,7 @@ export class CreateEditStatefulsetComponent implements OnInit {
   handleValidation(): void {
     let cont = this.currentForm.controls['statefulset_name'];
     if (cont) {
-      this.isNameValid = cont.valid
+      this.isNameValid = cont.valid;
     }
 
   }

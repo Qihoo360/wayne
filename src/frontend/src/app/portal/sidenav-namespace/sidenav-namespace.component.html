@@ -1,46 +1,46 @@
 <clr-vertical-nav [clrVerticalNavCollapsible]="true">
   <a
-  clrVerticalNavLink
-  [title]="'MENU.DEPARTMENT' | translate"
-  routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/overview"
-  routerLinkActive="active">
-  <clr-icon clrVerticalNavIcon shape="help-info"></clr-icon>
-  {{'MENU.DEPARTMENT' | translate}}
-</a>
+    clrVerticalNavLink
+    [title]="'MENU.DEPARTMENT' | translate"
+    routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/overview"
+    routerLinkActive="active">
+    <clr-icon clrVerticalNavIcon shape="help-info"></clr-icon>
+    {{'MENU.DEPARTMENT' | translate}}
+  </a>
   <a
-  clrVerticalNavLink
-  [title]="'MENU.PRODUCT' | translate"
-  routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/app"
-  routerLinkActive="active">
-  <clr-icon clrVerticalNavIcon shape="applications"></clr-icon>
-  {{'MENU.PRODUCT' | translate}}
-</a>
+    clrVerticalNavLink
+    [title]="'MENU.PRODUCT' | translate"
+    routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/app"
+    routerLinkActive="active">
+    <clr-icon clrVerticalNavIcon shape="applications"></clr-icon>
+    {{'MENU.PRODUCT' | translate}}
+  </a>
   <a
-  clrVerticalNavLink
-  title="APIKeys"
-  routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/apikey"
-  routerLinkActive="active"
-  *ngIf="this.authService.config['enableApiKeys'] && (authService.currentNamespacePermission.apiKey.read || authService.currentUser.admin)">
-  <clr-icon clrVerticalNavIcon shape="key"></clr-icon>
-  APIKeys
-</a>
+    clrVerticalNavLink
+    title="APIKeys"
+    routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/apikey"
+    routerLinkActive="active"
+    *ngIf="this.authService.config['enableApiKeys'] && (authService.currentNamespacePermission.apiKey.read || authService.currentUser.admin)">
+    <clr-icon clrVerticalNavIcon shape="key"></clr-icon>
+    APIKeys
+  </a>
   <a
-  clrVerticalNavLink
-  title="Webhooks"
-  routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/webhook"
-  routerLinkActive="active"
-  *ngIf="authService.currentNamespacePermission.webHook.read || authService.currentUser.admin">
-  <clr-icon clrVerticalNavIcon shape="pin"></clr-icon>
-  Webhooks
-</a>
+    clrVerticalNavLink
+    title="Webhooks"
+    routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/webhook"
+    routerLinkActive="active"
+    *ngIf="authService.currentNamespacePermission.webHook.read || authService.currentUser.admin">
+    <clr-icon clrVerticalNavIcon shape="pin"></clr-icon>
+    Webhooks
+  </a>
   <a
-  clrVerticalNavLink
-  [title]="'MENU.MEMBER' | translate"
-  routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/users"
-  routerLinkActive="active">
-  <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
-  {{'MENU.MEMBER' | translate}}
-</a>
-<a href="javascript:;" style="flex: 1;"></a>
+    clrVerticalNavLink
+    [title]="'MENU.MEMBER' | translate"
+    routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/users"
+    routerLinkActive="active">
+    <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
+    {{'MENU.MEMBER' | translate}}
+  </a>
+  <a href="javascript:;" style="flex: 1;"></a>
   <wayne-footer></wayne-footer>
 </clr-vertical-nav>

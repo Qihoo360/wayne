@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {State} from '@clr/angular';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmation-message';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { State } from '@clr/angular';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import {
   ConfirmationButtons,
   ConfirmationState,
@@ -9,23 +9,23 @@ import {
   ResourcesActionType,
   TemplateState
 } from '../../../shared/shared.const';
-import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {PublishStatefulsetTplComponent} from '../publish-tpl/publish-tpl.component';
-import {ListEventComponent} from '../list-event/list-event.component';
-import {ListPodComponent} from '../list-pod/list-pod.component';
-import {TplDetailService} from '../../common/tpl-detail/tpl-detail.service';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Page} from '../../../shared/page/page-state';
-import {StatefulsetTemplate} from '../../../shared/model/v1/statefulsettpl';
-import {StatefulsetService} from '../../../shared/client/v1/statefulset.service';
-import {StatefulsetTplService} from '../../../shared/client/v1/statefulsettpl.service';
-import {Event} from '../../../shared/model/v1/event';
-import {TemplateStatus} from '../../../shared/model/v1/status';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
-import {TranslateService} from '@ngx-translate/core';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription } from 'rxjs/Subscription';
+import { PublishStatefulsetTplComponent } from '../publish-tpl/publish-tpl.component';
+import { ListEventComponent } from '../list-event/list-event.component';
+import { ListPodComponent } from '../list-pod/list-pod.component';
+import { TplDetailService } from '../../common/tpl-detail/tpl-detail.service';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Page } from '../../../shared/page/page-state';
+import { StatefulsetTemplate } from '../../../shared/model/v1/statefulsettpl';
+import { StatefulsetService } from '../../../shared/client/v1/statefulset.service';
+import { StatefulsetTplService } from '../../../shared/client/v1/statefulsettpl.service';
+import { Event } from '../../../shared/model/v1/event';
+import { TemplateStatus } from '../../../shared/model/v1/status';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'list-statefulset',
@@ -119,7 +119,7 @@ export class ListStatefulsetComponent implements OnInit, OnDestroy {
   }
 
   statefulsetTplDetail(tpl: StatefulsetTemplate): void {
-    this.aceEditorService.announceMessage(AceEditorMsg.Instance(JSON.parse(tpl.template),false));
+    this.aceEditorService.announceMessage(AceEditorMsg.Instance(JSON.parse(tpl.template), false));
   }
 
   tplDetail(tpl: StatefulsetTemplate) {

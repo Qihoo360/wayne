@@ -6,15 +6,17 @@
           <h2 class="header-title">{{'TITLE.MEMBER_LIST' | translate}}</h2>
         </div>
         <div class="table-search">
-          <div class="table-search-left" *ngIf="authService.currentNamespacePermission.namespaceUser.create || authService.currentUser.admin">
-              <button class="wayne-button normal" (click)="openModal()">
-                {{'TITLE.MEMBER_CONTECT' | translate}}
-              </button>
+          <div class="table-search-left"
+               *ngIf="authService.currentNamespacePermission.namespaceUser.create || authService.currentUser.admin">
+            <button class="wayne-button normal" (click)="openModal()">
+              {{'TITLE.MEMBER_CONTECT' | translate}}
+            </button>
             <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
               <wayne-checkbox-group [(ngModel)]="showList">
                 <wayne-checkbox>ID</wayne-checkbox>
                 <wayne-checkbox value="name">{{'TITLE.NAME' | translate}}</wayne-checkbox>
-                <wayne-checkbox value="namespace">{{'TITLE.NAMESPACE' | translate}}{{'TITLE.NAME' | translate}}</wayne-checkbox>
+                <wayne-checkbox
+                  value="namespace">{{'TITLE.NAMESPACE' | translate}}{{'TITLE.NAME' | translate}}</wayne-checkbox>
                 <wayne-checkbox value="group">{{'TITLE.GROUP' | translate}}</wayne-checkbox>
                 <wayne-checkbox value="create_time">{{'TITLE.CREATE_TIME' | translate}}</wayne-checkbox>
                 <wayne-checkbox value="action">{{'TITLE.ACTION' | translate}}</wayne-checkbox>
@@ -23,8 +25,10 @@
           </div>
         </div>
         <create-edit-namespace-user (create)="createNamespaceUser($event)"></create-edit-namespace-user>
-        <list-namespace-user [namespaceUsers]="changedNamespaceUsers" [listType]="listType" (delete)="deleteNamespaceUser($event)"
-          (edit)="editNamespaceUser($event)" (paginate)="retrieve($event)" [page]="pageState.page" [showState]="showState"></list-namespace-user>
+        <list-namespace-user [namespaceUsers]="changedNamespaceUsers" [listType]="listType"
+                             (delete)="deleteNamespaceUser($event)"
+                             (edit)="editNamespaceUser($event)" (paginate)="retrieve($event)" [page]="pageState.page"
+                             [showState]="showState"></list-namespace-user>
       </div>
     </div>
   </wayne-box>

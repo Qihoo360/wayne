@@ -1,23 +1,23 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
-import {Inventory, StateComparator, TimeComparator} from './inventory';
-import {SortOrder} from '@clr/angular';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {Pod} from '../../../shared/model/v1/kubernetes/pod';
-import {PodClient} from '../../../shared/client/v1/kubernetes/pod';
-import {PublicService} from '../../../shared/client/v1/public.service';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../../shared/shared.const';
-import {DOCUMENT} from '@angular/common';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {ClusterService} from '../../../shared/client/v1/cluster.service';
-import {Cluster} from '../../../shared/model/v1/cluster';
-import {AuthService} from '../../../shared/auth/auth.service';
+import { Inventory, StateComparator, TimeComparator } from './inventory';
+import { SortOrder } from '@clr/angular';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { Pod } from '../../../shared/model/v1/kubernetes/pod';
+import { PodClient } from '../../../shared/client/v1/kubernetes/pod';
+import { PublicService } from '../../../shared/client/v1/public.service';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
+import { DOCUMENT } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription } from 'rxjs/Subscription';
+import { ClusterService } from '../../../shared/client/v1/cluster.service';
+import { Cluster } from '../../../shared/model/v1/cluster';
+import { AuthService } from '../../../shared/auth/auth.service';
 
 @Component({
   selector: 'list-pod',
@@ -116,7 +116,7 @@ export class ListPodComponent implements OnInit, OnDestroy {
   }
 
   keepUpdate() {
-    if (this.timer){
+    if (this.timer) {
       clearInterval(this.timer);
     }
     this.timer = setInterval(() => {
@@ -124,7 +124,7 @@ export class ListPodComponent implements OnInit, OnDestroy {
         clearInterval(this.timer);
         return;
       }
-      if (this.whetherHotReflash) this.refresh()
+      if (this.whetherHotReflash) this.refresh();
     }, 5000);
   }
 

@@ -1,8 +1,8 @@
-import {Inject, Injector, Injectable} from '@angular/core';
-import {Router} from '@angular/router';
-import {MessageService} from '../global-message/message.service';
-import {AlertType, httpStatusCode} from '../shared.const';
-import {DOCUMENT} from '@angular/common';
+import { Inject, Injectable, Injector } from '@angular/core';
+import { Router } from '@angular/router';
+import { MessageService } from '../global-message/message.service';
+import { AlertType, httpStatusCode } from '../shared.const';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable()
 export class MessageHandlerService {
@@ -24,7 +24,7 @@ export class MessageHandlerService {
         this.injector.get(Router).navigateByUrl(`sign-in?ref=${document.location.pathname}`);
       }
     } else {
-      this.msgService.announceMessage(code, error.error ? error.error.msg : error.error , AlertType.DANGER);
+      this.msgService.announceMessage(code, error.error ? error.error.msg : error.error, AlertType.DANGER);
     }
   }
 
@@ -57,7 +57,7 @@ export class MessageHandlerService {
     this.msgService.clear();
   }
 
-  public error(error:any): void{
+  public error(error: any): void {
     this.showError(error);
   }
 

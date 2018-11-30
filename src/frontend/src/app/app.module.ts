@@ -1,20 +1,21 @@
-import {APP_INITIALIZER, ErrorHandler, Injector, NgModule} from '@angular/core';
-import {AppComponent} from './app.component';
-import {RoutingModule} from './app-routing.module';
-import {PortalModule} from './portal/portal.module';
-import {AdminModule} from './admin/admin.module';
-import {AuthService} from './shared/auth/auth.service';
-import {AuthModule} from './shared/auth-module/auth.module';
-import {httpStatusCode} from './shared/shared.const';
-import {Router} from '@angular/router';
+import { APP_INITIALIZER, ErrorHandler, Injector, NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+import { RoutingModule } from './app-routing.module';
+import { PortalModule } from './portal/portal.module';
+import { AdminModule } from './admin/admin.module';
+import { AuthService } from './shared/auth/auth.service';
+import { AuthModule } from './shared/auth-module/auth.module';
+import { httpStatusCode } from './shared/shared.const';
+import { Router } from '@angular/router';
 import * as Raven from 'raven-js';
-import {PodTerminalModule} from './portal/pod-terminal/pod-terminal.module';
-import {environment} from '../environments/environment';
-import {HttpClientModule, HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
-import {AuthInterceptor} from './shared/interceptor/auth-interceptor';
+import { PodTerminalModule } from './portal/pod-terminal/pod-terminal.module';
+import { environment } from '../environments/environment';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './shared/interceptor/auth-interceptor';
 // translate
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
 }
@@ -26,14 +27,14 @@ export function initUser(authService: AuthService, injector: Injector) {
     if (error.status == httpStatusCode.Unauthorized) {
       router.navigate(['sign-in']);
     }
-    console.log('init current user error.', error)
+    console.log('init current user error.', error);
   });
 }
 
 export function initConfig(authService: AuthService) {
   return () => authService.initConfig().then(() => {
   }).catch(error => {
-    console.log('init config error.', error)
+    console.log('init config error.', error);
   });
 }
 
@@ -68,9 +69,9 @@ export class WayneErrorHandler implements ErrorHandler {
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
     })
   ],
@@ -95,7 +96,7 @@ export class WayneErrorHandler implements ErrorHandler {
     },
     {
       provide: ErrorHandler,
-      useClass: environment.ravenDsn && environment.ravenDsn !='__ravenDsn__' ? RavenErrorHandler : WayneErrorHandler
+      useClass: environment.ravenDsn && environment.ravenDsn != '__ravenDsn__' ? RavenErrorHandler : WayneErrorHandler
     }
   ],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
 <div class="message-box" *ngIf="infoList.length !== 0" [style.right.px]="posiRight">
-  <div *ngFor="let item of infoList; let i = index" class="message-item" (mouseenter)="enterEvent(i)" (mouseleave)="leaveEvent(i)" [@showState]="item.state">
+  <div *ngFor="let item of infoList; let i = index" class="message-item" (mouseenter)="enterEvent(i)"
+       (mouseleave)="leaveEvent(i)" [@showState]="item.state">
     <div class="message-header">
       <ng-container [ngSwitch]="item.alertType">
         <ng-template [ngSwitchCase]="0">

@@ -1,15 +1,16 @@
-<button (click)="openModal()" class="wayne-button primary" *ngIf="authService.currentAppPermission.pvc.create || authService.currentUser.admin">
+<button (click)="openModal()" class="wayne-button primary"
+        *ngIf="authService.currentAppPermission.pvc.create || authService.currentUser.admin">
   {{'PVC.CREATE' | translate}}
 </button>
 <create-edit-persistentvolumeclaim (create)="createPvc($event)"></create-edit-persistentvolumeclaim>
 <div *ngIf="pvcId && pvcs?.length>0">
   <wayne-tabs>
     <wayne-tab (click)="tabClick(pvc.id)"
-                [id]="pvc.id"
-                *ngFor="let pvc of pvcs"
-                [active]="pvc.id==pvcId"
-                [description]="pvc.description"
-                >
+               [id]="pvc.id"
+               *ngFor="let pvc of pvcs"
+               [active]="pvc.id==pvcId"
+               [description]="pvc.description"
+    >
       {{pvc.name}}
     </wayne-tab>
   </wayne-tabs>
@@ -30,7 +31,8 @@
               *ngIf="authService.currentAppPermission.pvc.read || authService.currentUser.admin">
         {{'BUTTON.HISTORY' | translate}}
       </button>
-      <button (click)="deletePvc()" class="wayne-button normal" *ngIf="authService.currentAppPermission.pvc.offline || authService.currentUser.admin">
+      <button (click)="deletePvc()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.pvc.offline || authService.currentUser.admin">
         {{'PVC.DELETE' | translate}}
       </button>
     </div>

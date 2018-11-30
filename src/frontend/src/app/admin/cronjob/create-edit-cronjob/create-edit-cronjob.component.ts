@@ -1,24 +1,24 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType} from '../../../shared/shared.const';
-import {Cronjob} from '../../../shared/model/v1/cronjob';
-import {App} from '../../../shared/model/v1/app';
-import {CronjobService} from '../../../shared/client/v1/cronjob.service';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {AceEditorBoxComponent} from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType } from '../../../shared/shared.const';
+import { Cronjob } from '../../../shared/model/v1/cronjob';
+import { App } from '../../../shared/model/v1/app';
+import { CronjobService } from '../../../shared/client/v1/cronjob.service';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'create-edit-cronjob',
   templateUrl: 'create-edit-cronjob.component.html',
   styleUrls: ['create-edit-cronjob.scss']
 })
-export class CreateEditCronjobComponent implements OnInit{
+export class CreateEditCronjobComponent implements OnInit {
   @Output() create = new EventEmitter<boolean>();
   modalOpened: boolean;
 
@@ -39,6 +39,7 @@ export class CreateEditCronjobComponent implements OnInit{
   actionType: ActionType;
 
   apps: App[];
+
   constructor(private cronjobService: CronjobService,
               private appService: AppService,
               private aceEditorService: AceEditorService,
@@ -47,11 +48,11 @@ export class CreateEditCronjobComponent implements OnInit{
 
   ngOnInit(): void {
     this.appService.getNames().subscribe(
-        response => {
-          this.apps = response.data;
-        },
-        error => this.messageHandlerService.handleError(error)
-      );
+      response => {
+        this.apps = response.data;
+      },
+      error => this.messageHandlerService.handleError(error)
+    );
   }
 
   newOrEditCronjob(id?: number) {
@@ -61,7 +62,7 @@ export class CreateEditCronjobComponent implements OnInit{
       this.title = '编辑' + this.componentName;
       this.cronjobService.getById(id, 0).subscribe(
         status => {
-          this.cronjob = status.data
+          this.cronjob = status.data;
           this.cronjob.metaDataObj = JSON.parse(this.cronjob.metaData ? this.cronjob.metaData : '{}');
           this.initJsonEditor();
         },
@@ -140,7 +141,7 @@ export class CreateEditCronjobComponent implements OnInit{
   handleValidation(): void {
     let cont = this.currentForm.controls['name'];
     if (cont) {
-      this.isNameValid = cont.valid
+      this.isNameValid = cont.valid;
     }
   }
 }

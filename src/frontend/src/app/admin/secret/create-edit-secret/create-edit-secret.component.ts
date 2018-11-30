@@ -1,17 +1,17 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType} from '../../../shared/shared.const';
-import {App} from '../../../shared/model/v1/app';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {Secret} from '../../../shared/model/v1/secret';
-import {SecretService} from '../../../shared/client/v1/secret.service';
-import {AceEditorBoxComponent} from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType } from '../../../shared/shared.const';
+import { App } from '../../../shared/model/v1/app';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { Secret } from '../../../shared/model/v1/secret';
+import { SecretService } from '../../../shared/client/v1/secret.service';
+import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'create-edit-secret',
@@ -43,7 +43,8 @@ export class CreateEditSecretComponent {
     private appService: AppService,
     private aceEditorService: AceEditorService,
     private messageHandlerService: MessageHandlerService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.appService
@@ -102,7 +103,7 @@ export class CreateEditSecretComponent {
             this.isSubmitOnGoing = false;
             this.create.emit(true);
             this.createSecretOpened = false;
-              this.messageHandlerService.showSuccess('创建加密文件成功！');
+            this.messageHandlerService.showSuccess('创建加密文件成功！');
           },
           error => {
             this.isSubmitOnGoing = false;
@@ -141,7 +142,7 @@ export class CreateEditSecretComponent {
   handleValidation(): void {
     let cont = this.currentForm.controls['secret_name'];
     if (cont) {
-      this.isNameValid = cont.valid
+      this.isNameValid = cont.valid;
     }
   }
 }

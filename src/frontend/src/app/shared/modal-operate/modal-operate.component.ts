@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,ElementRef } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'wayne-modal-operate',
@@ -7,9 +7,10 @@ import { Component, OnInit, Input,ElementRef } from '@angular/core';
 })
 export class ModalOperateComponent implements OnInit {
 
-	@Input() modal: any;
+  @Input() modal: any;
   fullPage: boolean;
   element: Element;
+
   constructor(private el: ElementRef) {
     this.element = el.nativeElement;
   }
@@ -26,7 +27,7 @@ export class ModalOperateComponent implements OnInit {
   }
 
   getParentBody(element: Element) {
-    while(!element.classList.contains('modal')) {
+    while (!element.classList.contains('modal')) {
       element = element.parentElement;
     }
     return element;

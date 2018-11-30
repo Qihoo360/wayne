@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {TipService} from '../../client/v1/tip.service';
-import { trigger, state, style, animate, transition, animation } from '@angular/animations';
+import { Component, Input, OnInit } from '@angular/core';
+import { TipService } from '../../client/v1/tip.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'wayne-float-window-item',
@@ -18,13 +18,14 @@ import { trigger, state, style, animate, transition, animation } from '@angular/
 })
 /**
  * @Input tip: 作为悬浮上边的提示信息；
-*/
-export class FloatWindowItemComponent implements OnInit{
+ */
+export class FloatWindowItemComponent implements OnInit {
 
   index: number;
   length: number;
   @Input() tip: string;
   @Input() value: string;
+
   constructor(private tipService: TipService) {
   }
 
@@ -33,6 +34,7 @@ export class FloatWindowItemComponent implements OnInit{
 
   boxState: string = 'leave';
   itemState: string = '';
+
   get getStyle() {
     return {
       'transition-delay': this.boxState === 'enter' ? this.index * 60 + 'ms' : (this.length - 1 - this.index) * 60 + 'ms',
@@ -53,6 +55,7 @@ export class FloatWindowItemComponent implements OnInit{
       this.tipService.open(info);
     }
   }
+
   itemLeave() {
     if (this.tip !== undefined) {
       this.tipService.close(this.tip);

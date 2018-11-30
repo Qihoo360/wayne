@@ -1,14 +1,14 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType} from '../../../shared/shared.const';
-import {App} from '../../../shared/model/v1/app';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {TranslateService} from '@ngx-translate/core';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType } from '../../../shared/shared.const';
+import { App } from '../../../shared/model/v1/app';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'create-edit-app',
@@ -39,7 +39,7 @@ export class CreateEditAppComponent {
 
   newOrEditApp(id?: number) {
     if (!this.cacheService.currentNamespace) {
-      return
+      return;
     }
     let namespaceId = this.cacheService.namespaceId;
     this.createAppOpened = true;
@@ -48,7 +48,7 @@ export class CreateEditAppComponent {
       this.appTitle = '编辑项目';
       this.appService.getById(id, namespaceId).subscribe(
         status => {
-          this.app = status.data
+          this.app = status.data;
         },
         error => {
           this.messageHandlerService.handleError(error);
@@ -120,7 +120,7 @@ export class CreateEditAppComponent {
   handleValidation(): void {
     let cont = this.currentForm.controls['app_name'];
     if (cont) {
-      this.isNameValid = cont.valid
+      this.isNameValid = cont.valid;
     }
 
   }

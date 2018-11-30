@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {ClrDatagridStateInterface} from '@clr/angular';
-import {WebHook} from '../../../shared/model/v1/webhook';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {Page} from '../../../shared/page/page-state';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { ClrDatagridStateInterface } from '@clr/angular';
+import { WebHook } from '../../../shared/model/v1/webhook';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { Page } from '../../../shared/page/page-state';
 
 @Component({
   selector: 'list-app-webhook',
@@ -16,7 +16,7 @@ export class ListAppWebHookComponent implements OnInit {
   @Input() page: Page;
   currentPage: number = 1;
   state: ClrDatagridStateInterface;
-  
+
   @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<WebHook>();
   @Output() toggle = new EventEmitter<WebHook>();
@@ -29,10 +29,10 @@ export class ListAppWebHookComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
-  
+
 
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;

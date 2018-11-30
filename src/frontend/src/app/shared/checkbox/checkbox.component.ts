@@ -1,4 +1,4 @@
-import {Component, Input, ElementRef, OnInit} from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'wayne-checkbox',
@@ -6,14 +6,16 @@ import {Component, Input, ElementRef, OnInit} from '@angular/core';
   styleUrls: ['./checkbox.component.scss']
 })
 
-export class CheckboxComponent implements OnInit{
+export class CheckboxComponent implements OnInit {
   /**
    * 需要添加一个lable作为自己的value;
-  */
+   */
   _value: any = '';
   checked: boolean = false;
   inputElement: HTMLInputElement;
-  constructor(private el: ElementRef) {}
+
+  constructor(private el: ElementRef) {
+  }
 
   changeEvent() {
     const event = new Event('change');

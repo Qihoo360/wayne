@@ -1,12 +1,13 @@
 <clr-modal [(clrModalOpen)]="createAppOpened">
-    <h3 class="modal-title">{{appTitle}}</h3>
+  <h3 class="modal-title">{{appTitle}}</h3>
   <div class="modal-body">
     <form #appForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
           <label for="app_name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
-          <label for="app_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
-            <input class="form-control" type="text" id="app_name"  [(ngModel)]="app.name"
+          <label for="app_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
+                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
+            <input class="form-control" type="text" id="app_name" [(ngModel)]="app.name"
                    name="app_name" size="32"
                    required
                    [placeholder]="'PLACEHOLDER.APP_NAME' | translate"
@@ -29,7 +30,8 @@
 
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="app_description" class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
+          <label for="app_description"
+                 class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="app_description" [(ngModel)]="app.description"
                     name="app_description"
                     rows="3">
@@ -39,7 +41,8 @@
         <div class="modal-footer">
 
           <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-          <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.CONFIRM' | translate}}</button>
+          <button type="button" class="btn btn-primary" [disabled]="!isValid"
+                  (click)="onSubmit()">{{'BUTTON.CONFIRM' | translate}}</button>
         </div>
       </section>
     </form>

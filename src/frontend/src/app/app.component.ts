@@ -1,8 +1,8 @@
-import { Component, AfterViewInit } from '@angular/core';
-import {ScrollBarService} from './shared/client/v1/scrollBar.service';
-import {SelectCopyService} from './shared/client/v1/select-copy.service';
-import {TranslateService} from '@ngx-translate/core';
-import {StorageService} from './shared/client/v1/storage.service';
+import { AfterViewInit, Component } from '@angular/core';
+import { ScrollBarService } from './shared/client/v1/scrollBar.service';
+import { SelectCopyService } from './shared/client/v1/select-copy.service';
+import { TranslateService } from '@ngx-translate/core';
+import { StorageService } from './shared/client/v1/storage.service';
 
 @Component({
   selector: 'wayne-root',

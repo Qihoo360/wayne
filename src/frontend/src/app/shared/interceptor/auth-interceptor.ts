@@ -1,16 +1,13 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { HttpInterceptor } from '@angular/common/http';
-import { HttpRequest } from '@angular/common/http';
-import { HttpHandler } from '@angular/common/http';
-import { HttpEvent } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import 'rxjs/add/observable/fromPromise';
-import {LoginTokenKey} from '../shared.const';
+import { LoginTokenKey } from '../shared.const';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor() {
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return Observable.fromPromise(this.handleAccess(request, next));
@@ -20,7 +17,7 @@ export class AuthInterceptor implements HttpInterceptor {
     Promise<HttpEvent<any>> {
     const token = localStorage.getItem(LoginTokenKey);
     // HttpHeader object immutable - copy values
-    const headerSettings: {[name: string]: string | string[]; } = {};
+    const headerSettings: { [name: string]: string | string[]; } = {};
 
     for (const key of request.headers.keys()) {
       headerSettings[key] = request.headers.getAll(key);
@@ -32,7 +29,8 @@ export class AuthInterceptor implements HttpInterceptor {
     const newHeader = new HttpHeaders(headerSettings);
 
     let changedRequest = request.clone({
-      headers: newHeader});
+      headers: newHeader
+    });
     return next.handle(changedRequest).toPromise();
   }
 
