@@ -141,7 +141,28 @@ export class CreateEditIngressTplComponent implements OnInit {
     return this.currentForm &&
       this.currentForm.valid &&
       !this.isSubmitOnGoing &&
-      !this.checkOnGoing;
+      !this.checkOnGoing && this.isValidIngress();
+  }
+
+  isValidIngress(): boolean {
+    if (this.kubeIngress.spec.rules.length === 0) {
+      return false;
+    }
+    if (this.kubeIngress.spec.rules.length === 0) {
+      return false;
+    }
+    for (const rule of this.kubeIngress.spec.rules) {
+      if (rule.host.length === 0) {
+        return false;
+      }
+    }
+    if (this.kubeIngress.spec.backend.servicePort.IntVal === 0) {
+      return false;
+    }
+    if (this.kubeIngress.spec.backend.serviceName.length === 0) {
+      return false;
+    }
+    return true;
   }
 
   buildLabels(labels: {}) {

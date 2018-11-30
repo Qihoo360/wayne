@@ -26,7 +26,7 @@
             [(ngModel)]="kubeIngress.spec.rules[i].host">
           </label>
           <a (click)="onRemoveRule(i)" *ngIf="i > 0">
-            <clr-icon shape="minus-circle" title="删除域名规则" class="is-solid"></clr-icon>
+            <clr-icon shape="trash" title="删除域名规则" class="is-solid"></clr-icon>
           </a>
         </div>
         <button (click)="onAddRule()" style="margin-left: 10px;" class="wayne-button primary">
