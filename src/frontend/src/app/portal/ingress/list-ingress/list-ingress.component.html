@@ -63,10 +63,10 @@
               *ngIf="!ingressTpl.status && (authService.currentAppPermission.ingress.delete || authService.currentUser.admin)"
               (click)="deleteIngressTpl(ingressTpl)">
         删除</button>
-      <!--<button class="wayne-button text"-->
-              <!--(click)="offlineServiceTpl(serviceTpl)"-->
-              <!--*ngIf="serviceTpl.status && (authService.currentAppPermission.service.offline || authService.currentUser.admin)">-->
-        <!--下线</button>-->
+      <button class="wayne-button text"
+              (click)="offlineIngressTpl(ingressTpl)"
+              *ngIf="ingressTpl.status && (authService.currentAppPermission.ingress.offline || authService.currentUser.admin)">
+        下线</button>
 
     </clr-dg-cell>
   </clr-dg-row>
@@ -80,4 +80,5 @@
 </clr-datagrid>
 <wayne-ace-editor></wayne-ace-editor>
 <publish-tpl [appId]="appId" (published)="published($event)"></publish-tpl>
+<status></status>
 

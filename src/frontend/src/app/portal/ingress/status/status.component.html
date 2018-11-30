@@ -1,0 +1,18 @@
+<clr-modal [clrModalSize]="'md'" [(clrModalOpen)]="createAppOpened">
+  <h3 class="modal-title">Ingress 详情</h3>
+  <div class="modal-body">
+    <hr>
+    <form>
+      <section class="form-block form-box">
+        <div class="row group">
+          <div class="col-sm-3">
+            Ingress 名称
+          </div>
+          <div class="col-sm-9">
+            {{kubeIngress?.metadata.name}}
+          </div>
+        </div>
+      </section>
+    </form>
+  </div>
+</clr-modal>

@@ -18,6 +18,7 @@ import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmat
 import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
 import {PublishStatus} from '../../../shared/model/v1/publish-status';
 import {PublishIngressTplComponent} from '../publish-tpl/publish-tpl.component';
+import {IngressStatusComponent} from '../status/status.component';
 import {
   ConfirmationButtons,
   ConfirmationState,
@@ -36,8 +37,8 @@ export class ListIngressComponent implements OnInit, OnDestroy {
   @Input() showState: object;
   @ViewChild(PublishIngressTplComponent)
   publishTpl: PublishIngressTplComponent;
-  // @ViewChild(IngressStatusComponent)
-  // ingressStatus: IngressStatusComponent;
+  @ViewChild(IngressStatusComponent)
+  ingressStatus: IngressStatusComponent;
 
   @Input() ingresses: Ingress[];
   @Input() ingressTpls: IngressTpl[];
@@ -68,7 +69,7 @@ export class ListIngressComponent implements OnInit, OnDestroy {
         this.ingressTplService.deleteById(tplId, this.appId)
           .subscribe(
             response => {
-              this.messageHandlerService.showSuccess('ingress 模版删除成功！');
+              this.messageHandlerService.showSuccess('Ingress 模版删除成功！');
               this.refresh();
             },
             error => {
@@ -122,29 +123,28 @@ export class ListIngressComponent implements OnInit, OnDestroy {
 
   ingressState(status: PublishStatus, tpl: IngressTpl) {
     if (status.cluster && status.state !== TemplateState.NOT_FOUND) {
-      // TODO
-      // this.ingressStatus.newServiceStatus(status.cluster, tpl)
+      this.ingressStatus.newIngressStatus(status.cluster, tpl)
     }
 
   }
 
-  // offlineIngressTpl(tpl: IngressTpl) {
-  //   this.ingressService.getById(tpl.ingressId, this.appId).subscribe(
-  //     response => {
-  //       let ingress = response.data;
-  //       this.publishTpl.newPublishTpl(ingress, tpl, ResourcesActionType.OFFLINE);
-  //     },
-  //     error => {
-  //       this.messageHandlerService.handleError(error);
-  //     }
-  //   );
-  //
-  // }
+  offlineIngressTpl(tpl: IngressTpl) {
+    this.ingressService.getById(tpl.ingressId, this.appId).subscribe(
+      response => {
+        let ingress = response.data;
+        this.publishTpl.newPublishTpl(ingress, tpl, ResourcesActionType.OFFLINE);
+      },
+      error => {
+        this.messageHandlerService.handleError(error);
+      }
+    );
+
+  }
 
   deleteIngressTpl(tpl: IngressTpl): void {
     let deletionMessage = new ConfirmationMessage(
-      '删除 ingress 模版确认',
-      `你确认删除 ingress 模版 ${tpl.name}？`,
+      '删除 Ingress 模版确认',
+      `你确认删除 Ingress 模版 ${tpl.name}？`,
       tpl.id,
       ConfirmationTargets.INGRESS_TPL,
       ConfirmationButtons.DELETE_CANCEL
