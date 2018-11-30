@@ -1,4 +1,4 @@
-import {KubeJob} from './kubernetes/job';
+import { KubeJob } from './kubernetes/job';
 
 export class Job {
   kubeJob: KubeJob;

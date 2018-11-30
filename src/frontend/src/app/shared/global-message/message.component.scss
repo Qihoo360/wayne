@@ -5,7 +5,8 @@
   right: 23px;
   max-height: 80vh;
   z-index: 1051;
-  .message-item{
+
+  .message-item {
     position: relative;
     border: 1px solid #ccc;
     left: 350px;
@@ -15,11 +16,13 @@
     border-radius: 5px;
     background: #fff;
     box-shadow: 0 5px 12px 0px rgba(0, 0, 0, 0.3);
-    .message-header{
+
+    .message-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      .message-title{
+
+      .message-title {
         font-size: 16px;
         font-weight: 800;
         flex: 1;
@@ -29,11 +32,13 @@
         padding-left: 3px;
         padding-right: 15px;
       }
-      .message-close{
+
+      .message-close {
         cursor: pointer;
       }
     }
-    .message-body{
+
+    .message-body {
       margin-top: 5px;
       letter-spacing: 1.4px;
       line-height: 1.4;

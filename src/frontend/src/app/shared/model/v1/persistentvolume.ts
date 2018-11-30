@@ -1,4 +1,3 @@
-
 export class RbdImage {
   name: string;
   size: string;

@@ -5,8 +5,8 @@
   <div class="modal-body">
     <hr>
     <div class="toggle-switch">
-        <input type="checkbox" id="toggle_4" [(ngModel)]="whetherHotReflash">
-        <label for="toggle_4">数据实时更新: </label>
+      <input type="checkbox" id="toggle_4" [(ngModel)]="whetherHotReflash">
+      <label for="toggle_4">数据实时更新: </label>
     </div>
     <clr-datagrid>
       <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
@@ -53,7 +53,8 @@
         <clr-dg-cell>{{pod.podIp}}</clr-dg-cell>
         <clr-dg-cell *ngIf="authService.currentUser.admin">{{pod.nodeName}}</clr-dg-cell>
         <clr-dg-cell>
-          <span *ngFor="let state of pod.containerStatus" class="label label-light-blue">{{state.name}}:{{state.restartCount}}
+          <span *ngFor="let state of pod.containerStatus" class="label label-light-blue">{{state.name}}
+            :{{state.restartCount}}
           </span>
         </clr-dg-cell>
         <clr-dg-cell>{{pod.startTime  | relativeTime}}</clr-dg-cell>

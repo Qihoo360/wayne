@@ -2,157 +2,170 @@
 
 
 export class PersistentVolumeClaimStatus {
-    phase: string;
-    accessModes: string[];
-    capacity: {};
-    //[PersistentVolumeClaimStatus:]
+  phase: string;
+  accessModes: string[];
+  capacity: {};
+  //[PersistentVolumeClaimStatus:]
 
 
-    //[end]
+  //[end]
 }
+
 export class ResourceRequirements {
-    limits: {};
-    requests: {};
-    //[ResourceRequirements:]
+  limits: {};
+  requests: {};
+  //[ResourceRequirements:]
 
 
-    //[end]
+  //[end]
 }
+
 export class LabelSelectorRequirement {
-    key: string;
-    operator: string;
-    values: string[];
-    //[LabelSelectorRequirement:]
+  key: string;
+  operator: string;
+  values: string[];
+  //[LabelSelectorRequirement:]
 
 
-    //[end]
+  //[end]
 }
+
 export class LabelSelector {
-    matchLabels: {};
-    matchExpressions: LabelSelectorRequirement[];
-    //[LabelSelector:]
+  matchLabels: {};
+  matchExpressions: LabelSelectorRequirement[];
+  //[LabelSelector:]
 
 
-    //[end]
+  //[end]
 }
+
 export class PersistentVolumeClaimSpec {
-    accessModes: string[];
-    selector: LabelSelector;
-    resources: ResourceRequirements;
-    volumeName: string;
-    storageClassName: string;
-    //[PersistentVolumeClaimSpec:]
+  accessModes: string[];
+  selector: LabelSelector;
+  resources: ResourceRequirements;
+  volumeName: string;
+  storageClassName: string;
+  //[PersistentVolumeClaimSpec:]
 
 
-    //[end]
+  //[end]
 }
+
 export class StatusCause {
-    reason: string;
-    message: string;
-    field: string;
-    //[StatusCause:]
+  reason: string;
+  message: string;
+  field: string;
+  //[StatusCause:]
 
 
-    //[end]
+  //[end]
 }
+
 export class StatusDetails {
-    name: string;
-    group: string;
-    kind: string;
-    uid: string;
-    causes: StatusCause[];
-    retryAfterSeconds: number;
-    //[StatusDetails:]
+  name: string;
+  group: string;
+  kind: string;
+  uid: string;
+  causes: StatusCause[];
+  retryAfterSeconds: number;
+  //[StatusDetails:]
 
 
-    //[end]
+  //[end]
 }
+
 export class ListMeta {
-    selfLink: string;
-    resourceVersion: string;
-    //[ListMeta:]
+  selfLink: string;
+  resourceVersion: string;
+  //[ListMeta:]
 
 
-    //[end]
+  //[end]
 }
+
 export class Status {
-    kind: string;
-    apiVersion: string;
-    metadata: ListMeta;
-    status: string;
-    message: string;
-    reason: string;
-    details: StatusDetails;
-    code: number;
-    //[Status:]
+  kind: string;
+  apiVersion: string;
+  metadata: ListMeta;
+  status: string;
+  message: string;
+  reason: string;
+  details: StatusDetails;
+  code: number;
+  //[Status:]
 
 
-    //[end]
+  //[end]
 }
+
 export class Initializer {
-    name: string;
-    //[Initializer:]
+  name: string;
+  //[Initializer:]
 
 
-    //[end]
+  //[end]
 }
+
 export class Initializers {
-    pending: Initializer[];
-    result: Status;
-    //[Initializers:]
+  pending: Initializer[];
+  result: Status;
+  //[Initializers:]
 
 
-    //[end]
+  //[end]
 }
+
 export class OwnerReference {
-    apiVersion: string;
-    kind: string;
-    name: string;
-    uid: string;
-    controller: boolean;
-    blockOwnerDeletion: boolean;
-    //[OwnerReference:]
+  apiVersion: string;
+  kind: string;
+  name: string;
+  uid: string;
+  controller: boolean;
+  blockOwnerDeletion: boolean;
+  //[OwnerReference:]
 
 
-    //[end]
+  //[end]
 }
 
 export class Time {
-    //[Time:]
+  //[Time:]
 
 
-    //[end]
+  //[end]
 }
+
 export class ObjectMeta {
-    name: string;
-    generateName: string;
-    namespace: string;
-    selfLink: string;
-    uid: string;
-    resourceVersion: string;
-    generation: number;
-    creationTimestamp: Time;
-    deletionTimestamp: Time;
-    deletionGracePeriodSeconds: number;
-    labels: {};
-    annotations: {};
-    ownerReferences: OwnerReference[];
-    initializers: Initializers;
-    finalizers: string[];
-    clusterName: string;
-    //[ObjectMeta:]
+  name: string;
+  generateName: string;
+  namespace: string;
+  selfLink: string;
+  uid: string;
+  resourceVersion: string;
+  generation: number;
+  creationTimestamp: Time;
+  deletionTimestamp: Time;
+  deletionGracePeriodSeconds: number;
+  labels: {};
+  annotations: {};
+  ownerReferences: OwnerReference[];
+  initializers: Initializers;
+  finalizers: string[];
+  clusterName: string;
+  //[ObjectMeta:]
 
 
-    //[end]
+  //[end]
 }
+
 export class KubePersistentVolumeClaim {
-    kind: string;
-    apiVersion: string;
-    metadata: ObjectMeta;
-    spec: PersistentVolumeClaimSpec;
-    status: PersistentVolumeClaimStatus;
-    //[PersistentVolumeClaim:]
+  kind: string;
+  apiVersion: string;
+  metadata: ObjectMeta;
+  spec: PersistentVolumeClaimSpec;
+  status: PersistentVolumeClaimStatus;
+  //[PersistentVolumeClaim:]
 
 
-    //[end]
+  //[end]
 }

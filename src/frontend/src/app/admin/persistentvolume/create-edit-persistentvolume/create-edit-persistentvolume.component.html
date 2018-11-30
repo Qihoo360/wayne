@@ -90,7 +90,8 @@
             <label for="pv_storage" class="required">{{'PVC.CONTAINER_NUM' | translate}</label>
           </div>
           <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
-            <input formControlName="storage" class="form-control" type="number" id="pv_storage" [placeholder]="'PVC.CONTAINER_NUM' | translate"
+            <input formControlName="storage" class="form-control" type="number" id="pv_storage"
+                   [placeholder]="'PVC.CONTAINER_NUM' | translate"
                    size="45">
           </div>
           <div class="col-lg-3 col-md-5 col-sm-12 col-xs-12">
@@ -117,8 +118,10 @@
         </div>
         <div class="clr-wizard-footer-buttons" style="padding-top: 30px">
           <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-          <button type="button" class="btn btn-primary" (click)="openModal()">{{'BUTTON.ADVANCED_CONFIG' | translate}}</button>
-          <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+          <button type="button" class="btn btn-primary"
+                  (click)="openModal()">{{'BUTTON.ADVANCED_CONFIG' | translate}}</button>
+          <button type="button" class="btn btn-primary" [disabled]="!isValid"
+                  (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
         </div>
       </section>
     </form>

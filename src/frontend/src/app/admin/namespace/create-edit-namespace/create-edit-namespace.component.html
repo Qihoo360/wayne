@@ -1,6 +1,6 @@
 <clr-modal [(clrModalOpen)]="opened" [clrModalSize]="'lg'" #modal>
   <h3 class="modal-title">{{nsTitle}}
-    <wayne-modal-operate [modal]="modal"  *ngIf="opened"></wayne-modal-operate>
+    <wayne-modal-operate [modal]="modal" *ngIf="opened"></wayne-modal-operate>
   </h3>
   <div class="modal-body">
     <form #namespaceForm="ngForm">
@@ -23,14 +23,14 @@
         </div>
         <div class="form-group" style="padding-left: 135px;">
           <label for="kubernetes_namespace" class="col-md-3 form-group-label-override required">K8S命名空间</label>
-            <input type="text"
-                   id="kubernetes_namespace"
-                   [(ngModel)]="ns.metaDataObj.namespace"
-                   name="kubernetes_namespace"
-                   size="36"
-                   required
-                   pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
-                   maxlength="36">
+          <input type="text"
+                 id="kubernetes_namespace"
+                 [(ngModel)]="ns.metaDataObj.namespace"
+                 name="kubernetes_namespace"
+                 size="36"
+                 required
+                 pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
+                 maxlength="36">
         </div>
         <div *ngFor="let cluster of clusters;let i=index" class="form-group" style="padding-left: 135px;">
           <label *ngIf="i === 0" class="col-md-3 form-group-label-override required">可用机房</label>
@@ -55,8 +55,12 @@
           </div>
         </div>
         <div class="container-box">
-          <label style="padding-left: 10px;color: #000;font-size: 0.65rem;padding-bottom: 20px;" class="form-group-label-override">环境变量配置
-            <button (click)="onAddEnv()" style="margin-left: 10px;" class="wayne-button primary"><clr-icon shape="add"></clr-icon>添加</button>
+          <label style="padding-left: 10px;color: #000;font-size: 0.65rem;padding-bottom: 20px;"
+                 class="form-group-label-override">环境变量配置
+            <button (click)="onAddEnv()" style="margin-left: 10px;" class="wayne-button primary">
+              <clr-icon shape="add"></clr-icon>
+              添加
+            </button>
           </label>
           <div *ngFor="let env of ns.metaDataObj.env; let i = index" class="form-group" style="padding-left: 135px;">
             <label for="kubernetes_env_name_{{i}}" class="col-md-3 form-group-label-override">Env</label>
@@ -70,12 +74,17 @@
                    type="text"
                    placeholder="环境变量值"
                    name="kubernetes_env_value_{{i}}">
-            <clr-icon style="margin-top: 10px" (click)="onDeleteEnv(i)" shape="trash" title="删除环境变量" class="is-solid"></clr-icon>
+            <clr-icon style="margin-top: 10px" (click)="onDeleteEnv(i)" shape="trash" title="删除环境变量"
+                      class="is-solid"></clr-icon>
           </div>
         </div>
         <div class="container-box">
-          <label style="padding-left: 10px;color: #000;font-size: 0.65rem;padding-bottom: 20px;" class="form-group-label-override">ImagePullSecrets
-            <button (click)="onAddSecret()" style="margin-left: 10px;" class="wayne-button primary"><clr-icon shape="add"></clr-icon>添加</button>
+          <label style="padding-left: 10px;color: #000;font-size: 0.65rem;padding-bottom: 20px;"
+                 class="form-group-label-override">ImagePullSecrets
+            <button (click)="onAddSecret()" style="margin-left: 10px;" class="wayne-button primary">
+              <clr-icon shape="add"></clr-icon>
+              添加
+            </button>
           </label>
           <div *ngFor="let imagePullSecret of ns.metaDataObj.imagePullSecrets; let i = index" class="form-group"
                style="padding-left: 135px;">
@@ -86,7 +95,8 @@
                    style="width: 500px"
                    placeholder="Secret名称"
                    name="kubernetes_imagepullsecrets_{{i}}">
-            <clr-icon style="margin-top: 10px" (click)="onDeleteSecret(i)" shape="trash" title="删除Secret" class="is-solid"></clr-icon>
+            <clr-icon style="margin-top: 10px" (click)="onDeleteSecret(i)" shape="trash" title="删除Secret"
+                      class="is-solid"></clr-icon>
           </div>
         </div>
       </section>
@@ -94,6 +104,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid"
+            (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
   </div>
 </clr-modal>

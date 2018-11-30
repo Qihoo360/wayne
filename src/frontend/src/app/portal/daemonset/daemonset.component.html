@@ -1,30 +1,35 @@
-<button (click)="createDaemonSet()" class="wayne-button primary" *ngIf="authService.currentAppPermission.daemonSet?.create || authService.currentUser.admin">
+<button (click)="createDaemonSet()" class="wayne-button primary"
+        *ngIf="authService.currentAppPermission.daemonSet?.create || authService.currentUser.admin">
   {{'DAEMONSET.CREATE' | translate}}
 </button>
 <create-edit-daemonset (create)="create($event)"></create-edit-daemonset>
 <div *ngIf="daemonSetId && daemonSets?.length>0">
   <wayne-tabs>
     <wayne-tab (click)="tabClick(daemonSet.id)"
-                [id]="daemonSet.id"
-                *ngFor="let daemonSet of daemonSets"
-                [active]="daemonSet.id==daemonSetId"
-                [description]="daemonSet.description"
-                >
+               [id]="daemonSet.id"
+               *ngFor="let daemonSet of daemonSets"
+               [active]="daemonSet.id==daemonSetId"
+               [description]="daemonSet.description"
+    >
       {{daemonSet.name}}
     </wayne-tab>
   </wayne-tabs>
   <div class="table-search">
     <div class="table-search-left">
-      <button (click)="createDaemonSetTpl()" class="wayne-button normal" *ngIf="authService.currentAppPermission.daemonSet?.create || authService.currentUser.admin">
+      <button (click)="createDaemonSetTpl()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.daemonSet?.create || authService.currentUser.admin">
         {{'DAEMONSET.CREATE_TMP' | translate}}
       </button>
-      <button (click)="editDaemonSet()" class="wayne-button normal" *ngIf="authService.currentAppPermission.daemonSet?.update || authService.currentUser.admin">
+      <button (click)="editDaemonSet()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.daemonSet?.update || authService.currentUser.admin">
         {{'DAEMONSET.EDIT' | translate}}
       </button>
-      <button (click)="publishHistory()" class="wayne-button normal" *ngIf="authService.currentAppPermission.daemonSet?.read || authService.currentUser.admin">
+      <button (click)="publishHistory()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.daemonSet?.read || authService.currentUser.admin">
         {{'BUTTON.HISTORY' | translate}}
       </button>
-      <button (click)="deleteDaemonSet()" class="wayne-button normal" *ngIf="authService.currentAppPermission.daemonSet?.offline || authService.currentUser.admin">
+      <button (click)="deleteDaemonSet()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.daemonSet?.offline || authService.currentUser.admin">
         {{'DAEMONSET.DELETE' | translate}}
       </button>
       <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
@@ -46,13 +51,13 @@
     </div>
   </div>
   <list-daemonset [daemonSetTpls]="changedDaemonSetTpls"
-                   (paginate)="retrieve($event)"
-                   (edit)="editDaemonSet($event)"
-                   (createTpl)="createDaemonSetTpl($event)"
-                   (cloneTpl)="cloneDaemonSetTpl($event)"
-                   [appId]="appId"
-                   [page]="pageState.page"
-                   [showState]="showState">
+                  (paginate)="retrieve($event)"
+                  (edit)="editDaemonSet($event)"
+                  (createTpl)="createDaemonSetTpl($event)"
+                  (cloneTpl)="cloneDaemonSetTpl($event)"
+                  [appId]="appId"
+                  [page]="pageState.page"
+                  [showState]="showState">
   </list-daemonset>
 </div>
 

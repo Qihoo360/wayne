@@ -15,8 +15,9 @@
         <!-- </div> -->
         <div class="form-group" style="padding-left: 135px;">
           <label for="name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
-          <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
-            <input class="form-control" type="text" id="app_user_name"  [(ngModel)]="appUser.user.name"
+          <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
+                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
+            <input class="form-control" type="text" id="app_user_name" [(ngModel)]="appUser.user.name"
                    name="name" size="32"
                    required
                    [readonly]="actionType==1"
@@ -30,7 +31,8 @@
         </div>
         <div class="form-group" style="padding-left: 135px;height:250px;">
           <label for="app_user_group" class="col-md-3 form-group-label-override required">群组</label>
-          <label for="app_user_group" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+          <label for="app_user_group" aria-haspopup="true" role="tooltip"
+                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <ng2-dual-list-box name="app_user_group"
                                [data]="allGroups"
                                valueField="id"
@@ -48,6 +50,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid"
+            (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
   </div>
 </clr-modal>

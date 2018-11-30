@@ -1,22 +1,25 @@
-<clr-modal [(clrModalOpen)]="modalOpened"  [clrModalSize]="'lg'" #modal>
-    <h3 class="modal-title">{{title}}
+<clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'lg'" #modal>
+  <h3 class="modal-title">{{title}}
     <wayne-modal-operate [modal]="modal" *ngIf="modalOpened"></wayne-modal-operate>
-    </h3>
+  </h3>
   <div class="modal-body">
     <form #ngForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
           <label for="configmap_id" class="col-md-3 form-group-label-override required">配置集</label>
           <div class="select form-control">
-            <select id="configmap_id" [(ngModel)]="configMapTpl.configMapId" [disabled]="actionType==1" name="configmap_id">
+            <select id="configmap_id" [(ngModel)]="configMapTpl.configMapId" [disabled]="actionType==1"
+                    name="configmap_id">
               <!--这是一个坑，如果使用value获取到的是string，使用ngValue获取到的是model本身类型-->
-              <option *ngFor="let configMap of configMaps" [ngValue]="configMap.id" [selected]="configMap.id == configMapTpl.configMapId">{{configMap.name}}
+              <option *ngFor="let configMap of configMaps" [ngValue]="configMap.id"
+                      [selected]="configMap.id == configMapTpl.configMapId">{{configMap.name}}
               </option>
             </select>
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="description" class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
+          <label for="description"
+                 class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="description" [(ngModel)]="configMapTpl.description"
                     name="description"
                     rows="3">
@@ -32,6 +35,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid"
+            (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
   </div>
 </clr-modal>

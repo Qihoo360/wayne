@@ -1,5 +1,5 @@
-import {Comparator, StringFilter} from '@clr/angular';
-import {Node} from '../../../shared/model/v1/kubernetes/node-list';
+import { Comparator, StringFilter } from '@clr/angular';
+import { Node } from '../../../shared/model/v1/kubernetes/node-list';
 
 export class Inventory {
   public size = 10;
@@ -62,7 +62,7 @@ export class LabelFilter implements StringFilter<Node> {
     for (let key of keys) {
       let value = node.labels[key];
       if ((key + ':' + value).indexOf(search) >= 0) {
-        return true
+        return true;
       }
     }
     return false;

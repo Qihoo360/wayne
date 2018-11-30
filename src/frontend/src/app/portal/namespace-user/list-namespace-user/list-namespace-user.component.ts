@@ -1,10 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {NamespaceUser} from '../../../shared/model/v1/namespace-user';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {Page} from '../../../shared/page/page-state';
-import {TranslateService} from '@ngx-translate/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { NamespaceUser } from '../../../shared/model/v1/namespace-user';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { Page } from '../../../shared/page/page-state';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'list-namespace-user',
   templateUrl: 'list-namespace-user.component.html',

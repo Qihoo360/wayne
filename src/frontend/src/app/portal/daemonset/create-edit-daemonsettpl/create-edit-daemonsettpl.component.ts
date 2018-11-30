@@ -1,13 +1,14 @@
-import {Component, OnInit, ViewChild, AfterViewInit, Inject, OnDestroy} from '@angular/core';
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {Location} from '@angular/common';
-import {DOCUMENT, EventManager} from '@angular/platform-browser';
-import {FormBuilder, NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
+import { Location } from '@angular/common';
+import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { FormBuilder, NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import {
   ConfigMapKeySelector,
-  Container, DaemonSetUpdateStrategy,
+  Container,
+  DaemonSetUpdateStrategy,
   EnvVar,
   EnvVarSource,
   ExecAction,
@@ -19,23 +20,23 @@ import {
   TCPSocketAction
 } from '../../../shared/model/v1/kubernetes/daemonset';
 import 'rxjs/add/observable/combineLatest';
-import {ActivatedRoute, Router} from '@angular/router';
-import {App} from '../../../shared/model/v1/app';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {ActionType, appLabelKey, defaultResources, namespaceLabelKey} from '../../../shared/shared.const';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {Observable} from 'rxjs/Observable';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
-import {DaemonSetTemplate} from '../../../shared/model/v1/daemonsettpl';
-import {DaemonSet} from '../../../shared/model/v1/daemonset';
-import {DaemonSetService} from '../../../shared/client/v1/daemonset.service';
-import {DaemonSetTplService} from '../../../shared/client/v1/daemonsettpl.service';
-import {defaultDaemonSet} from '../../../shared/default-models/daemonset.const';
-import {ResourceUnitConvertor} from '../../../shared/utils';
-import {ConfigMapEnvSource, EnvFromSource, SecretEnvSource} from '../../../shared/model/v1/kubernetes/deployment';
-import {TranslateService} from '@ngx-translate/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { App } from '../../../shared/model/v1/app';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { ActionType, appLabelKey, defaultResources, namespaceLabelKey } from '../../../shared/shared.const';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { DaemonSetTemplate } from '../../../shared/model/v1/daemonsettpl';
+import { DaemonSet } from '../../../shared/model/v1/daemonset';
+import { DaemonSetService } from '../../../shared/client/v1/daemonset.service';
+import { DaemonSetTplService } from '../../../shared/client/v1/daemonsettpl.service';
+import { defaultDaemonSet } from '../../../shared/default-models/daemonset.const';
+import { ResourceUnitConvertor } from '../../../shared/utils';
+import { ConfigMapEnvSource, EnvFromSource, SecretEnvSource } from '../../../shared/model/v1/kubernetes/deployment';
+import { TranslateService } from '@ngx-translate/core';
 
 const templateDom = [
   {
@@ -107,7 +108,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
               @Inject(DOCUMENT) private document: any,
               public translate: TranslateService,
               private eventManager: EventManager
-              ) {
+  ) {
 
   }
 
@@ -137,14 +138,14 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
       // hack
       setTimeout(() => {
         this.top = this.box.scrollTop + this.box.offsetHeight - 48;
-      }, 0)
+      }, 0);
     }
   }
 
   get containersLength(): number {
-    try{
+    try {
       return this.kubeDaemonSet.spec.template.spec.containers.length;
-    } catch(error) {
+    } catch (error) {
       return 0;
     }
   }
@@ -154,14 +155,14 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
     dom.id += i ? i : '';
     dom.child.forEach(item => {
       item.id += i ? i : '';
-    })
-    return dom
+    });
+    return dom;
   }
 
   initNavList() {
     this.naviList = null;
     let naviList = JSON.parse(JSON.stringify(templateDom));
-    for(let key = 0; key < this.containersLength; key++) {
+    for (let key = 0; key < this.containersLength; key++) {
       naviList[0].child.push(this.setContainDom(key));
     }
     this.naviList = JSON.stringify(naviList);
@@ -176,11 +177,11 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   }
 
   checkMemory(memory: string): boolean {
-    return memory === '' ? true : parseFloat(memory) <= this.memoryLimit && parseFloat(memory) > 0
+    return memory === '' ? true : parseFloat(memory) <= this.memoryLimit && parseFloat(memory) > 0;
   }
 
   checkCpu(cpu: string): boolean {
-    return cpu === '' ? true : parseFloat(cpu) <= this.cpuLimit && parseFloat(cpu) > 0
+    return cpu === '' ? true : parseFloat(cpu) <= this.cpuLimit && parseFloat(cpu) > 0;
   }
 
   get memoryLimit(): number {
@@ -189,10 +190,10 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
       let metaData = JSON.parse(this.daemonSet.metaData);
       if (metaData.resources &&
         metaData.resources.memoryLimit) {
-        memoryLimit = parseInt(metaData.resources.memoryLimit)
+        memoryLimit = parseInt(metaData.resources.memoryLimit);
       }
     }
-    return memoryLimit
+    return memoryLimit;
   }
 
   get cpuLimit(): number {
@@ -201,10 +202,10 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
       let metaData = JSON.parse(this.daemonSet.metaData);
       if (metaData.resources &&
         metaData.resources.cpuLimit) {
-        cpuLimit = parseInt(metaData.resources.cpuLimit)
+        cpuLimit = parseInt(metaData.resources.cpuLimit);
       }
     }
-    return cpuLimit
+    return cpuLimit;
   }
 
   ngOnInit(): void {
@@ -230,7 +231,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
         let tpl = response[2];
         if (tpl) {
           this.daemonSetTpl = tpl.data;
-          
+
           this.daemonSetTpl.description = null;
           this.saveDaemonSet(JSON.parse(this.daemonSetTpl.template));
         }
@@ -267,7 +268,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
     kubeDaemonSet.metadata.labels = this.buildLabels(this.kubeDaemonSet.metadata.labels);
     kubeDaemonSet.spec.selector.matchLabels = this.buildSelectorLabels(this.kubeDaemonSet.spec.selector.matchLabels);
     kubeDaemonSet.spec.template.metadata.labels = this.buildLabels(this.kubeDaemonSet.spec.template.metadata.labels);
-    return kubeDaemonSet
+    return kubeDaemonSet;
   }
 
   initDefault() {
@@ -456,16 +457,16 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
       let metaData = JSON.parse(this.daemonSet.metaData);
       if (metaData.resources && metaData.resources.cpuRequestLimitPercent) {
         if (metaData.resources.cpuRequestLimitPercent.indexOf('%') > -1) {
-          cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent.replace('%', '')) / 100
+          cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent.replace('%', '')) / 100;
         } else {
-          cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent)
+          cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent);
         }
       }
       if (metaData.resources && metaData.resources.memoryRequestLimitPercent) {
         if (metaData.resources.memoryRequestLimitPercent.indexOf('%') > -1) {
-          memoryRequestLimitPercent = parseFloat(metaData.resources.memoryRequestLimitPercent.replace('%', '')) / 100
+          memoryRequestLimitPercent = parseFloat(metaData.resources.memoryRequestLimitPercent.replace('%', '')) / 100;
         } else {
-          memoryRequestLimitPercent = parseFloat(metaData.resources.memoryRequestLimitPercent)
+          memoryRequestLimitPercent = parseFloat(metaData.resources.memoryRequestLimitPercent);
         }
       }
     }
@@ -485,7 +486,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
         container.resources.requests['cpu'] = (parseFloat(cpuLimit) * cpuRequestLimitPercent).toString();
       }
     }
-    return kubeDaemonSet
+    return kubeDaemonSet;
   }
 
 
@@ -497,15 +498,15 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
         let cpu = limit['cpu'];
         let memory = limit['memory'];
         if (cpu) {
-          fee += parseFloat(cpu) * this.cpuUnitPrice
+          fee += parseFloat(cpu) * this.cpuUnitPrice;
         }
         if (memory) {
-          fee += parseFloat(memory) * this.memoryUnitPrice
+          fee += parseFloat(memory) * this.memoryUnitPrice;
         }
 
       }
     }
-    return fee
+    return fee;
   }
 
   saveDaemonSet(kubeDaemonSet: KubeDaemonSet) {
@@ -542,10 +543,10 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
     if (kubeDaemonSet.spec.template.spec.containers && kubeDaemonSet.spec.template.spec.containers.length > 0) {
       for (let container of kubeDaemonSet.spec.template.spec.containers) {
         if (!container.resources) {
-          container.resources = ResourceRequirements.emptyObject()
+          container.resources = ResourceRequirements.emptyObject();
         }
         if (!container.resources.limits) {
-          container.resources.limits = {'cpu': '0', 'memory': '0Gi'}
+          container.resources.limits = {'cpu': '0', 'memory': '0Gi'};
         }
         container.resources.limits['cpu'] = ResourceUnitConvertor.cpuCoreValue(container.resources.limits['cpu']);
         container.resources.limits['memory'] = ResourceUnitConvertor.memoryGiValue(container.resources.limits['memory']);
@@ -557,7 +558,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
     kubeDaemonSet = this.convertProbeCommandToArray(kubeDaemonSet);
     kubeDaemonSet = this.addResourceUnit(kubeDaemonSet);
     kubeDaemonSet = this.fillLabel(kubeDaemonSet);
-    return kubeDaemonSet
+    return kubeDaemonSet;
   }
 
   convertProbeCommandToArray(kubeDaemonSet: KubeDaemonSet): KubeDaemonSet {
@@ -596,6 +597,6 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
 
   getImagePrefixReg() {
     let imagePrefix = this.authService.config['system.image-prefix'];
-    return imagePrefix
+    return imagePrefix;
   }
 }

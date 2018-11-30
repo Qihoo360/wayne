@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {PublishHistory} from '../../../shared/model/v1/publish-history';
-import {PublishType} from '../../../shared/shared.const';
-import {PublishService} from '../../../shared/client/v1/publish.service';
-import {State} from '@clr/angular';
-import {PublishHistoryService} from './publish-history.service';
-import {Subscription} from 'rxjs/Subscription';
-import {PageState} from '../../../shared/page/page-state';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { PublishHistory } from '../../../shared/model/v1/publish-history';
+import { PublishType } from '../../../shared/shared.const';
+import { PublishService } from '../../../shared/client/v1/publish.service';
+import { State } from '@clr/angular';
+import { PublishHistoryService } from './publish-history.service';
+import { Subscription } from 'rxjs/Subscription';
+import { PageState } from '../../../shared/page/page-state';
 
 @Component({
   selector: 'publish-history',
@@ -47,7 +47,7 @@ export class PublishHistoryComponent implements OnInit, OnDestroy {
         this.resourceId = history.resourceId;
         this.refresh();
       }
-    )
+    );
   }
 
   ngOnDestroy() {
@@ -65,7 +65,7 @@ export class PublishHistoryComponent implements OnInit, OnDestroy {
 
   refresh(state?: State): void {
     if (this.type == null || this.resourceId == null) {
-      return
+      return;
     }
     this.resourceName = null;
     if (state) {

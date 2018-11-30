@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import {BreadcrumbService} from '../../../shared/client/v1/breadcrumb.service';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {UserService} from '../../../shared/client/v1/user.service';
-import {PodClient} from '../../../shared/client/v1/kubernetes/pod';
-import {NodeClient} from '../../../shared/client/v1/kubernetes/node';
+import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { UserService } from '../../../shared/client/v1/user.service';
+import { PodClient } from '../../../shared/client/v1/kubernetes/pod';
+import { NodeClient } from '../../../shared/client/v1/kubernetes/node';
 
 interface Summary {
   appTotal: number;
@@ -58,7 +58,7 @@ export class OverviewComponent implements OnInit {
   }
 
   goToLink(url: string) {
-    this.router.navigateByUrl(url)
+    this.router.navigateByUrl(url);
   }
 
 }

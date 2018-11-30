@@ -1,13 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {BreadcrumbService} from '../../../shared/client/v1/breadcrumb.service';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {Secret} from '../../../shared/model/v1/secret';
-import {SecretService} from '../../../shared/client/v1/secret.service';
-import {Page} from '../../../shared/page/page-state';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { Secret } from '../../../shared/model/v1/secret';
+import { SecretService } from '../../../shared/client/v1/secret.service';
+import { Page } from '../../../shared/page/page-state';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'list-secret',
@@ -26,11 +26,11 @@ export class ListSecretComponent implements OnInit {
   @Output() edit = new EventEmitter<Secret>();
 
   constructor(
-  private breadcrumbService: BreadcrumbService,
-      private secretService: SecretService,
-      private messageHandlerService: MessageHandlerService,
-      private router: Router,
-      private aceEditorService: AceEditorService
+    private breadcrumbService: BreadcrumbService,
+    private secretService: SecretService,
+    private messageHandlerService: MessageHandlerService,
+    private router: Router,
+    private aceEditorService: AceEditorService
   ) {
     breadcrumbService.hideRoute('/admin/secret/relate-tpl');
     breadcrumbService.hideRoute('/admin/secret/app');

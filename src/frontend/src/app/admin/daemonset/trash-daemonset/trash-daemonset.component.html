@@ -3,61 +3,61 @@
     <div class="row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
       <h2 class="header-title">已删除守护进程集列表</h2>
     </div>
-<clr-datagrid (clrDgRefresh)="refresh($event)">
-  <clr-dg-column [clrDgField]="'id'" class="col-query-id">
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      ID
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column [clrDgField]="'name'" class="col-app-name">
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      名称
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column class="col-metadata">
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      元数据
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      描述
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column [clrDgField]="'user'">
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      {{'TITLE.CREATE_USER' | translate}}
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column  [clrDgSortBy]="'createTime'">
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      {{'TITLE.CREATE_TIME' | translate}}
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-row *ngFor="let daemonset of daemonsets" [clrDgItem]="daemonset">
-    <clr-dg-action-overflow >
-      <button class="action-item" (click)="recoverDaemonset(daemonset)" >恢复</button>
-      <button class="action-item" (click)="deleteDaemonset(daemonset)">彻底删除</button>
-    </clr-dg-action-overflow>
-    <clr-dg-cell class="col-query-id">{{daemonset.id}}</clr-dg-cell>
-    <clr-dg-cell class="col-app-name">{{daemonset.name}}</clr-dg-cell>
-    <clr-dg-cell class="col-metadata">
-      <div class="text-overflow">
-        <a href="javascript:;" (click)="detailMetaDataTpl(daemonset.metaData)">{{daemonset.metaData}}</a>
-      </div>
-    </clr-dg-cell>
-    <clr-dg-cell>{{daemonset.description}}</clr-dg-cell>
-    <clr-dg-cell>{{daemonset.user}}</clr-dg-cell>
-    <clr-dg-cell>{{daemonset.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
-  </clr-dg-row>
+    <clr-datagrid (clrDgRefresh)="refresh($event)">
+      <clr-dg-column [clrDgField]="'id'" class="col-query-id">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          ID
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgField]="'name'" class="col-app-name">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          名称
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column class="col-metadata">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          元数据
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          描述
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgField]="'user'">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'TITLE.CREATE_USER' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgSortBy]="'createTime'">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'TITLE.CREATE_TIME' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-row *ngFor="let daemonset of daemonsets" [clrDgItem]="daemonset">
+        <clr-dg-action-overflow>
+          <button class="action-item" (click)="recoverDaemonset(daemonset)">恢复</button>
+          <button class="action-item" (click)="deleteDaemonset(daemonset)">彻底删除</button>
+        </clr-dg-action-overflow>
+        <clr-dg-cell class="col-query-id">{{daemonset.id}}</clr-dg-cell>
+        <clr-dg-cell class="col-app-name">{{daemonset.name}}</clr-dg-cell>
+        <clr-dg-cell class="col-metadata">
+          <div class="text-overflow">
+            <a href="javascript:;" (click)="detailMetaDataTpl(daemonset.metaData)">{{daemonset.metaData}}</a>
+          </div>
+        </clr-dg-cell>
+        <clr-dg-cell>{{daemonset.description}}</clr-dg-cell>
+        <clr-dg-cell>{{daemonset.user}}</clr-dg-cell>
+        <clr-dg-cell>{{daemonset.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
+      </clr-dg-row>
 
-  <wayne-paginate
-    [(currentPage)]="currentPage"
-    [total]="pageState.page.totalCount"
-    [pageSizes]="[10, 20, 50]"
-    (sizeChange)="pageSizeChange($event)"
-  >
-  </wayne-paginate>
-</clr-datagrid>
+      <wayne-paginate
+        [(currentPage)]="currentPage"
+        [total]="pageState.page.totalCount"
+        [pageSizes]="[10, 20, 50]"
+        (sizeChange)="pageSizeChange($event)"
+      >
+      </wayne-paginate>
+    </clr-datagrid>
   </div>
 </div>

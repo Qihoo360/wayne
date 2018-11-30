@@ -1,16 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {State} from '@clr/angular';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {CreateEditClusterComponent} from './create-edit-cluster/create-edit-cluster.component';
-import {ListClusterComponent} from './list-cluster/list-cluster.component';
-import {Cluster} from '../../shared/model/v1/cluster';
-import {ClusterService} from '../../shared/client/v1/cluster.service';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
+import { State } from '@clr/angular';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { CreateEditClusterComponent } from './create-edit-cluster/create-edit-cluster.component';
+import { ListClusterComponent } from './list-cluster/list-cluster.component';
+import { Cluster } from '../../shared/model/v1/cluster';
+import { ClusterService } from '../../shared/client/v1/cluster.service';
+import { PageState } from '../../shared/page/page-state';
 
 @Component({
   selector: 'wayne-cluster',
@@ -82,7 +82,7 @@ export class ClusterComponent implements OnInit {
 
   createCluster(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

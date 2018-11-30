@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {App} from '../../model/v1/app';
-import {PageState} from '../../page/page-state';
-import {isNotEmpty} from '../../utils';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { App } from '../../model/v1/app';
+import { PageState } from '../../page/page-state';
+import { isNotEmpty } from '../../utils';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class AppService {
@@ -36,12 +36,12 @@ export class AppService {
       let value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
-          filterList.push(`${key}=${value}`)
+          filterList.push(`${key}=${value}`);
         } else {
           filterList.push(`${key}__contains=${value}`);
         }
       }
-    })
+    });
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }
@@ -51,39 +51,39 @@ export class AppService {
       params = params.set('sortby', sortType);
     }
 
-    if ((typeof(namespaceId) === 'undefined') || (!namespaceId)) {
+    if ((typeof (namespaceId) === 'undefined') || (!namespaceId)) {
       namespaceId = '0';
     }
     return this.http
       .get(`/api/v1/namespaces/${namespaceId}/apps`, {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   listResourceCount(namespaceId?: number, appId?: number): Observable<any> {
-    if ((typeof(namespaceId) === 'undefined') || (!namespaceId)) {
+    if ((typeof (namespaceId) === 'undefined') || (!namespaceId)) {
       namespaceId = 0;
     }
-    let options : any = {};
+    let options: any = {};
     if (appId != null) {
       let params = new HttpParams();
       params = params.set('app_id', appId + '');
-      options.params = params
+      options.params = params;
     }
     return this.http
       .get(`/api/v1/namespaces/${namespaceId}/statistics`, options)
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   getNames(namespaceId?: number): Observable<any> {
-    if ((typeof(namespaceId) === 'undefined') || (!namespaceId)) {
+    if ((typeof (namespaceId) === 'undefined') || (!namespaceId)) {
       namespaceId = 0;
     }
     return this.http
       .get(`/api/v1/namespaces/${namespaceId}/apps/names`)
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   create(app: App): Observable<any> {
@@ -101,11 +101,11 @@ export class AppService {
   }
 
   deleteById(id: number, namespaceId: number, logical?: boolean): Observable<any> {
-    let options : any = {};
+    let options: any = {};
     if (logical != null) {
       let params = new HttpParams();
       params = params.set('logical', logical + '');
-      options.params = params
+      options.params = params;
     }
 
     return this.http

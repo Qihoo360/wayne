@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {PersistentVolumeClaimTpl} from '../../../shared/model/v1/persistentvolumeclaimtpl';
-import {Page} from '../../../shared/page/page-state';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { PersistentVolumeClaimTpl } from '../../../shared/model/v1/persistentvolumeclaimtpl';
+import { Page } from '../../../shared/page/page-state';
 
 @Component({
   selector: 'list-persistentvolumeclaimtpl',
@@ -44,7 +44,7 @@ export class ListPersistentVolumeClaimTplComponent implements OnInit {
     this.delete.emit(tpl);
   }
 
-  editPvcTpl(tpl: PersistentVolumeClaimTpl){
+  editPvcTpl(tpl: PersistentVolumeClaimTpl) {
     this.edit.emit(tpl);
   }
 }

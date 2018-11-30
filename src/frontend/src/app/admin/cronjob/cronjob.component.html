@@ -5,11 +5,14 @@
     </div>
     <div class="row flex-items-xs-between" style="height:32px;">
       <div class="option-left">
-        <button class="btn btn-link" (click)="openModal()"><clr-icon shape="add"></clr-icon>创建计划任务</button>
+        <button class="btn btn-link" (click)="openModal()">
+          <clr-icon shape="add"></clr-icon>
+          创建计划任务
+        </button>
         <create-edit-cronjob (create)="createCronjob($event)"></create-edit-cronjob>
       </div>
     </div>
     <list-cronjob [cronjobs]="cronjobs" (delete)="deleteCronjob($event)"
-                    (edit)="editCronjob($event)" (paginate)="retrieve($event)" [page]="pageState.page"></list-cronjob>
+                  (edit)="editCronjob($event)" (paginate)="retrieve($event)" [page]="pageState.page"></list-cronjob>
   </div>
 </div>

@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ContainerStatus, Pod} from '../../shared/model/v1/kubernetes/pod';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {PodClient} from '../../shared/client/v1/kubernetes/pod';
-import {LogClient} from '../../shared/client/v1/kubernetes/log';
-import {ClusterService} from '../../shared/client/v1/cluster.service';
-import {Cluster} from '../../shared/model/v1/cluster';
-import {CopyService} from '../../shared/client/v1/copy.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ContainerStatus, Pod } from '../../shared/model/v1/kubernetes/pod';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { PodClient } from '../../shared/client/v1/kubernetes/pod';
+import { LogClient } from '../../shared/client/v1/kubernetes/log';
+import { ClusterService } from '../../shared/client/v1/cluster.service';
+import { Cluster } from '../../shared/model/v1/cluster';
+import { CopyService } from '../../shared/client/v1/copy.service';
 
 @Component({
   selector: 'pod-logging',
@@ -36,10 +36,10 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
               private podClient: PodClient,
               private clusterService: ClusterService,
               private copyService: CopyService
-            ) {
+  ) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
-    }
+    };
   }
 
   ngOnInit(): void {
@@ -115,7 +115,7 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
 
   get prettyLog() {
     if (this.log) {
-      return this.log.toString().replace(/(\\r\\n)|([\r\n])/gmi, '<br>')
+      return this.log.toString().replace(/(\\r\\n)|([\r\n])/gmi, '<br>');
     }
   }
 
@@ -125,10 +125,10 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
     this.refreshLog();
   }
 
-  refreshLog(){
+  refreshLog() {
     this.logClient.get(this.appId, this.cluster, this.namespace, this.selectedPod.name, this.selectedContainer, this.logTails).subscribe(
       response => {
-        this.log = response.data
+        this.log = response.data;
       },
       error => {
         this.messageHandlerService.handleError(error);
@@ -151,7 +151,7 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
 
   podChange() {
     this.containers = this.selectedPod.containerStatus;
-    if (this.containers&&this.containers.length>0){
+    if (this.containers && this.containers.length > 0) {
       this.selectedContainer = this.containers[0].name;
       let url = `portal/logging/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/${this.cluster}/${this.namespace}`;
       this.router.navigateByUrl(url);

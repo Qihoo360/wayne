@@ -36,8 +36,8 @@
         </ng-container>
       </clr-dg-column>
       <clr-dg-row *ngFor="let daemonsetTpl of daemonsetTpls" [clrDgItem]="daemonsetTpl">
-        <clr-dg-action-overflow >
-          <button class="action-item" (click)="recoverDaemonsetTpl(daemonsetTpl)" >恢复</button>
+        <clr-dg-action-overflow>
+          <button class="action-item" (click)="recoverDaemonsetTpl(daemonsetTpl)">恢复</button>
           <button class="action-item" (click)="deleteDaemonsetTpl(daemonsetTpl)">彻底删除</button>
         </clr-dg-action-overflow>
         <clr-dg-cell>{{daemonsetTpl.id}}</clr-dg-cell>

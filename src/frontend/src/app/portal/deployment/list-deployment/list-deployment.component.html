@@ -42,7 +42,7 @@
     <clr-dg-cell class="col-time">{{deploymentTpl.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
     <clr-dg-cell class="col-version">
       <div *ngFor="let version of deploymentTpl.containerVersions" class="version-text">
-          <a href="javascript:;" (click)="versionDetail(version)">{{version}}</a>
+        <a href="javascript:;" (click)="versionDetail(version)">{{version}}</a>
       </div>
     </clr-dg-cell>
     <clr-dg-cell class="col-cluster">
@@ -64,35 +64,36 @@
       </div>
     </clr-dg-cell>
     <clr-dg-cell class="col-description">
-      <div class="text-overflow"><a href="javascript:void(0)" (click)="tplDetail(deploymentTpl)">{{deploymentTpl.description}}</a>
+      <div class="text-overflow"><a href="javascript:void(0)"
+                                    (click)="tplDetail(deploymentTpl)">{{deploymentTpl.description}}</a>
       </div>
     </clr-dg-cell>
     <clr-dg-cell>{{deploymentTpl.user}}</clr-dg-cell>
     <clr-dg-cell class="col-operate">
       <button class="wayne-button text"
-         (click)="publishTpl(deploymentTpl)"
-         *ngIf="authService.currentAppPermission.deployment.deploy || authService.currentUser.admin">
-         {{'BUTTON.RELEASE' | translate}}</button>
+              (click)="publishTpl(deploymentTpl)"
+              *ngIf="authService.currentAppPermission.deployment.deploy || authService.currentUser.admin">
+        {{'BUTTON.RELEASE' | translate}}</button>
       <button class="wayne-button text"
-         (click)="restartDeployment(deploymentTpl)"
-         *ngIf="deploymentTpl.status && (authService.currentAppPermission.deployment.deploy || authService.currentUser.admin)">
-         {{'BUTTON.RESTART' | translate}}</button>
+              (click)="restartDeployment(deploymentTpl)"
+              *ngIf="deploymentTpl.status && (authService.currentAppPermission.deployment.deploy || authService.currentUser.admin)">
+        {{'BUTTON.RESTART' | translate}}</button>
       <button class="wayne-button text"
-         (click)="deploymentTplDetail(deploymentTpl)"
-         *ngIf="authService.currentAppPermission.deployment.read || authService.currentUser.admin">
-         {{'BUTTON.DETAIL' | translate}}</button>
+              (click)="deploymentTplDetail(deploymentTpl)"
+              *ngIf="authService.currentAppPermission.deployment.read || authService.currentUser.admin">
+        {{'BUTTON.DETAIL' | translate}}</button>
       <button class="wayne-button text"
-         (click)="cloneDeploymentTpl(deploymentTpl)"
-         *ngIf="authService.currentAppPermission.deployment.create || authService.currentUser.admin">
-         {{'BUTTON.CLONE' | translate}}</button>
+              (click)="cloneDeploymentTpl(deploymentTpl)"
+              *ngIf="authService.currentAppPermission.deployment.create || authService.currentUser.admin">
+        {{'BUTTON.CLONE' | translate}}</button>
       <button class="wayne-button text"
-         *ngIf="!deploymentTpl.status && (authService.currentAppPermission.deployment.delete || authService.currentUser.admin)"
-         (click)="deleteDeploymentTpl(deploymentTpl)">
-         {{'BUTTON.DELETE' | translate}}</button>
+              *ngIf="!deploymentTpl.status && (authService.currentAppPermission.deployment.delete || authService.currentUser.admin)"
+              (click)="deleteDeploymentTpl(deploymentTpl)">
+        {{'BUTTON.DELETE' | translate}}</button>
       <button class="wayne-button text"
-         (click)="offlineDeployment(deploymentTpl)"
-         *ngIf="deploymentTpl.status && (authService.currentAppPermission.deployment.offline || authService.currentUser.admin)">
-         {{'BUTTON.DROP' | translate}}</button>
+              (click)="offlineDeployment(deploymentTpl)"
+              *ngIf="deploymentTpl.status && (authService.currentAppPermission.deployment.offline || authService.currentUser.admin)">
+        {{'BUTTON.DROP' | translate}}</button>
     </clr-dg-cell>
   </clr-dg-row>
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {PageState} from '../../page/page-state';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Notification} from '../../model/v1/notification';
+import { Observable } from 'rxjs/Observable';
+import { PageState } from '../../page/page-state';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Notification } from '../../model/v1/notification';
 
 @Injectable()
 export class NotificationService {
@@ -18,14 +18,14 @@ export class NotificationService {
     return this.http
       .get(`/api/v1/notifications`, {params: params})
       //
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   publish(id): Observable<any> {
     return this.http
       .put(`/api/v1/notifications?id=` + id, {})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   subscribe(pageState: PageState): Observable<any> {
@@ -37,20 +37,21 @@ export class NotificationService {
     return this.http
       .get(`/api/v1/notifications/subscribe`, {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
+
   read(id): Observable<any> {
     return this.http
       .put(`/api/v1/notifications/subscribe?id=` + id, {})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   create(notify: Notification): Observable<any> {
     return this.http
       .post(`/api/v1/notifications`, notify)
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
 }

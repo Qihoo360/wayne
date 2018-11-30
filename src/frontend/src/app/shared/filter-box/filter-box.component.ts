@@ -1,6 +1,6 @@
-import {Component, Inject, Output, EventEmitter, Input, OnInit} from '@angular/core';
-import {DOCUMENT, EventManager} from '@angular/platform-browser';
-import {TranslateService} from '@ngx-translate/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'wayne-filter-box',
@@ -8,7 +8,7 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./filter-box.component.scss']
 })
 
-export class FilterBoxComponent implements OnInit{
+export class FilterBoxComponent implements OnInit {
 
   show: boolean;
   @Output() confirm = new EventEmitter<any>();
@@ -16,7 +16,7 @@ export class FilterBoxComponent implements OnInit{
   eventTarget: any;
 
   constructor(
-    @Inject(DOCUMENT) private document: any, 
+    @Inject(DOCUMENT) private document: any,
     private eventManage: EventManager,
     public translate: TranslateService) {
   }
@@ -32,7 +32,7 @@ export class FilterBoxComponent implements OnInit{
   }
 
   isBox(target: HTMLElement): boolean {
-    while(target && target.tagName.toLocaleLowerCase() !== 'body') {
+    while (target && target.tagName.toLocaleLowerCase() !== 'body') {
       if (target.tagName.toLocaleLowerCase() === 'wayne-filter-box') return true;
       target = target.parentElement;
     }
@@ -45,7 +45,7 @@ export class FilterBoxComponent implements OnInit{
   }
 
   ngOnInit() {
-    
+
   }
 
   _confirm() {

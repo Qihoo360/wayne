@@ -1,5 +1,5 @@
-import {App} from './app';
-import {User} from './user';
+import { App } from './app';
+import { User } from './user';
 
 export class AppStarred {
   id: number;

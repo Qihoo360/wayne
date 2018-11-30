@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService} from '../../shared/auth/auth.service';
-import {App} from '../../shared/model/v1/app';
-import {AppService} from '../../shared/client/v1/app.service';
-import {CacheService} from '../../shared/auth/cache.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../shared/auth/auth.service';
+import { App } from '../../shared/model/v1/app';
+import { AppService } from '../../shared/client/v1/app.service';
+import { CacheService } from '../../shared/auth/cache.service';
 
 @Component({
   selector: 'base',

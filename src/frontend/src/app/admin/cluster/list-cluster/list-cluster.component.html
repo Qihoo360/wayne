@@ -45,27 +45,27 @@
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let cluster of clusters" [clrDgItem]="cluster">
-    <clr-dg-action-overflow >
-      <button class="action-item" (click)="editCluster(cluster)" >编辑</button>
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="editCluster(cluster)">编辑</button>
       <button class="action-item" (click)="deleteCluster(cluster)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
-      <clr-dg-cell class="col-id">{{cluster.id}}</clr-dg-cell>
-      <clr-dg-cell class="col-cluster-name copy">{{cluster.name}}</clr-dg-cell>
-      <clr-dg-cell class="col-host">{{cluster.master}}</clr-dg-cell>
-      <clr-dg-cell>{{getClusterStatus(cluster.status)}}</clr-dg-cell>
-      <clr-dg-cell class="col-metadata">
-        <div class="text-overflow">
-          <a href="javascript:;" (click)="detailMetaDataTpl(cluster.kubeConfig)">{{cluster.kubeConfig}}</a>
-        </div>
-      </clr-dg-cell>
-      <clr-dg-cell class="col-metadata">
-        <div class="text-overflow">
-          <a href="javascript:;" (click)="detailMetaDataTpl(cluster.metaData)">{{cluster.metaData}}</a>
-        </div>
-      </clr-dg-cell>
-      <clr-dg-cell>{{cluster.description}}</clr-dg-cell>
-      <clr-dg-cell class="col-user">{{cluster.user}}</clr-dg-cell>
-      <clr-dg-cell class="col-time">{{cluster.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
+    <clr-dg-cell class="col-id">{{cluster.id}}</clr-dg-cell>
+    <clr-dg-cell class="col-cluster-name copy">{{cluster.name}}</clr-dg-cell>
+    <clr-dg-cell class="col-host">{{cluster.master}}</clr-dg-cell>
+    <clr-dg-cell>{{getClusterStatus(cluster.status)}}</clr-dg-cell>
+    <clr-dg-cell class="col-metadata">
+      <div class="text-overflow">
+        <a href="javascript:;" (click)="detailMetaDataTpl(cluster.kubeConfig)">{{cluster.kubeConfig}}</a>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell class="col-metadata">
+      <div class="text-overflow">
+        <a href="javascript:;" (click)="detailMetaDataTpl(cluster.metaData)">{{cluster.metaData}}</a>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell>{{cluster.description}}</clr-dg-cell>
+    <clr-dg-cell class="col-user">{{cluster.user}}</clr-dg-cell>
+    <clr-dg-cell class="col-time">{{cluster.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
   </clr-dg-row>
 
 

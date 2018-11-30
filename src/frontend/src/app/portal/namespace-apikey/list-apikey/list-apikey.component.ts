@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {State} from '@clr/angular';
-import {Page} from '../../../shared/page/page-state';
-import {ApiKey} from '../../../shared/model/v1/apikey';
-import {TokenDetailComponent} from '../token-detail/token-detail';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {TranslateService} from '@ngx-translate/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { State } from '@clr/angular';
+import { Page } from '../../../shared/page/page-state';
+import { ApiKey } from '../../../shared/model/v1/apikey';
+import { TokenDetailComponent } from '../token-detail/token-detail';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'list-apikey',
@@ -28,7 +28,7 @@ export class ListApiKeyComponent implements OnInit {
   constructor(
     public authService: AuthService,
     public translate: TranslateService
-    ) {
+  ) {
   }
 
   ngOnInit(): void {
@@ -56,7 +56,7 @@ export class ListApiKeyComponent implements OnInit {
   }
 
   tokenDetail(apiKey: ApiKey) {
-    this.tokenDetailComponent.viewToken(apiKey.token)
+    this.tokenDetailComponent.viewToken(apiKey.token);
   }
 
 

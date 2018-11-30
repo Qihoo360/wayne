@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {Page} from '../../../shared/page/page-state';
-import {DaemonSetTemplate} from '../../../shared/model/v1/daemonsettpl';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { Page } from '../../../shared/page/page-state';
+import { DaemonSetTemplate } from '../../../shared/model/v1/daemonsettpl';
 
 @Component({
   selector: 'list-daemonsettpl',
@@ -43,7 +43,7 @@ export class ListDaemonsettplComponent implements OnInit {
     this.delete.emit(template);
   }
 
-  editDaemonsetTpl(template: DaemonSetTemplate){
+  editDaemonsetTpl(template: DaemonSetTemplate) {
     this.edit.emit(template);
   }
 }

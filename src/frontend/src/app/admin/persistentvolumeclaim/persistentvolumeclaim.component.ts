@@ -1,17 +1,18 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {ActivatedRoute} from '@angular/router';
-import {State} from '@clr/angular';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {ListPersistentVolumeClaimComponent} from './list-persistentvolumeclaim/list-persistentvolumeclaim.component';
-import {CreateEditPersistentVolumeClaimComponent} from './create-edit-persistentvolumeclaim/create-edit-persistentvolumeclaim.component';
-import {PersistentVolumeClaimService} from '../../shared/client/v1/persistentvolumeclaim.service';
-import {PersistentVolumeClaim} from '../../shared/model/v1/persistentvolumeclaim';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
+import { ActivatedRoute } from '@angular/router';
+import { State } from '@clr/angular';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { ListPersistentVolumeClaimComponent } from './list-persistentvolumeclaim/list-persistentvolumeclaim.component';
+import { CreateEditPersistentVolumeClaimComponent } from './create-edit-persistentvolumeclaim/create-edit-persistentvolumeclaim.component';
+import { PersistentVolumeClaimService } from '../../shared/client/v1/persistentvolumeclaim.service';
+import { PersistentVolumeClaim } from '../../shared/model/v1/persistentvolumeclaim';
+import { PageState } from '../../shared/page/page-state';
+
 @Component({
   selector: 'wayne-persistentvolumeclaim',
   templateUrl: './persistentvolumeclaim.component.html',
@@ -58,10 +59,10 @@ export class PersistentVolumeClaimComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.appId = params['aid'];
-      if (typeof(this.appId) == 'undefined') {
-          this.appId = ''
+      if (typeof (this.appId) == 'undefined') {
+        this.appId = '';
       }
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -74,7 +75,7 @@ export class PersistentVolumeClaimComponent implements OnInit {
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
-    this.pvcService.list(this.pageState, 'false',  this.appId)
+    this.pvcService.list(this.pageState, 'false', this.appId)
       .subscribe(
         response => {
           let data = response.data;
@@ -88,7 +89,7 @@ export class PersistentVolumeClaimComponent implements OnInit {
 
   createPvc(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

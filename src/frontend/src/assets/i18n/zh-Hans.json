@@ -185,7 +185,6 @@
     "LIFE_CYCLE_MESSAGE": "容器生命周期钩子，可以在postStart/preStop两个阶段定义额外的操作"
   },
   "CREATE": {
-
   },
   "ACTION": {
     "UNFOLD": "展开",
