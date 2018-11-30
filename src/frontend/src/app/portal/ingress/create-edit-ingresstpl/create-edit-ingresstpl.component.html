@@ -29,9 +29,9 @@
             <clr-icon shape="minus-circle" title="删除域名规则" class="is-solid"></clr-icon>
           </a>
         </div>
-        <a (click)="onAddRule()">
-          <clr-icon shape="plus-circle" title="添加域名规则" class="is-solid"></clr-icon>
-        </a>
+        <button (click)="onAddRule()" style="margin-left: 10px;" class="wayne-button primary">
+          <clr-icon shape="plus-circle" title="添加域名规则" class="is-solid"></clr-icon> 添加域名规则
+        </button>
       </div>
     </section>
     <section class="form-block wrap" style="overflow:hidden">
@@ -46,7 +46,7 @@
         <div class="form-group form-group-padding">
           <label class="col-md-3 form-group-label-override required">端口</label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text" style="width: 217px"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeIngress.spec.backend.servicePort">
+            <input type="number" style="width: 217px"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeIngress.spec.backend.servicePort">
           </label>
         </div>
       </div>
