@@ -1,6 +1,6 @@
 <clr-modal [(clrModalOpen)]="createDeploymentTplOpened" [clrModalSize]="'lg'" #modal>
   <h3 class="modal-title">{{deploymentTplTitle}}
-    <wayne-modal-operate [modal]="modal"  *ngIf="createDeploymentTplOpened"></wayne-modal-operate>
+    <wayne-modal-operate [modal]="modal" *ngIf="createDeploymentTplOpened"></wayne-modal-operate>
   </h3>
   <div class="modal-body">
     <form #deploymentTplForm="ngForm">
@@ -19,7 +19,8 @@
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="deployment_description" class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
+          <label for="deployment_description"
+                 class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="deployment_description" [(ngModel)]="deploymentTpl.description"
                     name="deployment_description"
                     rows="3">
@@ -40,6 +41,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid"
+            (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
   </div>
 </clr-modal>

@@ -8,8 +8,9 @@
         </div>
         <div class="table-search">
           <div class="table-search-left">
-            <button class="wayne-button normal" *ngIf="authService.currentNamespacePermission.apiKey.create || authService.currentUser.admin"
-              (click)="openModal()">
+            <button class="wayne-button normal"
+                    *ngIf="authService.currentNamespacePermission.apiKey.create || authService.currentUser.admin"
+                    (click)="openModal()">
               {{'ACTION.CREATE' | translate}} APIKey
             </button>
             <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
@@ -25,8 +26,9 @@
             </wayne-filter-box>
           </div>
         </div>
-        <list-apikey [apiKeys]="changedApiKeys" (delete)="deleteApiKey($event)" (edit)="editApiKey($event)" (paginate)="retrieve($event)"
-          [page]="pageState.page" [showState]="showState"></list-apikey>
+        <list-apikey [apiKeys]="changedApiKeys" (delete)="deleteApiKey($event)" (edit)="editApiKey($event)"
+                     (paginate)="retrieve($event)"
+                     [page]="pageState.page" [showState]="showState"></list-apikey>
       </div>
     </div>
   </wayne-box>

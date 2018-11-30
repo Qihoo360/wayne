@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {State} from '@clr/angular';
-import {Page} from '../../../shared/page/page-state';
-import {Config} from '../../../shared/model/v1/config';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { State } from '@clr/angular';
+import { Page } from '../../../shared/page/page-state';
+import { Config } from '../../../shared/model/v1/config';
 
 @Component({
   selector: 'list-config',
@@ -43,7 +43,7 @@ export class ListConfigComponent implements OnInit {
     this.delete.emit(config);
   }
 
-  editConfig(config: Config){
+  editConfig(config: Config) {
     this.edit.emit(config);
   }
 }

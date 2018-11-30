@@ -1,19 +1,19 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {ResourcesActionType} from '../../../shared/shared.const';
-import {PublishStatusService} from '../../../shared/client/v1/publishstatus.service';
-import {DaemonSetClient} from '../../../shared/client/v1/kubernetes/daemonset';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import {DaemonSet} from '../../../shared/model/v1/daemonset';
-import {TemplateStatus} from '../../../shared/model/v1/status';
-import {Cluster} from '../../../shared/model/v1/cluster';
-import {DaemonSetTemplate} from '../../../shared/model/v1/daemonsettpl';
-import {KubeDaemonSet} from '../../../shared/model/v1/kubernetes/daemonset';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { ResourcesActionType } from '../../../shared/shared.const';
+import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
+import { DaemonSetClient } from '../../../shared/client/v1/kubernetes/daemonset';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { DaemonSet } from '../../../shared/model/v1/daemonset';
+import { TemplateStatus } from '../../../shared/model/v1/status';
+import { Cluster } from '../../../shared/model/v1/cluster';
+import { DaemonSetTemplate } from '../../../shared/model/v1/daemonsettpl';
+import { KubeDaemonSet } from '../../../shared/model/v1/kubernetes/daemonset';
 
 @Component({
   selector: 'daemonset-publish-tpl',
@@ -57,18 +57,18 @@ export class PublishDaemonSetTplComponent {
       this.title = '发布守护进程集[' + this.daemonSet.name + ']';
       if (!daemonSet.metaData) {
         this.messageHandlerService.warning('请先配置可发布集群');
-        return
+        return;
       }
       let metaData = JSON.parse(daemonSet.metaData);
       for (let cluster of metaData.clusters) {
         if (this.cacheService.namespace.metaDataObj && this.cacheService.namespace.metaDataObj.clusterMeta[cluster]) {
-          this.clusters.push(new Cluster(cluster, false))
+          this.clusters.push(new Cluster(cluster, false));
         }
       }
     } else if (actionType == ResourcesActionType.OFFLINE) {
       this.title = '下线守护进程集[' + this.daemonSet.name + ']';
       for (let state of daemonSetTpl.status) {
-        this.clusters.push(new Cluster(state.cluster, false))
+        this.clusters.push(new Cluster(state.cluster, false));
       }
     }
   }
@@ -77,11 +77,11 @@ export class PublishDaemonSetTplComponent {
     if (status && status.length > 0) {
       for (let state of status) {
         if (state.cluster == cluster) {
-          return state
+          return state;
         }
       }
     }
-    return null
+    return null;
   }
 
   onCancel() {
@@ -116,9 +116,9 @@ export class PublishDaemonSetTplComponent {
             this.deletePublishStatus(state.id);
           },
           error => {
-            if (this.forceOffline){
+            if (this.forceOffline) {
               this.deletePublishStatus(state.id);
-            }else {
+            } else {
               this.messageHandlerService.handleError(error);
             }
           }

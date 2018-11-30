@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
   hmr: true,
-  ravenDsn: "__ravenDsn__",
+  ravenDsn: '__ravenDsn__',
 };

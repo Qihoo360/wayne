@@ -9,9 +9,9 @@ import { App } from '../../../shared/model/v1/app';
 import { AppService } from '../../../shared/client/v1/app.service';
 import { DaemonSet } from '../../../shared/model/v1/daemonset';
 import { DaemonSetService } from '../../../shared/client/v1/daemonset.service';
-import {AceEditorBoxComponent} from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'create-edit-daemonset',
@@ -41,19 +41,19 @@ export class CreateEditDaemonsetComponent implements OnInit {
   apps: App[];
 
   constructor(private daemonsetService: DaemonSetService,
-    private appService: AppService,
-    private aceEditorService: AceEditorService,
-    private messageHandlerService: MessageHandlerService) {
+              private appService: AppService,
+              private aceEditorService: AceEditorService,
+              private messageHandlerService: MessageHandlerService) {
   }
 
   ngOnInit(): void {
     this.appService
       .getNames()
       .subscribe(
-      response => {
-        this.apps = response.data;
-      },
-      error => this.messageHandlerService.handleError(error)
+        response => {
+          this.apps = response.data;
+        },
+        error => this.messageHandlerService.handleError(error)
       );
 
   }
@@ -65,7 +65,7 @@ export class CreateEditDaemonsetComponent implements OnInit {
       this.title = `编辑${this.resourceName}`;
       this.daemonsetService.getById(id, 0).subscribe(
         status => {
-          this.daemonset = status.data
+          this.daemonset = status.data;
           this.daemonset.metaDataObj = JSON.parse(this.daemonset.metaData ? this.daemonset.metaData : '{}');
           this.initJsonEditor();
         },
@@ -146,7 +146,7 @@ export class CreateEditDaemonsetComponent implements OnInit {
   handleValidation(): void {
     let cont = this.currentForm.controls['daemonset_name'];
     if (cont) {
-      this.isNameValid = cont.valid
+      this.isNameValid = cont.valid;
     }
   }
 

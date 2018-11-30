@@ -1,17 +1,17 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {ActivatedRoute} from '@angular/router';
-import {State} from '@clr/angular';
-import {ListUserComponent} from './list-user/list-user.component';
-import {CreateEditUserComponent} from './create-edit-user/create-edit-user.component';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {User} from '../../shared/model/v1/user';
-import {UserService} from '../../shared/client/v1/user.service';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
+import { ActivatedRoute } from '@angular/router';
+import { State } from '@clr/angular';
+import { ListUserComponent } from './list-user/list-user.component';
+import { CreateEditUserComponent } from './create-edit-user/create-edit-user.component';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { User } from '../../shared/model/v1/user';
+import { UserService } from '../../shared/client/v1/user.service';
+import { PageState } from '../../shared/page/page-state';
 
 @Component({
   selector: 'wayne-user',
@@ -29,12 +29,13 @@ export class UserComponent implements OnInit {
   changedUsers: User[];
 
   subscription: Subscription;
-    constructor(
-        private userService: UserService,
-        private breadcrumbService: BreadcrumbService,
-        private route: ActivatedRoute,
-        private messageHandlerService: MessageHandlerService,
-        private deletionDialogService: ConfirmationDialogService) {
+
+  constructor(
+    private userService: UserService,
+    private breadcrumbService: BreadcrumbService,
+    private route: ActivatedRoute,
+    private messageHandlerService: MessageHandlerService,
+    private deletionDialogService: ConfirmationDialogService) {
     breadcrumbService.addFriendlyNameForRoute('/admin/system/user', '用户列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
@@ -57,7 +58,7 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -84,7 +85,7 @@ export class UserComponent implements OnInit {
 
   createUser(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 
@@ -100,7 +101,7 @@ export class UserComponent implements OnInit {
   }
 
   openModal(): void {
-      this.createEditUser.newOrEditUser();
+    this.createEditUser.newOrEditUser();
   }
 
   editUser(user: User): void {

@@ -7,7 +7,7 @@ export class Namespace {
     let namespaceMetaData = new NamespaceMetaData();
     const metaDataObj = JSON.parse(obj);
     Object.getOwnPropertyNames(metaDataObj).forEach(name => {
-      namespaceMetaData[name] = metaDataObj[name]
+      namespaceMetaData[name] = metaDataObj[name];
     });
     return namespaceMetaData;
   }

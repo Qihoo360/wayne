@@ -1,6 +1,6 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)">
-  <clr-dg-column >
-    <ng-container  *clrDgHideableColumn="showState['ID']">
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['ID']">
       ID
     </ng-container>
   </clr-dg-column>
@@ -21,16 +21,16 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user'">
     <ng-container *clrDgHideableColumn="showState['create_user']">
-      {{'TITLE.CREATE_USER' | translate}} 
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['create_time']">
-      {{'TITLE.CREATE_TIME' | translate}} 
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column
-      *ngIf="
+    *ngIf="
       authService.currentNamespacePermission.webHook.update ||
       authService.currentAppPermission.webHook.update ||
       authService.currentNamespacePermission.webHook.delete ||
@@ -38,7 +38,7 @@
       authService.currentUser.admin"
   >
     <ng-container *clrDgHideableColumn="showState['action']">
-      {{'TITLE.ACTION' | translate}} 
+      {{'TITLE.ACTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let w of webHooks; let i = index" [clrDgItem]="webHook">
@@ -46,16 +46,16 @@
     <clr-dg-cell class="copy">{{w.name}}</clr-dg-cell>
     <clr-dg-cell>{{w.url}}</clr-dg-cell>
     <clr-dg-cell>
-			<div class="toggle-switch">
-				<input 
-          type="checkbox"  
+      <div class="toggle-switch">
+        <input
+          type="checkbox"
           id="webhook-toggle-{{i}}"
           (change)="toggleWebhook(w)"
           [checked]="w.enabled"
         >
         <label for="webhook-toggle-{{i}}"></label>
-			</div> 
-		</clr-dg-cell>
+      </div>
+    </clr-dg-cell>
     <clr-dg-cell>{{w.user}}</clr-dg-cell>
     <clr-dg-cell>{{w.createTime | date:"yyyy-MM-dd HH:mm"}}</clr-dg-cell>
     <clr-dg-cell
@@ -67,18 +67,18 @@
       authService.currentUser.admin"
     >
       <button class="wayne-button text"
-        *ngIf="
+              *ngIf="
         authService.currentNamespacePermission.webHook.update ||
         authService.currentAppPermission.webHook.update ||
         authService.currentUser.admin"
-        (click)="editWebhook(w)">
+              (click)="editWebhook(w)">
         {{'ACTION.EDIT' | translate}}</button>
       <button class="wayne-button text"
-        *ngIf="
+              *ngIf="
         authService.currentNamespacePermission.webHook.delete ||
         authService.currentAppPermission.webHook.delete ||
         authService.currentUser.admin"
-        (click)="deleteWebhook(w)">
+              (click)="deleteWebhook(w)">
         {{'ACTION.DELETE' | translate}}</button>
     </clr-dg-cell>
   </clr-dg-row>

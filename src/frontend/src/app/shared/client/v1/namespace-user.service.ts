@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {NamespaceUser} from '../../model/v1/namespace-user';
-import {PageState} from '../../page/page-state';
-import {isNotEmpty} from '../../utils';
+import { NamespaceUser } from '../../model/v1/namespace-user';
+import { PageState } from '../../page/page-state';
+import { isNotEmpty } from '../../utils';
 
 @Injectable()
 export class NamespaceUserService {
@@ -42,12 +42,12 @@ export class NamespaceUserService {
       let value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
-          filterList.push(`${key}=${value}`)
+          filterList.push(`${key}=${value}`);
         } else {
           filterList.push(`${key}__contains=${value}`);
         }
       }
-    })
+    });
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }
@@ -64,10 +64,10 @@ export class NamespaceUserService {
           params = params.set('sortby', sortType);
       }
     }
-    
+
     return this.http.get(`/api/v1/namespaces/${namespaceId}/users`, {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   create(namespaceUser: NamespaceUser): Observable<any> {
@@ -83,7 +83,7 @@ export class NamespaceUserService {
   }
 
   deleteById(id: number, namespaceId: number): Observable<any> {
-    let options : any = {};
+    let options: any = {};
     return this.http.delete(`/api/v1/namespaces/${namespaceId}/users/${id}`, options)
 
       .catch(error => Observable.throw(error));

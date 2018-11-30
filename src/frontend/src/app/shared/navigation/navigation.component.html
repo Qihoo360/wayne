@@ -1,13 +1,13 @@
 <ul>
   <ng-container *ngFor="let node of nodeTree">
     <li *ngIf="node.id" [class]="node.id">
-        <a>{{node.text}}</a>
+      <a>{{node.text}}</a>
     </li>
     <li *ngIf="node.child">
       <ul>
         <ng-container *ngFor="let node1 of node.child">
           <li *ngIf="node1.id" [class]="node1.id">
-              <a>{{node1.text}}</a>
+            <a>{{node1.text}}</a>
           </li>
           <li *ngIf="node1.child">
             <ul>
@@ -19,7 +19,7 @@
                   <ul>
                     <ng-container *ngFor="let node3 of node2.child">
                       <li *ngIf="node3.id" [class]="node3.id">
-                          <a>{{node3.text}}</a>
+                        <a>{{node3.text}}</a>
                       </li>
                     </ng-container>
                   </ul>

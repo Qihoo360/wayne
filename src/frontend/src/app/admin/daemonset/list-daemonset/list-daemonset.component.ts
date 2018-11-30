@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {BreadcrumbService} from '../../../shared/client/v1/breadcrumb.service';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {DaemonSet} from '../../../shared/model/v1/daemonset';
-import {Page} from '../../../shared/page/page-state';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { DaemonSet } from '../../../shared/model/v1/daemonset';
+import { Page } from '../../../shared/page/page-state';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'list-daemonset',
@@ -50,7 +50,7 @@ export class ListDaemonsetComponent implements OnInit {
     this.delete.emit(daemonset);
   }
 
-  editDaemonset(daemonset: DaemonSet){
+  editDaemonset(daemonset: DaemonSet) {
     this.edit.emit(daemonset);
   }
 

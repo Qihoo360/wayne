@@ -1,26 +1,30 @@
-:host{
+:host {
   display: inline-block;
   height: 60px;
   position: relative;
-  .item{
+
+  .item {
     height: 100%;
     display: flex;
     align-items: center;
     padding: 0 10px;
     cursor: pointer;
   }
-  .content{
+
+  .content {
     position: absolute;
     z-index: 999;
     top: 60px;
     background: #303457;
     overflow: hidden;
     min-width: 110px;
-    .scrollContent{
+
+    .scrollContent {
       padding: 20px;
       overflow-y: scroll;
     }
-    .scrollBar{
+
+    .scrollBar {
       position: absolute;
       right: 0;
       top: 0px;

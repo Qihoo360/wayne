@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {BreadcrumbService} from '../../../shared/client/v1/breadcrumb.service';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {Namespace} from '../../../shared/model/v1/namespace';
-import {Page} from '../../../shared/page/page-state';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { Namespace } from '../../../shared/model/v1/namespace';
+import { Page } from '../../../shared/page/page-state';
 
 @Component({
   selector: 'list-namespace',

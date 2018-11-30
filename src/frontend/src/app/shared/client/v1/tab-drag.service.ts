@@ -1,12 +1,13 @@
-import {Injectable, Inject, OnDestroy, RendererFactory2, Renderer2} from '@angular/core';
-import {DOCUMENT, EventManager} from '@angular/platform-browser';
-import {Subject} from 'rxjs';
-import {TipService} from './tip.service';
+import { Inject, Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
+import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { Subject } from 'rxjs';
+import { TipService } from './tip.service';
+
 /**
  * angular 自己的组件高度都为0，所以只能在实际dom上添加draggable;
  */
 @Injectable()
-export class TabDragService implements OnDestroy{
+export class TabDragService implements OnDestroy {
   target: any;
   parentNode: any;
   eventList: Array<any> = new Array();
@@ -17,6 +18,7 @@ export class TabDragService implements OnDestroy{
   // 左右按钮
   private controlTrans = new Subject<string>();
   controlTransObservable = this.controlTrans.asObservable();
+
   changeTrans(direction: string) {
     this.controlTrans.next(direction);
   }
@@ -24,6 +26,7 @@ export class TabDragService implements OnDestroy{
   // dragenter tab切换
   private tabChange = new Subject<boolean>();
   tabChangeObservable = this.tabChange.asObservable();
+
   tabChangeEvent(change: boolean) {
     this.tabChange.next(change);
   }
@@ -31,6 +34,7 @@ export class TabDragService implements OnDestroy{
   // dragover 
   private tabDragOver = new Subject<boolean>();
   tabDragOverObservable = this.tabDragOver.asObservable();
+
   tabDragOverEvent(over: boolean) {
     this.tabDragOver.next(over);
   }
@@ -43,22 +47,22 @@ export class TabDragService implements OnDestroy{
   ) {
     this.render = rendererFactory.createRenderer(null, null);
   }
-  
+
   init(el: HTMLElement) {
     this.eventList.push(
       this.eventManage.addEventListener(el, 'dragenter', this.handleEvent.bind(this)),
       this.eventManage.addEventListener(el, 'dragstart', this.handleEvent.bind(this)),
       this.eventManage.addEventListener(el, 'dragover', this.handleEvent.bind(this)),
       this.eventManage.addEventListener(el, 'dragend', this.handleEvent.bind(this))
-    )
+    );
   }
 
   over() {
     this.eventList.forEach(item => {
       item();
-    })
+    });
   }
-  
+
   handleEvent(evt: any) {
     switch (evt.type) {
       case 'dragstart':
@@ -151,31 +155,29 @@ export class TabDragService implements OnDestroy{
   }
 
   setCss(el, prop, val) {
-		var style = el && el.style;
+    var style = el && el.style;
 
-		if (style) {
-			if (val === void 0) {
-				if (document.defaultView && document.defaultView.getComputedStyle) {
-					val = document.defaultView.getComputedStyle(el, '');
-				}
-				else if (el.currentStyle) {
-					val = el.currentStyle;
-				}
+    if (style) {
+      if (val === void 0) {
+        if (document.defaultView && document.defaultView.getComputedStyle) {
+          val = document.defaultView.getComputedStyle(el, '');
+        } else if (el.currentStyle) {
+          val = el.currentStyle;
+        }
 
-				return prop === void 0 ? val : val[prop];
-			}
-			else {
-				if (!(prop in style)) {
-					prop = '-webkit-' + prop;
-				}
+        return prop === void 0 ? val : val[prop];
+      } else {
+        if (!(prop in style)) {
+          prop = '-webkit-' + prop;
+        }
 
-				style[prop] = val + (typeof val === 'string' ? '' : 'px');
-			}
-		}
-	}
+        style[prop] = val + (typeof val === 'string' ? '' : 'px');
+      }
+    }
+  }
 
   isTabChild(element: any): boolean {
-    while(element.tagName.toLowerCase() !== 'body') {
+    while (element.tagName.toLowerCase() !== 'body') {
       if (element.tagName.toLowerCase === 'wayne-tab') return true;
       element = element.parentNode;
     }
@@ -185,14 +187,14 @@ export class TabDragService implements OnDestroy{
   isBoxItem(element): boolean {
     try {
       return element.tagName.toLowerCase() === 'wayne-tab';
-    } catch(error) {
+    } catch (error) {
       return false;
     }
   }
 
   isListChild(element: any): boolean {
     if (element) {
-      while(element.tagName.toLowerCase() !== 'body' && !element.classList.contains('tabs-list')){
+      while (element.tagName.toLowerCase() !== 'body' && !element.classList.contains('tabs-list')) {
         element = element.parentNode;
       }
       return element.tagName.toLowerCase() !== 'body';
@@ -201,19 +203,19 @@ export class TabDragService implements OnDestroy{
   }
 
   /**
-   * 
+   *
    * @param a a.tabs-list
    * @param b b.tabs-list
    * @returns a 是否在 b元素前边
    */
   isBeforeItem(a: any, b: any): boolean {
-    while(a) {
+    while (a) {
       a = a.nextElementSibling;
       if (a === b) {
-        return true
+        return true;
       }
     }
-    return false
+    return false;
   }
 
   getSilbingItem(a: Element, before: boolean): Element {
@@ -221,14 +223,14 @@ export class TabDragService implements OnDestroy{
   }
 
   getBox(element: any): Element {
-    while(element.tagName && element.tagName.toLowerCase() !== 'wayne-tab') {
+    while (element.tagName && element.tagName.toLowerCase() !== 'wayne-tab') {
       element = element.parentNode;
     }
     return element;
   }
 
   ngOnDestroy() {
-    
+
   }
 
 }

@@ -1,30 +1,35 @@
-<button (click)="createDeployment()" class="wayne-button primary" *ngIf="authService.currentAppPermission.deployment.create || authService.currentUser.admin">
+<button (click)="createDeployment()" class="wayne-button primary"
+        *ngIf="authService.currentAppPermission.deployment.create || authService.currentUser.admin">
   {{'DEPLOYMENT.CREATE' | translate}}
 </button>
 <create-edit-deployment (create)="create($event)"></create-edit-deployment>
 <div *ngIf="deploymentId && deployments?.length>0">
   <wayne-tabs>
     <wayne-tab (click)="tabClick(deployment.id)"
-                [id]="deployment.id"
-                *ngFor="let deployment of deployments"
-                [active]="deployment.id==deploymentId"
-                [description]="deployment.description"
-                >
+               [id]="deployment.id"
+               *ngFor="let deployment of deployments"
+               [active]="deployment.id==deploymentId"
+               [description]="deployment.description"
+    >
       {{deployment.name}}
     </wayne-tab>
   </wayne-tabs>
   <div class="table-search">
     <div class="table-search-left">
-      <button class="wayne-button normal" (click)="createDeploymentTpl()" *ngIf="authService.currentAppPermission.deployment.create || authService.currentUser.admin">
+      <button class="wayne-button normal" (click)="createDeploymentTpl()"
+              *ngIf="authService.currentAppPermission.deployment.create || authService.currentUser.admin">
         {{'DEPLOYMENT.CREATE_TMP' | translate}}
       </button>
-      <button class="wayne-button normal" (click)="editDeployment()" *ngIf="authService.currentAppPermission.deployment.update || authService.currentUser.admin">
+      <button class="wayne-button normal" (click)="editDeployment()"
+              *ngIf="authService.currentAppPermission.deployment.update || authService.currentUser.admin">
         {{'DEPLOYMENT.EDIT' | translate}}
       </button>
-      <button class="wayne-button normal" (click)="publishHistory()" *ngIf="authService.currentAppPermission.deployment.read || authService.currentUser.admin">
+      <button class="wayne-button normal" (click)="publishHistory()"
+              *ngIf="authService.currentAppPermission.deployment.read || authService.currentUser.admin">
         {{'BUTTON.HISTORY' | translate}}
       </button>
-      <button class="wayne-button normal" (click)="deleteDeployment()" *ngIf="authService.currentAppPermission.deployment.offline || authService.currentUser.admin">
+      <button class="wayne-button normal" (click)="deleteDeployment()"
+              *ngIf="authService.currentAppPermission.deployment.offline || authService.currentUser.admin">
         {{'DEPLOYMENT.DELETE' | translate}}
       </button>
       <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
@@ -45,7 +50,8 @@
       </div>
     </div>
   </div>
-  <list-deployment [deploymentTpls]="changedDeploymentTpls" (paginate)="retrieve($event)" (edit)="editDeployment($event)" (createTpl)="createDeploymentTpl($event)"  [showState]="showState"
-    (cloneTpl)="cloneDeploymentTpl($event)" [appId]="appId" [page]="pageState.page">
+  <list-deployment [deploymentTpls]="changedDeploymentTpls" (paginate)="retrieve($event)"
+                   (edit)="editDeployment($event)" (createTpl)="createDeploymentTpl($event)" [showState]="showState"
+                   (cloneTpl)="cloneDeploymentTpl($event)" [appId]="appId" [page]="pageState.page">
   </list-deployment>
 </div>

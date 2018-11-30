@@ -1,6 +1,6 @@
-import {Cronjob} from './cronjob';
-import {TemplateState} from '../../shared.const';
-import {PublishStatus} from './publish-status';
+import { Cronjob } from './cronjob';
+import { TemplateState } from '../../shared.const';
+import { PublishStatus } from './publish-status';
 
 export class CronjobTpl {
   id: number;

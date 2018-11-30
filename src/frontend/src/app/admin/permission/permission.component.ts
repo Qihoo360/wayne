@@ -1,15 +1,15 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {State} from '@clr/angular';
-import {ListPermissionComponent} from './list-permission/list-permission.component';
-import {CreateEditPermissionComponent} from './create-edit-permission/create-edit-permission.component';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {Permission} from '../../shared/model/v1/permission';
-import {PermissionService} from '../../shared/client/v1/permission.service';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { State } from '@clr/angular';
+import { ListPermissionComponent } from './list-permission/list-permission.component';
+import { CreateEditPermissionComponent } from './create-edit-permission/create-edit-permission.component';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { Permission } from '../../shared/model/v1/permission';
+import { PermissionService } from '../../shared/client/v1/permission.service';
+import { PageState } from '../../shared/page/page-state';
 
 @Component({
   selector: 'wayne-permission',
@@ -30,9 +30,9 @@ export class PermissionComponent implements OnInit {
   subscription: Subscription;
 
   constructor(
-      private permissionService: PermissionService,
-      private messageHandlerService: MessageHandlerService,
-      private deletionDialogService: ConfirmationDialogService) {
+    private permissionService: PermissionService,
+    private messageHandlerService: MessageHandlerService,
+    private deletionDialogService: ConfirmationDialogService) {
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
@@ -79,7 +79,7 @@ export class PermissionComponent implements OnInit {
 
   createPermission(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

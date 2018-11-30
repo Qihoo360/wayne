@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {PageState} from '../../page/page-state';
-import {isNotEmpty} from '../../utils';
+import { PageState } from '../../page/page-state';
+import { isNotEmpty } from '../../utils';
 
 @Injectable()
 export class PublishService {
@@ -34,12 +34,12 @@ export class PublishService {
       let value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
-          filterList.push(`${key}=${value}`)
+          filterList.push(`${key}=${value}`);
         } else {
           filterList.push(`${key}__contains=${value}`);
         }
       }
-    })
+    });
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }
@@ -52,7 +52,7 @@ export class PublishService {
     return this.http
       .get('/api/v1/publish/histories', {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   listStatus(type?: number, resourceId?: number): Observable<any> {
@@ -60,7 +60,7 @@ export class PublishService {
     params = params.set('type', type + '');
     params = params.set('resourceId', resourceId + '');
     return this.http
-      .get('/api/v1/publishstatus', {params: params})
+      .get('/api/v1/publishstatus', {params: params});
   }
 
   getDeployStatistics(startTime: string, endTime: string): Observable<any> {
@@ -70,7 +70,7 @@ export class PublishService {
     return this.http
       .get('/api/v1/publish/statistics', {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
 }

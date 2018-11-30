@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {State} from '@clr/angular';
-import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {PersistentVolumeClaimService} from '../../../shared/client/v1/persistentvolumeclaim.service';
-import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import {PersistentVolumeClaim} from '../../../shared/model/v1/persistentvolumeclaim';
-import {PageState} from '../../../shared/page/page-state';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { State } from '@clr/angular';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { PersistentVolumeClaimService } from '../../../shared/client/v1/persistentvolumeclaim.service';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { PersistentVolumeClaim } from '../../../shared/model/v1/persistentvolumeclaim';
+import { PageState } from '../../../shared/page/page-state';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'trash-persistentvolumeclaim',

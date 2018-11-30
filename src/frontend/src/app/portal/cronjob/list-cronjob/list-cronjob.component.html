@@ -50,8 +50,9 @@
     </clr-dg-cell>
     <clr-dg-cell class="col-cluster">
       <div class="form-group" style="padding-bottom: 2px" *ngFor="let status of cronjobTpl.status">
-{{status.cluster}}&nbsp;<clr-icon style="color: #FF3434" shape="exclamation-triangle" *ngIf="status.state == 1" class="is-solid"></clr-icon>
-  <clr-icon style="color: green" shape="success-standard" *ngIf="status.state == 0" class="is-solid"></clr-icon>
+        {{status.cluster}}&nbsp;<clr-icon style="color: #FF3434" shape="exclamation-triangle" *ngIf="status.state == 1"
+                                          class="is-solid"></clr-icon>
+        <clr-icon style="color: green" shape="success-standard" *ngIf="status.state == 0" class="is-solid"></clr-icon>
       </div>
     </clr-dg-cell>
     <clr-dg-cell>
@@ -66,30 +67,30 @@
     </clr-dg-cell>
     <clr-dg-cell>{{cronjobTpl.user}}</clr-dg-cell>
     <clr-dg-cell class="col-operate">
-      <button class="wayne-button text" 
-        (click)="publishTpl(cronjobTpl)"
-        *ngIf="authService.currentAppPermission.cronjob.deploy || authService.currentUser.admin">
+      <button class="wayne-button text"
+              (click)="publishTpl(cronjobTpl)"
+              *ngIf="authService.currentAppPermission.cronjob.deploy || authService.currentUser.admin">
         {{'BUTTON.RELEASE' | translate}}</button>
       <button class="wayne-button text"
-        (click)="cronjobTplDetail(cronjobTpl)"
-        *ngIf="authService.currentAppPermission.cronjob.read || authService.currentUser.admin">
+              (click)="cronjobTplDetail(cronjobTpl)"
+              *ngIf="authService.currentAppPermission.cronjob.read || authService.currentUser.admin">
         {{'BUTTON.DETAIL' | translate}}</button>
       <button class="wayne-button text"
-        (click)="cloneCronjobTpl(cronjobTpl)"
-        *ngIf="authService.currentAppPermission.cronjob.create || authService.currentUser.admin">
+              (click)="cloneCronjobTpl(cronjobTpl)"
+              *ngIf="authService.currentAppPermission.cronjob.create || authService.currentUser.admin">
         {{'BUTTON.CLONE' | translate}}</button>
       <button class="wayne-button text"
-        *ngIf="!cronjobTpl.status && (authService.currentAppPermission.cronjob.delete || authService.currentUser.admin)"
-        (click)="deleteCronjobTpl(cronjobTpl)">
+              *ngIf="!cronjobTpl.status && (authService.currentAppPermission.cronjob.delete || authService.currentUser.admin)"
+              (click)="deleteCronjobTpl(cronjobTpl)">
         {{'BUTTON.DELETE' | translate}}</button>
       <button class="wayne-button text"
-         (click)="offlineCronjobTpl(cronjobTpl)"
-         *ngIf="cronjobTpl.status && (authService.currentAppPermission.cronjob.offline || authService.currentUser.admin)">
-         {{'BUTTON.DROP' | translate}}</button>
+              (click)="offlineCronjobTpl(cronjobTpl)"
+              *ngIf="cronjobTpl.status && (authService.currentAppPermission.cronjob.offline || authService.currentUser.admin)">
+        {{'BUTTON.DROP' | translate}}</button>
       <button class="wayne-button text"
-         (click)="suspend(cronjobTpl)"
-         *ngIf="cronjobTpl.status && (authService.currentAppPermission.cronjob.deploy || authService.currentUser.admin)">
-         {{'BUTTON.LANG_UP' | translate}}</button>
+              (click)="suspend(cronjobTpl)"
+              *ngIf="cronjobTpl.status && (authService.currentAppPermission.cronjob.deploy || authService.currentUser.admin)">
+        {{'BUTTON.LANG_UP' | translate}}</button>
     </clr-dg-cell>
   </clr-dg-row>
 

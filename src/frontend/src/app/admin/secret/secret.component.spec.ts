@@ -8,9 +8,9 @@ describe('SecretComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SecretComponent ]
+      declarations: [SecretComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

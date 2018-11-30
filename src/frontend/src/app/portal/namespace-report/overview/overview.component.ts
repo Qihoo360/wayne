@@ -1,7 +1,7 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {AppService} from '../../../shared/client/v1/app.service';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { AppService } from '../../../shared/client/v1/app.service';
 import {
   KubeApiTypeConfigMap,
   KubeApiTypeCronJob,
@@ -12,9 +12,9 @@ import {
   KubeApiTypeService,
   KubeApiTypeStatefulSet
 } from '../../../shared/shared.const';
-import {Cluster} from '../../app/list-cluster/cluster';
-import {NamespaceClient} from '../../../shared/client/v1/kubernetes/namespace';
-import {TranslateService} from '@ngx-translate/core';
+import { Cluster } from '../../app/list-cluster/cluster';
+import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'overview',
@@ -68,7 +68,7 @@ export class OverviewComponent implements OnInit {
     if (this.resourceCountMap) {
       return this.resourceCountMap[resource];
     }
-    return 0
+    return 0;
   }
 
   initResourceUsage() {

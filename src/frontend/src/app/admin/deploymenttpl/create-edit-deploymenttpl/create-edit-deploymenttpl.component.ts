@@ -1,18 +1,18 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType} from '../../../shared/shared.const';
-import {isUndefined} from 'util';
-import {DeploymentTpl} from '../../../shared/model/v1/deploymenttpl';
-import {Deployment} from '../../../shared/model/v1/deployment';
-import {DeploymentTplService} from '../../../shared/client/v1/deploymenttpl.service';
-import {DeploymentService} from '../../../shared/client/v1/deployment.service';
-import {AceEditorBoxComponent} from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType } from '../../../shared/shared.const';
+import { isUndefined } from 'util';
+import { DeploymentTpl } from '../../../shared/model/v1/deploymenttpl';
+import { Deployment } from '../../../shared/model/v1/deployment';
+import { DeploymentTplService } from '../../../shared/client/v1/deploymenttpl.service';
+import { DeploymentService } from '../../../shared/client/v1/deployment.service';
+import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'create-edit-deploymenttpl',
@@ -99,10 +99,10 @@ export class CreateEditDeploymentTplComponent implements OnInit {
       this.isSubmitOnGoing = false;
       return;
     }
-    
+
     for (let deployment of this.deployments) {
       if (deployment.id == this.deploymentTpl.deploymentId) {
-        this.deploymentTpl.name = deployment.name
+        this.deploymentTpl.name = deployment.name;
       }
     }
     this.deploymentTpl.template = this.aceBox.getValue();

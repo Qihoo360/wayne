@@ -36,7 +36,7 @@
       </clr-dg-column>
       <clr-dg-row *ngFor="let configMap of configMaps" [clrDgItem]="configMap">
         <clr-dg-action-overflow>
-          <button class="action-item" (click)="recoverConfigMap(configMap)" >恢复</button>
+          <button class="action-item" (click)="recoverConfigMap(configMap)">恢复</button>
           <button class="action-item" (click)="deleteConfigMap(configMap)">彻底删除</button>
         </clr-dg-action-overflow>
         <clr-dg-cell class="col-query-id">{{configMap.id}}</clr-dg-cell>

@@ -5,10 +5,15 @@
     </div>
     <div class="row flex-items-xs-between" style="height:32px;">
       <div class="option-left">
-        <button class="btn btn-link" (click)="openModal()"><clr-icon shape="add"></clr-icon>创建部署模版</button>
+        <button class="btn btn-link" (click)="openModal()">
+          <clr-icon shape="add"></clr-icon>
+          创建部署模版
+        </button>
         <create-edit-deploymenttpl (create)="createDeployment($event)"></create-edit-deploymenttpl>
       </div>
     </div>
-    <list-deploymenttpl [deploymentTpls]="changedDeployments" (delete)="deleteDeployment($event)" (edit)="editDeployment($event)" (paginate)="retrieve($event)" [page]="pageState.page"></list-deploymenttpl>
+    <list-deploymenttpl [deploymentTpls]="changedDeployments" (delete)="deleteDeployment($event)"
+                        (edit)="editDeployment($event)" (paginate)="retrieve($event)"
+                        [page]="pageState.page"></list-deploymenttpl>
   </div>
 </div>

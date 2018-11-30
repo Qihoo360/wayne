@@ -1,6 +1,6 @@
-import {Component, enableProdMode, EventEmitter, OnDestroy, OnInit, Output, ViewChild, Input} from '@angular/core';
-import {State} from '@clr/angular';
-import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmation-message';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { State } from '@clr/angular';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import {
   ConfirmationButtons,
   ConfirmationState,
@@ -11,29 +11,29 @@ import {
   syncStatusInterval,
   TemplateState
 } from '../../../shared/shared.const';
-import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {TplDetailService} from '../../common/tpl-detail/tpl-detail.service';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {PersistentVolumeClaimTplService} from '../../../shared/client/v1/persistentvolumeclaimtpl.service';
-import {PersistentVolumeClaimTpl} from '../../../shared/model/v1/persistentvolumeclaimtpl';
-import {PublishPersistentVolumeClaimTplComponent} from '../publish-tpl/publish-tpl.component';
-import {PersistentVolumeClaimClient} from '../../../shared/client/v1/kubernetes/persistentvolumeclaims';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {PublishStatus} from '../../../shared/model/v1/publish-status';
-import {ActivatedRoute, Router} from '@angular/router';
-import {PersistentVolumeClaimService} from '../../../shared/client/v1/persistentvolumeclaim.service';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {Observable} from 'rxjs/Observable';
-import {PageState} from '../../../shared/page/page-state';
-import {PublishService} from '../../../shared/client/v1/publish.service';
-import {isArrayEmpty, isArrayNotEmpty} from '../../../shared/utils';
-import {UserInfoComponent} from '../user-info/user-info.component';
-import {PersistentVolumeClaimFileSystemStatus} from '../../../shared/model/v1/persistentvolumeclaim';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
-import {PersistentVolumeClaimRobinClient} from '../../../shared/client/v1/kubernetes/persistentvolumeclaims-robin';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { TplDetailService } from '../../common/tpl-detail/tpl-detail.service';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { PersistentVolumeClaimTplService } from '../../../shared/client/v1/persistentvolumeclaimtpl.service';
+import { PersistentVolumeClaimTpl } from '../../../shared/model/v1/persistentvolumeclaimtpl';
+import { PublishPersistentVolumeClaimTplComponent } from '../publish-tpl/publish-tpl.component';
+import { PersistentVolumeClaimClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { PublishStatus } from '../../../shared/model/v1/publish-status';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PersistentVolumeClaimService } from '../../../shared/client/v1/persistentvolumeclaim.service';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { Observable } from 'rxjs/Observable';
+import { PageState } from '../../../shared/page/page-state';
+import { PublishService } from '../../../shared/client/v1/publish.service';
+import { isArrayEmpty, isArrayNotEmpty } from '../../../shared/utils';
+import { UserInfoComponent } from '../user-info/user-info.component';
+import { PersistentVolumeClaimFileSystemStatus } from '../../../shared/model/v1/persistentvolumeclaim';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { PersistentVolumeClaimRobinClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims-robin';
 
 @Component({
   selector: 'list-persistentvolumeclaim',
@@ -101,13 +101,13 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
     this.periodSyncStatus();
   }
 
-  get isEnableRobin():boolean{
-    return this.authService.config['enableRobin']
+  get isEnableRobin(): boolean {
+    return this.authService.config['enableRobin'];
   }
 
   periodSyncStatus() {
     this.timer = setInterval(() => {
-      this.syncStatus()
+      this.syncStatus();
     }, syncStatusInterval);
   }
 
@@ -123,7 +123,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
                 let code = response.statusCode | response.status;
                 if (code === httpStatusCode.NoContent) {
                   this.pvcTpls[i].status[j].state = TemplateState.NOT_FOUND;
-                  return
+                  return;
                 }
 
                 let pvc = response.data;
@@ -138,12 +138,12 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
                 } else {
                   this.pvcTpls[i].status[j].state = TemplateState.FAILD;
                 }
-                if (this.isEnableRobin){
+                if (this.isEnableRobin) {
                   this.pvcFileSystemStatus(this.pvcTpls[i].status[j]);
                 }
               },
               error => {
-                console.log(error)
+                console.log(error);
               }
             );
           }
@@ -173,28 +173,28 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
       if (isArrayNotEmpty(fileSystemStatus.status)) {
         for (let state of fileSystemStatus.status) {
           if (state == 'Mount') {
-            status.push('已激活')
+            status.push('已激活');
           }
           if (state == 'LoginForbidden') {
-            status.push('禁止登录')
+            status.push('禁止登录');
           }
           if (state == 'Verifying') {
-            status.push('校验中')
+            status.push('校验中');
           }
           if (state == 'VerifyOk') {
-            status.push('校验成功')
+            status.push('校验成功');
           }
           if (state == 'VerifyFailed') {
-            status.push('校验失败')
+            status.push('校验失败');
           }
         }
       }
       if (isArrayEmpty(status)) {
-        status.push('未激活')
+        status.push('未激活');
       }
     }
 
-    return status
+    return status;
   }
 
   activedFileSystem(fileSystemStatus: PersistentVolumeClaimFileSystemStatus) {
@@ -202,12 +202,12 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
       if (isArrayNotEmpty(fileSystemStatus.status)) {
         for (let state of fileSystemStatus.status) {
           if (state == 'Mount') {
-            return true
+            return true;
           }
         }
       }
     }
-    return false
+    return false;
   }
 
   containState(fileSystemStatus: PersistentVolumeClaimFileSystemStatus, state: string) {
@@ -215,12 +215,12 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
       if (isArrayNotEmpty(fileSystemStatus.status)) {
         for (let fstate of fileSystemStatus.status) {
           if (fstate == state) {
-            return true
+            return true;
           }
         }
       }
     }
-    return false
+    return false;
   }
 
   activePv(status: PublishStatus) {
@@ -269,7 +269,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   loginInfo(status: PublishStatus) {
     this.persistentVolumeClaimRobinClient.loginInfo(this.appId, status.cluster, status.pvc.metadata.namespace, status.pvc.metadata.name).subscribe(
       response => {
-        this.userInfoComponent.openModal(response.data)
+        this.userInfoComponent.openModal(response.data);
       },
       error => {
         this.messageHandlerService.handleError(error);
@@ -326,15 +326,15 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   }
 
   detailPvcTpl(tpl: PersistentVolumeClaimTpl) {
-    this.aceEditorService.announceMessage(AceEditorMsg.Instance(JSON.parse(tpl.template),false));
+    this.aceEditorService.announceMessage(AceEditorMsg.Instance(JSON.parse(tpl.template), false));
   }
 
   publishPvcTpl(tpl: PersistentVolumeClaimTpl) {
-    this.publishTpl.newPublishTpl(tpl, ResourcesActionType.PUBLISH)
+    this.publishTpl.newPublishTpl(tpl, ResourcesActionType.PUBLISH);
   }
 
   offlinePvcTpl(tpl: PersistentVolumeClaimTpl) {
-    this.publishTpl.newPublishTpl(tpl, ResourcesActionType.OFFLINE)
+    this.publishTpl.newPublishTpl(tpl, ResourcesActionType.OFFLINE);
   }
 
   deletePvcTpl(tpl: PersistentVolumeClaimTpl): void {

@@ -9,7 +9,7 @@ export class DaemonSetCondition {
   message: string;
 
   constructor(init?: DaemonSetCondition) {
-    if (!init) return ;
+    if (!init) return;
     if (init.type) this.type = init.type;
     if (init.status) this.status = init.status;
     if (init.lastTransitionTime) this.lastTransitionTime = init.lastTransitionTime;
@@ -25,6 +25,7 @@ export class DaemonSetCondition {
   }
 
 }
+
 export class DaemonSetStatus {
   currentNumberScheduled: number;
   numberMisscheduled: number;
@@ -38,7 +39,7 @@ export class DaemonSetStatus {
   conditions: DaemonSetCondition[];
 
   constructor(init?: DaemonSetStatus) {
-    if (!init) return ;
+    if (!init) return;
     if (init.currentNumberScheduled) this.currentNumberScheduled = init.currentNumberScheduled;
     if (init.numberMisscheduled) this.numberMisscheduled = init.numberMisscheduled;
     if (init.desiredNumberScheduled) this.desiredNumberScheduled = init.desiredNumberScheduled;
@@ -64,7 +65,7 @@ export class RollingUpdateDaemonSet {
   maxUnavailable?: IntOrString;
 
   constructor(init?: RollingUpdateDaemonSet) {
-    if (!init) return ;
+    if (!init) return;
     if (init.maxUnavailable) this.maxUnavailable = init.maxUnavailable;
   }
 
@@ -76,12 +77,13 @@ export class RollingUpdateDaemonSet {
   }
 
 }
+
 export class DaemonSetUpdateStrategy {
   type: string;
   rollingUpdate?: RollingUpdateDaemonSet;
 
   constructor(init?: DaemonSetUpdateStrategy) {
-    if (!init) return ;
+    if (!init) return;
     if (init.type) this.type = init.type;
     if (init.rollingUpdate) this.rollingUpdate = init.rollingUpdate;
   }
@@ -94,12 +96,13 @@ export class DaemonSetUpdateStrategy {
   }
 
 }
+
 export class PodDNSConfigOption {
   name: string;
   value?: string;
 
   constructor(init?: PodDNSConfigOption) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.value) this.value = init.value;
   }
@@ -111,13 +114,14 @@ export class PodDNSConfigOption {
   }
 
 }
+
 export class PodDNSConfig {
   nameservers: string[];
   searches: string[];
   options: PodDNSConfigOption[];
 
   constructor(init?: PodDNSConfig) {
-    if (!init) return ;
+    if (!init) return;
     if (init.nameservers) this.nameservers = init.nameservers;
     if (init.searches) this.searches = init.searches;
     if (init.options) this.options = init.options;
@@ -133,12 +137,13 @@ export class PodDNSConfig {
   }
 
 }
+
 export class HostAlias {
   ip: string;
   hostnames: string[];
 
   constructor(init?: HostAlias) {
-    if (!init) return ;
+    if (!init) return;
     if (init.ip) this.ip = init.ip;
     if (init.hostnames) this.hostnames = init.hostnames;
   }
@@ -151,6 +156,7 @@ export class HostAlias {
   }
 
 }
+
 export class Toleration {
   key: string;
   operator: string;
@@ -159,7 +165,7 @@ export class Toleration {
   tolerationSeconds?: number;
 
   constructor(init?: Toleration) {
-    if (!init) return ;
+    if (!init) return;
     if (init.key) this.key = init.key;
     if (init.operator) this.operator = init.operator;
     if (init.value) this.value = init.value;
@@ -181,7 +187,7 @@ export class PodAntiAffinity {
   preferredDuringSchedulingIgnoredDuringExecution: WeightedPodAffinityTerm[];
 
   constructor(init?: PodAntiAffinity) {
-    if (!init) return ;
+    if (!init) return;
     if (init.requiredDuringSchedulingIgnoredDuringExecution) this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
     if (init.preferredDuringSchedulingIgnoredDuringExecution) this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
   }
@@ -201,7 +207,7 @@ export class WeightedPodAffinityTerm {
   podAffinityTerm: PodAffinityTerm;
 
   constructor(init?: WeightedPodAffinityTerm) {
-    if (!init) return ;
+    if (!init) return;
     if (init.weight) this.weight = init.weight;
     if (init.podAffinityTerm) this.podAffinityTerm = init.podAffinityTerm;
   }
@@ -221,7 +227,7 @@ export class PodAffinityTerm {
   topologyKey: string;
 
   constructor(init?: PodAffinityTerm) {
-    if (!init) return ;
+    if (!init) return;
     if (init.labelSelector) this.labelSelector = init.labelSelector;
     if (init.namespaces) this.namespaces = init.namespaces;
     if (init.topologyKey) this.topologyKey = init.topologyKey;
@@ -236,12 +242,13 @@ export class PodAffinityTerm {
   }
 
 }
+
 export class PodAffinity {
   requiredDuringSchedulingIgnoredDuringExecution: PodAffinityTerm[];
   preferredDuringSchedulingIgnoredDuringExecution: WeightedPodAffinityTerm[];
 
   constructor(init?: PodAffinity) {
-    if (!init) return ;
+    if (!init) return;
     if (init.requiredDuringSchedulingIgnoredDuringExecution) this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
     if (init.preferredDuringSchedulingIgnoredDuringExecution) this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
   }
@@ -261,7 +268,7 @@ export class PreferredSchedulingTerm {
   preference: NodeSelectorTerm;
 
   constructor(init?: PreferredSchedulingTerm) {
-    if (!init) return ;
+    if (!init) return;
     if (init.weight) this.weight = init.weight;
     if (init.preference) this.preference = init.preference;
   }
@@ -274,13 +281,14 @@ export class PreferredSchedulingTerm {
   }
 
 }
+
 export class NodeSelectorRequirement {
   key: string;
   operator: string;
   values: string[];
 
   constructor(init?: NodeSelectorRequirement) {
-    if (!init) return ;
+    if (!init) return;
     if (init.key) this.key = init.key;
     if (init.operator) this.operator = init.operator;
     if (init.values) this.values = init.values;
@@ -294,11 +302,12 @@ export class NodeSelectorRequirement {
   }
 
 }
+
 export class NodeSelectorTerm {
   matchExpressions: NodeSelectorRequirement[];
 
   constructor(init?: NodeSelectorTerm) {
-    if (!init) return ;
+    if (!init) return;
     if (init.matchExpressions) this.matchExpressions = init.matchExpressions;
   }
 
@@ -310,11 +319,12 @@ export class NodeSelectorTerm {
   }
 
 }
+
 export class NodeSelector {
   nodeSelectorTerms: NodeSelectorTerm[];
 
   constructor(init?: NodeSelector) {
-    if (!init) return ;
+    if (!init) return;
     if (init.nodeSelectorTerms) this.nodeSelectorTerms = init.nodeSelectorTerms;
   }
 
@@ -326,12 +336,13 @@ export class NodeSelector {
   }
 
 }
+
 export class NodeAffinity {
   requiredDuringSchedulingIgnoredDuringExecution?: NodeSelector;
   preferredDuringSchedulingIgnoredDuringExecution: PreferredSchedulingTerm[];
 
   constructor(init?: NodeAffinity) {
-    if (!init) return ;
+    if (!init) return;
     if (init.requiredDuringSchedulingIgnoredDuringExecution) this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
     if (init.preferredDuringSchedulingIgnoredDuringExecution) this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
   }
@@ -345,13 +356,14 @@ export class NodeAffinity {
   }
 
 }
+
 export class Affinity {
   nodeAffinity?: NodeAffinity;
   podAffinity?: PodAffinity;
   podAntiAffinity?: PodAntiAffinity;
 
   constructor(init?: Affinity) {
-    if (!init) return ;
+    if (!init) return;
     if (init.nodeAffinity) this.nodeAffinity = init.nodeAffinity;
     if (init.podAffinity) this.podAffinity = init.podAffinity;
     if (init.podAntiAffinity) this.podAntiAffinity = init.podAntiAffinity;
@@ -378,7 +390,7 @@ export class PodSecurityContext {
   fsGroup?: number;
 
   constructor(init?: PodSecurityContext) {
-    if (!init) return ;
+    if (!init) return;
     if (init.seLinuxOptions) this.seLinuxOptions = init.seLinuxOptions;
     if (init.runAsUser) this.runAsUser = init.runAsUser;
     if (init.runAsGroup) this.runAsGroup = init.runAsGroup;
@@ -404,7 +416,7 @@ export class SELinuxOptions {
   level: string;
 
   constructor(init?: SELinuxOptions) {
-    if (!init) return ;
+    if (!init) return;
     if (init.user) this.user = init.user;
     if (init.role) this.role = init.role;
     if (init.type) this.type = init.type;
@@ -418,12 +430,13 @@ export class SELinuxOptions {
   }
 
 }
+
 export class Capabilities {
   add: string[];
   drop: string[];
 
   constructor(init?: Capabilities) {
-    if (!init) return ;
+    if (!init) return;
     if (init.add) this.add = init.add;
     if (init.drop) this.drop = init.drop;
   }
@@ -437,6 +450,7 @@ export class Capabilities {
   }
 
 }
+
 export class SecurityContext {
   capabilities?: Capabilities;
   privileged?: boolean;
@@ -448,7 +462,7 @@ export class SecurityContext {
   allowPrivilegeEscalation?: boolean;
 
   constructor(init?: SecurityContext) {
-    if (!init) return ;
+    if (!init) return;
     if (init.capabilities) this.capabilities = init.capabilities;
     if (init.privileged) this.privileged = init.privileged;
     if (init.seLinuxOptions) this.seLinuxOptions = init.seLinuxOptions;
@@ -478,7 +492,7 @@ export class Handler {
   tcpSocket?: TCPSocketAction;
 
   constructor(init?: Handler) {
-    if (!init) return ;
+    if (!init) return;
     if (init.exec) this.exec = init.exec;
     if (init.httpGet) this.httpGet = init.httpGet;
     if (init.tcpSocket) this.tcpSocket = init.tcpSocket;
@@ -494,12 +508,13 @@ export class Handler {
   }
 
 }
+
 export class Lifecycle {
   postStart?: Handler;
   preStop?: Handler;
 
   constructor(init?: Lifecycle) {
-    if (!init) return ;
+    if (!init) return;
     if (init.postStart) this.postStart = init.postStart;
     if (init.preStop) this.preStop = init.preStop;
   }
@@ -520,7 +535,7 @@ export class TCPSocketAction {
   host: string;
 
   constructor(init?: TCPSocketAction) {
-    if (!init) return ;
+    if (!init) return;
     if (init.port) this.port = init.port;
     if (init.host) this.host = init.host;
   }
@@ -533,12 +548,13 @@ export class TCPSocketAction {
   }
 
 }
+
 export class HTTPHeader {
   name: string;
   value: string;
 
   constructor(init?: HTTPHeader) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.value) this.value = init.value;
   }
@@ -550,13 +566,14 @@ export class HTTPHeader {
   }
 
 }
+
 export class IntOrString {
   Type: number;
   IntVal: number;
   StrVal: string;
 
   constructor(init?: IntOrString) {
-    if (!init) return ;
+    if (!init) return;
     if (init.Type) this.Type = init.Type;
     if (init.IntVal) this.IntVal = init.IntVal;
     if (init.StrVal) this.StrVal = init.StrVal;
@@ -569,6 +586,7 @@ export class IntOrString {
   }
 
 }
+
 export class HTTPGetAction {
   path: string;
   port: IntOrString;
@@ -577,7 +595,7 @@ export class HTTPGetAction {
   httpHeaders: HTTPHeader[];
 
   constructor(init?: HTTPGetAction) {
-    if (!init) return ;
+    if (!init) return;
     if (init.path) this.path = init.path;
     if (init.port) this.port = init.port;
     if (init.host) this.host = init.host;
@@ -594,11 +612,12 @@ export class HTTPGetAction {
   }
 
 }
+
 export class ExecAction {
   command: string[];
 
   constructor(init?: ExecAction) {
-    if (!init) return ;
+    if (!init) return;
     if (init.command) this.command = init.command;
   }
 
@@ -610,6 +629,7 @@ export class ExecAction {
   }
 
 }
+
 export class Probe {
   exec?: ExecAction;
   httpGet?: HTTPGetAction;
@@ -621,7 +641,7 @@ export class Probe {
   failureThreshold: number;
 
   constructor(init?: Probe) {
-    if (!init) return ;
+    if (!init) return;
     if (init.exec) this.exec = init.exec;
     if (init.httpGet) this.httpGet = init.httpGet;
     if (init.tcpSocket) this.tcpSocket = init.tcpSocket;
@@ -642,12 +662,13 @@ export class Probe {
   }
 
 }
+
 export class VolumeDevice {
   name: string;
   devicePath: string;
 
   constructor(init?: VolumeDevice) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.devicePath) this.devicePath = init.devicePath;
   }
@@ -659,6 +680,7 @@ export class VolumeDevice {
   }
 
 }
+
 export class VolumeMount {
   name: string;
   readOnly: boolean;
@@ -667,7 +689,7 @@ export class VolumeMount {
   mountPropagation?: string;
 
   constructor(init?: VolumeMount) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.readOnly) this.readOnly = init.readOnly;
     if (init.mountPath) this.mountPath = init.mountPath;
@@ -682,12 +704,13 @@ export class VolumeMount {
   }
 
 }
+
 export class ResourceRequirements {
-  limits?: {[key: string]: any};
-  requests?: {[key: string]: any};
+  limits?: { [key: string]: any };
+  requests?: { [key: string]: any };
 
   constructor(init?: ResourceRequirements) {
-    if (!init) return ;
+    if (!init) return;
     if (init.limits) this.limits = init.limits;
     if (init.requests) this.requests = init.requests;
   }
@@ -701,13 +724,14 @@ export class ResourceRequirements {
   }
 
 }
+
 export class SecretKeySelector {
   name: string;
   key: string;
   optional?: boolean;
 
   constructor(init?: SecretKeySelector) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.key) this.key = init.key;
     if (init.optional) this.optional = init.optional;
@@ -720,13 +744,14 @@ export class SecretKeySelector {
   }
 
 }
+
 export class ConfigMapKeySelector {
   name: string;
   key: string;
   optional?: boolean;
 
   constructor(init?: ConfigMapKeySelector) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.key) this.key = init.key;
     if (init.optional) this.optional = init.optional;
@@ -748,7 +773,7 @@ export class EnvVarSource {
   secretKeyRef?: SecretKeySelector;
 
   constructor(init?: EnvVarSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.fieldRef) this.fieldRef = init.fieldRef;
     if (init.resourceFieldRef) this.resourceFieldRef = init.resourceFieldRef;
     if (init.configMapKeyRef) this.configMapKeyRef = init.configMapKeyRef;
@@ -766,13 +791,14 @@ export class EnvVarSource {
   }
 
 }
+
 export class EnvVar {
   name: string;
   value: string;
   valueFrom?: EnvVarSource;
 
   constructor(init?: EnvVar) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.value) this.value = init.value;
     if (init.valueFrom) this.valueFrom = init.valueFrom;
@@ -786,12 +812,13 @@ export class EnvVar {
   }
 
 }
+
 export class SecretEnvSource {
   name: string;
   optional?: boolean;
 
   constructor(init?: SecretEnvSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.optional) this.optional = init.optional;
   }
@@ -803,12 +830,13 @@ export class SecretEnvSource {
   }
 
 }
+
 export class ConfigMapEnvSource {
   name: string;
   optional?: boolean;
 
   constructor(init?: ConfigMapEnvSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.optional) this.optional = init.optional;
   }
@@ -820,13 +848,14 @@ export class ConfigMapEnvSource {
   }
 
 }
+
 export class EnvFromSource {
   prefix: string;
   configMapRef?: ConfigMapEnvSource;
   secretRef?: SecretEnvSource;
 
   constructor(init?: EnvFromSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.prefix) this.prefix = init.prefix;
     if (init.configMapRef) this.configMapRef = init.configMapRef;
     if (init.secretRef) this.secretRef = init.secretRef;
@@ -841,6 +870,7 @@ export class EnvFromSource {
   }
 
 }
+
 export class ContainerPort {
   name: string;
   hostPort: number;
@@ -849,7 +879,7 @@ export class ContainerPort {
   hostIP: string;
 
   constructor(init?: ContainerPort) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.hostPort) this.hostPort = init.hostPort;
     if (init.containerPort) this.containerPort = init.containerPort;
@@ -864,6 +894,7 @@ export class ContainerPort {
   }
 
 }
+
 export class Container {
   name: string;
   image: string;
@@ -888,7 +919,7 @@ export class Container {
   tty: boolean;
 
   constructor(init?: Container) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.image) this.image = init.image;
     if (init.command) this.command = init.command;
@@ -940,7 +971,7 @@ export class StorageOSVolumeSource {
   secretRef?: LocalObjectReference;
 
   constructor(init?: StorageOSVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.volumeName) this.volumeName = init.volumeName;
     if (init.volumeNamespace) this.volumeNamespace = init.volumeNamespace;
     if (init.fsType) this.fsType = init.fsType;
@@ -970,7 +1001,7 @@ export class ScaleIOVolumeSource {
   readOnly: boolean;
 
   constructor(init?: ScaleIOVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.gateway) this.gateway = init.gateway;
     if (init.system) this.system = init.system;
     if (init.secretRef) this.secretRef = init.secretRef;
@@ -991,13 +1022,14 @@ export class ScaleIOVolumeSource {
   }
 
 }
+
 export class PortworxVolumeSource {
   volumeID: string;
   fsType: string;
   readOnly: boolean;
 
   constructor(init?: PortworxVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.volumeID) this.volumeID = init.volumeID;
     if (init.fsType) this.fsType = init.fsType;
     if (init.readOnly) this.readOnly = init.readOnly;
@@ -1017,7 +1049,7 @@ export class ConfigMapProjection {
   optional?: boolean;
 
   constructor(init?: ConfigMapProjection) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.items) this.items = init.items;
     if (init.optional) this.optional = init.optional;
@@ -1036,7 +1068,7 @@ export class DownwardAPIProjection {
   items: DownwardAPIVolumeFile[];
 
   constructor(init?: DownwardAPIProjection) {
-    if (!init) return ;
+    if (!init) return;
     if (init.items) this.items = init.items;
   }
 
@@ -1055,7 +1087,7 @@ export class SecretProjection {
   optional?: boolean;
 
   constructor(init?: SecretProjection) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.items) this.items = init.items;
     if (init.optional) this.optional = init.optional;
@@ -1069,13 +1101,14 @@ export class SecretProjection {
   }
 
 }
+
 export class VolumeProjection {
   secret?: SecretProjection;
   downwardAPI?: DownwardAPIProjection;
   configMap?: ConfigMapProjection;
 
   constructor(init?: VolumeProjection) {
-    if (!init) return ;
+    if (!init) return;
     if (init.secret) this.secret = init.secret;
     if (init.downwardAPI) this.downwardAPI = init.downwardAPI;
     if (init.configMap) this.configMap = init.configMap;
@@ -1091,12 +1124,13 @@ export class VolumeProjection {
   }
 
 }
+
 export class ProjectedVolumeSource {
   sources: VolumeProjection[];
   defaultMode?: number;
 
   constructor(init?: ProjectedVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.sources) this.sources = init.sources;
     if (init.defaultMode) this.defaultMode = init.defaultMode;
   }
@@ -1109,12 +1143,13 @@ export class ProjectedVolumeSource {
   }
 
 }
+
 export class PhotonPersistentDiskVolumeSource {
   pdID: string;
   fsType: string;
 
   constructor(init?: PhotonPersistentDiskVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.pdID) this.pdID = init.pdID;
     if (init.fsType) this.fsType = init.fsType;
   }
@@ -1126,6 +1161,7 @@ export class PhotonPersistentDiskVolumeSource {
   }
 
 }
+
 export class AzureDiskVolumeSource {
   diskName: string;
   diskURI: string;
@@ -1135,7 +1171,7 @@ export class AzureDiskVolumeSource {
   kind?: string;
 
   constructor(init?: AzureDiskVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.diskName) this.diskName = init.diskName;
     if (init.diskURI) this.diskURI = init.diskURI;
     if (init.cachingMode) this.cachingMode = init.cachingMode;
@@ -1151,6 +1187,7 @@ export class AzureDiskVolumeSource {
   }
 
 }
+
 export class QuobyteVolumeSource {
   registry: string;
   volume: string;
@@ -1159,7 +1196,7 @@ export class QuobyteVolumeSource {
   group: string;
 
   constructor(init?: QuobyteVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.registry) this.registry = init.registry;
     if (init.volume) this.volume = init.volume;
     if (init.readOnly) this.readOnly = init.readOnly;
@@ -1174,6 +1211,7 @@ export class QuobyteVolumeSource {
   }
 
 }
+
 export class VsphereVirtualDiskVolumeSource {
   volumePath: string;
   fsType: string;
@@ -1181,7 +1219,7 @@ export class VsphereVirtualDiskVolumeSource {
   storagePolicyID: string;
 
   constructor(init?: VsphereVirtualDiskVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.volumePath) this.volumePath = init.volumePath;
     if (init.fsType) this.fsType = init.fsType;
     if (init.storagePolicyName) this.storagePolicyName = init.storagePolicyName;
@@ -1203,7 +1241,7 @@ export class ConfigMapVolumeSource {
   optional?: boolean;
 
   constructor(init?: ConfigMapVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.items) this.items = init.items;
     if (init.defaultMode) this.defaultMode = init.defaultMode;
@@ -1218,13 +1256,14 @@ export class ConfigMapVolumeSource {
   }
 
 }
+
 export class AzureFileVolumeSource {
   secretName: string;
   shareName: string;
   readOnly: boolean;
 
   constructor(init?: AzureFileVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.secretName) this.secretName = init.secretName;
     if (init.shareName) this.shareName = init.shareName;
     if (init.readOnly) this.readOnly = init.readOnly;
@@ -1237,6 +1276,7 @@ export class AzureFileVolumeSource {
   }
 
 }
+
 export class FCVolumeSource {
   targetWWNs: string[];
   lun?: number;
@@ -1245,7 +1285,7 @@ export class FCVolumeSource {
   wwids: string[];
 
   constructor(init?: FCVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.targetWWNs) this.targetWWNs = init.targetWWNs;
     if (init.lun) this.lun = init.lun;
     if (init.fsType) this.fsType = init.fsType;
@@ -1269,7 +1309,7 @@ export class ResourceFieldSelector {
   divisor: Quantity;
 
   constructor(init?: ResourceFieldSelector) {
-    if (!init) return ;
+    if (!init) return;
     if (init.containerName) this.containerName = init.containerName;
     if (init.resource) this.resource = init.resource;
     if (init.divisor) this.divisor = init.divisor;
@@ -1283,12 +1323,13 @@ export class ResourceFieldSelector {
   }
 
 }
+
 export class ObjectFieldSelector {
   apiVersion: string;
   fieldPath: string;
 
   constructor(init?: ObjectFieldSelector) {
-    if (!init) return ;
+    if (!init) return;
     if (init.apiVersion) this.apiVersion = init.apiVersion;
     if (init.fieldPath) this.fieldPath = init.fieldPath;
   }
@@ -1300,6 +1341,7 @@ export class ObjectFieldSelector {
   }
 
 }
+
 export class DownwardAPIVolumeFile {
   path: string;
   fieldRef?: ObjectFieldSelector;
@@ -1307,7 +1349,7 @@ export class DownwardAPIVolumeFile {
   mode?: number;
 
   constructor(init?: DownwardAPIVolumeFile) {
-    if (!init) return ;
+    if (!init) return;
     if (init.path) this.path = init.path;
     if (init.fieldRef) this.fieldRef = init.fieldRef;
     if (init.resourceFieldRef) this.resourceFieldRef = init.resourceFieldRef;
@@ -1323,12 +1365,13 @@ export class DownwardAPIVolumeFile {
   }
 
 }
+
 export class DownwardAPIVolumeSource {
   items: DownwardAPIVolumeFile[];
   defaultMode?: number;
 
   constructor(init?: DownwardAPIVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.items) this.items = init.items;
     if (init.defaultMode) this.defaultMode = init.defaultMode;
   }
@@ -1341,12 +1384,13 @@ export class DownwardAPIVolumeSource {
   }
 
 }
+
 export class FlockerVolumeSource {
   datasetName: string;
   datasetUUID: string;
 
   constructor(init?: FlockerVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.datasetName) this.datasetName = init.datasetName;
     if (init.datasetUUID) this.datasetUUID = init.datasetUUID;
   }
@@ -1368,7 +1412,7 @@ export class CephFSVolumeSource {
   readOnly: boolean;
 
   constructor(init?: CephFSVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.monitors) this.monitors = init.monitors;
     if (init.path) this.path = init.path;
     if (init.user) this.user = init.user;
@@ -1386,13 +1430,14 @@ export class CephFSVolumeSource {
   }
 
 }
+
 export class CinderVolumeSource {
   volumeID: string;
   fsType: string;
   readOnly: boolean;
 
   constructor(init?: CinderVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.volumeID) this.volumeID = init.volumeID;
     if (init.fsType) this.fsType = init.fsType;
     if (init.readOnly) this.readOnly = init.readOnly;
@@ -1411,10 +1456,10 @@ export class FlexVolumeSource {
   fsType: string;
   secretRef?: LocalObjectReference;
   readOnly: boolean;
-  options?: {[key: string]: string};
+  options?: { [key: string]: string };
 
   constructor(init?: FlexVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.driver) this.driver = init.driver;
     if (init.fsType) this.fsType = init.fsType;
     if (init.secretRef) this.secretRef = init.secretRef;
@@ -1443,7 +1488,7 @@ export class RBDVolumeSource {
   readOnly: boolean;
 
   constructor(init?: RBDVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.monitors) this.monitors = init.monitors;
     if (init.image) this.image = init.image;
     if (init.fsType) this.fsType = init.fsType;
@@ -1463,12 +1508,13 @@ export class RBDVolumeSource {
   }
 
 }
+
 export class PersistentVolumeClaimVolumeSource {
   claimName: string;
   readOnly: boolean;
 
   constructor(init?: PersistentVolumeClaimVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.claimName) this.claimName = init.claimName;
     if (init.readOnly) this.readOnly = init.readOnly;
   }
@@ -1480,13 +1526,14 @@ export class PersistentVolumeClaimVolumeSource {
   }
 
 }
+
 export class GlusterfsVolumeSource {
   endpoints: string;
   path: string;
   readOnly: boolean;
 
   constructor(init?: GlusterfsVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.endpoints) this.endpoints = init.endpoints;
     if (init.path) this.path = init.path;
     if (init.readOnly) this.readOnly = init.readOnly;
@@ -1499,11 +1546,12 @@ export class GlusterfsVolumeSource {
   }
 
 }
+
 export class LocalObjectReference {
   name: string;
 
   constructor(init?: LocalObjectReference) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
   }
 
@@ -1514,6 +1562,7 @@ export class LocalObjectReference {
   }
 
 }
+
 export class ISCSIVolumeSource {
   targetPortal: string;
   iqn: string;
@@ -1528,7 +1577,7 @@ export class ISCSIVolumeSource {
   initiatorName?: string;
 
   constructor(init?: ISCSIVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.targetPortal) this.targetPortal = init.targetPortal;
     if (init.iqn) this.iqn = init.iqn;
     if (init.lun) this.lun = init.lun;
@@ -1551,13 +1600,14 @@ export class ISCSIVolumeSource {
   }
 
 }
+
 export class NFSVolumeSource {
   server: string;
   path: string;
   readOnly: boolean;
 
   constructor(init?: NFSVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.server) this.server = init.server;
     if (init.path) this.path = init.path;
     if (init.readOnly) this.readOnly = init.readOnly;
@@ -1570,13 +1620,14 @@ export class NFSVolumeSource {
   }
 
 }
+
 export class KeyToPath {
   key: string;
   path: string;
   mode?: number;
 
   constructor(init?: KeyToPath) {
-    if (!init) return ;
+    if (!init) return;
     if (init.key) this.key = init.key;
     if (init.path) this.path = init.path;
     if (init.mode) this.mode = init.mode;
@@ -1589,6 +1640,7 @@ export class KeyToPath {
   }
 
 }
+
 export class SecretVolumeSource {
   secretName: string;
   items: KeyToPath[];
@@ -1596,7 +1648,7 @@ export class SecretVolumeSource {
   optional?: boolean;
 
   constructor(init?: SecretVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.secretName) this.secretName = init.secretName;
     if (init.items) this.items = init.items;
     if (init.defaultMode) this.defaultMode = init.defaultMode;
@@ -1611,13 +1663,14 @@ export class SecretVolumeSource {
   }
 
 }
+
 export class GitRepoVolumeSource {
   repository: string;
   revision: string;
   directory: string;
 
   constructor(init?: GitRepoVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.repository) this.repository = init.repository;
     if (init.revision) this.revision = init.revision;
     if (init.directory) this.directory = init.directory;
@@ -1630,6 +1683,7 @@ export class GitRepoVolumeSource {
   }
 
 }
+
 export class AWSElasticBlockStoreVolumeSource {
   volumeID: string;
   fsType: string;
@@ -1637,7 +1691,7 @@ export class AWSElasticBlockStoreVolumeSource {
   readOnly: boolean;
 
   constructor(init?: AWSElasticBlockStoreVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.volumeID) this.volumeID = init.volumeID;
     if (init.fsType) this.fsType = init.fsType;
     if (init.partition) this.partition = init.partition;
@@ -1651,6 +1705,7 @@ export class AWSElasticBlockStoreVolumeSource {
   }
 
 }
+
 export class GCEPersistentDiskVolumeSource {
   pdName: string;
   fsType: string;
@@ -1658,7 +1713,7 @@ export class GCEPersistentDiskVolumeSource {
   readOnly: boolean;
 
   constructor(init?: GCEPersistentDiskVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.pdName) this.pdName = init.pdName;
     if (init.fsType) this.fsType = init.fsType;
     if (init.partition) this.partition = init.partition;
@@ -1672,11 +1727,12 @@ export class GCEPersistentDiskVolumeSource {
   }
 
 }
+
 export class Quantity {
   Format: string;
 
   constructor(init?: Quantity) {
-    if (!init) return ;
+    if (!init) return;
     if (init.Format) this.Format = init.Format;
   }
 
@@ -1687,12 +1743,13 @@ export class Quantity {
   }
 
 }
+
 export class EmptyDirVolumeSource {
   medium: string;
   sizeLimit?: Quantity;
 
   constructor(init?: EmptyDirVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.medium) this.medium = init.medium;
     if (init.sizeLimit) this.sizeLimit = init.sizeLimit;
   }
@@ -1705,12 +1762,13 @@ export class EmptyDirVolumeSource {
   }
 
 }
+
 export class HostPathVolumeSource {
   path: string;
   type?: string;
 
   constructor(init?: HostPathVolumeSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.path) this.path = init.path;
     if (init.type) this.type = init.type;
   }
@@ -1722,6 +1780,7 @@ export class HostPathVolumeSource {
   }
 
 }
+
 export class Volume {
   name: string;
   hostPath?: HostPathVolumeSource;
@@ -1753,7 +1812,7 @@ export class Volume {
   storageos?: StorageOSVolumeSource;
 
   constructor(init?: Volume) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.hostPath) this.hostPath = init.hostPath;
     if (init.emptyDir) this.emptyDir = init.emptyDir;
@@ -1818,6 +1877,7 @@ export class Volume {
   }
 
 }
+
 export class PodSpec {
   volumes: Volume[];
   initContainers: Container[];
@@ -1826,7 +1886,7 @@ export class PodSpec {
   terminationGracePeriodSeconds?: number;
   activeDeadlineSeconds?: number;
   dnsPolicy: string;
-  nodeSelector?: {[key: string]: string};
+  nodeSelector?: { [key: string]: string };
   serviceAccountName: string;
   serviceAccount: string;
   automountServiceAccountToken?: boolean;
@@ -1848,7 +1908,7 @@ export class PodSpec {
   dnsConfig?: PodDNSConfig;
 
   constructor(init?: PodSpec) {
-    if (!init) return ;
+    if (!init) return;
     if (init.volumes) this.volumes = init.volumes;
     if (init.initContainers) this.initContainers = init.initContainers;
     if (init.containers) this.containers = init.containers;
@@ -1901,7 +1961,7 @@ export class PodTemplateSpec {
   spec: PodSpec;
 
   constructor(init?: PodTemplateSpec) {
-    if (!init) return ;
+    if (!init) return;
     if (init.metadata) this.metadata = init.metadata;
     if (init.spec) this.spec = init.spec;
   }
@@ -1915,13 +1975,14 @@ export class PodTemplateSpec {
   }
 
 }
+
 export class LabelSelectorRequirement {
   key: string;
   operator: string;
   values: string[];
 
   constructor(init?: LabelSelectorRequirement) {
-    if (!init) return ;
+    if (!init) return;
     if (init.key) this.key = init.key;
     if (init.operator) this.operator = init.operator;
     if (init.values) this.values = init.values;
@@ -1935,12 +1996,13 @@ export class LabelSelectorRequirement {
   }
 
 }
+
 export class LabelSelector {
-  matchLabels?: {[key: string]: string};
+  matchLabels?: { [key: string]: string };
   matchExpressions: LabelSelectorRequirement[];
 
   constructor(init?: LabelSelector) {
-    if (!init) return ;
+    if (!init) return;
     if (init.matchLabels) this.matchLabels = init.matchLabels;
     if (init.matchExpressions) this.matchExpressions = init.matchExpressions;
   }
@@ -1954,6 +2016,7 @@ export class LabelSelector {
   }
 
 }
+
 export class DaemonSetSpec {
   selector?: LabelSelector;
   template: PodTemplateSpec;
@@ -1963,7 +2026,7 @@ export class DaemonSetSpec {
   revisionHistoryLimit?: number;
 
   constructor(init?: DaemonSetSpec) {
-    if (!init) return ;
+    if (!init) return;
     if (init.selector) this.selector = init.selector;
     if (init.template) this.template = init.template;
     if (init.updateStrategy) this.updateStrategy = init.updateStrategy;
@@ -1982,13 +2045,14 @@ export class DaemonSetSpec {
   }
 
 }
+
 export class StatusCause {
   reason: string;
   message: string;
   field: string;
 
   constructor(init?: StatusCause) {
-    if (!init) return ;
+    if (!init) return;
     if (init.reason) this.reason = init.reason;
     if (init.message) this.message = init.message;
     if (init.field) this.field = init.field;
@@ -2001,6 +2065,7 @@ export class StatusCause {
   }
 
 }
+
 export class StatusDetails {
   name: string;
   group: string;
@@ -2010,7 +2075,7 @@ export class StatusDetails {
   retryAfterSeconds: number;
 
   constructor(init?: StatusDetails) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.group) this.group = init.group;
     if (init.kind) this.kind = init.kind;
@@ -2027,13 +2092,14 @@ export class StatusDetails {
   }
 
 }
+
 export class ListMeta {
   selfLink: string;
   resourceVersion: string;
   continue: string;
 
   constructor(init?: ListMeta) {
-    if (!init) return ;
+    if (!init) return;
     if (init.selfLink) this.selfLink = init.selfLink;
     if (init.resourceVersion) this.resourceVersion = init.resourceVersion;
     if (init.continue) this.continue = init.continue;
@@ -2046,6 +2112,7 @@ export class ListMeta {
   }
 
 }
+
 export class Status {
   kind: string;
   apiVersion: string;
@@ -2057,7 +2124,7 @@ export class Status {
   code: number;
 
   constructor(init?: Status) {
-    if (!init) return ;
+    if (!init) return;
     if (init.kind) this.kind = init.kind;
     if (init.apiVersion) this.apiVersion = init.apiVersion;
     if (init.metadata) this.metadata = init.metadata;
@@ -2077,11 +2144,12 @@ export class Status {
   }
 
 }
+
 export class Initializer {
   name: string;
 
   constructor(init?: Initializer) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
   }
 
@@ -2092,12 +2160,13 @@ export class Initializer {
   }
 
 }
+
 export class Initializers {
   pending: Initializer[];
   result?: Status;
 
   constructor(init?: Initializers) {
-    if (!init) return ;
+    if (!init) return;
     if (init.pending) this.pending = init.pending;
     if (init.result) this.result = init.result;
   }
@@ -2111,6 +2180,7 @@ export class Initializers {
   }
 
 }
+
 export class OwnerReference {
   apiVersion: string;
   kind: string;
@@ -2120,7 +2190,7 @@ export class OwnerReference {
   blockOwnerDeletion?: boolean;
 
   constructor(init?: OwnerReference) {
-    if (!init) return ;
+    if (!init) return;
     if (init.apiVersion) this.apiVersion = init.apiVersion;
     if (init.kind) this.kind = init.kind;
     if (init.name) this.name = init.name;
@@ -2142,7 +2212,7 @@ export class Time {
   Time: Date;
 
   constructor(init?: Time) {
-    if (!init) return ;
+    if (!init) return;
     if (init.Time) this.Time = new Date(init.Time as any);
   }
 
@@ -2154,6 +2224,7 @@ export class Time {
   }
 
 }
+
 export class ObjectMeta {
   name: string;
   generateName: string;
@@ -2165,15 +2236,15 @@ export class ObjectMeta {
   creationTimestamp: Time;
   deletionTimestamp?: Time;
   deletionGracePeriodSeconds?: number;
-  labels?: {[key: string]: string};
-  annotations?: {[key: string]: string};
+  labels?: { [key: string]: string };
+  annotations?: { [key: string]: string };
   ownerReferences: OwnerReference[];
   initializers?: Initializers;
   finalizers: string[];
   clusterName: string;
 
   constructor(init?: ObjectMeta) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.generateName) this.generateName = init.generateName;
     if (init.namespace) this.namespace = init.namespace;
@@ -2206,6 +2277,7 @@ export class ObjectMeta {
   }
 
 }
+
 export class KubeDaemonSet {
   kind: string;
   apiVersion: string;
@@ -2214,7 +2286,7 @@ export class KubeDaemonSet {
   status: DaemonSetStatus;
 
   constructor(init?: KubeDaemonSet) {
-    if (!init) return ;
+    if (!init) return;
     if (init.kind) this.kind = init.kind;
     if (init.apiVersion) this.apiVersion = init.apiVersion;
     if (init.metadata) this.metadata = init.metadata;

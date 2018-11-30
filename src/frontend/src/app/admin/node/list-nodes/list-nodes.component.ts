@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
@@ -12,9 +12,9 @@ import {
   ReadyComparator,
   SchedulerComparator
 } from './inventory';
-import {SortOrder} from '@clr/angular';
-import {Node}  from '../../../shared/model/v1/kubernetes/node-list';
-import {StorageService} from '../../../shared/client/v1/storage.service';
+import { SortOrder } from '@clr/angular';
+import { Node } from '../../../shared/model/v1/kubernetes/node-list';
+import { StorageService } from '../../../shared/client/v1/storage.service';
 
 @Component({
   selector: 'list-nodes',
@@ -27,7 +27,7 @@ export class ListNodesComponent implements OnInit {
   @Input() showState: object;
   sortOrder: SortOrder = SortOrder.Unsorted;
   sorted: boolean = false;
-  currentPage:number = 1;
+  currentPage: number = 1;
   _pageSize: number = 10;
   nameComparator = new NameComparator();
   readyComparator = new ReadyComparator();
@@ -36,7 +36,7 @@ export class ListNodesComponent implements OnInit {
   criComparator = new CriComparator();
   schedulerComparator = new SchedulerComparator();
   nameFilter = new NameFilter();
-  labelFilter= new LabelFilter();
+  labelFilter = new LabelFilter();
   @Output() delete = new EventEmitter<Node>();
   @Output() edit = new EventEmitter<Node>();
   @Output() refresh = new EventEmitter<boolean>();

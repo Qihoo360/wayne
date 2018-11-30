@@ -1,16 +1,16 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType, configKeyApiNameGenerateRule, defaultResources} from '../../../shared/shared.const';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType, configKeyApiNameGenerateRule, defaultResources } from '../../../shared/shared.const';
 import 'rxjs/add/observable/combineLatest';
-import {Cluster, ClusterMeta} from '../../../shared/model/v1/cluster';
-import {StatefulsetService} from '../../../shared/client/v1/statefulset.service';
-import {App} from '../../../shared/model/v1/app';
-import {Statefulset} from '../../../shared/model/v1/statefulset';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {ApiNameGenerateRule} from '../../../shared/utils';
+import { Cluster, ClusterMeta } from '../../../shared/model/v1/cluster';
+import { StatefulsetService } from '../../../shared/client/v1/statefulset.service';
+import { App } from '../../../shared/model/v1/app';
+import { Statefulset } from '../../../shared/model/v1/statefulset';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { ApiNameGenerateRule } from '../../../shared/utils';
 
 @Component({
   selector: 'create-edit-statefulset',
@@ -87,19 +87,19 @@ export class CreateEditStatefulsetComponent implements OnInit {
       let metaData = JSON.parse(this.statefulset.metaData);
       if (metaData.resources &&
         metaData.resources.replicaLimit) {
-        replicaLimit = parseInt(metaData.resources.replicaLimit)
+        replicaLimit = parseInt(metaData.resources.replicaLimit);
       }
     }
-    return replicaLimit
+    return replicaLimit;
   }
 
   replicaValidation(cluster: string): boolean {
     let clusterMeta = this.clusterMetas[cluster];
     if (this.statefulset && this.statefulset.metaData && clusterMeta) {
       if (!clusterMeta.checked) {
-        return true
+        return true;
       }
-      return parseInt(clusterMeta.value) <= this.replicaLimit
+      return parseInt(clusterMeta.value) <= this.replicaLimit;
     }
     return false;
   }
@@ -114,9 +114,9 @@ export class CreateEditStatefulsetComponent implements OnInit {
     this.currentForm.reset();
   }
 
-  get nameGenerateRuleConfig():string{
+  get nameGenerateRuleConfig(): string {
     return ApiNameGenerateRule.config(
-      this.authService.config[configKeyApiNameGenerateRule], this.app.metaData)
+      this.authService.config[configKeyApiNameGenerateRule], this.app.metaData);
   }
 
   onSubmit() {
@@ -198,7 +198,7 @@ export class CreateEditStatefulsetComponent implements OnInit {
     if (this.clusters) {
       for (let clu of this.clusters) {
         if (!this.replicaValidation(clu.name)) {
-          return false
+          return false;
         }
       }
     }
@@ -209,7 +209,7 @@ export class CreateEditStatefulsetComponent implements OnInit {
   handleValidation(): void {
     let cont = this.currentForm.controls['statefulset_name'];
     if (cont) {
-      this.isNameValid = cont.valid
+      this.isNameValid = cont.valid;
     }
 
   }

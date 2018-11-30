@@ -1,17 +1,21 @@
-import {Component, AfterViewInit, EventEmitter, Inject, ElementRef, forwardRef, ContentChildren, QueryList, Input, Output} from '@angular/core';
-import {OptionComponent} from './option/option.component';
-import {EventManager} from '@angular/platform-browser';
-import {DOCUMENT} from '@angular/common';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
-import {ScrollBarService} from '../client/v1/scrollBar.service';
-import { cursorTo } from 'readline';
+  AfterViewInit,
+  Component,
+  ContentChildren,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  Inject,
+  Input,
+  Output,
+  QueryList
+} from '@angular/core';
+import { OptionComponent } from './option/option.component';
+import { EventManager } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ScrollBarService } from '../client/v1/scrollBar.service';
 
 @Component({
   selector: 'wayne-select',
@@ -45,7 +49,8 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
   _value: any = '';
   barState: string = 'hide';
   showBox: boolean = false;
-  updateEmit = (_: any) => {};
+  updateEmit = (_: any) => {
+  };
   top: number = 0;
   barHeight: number;
   maxTrans: number;
@@ -63,9 +68,11 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
   @Input('type') type = '';
   @Input('placeholder') placeholder = '';
   @Output() change = new EventEmitter<any>();
+
   get value() {
     return this._value;
   }
+
   set value(value: any) {
     if (this._value !== value) {
       if (this.type === 'page') {
@@ -83,11 +90,12 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
   }
 
   constructor(
-    private el: ElementRef, 
+    private el: ElementRef,
     private eventManager: EventManager,
     @Inject(DOCUMENT) private document: any,
     private scrollService: ScrollBarService
-  ) {}
+  ) {
+  }
 
   @ContentChildren(OptionComponent)
   set options(options: QueryList<any>) {
@@ -98,14 +106,14 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
       this.initBar();
     }
   }
-  
+
   ngAfterViewInit() {
     this.svg = this.el.nativeElement.querySelector('svg');
-    this.marginRight = - this.scrollService.scrollBarWidth;
+    this.marginRight = -this.scrollService.scrollBarWidth;
   }
 
-  isClickBox(target: Element): boolean{
-    while(target.tagName.toLowerCase() !== 'body') {
+  isClickBox(target: Element): boolean {
+    while (target.tagName.toLowerCase() !== 'body') {
       if (target.tagName.toLowerCase() === 'wayne-select') return true;
       target = target.parentElement;
     }
@@ -113,10 +121,10 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
   }
 
   get barTop() {
-    return `translateY(${this.top}%)`
+    return `translateY(${this.top}%)`;
   }
 
-  writeValue(value: any):void {
+  writeValue(value: any): void {
     if (value !== this.value) {
       this.value = value;
     }
@@ -126,20 +134,21 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
     this.updateEmit = fn;
   }
 
-  registerOnTouched(fn: any): void {}
+  registerOnTouched(fn: any): void {
+  }
 
   addClick(options: QueryList<any>) {
     options.forEach((item, index) => {
       this.itemClickEventList.push(
         this.eventManager.addEventListener(item.el.nativeElement, 'click', this.clickEvent.bind(this, item.value, options))
-      )
-    })
+      );
+    });
   }
 
   removeCick() {
     this.itemClickEventList.forEach(item => {
       item();
-    })
+    });
     this.itemClickEventList = [];
   }
 
@@ -150,7 +159,7 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
     this.destoryBar();
     this.showBox = false;
   }
-  
+
   updateValue(value: any) {
     this.updateEmit(value);
     this.change.emit(value);
@@ -164,7 +173,7 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
       } else {
         this.destoryBar();
       }
-    })
+    });
   }
 
   docuMouseDown(event) {
@@ -182,7 +191,7 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
   removeStyle(options: QueryList<any>) {
     options.forEach(item => {
       item.el.nativeElement.style.background = '';
-    })
+    });
   }
 
   /**
@@ -207,7 +216,7 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
     this.wrap.focus();
     this.inputEventList.push(
       this.eventManager.addGlobalEventListener('document', 'click', this.docuMouseDown.bind(this))
-    )
+    );
     this.top = 0;
     if (this.wrap.clientHeight < this.wrap.scrollHeight) {
       this.barHeight = Number((Math.pow(this.wrap.clientHeight, 2) / this.wrap.scrollHeight).toFixed(2));
@@ -221,7 +230,7 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
         option.el.nativeElement.style.background = 'rgba(232, 237, 246, .45)';
         this.wrap.scrollTop = option.el.nativeElement.offsetTop - 5;
       }
-    })
+    });
   }
 
   destoryBar() {
@@ -229,7 +238,7 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
     this.wrap = null;
     this.inputEventList.forEach(item => {
       item();
-    })
+    });
     this.inputEventList = [];
   }
 
@@ -239,7 +248,7 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
     this.barEventList.push(
       this.eventManager.addGlobalEventListener('document', 'mousemove', this.mouseMoveEvent.bind(this)),
       this.eventManager.addGlobalEventListener('document', 'mouseup', this.mouseUpEvent.bind(this))
-    )
+    );
     // 这里使用addGlobalEventListener 挂载不上方法；防止滑动时候仍选择文本
     this.document.onselectstart = () => false;
   }
@@ -248,9 +257,9 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
     event.stopPropagation();
     event.preventDefault();
     const move = this.barTopCache + Number(((event.pageY - this.clickStart) / this.barHeight * 100).toFixed(2));
-    this.top = move >= 0 
-                ? move <= this.maxTrans ? move : this.maxTrans 
-                : 0;
+    this.top = move >= 0
+      ? move <= this.maxTrans ? move : this.maxTrans
+      : 0;
     this.wrap.scrollTop = this.top / 100 * this.wrap.clientHeight;
   }
 
@@ -258,7 +267,7 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
     this.clickStart = null;
     this.barEventList.forEach(item => {
       item();
-    })
+    });
     this.barEventList = [];
     this.document.onselectstart = null;
   }
