@@ -8,19 +8,19 @@
     </div>
     <div class="modal-footer" [ngSwitch]="buttons">
        <ng-template [ngSwitchCase]="0">
-        <button type="button" class="btn btn-outline" (click)="cancel()">取消</button>
-        <button type="button" class="btn btn-primary" (click)="confirm()">确定</button>
+        <button type="button" class="btn btn-outline" (click)="cancel()">{{'BUTTON.CANCEL' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="confirm()">{{'BUTTON.CONFIRM' | translate}}</button>
        </ng-template>
        <ng-template [ngSwitchCase]="1">
-        <button type="button" class="btn btn-outline" (click)="cancel()">取消</button>
-        <button type="button" class="btn btn-primary" (click)="confirm()">确定</button>
+        <button type="button" class="btn btn-outline" (click)="cancel()">{{'BUTTON.CANCEL' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="confirm()">{{'BUTTON.CONFIRM' | translate}}</button>
        </ng-template>
        <ng-template [ngSwitchCase]="2">
-        <button type="button" class="btn btn-outline" (click)="cancel()">取消</button>
-        <button type="button" class="btn btn-danger" (click)="confirm()">确定</button>
+        <button type="button" class="btn btn-outline" (click)="cancel()">{{'BUTTON.CANCEL' | translate}}</button>
+        <button type="button" class="btn btn-danger" (click)="confirm()">{{'BUTTON.CONFIRM' | translate}}</button>
        </ng-template>
        <ng-template [ngSwitchCase]="3">
-        <button type="button" class="btn btn-primary" (click)="cancel()">取消</button>
+        <button type="button" class="btn btn-primary" (click)="cancel()">{{'BUTTON.CANCEL' | translate}}</button>
        </ng-template>
     </div>
 </clr-modal>

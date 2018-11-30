@@ -18,8 +18,8 @@ const showState = {
   '用户名称': {hidden: false},
   '项目名称': {hidden: false},
   '所属群组': {hidden: false},
-  '创建时间': {hidden: false},
-  '操作': {hidden: false}
+  'create_time': {hidden: false},
+  'action': {hidden: false}
 };
 
 @Component({

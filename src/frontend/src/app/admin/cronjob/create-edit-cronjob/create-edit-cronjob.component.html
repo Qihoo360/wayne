@@ -4,7 +4,7 @@
     <form #ngForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="app_id" class="col-md-3 form-group-label-override required">项目</label>
+          <label for="app_id" class="col-md-3 form-group-label-override required">应用</label>
           <div class="select form-control">
             <select id="app_id" [(ngModel)]="cronjob.appId" [disabled]="actionType==1" name="app_id">
               <!--这是一个坑，如果使用value获取到的是string，使用ngValue获取到的是model本身类型-->
@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="name" class="col-md-3 form-group-label-override required">名称</label>
+          <label for="name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <input class="form-control" type="text" id="name"  [(ngModel)]="cronjob.name"
                    name="name" size="32"
@@ -24,7 +24,7 @@
                    pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
                    (keyup)='handleValidation()'>
             <span class="tooltip-content">
-              配置集名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?
+              {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
             </span>
           </label>
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
@@ -34,7 +34,7 @@
           <wayne-ace-editor-box></wayne-ace-editor-box>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="description" class="col-md-3 form-group-label-override">描述</label>
+          <label for="description" class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="description" [(ngModel)]="cronjob.description"
                     name="description"
                     rows="3">
@@ -42,8 +42,8 @@
         </div>
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
-          <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
+          <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+          <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
         </div>
       </section>
     </form>

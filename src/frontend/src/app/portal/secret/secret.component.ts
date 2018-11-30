@@ -32,14 +32,15 @@ import {Subscription} from 'rxjs/Subscription';
 import {PageState} from '../../shared/page/page-state';
 import {TabDragService} from '../../shared/client/v1/tab-drag.service';
 import {OrderItem} from '../../shared/model/v1/order';
+import {TranslateService} from '@ngx-translate/core';
 
 const showState = {
-  '创建时间': {hidden: false},
-  '配置机房': {hidden: false},
-  '已上线机房': {hidden: false},
-  '发布说明': {hidden: false},
-  '创建者': {hidden: false},
-  '操作': {hidden: false}
+  'create_time': {hidden: false},
+  'config_cluster': {hidden: false},
+  'online_cluster': {hidden: false},
+  'release_explain': {hidden: false},
+  'create_user': {hidden: false},
+  'action': {hidden: false}
 };
 
 @Component({
@@ -81,6 +82,7 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
               private el: ElementRef,
               private secretService: SecretService,
               private secretTplService: SecretTplService,
+              public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
                 this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
                   if (over) this.tabChange();

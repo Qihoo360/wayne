@@ -15,5 +15,6 @@
   }
   .nowrap .inner > * {
     display: block;
+    white-space: nowrap;
   }
 }

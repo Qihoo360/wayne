@@ -30,7 +30,7 @@
     <ng-container *clrDgHideableColumn="{hidden: false}">日期</ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">操作详情</ng-container>
+    <ng-container *clrDgHideableColumn="{hidden: false}">{{'BUTTON.DETAIL' | translate}}</ng-container>
   </clr-dg-column>
 
   <clr-dg-row *ngFor="let al of auditLogs" [clrDgItem]="al">

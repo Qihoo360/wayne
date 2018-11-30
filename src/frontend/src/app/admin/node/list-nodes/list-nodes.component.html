@@ -1,5 +1,5 @@
 <clr-datagrid class="wayne-clr-datagrid">
-  <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+  <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
   <clr-dg-column [clrDgSortBy]="nameComparator">
     <ng-container *clrDgHideableColumn="showState['名称']">
       名称
@@ -72,7 +72,7 @@
   <clr-dg-row *clrDgItems="let node of nodes">
     <clr-dg-action-overflow>
       <button class="action-item" (click)="editNode(node)">编辑</button>
-      <button class="action-item" (click)="deleteNode(node)">删除</button>
+      <button class="action-item" (click)="deleteNode(node)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="copy">{{node.name}}</clr-dg-cell>
     <clr-dg-cell>

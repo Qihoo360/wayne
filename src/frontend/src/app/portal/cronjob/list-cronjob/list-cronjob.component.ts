@@ -20,6 +20,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Page} from '../../../shared/page/page-state';
 import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
 import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'list-cronjob',
@@ -53,6 +54,7 @@ export class ListCronjobComponent implements OnInit, OnDestroy {
               private aceEditorService: AceEditorService,
               private router: Router,
               private tplDetailService: TplDetailService,
+              public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&

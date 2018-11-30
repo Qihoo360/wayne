@@ -5,30 +5,30 @@
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user.name'" *ngIf="listType === 'namespace'">
-    <ng-container *clrDgHideableColumn="showState['用户名称']">
-      用户名称
+    <ng-container *clrDgHideableColumn="showState['name']">
+      {{'TITLE.USER' | translate}}{{'TITLE.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'namespace.name'" *ngIf="listType === 'user'">
-    <ng-container *clrDgHideableColumn="showState['命名空间名称']">
-      命名空间名称
+    <ng-container *clrDgHideableColumn="showState['namespace']">
+      {{'TITLE.NAMESPACE' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['所属群组']">
-      所属群组
+    <ng-container *clrDgHideableColumn="showState['group']">
+      {{'TITLE.GROUP' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['创建时间']">
-      创建时间
+    <ng-container *clrDgHideableColumn="showState['create_time']">
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column
       *ngIf="authService.currentNamespacePermission.namespaceUser.update || authService.currentNamespacePermission.namespaceUser.delete ||  authService.currentUser.admin"
     >
-    <ng-container *clrDgHideableColumn="showState['操作']">
-      操作
+    <ng-container *clrDgHideableColumn="showState['action']">
+      {{'TITLE.ACTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let namespaceUser of namespaceUsers" [clrDgItem]="namespaceUser">
@@ -43,11 +43,11 @@
       <button class="wayne-button text"
         *ngIf="authService.currentNamespacePermission.namespaceUser.update || authService.currentUser.admin"
         (click)="editNamespaceUser(namespaceUser)">
-        编辑</button>
+        {{'BUTTON.EDIT' | translate}}</button>
       <button class="wayne-button text"
         *ngIf="authService.currentNamespacePermission.namespaceUser.delete || authService.currentUser.admin"
         (click)="deleteNamespaceUser(namespaceUser)">
-        删除</button>
+        {{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-cell>
   </clr-dg-row>
 

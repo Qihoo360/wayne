@@ -14,6 +14,8 @@ import {NamespaceUserService} from '../../../shared/client/v1/namespace-user.ser
 import {Namespace} from '../../../shared/model/v1/namespace';
 import {groupType} from '../../../shared/shared.const';
 import {PageState} from '../../../shared/page/page-state';
+import {TranslateService} from '@ngx-translate/core';
+
 @Component({
   selector: 'create-edit-namespace-user',
   templateUrl: 'create-edit-namespace-user.component.html',
@@ -47,7 +49,8 @@ export class CreateEditNamespaceUserComponent {
       private userService: UserService,
       private groupService: GroupService,
       private namespaceUserService: NamespaceUserService,
-      private messageHandlerService: MessageHandlerService
+      private messageHandlerService: MessageHandlerService,
+      public translate: TranslateService
   ) {}
 
   ngOnInit(): void {

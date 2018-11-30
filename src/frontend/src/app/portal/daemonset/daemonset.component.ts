@@ -28,14 +28,15 @@ import { CreateEditDaemonSetComponent } from './create-edit-daemonset/create-edi
 import { ListDaemonSetComponent } from './list-daemonset/list-daemonset.component';
 import {TabDragService} from '../../shared/client/v1/tab-drag.service';
 import {OrderItem} from '../../shared/model/v1/order';
+import {TranslateService} from '@ngx-translate/core';
 
 const showState = {
-  '创建时间': {hidden: false},
-  '版本': {hidden: false},
-  '上线机房': {hidden: false},
-  '发布说明': {hidden: false},
-  '创建者': {hidden: false},
-  '操作': {hidden: false}
+  'create_time': {hidden: false},
+  'version': {hidden: false},
+  'online_cluster': {hidden: false},
+  'release_explain': {hidden: false},
+  'create_user': {hidden: false},
+  'action': {hidden: false}
 };
 
 @Component({
@@ -80,6 +81,7 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
                private el: ElementRef,
               private deletionDialogService: ConfirmationDialogService,
               private clusterService: ClusterService,
+              public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
                 this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
                   if (over) this.tabChange();

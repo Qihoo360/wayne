@@ -3,7 +3,7 @@
   <div class="modal-body">
     <hr>
     <clr-datagrid>
-      <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+      <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
           名称
@@ -31,7 +31,7 @@
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-         操作
+         {{'TITLE.ACTION' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-row *clrDgItems="let pod of pods">
@@ -49,7 +49,7 @@
         <clr-dg-cell>
           <button class="wayne-button text" (click)="enterContainer(pod)">进入容器</button>
           <button class="wayne-button text" (click)="podLog(pod)">日志</button>
-          <button class="wayne-button text" (click)="deletePod(pod)">删除</button>
+          <button class="wayne-button text" (click)="deletePod(pod)">{{'BUTTON.DELETE' | translate}}</button>
         </clr-dg-cell>
       </clr-dg-row>
       <clr-dg-footer>

@@ -22,6 +22,7 @@ import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confir
 import {PageState} from '../../shared/page/page-state';
 import {TabDragService} from '../../shared/client/v1/tab-drag.service';
 import {OrderItem} from '../../shared/model/v1/order';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'wayne-persistentvolumeclaim',
@@ -55,6 +56,7 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
               private tabDragService: TabDragService,
               private el: ElementRef,
               private pvcTplService: PersistentVolumeClaimTplService,
+              public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
                 this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
                   if (over) this.tabChange();

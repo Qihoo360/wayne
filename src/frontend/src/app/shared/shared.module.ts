@@ -46,11 +46,13 @@ import {CheckboxGroupComponent} from './checkbox-group/checkbox-group.component'
 import {DropDownComponent} from './dropdown/dropdown.component';
 import {DropdownItemComponent} from './dropdown/item/dropdown-item.component';
 import {RelativeTimeFilterPipe} from './pipe/relative-time.filter.pipe';
+import {TranslateModule, TranslatePipe} from "@ngx-translate/core";
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
     RouterModule,
+    TranslateModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
@@ -119,7 +121,8 @@ import {RelativeTimeFilterPipe} from './pipe/relative-time.filter.pipe';
     CheckboxGroupComponent,
     DropDownComponent,
     DropdownItemComponent,
-    RelativeTimeFilterPipe
+    RelativeTimeFilterPipe,
+    TranslateModule
   ],
   providers: [
     TipService,

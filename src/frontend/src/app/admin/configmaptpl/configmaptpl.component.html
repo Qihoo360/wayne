@@ -5,7 +5,7 @@
     </div>
     <div class="row flex-items-xs-between" style="height:32px;">
       <div class="option-left">
-        <button class="btn btn-link" (click)="openModal()"><clr-icon shape="add"></clr-icon>创建配置集模版</button>
+        <button class="btn btn-link" (click)="openModal()"><clr-icon shape="add"></clr-icon>{{'CONFIGMAP.CREATE_TMP' | translate}}</button>
         <create-edit-configmaptpl (create)="createConfigMapTpl($event)"></create-edit-configmaptpl>
       </div>
     </div>

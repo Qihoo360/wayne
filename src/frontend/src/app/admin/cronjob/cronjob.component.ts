@@ -12,7 +12,7 @@ import {ListCronjobComponent} from './list-cronjob/list-cronjob.component';
 import {Cronjob} from '../../shared/model/v1/cronjob';
 import {CronjobService} from '../../shared/client/v1/cronjob.service';
 import {PageState} from '../../shared/page/page-state';
-
+import {TranslateService} from '@ngx-translate/core';
 @Component({
   selector: 'wayne-cronjob',
   templateUrl: './cronjob.component.html',
@@ -36,6 +36,7 @@ export class CronjobComponent implements OnInit {
     private breadcrumbService: BreadcrumbService,
     private route: ActivatedRoute,
     private messageHandlerService: MessageHandlerService,
+    public translate: TranslateService,
     private deletionDialogService: ConfirmationDialogService) {
     breadcrumbService.addFriendlyNameForRoute('/admin/cronjob', this.componentName + '列表');
     breadcrumbService.addFriendlyNameForRoute('/admin/cronjob/trash', '已删除' + this.componentName + '列表');

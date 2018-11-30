@@ -23,6 +23,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Page} from '../../../shared/page/page-state';
 import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
 import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'list-deployment',
@@ -58,6 +59,7 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
               private router: Router,
               public authService: AuthService,
               private tplDetailService: TplDetailService,
+              private translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&

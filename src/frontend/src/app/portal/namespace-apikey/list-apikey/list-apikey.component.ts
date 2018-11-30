@@ -4,6 +4,7 @@ import {Page} from '../../../shared/page/page-state';
 import {ApiKey} from '../../../shared/model/v1/apikey';
 import {TokenDetailComponent} from '../token-detail/token-detail';
 import {AuthService} from '../../../shared/auth/auth.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'list-apikey',
@@ -24,7 +25,10 @@ export class ListApiKeyComponent implements OnInit {
   @Output() delete = new EventEmitter<ApiKey>();
   @Output() edit = new EventEmitter<ApiKey>();
 
-  constructor(public authService: AuthService) {
+  constructor(
+    public authService: AuthService,
+    public translate: TranslateService
+    ) {
   }
 
   ngOnInit(): void {

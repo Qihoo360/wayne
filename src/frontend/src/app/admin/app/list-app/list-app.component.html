@@ -26,18 +26,18 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user'" class="col-user">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建者
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgSortBy]="'createTime'" class="col-time">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建时间
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let app of apps" [clrDgItem]="app">
     <clr-dg-action-overflow >
       <button class="action-item" (click)="editApp(app)" >编辑</button>
-      <button class="action-item" (click)="deleteApp(app)">删除</button>
+      <button class="action-item" (click)="deleteApp(app)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
       <clr-dg-cell class="col-id">{{app.id}}</clr-dg-cell>
       <clr-dg-cell class="col-app-name copy"><a href="javascript:void(0)" (click)="goToLink(app, 'deploy')">{{app.name}}</a></clr-dg-cell>

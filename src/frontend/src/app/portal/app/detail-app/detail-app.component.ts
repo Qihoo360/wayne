@@ -23,6 +23,7 @@ import {
   KubeApiTypeStatefulSet
 } from '../../../shared/shared.const';
 import {EventManager} from '@angular/platform-browser';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'detail-app',
@@ -58,7 +59,8 @@ export class DetailAppComponent implements OnInit, OnDestroy {
               private messageHandlerService: MessageHandlerService,
               private element: ElementRef,
               private storage: StorageService,
-              private eventManager: EventManager
+              private eventManager: EventManager,
+              public translate: TranslateService
   ) {
   }
 

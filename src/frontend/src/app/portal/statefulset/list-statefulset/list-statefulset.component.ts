@@ -25,6 +25,7 @@ import {Event} from '../../../shared/model/v1/event';
 import {TemplateStatus} from '../../../shared/model/v1/status';
 import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
 import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'list-statefulset',
@@ -60,6 +61,7 @@ export class ListStatefulsetComponent implements OnInit, OnDestroy {
               private router: Router,
               public authService: AuthService,
               private tplDetailService: TplDetailService,
+              public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&

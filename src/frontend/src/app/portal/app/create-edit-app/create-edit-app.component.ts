@@ -8,6 +8,7 @@ import {ActionType} from '../../../shared/shared.const';
 import {App} from '../../../shared/model/v1/app';
 import {AppService} from '../../../shared/client/v1/app.service';
 import {CacheService} from '../../../shared/auth/cache.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'create-edit-app',
@@ -32,6 +33,7 @@ export class CreateEditAppComponent {
 
   constructor(private appService: AppService,
               public cacheService: CacheService,
+              public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
   }
 

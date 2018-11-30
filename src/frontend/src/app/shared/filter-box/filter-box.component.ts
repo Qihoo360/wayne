@@ -1,5 +1,7 @@
 import {Component, Inject, Output, EventEmitter, Input, OnInit} from '@angular/core';
 import {DOCUMENT, EventManager} from '@angular/platform-browser';
+import {TranslateService} from '@ngx-translate/core';
+
 @Component({
   selector: 'wayne-filter-box',
   templateUrl: './filter-box.component.html',
@@ -13,7 +15,10 @@ export class FilterBoxComponent implements OnInit{
   @Output() cancel = new EventEmitter<any>();
   eventTarget: any;
 
-  constructor(@Inject(DOCUMENT) private document: any, private eventManage: EventManager) {
+  constructor(
+    @Inject(DOCUMENT) private document: any, 
+    private eventManage: EventManager,
+    public translate: TranslateService) {
   }
 
   open() {

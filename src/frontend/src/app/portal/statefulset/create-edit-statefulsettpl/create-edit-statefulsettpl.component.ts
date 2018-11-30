@@ -229,7 +229,7 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
         let tpl = response[2];
         if (tpl) {
           this.statefulsetTpl = tpl.data;
-          // 克隆置空发布说明
+          
           this.statefulsetTpl.description = null;
           this.saveStatefulset(JSON.parse(this.statefulsetTpl.template));
         }

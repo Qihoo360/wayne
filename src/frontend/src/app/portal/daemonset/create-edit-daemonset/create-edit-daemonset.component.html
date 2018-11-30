@@ -1,28 +1,28 @@
 <clr-modal [(clrModalOpen)]="modalOpened">
-    <h3 class="modal-title">{{title}}</h3>
+    <h3 class="modal-title">{{title | translate}}</h3>
   <div class="modal-body">
     <form #ngForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="name" class="col-md-3 form-group-label-override required">名称</label>
+          <label for="name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <label *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</label>
             <input type="text" [(ngModel)]="daemonSet.name"
                    name="name"
                    required
-                   placeholder="英文小写"
+                   [placeholder]="'PLACEHOLDER.APP_NAME' | translate"
                    [readonly]="actionType==1"
                    maxlength="64"
                    pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
                    (keyup)='handleValidation()'>
             <span class="tooltip-content">
-              名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?
+              {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
             </span>
           </label>
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label class="col-md-3 form-group-label-override required">机房</label>
+          <label class="col-md-3 form-group-label-override required">{{'TITLE.CLUSTER' | translate}}</label>
           <div *ngFor="let cluster of clusters" style="padding-right: 15px" class="checkbox-inline">
             <input [(ngModel)]="cluster['checked']"
                    type="checkbox"
@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="description" class="col-md-3 form-group-label-override">描述</label>
+          <label for="description" class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="description" [(ngModel)]="daemonSet.description"
                     name="description"
                     rows="3">
@@ -42,7 +42,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
-    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
+    <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
   </div>
 </clr-modal>

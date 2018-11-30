@@ -9,7 +9,7 @@ import * as echarts from 'echarts';
 
 import {HistoryComponent} from './history/history.component';
 import {ResourceComponent} from './resource/resource.component';
-
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'wayne-namespace-report.content-container',
@@ -26,6 +26,7 @@ export class NamespaceReportComponent implements OnInit {
   constructor(private namespaceClient: NamespaceClient,
               public cacheService: CacheService,
               private messageHandlerService: MessageHandlerService,
+              public translate: TranslateService
   ) { }
   ngOnInit() {
     let namespaceId = this.cacheService.namespaceId;
