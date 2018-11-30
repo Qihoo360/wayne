@@ -15,7 +15,8 @@
     "CPU_PERCENT": "请填写正确CPU限制百分比",
     "MEMORY": "请填写内存限制份数",
     "MEMORY_PERCENT": "请填写正确内存限制百分比",
-    "REPLICA": "请填写副本数限制"
+    "REPLICA": "请填写副本数限制",
+    "DATA_CONTENT": "数据内容"
   },
   "LIMIT": {
     "DELOYMENT": "部署份数超过系统最大限制",
@@ -120,7 +121,8 @@
     "ONLINE_CLUSTER": "上线机房",
     "MESSAGE": "信息",
     "RELEASE_EXPLAIN": "发布说明",
-    "SCHEDULING_INTERVAL": "调度间隔"
+    "SCHEDULING_INTERVAL": "调度间隔",
+    "CONFIG_CLUSTER": "配置机房"
   },
   "TMP": {
     "CONTAINER_NAME": "容器名称",
@@ -195,7 +197,9 @@
     "DELETE": "删除",
     "CHOOSE_SHOW_COLUMN": "请勾选需要展示的列",
     "CREATE": "创建",
-    "LOOK_UP": "查看"
+    "LOOK_UP": "查看",
+    "DELETE_DATA": "删除数据",
+    "ADD_DATA": "添加数据"
   },
   "UNIT": {
     "CORE": "核",
@@ -207,11 +211,14 @@
   "PLACEHOLDER": {
     "PRODUCT": "点击输入筛选过滤项目",
     "CHOOSE": "点击选择",
+    "ENGLISH_NAME": "英文小写",
     "APP_NAME": "英文小写，中划线分隔",
     "EXPIRE_TIME": "单位秒，0代表永久有效",
     "ENVIRONMENT": "为所有环境变量添加相同的前缀，可为空",
     "SECOND": "单位秒",
-    "COMMAND": "多个命令换行输入，例如: \n/bin/healthz.sh\n--arg1\nfoo\n--arg2\nbar"
+    "COMMAND": "多个命令换行输入，例如: \n/bin/healthz.sh\n--arg1\nfoo\n--arg2\nbar",
+    "CONFIG_KEY": "配置key",
+    "CONFIG_VALUE": "配置value"
   },
   "PAGE": {
     "PAGE": "页",
@@ -250,6 +257,12 @@
     "DELETE": "删除计划任务",
     "LIST": "计划任务列表",
     "DELETE_LIST": "已删除计划任务列表"
+  },
+  "CONFIGMAP": {
+    "CREATE": "创建配置集",
+    "CREATE_TMP": "创建配置集模板",
+    "EDIT": "编辑配置集",
+    "DELETE": "删除配置集"
   },
   "OTHER": "其他",
   "OF": "的"

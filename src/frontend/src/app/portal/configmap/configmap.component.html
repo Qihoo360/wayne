@@ -1,5 +1,5 @@
 <button (click)="openModal()" class="wayne-button primary" *ngIf="authService.currentAppPermission.configmap.create || authService.currentUser.admin">
-  创建配置集
+  {{'CONFIGMAP.CREATE' | translate}}
 </button>
 <create-edit-configmap (create)="createConfigMap($event)"></create-edit-configmap>
 <div *ngIf="configMapId && configMaps?.length>0">
@@ -16,16 +16,16 @@
   <div class="table-search">
     <div class="table-search-left">
       <button (click)="createConfigMapTpl()" class="wayne-button normal" *ngIf="authService.currentAppPermission.configmap.create || authService.currentUser.admin">
-        创建配置集模版
+        {{'CONFIGMAP.CREATE_TMP' | translate}}
       </button>
       <button (click)="editConfigMap()" class="wayne-button normal" *ngIf="authService.currentAppPermission.configmap.update || authService.currentUser.admin">
-        编辑配置集
+        {{'CONFIGMAP.EDIT' | translate}}
       </button>
       <button (click)="publishHistory()" class="wayne-button normal" *ngIf="authService.currentAppPermission.configmap.read || authService.currentUser.admin">
         {{'BUTTON.HISTORY' | translate}}
       </button>
       <button (click)="deleteConfigMap()" class="wayne-button normal" *ngIf="authService.currentAppPermission.configmap.offline || authService.currentUser.admin">
-        删除配置集
+        {{'CONFIGMAP.DELETE' | translate}}
       </button>
       <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
         <wayne-checkbox-group [(ngModel)]="showList">
