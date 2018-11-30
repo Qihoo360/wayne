@@ -59,8 +59,19 @@ export class IngressStatus {
     }
   }
 }
+
+export class IngressPath {
+  backend: IngressBackend
+  path: string;
+}
+
+export  class IngressHttp {
+  paths: IngressPath[];
+}
+
 export class IngressRule {
   host: string;
+  http: IngressHttp;
 
   static emptyObject(): IngressRule {
     const result = new IngressRule();

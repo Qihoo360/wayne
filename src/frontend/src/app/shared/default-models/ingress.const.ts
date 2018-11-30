@@ -6,20 +6,22 @@ export const defaultIngress = `{
   },
   "spec": {
     "tls": [
-      {
-        "hosts": [
-        ],
-        "secretName": ""
-      }
     ],
     "rules": [
       {
-        "host": ""
+        "host": "",
+        "http": {
+            "paths": [
+                {
+                     "backend": {
+                          "serviceName": "",
+                          "servicePort": 80
+                     },
+                     "path": "/"
+                }
+            ]
+        }
       }
-    ],
-    "backend": {
-      "serviceName":"",
-      "servicePort": 80
-    }
+    ]
   }
 }`;
