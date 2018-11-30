@@ -1,12 +1,11 @@
-import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
-import {NamespaceClient} from '../../../shared/client/v1/kubernetes/namespace';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {AppResource } from './resource';
-
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { AppResource } from './resource';
+import * as echarts from 'echarts';
 import ECharts = echarts.ECharts;
 import EChartOption = echarts.EChartOption;
-import * as echarts from 'echarts';
 
 @Component({
   selector: 'report-resource',
@@ -26,11 +25,15 @@ export class ResourceComponent implements OnInit, AfterViewInit {
   private memOption: EChartOption;
   private cpuChart: ECharts;
   private memChart: ECharts;
+
   constructor(private namespaceClient: NamespaceClient,
               public cacheService: CacheService,
               private messageHandlerService: MessageHandlerService,
-  ) { }
-  ngOnInit() { }
+  ) {
+  }
+
+  ngOnInit() {
+  }
 
   ngAfterViewInit(): void {
     let namespaceId = this.cacheService.namespaceId;
@@ -40,14 +43,14 @@ export class ResourceComponent implements OnInit, AfterViewInit {
       response => {
         this.resources = response.data;
         this.ResourceList.push(...Object.keys(this.resources).map(app => {
-            let rs = new AppResource();
-            rs.app = app;
-            rs.cpu = this.resources[app].cpu;
-            rs.memory = this.resources[app].memory;
-            this.cpu_sum += this.resources[app].cpu;
-            this.mem_sum += this.resources[app].memory;
-            return rs;
-          }));
+          let rs = new AppResource();
+          rs.app = app;
+          rs.cpu = this.resources[app].cpu;
+          rs.memory = this.resources[app].memory;
+          this.cpu_sum += this.resources[app].cpu;
+          this.mem_sum += this.resources[app].memory;
+          return rs;
+        }));
         this.initOptions();
         this.cpuChart.setOption(this.cpuOption);
         this.memChart.setOption(this.memOption);
@@ -72,12 +75,12 @@ export class ResourceComponent implements OnInit, AfterViewInit {
     app.push('其他');
     cpu.push({name: '其他', value: this.cpu_sum - cnt});
     this.cpuOption = {
-      title : {
+      title: {
         text: 'CPU 用量审计',
         subtext: 'top 5',
         left: 'center'
       },
-      tooltip : {
+      tooltip: {
         trigger: 'item',
         formatter: '{a} <br/>{b} : {c} 核 ({d}%)'
       },
@@ -86,11 +89,11 @@ export class ResourceComponent implements OnInit, AfterViewInit {
         left: 'left',
         data: app
       },
-      series : [
+      series: [
         {
           name: '项目',
           type: 'pie',
-          radius : '55%',
+          radius: '55%',
           center: ['50%', '60%'],
           data: cpu,
           itemStyle: {
@@ -120,7 +123,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
     mem.push({name: '其他', value: this.mem_sum - cnt});
 
     this.memOption = {
-      title : {
+      title: {
         text: '内存用量审计',
         subtext: 'top 5',
         left: 'center',
@@ -134,11 +137,11 @@ export class ResourceComponent implements OnInit, AfterViewInit {
         left: 'left',
         data: app
       },
-      series : [
+      series: [
         {
           name: '项目',
           type: 'pie',
-          radius : '55%',
+          radius: '55%',
           center: ['50%', '60%'],
           data: mem,
           itemStyle: {

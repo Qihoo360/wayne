@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {TplDetailService} from './tpl-detail.service';
-import {Subscription} from 'rxjs/Subscription';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { TplDetailService } from './tpl-detail.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'tpl-detail',
@@ -30,7 +30,7 @@ export class TplDetailComponent implements OnInit, OnDestroy {
         this.text = msg.text;
         if (msg.title) this.title = msg.title;
       }
-    )
+    );
   }
 
   ngOnDestroy() {

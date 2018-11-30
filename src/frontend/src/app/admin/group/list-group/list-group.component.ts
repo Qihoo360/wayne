@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {Group} from '../../../shared/model/v1/group';
-import {GroupService} from '../../../shared/client/v1/group.service';
-import {groupType} from '../../../shared/shared.const';
-import {Page} from '../../../shared/page/page-state';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { Group } from '../../../shared/model/v1/group';
+import { GroupService } from '../../../shared/client/v1/group.service';
+import { groupType } from '../../../shared/shared.const';
+import { Page } from '../../../shared/page/page-state';
 
 @Component({
   selector: 'list-group',

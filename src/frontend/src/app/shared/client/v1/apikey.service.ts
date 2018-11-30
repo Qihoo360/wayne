@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {PageState} from '../../page/page-state';
-import {isNotEmpty} from '../../utils';
-import {ApiKey} from '../../model/v1/apikey';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { PageState } from '../../page/page-state';
+import { isNotEmpty } from '../../utils';
+import { ApiKey } from '../../model/v1/apikey';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class ApiKeyService {
@@ -32,7 +32,7 @@ export class ApiKeyService {
       let value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
-          filterList.push(`${key}=${value}`)
+          filterList.push(`${key}=${value}`);
         } else {
           filterList.push(`${key}__contains=${value}`);
         }
@@ -49,7 +49,7 @@ export class ApiKeyService {
     return this.http
       .get(this.buildAPIKeyUrl(namespaceId, appId), {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   buildAPIKeyUrl(namespaceId?: number, appId?: number): string {
@@ -78,11 +78,11 @@ export class ApiKeyService {
   }
 
   deleteById(id: number, logical?: boolean, namespaceId?: number, appId?: number): Observable<any> {
-    let options : any = {};
+    let options: any = {};
     if (logical != null) {
       let params = new HttpParams();
       params = params.set('logical', logical + '');
-      options.params = params
+      options.params = params;
     }
 
     return this.http

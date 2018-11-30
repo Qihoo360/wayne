@@ -1,25 +1,20 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {State} from '@clr/angular';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmation-message';
-import {
-  ConfirmationButtons,
-  ConfirmationState,
-  ConfirmationTargets,
-  ResourcesActionType,
-} from '../../../shared/shared.const';
-import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {PublishCronjobTplComponent} from '../publish-tpl/publish-tpl.component';
-import { CronjobTpl} from '../../../shared/model/v1/cronjobtpl';
-import {CronjobService} from '../../../shared/client/v1/cronjob.service';
-import {CronjobTplService} from '../../../shared/client/v1/cronjobtpl.service';
-import {TplDetailService} from '../../common/tpl-detail/tpl-detail.service';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Page} from '../../../shared/page/page-state';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { State } from '@clr/angular';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets, ResourcesActionType, } from '../../../shared/shared.const';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription } from 'rxjs/Subscription';
+import { PublishCronjobTplComponent } from '../publish-tpl/publish-tpl.component';
+import { CronjobTpl } from '../../../shared/model/v1/cronjobtpl';
+import { CronjobService } from '../../../shared/client/v1/cronjob.service';
+import { CronjobTplService } from '../../../shared/client/v1/cronjobtpl.service';
+import { TplDetailService } from '../../common/tpl-detail/tpl-detail.service';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Page } from '../../../shared/page/page-state';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 
 @Component({
   selector: 'list-cronjob',
@@ -110,7 +105,7 @@ export class ListCronjobComponent implements OnInit, OnDestroy {
   }
 
   cronjobTplDetail(tpl: CronjobTpl): void {
-    this.aceEditorService.announceMessage(AceEditorMsg.Instance(JSON.parse(tpl.template),false));
+    this.aceEditorService.announceMessage(AceEditorMsg.Instance(JSON.parse(tpl.template), false));
   }
 
   tplDetail(tpl: CronjobTpl) {

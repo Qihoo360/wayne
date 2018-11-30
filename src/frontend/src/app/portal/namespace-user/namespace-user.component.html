@@ -6,10 +6,11 @@
           <h2 class="header-title">部门用户列表</h2>
         </div>
         <div class="table-search">
-          <div class="table-search-left" *ngIf="authService.currentNamespacePermission.namespaceUser.create || authService.currentUser.admin">
-              <button class="wayne-button normal" (click)="openModal()">
-                关联部门用户
-              </button>
+          <div class="table-search-left"
+               *ngIf="authService.currentNamespacePermission.namespaceUser.create || authService.currentUser.admin">
+            <button class="wayne-button normal" (click)="openModal()">
+              关联部门用户
+            </button>
             <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
               <wayne-checkbox-group [(ngModel)]="showList">
                 <wayne-checkbox>ID</wayne-checkbox>
@@ -23,8 +24,10 @@
           </div>
         </div>
         <create-edit-namespace-user (create)="createNamespaceUser($event)"></create-edit-namespace-user>
-        <list-namespace-user [namespaceUsers]="changedNamespaceUsers" [listType]="listType" (delete)="deleteNamespaceUser($event)"
-          (edit)="editNamespaceUser($event)" (paginate)="retrieve($event)" [page]="pageState.page" [showState]="showState"></list-namespace-user>
+        <list-namespace-user [namespaceUsers]="changedNamespaceUsers" [listType]="listType"
+                             (delete)="deleteNamespaceUser($event)"
+                             (edit)="editNamespaceUser($event)" (paginate)="retrieve($event)" [page]="pageState.page"
+                             [showState]="showState"></list-namespace-user>
       </div>
     </div>
   </wayne-box>

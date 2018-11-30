@@ -1,46 +1,46 @@
 <clr-vertical-nav [clrVerticalNavCollapsible]="true">
   <a
-  clrVerticalNavLink
-  title="部门概览"
-  routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/overview"
-  routerLinkActive="active">
-  <clr-icon clrVerticalNavIcon shape="help-info"></clr-icon>
-  部门概览
-</a>
+    clrVerticalNavLink
+    title="部门概览"
+    routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/overview"
+    routerLinkActive="active">
+    <clr-icon clrVerticalNavIcon shape="help-info"></clr-icon>
+    部门概览
+  </a>
   <a
-  clrVerticalNavLink
-  title="项目列表"
-  routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/app"
-  routerLinkActive="active">
-  <clr-icon clrVerticalNavIcon shape="applications"></clr-icon>
-  项目列表
-</a>
+    clrVerticalNavLink
+    title="项目列表"
+    routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/app"
+    routerLinkActive="active">
+    <clr-icon clrVerticalNavIcon shape="applications"></clr-icon>
+    项目列表
+  </a>
   <a
-  clrVerticalNavLink
-  title="APIKeys"
-  routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/apikey"
-  routerLinkActive="active"
-  *ngIf="this.authService.config['enableApiKeys'] && (authService.currentNamespacePermission.apiKey.read || authService.currentUser.admin)">
-  <clr-icon clrVerticalNavIcon shape="key"></clr-icon>
-  APIKeys
-</a>
+    clrVerticalNavLink
+    title="APIKeys"
+    routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/apikey"
+    routerLinkActive="active"
+    *ngIf="this.authService.config['enableApiKeys'] && (authService.currentNamespacePermission.apiKey.read || authService.currentUser.admin)">
+    <clr-icon clrVerticalNavIcon shape="key"></clr-icon>
+    APIKeys
+  </a>
   <a
-  clrVerticalNavLink
-  title="Webhooks"
-  routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/webhook"
-  routerLinkActive="active"
-  *ngIf="authService.currentNamespacePermission.webHook.read || authService.currentUser.admin">
-  <clr-icon clrVerticalNavIcon shape="pin"></clr-icon>
-  Webhooks
-</a>
+    clrVerticalNavLink
+    title="Webhooks"
+    routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/webhook"
+    routerLinkActive="active"
+    *ngIf="authService.currentNamespacePermission.webHook.read || authService.currentUser.admin">
+    <clr-icon clrVerticalNavIcon shape="pin"></clr-icon>
+    Webhooks
+  </a>
   <a
-  clrVerticalNavLink
-  title="成员列表"
-  routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/users"
-  routerLinkActive="active">
-  <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
-  成员列表
-</a>
-<a href="javascript:;" style="flex: 1;"></a>
+    clrVerticalNavLink
+    title="成员列表"
+    routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/users"
+    routerLinkActive="active">
+    <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
+    成员列表
+  </a>
+  <a href="javascript:;" style="flex: 1;"></a>
   <wayne-footer></wayne-footer>
 </clr-vertical-nav>

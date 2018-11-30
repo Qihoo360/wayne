@@ -31,9 +31,9 @@
         </ng-container>
       </clr-dg-column>
       <clr-dg-row *ngFor="let deploymentTpl of deploymentTpls" [clrDgItem]="deploymentTpl">
-        <clr-dg-action-overflow >
-          <button class="action-item" (click)="tplDetail(deploymentTpl)" >模板详情</button>
-          <button class="action-item" (click)="recoverDeploymentTpl(deploymentTpl)" >恢复</button>
+        <clr-dg-action-overflow>
+          <button class="action-item" (click)="tplDetail(deploymentTpl)">模板详情</button>
+          <button class="action-item" (click)="recoverDeploymentTpl(deploymentTpl)">恢复</button>
           <button class="action-item" (click)="deleteDeploymentTpl(deploymentTpl)">彻底删除</button>
         </clr-dg-action-overflow>
         <clr-dg-cell class="col-query-id">{{deploymentTpl.id}}</clr-dg-cell>

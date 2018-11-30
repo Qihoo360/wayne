@@ -42,9 +42,9 @@
     <clr-dg-cell class="col-time">{{daemonSetTpl.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
     <clr-dg-cell class="col-version">
       <div *ngFor="let version of daemonSetTpl.containerVersions" class="version-text">
-         <a href="javascript:;" (click)="versionDetail(version)">
-           {{version}}
-         </a>
+        <a href="javascript:;" (click)="versionDetail(version)">
+          {{version}}
+        </a>
       </div>
     </clr-dg-cell>
     <clr-dg-cell class="col-cluster">
@@ -66,31 +66,37 @@
       </div>
     </clr-dg-cell>
     <clr-dg-cell>
-      <div class="text-overflow"><a href="javascript:void(0)" (click)="tplDetail(daemonSetTpl)">{{daemonSetTpl.description}}</a>
+      <div class="text-overflow"><a href="javascript:void(0)"
+                                    (click)="tplDetail(daemonSetTpl)">{{daemonSetTpl.description}}</a>
       </div>
     </clr-dg-cell>
     <clr-dg-cell class="col-user">{{daemonSetTpl.user}}</clr-dg-cell>
     <clr-dg-cell>
       <button class="wayne-button text"
-         (click)="publishTpl(daemonSetTpl)"
-         *ngIf="authService.currentAppPermission.daemonSet?.deploy || authService.currentUser.admin">
-         发布</button>
+              (click)="publishTpl(daemonSetTpl)"
+              *ngIf="authService.currentAppPermission.daemonSet?.deploy || authService.currentUser.admin">
+        发布
+      </button>
       <button class="wayne-button text"
-         (click)="daemonSetTplDetail(daemonSetTpl)"
-         *ngIf="authService.currentAppPermission.daemonSet?.read || authService.currentUser.admin">
-         详情</button>
+              (click)="daemonSetTplDetail(daemonSetTpl)"
+              *ngIf="authService.currentAppPermission.daemonSet?.read || authService.currentUser.admin">
+        详情
+      </button>
       <button class="wayne-button text"
-         (click)="cloneDaemonSetTpl(daemonSetTpl)"
-         *ngIf="authService.currentAppPermission.daemonSet?.create || authService.currentUser.admin">
-         克隆</button>
+              (click)="cloneDaemonSetTpl(daemonSetTpl)"
+              *ngIf="authService.currentAppPermission.daemonSet?.create || authService.currentUser.admin">
+        克隆
+      </button>
       <button class="wayne-button text"
-         *ngIf="!daemonSetTpl.status && (authService.currentAppPermission.daemonSet?.delete || authService.currentUser.admin)"
-         (click)="deleteDaemonSetTpl(daemonSetTpl)">
-         删除</button>
+              *ngIf="!daemonSetTpl.status && (authService.currentAppPermission.daemonSet?.delete || authService.currentUser.admin)"
+              (click)="deleteDaemonSetTpl(daemonSetTpl)">
+        删除
+      </button>
       <button class="wayne-button text"
-         (click)="offlineDaemonSet(daemonSetTpl)"
-         *ngIf="daemonSetTpl.status && (authService.currentAppPermission.daemonSet?.offline || authService.currentUser.admin)">
-         下线</button>
+              (click)="offlineDaemonSet(daemonSetTpl)"
+              *ngIf="daemonSetTpl.status && (authService.currentAppPermission.daemonSet?.offline || authService.currentUser.admin)">
+        下线
+      </button>
     </clr-dg-cell>
   </clr-dg-row>
 

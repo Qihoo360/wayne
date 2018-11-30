@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {User} from '../model/v1/user';
-import {TypePermission} from '../model/v1/permission';
-import {CacheService} from './cache.service';
-import {MessageHandlerService} from '../message-handler/message-handler.service';
-import {HttpClient} from '@angular/common/http';
+import { User } from '../model/v1/user';
+import { TypePermission } from '../model/v1/permission';
+import { CacheService } from './cache.service';
+import { MessageHandlerService } from '../message-handler/message-handler.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +16,7 @@ export class AuthService {
   currentAppPermission: TypePermission = null;
 
   constructor(private http: HttpClient,
-              private messageHandlerService:MessageHandlerService,
+              private messageHandlerService: MessageHandlerService,
               public cacheService: CacheService) {
     this.currentAppPermission = new TypePermission();
     this.currentNamespacePermission = new TypePermission();
@@ -25,7 +25,7 @@ export class AuthService {
   initConfig(): Promise<any> {
     return this.http
       .get(`/api/v1/configs/base`)
-      .toPromise().then((response:any) => {
+      .toPromise().then((response: any) => {
           this.config = response.data;
           return response.data;
         }
@@ -34,24 +34,24 @@ export class AuthService {
   }
 
   retrieveUser(): Promise<User> {
-    return this.http.get(`/currentuser`).toPromise().then((response:any) => {
+    return this.http.get(`/currentuser`).toPromise().then((response: any) => {
       this.currentUser = response.data;
       this.cacheService.setNamespaces(this.currentUser.namespaces);
       return response.data;
-    }).catch(error =>{
+    }).catch(error => {
       this.messageHandlerService.handleError(error);
-      return Promise.resolve()
+      return Promise.resolve();
     });
   }
 
   setNamespacePermissionById(id: number) {
-    return this.http.get(`/api/v1/namespaces/${id}/users/permissions/${id}`).toPromise().then((response:any) => {
+    return this.http.get(`/api/v1/namespaces/${id}/users/permissions/${id}`).toPromise().then((response: any) => {
       this.currentNamespacePermission.deserialize(response.data);
     }).catch(error => this.handleError(error));
   }
 
   setAppPermissionById(id: number) {
-    return this.http.get(`/api/v1/apps/${id}/users/permissions/${id}`).toPromise().then((response:any) => {
+    return this.http.get(`/api/v1/apps/${id}/users/permissions/${id}`).toPromise().then((response: any) => {
       this.currentAppPermission.deserialize(response.data);
     }).catch(error => this.handleError(error));
   }

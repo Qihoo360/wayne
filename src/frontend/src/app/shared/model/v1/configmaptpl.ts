@@ -1,5 +1,5 @@
-import {ConfigMap} from './configmap';
-import {PublishStatus} from './publish-status';
+import { ConfigMap } from './configmap';
+import { PublishStatus } from './publish-status';
 
 export class ConfigMapTpl {
   id: number;
@@ -9,9 +9,9 @@ export class ConfigMapTpl {
   description: string;
   deleted: boolean;
   user: string;
-  metaData:string;
+  metaData: string;
   createTime: Date;
   configMap: ConfigMap;
-  clusters:string[];
+  clusters: string[];
   status: PublishStatus[];
 }

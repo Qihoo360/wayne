@@ -1,6 +1,6 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)">
-  <clr-dg-column >
-    <ng-container  *clrDgHideableColumn="showState['ID']">
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['ID']">
       ID
     </ng-container>
   </clr-dg-column>
@@ -21,7 +21,7 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user'">
     <ng-container *clrDgHideableColumn="showState['创建用户']">
-      创建用户 
+      创建用户
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
@@ -30,7 +30,7 @@
     </ng-container>
   </clr-dg-column>
   <clr-dg-column
-      *ngIf="
+    *ngIf="
       authService.currentNamespacePermission.webHook.update ||
       authService.currentAppPermission.webHook.update ||
       authService.currentNamespacePermission.webHook.delete ||
@@ -46,16 +46,16 @@
     <clr-dg-cell class="copy">{{w.name}}</clr-dg-cell>
     <clr-dg-cell>{{w.url}}</clr-dg-cell>
     <clr-dg-cell>
-			<div class="toggle-switch">
-				<input 
-          type="checkbox"  
+      <div class="toggle-switch">
+        <input
+          type="checkbox"
           id="webhook-toggle-{{i}}"
           (change)="toggleWebhook(w)"
           [checked]="w.enabled"
         >
         <label for="webhook-toggle-{{i}}"></label>
-			</div> 
-		</clr-dg-cell>
+      </div>
+    </clr-dg-cell>
     <clr-dg-cell>{{w.user}}</clr-dg-cell>
     <clr-dg-cell>{{w.createTime | date:"yyyy-MM-dd HH:mm"}}</clr-dg-cell>
     <clr-dg-cell
@@ -67,19 +67,21 @@
       authService.currentUser.admin"
     >
       <button class="wayne-button text"
-        *ngIf="
+              *ngIf="
         authService.currentNamespacePermission.webHook.update ||
         authService.currentAppPermission.webHook.update ||
         authService.currentUser.admin"
-        (click)="editWebhook(w)">
-        编辑</button>
+              (click)="editWebhook(w)">
+        编辑
+      </button>
       <button class="wayne-button text"
-        *ngIf="
+              *ngIf="
         authService.currentNamespacePermission.webHook.delete ||
         authService.currentAppPermission.webHook.delete ||
         authService.currentUser.admin"
-        (click)="deleteWebhook(w)">
-        删除</button>
+              (click)="deleteWebhook(w)">
+        删除
+      </button>
     </clr-dg-cell>
   </clr-dg-row>
 

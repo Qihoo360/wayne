@@ -26,7 +26,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let configMapTpl of configMapTpls" [clrDgItem]="configMapTpl">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editConfigMapTpl(configMapTpl)" >编辑</button>
+      <button class="action-item" (click)="editConfigMapTpl(configMapTpl)">编辑</button>
       <button class="action-item" (click)="deleteConfigMapTpl(configMapTpl)">删除</button>
     </clr-dg-action-overflow>
     <clr-dg-cell>{{configMapTpl.id}}</clr-dg-cell>

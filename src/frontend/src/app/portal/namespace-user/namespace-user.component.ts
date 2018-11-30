@@ -1,19 +1,19 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {ActivatedRoute} from '@angular/router';
-import {State} from '@clr/angular';
-import {ListNamespaceUserComponent} from './list-namespace-user/list-namespace-user.component';
-import {CreateEditNamespaceUserComponent} from './create-edit-namespace-user/create-edit-namespace-user.component';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {NamespaceUser} from '../../shared/model/v1/namespace-user';
-import {AuthService} from '../../shared/auth/auth.service';
-import {NamespaceUserService} from '../../shared/client/v1/namespace-user.service';
-import {CacheService} from '../../shared/auth/cache.service';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
+import { ActivatedRoute } from '@angular/router';
+import { State } from '@clr/angular';
+import { ListNamespaceUserComponent } from './list-namespace-user/list-namespace-user.component';
+import { CreateEditNamespaceUserComponent } from './create-edit-namespace-user/create-edit-namespace-user.component';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { NamespaceUser } from '../../shared/model/v1/namespace-user';
+import { AuthService } from '../../shared/auth/auth.service';
+import { NamespaceUserService } from '../../shared/client/v1/namespace-user.service';
+import { CacheService } from '../../shared/auth/cache.service';
+import { PageState } from '../../shared/page/page-state';
 
 const showState = {
   'ID': {hidden: true},
@@ -82,7 +82,7 @@ export class NamespaceUserComponent implements OnInit {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
       if (!this.showState[key].hidden) this.showList.push(key);
-    })
+    });
   }
 
   confirmEvent() {
@@ -92,7 +92,7 @@ export class NamespaceUserComponent implements OnInit {
       } else {
         this.showState[key] = {hidden: true};
       }
-    })
+    });
   }
 
   cancelEvent() {
@@ -123,7 +123,7 @@ export class NamespaceUserComponent implements OnInit {
 
   createNamespaceUser(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

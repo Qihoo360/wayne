@@ -1,11 +1,11 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Terminal} from 'xterm';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Terminal } from 'xterm';
 import * as webLinks from 'xterm/lib/addons/webLinks/webLinks';
 import * as winptyCompat from 'xterm/lib/addons/winptyCompat/winptyCompat';
-import {ContainerStatus, Pod} from '../../shared/model/v1/kubernetes/pod';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {PodClient} from '../../shared/client/v1/kubernetes/pod';
+import { ContainerStatus, Pod } from '../../shared/model/v1/kubernetes/pod';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { PodClient } from '../../shared/client/v1/kubernetes/pod';
 import * as SockJS from 'sockjs-client';
 
 @Component({
@@ -37,7 +37,7 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
               private podClient: PodClient) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
-    }
+    };
   }
 
   ngOnInit(): void {
@@ -113,7 +113,7 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
         // wait for terminal initial
         this.timer = setInterval(() => {
           this.socket.send(JSON.stringify({'Op': 'stdin', 'Data': 'echo wayne-init\n'}));
-        }, 1000)
+        }, 1000);
       }
     );
     this.xterm.on('key', (key?: string, ev?: KeyboardEvent) => {
@@ -122,7 +122,7 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
       this.socket.send(JSON.stringify({'Op': 'stdin', 'Data': data}));
     });
     this.xterm.open(this.terminal.nativeElement);
-    this.connect()
+    this.connect();
   }
 
   connect() {
@@ -185,7 +185,7 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
           console.error('Unexpected message type:', msg);
       }
     } catch (e) {
-      console.log('parse json error.', evt.data)
+      console.log('parse json error.', evt.data);
     }
 
   }

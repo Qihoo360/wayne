@@ -20,13 +20,13 @@
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-      <ng-container *clrDgHideableColumn="{hidden: false}">
-          创建时间
-      </ng-container>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      创建时间
+    </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let tpl of pvcTpls" [clrDgItem]="tpl">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editPvcTpl(tpl)" >编辑</button>
+      <button class="action-item" (click)="editPvcTpl(tpl)">编辑</button>
       <button class="action-item" (click)="deletePvcTpl(tpl)">删除</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{tpl.id}}</clr-dg-cell>

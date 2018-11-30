@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {State} from '@clr/angular';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../../shared/shared.const';
-import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
-import {PersistentVolumeClaimTplService} from '../../../shared/client/v1/persistentvolumeclaimtpl.service';
-import {PersistentVolumeClaimTpl} from '../../../shared/model/v1/persistentvolumeclaimtpl';
-import {PageState} from '../../../shared/page/page-state';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { State } from '@clr/angular';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription } from 'rxjs/Subscription';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { PersistentVolumeClaimTplService } from '../../../shared/client/v1/persistentvolumeclaimtpl.service';
+import { PersistentVolumeClaimTpl } from '../../../shared/model/v1/persistentvolumeclaimtpl';
+import { PageState } from '../../../shared/page/page-state';
 
 @Component({
   selector: 'trash-persistentvolumeclaimtpl',
@@ -91,7 +91,7 @@ export class TrashPersistentVolumeClaimTplComponent implements OnInit, OnDestroy
     this.deletionDialogService.openComfirmDialog(deletionMessage);
   }
 
-  tplDetail(tpl: PersistentVolumeClaimTpl){
+  tplDetail(tpl: PersistentVolumeClaimTpl) {
     this.aceEditorService.announceMessage(AceEditorMsg.Instance(tpl.template, false, '详情'));
   }
 

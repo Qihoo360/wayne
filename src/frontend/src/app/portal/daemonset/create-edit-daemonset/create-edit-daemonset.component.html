@@ -1,11 +1,12 @@
 <clr-modal [(clrModalOpen)]="modalOpened">
-    <h3 class="modal-title">{{title}}</h3>
+  <h3 class="modal-title">{{title}}</h3>
   <div class="modal-body">
     <form #ngForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
           <label for="name" class="col-md-3 form-group-label-override required">名称</label>
-          <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
+          <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
+                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <label *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</label>
             <input type="text" [(ngModel)]="daemonSet.name"
                    name="name"

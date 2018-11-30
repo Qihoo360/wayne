@@ -42,9 +42,9 @@
     <clr-dg-cell class="col-time">{{statefulsetTpl.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
     <clr-dg-cell class="col-version">
       <div *ngFor="let version of statefulsetTpl.containerVersions" class="version-text">
-         <a href="javascript:;" (click)="versionDetail(version)">
-           {{version}}
-         </a>
+        <a href="javascript:;" (click)="versionDetail(version)">
+          {{version}}
+        </a>
       </div>
     </clr-dg-cell>
     <clr-dg-cell class="col-cluster">
@@ -66,31 +66,37 @@
       </div>
     </clr-dg-cell>
     <clr-dg-cell class="col-description">
-      <div class="text-overflow"><a href="javascript:void(0)" (click)="tplDetail(statefulsetTpl)">{{statefulsetTpl.description}}</a>
+      <div class="text-overflow"><a href="javascript:void(0)"
+                                    (click)="tplDetail(statefulsetTpl)">{{statefulsetTpl.description}}</a>
       </div>
     </clr-dg-cell>
     <clr-dg-cell>{{statefulsetTpl.user}}</clr-dg-cell>
     <clr-dg-cell class="col-operate">
       <button class="wayne-button text"
-         (click)="publishTpl(statefulsetTpl)"
-         *ngIf="authService.currentAppPermission.statefulset?.deploy || authService.currentUser.admin">
-         发布</button>
+              (click)="publishTpl(statefulsetTpl)"
+              *ngIf="authService.currentAppPermission.statefulset?.deploy || authService.currentUser.admin">
+        发布
+      </button>
       <button class="wayne-button text"
-         (click)="statefulsetTplDetail(statefulsetTpl)"
-         *ngIf="authService.currentAppPermission.statefulset?.read || authService.currentUser.admin">
-         详情</button>
+              (click)="statefulsetTplDetail(statefulsetTpl)"
+              *ngIf="authService.currentAppPermission.statefulset?.read || authService.currentUser.admin">
+        详情
+      </button>
       <button class="wayne-button text"
-         (click)="cloneStatefulsetTpl(statefulsetTpl)"
-         *ngIf="authService.currentAppPermission.statefulset?.create || authService.currentUser.admin">
-         克隆</button>
+              (click)="cloneStatefulsetTpl(statefulsetTpl)"
+              *ngIf="authService.currentAppPermission.statefulset?.create || authService.currentUser.admin">
+        克隆
+      </button>
       <button class="wayne-button text"
-         *ngIf="!statefulsetTpl.status && (authService.currentAppPermission.statefulset?.delete || authService.currentUser.admin)"
-         (click)="deleteStatefulsetTpl(statefulsetTpl)">
-         删除</button>
+              *ngIf="!statefulsetTpl.status && (authService.currentAppPermission.statefulset?.delete || authService.currentUser.admin)"
+              (click)="deleteStatefulsetTpl(statefulsetTpl)">
+        删除
+      </button>
       <button class="wayne-button text"
-         (click)="offlineStatefulset(statefulsetTpl)"
-         *ngIf="statefulsetTpl.status && (authService.currentAppPermission.statefulset.offline || authService.currentUser.admin)">
-         下线</button>
+              (click)="offlineStatefulset(statefulsetTpl)"
+              *ngIf="statefulsetTpl.status && (authService.currentAppPermission.statefulset.offline || authService.currentUser.admin)">
+        下线
+      </button>
     </clr-dg-cell>
   </clr-dg-row>
 

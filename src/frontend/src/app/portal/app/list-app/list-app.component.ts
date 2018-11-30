@@ -1,13 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {App} from '../../../shared/model/v1/app';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {Page} from '../../../shared/page/page-state';
-import {AppStarredService} from '../../../shared/client/v1/appstarred.service';
-import {AppStarred} from '../../../shared/model/v1/app-starred';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {CacheService} from '../../../shared/auth/cache.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { App } from '../../../shared/model/v1/app';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { Page } from '../../../shared/page/page-state';
+import { AppStarredService } from '../../../shared/client/v1/appstarred.service';
+import { AppStarred } from '../../../shared/model/v1/app-starred';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { CacheService } from '../../../shared/auth/cache.service';
 
 @Component({
   selector: 'list-app',
@@ -77,7 +77,7 @@ export class ListAppComponent implements OnInit {
         this.refresh();
       },
       error => {
-        this.messageHandlerService.handleError(error)
+        this.messageHandlerService.handleError(error);
       }
     );
   }
@@ -89,7 +89,7 @@ export class ListAppComponent implements OnInit {
         this.refresh();
       },
       error => {
-        this.messageHandlerService.handleError(error)
+        this.messageHandlerService.handleError(error);
       }
     );
   }

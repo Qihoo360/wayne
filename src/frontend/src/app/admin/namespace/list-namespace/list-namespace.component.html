@@ -36,16 +36,17 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let ns of namespaces" [clrDgItem]="ns">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editNamespace(ns)" >编辑</button>
+      <button class="action-item" (click)="editNamespace(ns)">编辑</button>
       <button class="action-item" (click)="deleteNamespace(ns)">删除</button>
     </clr-dg-action-overflow>
-      <clr-dg-cell class="col-id">{{ns.id}}</clr-dg-cell>
-      <clr-dg-cell class="col-app-name copy"><a href="javascript:void(0)" (click)="goToLink(ns, 'app')">{{ns.name}}</a></clr-dg-cell>
-      <clr-dg-cell class="copy">{{ns.metaDataObj.namespace}}</clr-dg-cell>
-      <clr-dg-cell>{{ns.metaData}}</clr-dg-cell>
-      <clr-dg-cell>{{ns.user}}</clr-dg-cell>
-      <clr-dg-cell class="col-time">{{ns.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
-      <clr-dg-cell class="col-time">{{ns.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
+    <clr-dg-cell class="col-id">{{ns.id}}</clr-dg-cell>
+    <clr-dg-cell class="col-app-name copy"><a href="javascript:void(0)" (click)="goToLink(ns, 'app')">{{ns.name}}</a>
+    </clr-dg-cell>
+    <clr-dg-cell class="copy">{{ns.metaDataObj.namespace}}</clr-dg-cell>
+    <clr-dg-cell>{{ns.metaData}}</clr-dg-cell>
+    <clr-dg-cell>{{ns.user}}</clr-dg-cell>
+    <clr-dg-cell class="col-time">{{ns.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
+    <clr-dg-cell class="col-time">{{ns.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
   </clr-dg-row>
   <wayne-paginate
     [(currentPage)]="currentPage"

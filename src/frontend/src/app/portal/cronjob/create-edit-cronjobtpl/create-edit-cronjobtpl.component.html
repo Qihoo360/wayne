@@ -34,13 +34,14 @@
               <span class="tooltip-content">计划任务的定时周期,Cron表达式</span>
             </a>
           </label>
-          <label aria-haspopup="true" role="tooltip" [class.invalid]="!isScheduleValid" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+          <label aria-haspopup="true" role="tooltip" [class.invalid]="!isScheduleValid"
+                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" name="schedule"
                    [(ngModel)]="kubeCronjob.spec.schedule"
                    size="40"
                    required
                    class="tooltip tooltip-validation tooltip-md tooltip-bottom-left"
-              placeholder="cron表达式">
+                   placeholder="cron表达式">
             <span class="tooltip-content">
               cron表达式填写不正确
             </span>
@@ -71,9 +72,11 @@
               <span class="tooltip-content">任务执行后，最大的执行时间，超出后会被中止</span>
             </a>
           </label>
-          <label aria-haspopup="true" role="tooltip" [class.invalid]="formValid('activeDeadlineSeconds')" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="number" name="activeDeadlineSeconds" [(ngModel)]="kubeCronjob.spec.jobTemplate.spec.activeDeadlineSeconds" size="45" required
-                 placeholder="最大执行时间"> 秒
+          <label aria-haspopup="true" role="tooltip" [class.invalid]="formValid('activeDeadlineSeconds')"
+                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+            <input type="number" name="activeDeadlineSeconds"
+                   [(ngModel)]="kubeCronjob.spec.jobTemplate.spec.activeDeadlineSeconds" size="45" required
+                   placeholder="最大执行时间"> 秒
           </label>
         </div>
         <!--
@@ -103,7 +106,8 @@
         </div>-->
       </div>
     </section>
-    <section *ngFor="let container of kubeCronjob.spec.jobTemplate.spec.template.spec.containers; let i = index" class="form-block wrap">
+    <section *ngFor="let container of kubeCronjob.spec.jobTemplate.spec.template.spec.containers; let i = index"
+             class="form-block wrap">
       <div>
         <label class="label-level1" [id]="i ? '容器配置' + i : '容器配置'">容器配置
           <clr-icon (click)="onDeleteContainer(i)" shape="trash" title="删除容器" class="is-solid"></clr-icon>
@@ -112,9 +116,11 @@
           <label class="label-level2" [id]="i ? '镜像配置' + i : '镜像配置'">镜像配置</label>
           <div class="form-group form-group-padding">
             <label class="col-md-3 form-group-label-override required">容器名称</label>
-            <label aria-haspopup="true" role="tooltip" [class.invalid]="containerIsInvalid(i,'container.name_')" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="text" size="90" class="col-sm-12" required name="container.name_{{i}}" pattern="[a-z]([-a-z0-9]*[a-z0-9])?" [(ngModel)]="container.name"
-                placeholder="英文，dns域名规则">
+            <label aria-haspopup="true" role="tooltip" [class.invalid]="containerIsInvalid(i,'container.name_')"
+                   class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="text" size="90" class="col-sm-12" required name="container.name_{{i}}"
+                     pattern="[a-z]([-a-z0-9]*[a-z0-9])?" [(ngModel)]="container.name"
+                     placeholder="英文，dns域名规则">
               <span class="tooltip-content">
                 容器名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?
               </span>
@@ -122,9 +128,11 @@
           </div>
           <div class="form-group form-group-padding">
             <label class="col-md-3 form-group-label-override required">镜像地址</label>
-            <label aria-haspopup="true" role="tooltip" [class.invalid]="containerIsInvalid(i,'container.image_')" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="text" size="90" class="col-sm-12" name="container.image_{{i}}" required pattern="{{getImagePrefixReg()}}" [(ngModel)]="container.image"
-                placeholder="镜像地址">
+            <label aria-haspopup="true" role="tooltip" [class.invalid]="containerIsInvalid(i,'container.image_')"
+                   class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="text" size="90" class="col-sm-12" name="container.image_{{i}}" required
+                     pattern="{{getImagePrefixReg()}}" [(ngModel)]="container.image"
+                     placeholder="镜像地址">
               <span class="tooltip-content">
                 镜像不符合校验规则 {{getImagePrefixReg()}}
               </span>
@@ -132,10 +140,12 @@
           </div>
           <div class="form-group form-group-padding">
             <label class="col-md-3 form-group-label-override required">内存容量</label>
-            <label aria-haspopup="true" [class.invalid]="!checkMemory(container.resources.limits.memory)" style="padding-right: 0;margin-right: 0;padding-left: 0"
-              role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="number" style="width:inherit" name="container.resources.limits.memory_{{i}}" required [(ngModel)]="container.resources.limits.memory"
-                placeholder="单位G">
+            <label aria-haspopup="true" [class.invalid]="!checkMemory(container.resources.limits.memory)"
+                   style="padding-right: 0;margin-right: 0;padding-left: 0"
+                   role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="number" style="width:inherit" name="container.resources.limits.memory_{{i}}" required
+                     [(ngModel)]="container.resources.limits.memory"
+                     placeholder="单位G">
               <span class="tooltip-content">
                 内存大小应该在0~{{memoryLimit}}G之间
               </span>
@@ -145,10 +155,12 @@
           </div>
           <div class="form-group form-group-padding">
             <label class="col-md-3 form-group-label-override required">CPU核数</label>
-            <label aria-haspopup="true" [class.invalid]="!checkCpu(container.resources.limits.cpu)" style="padding-right: 0;margin-right: 0;padding-left: 0"
-              role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="number" name="container.resources.limits.cpu_{{i}}" [(ngModel)]="container.resources.limits.cpu" style="width:inherit"
-                required placeholder="单位个">
+            <label aria-haspopup="true" [class.invalid]="!checkCpu(container.resources.limits.cpu)"
+                   style="padding-right: 0;margin-right: 0;padding-left: 0"
+                   role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="number" name="container.resources.limits.cpu_{{i}}"
+                     [(ngModel)]="container.resources.limits.cpu" style="width:inherit"
+                     required placeholder="单位个">
               <span class="tooltip-content">
                 CPU大小应该在0~{{cpuLimit}}核之间
               </span>
@@ -161,8 +173,14 @@
 
         <div class="container-box">
           <label class="label-level2" [id]="i ? '环境变量配置' + i : '环境变量配置'">环境变量配置
-            <button (click)="onAddEnvFrom(i)" style="margin-left: 10px;" class="wayne-button primary"><clr-icon shape="add-text"></clr-icon>批量加载</button>
-            <button (click)="onAddEnv(i)" style="margin-left: 10px;" class="wayne-button primary"><clr-icon shape="add"></clr-icon>逐个加载</button>
+            <button (click)="onAddEnvFrom(i)" style="margin-left: 10px;" class="wayne-button primary">
+              <clr-icon shape="add-text"></clr-icon>
+              批量加载
+            </button>
+            <button (click)="onAddEnv(i)" style="margin-left: 10px;" class="wayne-button primary">
+              <clr-icon shape="add"></clr-icon>
+              逐个加载
+            </button>
           </label>
           <div *ngFor="let envFrom of container.envFrom; let j = index">
             <div class="form-group form-group-padding">
@@ -173,24 +191,30 @@
                 </a>
               </label>
               <div class="select">
-                <select id="envFromType-{{i}}-{{j}}" name="envFrom.type_{{i}}_{{j}}" (change)="envFromChange($event.target.value,i,j)">
+                <select id="envFromType-{{i}}-{{j}}" name="envFrom.type_{{i}}_{{j}}"
+                        (change)="envFromChange($event.target.value,i,j)">
                   <option value="1" [selected]="envFrom.configMapRef">从配置集加载</option>
                   <option value="2" [selected]="envFrom.secretRef">从加密字典加载</option>
                 </select>
               </div>
 
-              <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnvFrom(i)" shape="plus-circle" title="添加环境变量" class="is-solid"></clr-icon>
-              <clr-icon style="margin-top: 10px" (click)="onDeleteEnvFrom(i,j)" shape="trash" title="删除环境变量" class="is-solid"></clr-icon>
+              <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnvFrom(i)" shape="plus-circle"
+                        title="添加环境变量" class="is-solid"></clr-icon>
+              <clr-icon style="margin-top: 10px" (click)="onDeleteEnvFrom(i,j)" shape="trash" title="删除环境变量"
+                        class="is-solid"></clr-icon>
             </div>
             <div *ngIf="envFrom" class="form-group form-group-padding">
-              <input type="text" size="40" name="envFrom.prefix_{{i}}_{{j}}" [(ngModel)]="envFrom.prefix" placeholder="为所有环境变量添加相同的前缀，可为空">
+              <input type="text" size="40" name="envFrom.prefix_{{i}}_{{j}}" [(ngModel)]="envFrom.prefix"
+                     placeholder="为所有环境变量添加相同的前缀，可为空">
             </div>
             <div *ngIf="envFrom && envFrom.configMapRef" class="form-group form-group-padding">
-              <input type="text" size="40" required name="envFrom.configMapRef.name_{{i}}_{{j}}" [(ngModel)]="envFrom.configMapRef.name"
-                placeholder="配置集名称">
+              <input type="text" size="40" required name="envFrom.configMapRef.name_{{i}}_{{j}}"
+                     [(ngModel)]="envFrom.configMapRef.name"
+                     placeholder="配置集名称">
             </div>
             <div *ngIf="envFrom && envFrom.secretRef" class="form-group form-group-padding">
-              <input type="text" size="40" required name="envFrom.secretRef.name_{{i}}_{{j}}" [(ngModel)]="envFrom.secretRef.name" placeholder="加密字典名称">
+              <input type="text" size="40" required name="envFrom.secretRef.name_{{i}}_{{j}}"
+                     [(ngModel)]="envFrom.secretRef.name" placeholder="加密字典名称">
             </div>
 
           </div>
@@ -204,33 +228,42 @@
                 </a>
               </label>
               <div class="select">
-                <select id="envType-{{i}}-{{j}}" name="env.type_{{i}}_{{j}}" (change)="envChange($event.target.value,i,j)">
+                <select id="envType-{{i}}-{{j}}" name="env.type_{{i}}_{{j}}"
+                        (change)="envChange($event.target.value,i,j)">
                   <option value="0" [selected]="env.value!=null">自定义环境变量</option>
                   <option value="1" [selected]="env.valueFrom?.configMapKeyRef">从配置集加载</option>
                   <option value="2" [selected]="env.valueFrom?.secretKeyRef">从加密字典加载</option>
                   <option value="3" selected>其它</option>
                 </select>
               </div>
-              <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnv(i)" shape="plus-circle" title="添加环境变量" class="is-solid"></clr-icon>
-              <clr-icon style="margin-top: 10px" (click)="onDeleteEnv(i,j)" shape="trash" title="删除环境变量" class="is-solid"></clr-icon>
+              <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnv(i)" shape="plus-circle"
+                        title="添加环境变量" class="is-solid"></clr-icon>
+              <clr-icon style="margin-top: 10px" (click)="onDeleteEnv(i,j)" shape="trash" title="删除环境变量"
+                        class="is-solid"></clr-icon>
             </div>
             <div class="form-group form-group-padding">
-              <input [(ngModel)]="env.name" required name="env.name_{{i}}_{{j}}" type="text" size="45" placeholder="环境变量名称">
+              <input [(ngModel)]="env.name" required name="env.name_{{i}}_{{j}}" type="text" size="45"
+                     placeholder="环境变量名称">
             </div>
             <div *ngIf="env.value != null" class="form-group form-group-padding">
-              <input [(ngModel)]="env.value" required name="env.value_{{i}}_{{j}}" type="text" size="45" placeholder="环境变量值">
+              <input [(ngModel)]="env.value" required name="env.value_{{i}}_{{j}}" type="text" size="45"
+                     placeholder="环境变量值">
             </div>
             <div *ngIf="env.valueFrom && env.valueFrom.configMapKeyRef" class="form-group form-group-padding">
-              <input type="text" size="40" required name="env.valueFrom.configMapKeyRef.name_{{i}}_{{j}}" [(ngModel)]="env.valueFrom.configMapKeyRef.name"
-                placeholder="配置集名称">
-              <input type="text" size="40" required name="env.valueFrom.configMapKeyRef.key_{{i}}_{{j}}" [(ngModel)]="env.valueFrom.configMapKeyRef.key"
-                placeholder="配置集key">
+              <input type="text" size="40" required name="env.valueFrom.configMapKeyRef.name_{{i}}_{{j}}"
+                     [(ngModel)]="env.valueFrom.configMapKeyRef.name"
+                     placeholder="配置集名称">
+              <input type="text" size="40" required name="env.valueFrom.configMapKeyRef.key_{{i}}_{{j}}"
+                     [(ngModel)]="env.valueFrom.configMapKeyRef.key"
+                     placeholder="配置集key">
             </div>
             <div *ngIf="env.valueFrom && env.valueFrom.secretKeyRef" class="form-group form-group-padding">
-              <input type="text" size="40" required name="env.valueFrom.secretKeyRef.name_{{i}}_{{j}}" [(ngModel)]="env.valueFrom.secretKeyRef.name"
-                placeholder="加密字典名称">
-              <input type="text" size="40" required name="env.valueFrom.secretKeyRef.key_{{i}}_{{j}}" [(ngModel)]="env.valueFrom.secretKeyRef.key"
-                placeholder="加密字典key">
+              <input type="text" size="40" required name="env.valueFrom.secretKeyRef.name_{{i}}_{{j}}"
+                     [(ngModel)]="env.valueFrom.secretKeyRef.name"
+                     placeholder="加密字典名称">
+              <input type="text" size="40" required name="env.valueFrom.secretKeyRef.key_{{i}}_{{j}}"
+                     [(ngModel)]="env.valueFrom.secretKeyRef.key"
+                     placeholder="加密字典key">
             </div>
 
           </div>

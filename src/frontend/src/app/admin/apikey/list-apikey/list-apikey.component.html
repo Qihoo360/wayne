@@ -40,10 +40,10 @@
     <clr-dg-cell class="copy">{{apiKey.name}}</clr-dg-cell>
     <clr-dg-cell class="col-type">{{getApiKeyType(apiKey)}}</clr-dg-cell>
     <clr-dg-cell class="copy">{{apiKey.group?.name}}</clr-dg-cell>
-    <clr-dg-cell>{{apiKey.deleted ? "否": "是"}}</clr-dg-cell>
+    <clr-dg-cell>{{apiKey.deleted ? "否" : "是"}}</clr-dg-cell>
     <clr-dg-cell>{{apiKey.resourceId}}</clr-dg-cell>
     <clr-dg-cell class="col-time">{{apiKey.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
-    <clr-dg-cell>{{apiKey.expireIn==0 ? "永久有效": apiKey.expireIn}}</clr-dg-cell>
+    <clr-dg-cell>{{apiKey.expireIn == 0 ? "永久有效" : apiKey.expireIn}}</clr-dg-cell>
     <clr-dg-cell class="col-user">{{apiKey.user}}</clr-dg-cell>
     <clr-dg-cell>{{apiKey.description}}</clr-dg-cell>
   </clr-dg-row>

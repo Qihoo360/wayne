@@ -1,16 +1,16 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType, configKeyApiNameGenerateRule, defaultResources} from '../../../shared/shared.const';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType, configKeyApiNameGenerateRule } from '../../../shared/shared.const';
 import 'rxjs/add/observable/combineLatest';
-import {Cluster} from '../../../shared/model/v1/cluster';
-import {ClusterMeta, Cronjob} from '../../../shared/model/v1/cronjob';
-import {CronjobService} from '../../../shared/client/v1/cronjob.service';
-import {App} from '../../../shared/model/v1/app';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {ApiNameGenerateRule} from '../../../shared/utils';
+import { Cluster } from '../../../shared/model/v1/cluster';
+import { ClusterMeta, Cronjob } from '../../../shared/model/v1/cronjob';
+import { CronjobService } from '../../../shared/client/v1/cronjob.service';
+import { App } from '../../../shared/model/v1/app';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { ApiNameGenerateRule } from '../../../shared/utils';
 
 @Component({
   selector: 'create-edit-cronjob',
@@ -103,9 +103,9 @@ export class CreateEditCronjobComponent implements OnInit {
     this.currentForm.reset();
   }
 
-  get nameGenerateRuleConfig():string{
+  get nameGenerateRuleConfig(): string {
     return ApiNameGenerateRule.config(
-      this.authService.config[configKeyApiNameGenerateRule], this.app.metaData)
+      this.authService.config[configKeyApiNameGenerateRule], this.app.metaData);
   }
 
   onSubmit() {
@@ -194,7 +194,7 @@ export class CreateEditCronjobComponent implements OnInit {
   handleValidation(): void {
     let cont = this.currentForm.controls['cronjob_name'];
     if (cont) {
-      this.isNameValid = cont.valid
+      this.isNameValid = cont.valid;
     }
   }
 }

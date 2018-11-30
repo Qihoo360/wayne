@@ -15,8 +15,9 @@
         <!-- </div> -->
         <div class="form-group" style="padding-left: 135px;">
           <label for="name" class="col-md-3 form-group-label-override required">名称</label>
-          <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
-            <input class="form-control" type="text" id="namespace_user_name"  [(ngModel)]="namespaceUser.user.name"
+          <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
+                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
+            <input class="form-control" type="text" id="namespace_user_name" [(ngModel)]="namespaceUser.user.name"
                    name="name" size="32"
                    required
                    [readonly]="actionType==1"

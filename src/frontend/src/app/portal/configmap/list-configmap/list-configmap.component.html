@@ -46,8 +46,9 @@
     </clr-dg-cell>
     <clr-dg-cell class="col-cluster">
       <div class="form-group" style="padding-bottom: 2px" *ngFor="let status of configMapTpl.status">
-          {{status.cluster}}&nbsp;<clr-icon style="color: #FF3434" shape="exclamation-triangle" *ngIf="status.state == 1" class="is-solid"></clr-icon>
-          <clr-icon style="color: green" shape="success-standard" *ngIf="status.state == 0" class="is-solid"></clr-icon>
+        {{status.cluster}}&nbsp;<clr-icon style="color: #FF3434" shape="exclamation-triangle" *ngIf="status.state == 1"
+                                          class="is-solid"></clr-icon>
+        <clr-icon style="color: green" shape="success-standard" *ngIf="status.state == 0" class="is-solid"></clr-icon>
       </div>
     </clr-dg-cell>
     <clr-dg-cell class="col-description">
@@ -58,25 +59,30 @@
     <clr-dg-cell>{{configMapTpl.user}}</clr-dg-cell>
     <clr-dg-cell class="col-operate">
       <button class="wayne-button text"
-        (click)="publishConfigMapTpl(configMapTpl)"
-        *ngIf="authService.currentAppPermission.configmap.deploy || authService.currentUser.admin">
-        发布</button>
+              (click)="publishConfigMapTpl(configMapTpl)"
+              *ngIf="authService.currentAppPermission.configmap.deploy || authService.currentUser.admin">
+        发布
+      </button>
       <button class="wayne-button text"
-        (click)="detailConfigMapTpl(configMapTpl)"
-        *ngIf="authService.currentAppPermission.configmap.read || authService.currentUser.admin">
-        详情</button>
+              (click)="detailConfigMapTpl(configMapTpl)"
+              *ngIf="authService.currentAppPermission.configmap.read || authService.currentUser.admin">
+        详情
+      </button>
       <button class="wayne-button text"
-        (click)="cloneConfigMapTpl(configMapTpl)"
-        *ngIf="authService.currentAppPermission.configmap.create || authService.currentUser.admin">
-        克隆</button>
+              (click)="cloneConfigMapTpl(configMapTpl)"
+              *ngIf="authService.currentAppPermission.configmap.create || authService.currentUser.admin">
+        克隆
+      </button>
       <button class="wayne-button text"
-        *ngIf="!configMapTpl.status && (authService.currentAppPermission.configmap.delete || authService.currentUser.admin)"
-        (click)="deleteConfigMapTpl(configMapTpl)">
-        删除</button>
+              *ngIf="!configMapTpl.status && (authService.currentAppPermission.configmap.delete || authService.currentUser.admin)"
+              (click)="deleteConfigMapTpl(configMapTpl)">
+        删除
+      </button>
       <button class="wayne-button text"
-         (click)="offlineConfigMapTpl(configMapTpl)"
-         *ngIf="configMapTpl.status && (authService.currentAppPermission.configmap.offline || authService.currentUser.admin)">
-         下线</button>
+              (click)="offlineConfigMapTpl(configMapTpl)"
+              *ngIf="configMapTpl.status && (authService.currentAppPermission.configmap.offline || authService.currentUser.admin)">
+        下线
+      </button>
     </clr-dg-cell>
   </clr-dg-row>
 

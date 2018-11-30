@@ -1,6 +1,6 @@
-import { Component, AfterViewInit } from '@angular/core';
-import {ScrollBarService} from './shared/client/v1/scrollBar.service';
-import {SelectCopyService} from './shared/client/v1/select-copy.service';
+import { AfterViewInit, Component } from '@angular/core';
+import { ScrollBarService } from './shared/client/v1/scrollBar.service';
+import { SelectCopyService } from './shared/client/v1/select-copy.service';
 
 @Component({
   selector: 'wayne-root',
@@ -13,7 +13,7 @@ export class AppComponent implements AfterViewInit {
     private scrollBar: ScrollBarService,
     private selectCopyService: SelectCopyService
   ) {
-    
+
   }
 
   ngAfterViewInit() {

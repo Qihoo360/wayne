@@ -1,12 +1,13 @@
-import {Component, Inject, Output, EventEmitter, Input, OnInit} from '@angular/core';
-import {DOCUMENT, EventManager} from '@angular/platform-browser';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { DOCUMENT, EventManager } from '@angular/platform-browser';
+
 @Component({
   selector: 'wayne-filter-box',
   templateUrl: './filter-box.component.html',
   styleUrls: ['./filter-box.component.scss']
 })
 
-export class FilterBoxComponent implements OnInit{
+export class FilterBoxComponent implements OnInit {
 
   show: boolean;
   @Output() confirm = new EventEmitter<any>();
@@ -27,7 +28,7 @@ export class FilterBoxComponent implements OnInit{
   }
 
   isBox(target: HTMLElement): boolean {
-    while(target && target.tagName.toLocaleLowerCase() !== 'body') {
+    while (target && target.tagName.toLocaleLowerCase() !== 'body') {
       if (target.tagName.toLocaleLowerCase() === 'wayne-filter-box') return true;
       target = target.parentElement;
     }
@@ -40,7 +41,7 @@ export class FilterBoxComponent implements OnInit{
   }
 
   ngOnInit() {
-    
+
   }
 
   _confirm() {

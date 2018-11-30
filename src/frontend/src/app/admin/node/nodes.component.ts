@@ -1,18 +1,18 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {ClusterService} from '../../shared/client/v1/cluster.service';
-import {AuthService} from '../../shared/auth/auth.service';
-import {ListNodesComponent} from './list-nodes/list-nodes.component';
-import {Node} from '../../shared/model/v1/kubernetes/node-list';
-import {NodeClient} from '../../shared/client/v1/kubernetes/node';
-import {Inventory} from './list-nodes/inventory';
-import {KubeNode} from '../../shared/model/v1/kubernetes/node';
-import {AceEditorComponent} from '../../shared/ace-editor/ace-editor.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { ClusterService } from '../../shared/client/v1/cluster.service';
+import { AuthService } from '../../shared/auth/auth.service';
+import { ListNodesComponent } from './list-nodes/list-nodes.component';
+import { Node } from '../../shared/model/v1/kubernetes/node-list';
+import { NodeClient } from '../../shared/client/v1/kubernetes/node';
+import { Inventory } from './list-nodes/inventory';
+import { KubeNode } from '../../shared/model/v1/kubernetes/node';
+import { AceEditorComponent } from '../../shared/ace-editor/ace-editor.component';
 
 const showState = {
   '名称': {hidden: false},
@@ -87,7 +87,7 @@ export class NodesComponent implements OnInit {
       } else {
         this.showState[key] = {hidden: true};
       }
-    })
+    });
   }
 
   cancelEvent() {
@@ -98,7 +98,7 @@ export class NodesComponent implements OnInit {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
       if (!this.showState[key].hidden) this.showList.push(key);
-    })
+    });
   }
 
   ngOnInit() {
@@ -135,7 +135,7 @@ export class NodesComponent implements OnInit {
 
   retrieve(): void {
     if (!this.cluster) {
-      return
+      return;
     }
 
     this.nodeClient.list(this.cluster).subscribe(
@@ -146,7 +146,7 @@ export class NodesComponent implements OnInit {
         this.nodes = this.inventory.all;
       },
       error => {
-        this.messageHandlerService.handleError(error)
+        this.messageHandlerService.handleError(error);
       }
     );
   }
@@ -159,7 +159,7 @@ export class NodesComponent implements OnInit {
         this.editNodeModal.openModal(node, '编辑节点', true);
       },
       error => {
-        this.messageHandlerService.handleError(error)
+        this.messageHandlerService.handleError(error);
       }
     );
   }
@@ -177,12 +177,12 @@ export class NodesComponent implements OnInit {
             this.retrieve();
           },
           error => {
-            this.messageHandlerService.handleError(error)
+            this.messageHandlerService.handleError(error);
           }
         );
       },
       error => {
-        this.messageHandlerService.handleError(error)
+        this.messageHandlerService.handleError(error);
       }
     );
 

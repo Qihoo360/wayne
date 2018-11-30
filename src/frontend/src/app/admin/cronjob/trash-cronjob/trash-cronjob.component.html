@@ -36,7 +36,7 @@
       </clr-dg-column>
       <clr-dg-row *ngFor="let cronjob of cronjobs" [clrDgItem]="cronjob">
         <clr-dg-action-overflow>
-          <button class="action-item" (click)="recoverCronjob(cronjob)" >恢复</button>
+          <button class="action-item" (click)="recoverCronjob(cronjob)">恢复</button>
           <button class="action-item" (click)="deleteCronjob(cronjob)">彻底删除</button>
         </clr-dg-action-overflow>
         <clr-dg-cell class="col-query-id">{{cronjob.id}}</clr-dg-cell>

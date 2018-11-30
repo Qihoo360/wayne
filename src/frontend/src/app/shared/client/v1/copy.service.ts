@@ -1,11 +1,12 @@
-import {Inject, Injectable, Renderer2, RendererFactory2, InjectionToken} from '@angular/core';
-import {DOCUMENT} from '@angular/platform-browser';
-import {MessageHandlerService} from '../../message-handler/message-handler.service';
+import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
+import { MessageHandlerService } from '../../message-handler/message-handler.service';
 
 @Injectable()
-export class CopyService{
+export class CopyService {
   private textarea: HTMLInputElement | HTMLTextAreaElement;
   render: Renderer2;
+
   constructor(
     @Inject(DOCUMENT) private document: any,
     rendererFactory: RendererFactory2,
@@ -21,13 +22,14 @@ export class CopyService{
     return !!this.document.queryCommandSupported && !!this.document.queryCommandSupported('copy');
   }
 
-  private createText(value: any, parent: HTMLElement, render: Renderer2): HTMLInputElement | HTMLTextAreaElement{
+  private createText(value: any, parent: HTMLElement, render: Renderer2): HTMLInputElement | HTMLTextAreaElement {
     const textarea = render.createElement('textarea');
     textarea.style.cssText = `position: fixed; left: 100px;width: 100px;height: 100px;left: 200px;top: 40px;z-index: 1050`;
     textarea.value = value;
     render.appendChild(parent, textarea);
     return textarea;
   }
+
   /**
    * @description 复制被选择文本
    * @param document InjectionToken<Document>
@@ -35,17 +37,18 @@ export class CopyService{
   private copyText(): boolean {
     return this.document.execCommand('copy');
   }
+
   /**
    * @param {textElement} input or textarea element
    * @returns {boolean} 返回成功或者失败结果
-  */
-  
+   */
+
   private selectText(textElement: HTMLInputElement | HTMLTextAreaElement): boolean {
     try {
       textElement.select();
       textElement.setSelectionRange(0, textElement.value.length);
       return true;
-    } catch(error) {
+    } catch (error) {
       return false;
     }
   }

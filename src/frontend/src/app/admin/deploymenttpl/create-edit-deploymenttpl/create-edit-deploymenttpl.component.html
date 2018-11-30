@@ -1,6 +1,6 @@
 <clr-modal [(clrModalOpen)]="createDeploymentTplOpened" [clrModalSize]="'lg'" #modal>
   <h3 class="modal-title">{{deploymentTplTitle}}
-    <wayne-modal-operate [modal]="modal"  *ngIf="createDeploymentTplOpened"></wayne-modal-operate>
+    <wayne-modal-operate [modal]="modal" *ngIf="createDeploymentTplOpened"></wayne-modal-operate>
   </h3>
   <div class="modal-body">
     <form #deploymentTplForm="ngForm">

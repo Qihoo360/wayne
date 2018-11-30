@@ -1,5 +1,5 @@
-.wanye-dropdown{
-  .inner{
+.wanye-dropdown {
+  .inner {
     & > * {
       display: inline-block;
       color: #fff;
@@ -8,11 +8,13 @@
       margin-right: 10px;
       opacity: .7;
       cursor: pointer;
+
       &:hover {
         opacity: 1;
       }
     }
   }
+
   .nowrap .inner > * {
     display: block;
   }

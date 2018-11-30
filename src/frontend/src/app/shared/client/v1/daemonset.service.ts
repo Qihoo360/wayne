@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {PageState} from '../../page/page-state';
-import {isNotEmpty} from '../../utils';
-import {DaemonSet} from '../../model/v1/daemonset';
-import {OrderItem} from '../../model/v1/order';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { PageState } from '../../page/page-state';
+import { isNotEmpty } from '../../utils';
+import { DaemonSet } from '../../model/v1/daemonset';
+import { OrderItem } from '../../model/v1/order';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class DaemonSetService {
@@ -19,13 +19,13 @@ export class DaemonSetService {
 
   getNames(appId?: number): Observable<any> {
     let params = new HttpParams();
-    if (typeof(appId) === 'undefined') {
+    if (typeof (appId) === 'undefined') {
       appId = 0;
     }
     return this.http
       .get(`/api/v1/apps/${appId}/daemonsets/names`, {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   listPage(pageState: PageState, appId?: number, deleted?: string): Observable<any> {
@@ -47,12 +47,12 @@ export class DaemonSetService {
       let value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
-          filterList.push(`${key}=${value}`)
+          filterList.push(`${key}=${value}`);
         } else {
           filterList.push(`${key}__contains=${value}`);
         }
       }
-    })
+    });
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }
@@ -66,7 +66,7 @@ export class DaemonSetService {
     return this.http
       .get(`/api/v1/apps/${appId}/daemonsets`, {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   create(obj: DaemonSet): Observable<any> {
@@ -88,14 +88,14 @@ export class DaemonSetService {
       .put(`/api/v1/apps/${appId}/daemonsets/updateorders`, orderList, this.options)
 
       .catch(error => Observable.throw(error));
-  } 
+  }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
-    let options : any = {};
+    let options: any = {};
     if (logical != null) {
       let params = new HttpParams();
       params = params.set('logical', logical + '');
-      options.params = params
+      options.params = params;
     }
 
     return this.http

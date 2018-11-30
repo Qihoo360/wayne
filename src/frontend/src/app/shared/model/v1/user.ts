@@ -1,4 +1,4 @@
-import {Namespace} from './namespace';
+import { Namespace } from './namespace';
 
 export class User {
   id: number;
@@ -11,7 +11,7 @@ export class User {
   admin: boolean;
   lastLogin: string;
   lastIp: string;
-  password:string;
-  rePassword:string;
+  password: string;
+  rePassword: string;
   namespaces: Namespace[];
 }

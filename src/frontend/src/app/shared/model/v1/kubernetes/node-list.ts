@@ -14,7 +14,7 @@ export class NodeSystemInfo {
   architecture: string;
 
   constructor(init?: NodeSystemInfo) {
-    if (!init) return ;
+    if (!init) return;
     if (init.machineID) this.machineID = init.machineID;
     if (init.systemUUID) this.systemUUID = init.systemUUID;
     if (init.bootID) this.bootID = init.bootID;
@@ -34,11 +34,12 @@ export class NodeSystemInfo {
   }
 
 }
+
 export class Quantity {
   Format: string;
 
   constructor(init?: Quantity) {
-    if (!init) return ;
+    if (!init) return;
     if (init.Format) this.Format = init.Format;
   }
 
@@ -49,12 +50,13 @@ export class Quantity {
   }
 
 }
+
 export class NodeStatus {
-  capacity?: {[key: string]: Quantity};
+  capacity?: { [key: string]: Quantity };
   nodeInfo: NodeSystemInfo;
 
   constructor(init?: NodeStatus) {
-    if (!init) return ;
+    if (!init) return;
     if (init.capacity) this.capacity = init.capacity;
     if (init.nodeInfo) this.nodeInfo = init.nodeInfo;
   }
@@ -73,7 +75,7 @@ export class Time {
   Time: Date;
 
   constructor(init?: Time) {
-    if (!init) return ;
+    if (!init) return;
     if (init.Time) this.Time = new Date(init.Time as any);
   }
 
@@ -85,6 +87,7 @@ export class Time {
   }
 
 }
+
 export class Taint {
   key: string;
   value: string;
@@ -92,7 +95,7 @@ export class Taint {
   timeAdded?: Time;
 
   constructor(init?: Taint) {
-    if (!init) return ;
+    if (!init) return;
     if (init.key) this.key = init.key;
     if (init.value) this.value = init.value;
     if (init.effect) this.effect = init.effect;
@@ -107,13 +110,14 @@ export class Taint {
   }
 
 }
+
 export class NodeSpec {
   unschedulable: boolean;
   taints: Taint[];
   ready: string;
 
   constructor(init?: NodeSpec) {
-    if (!init) return ;
+    if (!init) return;
     if (init.unschedulable) this.unschedulable = init.unschedulable;
     if (init.taints) this.taints = init.taints;
     if (init.ready) this.ready = init.ready;
@@ -127,14 +131,15 @@ export class NodeSpec {
   }
 
 }
+
 export class Node {
   name: string;
-  labels?: {[key: string]: string};
+  labels?: { [key: string]: string };
   spec: NodeSpec;
   status: NodeStatus;
 
   constructor(init?: Node) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.labels) this.labels = init.labels;
     if (init.spec) this.spec = init.spec;

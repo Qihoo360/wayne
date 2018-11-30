@@ -1,5 +1,5 @@
-import {Component, forwardRef, Input, Output, EventEmitter, ViewChild} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import { Component, EventEmitter, forwardRef, Input, Output, ViewChild } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'wayne-input',
@@ -14,21 +14,25 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 export class InputComponent implements ControlValueAccessor {
 
-  updateEmit = (_: any) => {};
+  updateEmit = (_: any) => {
+  };
   value: string;
   readOnly: boolean = false;
   showSearch: boolean = false;
   focusState: boolean = false;
   @ViewChild('input') inputElement;
-  @Input('placeholder')  placeholder = '';
-  @Input('type')  type = 'text';
+  @Input('placeholder') placeholder = '';
+  @Input('type') type = 'text';
+
   @Input()
   set search(value) {
     if (value !== undefined) {
       this.showSearch = true;
     }
   }
+
   @Input('cursor') cursor = 'auto';
+
   @Input()
   set readonly(value: any) {
     this.readOnly = value ? true : false;
@@ -56,5 +60,6 @@ export class InputComponent implements ControlValueAccessor {
     this.updateEmit = fn;
   }
 
-  registerOnTouched(fn: any): void {}
+  registerOnTouched(fn: any): void {
+  }
 }

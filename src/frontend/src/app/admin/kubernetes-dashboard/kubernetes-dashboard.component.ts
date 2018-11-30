@@ -1,13 +1,15 @@
-import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
-import {ClusterService} from '../../shared/client/v1/cluster.service';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
-import {Cluster} from '../../shared/model/v1/cluster';
-import {DomSanitizer, EventManager} from '@angular/platform-browser';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { ClusterService } from '../../shared/client/v1/cluster.service';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Cluster } from '../../shared/model/v1/cluster';
+import { DomSanitizer, EventManager } from '@angular/platform-browser';
 
-@Pipe({ name: 'safe' })
+@Pipe({name: 'safe'})
 export class SafePipe implements PipeTransform {
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer) {
+  }
+
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
@@ -30,7 +32,7 @@ export class KubernetesDashboardComponent implements OnInit {
               private router: Router,
               private messageHandlerService: MessageHandlerService,
               private eventManager: EventManager
-              ) {
+  ) {
   }
 
   ngOnInit() {
@@ -53,7 +55,7 @@ export class KubernetesDashboardComponent implements OnInit {
       }
     );
   }
-  
+
   iframeJump(cluster: string) {
     this.clusterService.getByName(cluster).subscribe(
       resp => {

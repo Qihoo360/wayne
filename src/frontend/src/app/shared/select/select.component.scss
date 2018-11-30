@@ -1,11 +1,12 @@
-:host{
+:host {
   width: 240px;
   height: 26px;
   position: relative;
   display: inline-block;
   font-size: 0;
   cursor: pointer;
-  .select-box{
+
+  .select-box {
     overflow: hidden;
     position: absolute;
     max-height: 135px;
@@ -17,12 +18,14 @@
     width: 100%;
     padding: 5px 0;
     background: #fff;
-    .option-box{
+
+    .option-box {
       // margin-right: -17px;
       max-height: 125px;
       overflow-y: scroll;
     }
-    .scroll-bar{
+
+    .scroll-bar {
       position: absolute;
       right: 0;
       top: 5px;
@@ -32,9 +35,10 @@
       border-radius: 5px;
     }
   }
-  svg{
+
+  svg {
     fill: #ccc;
-    width: 10px; 
+    width: 10px;
     height: 5px;
     position: absolute;
     top: calc(50% - 2.5px);

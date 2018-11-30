@@ -1,7 +1,7 @@
 /* Do not change, this code is generated from Golang structs */
 
 
-import {TemplateStatus} from './status';
+import { TemplateStatus } from './status';
 
 export class User {
   id: number;
@@ -19,7 +19,7 @@ export class User {
   namespaces: Namespace[];
 
   constructor(init?: User) {
-    if (!init) return ;
+    if (!init) return;
     if (init.id) this.id = init.id;
     if (init.name) this.name = init.name;
     if (init.email) this.email = init.email;
@@ -62,7 +62,7 @@ export class AppStarred {
   user?: User;
 
   constructor(init?: AppStarred) {
-    if (!init) return ;
+    if (!init) return;
     if (init.id) this.id = init.id;
     if (init.app) this.app = init.app;
     if (init.user) this.user = init.user;
@@ -92,7 +92,7 @@ export class Namespace {
   deleted: boolean;
 
   constructor(init?: Namespace) {
-    if (!init) return ;
+    if (!init) return;
     if (init.id) this.id = init.id;
     if (init.name) this.name = init.name;
     if (init.metaData) this.metaData = init.metaData;
@@ -116,6 +116,7 @@ export class Namespace {
   }
 
 }
+
 export class App {
   id: number;
   name: string;
@@ -129,7 +130,7 @@ export class App {
   AppStars: AppStarred[];
 
   constructor(init?: App) {
-    if (!init) return ;
+    if (!init) return;
     if (init.id) this.id = init.id;
     if (init.name) this.name = init.name;
     if (init.namespace) this.namespace = init.namespace;
@@ -159,6 +160,7 @@ export class App {
   }
 
 }
+
 export class Statefulset {
   id: number;
   name: string;
@@ -172,7 +174,7 @@ export class Statefulset {
   appId: number;
 
   constructor(init?: Statefulset) {
-    if (!init) return ;
+    if (!init) return;
     if (init.id) this.id = init.id;
     if (init.name) this.name = init.name;
     if (init.metaData) this.metaData = init.metaData;
@@ -202,6 +204,7 @@ export class Statefulset {
   }
 
 }
+
 export class StatefulsetTemplate {
   id: number;
   name: string;
@@ -218,7 +221,7 @@ export class StatefulsetTemplate {
   containerVersions: string[];
 
   constructor(init?: StatefulsetTemplate) {
-    if (!init) return ;
+    if (!init) return;
     if (init.id) this.id = init.id;
     if (init.name) this.name = init.name;
     if (init.template) this.template = init.template;

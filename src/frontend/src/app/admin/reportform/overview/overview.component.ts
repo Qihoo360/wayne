@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {BreadcrumbService} from '../../../shared/client/v1/breadcrumb.service';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {UserService} from '../../../shared/client/v1/user.service';
-import {PodClient} from '../../../shared/client/v1/kubernetes/pod';
-import {NodeClient} from '../../../shared/client/v1/kubernetes/node';
-import {Observable} from 'rxjs/Observable';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { UserService } from '../../../shared/client/v1/user.service';
+import { PodClient } from '../../../shared/client/v1/kubernetes/pod';
+import { NodeClient } from '../../../shared/client/v1/kubernetes/node';
+import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'wayne-overview',
@@ -52,7 +52,7 @@ export class OverviewComponent implements OnInit {
   }
 
   goToLink(url: string) {
-    this.router.navigateByUrl(url)
+    this.router.navigateByUrl(url);
   }
 
   ngOnDestroy(): void {

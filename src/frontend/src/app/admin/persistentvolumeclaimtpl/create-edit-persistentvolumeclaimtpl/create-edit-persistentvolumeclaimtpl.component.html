@@ -1,7 +1,7 @@
-<clr-modal [(clrModalOpen)]="modalOpened"  [clrModalSize]="'lg'" #modal>
-    <h3 class="modal-title">{{title}}
-      <wayne-modal-operate [modal]="modal" *ngIf="modalOpened"></wayne-modal-operate>
-    </h3>
+<clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'lg'" #modal>
+  <h3 class="modal-title">{{title}}
+    <wayne-modal-operate [modal]="modal" *ngIf="modalOpened"></wayne-modal-operate>
+  </h3>
   <div class="modal-body">
     <form #ngForm="ngForm">
       <section class="form-block">

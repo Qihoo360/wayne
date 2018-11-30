@@ -1,5 +1,5 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)">
-  <clr-dg-column >
+  <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['ID']">
       ID
     </ng-container>
@@ -25,8 +25,8 @@
     </ng-container>
   </clr-dg-column>
   <clr-dg-column
-      *ngIf="authService.currentNamespacePermission.namespaceUser.update || authService.currentNamespacePermission.namespaceUser.delete ||  authService.currentUser.admin"
-    >
+    *ngIf="authService.currentNamespacePermission.namespaceUser.update || authService.currentNamespacePermission.namespaceUser.delete ||  authService.currentUser.admin"
+  >
     <ng-container *clrDgHideableColumn="showState['操作']">
       操作
     </ng-container>
@@ -39,15 +39,17 @@
     <clr-dg-cell>{{namespaceUser.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
     <clr-dg-cell
       *ngIf="authService.currentNamespacePermission.namespaceUser.update || authService.currentNamespacePermission.namespaceUser.delete ||  authService.currentUser.admin"
-      >
+    >
       <button class="wayne-button text"
-        *ngIf="authService.currentNamespacePermission.namespaceUser.update || authService.currentUser.admin"
-        (click)="editNamespaceUser(namespaceUser)">
-        编辑</button>
+              *ngIf="authService.currentNamespacePermission.namespaceUser.update || authService.currentUser.admin"
+              (click)="editNamespaceUser(namespaceUser)">
+        编辑
+      </button>
       <button class="wayne-button text"
-        *ngIf="authService.currentNamespacePermission.namespaceUser.delete || authService.currentUser.admin"
-        (click)="deleteNamespaceUser(namespaceUser)">
-        删除</button>
+              *ngIf="authService.currentNamespacePermission.namespaceUser.delete || authService.currentUser.admin"
+              (click)="deleteNamespaceUser(namespaceUser)">
+        删除
+      </button>
     </clr-dg-cell>
   </clr-dg-row>
 

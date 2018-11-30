@@ -1,8 +1,8 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DualListBoxComponent } from './dual-list-box.component';
-import { ArraySortPipe, ArrayFilterPipe } from './array.pipes';
+import { ArrayFilterPipe, ArraySortPipe } from './array.pipes';
 
 @NgModule({
   imports: [

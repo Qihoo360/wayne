@@ -1,9 +1,9 @@
-import {Directive, Input, HostListener, OnDestroy, ElementRef} from '@angular/core';
-import {EventManager} from '@angular/platform-browser';
-import {TipService} from './tip.service';
+import { Directive, ElementRef, HostListener, Input, OnDestroy } from '@angular/core';
+import { EventManager } from '@angular/platform-browser';
+import { TipService } from './tip.service';
 
 @Directive({selector: '[wayneTip]'})
-export class TipDirective implements OnDestroy{
+export class TipDirective implements OnDestroy {
   private _text: string;
   private _hover: boolean;
   private _top: number;
@@ -64,11 +64,11 @@ export class TipDirective implements OnDestroy{
     }
   }
 
-  @HostListener('mouseenter', ['$event']) 
+  @HostListener('mouseenter', ['$event'])
   onMouseEnter(event) {
     this.enterEvent();
   }
-  
+
   enterEvent() {
     if (this._text) {
       const posiInfo = this.element.nativeElement.getClientRects()[0];

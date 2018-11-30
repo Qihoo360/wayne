@@ -18,14 +18,17 @@
   <clr-dg-row *ngFor="let app of apps" [clrDgItem]="app">
     <clr-dg-cell><a href="javascript:void(0)" (click)="enterApp(app)">{{app.name}}</a></clr-dg-cell>
     <clr-dg-cell>{{app.description}}</clr-dg-cell>
-    <clr-dg-cell class="col-time" style="font-family: monospace;">{{app.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
+    <clr-dg-cell class="col-time"
+                 style="font-family: monospace;">{{app.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
     <clr-dg-cell>{{app.user}}</clr-dg-cell>
     <clr-dg-cell class="col-operate">
       <button *ngIf="!app.starred" class="wayne-button text" (click)="starredApp(app)">收藏</button>
       <button *ngIf="app.starred" class="wayne-button text" (click)="unstarredApp(app)">取消收藏</button>
       <button class="wayne-button text" (click)="enterApp(app)">详情</button>
-      <button *ngIf="getMonitorUri()"  class="wayne-button text"  (click)="goToMonitor(app)">监控</button>
-      <button *ngIf="authService.currentNamespacePermission.app.update || authService.currentUser.admin" class="wayne-button text" (click)="editApp(app)">编辑</button>
+      <button *ngIf="getMonitorUri()" class="wayne-button text" (click)="goToMonitor(app)">监控</button>
+      <button *ngIf="authService.currentNamespacePermission.app.update || authService.currentUser.admin"
+              class="wayne-button text" (click)="editApp(app)">编辑
+      </button>
       <button *ngIf="authService.currentUser.admin" class="wayne-button text" (click)="deleteApp(app)">删除</button>
     </clr-dg-cell>
   </clr-dg-row>

@@ -1,5 +1,5 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)">
-  <clr-dg-column >
+  <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: true}">
       ID
     </ng-container>
@@ -25,7 +25,7 @@
     </ng-container>
   </clr-dg-column>
   <clr-dg-column
-      *ngIf="
+    *ngIf="
       authService.currentNamespacePermission.appUser.update ||
       authService.currentAppPermission.appUser.update ||
       authService.currentNamespacePermission.appUser.delete ||
@@ -50,20 +50,22 @@
       authService.currentAppPermission.appUser.delete ||
       authService.currentUser.admin"
     >
-    <button class="wayne-button text"
-      *ngIf="
+      <button class="wayne-button text"
+              *ngIf="
         authService.currentNamespacePermission.appUser.update ||
         authService.currentAppPermission.appUser.update ||
         authService.currentUser.admin"
-        (click)="editAppUser(appUser)">
-        编辑</button>
-    <button class="wayne-button text"
-        *ngIf="
+              (click)="editAppUser(appUser)">
+        编辑
+      </button>
+      <button class="wayne-button text"
+              *ngIf="
         authService.currentNamespacePermission.appUser.delete ||
         authService.currentAppPermission.appUser.delete ||
         authService.currentUser.admin"
-        (click)="deleteAppUser(appUser)">
-        删除</button>
+              (click)="deleteAppUser(appUser)">
+        删除
+      </button>
     </clr-dg-cell>
   </clr-dg-row>
 

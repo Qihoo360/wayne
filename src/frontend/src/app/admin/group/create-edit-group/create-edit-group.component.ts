@@ -1,16 +1,15 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType} from '../../../shared/shared.const';
-import {Group} from '../../../shared/model/v1/group';
-import {Permission} from '../../../shared/model/v1/permission';
-import {GroupService} from '../../../shared/client/v1/group.service';
-import {PermissionService} from '../../../shared/client/v1/permission.service';
-import {groupType} from '../../../shared/shared.const';
-import {PageState} from '../../../shared/page/page-state';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType, groupType } from '../../../shared/shared.const';
+import { Group } from '../../../shared/model/v1/group';
+import { Permission } from '../../../shared/model/v1/permission';
+import { GroupService } from '../../../shared/client/v1/group.service';
+import { PermissionService } from '../../../shared/client/v1/permission.service';
+import { PageState } from '../../../shared/page/page-state';
 
 @Component({
   selector: 'create-edit-group',
@@ -41,22 +40,23 @@ export class CreateEditGroupComponent {
   groupType: Array<any>;
 
   constructor(
-      private groupService: GroupService,
-      private permissionService: PermissionService,
-      private messageHandlerService: MessageHandlerService
-  ) {}
+    private groupService: GroupService,
+    private permissionService: PermissionService,
+    private messageHandlerService: MessageHandlerService
+  ) {
+  }
 
   ngOnInit(): void {
     this.groupType = groupType;
     this.permissionService.listPermission(new PageState({pageSize: 500})).subscribe(
-        response => {
-          this.basePermissions = response.data.list;
-          for (let x in this.basePermissions) {
-            this.mapPermissions.set(this.basePermissions[x].id.toString(), this.basePermissions[x]);
-          }
-        },
-        error => this.messageHandlerService.handleError(error)
-      );
+      response => {
+        this.basePermissions = response.data.list;
+        for (let x in this.basePermissions) {
+          this.mapPermissions.set(this.basePermissions[x].id.toString(), this.basePermissions[x]);
+        }
+      },
+      error => this.messageHandlerService.handleError(error)
+    );
   }
 
   newOrEditGroup(id?: number) {
@@ -68,13 +68,13 @@ export class CreateEditGroupComponent {
       this.groupTitle = '编辑角色';
       this.groupService.getGroup(id).subscribe(
         status => {
-          this.group = status.data
+          this.group = status.data;
           for (let key in this.allPermissions) {
-            for ( let index in this.group.permissions ) {
+            for (let index in this.group.permissions) {
               const source = this.allPermissions[key];
               const detail = this.group.permissions[index];
-              if ( JSON.stringify(source) === JSON.stringify(detail)) {
-                this.preparePermissions.push(this.allPermissions[key].id.toString())
+              if (JSON.stringify(source) === JSON.stringify(detail)) {
+                this.preparePermissions.push(this.allPermissions[key].id.toString());
               }
             }
           }
@@ -113,7 +113,7 @@ export class CreateEditGroupComponent {
             this.isSubmitOnGoing = false;
             this.create.emit(true);
             this.createGroupOpened = false;
-              this.messageHandlerService.showSuccess('创建角色成功！');
+            this.messageHandlerService.showSuccess('创建角色成功！');
           },
           error => {
             this.isSubmitOnGoing = false;
@@ -152,7 +152,7 @@ export class CreateEditGroupComponent {
   handleValidation(): void {
     let cont = this.currentForm.controls['group_name'];
     if (cont) {
-      this.isNameValid = cont.valid
+      this.isNameValid = cont.valid;
     }
   }
 }

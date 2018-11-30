@@ -1,11 +1,11 @@
-export const KubeApiTypeDeployment             = 'Deployment';
-export const KubeApiTypeCronJob                = 'CronJob';
-export const KubeApiTypeStatefulSet            = 'StatefulSet';
-export const KubeApiTypeDaemonSet              = 'DaemonSet';
-export const KubeApiTypeService                = 'Service';
-export const KubeApiTypeConfigMap              = 'ConfigMap';
-export const KubeApiTypeSecret                 = 'Secret';
-export const KubeApiTypePersistentVolumeClaim  = 'PersistentVolumeClaim';
+export const KubeApiTypeDeployment = 'Deployment';
+export const KubeApiTypeCronJob = 'CronJob';
+export const KubeApiTypeStatefulSet = 'StatefulSet';
+export const KubeApiTypeDaemonSet = 'DaemonSet';
+export const KubeApiTypeService = 'Service';
+export const KubeApiTypeConfigMap = 'ConfigMap';
+export const KubeApiTypeSecret = 'Secret';
+export const KubeApiTypePersistentVolumeClaim = 'PersistentVolumeClaim';
 
 export const LoginTokenKey = 'wayne_token';
 

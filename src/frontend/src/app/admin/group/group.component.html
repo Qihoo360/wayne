@@ -5,11 +5,15 @@
     </div>
     <div class="row flex-items-xs-between" style="height:32px;">
       <div class="option-left">
-        <button class="btn btn-link" (click)="openModal()"><clr-icon shape="add"></clr-icon>创建角色</button>
+        <button class="btn btn-link" (click)="openModal()">
+          <clr-icon shape="add"></clr-icon>
+          创建角色
+        </button>
         <!-- <button class="btn btn-link" (click)="initGroup()"><clr-icon shape="add"></clr-icon>初始化角色</button> -->
         <create-edit-group (create)="createGroup($event)"></create-edit-group>
       </div>
     </div>
-    <list-group [groups]="changedGroups" (delete)="deleteGroup($event)" (edit)="editGroup($event)" (paginate)="retrieve($event)" [page]="pageState.page"></list-group>
+    <list-group [groups]="changedGroups" (delete)="deleteGroup($event)" (edit)="editGroup($event)"
+                (paginate)="retrieve($event)" [page]="pageState.page"></list-group>
   </div>
 </div>

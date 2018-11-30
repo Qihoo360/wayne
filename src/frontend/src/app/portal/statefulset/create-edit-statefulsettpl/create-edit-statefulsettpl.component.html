@@ -11,7 +11,8 @@
         <label class="label-level1" id="发布信息">发布信息</label>
         <div class="form-group form-group-padding">
           <label class="col-md-3 form-group-label-override required">发布说明</label>
-          <textarea name="statefulset_description" [(ngModel)]="statefulsetTpl.description" rows="3" style="width: 65%" required>
+          <textarea name="statefulset_description" [(ngModel)]="statefulsetTpl.description" rows="3" style="width: 65%"
+                    required>
           </textarea>
         </div>
       </div>
@@ -22,18 +23,21 @@
         <div class="form-group form-group-padding">
           <label class="col-md-3 form-group-label-override required">更新方式</label>
           <div class="radio-inline">
-              <input type="radio" name="statefulSetStrategyType" id="statefulSetStrategyType1" value="OnDelete" [(ngModel)]="kubeStatefulSet.spec.updateStrategy.type" checked>
-              <label for="statefulSetStrategyType1">仅删除时更新</label>
+            <input type="radio" name="statefulSetStrategyType" id="statefulSetStrategyType1" value="OnDelete"
+                   [(ngModel)]="kubeStatefulSet.spec.updateStrategy.type" checked>
+            <label for="statefulSetStrategyType1">仅删除时更新</label>
           </div>
           <div class="radio-inline">
-              <input type="radio" name="statefulSetStrategyType" id="statefulSetStrategyType2" value="RollingUpdate"  [(ngModel)]="kubeStatefulSet.spec.updateStrategy.type">
-              <label for="statefulSetStrategyType2">滚动更新</label>
+            <input type="radio" name="statefulSetStrategyType" id="statefulSetStrategyType2" value="RollingUpdate"
+                   [(ngModel)]="kubeStatefulSet.spec.updateStrategy.type">
+            <label for="statefulSetStrategyType2">滚动更新</label>
           </div>
         </div>
       </div>
     </section>
 
-    <section *ngFor="let container of kubeStatefulSet.spec.template.spec.containers; let i = index" class="form-block wrap">
+    <section *ngFor="let container of kubeStatefulSet.spec.template.spec.containers; let i = index"
+             class="form-block wrap">
       <div>
         <label class="label-level1" [id]="i ? '容器配置' + i : '容器配置'">容器配置
           <clr-icon (click)="onDeleteContainer(i)" shape="trash" title="删除容器" class="is-solid"></clr-icon>
@@ -42,9 +46,11 @@
           <label class="label-level2" [id]="i ? '镜像配置' + i : '镜像配置'">镜像配置</label>
           <div class="form-group form-group-padding">
             <label class="col-md-3 form-group-label-override required">容器名称</label>
-            <label aria-haspopup="true" role="tooltip" [class.invalid]="checkIfInvalid(i,'container.name_')" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="text" size="90" class="col-sm-12" required name="container.name_{{i}}" pattern="[a-z]([-a-z0-9]*[a-z0-9])?" [(ngModel)]="container.name"
-                placeholder="英文，dns域名规则">
+            <label aria-haspopup="true" role="tooltip" [class.invalid]="checkIfInvalid(i,'container.name_')"
+                   class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="text" size="90" class="col-sm-12" required name="container.name_{{i}}"
+                     pattern="[a-z]([-a-z0-9]*[a-z0-9])?" [(ngModel)]="container.name"
+                     placeholder="英文，dns域名规则">
               <span class="tooltip-content">
                 容器名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?
               </span>
@@ -52,9 +58,11 @@
           </div>
           <div class="form-group form-group-padding">
             <label class="col-md-3 form-group-label-override required">镜像地址</label>
-            <label aria-haspopup="true" role="tooltip" [class.invalid]="checkIfInvalid(i,'container.image_')" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="text" size="90" class="col-sm-12" name="container.image_{{i}}" required pattern="{{getImagePrefixReg()}}" [(ngModel)]="container.image"
-                placeholder="镜像地址">
+            <label aria-haspopup="true" role="tooltip" [class.invalid]="checkIfInvalid(i,'container.image_')"
+                   class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="text" size="90" class="col-sm-12" name="container.image_{{i}}" required
+                     pattern="{{getImagePrefixReg()}}" [(ngModel)]="container.image"
+                     placeholder="镜像地址">
               <span class="tooltip-content">
                 镜像不符合校验规则 {{getImagePrefixReg()}}
               </span>
@@ -62,30 +70,36 @@
           </div>
           <div class="form-group form-group-padding">
             <label class="col-md-3 form-group-label-override required">内存容量</label>
-            <label aria-haspopup="true" [class.invalid]="!checkMemory(container.resources.limits.memory)" style="padding-right: 0;margin-right: 0;padding-left: 0"
-              role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="number" style="width:inherit" name="container.resources.limits.memory_{{i}}" required [(ngModel)]="container.resources.limits.memory"
-                placeholder="单位G">
+            <label aria-haspopup="true" [class.invalid]="!checkMemory(container.resources.limits.memory)"
+                   style="padding-right: 0;margin-right: 0;padding-left: 0"
+                   role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="number" style="width:inherit" name="container.resources.limits.memory_{{i}}" required
+                     [(ngModel)]="container.resources.limits.memory"
+                     placeholder="单位G">
               <span class="tooltip-content">
                 内存大小应该在0~{{memoryLimit}}G之间
               </span>
             </label>
             <label class="col-md-4">G&nbsp;&nbsp;&nbsp;
-              <label style="color: red">金额: {{container.resources.limits.memory * memoryUnitPrice | number:'1.2-2'}}元/月</label>
+              <label style="color: red">金额: {{container.resources.limits.memory * memoryUnitPrice | number:'1.2-2'}}
+                元/月</label>
             </label>
           </div>
           <div class="form-group form-group-padding">
             <label class="col-md-3 form-group-label-override required">CPU核数</label>
-            <label aria-haspopup="true" [class.invalid]="!checkCpu(container.resources.limits.cpu)" style="padding-right: 0;margin-right: 0;padding-left: 0"
-              role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="number" name="container.resources.limits.cpu_{{i}}" [(ngModel)]="container.resources.limits.cpu" style="width:inherit"
-                required placeholder="单位个">
+            <label aria-haspopup="true" [class.invalid]="!checkCpu(container.resources.limits.cpu)"
+                   style="padding-right: 0;margin-right: 0;padding-left: 0"
+                   role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="number" name="container.resources.limits.cpu_{{i}}"
+                     [(ngModel)]="container.resources.limits.cpu" style="width:inherit"
+                     required placeholder="单位个">
               <span class="tooltip-content">
                 CPU大小应该在0~{{cpuLimit}}核之间
               </span>
             </label>
             <label class="col-md-4">核&nbsp;&nbsp;&nbsp;
-              <label style="color: red">金额: {{container.resources.limits.cpu * cpuUnitPrice | number:'1.2-2'}}元/月</label>
+              <label style="color: red">金额: {{container.resources.limits.cpu * cpuUnitPrice | number:'1.2-2'}}
+                元/月</label>
             </label>
           </div>
 
@@ -93,8 +107,14 @@
 
         <div class="container-box">
           <label class="label-level2" [id]="i ? '环境变量配置' + i : '环境变量配置'">环境变量配置
-            <button (click)="onAddEnvFrom(i)" style="margin-left: 10px;" class="wayne-button primary"><clr-icon shape="add-text"></clr-icon>批量加载</button>
-            <button (click)="onAddEnv(i)" style="margin-left: 10px;" class="wayne-button primary"><clr-icon shape="add"></clr-icon>逐个加载</button>
+            <button (click)="onAddEnvFrom(i)" style="margin-left: 10px;" class="wayne-button primary">
+              <clr-icon shape="add-text"></clr-icon>
+              批量加载
+            </button>
+            <button (click)="onAddEnv(i)" style="margin-left: 10px;" class="wayne-button primary">
+              <clr-icon shape="add"></clr-icon>
+              逐个加载
+            </button>
           </label>
 
           <div *ngFor="let envFrom of container.envFrom; let j = index">
@@ -106,24 +126,30 @@
                 </a>
               </label>
               <div class="select">
-                <select id="envFromType-{{i}}-{{j}}" name="envFrom.type_{{i}}_{{j}}" (change)="envFromChange($event.target.value,i,j)">
+                <select id="envFromType-{{i}}-{{j}}" name="envFrom.type_{{i}}_{{j}}"
+                        (change)="envFromChange($event.target.value,i,j)">
                   <option value="1" [selected]="envFrom.configMapRef">从配置集加载</option>
                   <option value="2" [selected]="envFrom.secretRef">从加密字典加载</option>
                 </select>
               </div>
 
-              <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnvFrom(i)" shape="plus-circle" title="添加环境变量" class="is-solid"></clr-icon>
-              <clr-icon style="margin-top: 10px" (click)="onDeleteEnvFrom(i,j)" shape="trash" title="删除环境变量" class="is-solid"></clr-icon>
+              <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnvFrom(i)" shape="plus-circle"
+                        title="添加环境变量" class="is-solid"></clr-icon>
+              <clr-icon style="margin-top: 10px" (click)="onDeleteEnvFrom(i,j)" shape="trash" title="删除环境变量"
+                        class="is-solid"></clr-icon>
             </div>
             <div *ngIf="envFrom" class="form-group form-group-padding">
-              <input type="text" size="40" name="envFrom.prefix_{{i}}_{{j}}" [(ngModel)]="envFrom.prefix" placeholder="为所有环境变量添加相同的前缀，可为空">
+              <input type="text" size="40" name="envFrom.prefix_{{i}}_{{j}}" [(ngModel)]="envFrom.prefix"
+                     placeholder="为所有环境变量添加相同的前缀，可为空">
             </div>
             <div *ngIf="envFrom && envFrom.configMapRef" class="form-group form-group-padding">
-              <input type="text" size="40" required name="envFrom.configMapRef.name_{{i}}_{{j}}" [(ngModel)]="envFrom.configMapRef.name"
-                placeholder="配置集名称">
+              <input type="text" size="40" required name="envFrom.configMapRef.name_{{i}}_{{j}}"
+                     [(ngModel)]="envFrom.configMapRef.name"
+                     placeholder="配置集名称">
             </div>
             <div *ngIf="envFrom && envFrom.secretRef" class="form-group form-group-padding">
-              <input type="text" size="40" required name="envFrom.secretRef.name_{{i}}_{{j}}" [(ngModel)]="envFrom.secretRef.name" placeholder="加密字典名称">
+              <input type="text" size="40" required name="envFrom.secretRef.name_{{i}}_{{j}}"
+                     [(ngModel)]="envFrom.secretRef.name" placeholder="加密字典名称">
             </div>
 
           </div>
@@ -137,33 +163,42 @@
                 </a>
               </label>
               <div class="select">
-                <select id="envType-{{i}}-{{j}}" name="env.type_{{i}}_{{j}}" (change)="envChange($event.target.value,i,j)">
+                <select id="envType-{{i}}-{{j}}" name="env.type_{{i}}_{{j}}"
+                        (change)="envChange($event.target.value,i,j)">
                   <option value="0" [selected]="env.value!=null">自定义环境变量</option>
                   <option value="1" [selected]="env.valueFrom?.configMapKeyRef">从配置集加载</option>
                   <option value="2" [selected]="env.valueFrom?.secretKeyRef">从加密字典加载</option>
                   <option value="3" selected>其它</option>
                 </select>
               </div>
-              <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnv(i)" shape="plus-circle" title="添加环境变量" class="is-solid"></clr-icon>
-              <clr-icon style="margin-top: 10px" (click)="onDeleteEnv(i,j)" shape="trash" title="删除环境变量" class="is-solid"></clr-icon>
+              <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnv(i)" shape="plus-circle"
+                        title="添加环境变量" class="is-solid"></clr-icon>
+              <clr-icon style="margin-top: 10px" (click)="onDeleteEnv(i,j)" shape="trash" title="删除环境变量"
+                        class="is-solid"></clr-icon>
             </div>
             <div class="form-group form-group-padding">
-              <input [(ngModel)]="env.name" required name="env.name_{{i}}_{{j}}" type="text" size="45" placeholder="环境变量名称">
+              <input [(ngModel)]="env.name" required name="env.name_{{i}}_{{j}}" type="text" size="45"
+                     placeholder="环境变量名称">
             </div>
             <div *ngIf="env.value != null" class="form-group form-group-padding">
-              <input [(ngModel)]="env.value" required name="env.value_{{i}}_{{j}}" type="text" size="45" placeholder="环境变量值">
+              <input [(ngModel)]="env.value" required name="env.value_{{i}}_{{j}}" type="text" size="45"
+                     placeholder="环境变量值">
             </div>
             <div *ngIf="env.valueFrom && env.valueFrom.configMapKeyRef" class="form-group form-group-padding">
-              <input type="text" size="40" required name="env.valueFrom.configMapKeyRef.name_{{i}}_{{j}}" [(ngModel)]="env.valueFrom.configMapKeyRef.name"
-                placeholder="配置集名称">
-              <input type="text" size="40" required name="env.valueFrom.configMapKeyRef.key_{{i}}_{{j}}" [(ngModel)]="env.valueFrom.configMapKeyRef.key"
-                placeholder="配置集key">
+              <input type="text" size="40" required name="env.valueFrom.configMapKeyRef.name_{{i}}_{{j}}"
+                     [(ngModel)]="env.valueFrom.configMapKeyRef.name"
+                     placeholder="配置集名称">
+              <input type="text" size="40" required name="env.valueFrom.configMapKeyRef.key_{{i}}_{{j}}"
+                     [(ngModel)]="env.valueFrom.configMapKeyRef.key"
+                     placeholder="配置集key">
             </div>
             <div *ngIf="env.valueFrom && env.valueFrom.secretKeyRef" class="form-group form-group-padding">
-              <input type="text" size="40" required name="env.valueFrom.secretKeyRef.name_{{i}}_{{j}}" [(ngModel)]="env.valueFrom.secretKeyRef.name"
-                placeholder="加密字典名称">
-              <input type="text" size="40" required name="env.valueFrom.secretKeyRef.key_{{i}}_{{j}}" [(ngModel)]="env.valueFrom.secretKeyRef.key"
-                placeholder="加密字典key">
+              <input type="text" size="40" required name="env.valueFrom.secretKeyRef.name_{{i}}_{{j}}"
+                     [(ngModel)]="env.valueFrom.secretKeyRef.name"
+                     placeholder="加密字典名称">
+              <input type="text" size="40" required name="env.valueFrom.secretKeyRef.key_{{i}}_{{j}}"
+                     [(ngModel)]="env.valueFrom.secretKeyRef.key"
+                     placeholder="加密字典key">
             </div>
 
           </div>
@@ -173,7 +208,8 @@
 
         <div class="container-box">
           <div class="toggle-switch">
-            <input type="checkbox" [checked]="container.readinessProbe" (change)="readinessProbeChange(i)" id="readinessProbe{{i}}">
+            <input type="checkbox" [checked]="container.readinessProbe" (change)="readinessProbeChange(i)"
+                   id="readinessProbe{{i}}">
             <label class="label-level2" [id]="i ? '可用性检查' + i : '可用性检查'" for="readinessProbe{{i}}">可用性检查（建议开启）
               <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
                 <clr-icon shape="info-circle" size="24"></clr-icon>
@@ -190,20 +226,23 @@
                   <span class="tooltip-content">单位秒，请求超时时间</span>
                 </a>
               </label>
-              <input type="number" required name="container.readinessProbe.timeoutSeconds_{{i}}" [(ngModel)]="container.readinessProbe.timeoutSeconds"
-                placeholder="单位秒">
+              <input type="number" required name="container.readinessProbe.timeoutSeconds_{{i}}"
+                     [(ngModel)]="container.readinessProbe.timeoutSeconds"
+                     placeholder="单位秒">
               <label class="col-md-3 form-group-label-override">检查周期
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
                   <span class="tooltip-content">单位秒，执行检查间隔</span>
                 </a>
               </label>
-              <input type="number" required name="container.readinessProbe.periodSeconds{{i}}" [(ngModel)]="container.readinessProbe.periodSeconds"
-                placeholder="单位秒">
+              <input type="number" required name="container.readinessProbe.periodSeconds{{i}}"
+                     [(ngModel)]="container.readinessProbe.periodSeconds"
+                     placeholder="单位秒">
             </div>
             <div class="form-group form-group-padding">
               <label class="col-md-3 form-group-label-override">失败重试次数</label>
-              <input type="number" required name="container.readinessProbe.failureThreshold{{i}}" [(ngModel)]="container.readinessProbe.failureThreshold">
+              <input type="number" required name="container.readinessProbe.failureThreshold{{i}}"
+                     [(ngModel)]="container.readinessProbe.failureThreshold">
             </div>
 
             <div class="form-group form-group-padding">
@@ -217,18 +256,22 @@
               </div>
             </div>
             <div *ngIf="container.readinessProbe.httpGet" class="form-group form-group-padding">
-              <input type="number" size="30" required name="container.readinessProbe.httpGet.port_{{i}}" [(ngModel)]="container.readinessProbe.httpGet.port"
-                placeholder="请求HTTP端口">
-              <input type="text" size="70" required name="container.readinessProbe.httpGet.path_{{i}}" [(ngModel)]="container.readinessProbe.httpGet.path"
-                placeholder="请求URL">
+              <input type="number" size="30" required name="container.readinessProbe.httpGet.port_{{i}}"
+                     [(ngModel)]="container.readinessProbe.httpGet.port"
+                     placeholder="请求HTTP端口">
+              <input type="text" size="70" required name="container.readinessProbe.httpGet.path_{{i}}"
+                     [(ngModel)]="container.readinessProbe.httpGet.path"
+                     placeholder="请求URL">
             </div>
             <div *ngIf="container.readinessProbe.tcpSocket" class="form-group form-group-padding">
-              <input type="number" size="30" required name="container.readinessProbe.tcpSocket.port_{{i}}" [(ngModel)]="container.readinessProbe.tcpSocket.port"
-                placeholder="请求TCP端口">
+              <input type="number" size="30" required name="container.readinessProbe.tcpSocket.port_{{i}}"
+                     [(ngModel)]="container.readinessProbe.tcpSocket.port"
+                     placeholder="请求TCP端口">
             </div>
             <div *ngIf="container.readinessProbe.exec">
               <div class="form-group form-group-padding">
-                <textarea name="container.readinessProbe.exec.command_{{i}}" [(ngModel)]="container.readinessProbe.exec.command[0]" placeholder="多个命令换行输入，例如：
+                <textarea name="container.readinessProbe.exec.command_{{i}}"
+                          [(ngModel)]="container.readinessProbe.exec.command[0]" placeholder="多个命令换行输入，例如：
                   /bin/healthz.sh
                   --arg1
                   foo
@@ -243,7 +286,8 @@
 
         <div class="container-box">
           <div class="toggle-switch">
-            <input type="checkbox" [checked]="container.livenessProbe" (change)="livenessProbeChange(i)" id="livenessProbe{{i}}">
+            <input type="checkbox" [checked]="container.livenessProbe" (change)="livenessProbeChange(i)"
+                   id="livenessProbe{{i}}">
             <label class="label-level2" [id]="i ? '存活检查' + i : '存活检查'" for="livenessProbe{{i}}">存活检查
               <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
                 <clr-icon shape="info-circle" size="24"></clr-icon>
@@ -260,28 +304,32 @@
                   <span class="tooltip-content">单位秒，请求超时时间</span>
                 </a>
               </label>
-              <input type="number" required name="container.livenessProbe.timeoutSeconds_{{i}}" [(ngModel)]="container.livenessProbe.timeoutSeconds"
-                placeholder="单位秒">
+              <input type="number" required name="container.livenessProbe.timeoutSeconds_{{i}}"
+                     [(ngModel)]="container.livenessProbe.timeoutSeconds"
+                     placeholder="单位秒">
               <label class="col-md-3 form-group-label-override">检查周期
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
                   <span class="tooltip-content">单位秒，执行检查间隔</span>
                 </a>
               </label>
-              <input type="number" required name="container.livenessProbe.periodSeconds{{i}}" [(ngModel)]="container.livenessProbe.periodSeconds"
-                placeholder="单位秒">
+              <input type="number" required name="container.livenessProbe.periodSeconds{{i}}"
+                     [(ngModel)]="container.livenessProbe.periodSeconds"
+                     placeholder="单位秒">
             </div>
             <div class="form-group form-group-padding">
               <label class="col-md-3 form-group-label-override">失败重试次数</label>
-              <input type="number" required name="container.livenessProbe.failureThreshold{{i}}" [(ngModel)]="container.livenessProbe.failureThreshold">
+              <input type="number" required name="container.livenessProbe.failureThreshold{{i}}"
+                     [(ngModel)]="container.livenessProbe.failureThreshold">
               <label class="col-md-3 form-group-label-override">检查延迟
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
                   <span class="tooltip-content">单位秒，启动多久之后开始存活检查，适用于启动时间较长的服务</span>
                 </a>
               </label>
-              <input type="number" required name="container.livenessProbe.initialDelaySeconds{{i}}" [(ngModel)]="container.livenessProbe.initialDelaySeconds"
-                placeholder="单位秒">
+              <input type="number" required name="container.livenessProbe.initialDelaySeconds{{i}}"
+                     [(ngModel)]="container.livenessProbe.initialDelaySeconds"
+                     placeholder="单位秒">
             </div>
 
             <div class="form-group form-group-padding">
@@ -295,18 +343,22 @@
               </div>
             </div>
             <div *ngIf="container.livenessProbe.httpGet" class="form-group form-group-padding">
-              <input type="number" size="30" required name="container.livenessProbe.httpGet.port_{{i}}" [(ngModel)]="container.livenessProbe.httpGet.port"
-                placeholder="请求HTTP端口">
-              <input type="text" size="70" required name="container.livenessProbe.httpGet.path_{{i}}" [(ngModel)]="container.livenessProbe.httpGet.path"
-                placeholder="请求URL">
+              <input type="number" size="30" required name="container.livenessProbe.httpGet.port_{{i}}"
+                     [(ngModel)]="container.livenessProbe.httpGet.port"
+                     placeholder="请求HTTP端口">
+              <input type="text" size="70" required name="container.livenessProbe.httpGet.path_{{i}}"
+                     [(ngModel)]="container.livenessProbe.httpGet.path"
+                     placeholder="请求URL">
             </div>
             <div *ngIf="container.livenessProbe.tcpSocket" class="form-group form-group-padding">
-              <input type="number" size="30" required name="container.livenessProbe.tcpSocket.port_{{i}}" [(ngModel)]="container.livenessProbe.tcpSocket.port"
-                placeholder="请求TCP端口">
+              <input type="number" size="30" required name="container.livenessProbe.tcpSocket.port_{{i}}"
+                     [(ngModel)]="container.livenessProbe.tcpSocket.port"
+                     placeholder="请求TCP端口">
             </div>
             <div *ngIf="container.livenessProbe.exec">
               <div class="form-group form-group-padding">
-                <textarea name="container.livenessProbe.exec.command_{{i}}" [(ngModel)]="container.livenessProbe.exec.command[0]" placeholder="多个命令换行输入，例如：
+                <textarea name="container.livenessProbe.exec.command_{{i}}"
+                          [(ngModel)]="container.livenessProbe.exec.command[0]" placeholder="多个命令换行输入，例如：
                   /bin/healthz.sh
                   --arg1
                   foo
@@ -323,7 +375,7 @@
     </section>
 
   </form>
-  
+
 </div>
 <div class="clr-wizard-footer-buttons tpl-bottom" [style.top.px]="top">
   <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>

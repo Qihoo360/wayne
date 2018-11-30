@@ -7,25 +7,25 @@
           <label class="col-md-3 form-group-label-override required">机房</label>
           <div *ngFor="let cluster of clusters;let i=index" class="checkbox-inline" style="margin-top: 0px">
             <div class="checkbox">
-            <input [(ngModel)]="clusterMetas[cluster].checked"
-                   type="checkbox"
-                   id="{{i}}-check"
-                   name="{{i}}-check">
-            <label for="{{i}}-check">{{cluster}}</label>
-            <label *ngIf="actionType==0"
-                   aria-haspopup="true"
-                   role="tooltip"
-                   [class.invalid]="!replicaValidation(cluster)"
-                   class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input placeholder="状态副本集份数"
-                     [(ngModel)]="clusterMetas[cluster].value"
-                     id="{{cluster}}-replica"
-                     name="{{cluster}}-replica"
-                     type="number">
-              <span class="tooltip-content">
+              <input [(ngModel)]="clusterMetas[cluster].checked"
+                     type="checkbox"
+                     id="{{i}}-check"
+                     name="{{i}}-check">
+              <label for="{{i}}-check">{{cluster}}</label>
+              <label *ngIf="actionType==0"
+                     aria-haspopup="true"
+                     role="tooltip"
+                     [class.invalid]="!replicaValidation(cluster)"
+                     class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+                <input placeholder="状态副本集份数"
+                       [(ngModel)]="clusterMetas[cluster].value"
+                       id="{{cluster}}-replica"
+                       name="{{cluster}}-replica"
+                       type="number">
+                <span class="tooltip-content">
                     状态副本集份数超过系统最大限制{{replicaLimit}}
               </span>
-            </label>
+              </label>
             </div>
           </div>
         </div>

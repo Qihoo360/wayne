@@ -31,8 +31,8 @@
       </clr-dg-column>
       <clr-dg-row *ngFor="let configMapTpl of configMapTpls" [clrDgItem]="configMapTpl">
         <clr-dg-action-overflow>
-          <button class="action-item" (click)="tplDetail(configMapTpl)" >模板详情</button>
-          <button class="action-item" (click)="recoverConfigMapTpl(configMapTpl)" >恢复</button>
+          <button class="action-item" (click)="tplDetail(configMapTpl)">模板详情</button>
+          <button class="action-item" (click)="recoverConfigMapTpl(configMapTpl)">恢复</button>
           <button class="action-item" (click)="deleteConfigMapTpl(configMapTpl)">彻底删除</button>
         </clr-dg-action-overflow>
         <clr-dg-cell>{{configMapTpl.id}}</clr-dg-cell>

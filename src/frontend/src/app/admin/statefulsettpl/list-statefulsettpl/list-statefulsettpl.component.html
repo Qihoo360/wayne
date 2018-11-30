@@ -26,8 +26,8 @@
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let statefulsetTpl of statefulsetTpls" [clrDgItem]="statefulsetTpl">
-    <clr-dg-action-overflow >
-      <button class="action-item" (click)="editStatefulsetTpl(statefulsetTpl)" >编辑</button>
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="editStatefulsetTpl(statefulsetTpl)">编辑</button>
       <button class="action-item" (click)="deleteStatefulsetTpl(statefulsetTpl)">删除</button>
     </clr-dg-action-overflow>
     <clr-dg-cell>{{statefulsetTpl.id}}</clr-dg-cell>

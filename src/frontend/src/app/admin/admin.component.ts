@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {BreadcrumbService} from '../shared/client/v1/breadcrumb.service';
+import { Component, OnInit } from '@angular/core';
+import { BreadcrumbService } from '../shared/client/v1/breadcrumb.service';
 
 @Component({
   selector: 'wayne-admin',

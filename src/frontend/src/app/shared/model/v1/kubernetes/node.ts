@@ -6,7 +6,7 @@ export class AttachedVolume {
   devicePath: string;
 
   constructor(init?: AttachedVolume) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.devicePath) this.devicePath = init.devicePath;
   }
@@ -18,12 +18,13 @@ export class AttachedVolume {
   }
 
 }
+
 export class ContainerImage {
   names: string[];
   sizeBytes: number;
 
   constructor(init?: ContainerImage) {
-    if (!init) return ;
+    if (!init) return;
     if (init.names) this.names = init.names;
     if (init.sizeBytes) this.sizeBytes = init.sizeBytes;
   }
@@ -36,6 +37,7 @@ export class ContainerImage {
   }
 
 }
+
 export class NodeSystemInfo {
   machineID: string;
   systemUUID: string;
@@ -49,7 +51,7 @@ export class NodeSystemInfo {
   architecture: string;
 
   constructor(init?: NodeSystemInfo) {
-    if (!init) return ;
+    if (!init) return;
     if (init.machineID) this.machineID = init.machineID;
     if (init.systemUUID) this.systemUUID = init.systemUUID;
     if (init.bootID) this.bootID = init.bootID;
@@ -69,11 +71,12 @@ export class NodeSystemInfo {
   }
 
 }
+
 export class DaemonEndpoint {
   Port: number;
 
   constructor(init?: DaemonEndpoint) {
-    if (!init) return ;
+    if (!init) return;
     if (init.Port) this.Port = init.Port;
   }
 
@@ -84,11 +87,12 @@ export class DaemonEndpoint {
   }
 
 }
+
 export class NodeDaemonEndpoints {
   kubeletEndpoint: DaemonEndpoint;
 
   constructor(init?: NodeDaemonEndpoints) {
-    if (!init) return ;
+    if (!init) return;
     if (init.kubeletEndpoint) this.kubeletEndpoint = init.kubeletEndpoint;
   }
 
@@ -100,12 +104,13 @@ export class NodeDaemonEndpoints {
   }
 
 }
+
 export class NodeAddress {
   type: string;
   address: string;
 
   constructor(init?: NodeAddress) {
-    if (!init) return ;
+    if (!init) return;
     if (init.type) this.type = init.type;
     if (init.address) this.address = init.address;
   }
@@ -128,7 +133,7 @@ export class NodeCondition {
   message: string;
 
   constructor(init?: NodeCondition) {
-    if (!init) return ;
+    if (!init) return;
     if (init.type) this.type = init.type;
     if (init.status) this.status = init.status;
     if (init.lastHeartbeatTime) this.lastHeartbeatTime = init.lastHeartbeatTime;
@@ -146,11 +151,12 @@ export class NodeCondition {
   }
 
 }
+
 export class Quantity {
   Format: string;
 
   constructor(init?: Quantity) {
-    if (!init) return ;
+    if (!init) return;
     if (init.Format) this.Format = init.Format;
   }
 
@@ -161,9 +167,10 @@ export class Quantity {
   }
 
 }
+
 export class NodeStatus {
-  capacity?: {[key: string]: Quantity};
-  allocatable?: {[key: string]: Quantity};
+  capacity?: { [key: string]: Quantity };
+  allocatable?: { [key: string]: Quantity };
   phase: string;
   conditions: NodeCondition[];
   addresses: NodeAddress[];
@@ -174,7 +181,7 @@ export class NodeStatus {
   volumesAttached: AttachedVolume[];
 
   constructor(init?: NodeStatus) {
-    if (!init) return ;
+    if (!init) return;
     if (init.capacity) this.capacity = init.capacity;
     if (init.allocatable) this.allocatable = init.allocatable;
     if (init.phase) this.phase = init.phase;
@@ -203,6 +210,7 @@ export class NodeStatus {
   }
 
 }
+
 export class ObjectReference {
   kind: string;
   namespace: string;
@@ -213,7 +221,7 @@ export class ObjectReference {
   fieldPath: string;
 
   constructor(init?: ObjectReference) {
-    if (!init) return ;
+    if (!init) return;
     if (init.kind) this.kind = init.kind;
     if (init.namespace) this.namespace = init.namespace;
     if (init.name) this.name = init.name;
@@ -230,13 +238,14 @@ export class ObjectReference {
   }
 
 }
+
 export class NodeConfigSource {
   kind: string;
   apiVersion: string;
   configMapRef?: ObjectReference;
 
   constructor(init?: NodeConfigSource) {
-    if (!init) return ;
+    if (!init) return;
     if (init.kind) this.kind = init.kind;
     if (init.apiVersion) this.apiVersion = init.apiVersion;
     if (init.configMapRef) this.configMapRef = init.configMapRef;
@@ -258,7 +267,7 @@ export class Taint {
   timeAdded?: Time;
 
   constructor(init?: Taint) {
-    if (!init) return ;
+    if (!init) return;
     if (init.key) this.key = init.key;
     if (init.value) this.value = init.value;
     if (init.effect) this.effect = init.effect;
@@ -273,6 +282,7 @@ export class Taint {
   }
 
 }
+
 export class NodeSpec {
   podCIDR: string;
   externalID: string;
@@ -282,7 +292,7 @@ export class NodeSpec {
   configSource?: NodeConfigSource;
 
   constructor(init?: NodeSpec) {
-    if (!init) return ;
+    if (!init) return;
     if (init.podCIDR) this.podCIDR = init.podCIDR;
     if (init.externalID) this.externalID = init.externalID;
     if (init.providerID) this.providerID = init.providerID;
@@ -300,13 +310,14 @@ export class NodeSpec {
   }
 
 }
+
 export class StatusCause {
   reason: string;
   message: string;
   field: string;
 
   constructor(init?: StatusCause) {
-    if (!init) return ;
+    if (!init) return;
     if (init.reason) this.reason = init.reason;
     if (init.message) this.message = init.message;
     if (init.field) this.field = init.field;
@@ -319,6 +330,7 @@ export class StatusCause {
   }
 
 }
+
 export class StatusDetails {
   name: string;
   group: string;
@@ -328,7 +340,7 @@ export class StatusDetails {
   retryAfterSeconds: number;
 
   constructor(init?: StatusDetails) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.group) this.group = init.group;
     if (init.kind) this.kind = init.kind;
@@ -345,13 +357,14 @@ export class StatusDetails {
   }
 
 }
+
 export class ListMeta {
   selfLink: string;
   resourceVersion: string;
   continue: string;
 
   constructor(init?: ListMeta) {
-    if (!init) return ;
+    if (!init) return;
     if (init.selfLink) this.selfLink = init.selfLink;
     if (init.resourceVersion) this.resourceVersion = init.resourceVersion;
     if (init.continue) this.continue = init.continue;
@@ -364,6 +377,7 @@ export class ListMeta {
   }
 
 }
+
 export class Status {
   kind: string;
   apiVersion: string;
@@ -375,7 +389,7 @@ export class Status {
   code: number;
 
   constructor(init?: Status) {
-    if (!init) return ;
+    if (!init) return;
     if (init.kind) this.kind = init.kind;
     if (init.apiVersion) this.apiVersion = init.apiVersion;
     if (init.metadata) this.metadata = init.metadata;
@@ -395,11 +409,12 @@ export class Status {
   }
 
 }
+
 export class Initializer {
   name: string;
 
   constructor(init?: Initializer) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
   }
 
@@ -410,12 +425,13 @@ export class Initializer {
   }
 
 }
+
 export class Initializers {
   pending: Initializer[];
   result?: Status;
 
   constructor(init?: Initializers) {
-    if (!init) return ;
+    if (!init) return;
     if (init.pending) this.pending = init.pending;
     if (init.result) this.result = init.result;
   }
@@ -429,6 +445,7 @@ export class Initializers {
   }
 
 }
+
 export class OwnerReference {
   apiVersion: string;
   kind: string;
@@ -438,7 +455,7 @@ export class OwnerReference {
   blockOwnerDeletion?: boolean;
 
   constructor(init?: OwnerReference) {
-    if (!init) return ;
+    if (!init) return;
     if (init.apiVersion) this.apiVersion = init.apiVersion;
     if (init.kind) this.kind = init.kind;
     if (init.name) this.name = init.name;
@@ -460,7 +477,7 @@ export class Time {
   Time: Date;
 
   constructor(init?: Time) {
-    if (!init) return ;
+    if (!init) return;
     if (init.Time) this.Time = new Date(init.Time as any);
   }
 
@@ -472,6 +489,7 @@ export class Time {
   }
 
 }
+
 export class ObjectMeta {
   name: string;
   generateName: string;
@@ -483,15 +501,15 @@ export class ObjectMeta {
   creationTimestamp: Time;
   deletionTimestamp?: Time;
   deletionGracePeriodSeconds?: number;
-  labels?: {[key: string]: string};
-  annotations?: {[key: string]: string};
+  labels?: { [key: string]: string };
+  annotations?: { [key: string]: string };
   ownerReferences: OwnerReference[];
   initializers?: Initializers;
   finalizers: string[];
   clusterName: string;
 
   constructor(init?: ObjectMeta) {
-    if (!init) return ;
+    if (!init) return;
     if (init.name) this.name = init.name;
     if (init.generateName) this.generateName = init.generateName;
     if (init.namespace) this.namespace = init.namespace;
@@ -524,6 +542,7 @@ export class ObjectMeta {
   }
 
 }
+
 export class KubeNode {
   kind: string;
   apiVersion: string;
@@ -532,7 +551,7 @@ export class KubeNode {
   status: NodeStatus;
 
   constructor(init?: KubeNode) {
-    if (!init) return ;
+    if (!init) return;
     if (init.kind) this.kind = init.kind;
     if (init.apiVersion) this.apiVersion = init.apiVersion;
     if (init.metadata) this.metadata = init.metadata;

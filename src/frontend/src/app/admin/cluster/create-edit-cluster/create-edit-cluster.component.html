@@ -1,14 +1,15 @@
 <clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'lg'" #modal>
-    <h3 class="modal-title">{{title}}
-      <wayne-modal-operate [modal]="modal" *ngIf="modalOpened"></wayne-modal-operate>
-    </h3>
+  <h3 class="modal-title">{{title}}
+    <wayne-modal-operate [modal]="modal" *ngIf="modalOpened"></wayne-modal-operate>
+  </h3>
   <div class="modal-body">
     <form #ngForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
           <label for="name" class="col-md-3 form-group-label-override required">名称</label>
-          <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
-            <input class="form-control" type="text" id="name"  [(ngModel)]="cluster.name"
+          <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
+                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
+            <input class="form-control" type="text" id="name" [(ngModel)]="cluster.name"
                    name="name" size="24"
                    required
                    [readonly]="actionType==1"
@@ -22,7 +23,7 @@
         </div>
         <div class="form-group" style="padding-left: 135px;">
           <label for="master" class="col-md-3 form-group-label-override required">Master</label>
-          <input class="form-control" type="text" id="master"  [(ngModel)]="cluster.master"
+          <input class="form-control" type="text" id="master" [(ngModel)]="cluster.master"
                  name="master" size="128"
                  required
                  maxlength="128">
@@ -45,14 +46,15 @@
             <clr-signpost>
               <clr-signpost-content [clrPosition]="position" style="min-width:25rem" *clrIfOpen>
                 <h3 style="margin-top: 0">配置说明</h3>
-                  <code>
-                    示例：<pre style="border: none">{{clusterMeataObjExample}}</pre>
-                    <ul>
-                      <li>rbd : Kubernetes PV rbd 对象，配置之后新建PV类型为rbd会自动填充</li>
-                      <li>cephfs : Kubernetes PV cephfs 对象，配置之后新建PV类型为cephfs会自动填充</li>
-                      <li>env : 当前集群发布服务时会自动添加配置的env，如果跟用户配置的重名，会默认使用系统配置的Env，可以配置IDC等环境变量</li>
-                    </ul>
-                  </code>
+                <code>
+                  示例：
+                  <pre style="border: none">{{clusterMeataObjExample}}</pre>
+                  <ul>
+                    <li>rbd : Kubernetes PV rbd 对象，配置之后新建PV类型为rbd会自动填充</li>
+                    <li>cephfs : Kubernetes PV cephfs 对象，配置之后新建PV类型为cephfs会自动填充</li>
+                    <li>env : 当前集群发布服务时会自动添加配置的env，如果跟用户配置的重名，会默认使用系统配置的Env，可以配置IDC等环境变量</li>
+                  </ul>
+                </code>
               </clr-signpost-content>
             </clr-signpost>
           </label>

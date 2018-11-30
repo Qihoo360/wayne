@@ -1,4 +1,4 @@
-.swith-box{
+.swith-box {
   display: block;
   position: relative;
   border: 1px solid #ccc;
@@ -8,7 +8,8 @@
   width: 130px;
   line-height: normal;
 }
-.swith-box button{
+
+.swith-box button {
   position: absolute;
   transition: all .3s;
   outline: none;
@@ -21,7 +22,8 @@
   padding: 0;
   margin: 0;
 }
-.swith-box span{
+
+.swith-box span {
   display: inline-block;
   width: 50%;
   color: rgb(86, 86, 86);
@@ -31,10 +33,12 @@
   user-select: none;
   text-align: center;
 }
-.invisible{
+
+.invisible {
   visibility: hidden;
 }
-.switch-active{
+
+.switch-active {
   color: #000 !important;
   font-weight: 800;
 }

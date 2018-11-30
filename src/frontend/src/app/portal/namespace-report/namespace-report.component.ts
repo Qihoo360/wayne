@@ -1,14 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {NamespaceClient} from '../../shared/client/v1/kubernetes/namespace';
-import {CacheService} from '../../shared/auth/cache.service';
-import {Cluster} from '../app/list-cluster/cluster';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import ECharts = echarts.ECharts;
-import EChartOption = echarts.EChartOption;
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NamespaceClient } from '../../shared/client/v1/kubernetes/namespace';
+import { CacheService } from '../../shared/auth/cache.service';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
 import * as echarts from 'echarts';
 
-import {HistoryComponent} from './history/history.component';
-import {ResourceComponent} from './resource/resource.component';
+import { HistoryComponent } from './history/history.component';
+import { ResourceComponent } from './resource/resource.component';
 
 
 @Component({
@@ -26,7 +23,9 @@ export class NamespaceReportComponent implements OnInit {
   constructor(private namespaceClient: NamespaceClient,
               public cacheService: CacheService,
               private messageHandlerService: MessageHandlerService,
-  ) { }
+  ) {
+  }
+
   ngOnInit() {
     let namespaceId = this.cacheService.namespaceId;
   }

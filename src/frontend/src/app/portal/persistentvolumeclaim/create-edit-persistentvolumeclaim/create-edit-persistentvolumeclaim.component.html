@@ -11,7 +11,7 @@
                  [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <label *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</label>
-            <input type="text" id="name"  [(ngModel)]="pvc.name"
+            <input type="text" id="name" [(ngModel)]="pvc.name"
                    name="name"
                    required
                    placeholder="英文小写"

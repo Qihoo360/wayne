@@ -1,6 +1,6 @@
-import {App} from './app';
-import {User} from './user';
-import {Group} from './group';
+import { App } from './app';
+import { User } from './user';
+import { Group } from './group';
 
 export class AppUser {
   id: number;

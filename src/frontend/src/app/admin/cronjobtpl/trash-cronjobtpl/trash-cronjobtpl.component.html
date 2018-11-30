@@ -31,8 +31,8 @@
       </clr-dg-column>
       <clr-dg-row *ngFor="let cronjobTpl of cronjobTpls" [clrDgItem]="cronjobTpl">
         <clr-dg-action-overflow>
-          <button class="action-item" (click)="tplDetail(cronjobTpl)" >模板详情</button>
-          <button class="action-item" (click)="recoverCronjobTpl(cronjobTpl)" >恢复</button>
+          <button class="action-item" (click)="tplDetail(cronjobTpl)">模板详情</button>
+          <button class="action-item" (click)="recoverCronjobTpl(cronjobTpl)">恢复</button>
           <button class="action-item" (click)="deleteCronjobTpl(cronjobTpl)">彻底删除</button>
         </clr-dg-action-overflow>
         <clr-dg-cell>{{cronjobTpl.id}}</clr-dg-cell>

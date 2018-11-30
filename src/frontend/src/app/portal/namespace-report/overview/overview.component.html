@@ -27,9 +27,12 @@
           </div>
           <div class="col-sm-10">
             <ng-container *ngFor="let cluster of clusters; let i = index">
-              <div *ngIf="i < showNumber" style="display: inline-flex;height: 70px;width: 150px; margin-right: 10px; flex-direction: column; justify-content: space-around;">
-                <wayne-progress [label]="cluster" [count]="resources[cluster].usage.cpu" [total]="dealLimitLogic(resources[cluster].limit.cpu)"></wayne-progress>
-                <wayne-progress [label]="cluster" [count]="resources[cluster].usage.memory" [total]="dealLimitLogic(resources[cluster].limit.memory)"></wayne-progress>
+              <div *ngIf="i < showNumber"
+                   style="display: inline-flex;height: 70px;width: 150px; margin-right: 10px; flex-direction: column; justify-content: space-around;">
+                <wayne-progress [label]="cluster" [count]="resources[cluster].usage.cpu"
+                                [total]="dealLimitLogic(resources[cluster].limit.cpu)"></wayne-progress>
+                <wayne-progress [label]="cluster" [count]="resources[cluster].usage.memory"
+                                [total]="dealLimitLogic(resources[cluster].limit.memory)"></wayne-progress>
               </div>
             </ng-container>
             <div class="cluster-more" (click)="showMoreCluster()" *ngIf="clusters.length > showNumber">

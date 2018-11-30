@@ -1,11 +1,12 @@
-:host{
+:host {
   display: block;
   height: 25px;
   line-height: 25px;
   text-align: left;
   padding: 0 6px;
   cursor: pointer;
-  &:hover{
+
+  &:hover {
     background: rgba(232, 237, 246, .45);
   }
 }
