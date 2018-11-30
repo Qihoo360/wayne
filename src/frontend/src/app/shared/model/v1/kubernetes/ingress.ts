@@ -76,6 +76,7 @@ export class IngressRule {
   static emptyObject(): IngressRule {
     const result = new IngressRule();
     result.host = '';
+    result.http = new IngressHttp();
     return result;
   }
 

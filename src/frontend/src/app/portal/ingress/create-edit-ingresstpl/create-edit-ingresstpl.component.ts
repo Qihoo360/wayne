@@ -155,12 +155,17 @@ export class CreateEditIngressTplComponent implements OnInit {
       if (rule.host.length === 0) {
         return false;
       }
-    }
-    if (this.kubeIngress.spec.backend.servicePort.IntVal === 0) {
-      return false;
-    }
-    if (this.kubeIngress.spec.backend.serviceName.length === 0) {
-      return false;
+      if (rule.http.paths.length === 0) {
+        return false
+      }
+      for (const svc of rule.http.paths) {
+        if (svc.backend.servicePort.IntVal === 0 || svc.backend.serviceName.length === 0) {
+          return false;
+        }
+        if (svc.path.length === 0) {
+          return false;
+        }
+      }
     }
     return true;
   }
@@ -197,26 +202,11 @@ export class CreateEditIngressTplComponent implements OnInit {
     this.kubeIngress = mergeDeep(JSON.parse(defaultIngress), kubeIngress);
   }
 
-  onAddRule() {
-    this.kubeIngress.spec.rules.push(this.defaultRule());
-  }
-
   defaultRule() {
     const rule = new IngressRule();
     rule.host = '';
     return rule;
 
-  }
-
-  onRemoveRule(idx: number) {
-    const rules = [];
-    for (let i = 0; i < this.kubeIngress.spec.rules.length; i++) {
-      if (i !== idx) {
-        rules.push(this.kubeIngress.spec.rules[i])
-      }
-
-    }
-    this.kubeIngress.spec.rules = rules;
   }
 }
 

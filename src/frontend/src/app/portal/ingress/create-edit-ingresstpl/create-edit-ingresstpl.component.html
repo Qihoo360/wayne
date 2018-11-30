@@ -18,36 +18,33 @@
     <section  class="form-block wrap" style="overflow:hidden">
       <div style="float: left;width: 60%">
         <label class="label-level1">服务配置</label>
-        <div class="form-group form-group-padding" *ngFor="let container of kubeIngress.spec.rules; let i = index">
-          <label class="col-md-3 form-group-label-override required">域名</label>
+        <div *ngFor="let rule of kubeIngress.spec.rules; let i = index">
+        <div class="form-group form-group-padding" >
+          <label class="col-md-4 form-group-label-override required">域名</label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" style="width: 217px"
                    [ngModelOptions]="{standalone: true}"
             [(ngModel)]="kubeIngress.spec.rules[i].host">
           </label>
-          <a (click)="onRemoveRule(i)" *ngIf="i > 0">
-            <clr-icon shape="trash" title="删除域名规则" class="is-solid"></clr-icon>
-          </a>
         </div>
-        <button (click)="onAddRule()" style="margin-left: 10px;" class="wayne-button primary">
-          <clr-icon shape="plus-circle" title="添加域名规则" class="is-solid"></clr-icon> 添加域名规则
-        </button>
-      </div>
-    </section>
-    <section class="form-block wrap" style="overflow:hidden">
-      <div style="float: left;width: 60%">
-        <label class="label-level1">代理负载均衡配置</label>
-        <div class="form-group form-group-padding">
-          <label class="col-md-3 form-group-label-override required">名称</label>
-          <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text" style="width: 217px"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeIngress.spec.backend.serviceName">
-          </label>
-        </div>
-        <div class="form-group form-group-padding">
-          <label class="col-md-3 form-group-label-override required">端口</label>
-          <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="number" style="width: 217px"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeIngress.spec.backend.servicePort">
-          </label>
+          <div class="form-group form-group-padding" >
+            <label class="col-md-3 form-group-label-override required">负载均衡名称</label>
+            <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="text" style="width: 217px"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeIngress.spec.rules[i].http.paths[0].backend.serviceName">
+            </label>
+          </div>
+          <div class="form-group form-group-padding" >
+            <label class="col-md-3 form-group-label-override required">负载均衡端口</label>
+            <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="number" style="width: 217px"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeIngress.spec.rules[i].http.paths[0].backend.servicePort">
+            </label>
+          </div>
+          <div class="form-group form-group-padding" >
+            <label class="col-md-3 form-group-label-override required">请求路由</label>
+            <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="text" style="width: 217px"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeIngress.spec.rules[i].http.paths[0].path">
+            </label>
+          </div>
         </div>
       </div>
     </section>
