@@ -14,14 +14,15 @@ import {AuthService} from '../../shared/auth/auth.service';
 import {NamespaceUserService} from '../../shared/client/v1/namespace-user.service';
 import {CacheService} from '../../shared/auth/cache.service';
 import {PageState} from '../../shared/page/page-state';
+import {TranslateService} from '@ngx-translate/core';
 
 const showState = {
   'ID': {hidden: true},
-  '用户名称': {hidden: false},
-  '命名空间名称': {hidden: false},
-  '所属群组': {hidden: false},
-  '创建时间': {hidden: false},
-  '操作': {hidden: false}
+  'name': {hidden: false},
+  'namespace': {hidden: false},
+  'group': {hidden: false},
+  'create_time': {hidden: false},
+  'action': {hidden: false}
 };
 
 @Component({
@@ -52,6 +53,7 @@ export class NamespaceUserComponent implements OnInit {
               private messageHandlerService: MessageHandlerService,
               public authService: AuthService,
               private cacheService: CacheService,
+              public translate: TranslateService,
               private deletionDialogService: ConfirmationDialogService) {
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&

@@ -14,6 +14,7 @@ import {
 } from '../../../shared/shared.const';
 import {Cluster} from '../../app/list-cluster/cluster';
 import {NamespaceClient} from '../../../shared/client/v1/kubernetes/namespace';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'overview',
@@ -42,6 +43,7 @@ export class OverviewComponent implements OnInit {
               private element: ElementRef,
               private namespaceClient: NamespaceClient,
               private appService: AppService,
+              public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
 
   }

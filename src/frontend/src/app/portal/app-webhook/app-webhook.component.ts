@@ -20,8 +20,8 @@ const showState = {
   'URL': {hidden: false},
   '启用状态': {hidden: false},
   '创建用户': {hidden: false},
-  '创建时间': {hidden: false},
-  '操作': {hidden: false}
+  'create_time': {hidden: false},
+  'action': {hidden: false}
 };
 
 @Component({

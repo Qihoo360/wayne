@@ -14,15 +14,16 @@ import {WebHookService} from '../../shared/client/v1/webhook.service';
 import {AuthService} from '../../shared/auth/auth.service';
 import {CacheService} from '../../shared/auth/cache.service';
 import {PageState} from '../../shared/page/page-state';
+import {TranslateService} from '@ngx-translate/core';
 
 const showState = {
   'ID': {hidden: true},
-  '名称': {hidden: false},
+  'name': {hidden: false},
   'URL': {hidden: false},
-  '启用状态': {hidden: false},
-  '创建用户': {hidden: false},
-  '创建时间': {hidden: false},
-  '操作': {hidden: false}
+  'status': {hidden: false},
+  'create_user': {hidden: false},
+  'create_time': {hidden: false},
+  'action': {hidden: false}
 };
 
 @Component({
@@ -49,6 +50,7 @@ export class NamespaceWebHookComponent implements OnInit {
               private contextService: CacheService,
               private webHookService: WebHookService,
               private messageHandlerService: MessageHandlerService,
+              public translate: TranslateService,
               private deletionDialogService: ConfirmationDialogService) {
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&

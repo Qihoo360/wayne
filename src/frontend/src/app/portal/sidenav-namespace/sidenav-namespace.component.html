@@ -1,19 +1,19 @@
 <clr-vertical-nav [clrVerticalNavCollapsible]="true">
   <a
   clrVerticalNavLink
-  title="部门概览"
+  [title]="'MENU.DEPARTMENT' | translate"
   routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/overview"
   routerLinkActive="active">
   <clr-icon clrVerticalNavIcon shape="help-info"></clr-icon>
-  部门概览
+  {{'MENU.DEPARTMENT' | translate}}
 </a>
   <a
   clrVerticalNavLink
-  title="项目列表"
+  [title]="'MENU.PRODUCT' | translate"
   routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/app"
   routerLinkActive="active">
   <clr-icon clrVerticalNavIcon shape="applications"></clr-icon>
-  项目列表
+  {{'MENU.PRODUCT' | translate}}
 </a>
   <a
   clrVerticalNavLink
@@ -35,11 +35,11 @@
 </a>
   <a
   clrVerticalNavLink
-  title="成员列表"
+  [title]="'MENU.MEMBER' | translate"
   routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/users"
   routerLinkActive="active">
   <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
-  成员列表
+  {{'MENU.MEMBER' | translate}}
 </a>
 <a href="javascript:;" style="flex: 1;"></a>
   <wayne-footer></wayne-footer>

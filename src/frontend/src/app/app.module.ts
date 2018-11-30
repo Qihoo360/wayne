@@ -10,9 +10,14 @@ import {Router} from '@angular/router';
 import * as Raven from 'raven-js';
 import {PodTerminalModule} from './portal/pod-terminal/pod-terminal.module';
 import {environment} from '../environments/environment';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
 import {AuthInterceptor} from './shared/interceptor/auth-interceptor';
-
+// translate
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient);
+}
 
 export function initUser(authService: AuthService, injector: Injector) {
   return () => authService.retrieveUser().then(() => {
@@ -60,6 +65,14 @@ export class WayneErrorHandler implements ErrorHandler {
     PortalModule,
     AdminModule,
     RoutingModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     {

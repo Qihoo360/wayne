@@ -1,5 +1,5 @@
 <clr-datagrid class="wayne-clr-datagrid">
-  <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+  <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
   <clr-dg-column [clrDgSortBy]="nameComparator">
     <ng-container *clrDgHideableColumn="showState['名称']">
       名称
@@ -12,8 +12,8 @@
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['访问模式']">
-      访问模式
+    <ng-container *clrDgHideableColumn="showState['access_pattern']">
+      {{'PVC.ACCESS_PATTERN' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
@@ -50,7 +50,7 @@
       <button *ngIf="pv.spec.rbd && !pv.spec.rbd.created && isEnableRobin" class="action-item" (click)="createRbdImage(pv)">创建Rbd镜像
       </button>
       <button class="action-item" (click)="editPv(pv)">编辑</button>
-      <button class="action-item" (click)="deletePv(pv)">删除</button>
+      <button class="action-item" (click)="deletePv(pv)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="copy">{{pv.metadata.name}}</clr-dg-cell>
     <clr-dg-cell>{{pv.spec.capacity.storage}}</clr-dg-cell>

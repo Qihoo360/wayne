@@ -3,6 +3,7 @@ import {ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCE
 import 'rxjs/Rx';
 import * as _ from 'lodash';
 import {IItemsMovedEvent, IListBoxItem} from './models';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'ng2-dual-list-box',
@@ -81,7 +82,7 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
   _onTouched = () => {
   };
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, public translate: TranslateService) {
     this.listBoxForm = this.fb.group({
       availableListBox: this.availableListBoxControl,
       selectedListBox: this.selectedListBoxControl,

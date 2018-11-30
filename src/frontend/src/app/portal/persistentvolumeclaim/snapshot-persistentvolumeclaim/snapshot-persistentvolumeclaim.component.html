@@ -13,7 +13,7 @@
 </div>
 
 <clr-datagrid (clrDgRefresh)="snapshotRefresh()">
-  <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+  <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">ID</ng-container>
   </clr-dg-column>

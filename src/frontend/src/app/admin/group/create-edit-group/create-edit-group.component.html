@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="group_name" class="col-md-3 form-group-label-override required">名称</label>
+          <label for="group_name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="group_name" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" id="group_name"  [(ngModel)]="group.name"
                    name="group_name" size="36"
@@ -25,7 +25,7 @@
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="group_comment" class="col-md-3 form-group-label-override required">描述</label>
+          <label for="group_comment" class="col-md-3 form-group-label-override required">{{'TITLE.DESCRIPTION' | translate}}</label>
           <label for="group_comment" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" id="group_comment"  [(ngModel)]="group.comment"
                    name="group_comment" size="36"
@@ -53,8 +53,8 @@
           </label>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
-          <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
+          <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+          <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
         </div>
       </section>
     </form>

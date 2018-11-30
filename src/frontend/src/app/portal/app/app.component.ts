@@ -26,6 +26,7 @@ import {
   animate,
   transition
 } from '@angular/animations';
+import {TranslateService} from '@ngx-translate/core';
 
 class ClusterCard{
   name: string;
@@ -33,11 +34,11 @@ class ClusterCard{
 }
 
 const showState = {
-  '名称': {hidden: false},
-  '描述': {hidden: false},
-  '创建时间': {hidden: false},
-  '创建者': {hidden: false},
-  '操作': {hidden: false}
+  'name': {hidden: false},
+  'description': {hidden: false},
+  'create_time': {hidden: false},
+  'create_user': {hidden: false},
+  'action': {hidden: false}
 };
 
 @Component({
@@ -89,6 +90,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
               private messageHandlerService: MessageHandlerService,
               private deletionDialogService: ConfirmationDialogService,
               private element: ElementRef,
+              public translate: TranslateService,
               private storage: StorageService,
               private eventManager: EventManager,
               @Inject(DOCUMENT) private document: any) {

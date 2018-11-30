@@ -1,0 +1,109 @@
+{
+    "NAV": {
+        "LANG": "Language"
+    },
+    "MESSAGE": {
+        "READED": "Readed",
+        "UNREAD": "Unread",
+        "SEND": "broadcast",
+        "ANNOUNCEMENT": "announcement",
+        "NONE": "no message"
+    },
+    "BUTTON": {
+        "CANCEL": "Cancel",
+        "OK": "OK",
+        "DELETE": "DELETE",
+        "LOG_IN": "LOG IN",
+        "SIGN_UP_LINK": "Sign up for an account",
+        "SIGN_UP": "SIGN UP",
+        "CONFIRM": "Confirm",
+        "SEND": "SEND",
+        "SAVE": "SAVE",
+        "TEST_MAIL": "TEST MAIL SERVER",
+        "CLOSE": "CLOSE",
+        "TEST_LDAP": "TEST LDAP SERVER",
+        "MORE_INFO": "More info...",
+        "YES": "YES",
+        "NO": "NO",
+        "NEGATIVE": "NEGATIVE",
+        "COPY": "COPY",
+        "EDIT": "EDIT",
+        "SWITCH": "SWITCH",
+        "REPLICATE": "REPLICATE",
+        "ACTIONS": "Actions",
+        "BROWSE": "Browse",
+        "UPLOAD": "Upload",
+        "NO_FILE": "No file selected"
+    },
+    "USER": {},
+    "ACCOUNT": {
+        "GO_BACK": "Go Back",
+        "LOGOUT": "Log Out"
+    },
+    "MENU": {
+        "TEST": 123,
+        "DEPARTMENT": "Department",
+        "PRODUCT": "App",
+        "MEMBER": "Member",
+        "OVERVIEW": "Overview",
+        "SOURCE_STAT": "Source Stat",
+        "RELEASE_RECORD": "Release Record",
+        "DEPLOYMENT": "Deployment",
+        "STATEFULSET": "Statefulset",
+        "DAEMONSET": "Daemonset",
+        "CRONJOB": "Cronjob",
+        "SERVICE": "Service",
+        "CONFIGMAP": "Configmap",
+        "SECRET": "Secret"
+    },
+    "TITLE": {
+        "CREATE_APP": "Create App",
+        "DEPARTMENT_NAME": "Department Name",
+        "CREATE_TIME": "Create Time",
+        "CPU_USAGE": "CPU Usage(Core)",
+        "CPU_USAGE_SHORT": "CPU (C)",
+        "MEMORY_USAGE": "Memory Usage(G)",
+        "MEMORY_USAGE_SHORT": "Mem (G)",
+        "DEPLOY_FREQ": "Deployment Release Frequence",
+        "LATE_DAY": "Lately {{value}} Days",
+        "ALL_CONTENT": "All Content",
+        "COLLECTED": "Collected",
+        "SHOW_COLUMN": "Show Column",
+        "NAME": "Name",
+        "DESCRIPTION": "Description",
+        "CREATE_USER": "Create User",
+        "ACTION": "Action",
+        "LIST": "List",
+        "ROLE": "Role",
+        "EXPIRE_TIME": "Expire Time",
+        "STATUS": "Status",
+        "METADATA": ""
+    },
+    "ACTION": {
+        "UNFOLD": "UnFold",
+        "FOLD": "Fold",
+        "COLLECT": "Collect",
+        "CANCEL_COLLECTED": "UnCollected",
+        "DETAIL": "Detail",
+        "MONITOR": "Monitor",
+        "EDIT": "Edit",
+        "DELETE": "Delete",
+        "CHOOSE_SHOW_COLUMN": "Choose Columns",
+        "CREATE": "Create"
+    },
+    "PLACEHOLDER": {
+        "PRODUCT": "Click Here to filter Product",
+        "CHOOSE": "Click Here to Choose",
+        "APP_NAME": "",
+        "EXPIRE_TIME": ""
+    },
+    "PAGE": {
+        "PAGE": "Pages",
+        "TOTAL": "Total {{value}}"
+    },
+    "OTHER": "Other",
+    "OF": "of",
+    "RULE": {
+        "REGEXT": ""
+    }
+}

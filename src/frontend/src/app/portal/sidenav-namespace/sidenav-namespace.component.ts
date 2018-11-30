@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from '../../shared/client/v1/app.service';
 import {CacheService} from '../../shared/auth/cache.service';
 import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'wayne-sidenav-namespace',
@@ -17,6 +18,7 @@ export class SidenavNamespaceComponent implements OnInit {
               private messageHandlerService: MessageHandlerService,
               public cacheService: CacheService,
               private appService: AppService,
+              public translate: TranslateService,
               private router: Router) {
   }
 

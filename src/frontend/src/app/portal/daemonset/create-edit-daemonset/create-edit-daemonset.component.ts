@@ -11,6 +11,7 @@ import {DaemonSetService} from '../../../shared/client/v1/daemonset.service';
 import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
 import {AuthService} from '../../../shared/auth/auth.service';
 import {ApiNameGenerateRule} from '../../../shared/utils';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'create-edit-daemonset',
@@ -36,6 +37,7 @@ export class CreateEditDaemonSetComponent implements OnInit {
 
   constructor(private daemonSetService: DaemonSetService,
               private authService: AuthService,
+              public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
   }
 
@@ -55,7 +57,7 @@ export class CreateEditDaemonSetComponent implements OnInit {
     }
     if (id) {
       this.actionType = ActionType.EDIT;
-      this.title = '编辑守护进程集';
+      this.title = 'DAEMONSET.EDIT';
       this.daemonSetService.getById(id, this.app.id).subscribe(
         status => {
           let data = status.data;
@@ -80,7 +82,7 @@ export class CreateEditDaemonSetComponent implements OnInit {
         });
     } else {
       this.actionType = ActionType.ADD_NEW;
-      this.title = '创建守护进程集';
+      this.title = 'DAEMONSET.CREATE';
       this.daemonSet = new DaemonSet();
     }
   }

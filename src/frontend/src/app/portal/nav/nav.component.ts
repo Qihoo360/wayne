@@ -9,6 +9,8 @@ import {Notification, NotificationLog} from '../../shared/model/v1/notification'
 import {PageState} from '../../shared/page/page-state';
 import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
 import {LoginTokenKey} from '../../shared/shared.const';
+import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import {StorageService} from '../../shared/client/v1/storage.service';
 
 @Component({
   selector: 'wayne-nav',
@@ -22,6 +24,7 @@ export class NavComponent implements OnInit, OnDestroy {
   notificationModal = false;
   pageState: PageState = new PageState();
   mind = false;
+  currentLang: string;
 
 
   constructor(private router: Router,
@@ -30,17 +33,19 @@ export class NavComponent implements OnInit, OnDestroy {
               public cacheService: CacheService,
               private notificationService: NotificationService,
               private messageHandlerService: MessageHandlerService,
+              public translate: TranslateService,
+              private storage: StorageService,
               public authService: AuthService) {
-    // override the route reuse strategy
-    // this.router.routeReuseStrategy.shouldReuseRoute = function () {
-    //   return false;
-    // }
   }
 
   ngOnDestroy(): void {
   }
 
   ngOnInit() {
+    this.currentLang = this.translate.currentLang;
+    this.translate.onLangChange.subscribe((event:  LangChangeEvent) => {
+      this.currentLang = event.lang;
+    });
     this.namespace = this.cacheService.currentNamespace;
     let nid = this.route.snapshot.params['nid'];
     if (this.cacheService.currentNamespace && nid != this.cacheService.namespaceId) {
@@ -58,7 +63,6 @@ export class NavComponent implements OnInit, OnDestroy {
 
   switchNamespace(namespace: Namespace) {
     this.namespace = namespace;
-    // this.authService.setNamespacePermissionById(namespace.id);
     this.cacheService.setNamespace(namespace);
     this.hackNavigateReload(`/portal/namespace/${namespace.id}/app`);
   }
@@ -70,6 +74,19 @@ export class NavComponent implements OnInit, OnDestroy {
 
   goBack() {
     if (window) window.location.href = '/admin/reportform/overview';
+  }
+
+  showLang(lang: string): string {
+    switch(lang) {
+      case 'en': return 'English';
+      case 'zh-Hans': return '中文简体';
+      default: return '';
+    }
+  }
+
+  changeLang(lang: string) {
+    this.translate.use(lang);
+    this.storage.save('lang', lang);
   }
 
   logout() {

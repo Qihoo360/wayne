@@ -262,7 +262,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
         let tpl = response[2];
         if (tpl) {
           this.deploymentTpl = tpl.data;
-          // 克隆置空发布说明
+          
           this.deploymentTpl.description = null;
           this.saveDeployment(JSON.parse(this.deploymentTpl.template));
         }

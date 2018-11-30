@@ -26,7 +26,7 @@
   </clr-dg-column>
   <clr-dg-column  style="min-width: 206px;">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建时间
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
 
@@ -60,7 +60,7 @@
     <markdown ngPreserveWhitespaces [data]="notification.message"></markdown>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline" (click)="cancelPushNotify()">取消</button>
+    <button type="button" class="btn btn-outline" (click)="cancelPushNotify()">{{'BUTTON.CANCEL' | translate}}</button>
     <button type="button" class="btn btn-primary" (click)="pushNotify()">广播</button>
   </div>
 </clr-modal>

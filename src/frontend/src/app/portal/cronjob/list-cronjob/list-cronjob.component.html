@@ -1,43 +1,43 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)" class="wayne-clr-datagrid">
-  <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+  <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
   <clr-dg-column class="col-id">
     <ng-container>
       #
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-time">
-    <ng-container *clrDgHideableColumn="showState['创建时间']">
-      创建时间
+    <ng-container *clrDgHideableColumn="showState['create_time']">
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-version">
-    <ng-container *clrDgHideableColumn="showState['版本']">
-      版本
+    <ng-container *clrDgHideableColumn="showState['version']">
+      {{'TITLE.VERSION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-cluster">
-    <ng-container *clrDgHideableColumn="showState['已上线机房']">
-      已上线机房
+    <ng-container *clrDgHideableColumn="showState['online_cluster']">
+      <!-- {{'TITLE.ONLINE_CLUSTER' | translate}} -->
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['调度间隔']">
-      调度间隔
+    <ng-container *clrDgHideableColumn="showState['scheduling_interval']">
+      {{'TITLE.SCHEDULING_INTERVAL' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-description">
-    <ng-container *clrDgHideableColumn="showState['发布说明']">
-      发布说明
+    <ng-container *clrDgHideableColumn="showState['release_explain']">
+      {{'TITLE.RELEASE_EXPLAIN' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['创建者']">
-      创建者
+    <ng-container *clrDgHideableColumn="showState['create_user']">
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-operate">
-    <ng-container *clrDgHideableColumn="showState['操作']">
-      操作
+    <ng-container *clrDgHideableColumn="showState['action']">
+      {{'TITLE.ACTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let cronjobTpl of cronjobTpls" [clrDgItem]="cronjobTpl">
@@ -69,27 +69,27 @@
       <button class="wayne-button text" 
         (click)="publishTpl(cronjobTpl)"
         *ngIf="authService.currentAppPermission.cronjob.deploy || authService.currentUser.admin">
-        发布</button>
+        {{'BUTTON.RELEASE' | translate}}</button>
       <button class="wayne-button text"
         (click)="cronjobTplDetail(cronjobTpl)"
         *ngIf="authService.currentAppPermission.cronjob.read || authService.currentUser.admin">
-        详情</button>
+        {{'BUTTON.DETAIL' | translate}}</button>
       <button class="wayne-button text"
         (click)="cloneCronjobTpl(cronjobTpl)"
         *ngIf="authService.currentAppPermission.cronjob.create || authService.currentUser.admin">
-        克隆</button>
+        {{'BUTTON.CLONE' | translate}}</button>
       <button class="wayne-button text"
         *ngIf="!cronjobTpl.status && (authService.currentAppPermission.cronjob.delete || authService.currentUser.admin)"
         (click)="deleteCronjobTpl(cronjobTpl)">
-        删除</button>
+        {{'BUTTON.DELETE' | translate}}</button>
       <button class="wayne-button text"
          (click)="offlineCronjobTpl(cronjobTpl)"
          *ngIf="cronjobTpl.status && (authService.currentAppPermission.cronjob.offline || authService.currentUser.admin)">
-         下线</button>
+         {{'BUTTON.DROP' | translate}}</button>
       <button class="wayne-button text"
          (click)="suspend(cronjobTpl)"
          *ngIf="cronjobTpl.status && (authService.currentAppPermission.cronjob.deploy || authService.currentUser.admin)">
-         挂起</button>
+         {{'BUTTON.LANG_UP' | translate}}</button>
     </clr-dg-cell>
   </clr-dg-row>
 
