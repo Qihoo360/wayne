@@ -15,55 +15,42 @@
         </textarea>
       </div>
     </section>
-    <section *ngFor="let container of kubeIngress.spec.rules; let i = index" class="form-block wrap" style="overflow:hidden">
+    <section  class="form-block wrap" style="overflow:hidden">
       <div style="float: left;width: 60%">
         <label class="label-level1">服务配置</label>
-        <div class="form-group form-group-padding">
-          <label class="col-md-3 form-group-label-override required">主机</label>
+        <div class="form-group form-group-padding" *ngFor="let container of kubeIngress.spec.rules; let i = index">
+          <label class="col-md-3 form-group-label-override required">域名</label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" style="width: 217px"
                    [ngModelOptions]="{standalone: true}"
             [(ngModel)]="kubeIngress.spec.rules[i].host">
           </label>
+          <a (click)="onRemoveRule(i)" *ngIf="i > 0">
+            <clr-icon shape="minus-circle" title="删除域名规则" class="is-solid"></clr-icon>
+          </a>
         </div>
+        <a (click)="onAddRule()">
+          <clr-icon shape="plus-circle" title="添加域名规则" class="is-solid"></clr-icon>
+        </a>
       </div>
     </section>
     <section class="form-block wrap" style="overflow:hidden">
       <div style="float: left;width: 60%">
-        <label class="label-level1">后端配置</label>
+        <label class="label-level1">代理负载均衡配置</label>
         <div class="form-group form-group-padding">
-          <label class="col-md-3 form-group-label-override required">服务名称</label>
+          <label class="col-md-3 form-group-label-override required">名称</label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" style="width: 217px"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeIngress.spec.backend.serviceName">
           </label>
         </div>
         <div class="form-group form-group-padding">
-          <label class="col-md-3 form-group-label-override required">服务端口</label>
+          <label class="col-md-3 form-group-label-override required">端口</label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" style="width: 217px"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeIngress.spec.backend.servicePort">
           </label>
         </div>
       </div>
     </section>
-    <section *ngFor="let tls of kubeIngress.spec.tls; let i = index" class="form-block wrap" style="overflow:hidden">
-      <div style="float: left;width: 60%">
-        <label class="label-level1">TLS 配置</label>
-        <div class="form-group form-group-padding">
-          <label class="col-md-3 form-group-label-override required">secretName</label>
-          <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text" style="width: 217px" [(ngModel)]="kubeIngress.spec.tls[i].secretName"  [ngModelOptions]="{standalone: true}">
-          </label>
-        </div>
-        <div *ngFor="let host of kubeIngress.spec.tls[i].hosts; let j = index" class="form-group form-group-padding">
-          <label class="col-md-3 form-group-label-override required">主机</label>
-          <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text" style="width: 217px" [(ngModel)]="kubeIngress.spec.tls[i].hosts[j]"  [ngModelOptions]="{standalone: true}">
-          </label>
-        </div>
-      </div>
-    </section>
-
-
     <div class="clr-wizard-footer-buttons" style="padding-top: 30px">
       <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
       <button type="button" class="btn btn-primary" (click)="openModal()">高级配置</button>

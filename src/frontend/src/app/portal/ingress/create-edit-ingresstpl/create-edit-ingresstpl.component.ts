@@ -19,7 +19,7 @@ import {IngressTpl} from '../../../shared/model/v1/ingresstpl';
 import {IngressService} from '../../../shared/client/v1/ingress.service';
 import {IngressTplService} from '../../../shared/client/v1/ingresstpl.service';
 import {AuthService} from '../../../shared/auth/auth.service';
-import {KubeIngress} from '../../../shared/model/v1/kubernetes/ingress';
+import {IngressRule, KubeIngress} from '../../../shared/model/v1/kubernetes/ingress';
 
 
 @Component({
@@ -41,7 +41,6 @@ export class CreateEditIngressTplComponent implements OnInit {
   kubeIngress: KubeIngress;
 
   labelSelector = [];
-  headless: boolean;
 
 
   constructor(private ingressTplService: IngressTplService,
@@ -63,42 +62,14 @@ export class CreateEditIngressTplComponent implements OnInit {
 
   initDefault() {
     this.kubeIngress = JSON.parse(defaultIngress);
-    // this.kubeService.spec.ports.push(this.defaultPort());
   }
 
-  onAddPort() {
-    // this.kubeService.spec.ports.push(this.defaultPort());
-  }
-
-  onDeletePort(index: number) {
-    // this.kubeService.spec.ports.splice(index, 1);
-  }
 
   onAddSelector() {
     this.labelSelector.push({'key': '', 'value': ''});
   }
 
-  onDeleteSelector(index: number) {
-    this.labelSelector.splice(index, 1);
-  }
-
-  parseLabelSelectors() {
-    // if (this.kubeService.spec.selector) {
-    //   this.labelSelector = [];
-    //   Object.getOwnPropertyNames(this.kubeService.spec.selector).map(key => {
-    //     this.labelSelector.push({'key': key, 'value': this.kubeService.spec.selector[key]});
-    //   });
-    // }
-  }
-
-  // defaultPort(): ServicePort {
-  //   let port = new ServicePort();
-  //   port.protocol = "TCP";
-  //   return port;
-  // }
-
   ngOnInit(): void {
-    console.log('测试');
     this.initDefault();
     let appId = parseInt(this.route.parent.snapshot.params['id']);
     let namespaceId = this.cacheService.namespaceId;
@@ -203,12 +174,28 @@ export class CreateEditIngressTplComponent implements OnInit {
 
   fillDefault(kubeIngress: KubeIngress) {
     this.kubeIngress = mergeDeep(JSON.parse(defaultIngress), kubeIngress);
-    // if (this.kubeIngress.spec.clusterIP === 'None') {
-    //   this.headless = true;
-    // }
-    this.parseLabelSelectors();
   }
 
+  onAddRule() {
+    this.kubeIngress.spec.rules.push(this.defaultRule());
+  }
 
+  defaultRule() {
+    const rule = new IngressRule();
+    rule.host = '';
+    return rule;
+
+  }
+
+  onRemoveRule(idx: number) {
+    const rules = [];
+    for (let i = 0; i < this.kubeIngress.spec.rules.length; i++) {
+      if (i !== idx) {
+        rules.push(this.kubeIngress.spec.rules[i])
+      }
+
+    }
+    this.kubeIngress.spec.rules = rules;
+  }
 }
 
