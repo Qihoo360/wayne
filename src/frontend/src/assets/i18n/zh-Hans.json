@@ -222,7 +222,9 @@
     "CONFIG_KEY": "配置key",
     "CONFIG_VALUE": "配置value",
     "DICT_KEY": "字典key",
-    "DICT_VALUE": "字典value"
+    "DICT_VALUE": "字典value",
+    "SELECTOR_NAME": "selector名称",
+    "SELECTOR_VALUE": "selector值"
   },
   "PAGE": {
     "PAGE": "页",
@@ -273,6 +275,17 @@
     "CREATE_TMP": "创建加密字典模板",
     "EDIT": "编辑加密字典",
     "DELETE": "删除加密字典"
+  },
+  "PVC": {
+    "CREATE": "创建PVC",
+    "CREATE_TMP": "创建PVC模板",
+    "EDIT": "编辑PVC",
+    "DELETE": "删除PVC",
+    "CONTAINER_NUM": "容量大小",
+    "ACCESS_PATTERN": "访问模式",
+    "ASSOCIATED_LABEL": "关联标签",
+    "DELETE_LABEL": "删除标签",
+    "ADD_LABEL": "添加标签"
   },
   "OTHER": "其他",
   "OF": "的"

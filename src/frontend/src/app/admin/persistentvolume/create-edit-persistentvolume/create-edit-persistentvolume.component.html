@@ -77,20 +77,20 @@
             </div>
             <a href="javascript:void(0)">
               <clr-icon (click)="onDeleteLabel(i)"
-                        shape="trash" title="删除标签" class="is-solid clr-icon"></clr-icon>
+                        shape="trash" [title]="'PVC.DELETE_LABEL' | translate" class="is-solid clr-icon"></clr-icon>
             </a>
             <a href="javascript:void(0)">
               <clr-icon (click)="onAddLabel(i)"
-                        shape="plus-circle" title="添加标签" class="is-solid clr-icon"></clr-icon>
+                        shape="plus-circle" [title]="'PVC.ADD_LABEL' | translate" class="is-solid clr-icon"></clr-icon>
             </a>
           </div>
         </div>
         <div class="form-group row">
           <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-            <label for="pv_storage" class="required">容量大小</label>
+            <label for="pv_storage" class="required">{{'PVC.CONTAINER_NUM' | translate}</label>
           </div>
           <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
-            <input formControlName="storage" class="form-control" type="number" id="pv_storage" placeholder="容量大小"
+            <input formControlName="storage" class="form-control" type="number" id="pv_storage" [placeholder]="'PVC.CONTAINER_NUM' | translate"
                    size="45">
           </div>
           <div class="col-lg-3 col-md-5 col-sm-12 col-xs-12">
@@ -99,7 +99,7 @@
         </div>
         <div class="form-group row" formGroupName="accessModes">
           <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-            <label class="required">访问模式</label>
+            <label class="required">{{'PVC.ACCESS_PATTERN' | translate}}</label>
           </div>
           <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
             <clr-checkbox formControlName="ReadWriteOnce" [clrInline]="true" class="col-md-8">

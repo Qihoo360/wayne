@@ -1,5 +1,5 @@
 <button (click)="openModal()" class="wayne-button primary" *ngIf="authService.currentAppPermission.pvc.create || authService.currentUser.admin">
-  创建PVC
+  {{'PVC.CREATE' | translate}}
 </button>
 <create-edit-persistentvolumeclaim (create)="createPvc($event)"></create-edit-persistentvolumeclaim>
 <div *ngIf="pvcId && pvcs?.length>0">
@@ -18,12 +18,12 @@
       <button (click)="createPvcTpl()"
               class="wayne-button normal"
               *ngIf="authService.currentAppPermission.pvc.create || authService.currentUser.admin">
-        创建PVC模版
+        {{'PVC.CREATE_TMP' | translate}}
       </button>
       <button (click)="editPvc()"
               class="wayne-button normal"
               *ngIf="authService.currentAppPermission.pvc.update || authService.currentUser.admin">
-        编辑PVC
+        {{'PVC.EDIT' | translate}}
       </button>
       <button (click)="publishHistory()"
               class="wayne-button normal"
@@ -31,7 +31,7 @@
         {{'BUTTON.HISTORY' | translate}}
       </button>
       <button (click)="deletePvc()" class="wayne-button normal" *ngIf="authService.currentAppPermission.pvc.offline || authService.currentUser.admin">
-        删除PVC
+        {{'PVC.DELETE' | translate}}
       </button>
     </div>
     <div class="table-search-right">
@@ -42,16 +42,5 @@
     </div>
   </div>
   <router-outlet></router-outlet>
-  <!--
-  <list-persistentvolumeclaim
-    [pvcs]="pvcs"
-    (cloneTpl)="clonePvcTpl($event)"
-    [pvcTpls]="pvcTpls"
-    (edit)="editPvc($event)"
-    [publishStatus]="publishStatus"
-    (paginate)="retrieve($event)"
-    [totalPage]="totalPage"
-    [totalCount]="totalCount"
-    [pageSize]="pageSize"></list-persistentvolumeclaim>-->
 </div>
 

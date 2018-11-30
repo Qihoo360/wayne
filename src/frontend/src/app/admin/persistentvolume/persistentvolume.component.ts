@@ -22,7 +22,7 @@ const showState = {
   '名称': {hidden: false},
   '总量': {hidden: false},
   '回收策略': {hidden: true},
-  '访问模式': {hidden: false},
+  'access_pattern': {hidden: false},
   '状态': {hidden: false},
   '已绑定PVC': {hidden: false},
   '原因': {hidden: true},

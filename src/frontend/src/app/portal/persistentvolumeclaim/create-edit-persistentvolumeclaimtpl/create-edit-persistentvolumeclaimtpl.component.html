@@ -1,6 +1,6 @@
 <div class="row" style="padding-left: 5%;">
   <div class="row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
-    <h3 class="header-title">创建PVC模版</h3>
+    <h3 class="header-title">{{'PVC.CREATE_TMP' | translate}}</h3>
   </div>
   <form [formGroup]="currentForm" style="padding-right: 30px;width: 100%">
     <section class="form-block wrap">
@@ -24,15 +24,15 @@
         </textarea>
       </div>
       <div class="form-group form-group-padding">
-        <label class="col-md-3 form-group-label-override required">容量大小</label>
+        <label class="col-md-3 form-group-label-override required">{{'PVC.CONTAINER_NUM' | translate}}</label>
         <input type="number" style="width: 200px"
                required
                formControlName="storage"
-               placeholder="容量大小">
+               [placeholder]="'PVC.CONTAINER_NUM' | translate">
         <span style="padding-top: 2px">G</span>
       </div>
       <div class="form-group form-group-padding">
-        <label class="col-md-3 form-group-label-override required">访问模式</label>
+        <label class="col-md-3 form-group-label-override required">{{'PVC.ACCESS_PATTERN' | translate}}</label>
         <clr-checkbox [clrInline]="true" class="col-md-8"
                       formControlName="readWriteOnce">
           ReadWriteOnce
@@ -52,22 +52,22 @@
         <div *ngFor="let selector of selectors.controls; let i = index"
              [formGroupName]="i"
              class="form-group form-group-padding">
-          <label class="col-md-3 form-group-label-override required">关联标签</label>
+          <label class="col-md-3 form-group-label-override required">{{'PVC.ASSOCIATED_LABEL' | translate}}</label>
           <input type="text" style="width: 300px"
                  formControlName="key"
                  required
-                 placeholder="selector名称">
+                 [placeholder]="'PLACEHOLDER.SELECTOR_NAME' | translate">
           <input type="text" style="width: 300px"
                  formControlName="value"
                  required
-                 placeholder="selector值">
+                 [placeholder]="'PLACEHOLDER.SELECTOR_VALUE' | translate">
           <a href="javascript:void(0)">
             <clr-icon (click)="onDeleteSelector(i)"
-                      shape="trash" title="删除标签" class="is-solid clr-icon"></clr-icon>
+                      shape="trash" [title]="'PVC.DELETE_LABEL' | translate" class="is-solid clr-icon"></clr-icon>
           </a>
           <a href="javascript:void(0)">
             <clr-icon (click)="onAddSelector(i)"
-                      shape="plus-circle" title="添加标签" class="is-solid clr-icon"></clr-icon>
+                      shape="plus-circle" [title]="'PVC.ADD_LABEL' | translate" class="is-solid clr-icon"></clr-icon>
           </a>
         </div>
       </div>
