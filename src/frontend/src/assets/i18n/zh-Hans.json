@@ -16,7 +16,8 @@
     "MEMORY": "请填写内存限制份数",
     "MEMORY_PERCENT": "请填写正确内存限制百分比",
     "REPLICA": "请填写副本数限制",
-    "DATA_CONTENT": "数据内容"
+    "DATA_CONTENT": "数据内容",
+    "FORCE_DROP": "确认资源已经不存在于Kubernetes，可以打开此开关强制下线"
   },
   "LIMIT": {
     "DELOYMENT": "部署份数超过系统最大限制",
@@ -199,7 +200,8 @@
     "CREATE": "创建",
     "LOOK_UP": "查看",
     "DELETE_DATA": "删除数据",
-    "ADD_DATA": "添加数据"
+    "ADD_DATA": "添加数据",
+    "FORCE_DROP": "强制下线"
   },
   "UNIT": {
     "CORE": "核",
@@ -218,7 +220,9 @@
     "SECOND": "单位秒",
     "COMMAND": "多个命令换行输入，例如: \n/bin/healthz.sh\n--arg1\nfoo\n--arg2\nbar",
     "CONFIG_KEY": "配置key",
-    "CONFIG_VALUE": "配置value"
+    "CONFIG_VALUE": "配置value",
+    "DICT_KEY": "字典key",
+    "DICT_VALUE": "字典value"
   },
   "PAGE": {
     "PAGE": "页",
@@ -263,6 +267,12 @@
     "CREATE_TMP": "创建配置集模板",
     "EDIT": "编辑配置集",
     "DELETE": "删除配置集"
+  },
+  "SECRET": {
+    "CREATE": "创建加密字典",
+    "CREATE_TMP": "创建加密字典模板",
+    "EDIT": "编辑加密字典",
+    "DELETE": "删除加密字典"
   },
   "OTHER": "其他",
   "OF": "的"

@@ -26,10 +26,10 @@
           </div>
         </div>
         <div *ngIf="actionType==3" class="form-group" style="padding-left: 135px;">
-          <label class="col-md-3 form-group-label-override">强制下线
+          <label class="col-md-3 form-group-label-override">{{'ACTION.FORCE_DROP' | translate}} 
             <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
               <clr-icon shape="info-circle" size="24"></clr-icon>
-              <span class="tooltip-content">确认资源已经不存在于Kubernetes，可以打开此开关强制下线</span>
+              <span class="tooltip-content">{{'MESSAGE.FORCE_DROP' | translate}} </span>
             </a>
           </label>
           <div class="toggle-switch" style="top: .25rem">
@@ -42,6 +42,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">确定</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.CONFIRM' | translate}}</button>
   </div>
 </clr-modal>
