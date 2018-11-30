@@ -1,31 +1,31 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
+    <div class="row flex-items-xs-between flex-items-xs-top overview-offset">
       <h2 class="header-title">资源</h2>
     </div>
-    <div class="row group">
+    <div class="row group overview-offset">
       <wayne-card class="wayne-card">
         <div class="card-title">机器数量</div>
         <p class="card-text">
-          <a href="javascript:void(0)" (click)="goToLink('/admin/kubernetes/node')" class="nav-link"> {{nodeTotal}}</a>
+          <a href="javascript:void(0)" (click)="goToLink('/admin/kubernetes/node')" class="nav-link"> {{summary.nodeTotal}}</a>
         </p>
       </wayne-card>
       <wayne-card class="wayne-card">
         <div class="card-title">项目总数</div>
         <p class="card-text">
-          <a href="javascript:void(0)" (click)="goToLink('/admin/reportform/app')" class="nav-link">{{appTotal}}</a>
+          <a href="javascript:void(0)" (click)="goToLink('/admin/reportform/app')" class="nav-link">{{summary.appTotal}}</a>
         </p>
       </wayne-card>
       <wayne-card class="wayne-card">
         <div class="card-title">用户总数</div>
         <p class="card-text">
-          <a href="javascript:void(0)" (click)="goToLink('/admin/system/user')" class="nav-link"> {{userTotal}}</a>
+          <a href="javascript:void(0)" (click)="goToLink('/admin/system/user')" class="nav-link"> {{summary.userTotal}}</a>
         </p>
       </wayne-card>
       <wayne-card class="wayne-card">
         <div class="card-title">实例数量</div>
-        <p style="color: #666666" class="card-text">
-          {{podTotal}}
+        <p style="color: #666" class="card-text">
+          {{summary.podTotal}}
         </p>
       </wayne-card>
     </div>
