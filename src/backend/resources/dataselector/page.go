@@ -2,7 +2,6 @@ package dataselector
 
 import (
 	"github.com/Qihoo360/wayne/src/backend/common"
-	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
 
 // GenericDataSelect takes a list of GenericDataCells and DataSelectQuery and returns selected data as instructed by dsQuery.
@@ -13,7 +12,6 @@ func DataSelectPage(dataList []DataCell, q *common.QueryParam) *common.Page {
 	}
 	// Pipeline is Filter -> Sort -> Paginate
 	filtered := SelectableData.Filter().Sort()
-	logs.Error(len(filtered.GenericDataList), q.Offset(), q.Limit())
 	filteredTotal := len(filtered.GenericDataList)
 
 	// slice start and end point

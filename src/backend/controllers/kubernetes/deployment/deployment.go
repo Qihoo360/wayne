@@ -65,7 +65,6 @@ func (c *KubeDeploymentController) List() {
 	param := c.BuildQueryParam()
 
 	cluster := c.Input().Get("cluster")
-	logs.Error(cluster)
 	namespace := c.Input().Get("namespace")
 
 	manager, err := client.Manager(cluster)
