@@ -21,7 +21,7 @@
     <ng-container *clrDgHideableColumn="showState['描述']">{{'TITLE.DESCRIPTION' | translate}}</ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-operate">
-    <ng-container *clrDgHideableColumn="showState['action']">操作</ng-container>
+    <ng-container *clrDgHideableColumn="showState['action']">{{'TITLE.ACTION' | translate}}</ng-container>
   </clr-dg-column>
 
   <clr-dg-row *ngFor="let apiKey of apiKeys" [clrDgItem]="apiKey">

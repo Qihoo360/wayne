@@ -20,12 +20,12 @@
   </a>
   <a
     clrVerticalNavLink
-    title="状态副本集"
+    [title]="'MENU.STATEFULSET' | translate"
     routerLink="statefulset"
     routerLinkActive="active"
     *ngIf="authService.currentAppPermission.statefulset?.read || authService.currentUser.admin">
     <clr-icon clrVerticalNavIcon shape="blocks-group"></clr-icon>
-    状态副本集
+    {{'MENU.STATEFULSET' | translate}}
   </a>
   <a
     clrVerticalNavLink

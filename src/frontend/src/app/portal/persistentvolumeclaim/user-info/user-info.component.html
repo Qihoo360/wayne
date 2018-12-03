@@ -1,14 +1,14 @@
 <clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="''">
-  <h3 class="modal-title">用户信息</h3>
+  <h3 class="modal-title">{{'USER.MESSAGE' | translate}}</h3>
   <div class="modal-body">
     <hr>
     <div style="padding-top: 10px">
-      <span>登录命令：
+      <span>{{'USER.LOGIN_COMMAND' | translate}}:
         <br> sftp -P {{userInfo?.port}} {{userInfo?.user}}@{{userInfo?.server}}</span>
       <br>
       <br>
       <span>
-        登录密码：
+          {{'USER.LOGIN_PASS' | translate}}：
         <br> {{userInfo?.password}}
       </span>
     </div>

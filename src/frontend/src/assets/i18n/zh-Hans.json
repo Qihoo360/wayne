@@ -17,7 +17,8 @@
     "MEMORY_PERCENT": "请填写正确内存限制百分比",
     "REPLICA": "请填写副本数限制",
     "DATA_CONTENT": "数据内容",
-    "FORCE_DROP": "确认资源已经不存在于Kubernetes，可以打开此开关强制下线"
+    "FORCE_DROP": "确认资源已经不存在于Kubernetes，可以打开此开关强制下线",
+    "ERROR": "错误信息"
   },
   "LIMIT": {
     "DELOYMENT": "部署份数超过系统最大限制",
@@ -61,9 +62,13 @@
     "DROP": "下线",
     "ADD_CONTAINER": "添加容器",
     "ADVANCED_CONFIG": "高级配置",
-    "LANG_UP": "挂起"
+    "LANG_UP": "挂起",
+    "DELETE_ALL": "删除所有"
   },
   "USER": {
+    "MESSAGE": "用户信息",
+    "LOGIN_COMMAND": "登录命令",
+    "LOGIN_PASS": "登录密码"
   },
   "ACCOUNT": {
     "GO_BACK": "进入后台",
@@ -106,7 +111,8 @@
     "LIST": "列表",
     "ROLE": "角色",
     "EXPIRE_TIME": "过期时间",
-    "STATUS": "启用状态",
+    "START_STATUS": "启用状态",
+    "STATUS": "状态",
     "METADATA": "元数据",
     "MEMBER_LIST": "部门用户列表",
     "MEMBER_CONTECT": "关联部门用户",
@@ -123,7 +129,8 @@
     "MESSAGE": "信息",
     "RELEASE_EXPLAIN": "发布说明",
     "SCHEDULING_INTERVAL": "调度间隔",
-    "CONFIG_CLUSTER": "配置机房"
+    "CONFIG_CLUSTER": "配置机房",
+    "TOTAL": "总量"
   },
   "TMP": {
     "CONTAINER_NAME": "容器名称",
@@ -184,7 +191,15 @@
     "CHECK_DELAY_MESSAGE": "单位秒，启动多久之后开始存活检查，适用于启动时间较长的服务",
     "LIFE_CYCLE_MESSAGE": "容器生命周期钩子，可以在postStart/preStop两个阶段定义额外的操作"
   },
+  "POD": {
+    "CONTAINER": "容器",
+    "LOG_SHOW_ROWS": "日志显示行数"
+  },
   "CREATE": {
+  },
+  "COPY": {
+    "SUCCESS": "复制成功",
+    "SEARCH_COMMAND": "复制查询命令"
   },
   "ACTION": {
     "UNFOLD": "展开",
@@ -200,7 +215,8 @@
     "LOOK_UP": "查看",
     "DELETE_DATA": "删除数据",
     "ADD_DATA": "添加数据",
-    "FORCE_DROP": "强制下线"
+    "FORCE_DROP": "强制下线",
+    "REFRESH": "刷新"
   },
   "UNIT": {
     "CORE": "核",
@@ -284,7 +300,23 @@
     "ACCESS_PATTERN": "访问模式",
     "ASSOCIATED_LABEL": "关联标签",
     "DELETE_LABEL": "删除标签",
-    "ADD_LABEL": "添加标签"
+    "ADD_LABEL": "添加标签",
+    "SNAPSHOOT_VERSION": "快照版本",
+    "DEPLOYMENT_STATUS": "PVC部署状态",
+    "PV_NAME": "PV名称",
+    "FILE_SYSTEM_STATUS": "文件系统状态",
+    "ACTIVATE_STORAGE": "激活存储",
+    "DEACTIVATED_STORAGE": "反激活存储",
+    "FORCE_OFFLINE_USER": "强制下线用户",
+    "ALLOW_USER_LOGIN": "允许用户登录",
+    "VIEW_USER_PASS": "查看用户名密码",
+    "CHECK_FILE": "校验文件",
+    "CREATE_MESSAGE": "PVC创建之后无法修改，若要修改PVC请先下线已有PVC，再重新发布",
+    "CREATE_SNAPSHOOT": "创建快照",
+    "SIZE": "大小",
+    "DELETE_SNAPSHOOT": "删除快照",
+    "ROLLBACK_SNAPSHOOT": "回滚快照",
+    "RECORD": "共{{value}}条快照记录"
   },
   "OTHER": "其他",
   "OF": "的"

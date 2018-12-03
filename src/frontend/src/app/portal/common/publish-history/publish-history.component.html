@@ -21,12 +21,12 @@
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          机房
+          {{'TITLE.CLUSTER' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          状态
+          {{'TITLE.STATUS' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-row *ngFor="let history of publishHistories" [clrDgItem]="history">
