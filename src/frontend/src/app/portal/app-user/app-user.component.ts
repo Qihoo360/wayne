@@ -15,9 +15,9 @@ import { AuthService } from '../../shared/auth/auth.service';
 import { PageState } from '../../shared/page/page-state';
 
 const showState = {
-  '用户名称': {hidden: false},
-  '项目名称': {hidden: false},
-  '所属群组': {hidden: false},
+  'user_name': {hidden: false},
+  'app_name': {hidden: false},
+  'group': {hidden: false},
   'create_time': {hidden: false},
   'action': {hidden: false}
 };

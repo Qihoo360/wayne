@@ -66,9 +66,15 @@
     "DELETE_ALL": "删除所有"
   },
   "USER": {
+    "NAME": "用户名称",
     "MESSAGE": "用户信息",
     "LOGIN_COMMAND": "登录命令",
-    "LOGIN_PASS": "登录密码"
+    "LOGIN_PASS": "登录密码",
+    "APP_USER_LIST": "项目用户列表",
+    "CONNECT_APP_USER": "关联项目用户",
+    "APP_NAME": "项目名称",
+    "NO_USER": "用户不存在",
+    "GROUP": "群组"
   },
   "ACCOUNT": {
     "GO_BACK": "进入后台",
