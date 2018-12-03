@@ -13,8 +13,6 @@ export class PersistentVolumeClaim {
   createTime: Date;
   updateTime: Date;
   order: number;
-  //[PersistentVolumeClaim:]
-  //[end]
 }
 
 export class PersistentVolumeClaimLoginInfo {
