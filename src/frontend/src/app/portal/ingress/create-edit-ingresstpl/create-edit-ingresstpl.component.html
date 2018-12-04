@@ -1,0 +1,58 @@
+<div class="row" style="padding-left: 5%">
+  <div class="row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
+    <h3 class="header-title">创建 Ingress 模版</h3>
+  </div>
+  <form #ngForm="ngForm" style="padding-right: 30px;width: 100%">
+    <section class="form-block wrap">
+      <label class="label-level1">发布信息</label>
+      <div class="form-group form-group-padding">
+        <label class="col-md-3 form-group-label-override required">发布说明</label>
+        <textarea name="description"
+                  [(ngModel)]="ingressTpl.description"
+                  required
+                  rows="3"
+                  style="width: 700px;">
+        </textarea>
+      </div>
+    </section>
+    <section  class="form-block wrap" style="overflow:hidden">
+      <div style="float: left;width: 60%">
+        <label class="label-level1">服务配置</label>
+        <div *ngFor="let rule of kubeIngress.spec.rules; let i = index">
+        <div class="form-group form-group-padding" >
+          <label class="col-md-4 form-group-label-override required">域名</label>
+          <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+            <input type="text" style="width: 217px"
+                   [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="kubeIngress.spec.rules[i].host">
+          </label>
+        </div>
+          <div class="form-group form-group-padding" >
+            <label class="col-md-3 form-group-label-override required">负载均衡名称</label>
+            <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="text" style="width: 217px"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeIngress.spec.rules[i].http.paths[0].backend.serviceName">
+            </label>
+          </div>
+          <div class="form-group form-group-padding" >
+            <label class="col-md-3 form-group-label-override required">负载均衡端口</label>
+            <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="number" style="width: 217px"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeIngress.spec.rules[i].http.paths[0].backend.servicePort">
+            </label>
+          </div>
+          <div class="form-group form-group-padding" >
+            <label class="col-md-3 form-group-label-override required">请求路由</label>
+            <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
+              <input type="text" style="width: 217px"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeIngress.spec.rules[i].http.paths[0].path">
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="clr-wizard-footer-buttons" style="padding-top: 30px">
+      <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
+      <button type="button" class="btn btn-primary" (click)="openModal()">高级配置</button>
+      <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
+    </div>
+  </form>
+</div>
+<wayne-ace-editor (outputObj)="saveIngressTpl($event)"></wayne-ace-editor>
