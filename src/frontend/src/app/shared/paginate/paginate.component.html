@@ -5,7 +5,7 @@
       <wayne-option *ngFor="let pagesize of pageSizes" [value]="pagesize">{{pagesize}}</wayne-option>
     </wayne-select>
   </ng-container>
-  <span style="margin-left:5px;" [translate]="'PAGE.TOTAL'" [translateParams]="{value: total}"></span>
+  <span style="margin-left:5px;" [translate]="'PAGE.TOTAL'" [translateParams]="{value: total ? total : 0}"></span>
   <ng-container *ngIf="total && total > size">
     <wayne-select [(ngModel)]="current" [placeholder]="'PLACEHOLDER.CHOOSE' | translate" [readonly]="true"
                   style="width: 40px; height: 24px;margin-left: 12px;">
