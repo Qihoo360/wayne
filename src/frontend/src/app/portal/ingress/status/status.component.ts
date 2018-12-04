@@ -15,7 +15,7 @@ import { IngressTpl } from '../../../shared/model/v1/ingresstpl';
 })
 
 export class IngressStatusComponent {
-  createAppOpened: boolean = false;
+  createAppOpened = false;
   kubeIngress: KubeIngress;
 
   constructor(private messageHandlerService: MessageHandlerService,
@@ -25,7 +25,7 @@ export class IngressStatusComponent {
   }
 
   get appId(): number {
-    return parseInt(this.route.parent.snapshot.params['id']);
+    return parseInt(this.route.parent.snapshot.params['id'], 10);
   }
 
   newIngressStatus(cluster: string, ingressTpl: IngressTpl) {

@@ -94,7 +94,7 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.INGRESS) {
-        let ingressId = message.data;
+        const ingressId = message.data;
         this.ingressService.deleteById(ingressId, this.appId)
           .subscribe(
             response => {
@@ -183,9 +183,9 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   initIngress(refreshTpl?: boolean) {
-    this.appId = parseInt(this.route.parent.snapshot.params['id']);
-    let namespaceId = this.cacheService.namespaceId;
-    this.ingressId = parseInt(this.route.snapshot.params['ingressId']);
+    this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
+    const namespaceId = this.cacheService.namespaceId;
+    this.ingressId = parseInt(this.route.snapshot.params['ingressId'], 10);
     Observable.combineLatest(
       this.clusterService.getNames(),
       this.ingressService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
@@ -199,7 +199,7 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
         if (refreshTpl) {
           this.retrieve();
         }
-        let isRedirectUri = this.redirectUri();
+        const isRedirectUri = this.redirectUri();
         if (isRedirectUri) {
           this.navigateUri();
         }
@@ -229,7 +229,7 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
       this.ingressId = this.ingresses[0].id;
       return true;
     } else {
-      return false
+      return false;
     }
   }
 
@@ -244,7 +244,7 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
     } else {
       this.orderCache = [].slice.call(this.el.nativeElement.querySelectorAll('.tabs-item')).map((item, index) => {
         return {
-          id: parseInt(item.id),
+          id: parseInt(item.id, 10),
           order: index
         };
       });
@@ -256,9 +256,9 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
       if (!ingressId) {
         return this.ingresses[0].id;
       }
-      for (let ingress of this.ingresses) {
+      for (const ingress of this.ingresses) {
         if (ingressId === ingress.id) {
-          return ingressId
+          return ingressId;
         }
       }
       return this.ingresses[0].id;
@@ -280,7 +280,7 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
   filterCluster(): Cluster[] {
     return this.clusters.filter((clusterObj: Cluster) => {
       return this.cacheService.namespace.metaDataObj.clusterMeta &&
-        this.cacheService.namespace.metaDataObj.clusterMeta[clusterObj.name]
+        this.cacheService.namespace.metaDataObj.clusterMeta[clusterObj.name];
     });
   }
 
@@ -302,11 +302,11 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
     if (this.publishStatus && this.publishStatus.length > 0) {
       this.messageHandlerService.warning('已上线 ingress 无法删除，请先下线 ingress！')
     } else {
-      let deletionMessage = new ConfirmationMessage(
+      const deletionMessage = new ConfirmationMessage(
         '删除 ingress 确认',
         '是否确认删除 ingress',
         this.ingressId,
-        ConfirmationTargets.DEPLOYMENT,
+        ConfirmationTargets.INGRESS,
         ConfirmationButtons.DELETE_CANCEL
       );
       this.deletionDialogService.openComfirmDialog(deletionMessage);
@@ -354,9 +354,9 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   buildTplList(ingressTpls: IngressTpl[], status: PublishStatus[]): IngressTpl[] {
-    let tplStatusMap = {};
+    const tplStatusMap = {};
     if (status && status.length > 0) {
-      for (let state of status) {
+      for (const state of status) {
         if (!tplStatusMap[state.templateId]) {
           tplStatusMap[state.templateId] = Array<PublishStatus>();
         }
@@ -366,10 +366,9 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
     }
     if (ingressTpls && ingressTpls.length > 0) {
       for (let i = 0; i < ingressTpls.length; i++) {
-        let ing: KubeIngress = JSON.parse(ingressTpls[i].template);
+        const ing: KubeIngress = JSON.parse(ingressTpls[i].template);
         if (ing.spec.rules && ing.spec.rules.length > 0) {
-
-          let publishStatus = tplStatusMap[ingressTpls[i].id];
+          const publishStatus = tplStatusMap[ingressTpls[i].id];
           if (publishStatus && publishStatus.length > 0) {
             ingressTpls[i].status = publishStatus;
           }
@@ -382,14 +381,16 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
   syncStatus(): void {
     if (this.changedIngressTpls && this.changedIngressTpls.length > 0) {
       for (let i = 0; i < this.changedIngressTpls.length; i++) {
-        let tpl = this.changedIngressTpls[i];
+        const tpl = this.changedIngressTpls[i];
         if (tpl.status && tpl.status.length > 0) {
           for (let j = 0; j < tpl.status.length; j++) {
-            let status = tpl.status[j];
-            if (status.errNum > 2) continue;
+            const status = tpl.status[j];
+            if (status.errNum > 2) {
+              continue;
+            }
             this.ingressClient.get(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
               response => {
-                let code = response.statusCode | response.status;
+                const code = response.statusCode || response.status;
                 if (code === httpStatusCode.NoContent) {
                   this.changedIngressTpls[i].status[j].state = TemplateState.NOT_FOUND;
                   return;

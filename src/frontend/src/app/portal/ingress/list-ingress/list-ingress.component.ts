@@ -45,7 +45,7 @@ export class ListIngressComponent implements OnInit, OnDestroy {
   @Input() page: Page;
   @Input() appId: number;
   state: State;
-  currentPage: number = 1;
+  currentPage = 1;
 
   @Output() paginate = new EventEmitter<State>();
   @Output() serviceTab = new EventEmitter<number>();
@@ -65,7 +65,7 @@ export class ListIngressComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.INGRESS_TPL) {
-        let tplId = message.data;
+        const tplId = message.data;
         this.ingressTplService.deleteById(tplId, this.appId)
           .subscribe(
             response => {
@@ -111,7 +111,7 @@ export class ListIngressComponent implements OnInit, OnDestroy {
   publishIngressTpl(tpl: IngressTpl) {
     this.ingressService.getById(tpl.ingressId, this.appId).subscribe(
       response => {
-        let ingress = response.data;
+        const ingress = response.data;
         this.publishTpl.newPublishTpl(ingress, tpl, ResourcesActionType.PUBLISH)
       },
       error => {
@@ -131,7 +131,7 @@ export class ListIngressComponent implements OnInit, OnDestroy {
   offlineIngressTpl(tpl: IngressTpl) {
     this.ingressService.getById(tpl.ingressId, this.appId).subscribe(
       response => {
-        let ingress = response.data;
+        const ingress = response.data;
         this.publishTpl.newPublishTpl(ingress, tpl, ResourcesActionType.OFFLINE);
       },
       error => {
@@ -142,7 +142,7 @@ export class ListIngressComponent implements OnInit, OnDestroy {
   }
 
   deleteIngressTpl(tpl: IngressTpl): void {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除 Ingress 模版确认',
       `你确认删除 Ingress 模版 ${tpl.name}？`,
       tpl.id,

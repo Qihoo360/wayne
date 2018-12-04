@@ -22,13 +22,13 @@ import { KubeIngress } from '../../../shared/model/v1/kubernetes/ingress';
 export class PublishIngressTplComponent {
   @Output() published = new EventEmitter<boolean>();
   @Input() appId: number;
-  modalOpened: boolean = false;
+  modalOpened = false;
   publishForm: NgForm;
   @ViewChild('publishForm')
   currentForm: NgForm;
   clusters = Array<Cluster>();
   ingressTpl: IngressTpl;
-  isSubmitOnGoing: boolean = false;
+  isSubmitOnGoing = false;
   title: string;
   forceOffline: boolean;
   actionType: ResourcesActionType;

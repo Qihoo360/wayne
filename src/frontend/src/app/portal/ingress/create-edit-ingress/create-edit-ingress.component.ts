@@ -28,13 +28,12 @@ export class CreateEditIngressComponent implements OnInit {
   resourcesMetas = new Resources();
   title: string;
   ingress: Ingress = new Ingress();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
   actionType: ActionType;
   modalOpened: boolean;
   app: App;
-  isMaster:boolean = false;
 
   @Output() create = new EventEmitter<number>();
 
@@ -73,7 +72,7 @@ export class CreateEditIngressComponent implements OnInit {
   }
 
   resourcesValidation(resource: string): boolean {
-    let value = this.resourcesMetas[resource];
+    const value = this.resourcesMetas[resource];
     if (/Percent$/.test(resource) && value !== null) {
       if (value <= 0 || value > 100) {
         return false;
@@ -103,8 +102,8 @@ export class CreateEditIngressComponent implements OnInit {
     }
     this.isSubmitOnGoing = true;
     this.ingress.appId = this.app.id;
-    let metaData = JSON.parse(this.ingress.metaData);
-    let checkedCluster = Array<string>();
+    const metaData = JSON.parse(this.ingress.metaData);
+    const checkedCluster = Array<string>();
     this.clusters.map(cluster => {
       if (cluster.checked) {
         checkedCluster.push(cluster.name)
@@ -150,11 +149,11 @@ export class CreateEditIngressComponent implements OnInit {
       this.currentForm.valid &&
       !this.isSubmitOnGoing &&
       this.isNameValid &&
-      !this.checkOnGoing
+      !this.checkOnGoing;
   }
 
   handleValidation(): void {
-    let cont = this.currentForm.controls['name'];
+    const cont = this.currentForm.controls['name'];
     if (cont) {
       this.isNameValid = cont.valid
     }

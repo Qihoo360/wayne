@@ -71,11 +71,11 @@ export class CreateEditIngressTplComponent implements OnInit {
 
   ngOnInit(): void {
     this.initDefault();
-    let appId = parseInt(this.route.parent.snapshot.params['id']);
-    let namespaceId = this.cacheService.namespaceId;
-    let ingressId = parseInt(this.route.snapshot.params['ingressId']);
-    let tplId = parseInt(this.route.snapshot.params['tplId']);
-    let observables = Array(
+    const appId = parseInt(this.route.parent.snapshot.params['id'], 10);
+    const namespaceId = this.cacheService.namespaceId;
+    const ingressId = parseInt(this.route.snapshot.params['ingressId'], 10);
+    const tplId = parseInt(this.route.snapshot.params['tplId'], 10);
+    const observables = Array(
       this.appService.getById(appId, namespaceId),
       this.ingressService.getById(ingressId, appId),
     );
@@ -89,7 +89,7 @@ export class CreateEditIngressTplComponent implements OnInit {
       response => {
         this.app = response[0].data;
         this.ingress = response[1].data;
-        let tpl = response[2];
+        const tpl = response[2];
         if (tpl) {
           this.ingressTpl = tpl.data;
           this.ingressTpl.description = null;
