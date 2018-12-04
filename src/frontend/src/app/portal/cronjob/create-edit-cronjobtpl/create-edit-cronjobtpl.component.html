@@ -1,6 +1,6 @@
 <div class="row" style="padding-left: 50px; padding-right: 150px;">
   <div class="row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
-    <h3 class="header-title" id="创建计划任务模版">创建计划任务模版</h3>
+    <h3 class="header-title" id="创建计划任务模版">{{'CRONJOB_CREATE_TMP' | translate}}</h3>
   </div>
   <div style="position: fixed;right: 0;top: 100px; width: 200px; max-height: calc(100% - 160px); overflow-y: auto;">
     <wayne-navigation container=".content-area" [node]="naviList"></wayne-navigation>
@@ -18,20 +18,18 @@
     </section>
     <section class="form-block wrap">
       <div>
-        <label class="label-level1" id="计划任务配置">计划任务配置</label>
+        <label class="label-level1" id="计划任务配置">{{'CRONJOB_CONFIG' | translate}}</label>
         <div style="padding-top:10px">
           <label class="col-md-12 form-group-label-override required">
-            <span class="tooltip" style="color:red;">
-              k8s调度任务的时区是UTC(+0)，按小时定期执行的任务，请减去8小时调整为北京时区(+8)<br>
-              例如想在北京时间每天11点(0 11 * * *)执行定时任务，则设置为(0 2 * * *)
+            <span class="tooltip" style="color:red;" [innerHTML]="'CRONJOB.CONFIG_MESSAGE' | translate">
             </span>
           </label>
         </div>
         <div style="margin-top: 15px" class="form-group form-group-padding">
-          <label class="col-md-3 form-group-label-override required">运行周期
+          <label class="col-md-3 form-group-label-override required">{{'CRONJOB.RUN_CYCLE' | translate}}
             <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
               <clr-icon shape="info-circle" size="24"></clr-icon>
-              <span class="tooltip-content">计划任务的定时周期,Cron表达式</span>
+              <span class="tooltip-content">{{'CRONJOB.RUN_CYCLE_MESSAGE' | translate}}</span>
             </a>
           </label>
           <label aria-haspopup="true" role="tooltip" [class.invalid]="!isScheduleValid"
@@ -41,42 +39,42 @@
                    size="40"
                    required
                    class="tooltip tooltip-validation tooltip-md tooltip-bottom-left"
-                   placeholder="cron表达式">
+                   [placeholder]="'CRONJOB.EXPRESSION' | translate">
             <span class="tooltip-content">
-              cron表达式填写不正确
+              {{'CRONJOB.EXPRESSION_MESSAGE' | translate}}
             </span>
             <a target="_blank" href="https://en.wikipedia.org/wiki/Cron">More</a>
           </label>
         </div>
         <div class="form-group form-group-padding">
-          <label class="col-md-3 form-group-label-override required">并行策略
+          <label class="col-md-3 form-group-label-override required">{{'CRONJOB.PARALLEL_STRATEGY' | translate}}
             <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
               <clr-icon shape="info-circle" size="24"></clr-icon>
-              <span class="tooltip-content">允许:支持并行JOB;禁止:如果之前的JOB未完成，下一个JOB禁止启动;替代:会取消当前未完成JOB，替换成新JOB</span>
+              <span class="tooltip-content">{{'CRONJOB.PARALLEL_STRATEGY_MESSAGE' | translate}}</span>
             </a>
           </label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <div class="select">
               <select name="concurrencyPolicy" [(ngModel)]="kubeCronjob.spec.concurrencyPolicy">
-                <option value="Allow" selected>允许</option>
-                <option value="Forbid">禁止</option>
-                <option value="Replace">替代</option>
+                <option value="Allow" selected>{{'ACTION.ALLOW' | translate}}</option>
+                <option value="Forbid">{{'ACTION.FORBID' | translate}}</option>
+                <option value="Replace">{{'ACTION.REPLACE' | translate}}</option>
               </select>
             </div>
           </label>
         </div>
         <div class="form-group form-group-padding">
-          <label class="col-md-3 form-group-label-override required">最大执行时间
+          <label class="col-md-3 form-group-label-override required">{{'CRONJOB.MAX_EXECUTE_TIME' | translate}}
             <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
               <clr-icon shape="info-circle" size="24"></clr-icon>
-              <span class="tooltip-content">任务执行后，最大的执行时间，超出后会被中止</span>
+              <span class="tooltip-content">{{'CRONJOB.MAX_EXECUTE_TIME_MESSAGE' | translate}}</span>
             </a>
           </label>
           <label aria-haspopup="true" role="tooltip" [class.invalid]="formValid('activeDeadlineSeconds')"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="number" name="activeDeadlineSeconds"
                    [(ngModel)]="kubeCronjob.spec.jobTemplate.spec.activeDeadlineSeconds" size="45" required
-                   placeholder="最大执行时间"> 秒
+                   placeholder="'CRONJOB.MAX_EXECUTE_TIME' | translate">{{'UNIT.SECOND' | translate}}
           </label>
         </div>
         <!--
@@ -89,7 +87,7 @@
           </label>
           <label aria-haspopup="true" role="tooltip" [class.invalid]="formValid('successfulJobsHistoryLimit')" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="number" name="successfulJobsHistoryLimit" [(ngModel)]="kubeCronjob.spec.successfulJobsHistoryLimit" size="45" required
-                   placeholder="最大执行时间">
+                   placeholder="'CRONJOB.MAX_EXECUTE_TIME' | translate">
           </label>
         </div>
         <div class="form-group form-group-padding">
@@ -101,7 +99,7 @@
           </label>
           <label aria-haspopup="true" role="tooltip" [class.invalid]="formValid('failedJobsHistoryLimit')" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="number" name="failedJobsHistoryLimit" [(ngModel)]="kubeCronjob.spec.failedJobsHistoryLimit" size="45" required
-                   placeholder="最大执行时间">
+                   placeholder="'CRONJOB.MAX_EXECUTE_TIME' | translate">
           </label>
         </div>-->
       </div>

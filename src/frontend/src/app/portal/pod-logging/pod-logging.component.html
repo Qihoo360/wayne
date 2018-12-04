@@ -31,7 +31,7 @@
           <clr-icon shape="caret down"></clr-icon>
         </button>
         <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-          <h4 class="dropdown-header">{{'POD.CONTAINER' | translate}}</h4>
+          <h4 class="dropdown-header">{{'TITLE.CONTAINER' | translate}}</h4>
           <a *ngFor="let c of containers" href="javascript:void(0)"
              clrDropdownItem (click)="selectedContainer=c.name;containerChange();">
             {{c.name}}
@@ -54,8 +54,9 @@
       <a href="javascript:void(0)" (click)="refreshLog()" class="nav-link nav-text">
         {{'ACTION.REFRESH' | translate}}
       </a>
-      <a href="javascript:void(0)" *ngIf="logSource" class="nav-link nav-text" (click)="copyLogCommand()">
-        {{(isCopied ? 'COPY.SUCCESS' : 'COPY.SEARCH_COMMAND') | translate}}</a>
+      <a href="javascript:void(0)" *ngIf="logSource" class="nav-link nav-text" (click)="copyLogCommand()" >
+        {{(isCopied ? 'COPY.SUCCESS' : 'COPY.SUCCESS_MESSAGE') | translate}}</a>
+
     </div>
   </header>
   <div class="card-block" style="background: black;color: white;">

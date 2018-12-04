@@ -27,10 +27,10 @@
             <input class="form-control" type="text" id="webhook-url" [(ngModel)]="webHook.url"
                    name="webhook-url"
                    required
-                   placeholder="调用URL地址"
+                   [placeholder]="'PLACEHOLDER.URL_ADDR' | translate"
                    pattern="(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]">
             <span class="tooltip-content">
-              URL不符合格式要求 
+              {{'RULE.URL' | translate}}
             </span>
           </label>
           <span class="spinner spinner-inline" [hidden]="!requestLocked"></span>
@@ -42,7 +42,7 @@
             <input class="form-control" type="text" id="webhook-secret" [(ngModel)]="webHook.secret"
                    name="webhook-secret"
                    maxlength="120"
-                   placeholder="用于简单验证请求是平台发出（可选）">
+                   [placeholder]="'PLACEHOLDER.CIPHER' | translate">
           </label>
           <span class="spinner spinner-inline" [hidden]="!requestLocked"></span>
         </div>
@@ -54,8 +54,8 @@
                                [data]="hookEvents"
                                valueField="key"
                                textField="name"
-                               availableText="可选"
-                               selectedText="已选"
+                               [availableText]="'TITLE.AVAIL_ITEM' | translate"
+                               [selectedText]="'TITLE.CHOOSED_ITEM' | translate"
                                [(ngModel)]="watchEventKeys"
             >
             </ng2-dual-list-box>

@@ -1,5 +1,5 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)" class="wayne-clr-datagrid">
-  <clr-dg-placeholder>暂无数据</clr-dg-placeholder>
+  <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
   <clr-dg-column [clrDgField]="'id'" class="col-id">
     <ng-container>
       ID
@@ -18,7 +18,7 @@
   <!-- 防止事件图标换行-->
   <clr-dg-column class="col-cluster">
     <ng-container *clrDgHideableColumn="showState['online_cluster']">
-      上线机房
+      {{'TITLE.ONLINE_CLUSTER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'description'">

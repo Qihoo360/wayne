@@ -8,7 +8,7 @@
   </button>
   <button (click)="deleteAllSnap()" class="btn btn-link">
     <clr-icon shape="trash"></clr-icon>
-    {{'BUTTON.DELETE_ALL' | translate}}
+    {{'PVC.DELETE_ALL' | translate}}
   </button>
 </div>
 
@@ -42,8 +42,6 @@
       </a>
     </clr-dg-cell>
   </clr-dg-row>
-  <clr-dg-footer>
-    <span translate="'PVC.RECORD'" translateParams="{value: (state.snaps ? state.snaps.length : 0)}"></span>
+  <clr-dg-footer [translate]="'PVC.RECORD'" [translateParams]="{value: (state.snaps ? state.snaps.length : 0)}">
   </clr-dg-footer>
-
 </clr-datagrid>

@@ -59,24 +59,24 @@
     <clr-dg-cell class="col-operate">
       <button class="wayne-button text" (click)="publishPvcTpl(tpl)"
               *ngIf="authService.currentAppPermission.pvc.deploy || authService.currentUser.admin">
-              {{'BUTTON.RELEASE' | translate}}
+        {{'BUTTON.RELEASE' | translate}}
       </button>
       <button class="wayne-button text" (click)="detailPvcTpl(tpl)"
               *ngIf="authService.currentAppPermission.pvc.read || authService.currentUser.admin">
-              {{'BUTTON.DETAIL' | translate}}
+        {{'BUTTON.DETAIL' | translate}}
       </button>
       <button class="wayne-button text" (click)="clonePvcTpl(tpl)"
               *ngIf="authService.currentAppPermission.pvc.create || authService.currentUser.admin">
-              {{'BUTTON.CLONE' | translate}}
+        {{'BUTTON.CLONE' | translate}}
       </button>
       <button class="wayne-button text"
               *ngIf="!tpl.status && (authService.currentAppPermission.pvc.delete || authService.currentUser.admin)"
               (click)="deletePvcTpl(tpl)">
-              {{'BUTTON.DELETE' | translate}}
+        {{'BUTTON.DELETE' | translate}}
       </button>
-      <button class="wayne-button text" title="下线" (click)="offlinePvcTpl(tpl)"
+      <button class="wayne-button text" (click)="offlinePvcTpl(tpl)"
               *ngIf="tpl.status && (authService.currentAppPermission.pvc.offline || authService.currentUser.admin)">
-              {{'BUTTON.DROP' | translate}}
+        {{'BUTTON.DROP' | translate}}
       </button>
     </clr-dg-cell>
   </clr-dg-row>
@@ -133,7 +133,7 @@
     </clr-dg-column>
     <clr-dg-column>
       <ng-container *clrDgHideableColumn="{hidden: false}">
-        {{'MESSAGE.ERROR' | translate}}
+         {{'EVENT.ERROR_MESSAGE' | translate}}
       </ng-container>
     </clr-dg-column>
     <clr-dg-column>
@@ -163,7 +163,7 @@
                 <button class="wayne-button text" *ngIf="!containState(state.fileSystemStatus,'Mount')"
                         style="padding-right: 5px"
                         (click)="activePv(state)">
-                 {{'PVC.ACTIVATE_STORAGE' | translate}}
+                  {{'PVC.ACTIVATE_STORAGE' | translate}}
                 </button>
                 <button class="wayne-button text" *ngIf="containState(state.fileSystemStatus,'Mount')" [title]="'PVC.DEACTIVATED_STORAGE' | translate"
                         style="padding-right: 5px"
@@ -181,12 +181,12 @@
                   {{'PVC.ALLOW_USER_LOGIN' | translate}}
                 </button>
                 <button class="wayne-button text" *ngIf="containState(state.fileSystemStatus,'Mount')"
-                        (click)="loginInfo(state)" [title]="'PVC.VIEW_USER_PASS' | translate">
+                        (click)="loginInfo(state)" title="'PVC.VIEW_USER_PASS' | translate">
                   {{'PVC.VIEW_USER_PASS' | translate}}
                 </button>
                 <button class="wayne-button text"
                         *ngIf="containState(state.fileSystemStatus,'Mount') && containState(state.fileSystemStatus,'LoginForbidden')"
-                        [title]="'PVC.CHECK_FILE' | translate" style="padding-right: 5px" (click)="verifyFileSystem(state)">
+                        title="'PVC.CHECK_FILE' | translate" style="padding-right: 5px" (click)="verifyFileSystem(state)">
                   {{'PVC.CHECK_FILE' | translate}}
                 </button>
               </div>

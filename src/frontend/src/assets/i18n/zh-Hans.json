@@ -18,10 +18,12 @@
     "REPLICA": "请填写副本数限制",
     "DATA_CONTENT": "数据内容",
     "FORCE_DROP": "确认资源已经不存在于Kubernetes，可以打开此开关强制下线",
-    "ERROR": "错误信息"
+    "ERROR": "错误信息",
+    "VIEW_TOKEN": "查看token"
   },
   "LIMIT": {
     "DELOYMENT": "部署份数超过系统最大限制",
+    "STATEFULSET": "状态副本集份数超过系统最大限制",
     "CPU": "CPU限制",
     "CPU_PERCENT": "CPU限制百分比",
     "MEMORY": "内存限制",
@@ -86,6 +88,7 @@
     "APP": "项目",
     "MEMBER": "成员列表",
     "OVERVIEW": "概览",
+    "APP_OVERVIEW": "项目概览",
     "SOURCE_STAT": "资源统计",
     "RELEASE_RECORD": "上线记录",
     "DEPLOYMENT": "部署",
@@ -94,7 +97,8 @@
     "CRONJOB": "计划任务",
     "SERVICE": "负载均衡",
     "CONFIGMAP": "配置集",
-    "SECRET": "加密字典"
+    "SECRET": "加密字典",
+    "CHECK_MONITOR": "查看监控"
   },
   "TITLE": {
     "CREATE_APP": "创建项目",
@@ -136,7 +140,9 @@
     "RELEASE_EXPLAIN": "发布说明",
     "SCHEDULING_INTERVAL": "调度间隔",
     "CONFIG_CLUSTER": "配置机房",
-    "TOTAL": "总量"
+    "TOTAL": "总量",
+    "START_TIME": "开始时间",
+    "FINI_TIME": "结束时间"
   },
   "TMP": {
     "CONTAINER_NAME": "容器名称",
@@ -199,7 +205,28 @@
   },
   "POD": {
     "CONTAINER": "容器",
-    "LOG_SHOW_ROWS": "日志显示行数"
+    "LOG_SHOW_ROWS": "日志显示行数",
+    "LIST": "Pod列表",
+    "RESTART_NUM": "重启次数",
+    "ENTER_CONTAINER": "进入容器",
+    "LOG": "日志",
+    "DATA_UPDATE": "数据实时更新: ",
+    "NAME": "节点名称"
+  },
+  "CLUSTER": {
+    "RESOURCE_LIST": "机房资源列表",
+    "CPU_PERCENT": "Cpu使用 / Cpu总量（核）",
+    "MEMORY_PERCENT": "内存使用 / 内存总量（G）"
+  },
+  "EVENT": {
+    "ERROR_MESSAGE": "错误信息",
+    "FINI_CHECK_TIME": "最后检查时间",
+    "ERROR": "错误事件"
+  },
+  "HISTORY": {
+    "RELEASE_TIME": "发布时间",
+    "RELEASE_USER": "发布者",
+    "TMP_ID": "模版ID"
   },
   "CREATE": {
   },
@@ -222,7 +249,10 @@
     "DELETE_DATA": "删除数据",
     "ADD_DATA": "添加数据",
     "FORCE_DROP": "强制下线",
-    "REFRESH": "刷新"
+    "REFRESH": "刷新",
+    "ALLOW": "允许",
+    "FORBID": "禁止",
+    "REPLACE": "替代"
   },
   "UNIT": {
     "CORE": "核",
@@ -248,7 +278,9 @@
     "SELECTOR_NAME": "selector名称",
     "SELECTOR_VALUE": "selector值",
     "DELIVERY_ADDR": "推送地址",
-    "CIPHER": "用于简单验证请求是平台发出（可选）"
+    "CIPHER": "用于简单验证请求是平台发出（可选）",
+    "URL_ADDR": "调用URL地址",
+    "STATEFULSET": "状态副本集份数"
   },
   "PAGE": {
     "PAGE": "页",
@@ -268,9 +300,11 @@
     "CREATE": "创建部署",
     "CREATE_TMP": "创建部署模板",
     "EDIT": "编辑部署",
-    "DELETE": "删除部署"
+    "DELETE": "删除部署",
+    "NUM": "部署份数"
   },
   "STATEFULSET": {
+    "TITLE": "状态副本集",
     "CREATE": "创建状态副本集",
     "CREATE_TMP": "创建状态副本集模板",
     "EDIT": "编辑状态副本集",
@@ -288,7 +322,22 @@
     "EDIT": "编辑计划任务",
     "DELETE": "删除计划任务",
     "LIST": "计划任务列表",
-    "DELETE_LIST": "已删除计划任务列表"
+    "DELETE_LIST": "已删除计划任务列表",
+    "CONFIG": "计划任务配置",
+    "CONFIG_MESSAGE": "k8s调度任务的时区是UTC(+0)，按小时定期执行的任务，请减去8小时调整为北京时区(+8)<br>例如想在北京时间每天11点(0 11 * * *)执行定时任务，则设置为(0 2 * * *)",
+    "RUN_CYCLE": "运行周期",
+    "RUN_CYCLE_MESSAGE": "计划任务的定时周期,Cron表达式",
+    "EXPRESSION": "cron表达式",
+    "EXPRESSION_MESSAGE": "cron表达式填写不正确",
+    "PARALLEL_STRATEGY": "并行策略",
+    "PARALLEL_STRATEGY_MESSAGE": "允许:支持并行JOB;禁止:如果之前的JOB未完成，下一个JOB禁止启动;替代:会取消当前未完成JOB，替换成新JOB",
+    "MAX_EXECUTE_TIME": "最大执行时间",
+    "MAX_EXECUTE_TIME_MESSAGE": "任务执行后，最大的执行时间，超出后会被中止",
+    "ERROR_EVENT": "错误事件",
+    "TIMER": "次数",
+    "ERROR_REASON": "错误原因",
+    "GROUP": "所属集群",
+    "FAIL_REASON": "失败原因"
   },
   "CONFIGMAP": {
     "CREATE": "创建配置集",

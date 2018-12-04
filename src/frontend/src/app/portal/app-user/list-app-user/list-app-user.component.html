@@ -6,17 +6,17 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user.name'" *ngIf="listType === 'app'">
     <ng-container *clrDgHideableColumn="showState['user_name']">
-        {{'USER.NAME' | translate}}
+      {{'USER.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'app.name'" *ngIf="listType === 'user'">
     <ng-container *clrDgHideableColumn="showState['app_name']">
-        {{'USER.APP_NAME' | translate}}
+      {{'USER.APP_NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['group']">
-        {{'USER.GROUP' | translate}}
+      {{'USER.GROUP' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>

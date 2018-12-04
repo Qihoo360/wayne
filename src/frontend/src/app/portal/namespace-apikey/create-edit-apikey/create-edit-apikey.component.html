@@ -21,7 +21,7 @@
         </div>
         <div class="form-group row">
           <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <label for="role" class="required">角色</label>
+            <label for="role" class="required">{{'TITLE.ROLE' | translate}}</label>
           </div>
           <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
             <div class="select">
@@ -35,7 +35,7 @@
         </div>
         <div class="form-group row">
           <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <label for="expire_in" class="required">过期时间</label>
+            <label for="expire_in" class="required">{{'TITLE.EXPIRE_TIME' | translate}}</label>
           </div>
           <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
             <input class="form-control"
@@ -44,7 +44,7 @@
                    required
                    name="expire_in"
                    id="expire_in"
-                   placeholder="单位秒，0代表永久有效"
+                   [placeholder]="'PLACEHOLDER.EXPIRE_TIME' | translate"
                    size="45">
           </div>
         </div>

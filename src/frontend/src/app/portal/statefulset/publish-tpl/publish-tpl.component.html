@@ -17,13 +17,13 @@
                      role="tooltip"
                      [class.invalid]="!replicaValidation(cluster)"
                      class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-                <input placeholder="状态副本集份数"
+                <input [placeholder]="'PLACEHOLDER.STATEFULSET' | translate"
                        [(ngModel)]="clusterMetas[cluster].value"
                        id="{{cluster}}-replica"
                        name="{{cluster}}-replica"
                        type="number">
                 <span class="tooltip-content">
-                    {{'RULE.REGEXT' | translate}}{{replicaLimit}}
+                    {{'LIMIT.STATEFULSET' | translate}}{{replicaLimit}}
               </span>
               </label>
             </div>
