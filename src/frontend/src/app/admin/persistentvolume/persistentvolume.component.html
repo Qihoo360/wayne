@@ -9,7 +9,7 @@
 
         <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
           <wayne-checkbox-group [(ngModel)]="showList">
-            <wayne-checkbox>名称</wayne-checkbox>
+            <wayne-checkbox>{{'TITLE.NAME' | translate}}</wayne-checkbox>
             <wayne-checkbox>总量</wayne-checkbox>
             <wayne-checkbox>访问模式</wayne-checkbox>
             <wayne-checkbox>回收策略</wayne-checkbox>
@@ -33,5 +33,6 @@
   </div>
 </div>
 <wayne-float-window value="{{cluster}}">
-  <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster" (click)="jumpTo(cluster)"></wayne-float-window-item>
+  <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster"
+                           (click)="jumpTo(cluster)"></wayne-float-window-item>
 </wayne-float-window>

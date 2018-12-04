@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 
-import {AppConfig} from './app-config';
+import { AppConfig } from './app-config';
 
 /**
  * Declare service to handle the bootstrap options

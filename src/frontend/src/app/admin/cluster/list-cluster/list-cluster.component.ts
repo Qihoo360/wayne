@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {Cluster} from '../../../shared/model/v1/cluster';
-import {Page} from '../../../shared/page/page-state';
-import {clusterStatus} from 'app/shared/shared.const';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { Cluster } from '../../../shared/model/v1/cluster';
+import { Page } from '../../../shared/page/page-state';
+import { clusterStatus } from 'app/shared/shared.const';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'list-cluster',
@@ -43,15 +43,15 @@ export class ListClusterComponent implements OnInit {
     this.paginate.emit(state);
   }
 
-  getClusterStatus(state : number){
-    return clusterStatus[state]
+  getClusterStatus(state: number) {
+    return clusterStatus[state];
   }
 
   deleteCluster(cluster: Cluster) {
     this.delete.emit(cluster);
   }
 
-  editCluster(cluster: Cluster){
+  editCluster(cluster: Cluster) {
     this.edit.emit(cluster);
   }
 

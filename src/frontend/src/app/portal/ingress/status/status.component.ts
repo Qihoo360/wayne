@@ -1,12 +1,12 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActivatedRoute} from '@angular/router';
-import {KubeIngress} from '../../../shared/model/v1/kubernetes/ingress';
-import {IngressClient} from '../../../shared/client/v1/kubernetes/ingress';
-import {IngressTpl} from '../../../shared/model/v1/ingresstpl';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActivatedRoute } from '@angular/router';
+import { KubeIngress } from '../../../shared/model/v1/kubernetes/ingress';
+import { IngressClient } from '../../../shared/client/v1/kubernetes/ingress';
+import { IngressTpl } from '../../../shared/model/v1/ingresstpl';
 
 @Component({
   selector: 'status',

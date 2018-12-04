@@ -1,5 +1,5 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)">
-  <clr-dg-column >
+  <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: true}">
       ID
     </ng-container>
@@ -20,20 +20,20 @@
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['创建时间']">
-      创建时间
+    <ng-container *clrDgHideableColumn="showState['create_time']">
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column
-      *ngIf="
+    *ngIf="
       authService.currentNamespacePermission.appUser.update ||
       authService.currentAppPermission.appUser.update ||
       authService.currentNamespacePermission.appUser.delete ||
       authService.currentAppPermission.appUser.delete ||
       authService.currentUser.admin"
   >
-    <ng-container *clrDgHideableColumn="showState['操作']">
-      操作
+    <ng-container *clrDgHideableColumn="showState['action']">
+      {{'TITLE.ACTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let appUser of appUsers" [clrDgItem]="appUser">
@@ -50,20 +50,21 @@
       authService.currentAppPermission.appUser.delete ||
       authService.currentUser.admin"
     >
-    <button class="wayne-button text"
-      *ngIf="
+      <button class="wayne-button text"
+              *ngIf="
         authService.currentNamespacePermission.appUser.update ||
         authService.currentAppPermission.appUser.update ||
         authService.currentUser.admin"
-        (click)="editAppUser(appUser)">
-        编辑</button>
-    <button class="wayne-button text"
-        *ngIf="
+              (click)="editAppUser(appUser)">
+        编辑
+      </button>
+      <button class="wayne-button text"
+              *ngIf="
         authService.currentNamespacePermission.appUser.delete ||
         authService.currentAppPermission.appUser.delete ||
         authService.currentUser.admin"
-        (click)="deleteAppUser(appUser)">
-        删除</button>
+              (click)="deleteAppUser(appUser)">
+        {{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-cell>
   </clr-dg-row>
 

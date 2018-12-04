@@ -4,7 +4,7 @@
       <div class="table-search-left">
         <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
           <wayne-checkbox-group [(ngModel)]="showList">
-            <wayne-checkbox>名称</wayne-checkbox>
+            <wayne-checkbox>{{'TITLE.NAME' | translate}}</wayne-checkbox>
             <wayne-checkbox>标签</wayne-checkbox>
             <wayne-checkbox>Taints</wayne-checkbox>
             <wayne-checkbox>Ready</wayne-checkbox>
@@ -34,5 +34,6 @@
 </div>
 <wayne-ace-editor (outputObj)="saveNode($event)"></wayne-ace-editor>
 <wayne-float-window value="{{cluster}}">
-  <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster" (click)="jumpTo(cluster)"></wayne-float-window-item>
+  <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster"
+                           (click)="jumpTo(cluster)"></wayne-float-window-item>
 </wayne-float-window>

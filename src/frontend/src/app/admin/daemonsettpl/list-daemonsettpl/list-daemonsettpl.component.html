@@ -17,18 +17,18 @@
 
   <clr-dg-column [clrDgField]="'user'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建者
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgSortBy]="'createTime'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建时间
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let daemonsetTpl of daemonsetTpls" [clrDgItem]="daemonsetTpl">
     <clr-dg-action-overflow>
       <button class="action-item" (click)="editDaemonsetTpl(daemonsetTpl)">编辑</button>
-      <button class="action-item" (click)="deleteDaemonsetTpl(daemonsetTpl)">删除</button>
+      <button class="action-item" (click)="deleteDaemonsetTpl(daemonsetTpl)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{daemonsetTpl.id}}</clr-dg-cell>
     <clr-dg-cell class="copy">{{daemonsetTpl.name}}</clr-dg-cell>
@@ -37,10 +37,10 @@
     <clr-dg-cell>{{daemonsetTpl.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
   </clr-dg-row>
 
-  <wayne-paginate 
-    [(currentPage)]="currentPage" 
-    [total]="page.totalCount" 
-    [pageSizes]="[10, 20, 50]" 
+  <wayne-paginate
+    [(currentPage)]="currentPage"
+    [total]="page.totalCount"
+    [pageSizes]="[10, 20, 50]"
     (sizeChange)="pageSizeChange($event)">
   </wayne-paginate>
 </clr-datagrid>

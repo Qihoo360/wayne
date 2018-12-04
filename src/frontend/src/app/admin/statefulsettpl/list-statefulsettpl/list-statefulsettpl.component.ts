@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {Page} from '../../../shared/page/page-state';
-import {StatefulsetTemplate} from '../../../shared/model/v1/statefulsettpl';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { Page } from '../../../shared/page/page-state';
+import { StatefulsetTemplate } from '../../../shared/model/v1/statefulsettpl';
 
 @Component({
   selector: 'list-statefulsettpl',
@@ -43,7 +43,7 @@ export class ListStatefulsettplComponent implements OnInit {
     this.delete.emit(template);
   }
 
-  editStatefulsetTpl(template: StatefulsetTemplate){
+  editStatefulsetTpl(template: StatefulsetTemplate) {
     this.edit.emit(template);
   }
 }

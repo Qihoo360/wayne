@@ -1,14 +1,16 @@
 <div class="row">
-<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" #cpu style="width: 400px;height:300px;margin-top: 2%;margin-left: 10%"></div>
-<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" #mem style="width: 400px;height:300px;margin-top: 2%;margin-left: 10%"></div>
+  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" #cpu
+       style="width: 400px;height:300px;margin-top: 2%;margin-left: 10%"></div>
+  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" #mem
+       style="width: 400px;height:300px;margin-top: 2%;margin-left: 10%"></div>
 </div>
 <clr-datagrid>
-  <clr-dg-column [clrDgField]="'app'">项目</clr-dg-column>
-  <clr-dg-column [clrDgSortBy]="'cpu'">CPU（单位：核）</clr-dg-column>
-  <clr-dg-column [clrDgSortBy]="'memory'">内存（单位：G）</clr-dg-column>
+  <clr-dg-column [clrDgField]="'app'">{{'MENU.PRODUCT' | translate}}</clr-dg-column>
+  <clr-dg-column [clrDgSortBy]="'cpu'">{{'TITLE.CPU_USAGE' | translate}}</clr-dg-column>
+  <clr-dg-column [clrDgSortBy]="'memory'">{{'TITLE.MEMORY_USAGE' | translate}}</clr-dg-column>
   <clr-dg-row *clrDgItems="let rs of ResourceList">
-      <clr-dg-cell>{{rs.app}}</clr-dg-cell>
-      <clr-dg-cell>{{rs.cpu}}</clr-dg-cell>
-      <clr-dg-cell>{{rs.memory}}</clr-dg-cell>
+    <clr-dg-cell>{{rs.app}}</clr-dg-cell>
+    <clr-dg-cell>{{rs.cpu}}</clr-dg-cell>
+    <clr-dg-cell>{{rs.memory}}</clr-dg-cell>
   </clr-dg-row>
 </clr-datagrid>

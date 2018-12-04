@@ -1,13 +1,13 @@
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {throwError} from 'rxjs';
-import {Observable} from 'rxjs/Observable';
-import {WebHook} from '../../model/v1/webhook';
-import {PageState} from '../../page/page-state';
-import {isNotEmpty} from '../../utils';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { WebHook } from '../../model/v1/webhook';
+import { PageState } from '../../page/page-state';
+import { isNotEmpty } from '../../utils';
 
 @Injectable()
 export class WebHookService {
@@ -24,13 +24,13 @@ export class WebHookService {
     } else if (scope === 1) { // App
       restUrl = `/api/v1/apps/${scopeId}/webhooks/${id}`;
     } else {
-      throwError('invalid scope')
+      throwError('invalid scope');
     }
 
     return this.http
       .get(restUrl, this.options)
 
-      .catch(error => throwError(error))
+      .catch(error => throwError(error));
   }
 
   query(pageState: PageState, scope: number, scopeId: number): Observable<any> {
@@ -49,7 +49,7 @@ export class WebHookService {
           if (key === 'name' || key === 'url') {
             filterList.push(`${key}__contains=${value}`);
           } else {
-            filterList.push(`${key}=${value}`)
+            filterList.push(`${key}=${value}`);
           }
         }
       }
@@ -69,13 +69,13 @@ export class WebHookService {
     } else if (scope === 1) { // App
       restUrl = `/api/v1/apps/${scopeId}/webhooks`;
     } else {
-      throwError('invalid scope')
+      throwError('invalid scope');
     }
 
     return this.http
       .get(restUrl, {params: params})
 
-      .catch(error => throwError(error))
+      .catch(error => throwError(error));
   }
 
   create(webHook: WebHook): Observable<any> {

@@ -4,7 +4,7 @@
       ID
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column  class="col-app-name"  [clrDgField]="'name'">
+  <clr-dg-column class="col-app-name" [clrDgField]="'name'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       名称
     </ng-container>
@@ -22,34 +22,37 @@
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
       描述
-   </ng-container>
+    </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建者
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgSortBy]="'createTime'" class="col-user">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建时间
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let deployment of deployments" [clrDgItem]="deployment">
-    <clr-dg-action-overflow >
-      <button class="action-item" (click)="editDeployment(deployment)" >编辑</button>
-      <button class="action-item" (click)="deleteDeployment(deployment)">删除</button>
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="editDeployment(deployment)">编辑</button>
+      <button class="action-item" (click)="deleteDeployment(deployment)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
-      <clr-dg-cell class="col-query-id">{{deployment.id}}</clr-dg-cell>
-      <clr-dg-cell class="col-app-name"><a href="javascript:void(0)" (click)="goToLink(deployment, 'tpl')">{{deployment.name}}</a></clr-dg-cell>
-      <clr-dg-cell class="col-namespace"><a href="javascript:void(0)" (click)="goToLink(deployment, 'app')">{{deployment.app.name}}</a></clr-dg-cell>
-      <clr-dg-cell class="col-metadata">
-        <div class="text-overflow">
-          <a href="javascript:;" (click)="detailMetaDataTpl(deployment.metaData)">{{deployment.metaData}}</a>
-        </div>
-      </clr-dg-cell>
-      <clr-dg-cell>{{deployment.description}}</clr-dg-cell>
-      <clr-dg-cell>{{deployment.user}}</clr-dg-cell>
-      <clr-dg-cell class="col-time">{{deployment.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
+    <clr-dg-cell class="col-query-id">{{deployment.id}}</clr-dg-cell>
+    <clr-dg-cell class="col-app-name"><a href="javascript:void(0)"
+                                         (click)="goToLink(deployment, 'tpl')">{{deployment.name}}</a></clr-dg-cell>
+    <clr-dg-cell class="col-namespace"><a href="javascript:void(0)"
+                                          (click)="goToLink(deployment, 'app')">{{deployment.app.name}}</a>
+    </clr-dg-cell>
+    <clr-dg-cell class="col-metadata">
+      <div class="text-overflow">
+        <a href="javascript:;" (click)="detailMetaDataTpl(deployment.metaData)">{{deployment.metaData}}</a>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell>{{deployment.description}}</clr-dg-cell>
+    <clr-dg-cell>{{deployment.user}}</clr-dg-cell>
+    <clr-dg-cell class="col-time">{{deployment.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
   </clr-dg-row>
   <wayne-paginate
     [(currentPage)]="currentPage"

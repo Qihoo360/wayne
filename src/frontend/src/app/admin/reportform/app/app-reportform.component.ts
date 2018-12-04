@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import * as echarts from 'echarts';
-import {BreadcrumbService} from '../../../shared/client/v1/breadcrumb.service';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
+import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import ECharts = echarts.ECharts;
 import EChartOption = echarts.EChartOption;
 
@@ -41,7 +41,7 @@ export class AppReportFormComponent implements OnInit, AfterViewInit {
     let data = this.getData(datas.details);
     this.options = {
       title: {
-        text: '项目总数：' + datas.total,
+        text: '项目总数：' + (datas.total || 0),
       },
       tooltip: {
         trigger: 'item',

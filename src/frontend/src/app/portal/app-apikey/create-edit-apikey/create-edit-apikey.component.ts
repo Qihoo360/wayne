@@ -1,15 +1,16 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType, apiKeyTypeApp} from '../../../shared/shared.const';
-import {ApiKey} from 'app/shared/model/v1/apikey';
-import {ApiKeyService} from '../../../shared/client/v1/apikey.service';
-import {GroupService} from '../../../shared/client/v1/group.service';
-import {Group} from '../../../shared/model/v1/group';
-import {ActivatedRoute} from '@angular/router';
-import {PageState} from '../../../shared/page/page-state';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType, apiKeyTypeApp } from '../../../shared/shared.const';
+import { ApiKey } from 'app/shared/model/v1/apikey';
+import { ApiKeyService } from '../../../shared/client/v1/apikey.service';
+import { GroupService } from '../../../shared/client/v1/group.service';
+import { Group } from '../../../shared/model/v1/group';
+import { ActivatedRoute } from '@angular/router';
+import { PageState } from '../../../shared/page/page-state';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'create-edit-apikey',
@@ -36,6 +37,7 @@ export class CreateEditApiKeyComponent implements OnInit {
   constructor(private messageHandlerService: MessageHandlerService,
               private route: ActivatedRoute,
               private apiKeyService: ApiKeyService,
+              public translate: TranslateService,
               private groupService: GroupService) {
   }
 
@@ -57,10 +59,10 @@ export class CreateEditApiKeyComponent implements OnInit {
     this.modalOpened = true;
     if (id) {
       this.actionType = ActionType.EDIT;
-      this.title = '编辑APIKey';
+      this.title = 'ACTION.EDIT';
       this.apiKeyService.getById(id, null, this.appId).subscribe(
         status => {
-          this.apiKey = status.data
+          this.apiKey = status.data;
         },
         error => {
           this.messageHandlerService.handleError(error);
@@ -68,7 +70,7 @@ export class CreateEditApiKeyComponent implements OnInit {
         });
     } else {
       this.actionType = ActionType.ADD_NEW;
-      this.title = '创建APIKey';
+      this.title = 'ACTION.CREATE';
       this.apiKey = new ApiKey();
     }
   }
@@ -84,10 +86,10 @@ export class CreateEditApiKeyComponent implements OnInit {
     }
     this.isSubmitOnGoing = true;
     this.apiKey.type = apiKeyTypeApp;
-    this.apiKey.resourceId =  this.appId;
+    this.apiKey.resourceId = this.appId;
     switch (this.actionType) {
       case ActionType.ADD_NEW:
-        this.apiKeyService.create(this.apiKey, null,  this.appId).subscribe(
+        this.apiKeyService.create(this.apiKey, null, this.appId).subscribe(
           status => {
             this.isSubmitOnGoing = false;
             this.create.emit(true);

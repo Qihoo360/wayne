@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {State} from '@clr/angular';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../../shared/shared.const';
-import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {Namespace} from '../../../shared/model/v1/namespace';
-import {NamespaceService} from '../../../shared/client/v1/namespace.service';
-import {PageState} from '../../../shared/page/page-state';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { State } from '@clr/angular';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription } from 'rxjs/Subscription';
+import { Namespace } from '../../../shared/model/v1/namespace';
+import { NamespaceService } from '../../../shared/client/v1/namespace.service';
+import { PageState } from '../../../shared/page/page-state';
 
 @Component({
   selector: 'trash-namespace',
@@ -20,6 +20,7 @@ export class TrashNamespaceComponent implements OnInit, OnDestroy {
   state: State;
 
   subscription: Subscription;
+
   constructor(private namespaceService: NamespaceService,
               private messageHandlerService: MessageHandlerService,
               private deletionDialogService: ConfirmationDialogService) {

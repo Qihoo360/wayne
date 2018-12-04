@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {Cluster} from './cluster';
+import { Component, Input } from '@angular/core';
+import { Cluster } from './cluster';
 
 @Component({
   selector: 'list-cluster',
@@ -10,10 +10,12 @@ import {Cluster} from './cluster';
 export class ListClusterComponent {
 
   @Input() resources: Cluster[] = [];
+
   constructor() {
   }
+
   modalOpened: boolean = false;
-  
+
   open() {
     this.modalOpened = true;
   }

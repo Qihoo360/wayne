@@ -1,22 +1,18 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Location} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType} from '../../../shared/shared.const';
-import {
-  CephFSVolumeSource,
-  PersistentVolume,
-  RBDVolumeSource
-} from '../../../shared/model/v1/kubernetes/persistentvolume';
-import {PersistentVolumeClient} from '../../../shared/client/v1/kubernetes/persistentvolume';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ClusterService} from '../../../shared/client/v1/cluster.service';
-import {Observable} from 'rxjs/Observable';
-import {Cluster} from '../../../shared/model/v1/cluster';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType } from '../../../shared/shared.const';
+import { CephFSVolumeSource, PersistentVolume, RBDVolumeSource } from '../../../shared/model/v1/kubernetes/persistentvolume';
+import { PersistentVolumeClient } from '../../../shared/client/v1/kubernetes/persistentvolume';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ClusterService } from '../../../shared/client/v1/cluster.service';
+import { Observable } from 'rxjs/Observable';
+import { Cluster } from '../../../shared/model/v1/cluster';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 
 @Component({
   selector: 'create-edit-persistentvolume',
@@ -48,19 +44,19 @@ export class CreateEditPersistentVolumeComponent implements OnInit {
   }
 
   defaultPv() {
-    let pv = `{
-  'metadata': {
-    'name': '',
-    'labels': {}
+    const pv = `{
+  "metadata": {
+    "name": "",
+    "labels": {}
   },
-  'spec': {
-    'capacity': {
-      'storage': '10Gi'
+  "spec": {
+    "capacity": {
+      "storage": "10Gi"
     },
-    'accessModes': [
-      'ReadWriteOnce'
+    "accessModes": [
+      "ReadWriteOnce"
     ],
-    'persistentVolumeReclaimPolicy': 'Retain'
+    "persistentVolumeReclaimPolicy": "Retain"
   }
 }`;
     return JSON.parse(pv);
@@ -105,7 +101,7 @@ export class CreateEditPersistentVolumeComponent implements OnInit {
         this.cluster = response[0].data;
         if (response[1]) {
           this.pv = response[1].data;
-          this.savePv(this.pv)
+          this.savePv(this.pv);
         }
 
       },
@@ -136,7 +132,7 @@ export class CreateEditPersistentVolumeComponent implements OnInit {
 
   onDeleteLabel(index: number) {
     if (this.labels.controls.length <= 1) {
-      return
+      return;
     }
     this.labels.removeAt(index);
   }
@@ -162,7 +158,7 @@ export class CreateEditPersistentVolumeComponent implements OnInit {
         if (metaData.rbd) {
           Object.getOwnPropertyNames(metaData.rbd).map(key => {
             if (key) {
-              kubePv.spec.rbd[key] = metaData.rbd[key]
+              kubePv.spec.rbd[key] = metaData.rbd[key];
             }
           });
         }
@@ -174,7 +170,7 @@ export class CreateEditPersistentVolumeComponent implements OnInit {
         if (metaData.cephfs) {
           Object.getOwnPropertyNames(metaData.cephfs).map(key => {
             if (key) {
-              kubePv.spec.cephfs[key] = metaData.cephfs[key]
+              kubePv.spec.cephfs[key] = metaData.cephfs[key];
             }
           });
         }
@@ -229,7 +225,7 @@ export class CreateEditPersistentVolumeComponent implements OnInit {
           labels.push(this.fb.group({
             key: key,
             value: pv.metadata.labels[key]
-          }))
+          }));
         });
       }
       let type = '0';
@@ -273,7 +269,7 @@ export class CreateEditPersistentVolumeComponent implements OnInit {
           status => {
             this.isSubmitOnGoing = false;
             this.messageHandlerService.showSuccess('创建持久化存储成功！');
-            this.router.navigate([`/admin/kubernetes/persistentvolume/${this.cluster.name}`])
+            this.router.navigate([`/admin/kubernetes/persistentvolume/${this.cluster.name}`]);
           },
           error => {
             this.isSubmitOnGoing = false;
@@ -287,7 +283,7 @@ export class CreateEditPersistentVolumeComponent implements OnInit {
           status => {
             this.isSubmitOnGoing = false;
             this.messageHandlerService.showSuccess('更新持久化存储成功！');
-            this.router.navigate([`/admin/kubernetes/persistentvolume/${this.cluster.name}`])
+            this.router.navigate([`/admin/kubernetes/persistentvolume/${this.cluster.name}`]);
           },
           error => {
             this.isSubmitOnGoing = false;

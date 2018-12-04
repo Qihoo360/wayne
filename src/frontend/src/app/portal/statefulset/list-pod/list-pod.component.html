@@ -5,11 +5,11 @@
   <div class="modal-body">
     <hr>
     <div class="toggle-switch">
-        <input type="checkbox" id="toggle_4" [(ngModel)]="whetherHotReflash">
-        <label for="toggle_4">数据实时更新: </label>
+      <input type="checkbox" id="toggle_4" [(ngModel)]="whetherHotReflash">
+      <label for="toggle_4">数据实时更新: </label>
     </div>
     <clr-datagrid>
-      <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+      <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
       <clr-dg-column [clrDgField]="'name'">
         <ng-container *clrDgHideableColumn="{hidden: false}">
           名称
@@ -42,7 +42,7 @@
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          操作
+          {{'TITLE.ACTION' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-row *clrDgItems="let pod of pods">
@@ -53,14 +53,15 @@
         <clr-dg-cell>{{pod.podIp}}</clr-dg-cell>
         <clr-dg-cell *ngIf="authService.currentUser.admin">{{pod.nodeName}}</clr-dg-cell>
         <clr-dg-cell>
-          <span *ngFor="let state of pod.containerStatus" class="label label-light-blue">{{state.name}}:{{state.restartCount}}
+          <span *ngFor="let state of pod.containerStatus" class="label label-light-blue">{{state.name}}
+            :{{state.restartCount}}
           </span>
         </clr-dg-cell>
         <clr-dg-cell>{{pod.startTime  | relativeTime}}</clr-dg-cell>
         <clr-dg-cell>
           <button class="wayne-button text" (click)="enterContainer(pod)">进入容器</button>
           <button class="wayne-button text" (click)="podLog(pod)">日志</button>
-          <button class="wayne-button text" (click)="deletePod(pod)">删除</button>
+          <button class="wayne-button text" (click)="deletePod(pod)">{{'BUTTON.DELETE' | translate}}</button>
         </clr-dg-cell>
       </clr-dg-row>
       <clr-dg-footer>

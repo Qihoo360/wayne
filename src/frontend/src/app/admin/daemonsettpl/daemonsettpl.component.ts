@@ -1,17 +1,17 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {ActivatedRoute} from '@angular/router';
-import {State} from '@clr/angular';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {PageState} from '../../shared/page/page-state';
-import {ListDaemonsettplComponent} from './list-daemonsettpl/list-daemonsettpl.component';
-import {CreateEditDaemonsettplComponent} from './create-edit-daemonsettpl/create-edit-daemonsettpl.component';
-import {DaemonSetTplService} from '../../shared/client/v1/daemonsettpl.service';
-import {DaemonSetTemplate} from '../../shared/model/v1/daemonsettpl';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
+import { ActivatedRoute } from '@angular/router';
+import { State } from '@clr/angular';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { PageState } from '../../shared/page/page-state';
+import { ListDaemonsettplComponent } from './list-daemonsettpl/list-daemonsettpl.component';
+import { CreateEditDaemonsettplComponent } from './create-edit-daemonsettpl/create-edit-daemonsettpl.component';
+import { DaemonSetTplService } from '../../shared/client/v1/daemonsettpl.service';
+import { DaemonSetTemplate } from '../../shared/model/v1/daemonsettpl';
 
 @Component({
   selector: 'wayne-daemonsettpl',
@@ -60,10 +60,10 @@ export class DaemonsettplComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.daemonsetId = params['did'];
-      if (typeof(this.daemonsetId) == 'undefined') {
-          this.daemonsetId = 0
+      if (typeof (this.daemonsetId) == 'undefined') {
+        this.daemonsetId = 0;
       }
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -74,7 +74,11 @@ export class DaemonsettplComponent implements OnInit {
 
   retrieve(state?: State): void {
     if (state) {
-      this.pageState = PageState.fromState(state, {pageSize: 10, totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
+      this.pageState = PageState.fromState(state, {
+        pageSize: 10,
+        totalPage: this.pageState.page.totalPage,
+        totalCount: this.pageState.page.totalCount
+      });
     }
     this.pageState.params['deleted'] = false;
     this.daemonsetTplService.listPage(this.pageState, this.daemonsetId)
@@ -91,7 +95,7 @@ export class DaemonsettplComponent implements OnInit {
 
   createDaemonset(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

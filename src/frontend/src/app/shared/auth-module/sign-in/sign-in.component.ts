@@ -1,9 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {AuthoriseService} from '../../client/v1/auth.service';
-import {AuthService} from '../../auth/auth.service';
-import {ActivatedRoute} from '@angular/router';
-import {LoginTokenKey} from '../../shared.const';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { AuthoriseService } from '../../client/v1/auth.service';
+import { AuthService } from '../../auth/auth.service';
+import { ActivatedRoute } from '@angular/router';
+import { LoginTokenKey } from '../../shared.const';
 import * as particlesJS from 'particlesjs/dist/particles';
 
 @Component({
@@ -57,7 +57,7 @@ export class SignInComponent implements OnInit {
     this.isSubmitOnGoing = true;
     let type = 'db';
     if (this.authService.config && this.authService.config.ldapLogin) {
-      type = 'ldap'
+      type = 'ldap';
     }
     this.authoriseService.Login(this.username, this.password, type).subscribe(
       resp => {
@@ -74,10 +74,15 @@ export class SignInComponent implements OnInit {
 
   }
 
-  qihooLogin() {
+  oauth2Login() {
     let currentUrl = document.location.origin;
     let ref = this.route.snapshot.queryParams['ref'] ? this.route.snapshot.queryParams['ref'] : '/';
-    window.location.replace(`/login/oauth2/qihoo?next=${currentUrl}/sign-in?ref=${ref}`);
+    window.location.replace(`/login/oauth2/oauth2?next=${currentUrl}/sign-in?ref=${ref}`);
+  }
+
+  getOAuth2Title() {
+    let oauth2Title = this.authService.config['system.oauth2-title'];
+    return oauth2Title ? oauth2Title : 'OAuth 2.0 Login';
   }
 
   getTitle() {

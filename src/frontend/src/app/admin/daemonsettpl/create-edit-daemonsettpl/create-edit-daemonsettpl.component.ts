@@ -1,18 +1,18 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType} from '../../../shared/shared.const';
-import {isUndefined} from 'util';
-import {DaemonSetTemplate} from '../../../shared/model/v1/daemonsettpl';
-import {DaemonSet} from '../../../shared/model/v1/daemonset';
-import {DaemonSetTplService} from '../../../shared/client/v1/daemonsettpl.service';
-import {DaemonSetService} from '../../../shared/client/v1/daemonset.service';
-import {AceEditorBoxComponent} from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType } from '../../../shared/shared.const';
+import { isUndefined } from 'util';
+import { DaemonSetTemplate } from '../../../shared/model/v1/daemonsettpl';
+import { DaemonSet } from '../../../shared/model/v1/daemonset';
+import { DaemonSetTplService } from '../../../shared/client/v1/daemonsettpl.service';
+import { DaemonSetService } from '../../../shared/client/v1/daemonset.service';
+import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'create-edit-daemonsettpl',
@@ -101,7 +101,7 @@ export class CreateEditDaemonsettplComponent implements OnInit {
     this.daemonsetTpl.template = this.aceBox.getValue();
     for (let daemonset of this.daemonsets) {
       if (daemonset.id == this.daemonsetTpl.daemonSetId) {
-        this.daemonsetTpl.name = daemonset.name
+        this.daemonsetTpl.name = daemonset.name;
       }
     }
     switch (this.actionType) {

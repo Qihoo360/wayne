@@ -1,33 +1,33 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)" class="wayne-clr-datagrid">
-  <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+  <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
       名称
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column >
+  <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      所属集群 
+      所属集群
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column >
+  <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
       状态
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column >
+  <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      失败原因 
+      失败原因
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      开始时间 
+      开始时间
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      结束时间 
+      结束时间
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *clrDgItems="let job of jobs">
@@ -48,7 +48,7 @@
     </clr-dg-cell>
     <clr-dg-cell>
       <span
-         *ngIf="job.kubeJob.status.conditions"
+        *ngIf="job.kubeJob.status.conditions"
       >
       {{job.kubeJob.status.conditions[0]['message']}}
       </span>
@@ -58,7 +58,8 @@
   </clr-dg-row>
   <clr-dg-footer>
     <ng-container *ngIf="page.totalCount">
-      <wayne-select [(ngModel)]="pageSize" style="width: 50px; height: 24px;margin-left: 12px;" [type]="'page'" [cursor]="'pointer'">
+      <wayne-select [(ngModel)]="pageSize" style="width: 50px; height: 24px;margin-left: 12px;" [type]="'page'"
+                    [cursor]="'pointer'">
         <wayne-option *ngFor="let pagesize of pageSizes" [value]="pagesize">{{pagesize}}</wayne-option>
       </wayne-select>
       {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}}

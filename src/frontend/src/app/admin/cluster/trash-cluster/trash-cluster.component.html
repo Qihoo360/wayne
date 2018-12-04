@@ -26,17 +26,17 @@
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          创建者
+          {{'TITLE.CREATE_USER' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          创建时间
+          {{'TITLE.CREATE_TIME' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-row *ngFor="let cluster of clusters" [clrDgItem]="cluster">
-        <clr-dg-action-overflow >
-          <button class="action-item" (click)="recoverCluster(cluster)" >恢复</button>
+        <clr-dg-action-overflow>
+          <button class="action-item" (click)="recoverCluster(cluster)">恢复</button>
           <button class="action-item" (click)="deleteCluster(cluster)">彻底删除</button>
         </clr-dg-action-overflow>
         <clr-dg-cell class="col-id">{{cluster.id}}</clr-dg-cell>

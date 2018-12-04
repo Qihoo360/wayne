@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {BreadcrumbService} from '../../../shared/client/v1/breadcrumb.service';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {App} from '../../../shared/model/v1/app';
-import {Page} from '../../../shared/page/page-state';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { App } from '../../../shared/model/v1/app';
+import { Page } from '../../../shared/page/page-state';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'list-app',
@@ -25,7 +25,7 @@ export class ListAppComponent implements OnInit {
 
   constructor(
     private breadcrumbService: BreadcrumbService,
-    private router: Router, 
+    private router: Router,
     private aceEditorService: AceEditorService
   ) {
     breadcrumbService.hideRoute('/admin/app/user');

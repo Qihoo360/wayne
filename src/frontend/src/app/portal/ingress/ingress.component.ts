@@ -1,41 +1,37 @@
-import {OnInit, ChangeDetectorRef, Component, OnDestroy, AfterContentInit, ViewChild, ElementRef} from '@angular/core';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {CreateEditIngressComponent} from './create-edit-ingress/create-edit-ingress.component';
-import {Observable} from 'rxjs/Observable';
-import {State} from '@clr/angular';
-import {App} from '../../shared/model/v1/app';
-import {Cluster} from '../../shared/model/v1/cluster';
-import {Ingress} from '../../shared/model/v1/ingress';
-import {IngressService} from '../../shared/client/v1/ingress.service';
-import {AppService} from '../../shared/client/v1/app.service';
-import {ClusterService} from '../../shared/client/v1/cluster.service';
-import {CacheService} from '../../shared/auth/cache.service';
-import {PublishHistoryService} from '../common/publish-history/publish-history.service';
+import { OnInit, ChangeDetectorRef, Component, OnDestroy, AfterContentInit, ViewChild, ElementRef } from '@angular/core';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CreateEditIngressComponent } from './create-edit-ingress/create-edit-ingress.component';
+import { Observable } from 'rxjs/Observable';
+import { State } from '@clr/angular';
+import { App } from '../../shared/model/v1/app';
+import { Cluster } from '../../shared/model/v1/cluster';
+import { Ingress } from '../../shared/model/v1/ingress';
+import { IngressService } from '../../shared/client/v1/ingress.service';
+import { AppService } from '../../shared/client/v1/app.service';
+import { ClusterService } from '../../shared/client/v1/cluster.service';
+import { CacheService } from '../../shared/auth/cache.service';
+import { PublishHistoryService } from '../common/publish-history/publish-history.service';
 import {
   ConfirmationButtons,
   ConfirmationState,
   ConfirmationTargets, httpStatusCode,
   PublishType, TemplateState,
 } from '../../shared/shared.const';
-import {AuthService} from '../../shared/auth/auth.service';
-import {PublishService} from '../../shared/client/v1/publish.service';
-import {PublishStatus} from '../../shared/model/v1/publish-status';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {PageState} from '../../shared/page/page-state';
-import {TabDragService} from '../../shared/client/v1/tab-drag.service';
-import {OrderItem} from '../../shared/model/v1/order';
-import {ListIngressComponent} from './list-ingress/list-ingress.component';
-import {IngressTplService} from '../../shared/client/v1/ingresstpl.service';
-import {DeploymentStatus, DeploymentTpl} from '../../shared/model/v1/deploymenttpl';
-import {IngressTpl} from '../../shared/model/v1/ingresstpl';
-import {KubeDeployment} from '../../shared/model/v1/kubernetes/deployment';
-import {IngressStatus, KubeIngress} from '../../shared/model/v1/kubernetes/ingress';
-import {KubeService} from '../../../../lib/shared/model/kubernetes/service';
-import {IngressClient} from '../../shared/client/v1/kubernetes/ingress';
-import {ServiceTpl} from '../../../../lib/shared/model/servicetpl';
+import { AuthService } from '../../shared/auth/auth.service';
+import { PublishService } from '../../shared/client/v1/publish.service';
+import { PublishStatus } from '../../shared/model/v1/publish-status';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription} from 'rxjs/Subscription';
+import { PageState } from '../../shared/page/page-state';
+import { TabDragService } from '../../shared/client/v1/tab-drag.service';
+import { OrderItem } from '../../shared/model/v1/order';
+import { ListIngressComponent } from './list-ingress/list-ingress.component';
+import { IngressTplService } from '../../shared/client/v1/ingresstpl.service';
+import { IngressTpl } from '../../shared/model/v1/ingresstpl';
+import { IngressStatus, KubeIngress } from '../../shared/model/v1/kubernetes/ingress';
+import { IngressClient } from '../../shared/client/v1/kubernetes/ingress';
 
 const showState = {
   '创建时间': {hidden: false},
@@ -125,7 +121,7 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
       if (!this.showState[key].hidden) {
         this.showList.push(key);
       }
-    })
+    });
   }
 
   confirmEvent() {
@@ -135,7 +131,7 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
       } else {
         this.showState[key] = {hidden: true};
       }
-    })
+    });
   }
 
   cancelEvent() {
@@ -157,7 +153,7 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
       return {
         id: parseInt(item.id),
         order: index
-      }
+      };
     });
     if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) {
       return;
@@ -244,15 +240,15 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
         return {
           id: item.id,
           order: item.order
-        }
-      })
+        };
+      });
     } else {
       this.orderCache = [].slice.call(this.el.nativeElement.querySelectorAll('.tabs-item')).map((item, index) => {
         return {
           id: parseInt(item.id),
           order: index
-        }
-      })
+        };
+      });
     }
   }
 
@@ -268,7 +264,7 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
       }
       return this.ingresses[0].id;
     } else {
-      return null
+      return null;
     }
   }
 
@@ -320,7 +316,7 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
 
   retrieve(state?: State): void {
     if (!this.ingressId) {
-      return
+      return;
     }
     if (state) {
       this.pageState = PageState.fromState(state, {
@@ -332,7 +328,7 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
     this.pageState.params['isOnline'] = this.isOnline;
 
     if (!this.ingressId) {
-      return
+      return;
     }
     if (state) {
       this.pageState = PageState.fromState(state, {
@@ -397,7 +393,7 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
                 let code = response.statusCode | response.status;
                 if (code === httpStatusCode.NoContent) {
                   this.changedIngressTpls[i].status[j].state = TemplateState.NOT_FOUND;
-                  return
+                  return;
                 }
                 if (response.data &&
                   this.changedIngressTpls &&
@@ -420,7 +416,6 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
                     this.messageHandlerService.showError(`${status.cluster}的错误请求已经停止，请联系管理员解决`);
                   }
                 }
-                console.log(error)
               }
             );
           }
@@ -445,7 +440,7 @@ export class IngressComponent implements OnInit, OnDestroy, AfterContentInit {
     this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/ingress/${this.ingressId}/tpl`]);
   }
 
-  cloneIngressTpl(tpl: ServiceTpl) {
+  cloneIngressTpl(tpl: IngressTpl) {
     if (tpl) {
       this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/ingress/${this.ingressId}/tpl/${tpl.id}`]);
     }

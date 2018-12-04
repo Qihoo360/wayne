@@ -26,30 +26,32 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建者
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgSortBy]="'createTime'" class="col-time">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建时间
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let configMap of configMaps" [clrDgItem]="configMap">
-    <clr-dg-action-overflow >
-      <button class="action-item" (click)="editConfigMap(configMap)" >编辑</button>
-      <button class="action-item" (click)="deleteConfigMap(configMap)">删除</button>
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="editConfigMap(configMap)">编辑</button>
+      <button class="action-item" (click)="deleteConfigMap(configMap)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
-      <clr-dg-cell class="col-query-id">{{configMap.id}}</clr-dg-cell>
-      <clr-dg-cell class="col-app-name copy"><a href="javascript:void(0)" (click)="goToLink(configMap, 'tpl')">{{configMap.name}}</a></clr-dg-cell>
-      <clr-dg-cell class="col-namespace"><a href="javascript:void(0)" (click)="goToLink(configMap, 'app')">{{configMap.app.name}}</a></clr-dg-cell>
-      <clr-dg-cell class="col-metadata">
-        <div class="text-overflow">
-          <a href="javascript:;" (click)="detailMetaDataTpl(configMap.metaData)">{{configMap.metaData}}</a>
-        </div>
-      </clr-dg-cell>
-      <clr-dg-cell>{{configMap.description}}</clr-dg-cell>
-      <clr-dg-cell>{{configMap.user}}</clr-dg-cell>
-      <clr-dg-cell class="col-time">{{configMap.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
+    <clr-dg-cell class="col-query-id">{{configMap.id}}</clr-dg-cell>
+    <clr-dg-cell class="col-app-name copy"><a href="javascript:void(0)"
+                                              (click)="goToLink(configMap, 'tpl')">{{configMap.name}}</a></clr-dg-cell>
+    <clr-dg-cell class="col-namespace"><a href="javascript:void(0)"
+                                          (click)="goToLink(configMap, 'app')">{{configMap.app.name}}</a></clr-dg-cell>
+    <clr-dg-cell class="col-metadata">
+      <div class="text-overflow">
+        <a href="javascript:;" (click)="detailMetaDataTpl(configMap.metaData)">{{configMap.metaData}}</a>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell>{{configMap.description}}</clr-dg-cell>
+    <clr-dg-cell>{{configMap.user}}</clr-dg-cell>
+    <clr-dg-cell class="col-time">{{configMap.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
   </clr-dg-row>
 
   <wayne-paginate

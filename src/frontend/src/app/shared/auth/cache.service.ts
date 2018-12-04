@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {Namespace} from '../model/v1/namespace';
-import {MessageHandlerService} from '../message-handler/message-handler.service';
+import { Injectable } from '@angular/core';
+import { Namespace } from '../model/v1/namespace';
+import { MessageHandlerService } from '../message-handler/message-handler.service';
 
 @Injectable()
 export class CacheService {
@@ -12,7 +12,7 @@ export class CacheService {
   }
 
   setAppId(appId: number) {
-    this.appId = appId
+    this.appId = appId;
   }
 
   setNamespaces(namespaces: Namespace[]) {
@@ -21,15 +21,15 @@ export class CacheService {
 
   setNamespace(namespace: Namespace) {
     localStorage.setItem('namespace', namespace.id.toString());
-    if (namespace&& namespace.metaData){
-      namespace.metaDataObj=JSON.parse(namespace.metaData)
+    if (namespace && namespace.metaData) {
+      namespace.metaDataObj = JSON.parse(namespace.metaData);
     }
     this.namespace = namespace;
   }
 
   get currentNamespace(): Namespace {
     if (this.namespace) {
-      return this.namespace
+      return this.namespace;
     } else {
       this.messageHandlerService.error('当前用户无任何命名空间权限，请联系管理员添加！');
     }
@@ -37,7 +37,7 @@ export class CacheService {
 
   get namespaceId(): number {
     if (this.namespace) {
-      return this.namespace.id
+      return this.namespace.id;
     } else {
       this.messageHandlerService.error('当前用户无任何命名空间权限，请联系管理员添加！');
     }

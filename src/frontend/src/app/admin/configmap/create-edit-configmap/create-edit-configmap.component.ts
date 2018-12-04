@@ -1,24 +1,24 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType} from '../../../shared/shared.const';
-import {ConfigMap} from '../../../shared/model/v1/configmap';
-import {App} from '../../../shared/model/v1/app';
-import {ConfigMapService} from '../../../shared/client/v1/configmap.service';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {AceEditorBoxComponent} from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType } from '../../../shared/shared.const';
+import { ConfigMap } from '../../../shared/model/v1/configmap';
+import { App } from '../../../shared/model/v1/app';
+import { ConfigMapService } from '../../../shared/client/v1/configmap.service';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'create-edit-configmap',
   templateUrl: 'create-edit-configmap.component.html',
   styleUrls: ['create-edit-configmap.scss']
 })
-export class CreateEditConfigMapComponent implements OnInit{
+export class CreateEditConfigMapComponent implements OnInit {
   @Output() create = new EventEmitter<boolean>();
   modalOpened: boolean;
 
@@ -47,11 +47,11 @@ export class CreateEditConfigMapComponent implements OnInit{
 
   ngOnInit(): void {
     this.appService.getNames().subscribe(
-        response => {
-          this.apps = response.data;
-        },
-        error => this.messageHandlerService.handleError(error)
-      );
+      response => {
+        this.apps = response.data;
+      },
+      error => this.messageHandlerService.handleError(error)
+    );
   }
 
   newOrEditConfigMap(id?: number, appId?: number) {
@@ -74,7 +74,7 @@ export class CreateEditConfigMapComponent implements OnInit{
       this.title = '创建配置集';
       this.configMap = new ConfigMap();
       this.configMap.metaDataObj = {};
-      this.initJsonEditor()
+      this.initJsonEditor();
     }
   }
 
@@ -141,7 +141,7 @@ export class CreateEditConfigMapComponent implements OnInit{
   handleValidation(): void {
     let cont = this.currentForm.controls['name'];
     if (cont) {
-      this.isNameValid = cont.valid
+      this.isNameValid = cont.valid;
     }
 
   }

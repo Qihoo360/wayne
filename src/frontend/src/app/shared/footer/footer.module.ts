@@ -1,12 +1,10 @@
-import {NgModule} from '@angular/core';
-import {FooterComponent} from './footer.component';
+import { NgModule } from '@angular/core';
+import { FooterComponent } from './footer.component';
 
 
 @NgModule({
-  imports: [
-  ],
-  providers: [
-  ],
+  imports: [],
+  providers: [],
   exports: [FooterComponent],
   declarations: [
     FooterComponent

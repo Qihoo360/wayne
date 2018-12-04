@@ -1,9 +1,9 @@
 /* Do not change, this code is generated from Golang structs */
 
 
-import {TemplateState} from '../../shared.const';
-import {KubePersistentVolumeClaim} from './kubernetes/persistentvolumeclaim';
-import {PersistentVolumeClaimFileSystemStatus, PersistentVolumeClaimSnap} from './persistentvolumeclaim';
+import { TemplateState } from '../../shared.const';
+import { KubePersistentVolumeClaim } from './kubernetes/persistentvolumeclaim';
+import { PersistentVolumeClaimFileSystemStatus, PersistentVolumeClaimSnap } from './persistentvolumeclaim';
 
 export class PublishStatus {
   id: number;

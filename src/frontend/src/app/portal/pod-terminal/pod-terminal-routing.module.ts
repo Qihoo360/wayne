@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {PodTerminalComponent} from './pod-terminal.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { PodTerminalComponent } from './pod-terminal.component';
 
 
 const routes: Routes = [

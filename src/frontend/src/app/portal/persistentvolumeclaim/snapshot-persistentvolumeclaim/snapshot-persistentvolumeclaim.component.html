@@ -13,7 +13,7 @@
 </div>
 
 <clr-datagrid (clrDgRefresh)="snapshotRefresh()">
-  <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+  <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">ID</ng-container>
   </clr-dg-column>
@@ -27,19 +27,23 @@
     <ng-container *clrDgHideableColumn="{hidden: false}">操作</ng-container>
   </clr-dg-column>
 
-<clr-dg-row *ngFor="let snap of state.snaps" [clrDgItem]="snap">
-  <clr-dg-cell>
-  {{snap.id}}
-  </clr-dg-cell>
-  <clr-dg-cell> {{snap.name}}</clr-dg-cell>
-<clr-dg-cell> {{snap.size/(1024*1024*1024)}}GB</clr-dg-cell>
-  <clr-dg-cell>
-    <a href="javascript:void(0)" style="padding-right: 10px" title="删除快照" (click)="deleteSnap(snap.name)"><clr-icon shape="trash"></clr-icon></a>
-    <a href="javascript:void(0)" title="回滚快照" (click)="rollbackSnap(snap.name)"><clr-icon shape="undo"></clr-icon></a>
-  </clr-dg-cell>
-</clr-dg-row>
-<clr-dg-footer>
-  共{{state.snaps?state.snaps.length:0}}条快照记录
-</clr-dg-footer>
+  <clr-dg-row *ngFor="let snap of state.snaps" [clrDgItem]="snap">
+    <clr-dg-cell>
+      {{snap.id}}
+    </clr-dg-cell>
+    <clr-dg-cell> {{snap.name}}</clr-dg-cell>
+    <clr-dg-cell> {{snap.size / (1024 * 1024 * 1024)}}GB</clr-dg-cell>
+    <clr-dg-cell>
+      <a href="javascript:void(0)" style="padding-right: 10px" title="删除快照" (click)="deleteSnap(snap.name)">
+        <clr-icon shape="trash"></clr-icon>
+      </a>
+      <a href="javascript:void(0)" title="回滚快照" (click)="rollbackSnap(snap.name)">
+        <clr-icon shape="undo"></clr-icon>
+      </a>
+    </clr-dg-cell>
+  </clr-dg-row>
+  <clr-dg-footer>
+    共{{state.snaps ? state.snaps.length : 0}}条快照记录
+  </clr-dg-footer>
 
 </clr-datagrid>

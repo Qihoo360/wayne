@@ -1,21 +1,21 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
-import {Inventory, StateComparator, TimeComparator} from './inventory';
-import {SortOrder} from '@clr/angular';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {Pod} from '../../../shared/model/v1/kubernetes/pod';
-import {PodClient} from '../../../shared/client/v1/kubernetes/pod';
-import {PublicService} from '../../../shared/client/v1/public.service';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../../shared/shared.const';
-import {DOCUMENT} from '@angular/common';
-import {ActivatedRoute} from '@angular/router';
-import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {KubeJob} from '../../../shared/model/v1/kubernetes/job';
+import { Inventory, StateComparator, TimeComparator } from './inventory';
+import { SortOrder } from '@clr/angular';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { Pod } from '../../../shared/model/v1/kubernetes/pod';
+import { PodClient } from '../../../shared/client/v1/kubernetes/pod';
+import { PublicService } from '../../../shared/client/v1/public.service';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
+import { DOCUMENT } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription } from 'rxjs/Subscription';
+import { KubeJob } from '../../../shared/model/v1/kubernetes/job';
 
 @Component({
   selector: 'list-pod',
@@ -87,7 +87,7 @@ export class ListPodComponent implements OnInit, OnDestroy {
 
   refresh() {
     this.pods = null;
-    this.podClient.listByResouce(this.appId, this.currentCluster, this.cacheService.kubeNamespace,'job' ,this.job.metadata.name).subscribe(
+    this.podClient.listByResouce(this.appId, this.currentCluster, this.cacheService.kubeNamespace, 'job', this.job.metadata.name).subscribe(
       response => {
         const pods = response.data;
         this.inventory.size = pods.length;

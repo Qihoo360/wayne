@@ -1,20 +1,20 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
-import {NameComparator, NameFilter, PvcFilter, RbdImageNameFilter, TimeComparator} from './inventory';
-import {SortOrder} from '@clr/angular';
-import {PersistentVolume} from '../../../shared/model/v1/kubernetes/persistentvolume';
-import {isEmpty} from '../../../shared/utils';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../../shared/shared.const';
-import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {PersistentVolumeClient} from '../../../shared/client/v1/kubernetes/persistentvolume';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {PersistentVolumeRobinClient} from '../../../shared/client/v1/kubernetes/persistentvolume-robin';
-import {StorageService} from '../../../shared/client/v1/storage.service';
+import { NameComparator, NameFilter, PvcFilter, RbdImageNameFilter, TimeComparator } from './inventory';
+import { SortOrder } from '@clr/angular';
+import { PersistentVolume } from '../../../shared/model/v1/kubernetes/persistentvolume';
+import { isEmpty } from '../../../shared/utils';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription } from 'rxjs/Subscription';
+import { PersistentVolumeClient } from '../../../shared/client/v1/kubernetes/persistentvolume';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { PersistentVolumeRobinClient } from '../../../shared/client/v1/kubernetes/persistentvolume-robin';
+import { StorageService } from '../../../shared/client/v1/storage.service';
 
 @Component({
   selector: 'list-persistentvolume',
@@ -27,7 +27,7 @@ export class ListPersistentVolumeComponent implements OnInit {
   @Input() showState: object;
   sortOrder: SortOrder = SortOrder.Unsorted;
   sorted: boolean = false;
-  currentPage:number = 1;
+  currentPage: number = 1;
   _pageSize: number = 10;
   timeComparator = new TimeComparator();
   nameComparator = new NameComparator();
@@ -43,7 +43,7 @@ export class ListPersistentVolumeComponent implements OnInit {
 
   constructor(private confirmationDialogService: ConfirmationDialogService,
               private messageHandlerService: MessageHandlerService,
-              private authService:AuthService,
+              private authService: AuthService,
               private persistentVolumeClient: PersistentVolumeClient,
               private persistentVolumeClientRobin: PersistentVolumeRobinClient,
               private storage: StorageService) {
@@ -52,17 +52,17 @@ export class ListPersistentVolumeComponent implements OnInit {
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.PERSISTENT_VOLUME_RBD_IMAGES) {
         let pv: PersistentVolume = message.data;
-          this.persistentVolumeClientRobin
-            .createRbdImage(pv, this.cluster)
-            .subscribe(
-              response => {
-                this.messageHandlerService.showSuccess('创建镜像成功！');
-                this.retrieve();
-              },
-              error => {
-                this.messageHandlerService.handleError(error);
-              }
-            );
+        this.persistentVolumeClientRobin
+          .createRbdImage(pv, this.cluster)
+          .subscribe(
+            response => {
+              this.messageHandlerService.showSuccess('创建镜像成功！');
+              this.retrieve();
+            },
+            error => {
+              this.messageHandlerService.handleError(error);
+            }
+          );
       }
     });
   }
@@ -92,8 +92,8 @@ export class ListPersistentVolumeComponent implements OnInit {
     }
   }
 
-  get isEnableRobin():boolean{
-    return this.authService.config['enableRobin']
+  get isEnableRobin(): boolean {
+    return this.authService.config['enableRobin'];
   }
 
   createRbdImage(pv: PersistentVolume) {
@@ -109,16 +109,16 @@ export class ListPersistentVolumeComponent implements OnInit {
 
   createdRbdImage(pv: PersistentVolume) {
     if (isEmpty(pv.spec.rbd)) {
-      return ''
+      return '';
     }
-    return pv.spec.rbd.created == true ? '是' : '否'
+    return pv.spec.rbd.created == true ? '是' : '否';
   }
 
   createdCephfsPath(pv: PersistentVolume) {
     if (isEmpty(pv.spec.cephfs)) {
-      return ''
+      return '';
     }
-    return pv.spec.cephfs.created == true ? '是' : '否'
+    return pv.spec.cephfs.created == true ? '是' : '否';
   }
 
   editPv(pv: PersistentVolume) {

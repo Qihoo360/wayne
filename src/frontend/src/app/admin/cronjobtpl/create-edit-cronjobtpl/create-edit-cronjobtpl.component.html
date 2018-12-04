@@ -1,7 +1,7 @@
-<clr-modal [(clrModalOpen)]="modalOpened"  [clrModalSize]="'lg'" #modal>
-    <h3 class="modal-title">{{title}}
-      <wayne-modal-operate [modal]="modal"  *ngIf="modalOpened"></wayne-modal-operate>
-    </h3>
+<clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'lg'" #modal>
+  <h3 class="modal-title">{{title}}
+    <wayne-modal-operate [modal]="modal" *ngIf="modalOpened"></wayne-modal-operate>
+  </h3>
   <div class="modal-body">
     <form #ngForm="ngForm">
       <section class="form-block">
@@ -10,13 +10,15 @@
           <div class="select form-control">
             <select id="cronjob_id" [(ngModel)]="cronjobTpl.cronjobId" [disabled]="actionType==1" name="cronjob_id">
               <!--这是一个坑，如果使用value获取到的是string，使用ngValue获取到的是model本身类型-->
-              <option *ngFor="let cronjob of cronjobs" [ngValue]="cronjob.id" [selected]="cronjob.id == cronjobTpl.cronjobId">{{cronjob.name}}
+              <option *ngFor="let cronjob of cronjobs" [ngValue]="cronjob.id"
+                      [selected]="cronjob.id == cronjobTpl.cronjobId">{{cronjob.name}}
               </option>
             </select>
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="description" class="col-md-3 form-group-label-override">描述</label>
+          <label for="description"
+                 class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="description" [(ngModel)]="cronjobTpl.description"
                     name="description"
                     rows="3">
@@ -31,7 +33,8 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
-    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
+    <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid"
+            (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
   </div>
 </clr-modal>

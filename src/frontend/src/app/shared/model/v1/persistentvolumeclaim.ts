@@ -1,4 +1,4 @@
-import {App} from './app';
+import { App } from './app';
 
 export class PersistentVolumeClaim {
   id: number;
@@ -13,8 +13,6 @@ export class PersistentVolumeClaim {
   createTime: Date;
   updateTime: Date;
   order: number;
-  //[PersistentVolumeClaim:]
-  //[end]
 }
 
 export class PersistentVolumeClaimLoginInfo {

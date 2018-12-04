@@ -1,26 +1,32 @@
-<div class="content-area"  style="position: relative">
+<div class="content-area" style="position: relative">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
         <div class="cluster-outline" style="display: flex; flex-wrap: wrap;width: 100%;">
           <wayne-card (click)="openModal()" style="cursor: pointer;">
-            <div style="flex: 1;display: flex; justify-content: center; align-items: center; color: #377aec; font-size: 20px;">
-                <svg style="width: 16px; height: 16px;fill: #377aec; margin-right: 5px;" viewBox="0, 0, 40 , 40" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="0" y="18.5" width="40" height="3" rx="1.5" ry="1.5"></rect>
-                  <rect x="18.5" y="0" width="3" height="40" rx="1.5" ry="1.5"></rect>
-                </svg> 创建项目
+            <div
+              style="flex: 1;display: flex; justify-content: center; align-items: center; color: #377aec; font-size: 20px;">
+              <svg style="width: 16px; height: 16px;fill: #377aec; margin-right: 5px;" viewBox="0, 0, 40 , 40"
+                   xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="18.5" width="40" height="3" rx="1.5" ry="1.5"></rect>
+                <rect x="18.5" y="0" width="3" height="40" rx="1.5" ry="1.5"></rect>
+              </svg>
+              {{'TITLE.CREATE_APP' | translate}}
             </div>
           </wayne-card>
           <ng-container *ngFor="let cluster of clusters; let i = index">
             <wayne-card @cardState *ngIf="cluster.state" [header]="cluster.name">
-              <div style="flex: 1; margin-top: 12px; display: flex; flex-direction: column; justify-content: space-around;">
+              <div
+                style="flex: 1; margin-top: 12px; display: flex; flex-direction: column; justify-content: space-around;">
                 <div style="display: flex;">
-                  <div>cpu使用(核)</div>
-                  <wayne-progress [count]="resources[cluster.name].usage.cpu" [total]="dealLimitLogic(resources[cluster.name].limit.cpu)"></wayne-progress>
+                  <div style="font-family: monospace;">{{'TITLE.CPU_USAGE_SHORT' | translate}}</div>
+                  <wayne-progress [count]="resources[cluster.name].usage.cpu"
+                                  [total]="dealLimitLogic(resources[cluster.name].limit.cpu)"></wayne-progress>
                 </div>
                 <div style="display: flex;">
-                  <div>内存使用(G)</div>
-                  <wayne-progress [count]="resources[cluster.name].usage.memory" [total]="dealLimitLogic(resources[cluster.name].limit.memory)"></wayne-progress>
+                  <div style="font-family: monospace;">{{'TITLE.MEMORY_USAGE_SHORT' | translate}}</div>
+                  <wayne-progress [count]="resources[cluster.name].usage.memory"
+                                  [total]="dealLimitLogic(resources[cluster.name].limit.memory)"></wayne-progress>
                 </div>
               </div>
             </wayne-card>
@@ -28,9 +34,10 @@
         </div>
         <p class="card-show-p">
           <span *ngIf="clusters.length >= allowNumber" (click)="changeCard()">
-            <span *ngIf="!allowShowAll">展开</span>
-            <span *ngIf="allowShowAll">收起</span>
-            <svg class="card-change-svg" width="12" height="12" xmlns="http://www.w3.org/2000/svg" viewBox="0, 0, 20, 10" style="margin-left: 3px;transition: transform 250ms ease-in-out;">
+            <span *ngIf="!allowShowAll">{{'ACTION.FOLD' | translate}}</span>
+            <span *ngIf="allowShowAll">{{'ACTION.UNFOLD' | translate}}</span>
+            <svg class="card-change-svg" width="12" height="12" xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0, 0, 20, 10" style="margin-left: 3px;transition: transform 250ms ease-in-out;">
               <polyline points="3,2 10,10 17,2" style="fill: white;stroke: #377aec;stroke-width: 2;"></polyline>
               <circle cx="3" cy="2" r="1" style="fill: #377aec;"></circle>
               <circle cx="17" cy="2" r="1" style="fill: #377aec;"></circle>
@@ -40,24 +47,28 @@
         <wayne-box>
           <div class="table-search" style="padding: 0 15px;">
             <div class="table-search-left">
-              <button class="wayne-button active" [class.active]="!starredFilter" (click)="starredChange(false)">所有内容</button>
-              <button class="wayne-button" [class.active]="starredFilter" (click)="starredChange(true)">已收藏</button>
+              <button class="wayne-button active" [class.active]="!starredFilter"
+                      (click)="starredChange(false)">{{'TITLE.ALL_CONTENT' | translate}}</button>
+              <button class="wayne-button" [class.active]="starredFilter"
+                      (click)="starredChange(true)">{{'TITLE.COLLECTED' | translate}}</button>
               <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
                 <wayne-checkbox-group class=".filter-body-content" [(ngModel)]="showList">
-                  <wayne-checkbox>名称</wayne-checkbox>
-                  <wayne-checkbox>描述</wayne-checkbox>
-                  <wayne-checkbox>创建时间</wayne-checkbox>
-                  <wayne-checkbox>创建者</wayne-checkbox>
-                  <wayne-checkbox>操作</wayne-checkbox>
+                  <wayne-checkbox value="name">{{'TITLE.NAME' | translate}}</wayne-checkbox>
+                  <wayne-checkbox value="description">{{'TITLE.DESCRIPTION' | translate}}</wayne-checkbox>
+                  <wayne-checkbox value="create_time">{{'TITLE.CREATE_TIME' | translate}}</wayne-checkbox>
+                  <wayne-checkbox value="create_user">{{'TITLE.CREATE_USER' | translate}}</wayne-checkbox>
+                  <wayne-checkbox value="action">{{'TITLE.ACTION' | translate}}</wayne-checkbox>
                 </wayne-checkbox-group>
               </wayne-filter-box>
             </div>
             <div class="table-search-right">
-              <wayne-input [(ngModel)]="appName" search placeholder="点此输入筛选过滤项目" (input)="searchApp()"></wayne-input>
+              <wayne-input [(ngModel)]="appName" search [placeholder]="'PLACEHOLDER.PRODUCT' | translate"
+                           (input)="searchApp()"></wayne-input>
             </div>
           </div>
-          <list-app style="width: 100%;" [apps]="changedApps" [starredFilter]="starredInherit" (namespaces)="namespaces" (delete)="deleteApp($event)" [showState]="showState"
-            (edit)="editApp($event)" (paginate)="retrieve($event)" [page]="pageState.page"></list-app>
+          <list-app style="width: 100%;" [apps]="changedApps" [starredFilter]="starredInherit" (namespaces)="namespaces"
+                    (delete)="deleteApp($event)" [showState]="showState"
+                    (edit)="editApp($event)" (paginate)="retrieve($event)" [page]="pageState.page"></list-app>
         </wayne-box>
       </div>
     </div>

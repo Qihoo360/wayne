@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {State} from '@clr/angular';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../../shared/shared.const';
-import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {DeploymentTpl} from '../../../shared/model/v1/deploymenttpl';
-import {DeploymentTplService} from '../../../shared/client/v1/deploymenttpl.service';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
-import {PageState} from '../../../shared/page/page-state';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { State } from '@clr/angular';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription } from 'rxjs/Subscription';
+import { DeploymentTpl } from '../../../shared/model/v1/deploymenttpl';
+import { DeploymentTplService } from '../../../shared/client/v1/deploymenttpl.service';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { PageState } from '../../../shared/page/page-state';
 
 @Component({
   selector: 'trash-deploymenttpl',
@@ -66,7 +66,11 @@ export class TrashDeploymentTplComponent implements OnInit, OnDestroy {
   refresh(state?: State) {
     if (state) {
       this.state = state;
-      this.pageState = PageState.fromState(state, {pageSize: 10, totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
+      this.pageState = PageState.fromState(state, {
+        pageSize: 10,
+        totalPage: this.pageState.page.totalPage,
+        totalCount: this.pageState.page.totalCount
+      });
     }
     this.pageState.params['deleted'] = true;
     this.deploymentTplService

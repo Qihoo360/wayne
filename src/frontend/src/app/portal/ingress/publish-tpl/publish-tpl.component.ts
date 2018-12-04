@@ -1,19 +1,18 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {Cluster} from '../../../shared/model/v1/cluster';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {ResourcesActionType} from '../../../shared/shared.const';
-import {PublishStatus} from '../../../shared/model/v1/publish-status';
-import {PublishStatusService} from '../../../shared/client/v1/publishstatus.service';
-import {IngressTpl} from '../../../shared/model/v1/ingresstpl';
-import {IngressService} from '../../../shared/client/v1/ingress.service';
-import {IngressClient} from '../../../shared/client/v1/kubernetes/ingress';
-import {Ingress} from '../../../shared/model/v1/ingress';
-import {KubeIngress} from '../../../shared/model/v1/kubernetes/ingress';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { Cluster } from '../../../shared/model/v1/cluster';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { ResourcesActionType } from '../../../shared/shared.const';
+import { PublishStatus } from '../../../shared/model/v1/publish-status';
+import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
+import { IngressTpl } from '../../../shared/model/v1/ingresstpl';
+import { IngressService } from '../../../shared/client/v1/ingress.service';
+import { IngressClient } from '../../../shared/client/v1/kubernetes/ingress';
+import { Ingress } from '../../../shared/model/v1/ingress';
+import { KubeIngress } from '../../../shared/model/v1/kubernetes/ingress';
 
 @Component({
   selector: 'publish-tpl',
@@ -50,7 +49,7 @@ export class PublishIngressTplComponent {
       this.title = '发布 Ingress [' + ingress.name + ']';
       if (!ingress.metaData) {
         this.messageHandlerService.warning('请先配置可发布集群');
-        return
+        return;
       }
       this.modalOpened = true;
       const metaData = JSON.parse(ingress.metaData);
@@ -58,7 +57,7 @@ export class PublishIngressTplComponent {
         if (this.cacheService.namespace.metaDataObj && this.cacheService.namespace.metaDataObj.clusterMeta[cluster]) {
           const c = new Cluster();
           c.name = cluster;
-          this.clusters.push(c)
+          this.clusters.push(c);
         }
       }
 
@@ -68,7 +67,7 @@ export class PublishIngressTplComponent {
       for (const state of ingressTpl.status) {
         const c = new Cluster();
         c.name = state.cluster;
-        this.clusters.push(c)
+        this.clusters.push(c);
       }
     }
 
@@ -106,11 +105,11 @@ export class PublishIngressTplComponent {
     if (status && status.length > 0) {
       for (const state of status) {
         if (state.cluster === cluster) {
-          return state
+          return state;
         }
       }
     }
-    return null
+    return null;
   }
 
   offline(cluster: Cluster) {

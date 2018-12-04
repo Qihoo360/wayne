@@ -26,12 +26,12 @@
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          创建者
+          {{'TITLE.CREATE_USER' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column class="col-time">
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          创建时间
+          {{'TITLE.CREATE_TIME' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-row *ngFor="let pvc of pvcs" [clrDgItem]="pvc">

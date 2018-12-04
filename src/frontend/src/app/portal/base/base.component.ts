@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService} from '../../shared/auth/auth.service';
-import {App} from '../../shared/model/v1/app';
-import {AppService} from '../../shared/client/v1/app.service';
-import {CacheService} from '../../shared/auth/cache.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../shared/auth/auth.service';
+import { App } from '../../shared/model/v1/app';
+import { AppService } from '../../shared/client/v1/app.service';
+import { CacheService } from '../../shared/auth/cache.service';
 
 @Component({
   selector: 'base',
@@ -29,7 +29,7 @@ export class BaseComponent {
         let app: App = response.data;
         // 缓存app信息到 appService 中
         this.appService.app = response.data;
-        if (this.appBetaMode(app.metaData) && window.location.origin != wayneBetaUrl) {
+        if (this.appBetaMode(app.metaData) && wayneBetaUrl && window.location.origin != wayneBetaUrl) {
           window.location.href = `${wayneBetaUrl}${this.router.url}`;
           return;
         }

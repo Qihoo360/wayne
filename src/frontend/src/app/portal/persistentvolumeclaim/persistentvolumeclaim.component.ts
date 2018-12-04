@@ -1,27 +1,28 @@
-import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets, PublishType} from '../../shared/shared.const';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {Observable} from 'rxjs/Observable';
-import {AppService} from '../../shared/client/v1/app.service';
-import {App} from '../../shared/model/v1/app';
-import {CacheService} from '../../shared/auth/cache.service';
-import {PublishHistoryService} from '../common/publish-history/publish-history.service';
-import {AuthService} from '../../shared/auth/auth.service';
-import {ListPersistentVolumeClaimComponent} from './list-persistentvolumeclaim/list-persistentvolumeclaim.component';
-import {CreateEditPersistentVolumeClaimComponent} from './create-edit-persistentvolumeclaim/create-edit-persistentvolumeclaim.component';
-import {PersistentVolumeClaimService} from '../../shared/client/v1/persistentvolumeclaim.service';
-import {PersistentVolumeClaimTplService} from '../../shared/client/v1/persistentvolumeclaimtpl.service';
-import {PersistentVolumeClaim} from '../../shared/model/v1/persistentvolumeclaim';
-import {PersistentVolumeClaimClient} from '../../shared/client/v1/kubernetes/persistentvolumeclaims';
-import {PublishService} from '../../shared/client/v1/publish.service';
-import {PublishStatus} from '../../shared/model/v1/publish-status';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {Subscription} from 'rxjs/Subscription';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {PageState} from '../../shared/page/page-state';
-import {TabDragService} from '../../shared/client/v1/tab-drag.service';
-import {OrderItem} from '../../shared/model/v1/order';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets, PublishType } from '../../shared/shared.const';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { Observable } from 'rxjs/Observable';
+import { AppService } from '../../shared/client/v1/app.service';
+import { App } from '../../shared/model/v1/app';
+import { CacheService } from '../../shared/auth/cache.service';
+import { PublishHistoryService } from '../common/publish-history/publish-history.service';
+import { AuthService } from '../../shared/auth/auth.service';
+import { ListPersistentVolumeClaimComponent } from './list-persistentvolumeclaim/list-persistentvolumeclaim.component';
+import { CreateEditPersistentVolumeClaimComponent } from './create-edit-persistentvolumeclaim/create-edit-persistentvolumeclaim.component';
+import { PersistentVolumeClaimService } from '../../shared/client/v1/persistentvolumeclaim.service';
+import { PersistentVolumeClaimTplService } from '../../shared/client/v1/persistentvolumeclaimtpl.service';
+import { PersistentVolumeClaim } from '../../shared/model/v1/persistentvolumeclaim';
+import { PersistentVolumeClaimClient } from '../../shared/client/v1/kubernetes/persistentvolumeclaims';
+import { PublishService } from '../../shared/client/v1/publish.service';
+import { PublishStatus } from '../../shared/model/v1/publish-status';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { Subscription } from 'rxjs/Subscription';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { PageState } from '../../shared/page/page-state';
+import { TabDragService } from '../../shared/client/v1/tab-drag.service';
+import { OrderItem } from '../../shared/model/v1/order';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'wayne-persistentvolumeclaim',
@@ -55,10 +56,11 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
               private tabDragService: TabDragService,
               private el: ElementRef,
               private pvcTplService: PersistentVolumeClaimTplService,
+              public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
-                this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
-                  if (over) this.tabChange();
-                })
+    this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
+      if (over) this.tabChange();
+    });
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
@@ -119,7 +121,7 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
       }
     );
   }
-  
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.tabScription.unsubscribe();
@@ -130,7 +132,7 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
       return {
         id: parseInt(item.id),
         order: index
-      }
+      };
     });
     if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) return;
     this.pvcService.updateOrder(this.app.id, orderList).subscribe(
@@ -152,15 +154,15 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
         return {
           id: item.id,
           order: item.order
-        }
-      })
+        };
+      });
     } else {
       this.orderCache = [].slice.call(this.el.nativeElement.querySelectorAll('.tabs-item')).map((item, index) => {
         return {
           id: parseInt(item.id),
           order: index
-        }
-      })
+        };
+      });
     }
   }
 
@@ -185,12 +187,12 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
       }
       for (let pvc of this.pvcs) {
         if (pvcId == pvc.id) {
-          return pvcId
+          return pvcId;
         }
       }
       return this.pvcs[0].id;
     } else {
-      return null
+      return null;
     }
   }
 
@@ -224,7 +226,7 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
 
   deletePvc() {
     if (this.publishStatus && this.publishStatus.length > 0) {
-      this.messageHandlerService.warning('已上线PVC无法删除，请先下线PVC！')
+      this.messageHandlerService.warning('已上线PVC无法删除，请先下线PVC！');
     } else {
       let deletionMessage = new ConfirmationMessage(
         '删除PVC确认',

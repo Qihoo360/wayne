@@ -5,10 +5,14 @@
     </div>
     <div class="row flex-items-xs-between" style="height:32px;">
       <div class="option-left">
-        <button class="btn btn-link" (click)="openModal()"><clr-icon shape="add"></clr-icon>创建配置</button>
+        <button class="btn btn-link" (click)="openModal()">
+          <clr-icon shape="add"></clr-icon>
+          创建配置
+        </button>
         <create-edit-config (create)="createConfig($event)"></create-edit-config>
       </div>
     </div>
-    <list-config [configs]="configs" (delete)="deleteConfig($event)" (edit)="editConfig($event)" (paginate)="retrieve($event)" [page]="pageState.page"></list-config>
+    <list-config [configs]="configs" (delete)="deleteConfig($event)" (edit)="editConfig($event)"
+                 (paginate)="retrieve($event)" [page]="pageState.page"></list-config>
   </div>
 </div>

@@ -3,25 +3,25 @@
     <ng-container>ID</ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'name'">
-    <ng-container *clrDgHideableColumn="showState['名称']">名称</ng-container>
+    <ng-container *clrDgHideableColumn="showState['名称']">{{'TITLE.NAME' | translate}}</ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['角色']">角色</ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-time">
-    <ng-container *clrDgHideableColumn="showState['创建时间']">创建时间</ng-container>
+    <ng-container *clrDgHideableColumn="showState['create_time']">{{'TITLE.CREATE_TIME' | translate}}</ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['过期时间']">过期时间(s)</ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-user">
-    <ng-container *clrDgHideableColumn="showState['创建者']">创建者</ng-container>
+    <ng-container *clrDgHideableColumn="showState['create_user']">{{'TITLE.CREATE_USER' | translate}}</ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['描述']">描述</ng-container>
+    <ng-container *clrDgHideableColumn="showState['描述']">{{'TITLE.DESCRIPTION' | translate}}</ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-operate">
-    <ng-container *clrDgHideableColumn="showState['操作']">操作</ng-container>
+    <ng-container *clrDgHideableColumn="showState['action']">操作</ng-container>
   </clr-dg-column>
 
   <clr-dg-row *ngFor="let apiKey of apiKeys" [clrDgItem]="apiKey">
@@ -29,12 +29,16 @@
     <clr-dg-cell class="copy">{{apiKey.name}}</clr-dg-cell>
     <clr-dg-cell>{{apiKey.group?.name}}</clr-dg-cell>
     <clr-dg-cell class="col-time">{{apiKey.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
-    <clr-dg-cell>{{apiKey.expireIn==0 ? "永久有效": apiKey.expireIn}}</clr-dg-cell>
+    <clr-dg-cell>{{apiKey.expireIn == 0 ? "永久有效" : apiKey.expireIn}}</clr-dg-cell>
     <clr-dg-cell class="col-user">{{apiKey.user}}</clr-dg-cell>
     <clr-dg-cell>{{apiKey.description}}</clr-dg-cell>
     <clr-dg-cell class="col-operate">
-      <button class="wayne-button text" *ngIf="authService.currentAppPermission.apiKey.read || authService.currentUser.admin" href="javascript:void(0)" (click)="tokenDetail(apiKey)">详情</button>
-      <button class="wayne-button text" *ngIf="authService.currentAppPermission.apiKey.delete || authService.currentUser.admin" href="javascript:void(0)" (click)="deleteApiKey(apiKey)">删除</button>
+      <button class="wayne-button text"
+              *ngIf="authService.currentAppPermission.apiKey.read || authService.currentUser.admin"
+              href="javascript:void(0)" (click)="tokenDetail(apiKey)">{{'BUTTON.DETAIL' | translate}}</button>
+      <button class="wayne-button text"
+              *ngIf="authService.currentAppPermission.apiKey.delete || authService.currentUser.admin"
+              href="javascript:void(0)" (click)="deleteApiKey(apiKey)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-cell>
   </clr-dg-row>
 

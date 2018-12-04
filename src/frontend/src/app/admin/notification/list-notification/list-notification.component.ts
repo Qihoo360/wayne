@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Page} from '../../../shared/page/page-state';
-import {Notification} from '../../../shared/model/v1/notification';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {Router} from '@angular/router';
-import {ClrDatagridStateInterface} from '@clr/angular';
-import {NotificationService} from '../../../shared/client/v1/notification.service';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Page } from '../../../shared/page/page-state';
+import { Notification } from '../../../shared/model/v1/notification';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { Router } from '@angular/router';
+import { ClrDatagridStateInterface } from '@clr/angular';
+import { NotificationService } from '../../../shared/client/v1/notification.service';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 
 @Component({
   selector: 'wayne-list-notification',
@@ -62,7 +62,7 @@ export class ListNotificationComponent implements OnInit {
       }, error => {
         this.messageHandlerService.handleError(error);
       }
-    )
+    );
   }
 
   cancelPushNotify() {

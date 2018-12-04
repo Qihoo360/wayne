@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../../shared/client/v1/breadcrumb.service';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {User} from '../../../shared/model/v1/user';
-import {UserService} from '../../../shared/client/v1/user.service';
-import {ResetPasswordComponent} from '../reset-password/reset-password.component';
-import {Page} from '../../../shared/page/page-state';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { User } from '../../../shared/model/v1/user';
+import { UserService } from '../../../shared/client/v1/user.service';
+import { ResetPasswordComponent } from '../reset-password/reset-password.component';
+import { Page } from '../../../shared/page/page-state';
 
 @Component({
   selector: 'list-user',

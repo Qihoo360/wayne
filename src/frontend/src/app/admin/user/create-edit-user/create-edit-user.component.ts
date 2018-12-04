@@ -1,12 +1,12 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType} from '../../../shared/shared.const';
-import {User} from '../../../shared/model/v1/user';
-import {UserService} from '../../../shared/client/v1/user.service';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType } from '../../../shared/shared.const';
+import { User } from '../../../shared/model/v1/user';
+import { UserService } from '../../../shared/client/v1/user.service';
 
 @Component({
   selector: 'create-edit-user',
@@ -32,9 +32,10 @@ export class CreateEditUserComponent {
   actionType: ActionType;
 
   constructor(
-      private userService: UserService,
-      private messageHandlerService: MessageHandlerService
-  ) {}
+    private userService: UserService,
+    private messageHandlerService: MessageHandlerService
+  ) {
+  }
 
   ngOnInit(): void {
   }
@@ -49,7 +50,7 @@ export class CreateEditUserComponent {
       this.userTitle = '编辑用户';
       this.userService.getUser(id).subscribe(
         status => {
-          this.user = status.data
+          this.user = status.data;
         },
         error => {
           this.messageHandlerService.handleError(error);
@@ -118,13 +119,14 @@ export class CreateEditUserComponent {
   handleNameValidation(): void {
     let cont = this.currentForm.controls['user_name'];
     if (cont) {
-      this.isNameValid = cont.valid
+      this.isNameValid = cont.valid;
     }
   }
+
   handleEmailValidation(): void {
     let cont = this.currentForm.controls['user_email'];
     if (cont) {
-      this.isEmailValid = cont.valid
+      this.isEmailValid = cont.valid;
     }
   }
 }

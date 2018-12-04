@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {Permission} from '../../model/v1/permission';
-import {PageState} from '../../page/page-state';
-import {isNotEmpty} from '../../utils';
+import { Permission } from '../../model/v1/permission';
+import { PageState } from '../../page/page-state';
+import { isNotEmpty } from '../../utils';
 
 @Injectable()
 export class PermissionService {
@@ -31,12 +31,12 @@ export class PermissionService {
       let value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
-          filterList.push(`${key}=${value}`)
+          filterList.push(`${key}=${value}`);
         } else {
           filterList.push(`${key}__contains=${value}`);
         }
       }
-    })
+    });
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }
@@ -47,7 +47,7 @@ export class PermissionService {
     return this.http
       .get('/api/v1/permissions', {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   createPermission(permission: Permission): Observable<any> {
@@ -65,7 +65,7 @@ export class PermissionService {
   }
 
   deletePermission(permissionId: number): Observable<any> {
-    let options : any = {};
+    let options: any = {};
     return this.http
       .delete(`/api/v1/permissions/${permissionId}`, options)
 

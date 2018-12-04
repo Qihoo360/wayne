@@ -1,17 +1,17 @@
-import {Component, ElementRef, OnInit, ViewChild, OnDestroy} from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {ActivatedRoute, Router} from '@angular/router';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {App} from '../../../shared/model/v1/app';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {NamespaceClient} from '../../../shared/client/v1/kubernetes/namespace';
-import {Cluster} from '../list-cluster/cluster';
-import {ListClusterComponent} from '../list-cluster/list-cluster.component';
-import {RedDot} from '../../../shared/model/v1/red-dot';
-import {StorageService} from '../../../shared/client/v1/storage.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { App } from '../../../shared/model/v1/app';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
+import { Cluster } from '../list-cluster/cluster';
+import { ListClusterComponent } from '../list-cluster/list-cluster.component';
+import { RedDot } from '../../../shared/model/v1/red-dot';
+import { StorageService } from '../../../shared/client/v1/storage.service';
 import {
   KubeApiTypeConfigMap,
   KubeApiTypeCronJob,
@@ -22,7 +22,8 @@ import {
   KubeApiTypeService,
   KubeApiTypeStatefulSet
 } from '../../../shared/shared.const';
-import {EventManager} from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'detail-app',
@@ -58,7 +59,8 @@ export class DetailAppComponent implements OnInit, OnDestroy {
               private messageHandlerService: MessageHandlerService,
               private element: ElementRef,
               private storage: StorageService,
-              private eventManager: EventManager
+              private eventManager: EventManager,
+              public translate: TranslateService
   ) {
   }
 
@@ -93,7 +95,7 @@ export class DetailAppComponent implements OnInit, OnDestroy {
   }
 
   goToLink(type: string) {
-    this.router.navigateByUrl(`/portal/namespace/${this.cacheService.namespaceId}/app/${this.appId}/${type}`)
+    this.router.navigateByUrl(`/portal/namespace/${this.cacheService.namespaceId}/app/${this.appId}/${type}`);
   }
 
   initResourceCount() {
@@ -111,7 +113,7 @@ export class DetailAppComponent implements OnInit, OnDestroy {
     if (this.resourceCountMap) {
       return this.resourceCountMap[resource];
     }
-    return 0
+    return 0;
   }
 
   initRedDot() {
@@ -125,11 +127,11 @@ export class DetailAppComponent implements OnInit, OnDestroy {
         } else {
           this.redDot[item] = true;
         }
-      })
+      });
     } else {
       redList.forEach(item => {
         this.redDot[item] = true;
-      })
+      });
     }
   }
 

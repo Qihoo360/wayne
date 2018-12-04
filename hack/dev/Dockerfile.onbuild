@@ -1,4 +1,0 @@
-FROM golang:1.10-alpine
-
-RUN echo -e "http://mirrors.aliyun.com/alpine/v3.5/main\nhttp://mirrors.aliyun.com/alpine/v3.5/community" > /etc/apk/repositories \
-    && apk update

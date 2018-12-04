@@ -1,12 +1,12 @@
-import {Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {AceEditorService} from '../ace-editor.service';
-import {AceEditorMsg} from '../ace-editor';
-import {Subscription} from 'rxjs/Subscription';
+import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AceEditorService } from '../ace-editor.service';
+import { AceEditorMsg } from '../ace-editor';
+import { Subscription } from 'rxjs/Subscription';
 import * as ace from 'brace';
 import 'brace/mode/json';
 import 'brace/mode/yaml';
 import * as YAML from 'js-yaml';
-import {MessageHandlerService} from '../../message-handler/message-handler.service';
+import { MessageHandlerService } from '../../message-handler/message-handler.service';
 
 @Component({
   selector: 'wayne-ace-editor-box',
@@ -24,7 +24,7 @@ export class AceEditorBoxComponent implements OnInit, OnDestroy {
   @Output() modalChange = new EventEmitter<any>();
 
   constructor(
-    public el: ElementRef, 
+    public el: ElementRef,
     private aceEditorService: AceEditorService,
     private messageHandle: MessageHandlerService) {
   }
@@ -58,7 +58,7 @@ export class AceEditorBoxComponent implements OnInit, OnDestroy {
 
         this.setStorageMode();
       }
-    )
+    );
   }
 
   setValue(value: string) {
@@ -130,9 +130,9 @@ export class AceEditorBoxComponent implements OnInit, OnDestroy {
     try {
       if (this.editor.getValue().trim() === '') return true;
       if (this.aceMode == 'ace/mode/json') {
-        JSON.parse(this.editor.getValue())
+        JSON.parse(this.editor.getValue());
       } else {
-        YAML.load(this.editor.getValue())
+        YAML.load(this.editor.getValue());
       }
     } catch (e) {
       return false;

@@ -1,28 +1,29 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {ClrDatagridStateInterface} from '@clr/angular';
-import {Subscription} from 'rxjs/Subscription';
-import {ListNamespaceWebHookComponent} from './list-namespace-webhook/list-namespace-webhook.component';
-import {CreateEditNamespaceWebHookComponent} from './create-edit-namespace-webhook/create-edit-namespace-webhook.component';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {WebHook} from '../../shared/model/v1/webhook';
-import {WebHookService} from '../../shared/client/v1/webhook.service';
-import {AuthService} from '../../shared/auth/auth.service';
-import {CacheService} from '../../shared/auth/cache.service';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ClrDatagridStateInterface } from '@clr/angular';
+import { Subscription } from 'rxjs/Subscription';
+import { ListNamespaceWebHookComponent } from './list-namespace-webhook/list-namespace-webhook.component';
+import { CreateEditNamespaceWebHookComponent } from './create-edit-namespace-webhook/create-edit-namespace-webhook.component';
+import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { WebHook } from '../../shared/model/v1/webhook';
+import { WebHookService } from '../../shared/client/v1/webhook.service';
+import { AuthService } from '../../shared/auth/auth.service';
+import { CacheService } from '../../shared/auth/cache.service';
+import { PageState } from '../../shared/page/page-state';
+import { TranslateService } from '@ngx-translate/core';
 
 const showState = {
   'ID': {hidden: true},
-  '名称': {hidden: false},
+  'name': {hidden: false},
   'URL': {hidden: false},
-  '启用状态': {hidden: false},
-  '创建用户': {hidden: false},
-  '创建时间': {hidden: false},
-  '操作': {hidden: false}
+  'status': {hidden: false},
+  'create_user': {hidden: false},
+  'create_time': {hidden: false},
+  'action': {hidden: false}
 };
 
 @Component({
@@ -49,6 +50,7 @@ export class NamespaceWebHookComponent implements OnInit {
               private contextService: CacheService,
               private webHookService: WebHookService,
               private messageHandlerService: MessageHandlerService,
+              public translate: TranslateService,
               private deletionDialogService: ConfirmationDialogService) {
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
@@ -77,7 +79,7 @@ export class NamespaceWebHookComponent implements OnInit {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
       if (!this.showState[key].hidden) this.showList.push(key);
-    })
+    });
   }
 
   confirmEvent() {
@@ -87,7 +89,7 @@ export class NamespaceWebHookComponent implements OnInit {
       } else {
         this.showState[key] = {hidden: true};
       }
-    })
+    });
   }
 
   cancelEvent() {
@@ -123,7 +125,7 @@ export class NamespaceWebHookComponent implements OnInit {
 
   refresh(dirty: boolean) {
     if (dirty) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

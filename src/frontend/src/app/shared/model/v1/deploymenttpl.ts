@@ -1,6 +1,6 @@
-import {Deployment} from './deployment';
-import {TemplateState} from '../../shared.const';
-import {PublishStatus} from './publish-status';
+import { Deployment } from './deployment';
+import { TemplateState } from '../../shared.const';
+import { PublishStatus } from './publish-status';
 
 export class DeploymentTpl {
   id: number;

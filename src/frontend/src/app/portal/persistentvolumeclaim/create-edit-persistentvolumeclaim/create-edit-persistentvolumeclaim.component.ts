@@ -1,15 +1,15 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType, configKeyApiNameGenerateRule} from '../../../shared/shared.const';
-import {App} from '../../../shared/model/v1/app';
-import {PersistentVolumeClaimService} from '../../../shared/client/v1/persistentvolumeclaim.service';
-import {PersistentVolumeClaim} from '../../../shared/model/v1/persistentvolumeclaim';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {ApiNameGenerateRule} from '../../../shared/utils';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType, configKeyApiNameGenerateRule } from '../../../shared/shared.const';
+import { App } from '../../../shared/model/v1/app';
+import { PersistentVolumeClaimService } from '../../../shared/client/v1/persistentvolumeclaim.service';
+import { PersistentVolumeClaim } from '../../../shared/model/v1/persistentvolumeclaim';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { ApiNameGenerateRule } from '../../../shared/utils';
 
 @Component({
   selector: 'create-edit-persistentvolumeclaim',
@@ -51,7 +51,7 @@ export class CreateEditPersistentVolumeClaimComponent implements OnInit {
       this.title = '编辑' + this.componentName;
       this.pvcService.getById(id, this.app.id).subscribe(
         status => {
-          this.pvc = status.data
+          this.pvc = status.data;
         },
         error => {
           this.messageHandlerService.handleError(error);
@@ -68,9 +68,9 @@ export class CreateEditPersistentVolumeClaimComponent implements OnInit {
     this.currentForm.reset();
   }
 
-  get nameGenerateRuleConfig():string{
+  get nameGenerateRuleConfig(): string {
     return ApiNameGenerateRule.config(
-      this.authService.config[configKeyApiNameGenerateRule], this.app.metaData)
+      this.authService.config[configKeyApiNameGenerateRule], this.app.metaData);
   }
 
   onSubmit() {
@@ -128,7 +128,7 @@ export class CreateEditPersistentVolumeClaimComponent implements OnInit {
   handleValidation(): void {
     let cont = this.currentForm.controls['name'];
     if (cont) {
-      this.isNameValid = cont.valid
+      this.isNameValid = cont.valid;
     }
   }
 }

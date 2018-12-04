@@ -1,28 +1,25 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {ListPersistentVolumeComponent} from './list-persistentvolume/list-persistentvolume.component';
-import {PersistentVolume} from '../../shared/model/v1/kubernetes/persistentvolume';
-import {PersistentVolumeClient} from '../../shared/client/v1/kubernetes/persistentvolume';
-import {ClusterService} from '../../shared/client/v1/cluster.service';
-import {Cluster} from '../../shared/model/v1/cluster';
-import {Inventory} from './list-persistentvolume/inventory';
-import {CreateEditPersistentVolumeComponent} from './create-edit-persistentvolume/create-edit-persistentvolume.component';
-import {Observable} from 'rxjs/Observable';
-import {isArrayNotEmpty, isNotEmpty} from '../../shared/utils';
-import {AuthService} from '../../shared/auth/auth.service';
-import {PersistentVolumeRobinClient} from '../../shared/client/v1/kubernetes/persistentvolume-robin';
-import {Node} from '../../shared/model/v1/kubernetes/node-list';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { ListPersistentVolumeComponent } from './list-persistentvolume/list-persistentvolume.component';
+import { PersistentVolume } from '../../shared/model/v1/kubernetes/persistentvolume';
+import { PersistentVolumeClient } from '../../shared/client/v1/kubernetes/persistentvolume';
+import { ClusterService } from '../../shared/client/v1/cluster.service';
+import { Inventory } from './list-persistentvolume/inventory';
+import { CreateEditPersistentVolumeComponent } from './create-edit-persistentvolume/create-edit-persistentvolume.component';
+import { isArrayNotEmpty, isNotEmpty } from '../../shared/utils';
+import { AuthService } from '../../shared/auth/auth.service';
+import { PersistentVolumeRobinClient } from '../../shared/client/v1/kubernetes/persistentvolume-robin';
 
 const showState = {
   '名称': {hidden: false},
   '总量': {hidden: false},
   '回收策略': {hidden: true},
-  '访问模式': {hidden: false},
+  'access_pattern': {hidden: false},
   '状态': {hidden: false},
   '已绑定PVC': {hidden: false},
   '原因': {hidden: true},
@@ -50,12 +47,12 @@ export class PersistentVolumeComponent implements OnInit {
   subscription: Subscription;
 
   constructor(private persistentVolumeClient: PersistentVolumeClient,
-              private persistentVolumeRobinClient:PersistentVolumeRobinClient,
+              private persistentVolumeRobinClient: PersistentVolumeRobinClient,
               private route: ActivatedRoute,
               private inventory: Inventory,
               private router: Router,
               private clusterService: ClusterService,
-              private authService:AuthService,
+              private authService: AuthService,
               private messageHandlerService: MessageHandlerService,
               private deletionDialogService: ConfirmationDialogService) {
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
@@ -85,7 +82,7 @@ export class PersistentVolumeComponent implements OnInit {
       } else {
         this.showState[key] = {hidden: true};
       }
-    })
+    });
   }
 
   cancelEvent() {
@@ -96,7 +93,7 @@ export class PersistentVolumeComponent implements OnInit {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
       if (!this.showState[key].hidden) this.showList.push(key);
-    })
+    });
   }
 
   ngOnInit() {
@@ -135,13 +132,13 @@ export class PersistentVolumeComponent implements OnInit {
     }
   }
 
-  get isEnableRobin():boolean{
-    return this.authService.config['enableRobin']
+  get isEnableRobin(): boolean {
+    return this.authService.config['enableRobin'];
   }
 
   retrieve(): void {
     if (!this.cluster) {
-      return
+      return;
     }
 
     this.persistentVolumeClient.list(this.cluster).subscribe(
@@ -150,7 +147,7 @@ export class PersistentVolumeComponent implements OnInit {
         this.inventory.size = pvs.length;
         this.inventory.reset(pvs);
         this.persistentVolumes = this.inventory.all;
-        if (this.isEnableRobin){
+        if (this.isEnableRobin) {
           this.persistentVolumeRobinClient.listRbdImages(this.cluster).subscribe(
             response => {
               let rbdImages = {};
@@ -171,14 +168,14 @@ export class PersistentVolumeComponent implements OnInit {
               }
             },
             error => {
-              this.messageHandlerService.handleError(error)
+              this.messageHandlerService.handleError(error);
             }
           );
         }
 
       },
       error => {
-        this.messageHandlerService.handleError(error)
+        this.messageHandlerService.handleError(error);
       }
     );
   }
@@ -189,11 +186,11 @@ export class PersistentVolumeComponent implements OnInit {
   }
 
   openModal(): void {
-    this.router.navigate([`/admin/kubernetes/persistentvolume/${this.cluster}/edit`])
+    this.router.navigate([`/admin/kubernetes/persistentvolume/${this.cluster}/edit`]);
   }
 
   editPv(pv: PersistentVolume) {
-    this.router.navigate([`/admin/kubernetes/persistentvolume/${this.cluster}/edit/${pv.metadata.name}`])
+    this.router.navigate([`/admin/kubernetes/persistentvolume/${this.cluster}/edit/${pv.metadata.name}`]);
   }
 
   deletePv(pv: PersistentVolume) {

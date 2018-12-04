@@ -3,7 +3,7 @@
   <div class="modal-body">
     <hr>
     <clr-datagrid>
-      <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+      <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
           名称
@@ -45,7 +45,7 @@
       <clr-dg-footer>
         {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
         of {{pagination.totalItems}}
-        <clr-dg-pagination #pagination  [clrDgPageSize]="10"></clr-dg-pagination>
+        <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
       </clr-dg-footer>
     </clr-datagrid>
   </div>
