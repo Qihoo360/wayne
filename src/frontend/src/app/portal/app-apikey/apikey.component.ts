@@ -15,12 +15,12 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 const showState = {
-  '名称': {hidden: false},
-  '角色': {hidden: false},
+  'name': {hidden: false},
+  'role': {hidden: false},
   'create_time': {hidden: false},
-  '过期时间': {hidden: false},
+  'expire_time': {hidden: false},
   'create_user': {hidden: false},
-  '描述': {hidden: false},
+  'description': {hidden: false},
   'action': {hidden: false}
 };
 
