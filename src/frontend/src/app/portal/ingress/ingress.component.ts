@@ -35,7 +35,6 @@ import { IngressClient } from '../../shared/client/v1/kubernetes/ingress';
 
 const showState = {
   '创建时间': {hidden: false},
-  '版本': {hidden: false},
   '上线机房': {hidden: false},
   '发布说明': {hidden: false},
   '创建者': {hidden: false},
