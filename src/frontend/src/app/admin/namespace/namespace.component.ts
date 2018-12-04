@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { State } from '@clr/angular';
 import { ListNamespaceComponent } from './list-namespace/list-namespace.component';
 import { CreateEditNamespaceComponent } from './create-edit-namespace/create-edit-namespace.component';
@@ -34,12 +33,9 @@ export class NamespaceComponent implements OnInit {
 
   constructor(
     private namespaceService: NamespaceService,
-    private breadcrumbService: BreadcrumbService,
     private clusterService: ClusterService,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/namespace', '命名空间列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/namespace/trash', '已删除命名空间列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&

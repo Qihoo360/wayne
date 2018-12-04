@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -34,13 +33,10 @@ export class CronjobComponent implements OnInit {
 
   constructor(
     private cronjobService: CronjobService,
-    private breadcrumbService: BreadcrumbService,
     private route: ActivatedRoute,
     private messageHandlerService: MessageHandlerService,
     public translate: TranslateService,
     private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/cronjob', this.componentName + '列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/cronjob/trash', '已删除' + this.componentName + '列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&

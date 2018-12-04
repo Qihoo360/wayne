@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -31,13 +30,10 @@ export class DaemonsettplComponent implements OnInit {
   subscription: Subscription;
 
   constructor(
-    private breadcrumbService: BreadcrumbService,
     private daemonsetTplService: DaemonSetTplService,
     private route: ActivatedRoute,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/daemonset/tpl', '守护进程集模板列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/daemonset/tpl/trash', '已删除守护进程集模板列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
