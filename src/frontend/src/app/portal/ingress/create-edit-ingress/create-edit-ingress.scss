@@ -1,0 +1,38 @@
+.form-group-label-override {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.access-level-label {
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: -4px;
+    margin-right: 12px;
+    top: -6px;
+    position: relative;
+}
+
+.inline-flex-box{
+	display: flex;
+	flex-wrap: wrap;
+}
+.inline-flex-box:before{
+    content: '';
+    height: 1px;
+    width: 100%;
+    margin: 15px 0;
+    background: #ccc;
+}
+.inline-box-item{
+    margin-right: 34px;
+}
+.percent-label{
+    position: absolute;
+    top: 50%;
+    transform: translate(115px, -50%);
+    font-size: 15px;
+}
+.self-item{
+    width: 50%;
+    padding-left: 135px;
+}

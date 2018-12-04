@@ -23,6 +23,7 @@ import { AppWebHookModule } from './app-webhook/app-webhook.module';
 import { NamespaceWebHookModule } from './namespace-webhook/namespace-webhook.module';
 import { StatefulsetModule } from './statefulset/statefulset.module';
 import { DaemonSetModule } from './daemonset/daemonset.module';
+import { IngressModule } from './ingress/ingress.module';
 import { PodLoggingComponent } from './pod-logging/pod-logging.component';
 import { NamespaceReportModule } from './namespace-report/namespace-report.module';
 import { BaseAppModule } from './base/base-app.module';
@@ -55,6 +56,7 @@ import { LibraryPortalModule } from '../../../lib/portal/library-portal.module';
     TplDetailModule,
     PublishHistoryModule,
     LibraryPortalModule,
+    IngressModule,
     MarkdownModule.forRoot(),
   ],
   providers: [
