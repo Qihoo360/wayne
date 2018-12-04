@@ -211,7 +211,8 @@
     "ENTER_CONTAINER": "进入容器",
     "LOG": "日志",
     "DATA_UPDATE": "数据实时更新: ",
-    "NAME": "节点名称"
+    "NAME": "节点名称",
+    "LOG_COMMAND": "日志命令"
   },
   "CLUSTER": {
     "RESOURCE_LIST": "机房资源列表",
@@ -255,6 +256,7 @@
     "REPLACE": "替代"
   },
   "UNIT": {
+    "SECOND": "秒",
     "CORE": "核",
     "PRICE": "元/月",
     "PIECE": "份",

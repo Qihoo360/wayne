@@ -13,7 +13,7 @@
         </button>
         <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
           <wayne-checkbox-group [(ngModel)]="showList">
-            <wayne-checkbox value="name">{{'USER.NAME' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="user_name">{{'USER.NAME' | translate}}</wayne-checkbox>
             <wayne-checkbox value="app_name">{{'USER.APP_NAME' | translate}}</wayne-checkbox>
             <wayne-checkbox value="group">{{'USER.GROUP' | translate}}</wayne-checkbox>
             <wayne-checkbox value="create_time">{{'TITLE.CREATE_TIME' | translate}}</wayne-checkbox>
