@@ -13,10 +13,16 @@ import { IngressService } from '../../shared/client/v1/ingress.service';
   providers: [
     IngressService
   ],
-  exports: [IngressComponent,
-    ListIngressComponent],
-  declarations: [IngressComponent,
-    ListIngressComponent, CreateEditIngressComponent, TrashIngressComponent]
+  exports: [
+    IngressComponent,
+    ListIngressComponent
+  ],
+  declarations: [
+    IngressComponent,
+    ListIngressComponent,
+    CreateEditIngressComponent,
+    TrashIngressComponent,
+  ]
 })
 
 export class IngressModule {

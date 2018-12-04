@@ -32,7 +32,7 @@ export class TrashIngressTplComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_INGRESS_TPL) {
-        let id = message.data;
+        const id = message.data;
         this.ingressTplService
           .deleteById(id, 0, false)
           .subscribe(
@@ -73,7 +73,7 @@ export class TrashIngressTplComponent implements OnInit, OnDestroy {
     this.ingressTplService.listPage(this.pageState, 0)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.ingressTpls = data.list;
@@ -83,7 +83,7 @@ export class TrashIngressTplComponent implements OnInit, OnDestroy {
   }
 
   deleteServiceTpl(ingressTpl: IngressTpl) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除服务确认',
       '你确认永久删除 Ingress 模版 ' + ingressTpl.name + ' ？删除后将不可恢复！',
       ingressTpl.id,

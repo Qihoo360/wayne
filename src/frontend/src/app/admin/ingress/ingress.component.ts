@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { State } from '@clr/angular';
@@ -18,7 +18,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './ingress.component.html',
   styleUrls: ['./ingress.component.scss']
 })
-export class IngressComponent implements OnInit {
+export class IngressComponent implements OnInit, OnDestroy {
   @ViewChild(ListIngressComponent)
   list: ListIngressComponent;
   @ViewChild(CreateEditIngressComponent)
@@ -80,7 +80,7 @@ export class IngressComponent implements OnInit {
     this.ingressService.list(this.pageState, 'false', this.appId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.ingresses = data.list;
@@ -100,7 +100,7 @@ export class IngressComponent implements OnInit {
   }
 
   deleteIngress(ingress: Ingress) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除 Ingress 确认',
       '你确认删除 Ingress ' +  ingress.name + ' ？',
       ingress.id,

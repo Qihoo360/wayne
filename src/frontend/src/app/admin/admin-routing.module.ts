@@ -54,8 +54,8 @@ import { NodesComponent } from './node/nodes.component';
 import { ADMINROUTES } from '../../../lib/admin/library-routing-admin';
 import { IngressComponent } from './ingress/ingress.component';
 import { TrashIngressComponent } from './ingress/trash-ingress/trash-ingress.component';
-import {IngressTplComponent} from './ingresstpl/ingresstpl.component';
-import {TrashIngressTplComponent} from './ingresstpl/trash-ingresstpl/trash-ingresstpl.component';
+import { IngressTplComponent } from './ingresstpl/ingresstpl.component';
+import { TrashIngressTplComponent } from './ingresstpl/trash-ingresstpl/trash-ingresstpl.component';
 
 
 const routes: Routes = [

@@ -101,7 +101,7 @@ export class IngressTplComponent implements OnInit, OnDestroy {
   }
 
   deleteIngressTpl(ingressTpl: IngressTpl) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除 Ingress 模版确认',
       '你确认删除 Ingress 模版 ' + ingressTpl.name + ' ？',
       ingressTpl.id,
