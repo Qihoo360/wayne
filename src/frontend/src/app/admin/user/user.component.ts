@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ListUserComponent } from './list-user/list-user.component';
@@ -32,16 +31,14 @@ export class UserComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private breadcrumbService: BreadcrumbService,
     private route: ActivatedRoute,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/system/user', '用户列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.USER) {
-        let userId = message.data;
+        const userId = message.data;
         this.userService.deleteUser(userId)
           .subscribe(
             response => {

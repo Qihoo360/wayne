@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -32,13 +31,10 @@ export class PersistentVolumeClaimTplComponent implements OnInit {
   subscription: Subscription;
 
   constructor(
-    private breadcrumbService: BreadcrumbService,
     private route: ActivatedRoute,
     private pvcTplService: PersistentVolumeClaimTplService,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/service/tpl', this.componentName + '列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/service/tpl/trash', '已删除' + this.componentName + '列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
