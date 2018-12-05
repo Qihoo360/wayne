@@ -5,7 +5,6 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/resources/common"
 	"github.com/Qihoo360/wayne/src/backend/resources/event"
 	"github.com/Qihoo360/wayne/src/backend/resources/pod"
-	"github.com/Qihoo360/wayne/src/backend/util/maps"
 	"k8s.io/api/apps/v1beta1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -52,10 +51,10 @@ func CreateOrUpdateDeployment(cli *kubernetes.Clientset, deployment *v1beta1.Dep
 		}
 		return nil, err
 	}
-	old.Labels = maps.MergeLabels(old.Labels, deployment.Labels)
-	oldTemplateLabels := old.Spec.Template.Labels
+	old.Labels = deployment.Labels
+	old.Annotations = deployment.Annotations
 	old.Spec = deployment.Spec
-	old.Spec.Template.Labels = maps.MergeLabels(oldTemplateLabels, deployment.Spec.Template.Labels)
+
 	return cli.AppsV1beta1().Deployments(deployment.Namespace).Update(old)
 }
 func UpdateDeployment(cli *kubernetes.Clientset, deployment *v1beta1.Deployment) (*v1beta1.Deployment, error) {
