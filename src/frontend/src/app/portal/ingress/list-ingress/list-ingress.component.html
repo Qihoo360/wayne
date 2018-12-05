@@ -1,0 +1,84 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)" class="wayne-clr-datagrid">
+  <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+  <clr-dg-column class="col-id" [clrDgSortBy]="'id'">
+    <ng-container>
+      #
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column class="col-time" [clrDgSortBy]="'createTime'">
+    <ng-container *clrDgHideableColumn="showState['创建时间']">
+      创建时间
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column class="col-cluster">
+    <ng-container *clrDgHideableColumn="showState['上线机房']">
+      上线机房
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column class="col-description">
+    <ng-container *clrDgHideableColumn="showState['发布说明']">
+      发布说明
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['创建者']">
+      创建者
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column class="col-operate">
+    <ng-container *clrDgHideableColumn="showState['操作']">
+      操作
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-row *ngFor="let ingressTpl of ingressTpls" [clrDgItem]="ingressTpl">
+    <clr-dg-cell class="col-id">{{ingressTpl.id}}</clr-dg-cell>
+    <clr-dg-cell class="col-time">{{ingressTpl.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
+    <clr-dg-cell class="col-cluster" >
+      <div class="form-group" style="padding-bottom: 2px"
+           *ngFor="let status of ingressTpl.status">
+        <a href="javascript:void(0)" (click)="ingressState(status,ingressTpl)" title="查看 ngress 状态" class="label"
+           [class.clickable]="status.state!=2"
+           [class.label-success]="status.state==0"
+           [class.label-warning]="status.state==1">
+          {{status.cluster}}
+        </a>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell class="col-description">{{ingressTpl.description}}</clr-dg-cell>
+    <clr-dg-cell class="col-user">{{ingressTpl.user}}</clr-dg-cell>
+    <clr-dg-cell class="col-operate">
+      <button class="wayne-button text"
+              (click)="publishIngressTpl(ingressTpl)"
+              *ngIf="authService.currentAppPermission.ingress.deploy || authService.currentUser.admin">
+        发布</button>
+      <button class="wayne-button text"
+              (click)="viewIngressTpl(ingressTpl)"
+              *ngIf="authService.currentAppPermission.ingress.read || authService.currentUser.admin">
+        详情</button>
+      <button class="wayne-button text"
+              (click)="cloneIngressTpl(ingressTpl)"
+              *ngIf="authService.currentAppPermission.ingress.create || authService.currentUser.admin">
+        克隆</button>
+      <button class="wayne-button text"
+              *ngIf="!ingressTpl.status && (authService.currentAppPermission.ingress.delete || authService.currentUser.admin)"
+              (click)="deleteIngressTpl(ingressTpl)">
+        删除</button>
+      <button class="wayne-button text"
+              (click)="offlineIngressTpl(ingressTpl)"
+              *ngIf="ingressTpl.status && (authService.currentAppPermission.ingress.offline || authService.currentUser.admin)">
+        下线</button>
+
+    </clr-dg-cell>
+  </clr-dg-row>
+  <wayne-paginate
+    [(currentPage)]="currentPage"
+    [total]="page.totalCount"
+    [pageSizes]="[10, 20, 50]"
+    (sizeChange)="pageSizeChange($event)"
+  >
+  </wayne-paginate>
+</clr-datagrid>
+<wayne-ace-editor></wayne-ace-editor>
+<publish-tpl [appId]="appId" (published)="published($event)"></publish-tpl>
+<status></status>
+

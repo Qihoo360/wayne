@@ -29,6 +29,8 @@ import { DaemonSetComponent } from './daemonset/daemonset.component';
 import { CreateEditDaemonSetTplComponent } from './daemonset/create-edit-daemonsettpl/create-edit-daemonsettpl.component';
 import { PodLoggingComponent } from './pod-logging/pod-logging.component';
 import { NamespaceReportComponent } from './namespace-report/namespace-report.component';
+import { IngressComponent } from './ingress/ingress.component';
+import { CreateEditIngressTplComponent } from './ingress/create-edit-ingresstpl/create-edit-ingresstpl.component';
 import { PORTALROUTES } from '../../../lib/portal/library-routing-portal';
 
 const routes: Routes = [
@@ -83,6 +85,10 @@ const routes: Routes = [
           {path: 'daemonset/:daemonSetId', component: DaemonSetComponent},
           {path: 'daemonset/:daemonSetId/tpl', component: CreateEditDaemonSetTplComponent},
           {path: 'daemonset/:daemonSetId/tpl/:tplId', component: CreateEditDaemonSetTplComponent},
+          {path: 'ingress', component: IngressComponent},
+          {path: 'ingress/:ingressId', component: IngressComponent},
+          {path: 'ingress/:ingressId/tpl', component: CreateEditIngressTplComponent},
+          {path: 'ingress/:ingressId/tpl/:tplId', component: CreateEditIngressTplComponent},
           ...PORTALROUTES
         ]
       },

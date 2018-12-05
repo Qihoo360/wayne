@@ -58,6 +58,10 @@ import { KubernetesDashboardComponent } from './kubernetes-dashboard/kubernetes-
 import { NotificationComponent } from './notification/notification.component';
 import { NodesComponent } from './node/nodes.component';
 import { ADMINROUTES } from '../../../lib/admin/library-routing-admin';
+import { IngressComponent } from './ingress/ingress.component';
+import { TrashIngressComponent } from './ingress/trash-ingress/trash-ingress.component';
+import { IngressTplComponent } from './ingresstpl/ingresstpl.component';
+import { TrashIngressTplComponent } from './ingresstpl/trash-ingresstpl/trash-ingresstpl.component';
 
 
 const routes: Routes = [
@@ -139,6 +143,10 @@ const routes: Routes = [
       {path: 'kubernetes/persistentvolume/:cluster', component: PersistentVolumeComponent},
       {path: 'kubernetes/persistentvolume/:cluster/edit/:name', component: CreateEditPersistentVolumeComponent},
       {path: 'kubernetes/persistentvolume/:cluster/edit', component: CreateEditPersistentVolumeComponent},
+      {path: 'ingress', component: IngressComponent},
+      {path: 'ingress/trash', component: TrashIngressComponent},
+      {path: 'ingress/tpl', component: IngressTplComponent},
+      {path: 'ingress/tpl/trash', component: TrashIngressTplComponent},
       ...ADMINROUTES
     ]
   }

@@ -13,6 +13,7 @@ export class TypePermission {
   deployment: ActionPermission = new ActionPermission();
   secret: ActionPermission = new ActionPermission();
   service: ActionPermission = new ActionPermission();
+  ingress: ActionPermission = new ActionPermission();
   pvc: ActionPermission = new ActionPermission();
   configmap: ActionPermission = new ActionPermission();
   cronjob: ActionPermission = new ActionPermission();
