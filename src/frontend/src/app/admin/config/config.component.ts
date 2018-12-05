@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
@@ -30,17 +29,14 @@ export class ConfigComponent implements OnInit {
 
   constructor(
     private configService: ConfigService,
-    private breadcrumbService: BreadcrumbService,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/config', '系统配置', false);
-    breadcrumbService.addFriendlyNameForRoute('/admin/config/database', '数据库配置');
-    breadcrumbService.addFriendlyNameForRoute('/admin/config/system', '文件配置');
+
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.CONFIG) {
-        let id = message.data;
+        const id = message.data;
         this.configService
           .deleteById(id)
           .subscribe(
