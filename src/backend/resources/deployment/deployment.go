@@ -9,13 +9,13 @@ import (
 	"k8s.io/api/apps/v1beta1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/kubernetes"
 )
 
 type Deployment struct {
 	ObjectMeta common.ObjectMeta `json:"objectMeta"`
 	Pods       common.PodInfo    `json:"pods"`
+	Containers []string          `json:"containers"`
 }
 
 func GetDeploymentList(cli *kubernetes.Clientset, namespace string, opts metaV1.ListOptions) ([]v1beta1.Deployment, error) {
@@ -72,6 +72,10 @@ func GetDeploymentDetail(cli *kubernetes.Clientset, indexer *client.CacheIndexer
 		return nil, err
 	}
 
+	return toDeployment(deployment, indexer), nil
+}
+
+func toDeployment(deployment *v1beta1.Deployment, indexer *client.CacheIndexer) *Deployment {
 	result := &Deployment{
 		ObjectMeta: common.NewObjectMeta(deployment.ObjectMeta),
 	}
@@ -80,17 +84,20 @@ func GetDeploymentDetail(cli *kubernetes.Clientset, indexer *client.CacheIndexer
 	podInfo.Current = deployment.Status.AvailableReplicas
 	podInfo.Desired = *deployment.Spec.Replicas
 
-	podSelector := labels.SelectorFromSet(deployment.Spec.Template.Labels).String()
-	pods, err := pod.GetPodsBySelector(cli, namespace, podSelector)
-	if err != nil {
-		return nil, err
-	}
+	pods := pod.GetPodsBySelectorFromCache(indexer, deployment.Namespace, deployment.Spec.Template.Labels)
 
 	podInfo.Warnings = event.GetPodsWarningEvents(indexer, pods)
 
 	result.Pods = podInfo
 
-	return result, nil
+	containers := make([]string, 0)
+	for _, container := range deployment.Spec.Template.Spec.Containers {
+		containers = append(containers, container.Image)
+	}
+
+	result.Containers = containers
+
+	return result
 }
 
 func DeleteDeployment(cli *kubernetes.Clientset, name, namespace string) error {

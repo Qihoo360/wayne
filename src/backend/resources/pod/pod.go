@@ -5,6 +5,7 @@ import (
 
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/models"
+	"github.com/Qihoo360/wayne/src/backend/resources/common"
 	"k8s.io/api/core/v1"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
@@ -46,6 +47,28 @@ func GetPodCounts(indexer *client.CacheIndexer) int {
 		pods = append(pods, *cachePod)
 	}
 	return len(pods)
+}
+
+func GetPodsBySelectorFromCache(indexer *client.CacheIndexer, namespace string, labels map[string]string) []v1.Pod {
+	cachePods := indexer.Pod.List()
+	var pods []v1.Pod
+	for _, pod := range cachePods {
+		cachePod, ok := pod.(*v1.Pod)
+		if !ok {
+			continue
+		}
+		if namespace != cachePod.Namespace {
+			continue
+		}
+
+		if !common.CompareLabels(labels, cachePod.Labels) {
+			continue
+		}
+
+		pods = append(pods, *cachePod)
+	}
+
+	return pods
 }
 
 func GetAllPodByLabelSelector(cli *kubernetes.Clientset, labelSelector string) ([]*Pod, error) {

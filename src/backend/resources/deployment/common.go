@@ -2,10 +2,9 @@ package deployment
 
 import (
 	"github.com/Qihoo360/wayne/src/backend/resources/dataselector"
-	"k8s.io/api/apps/v1beta1"
 )
 
-type DeploymentCell v1beta1.Deployment
+type DeploymentCell Deployment
 
 func (cell DeploymentCell) GetProperty(name dataselector.PropertyName) dataselector.ComparableValue {
 	switch name {
