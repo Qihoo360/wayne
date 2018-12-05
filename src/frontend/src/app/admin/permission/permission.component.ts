@@ -33,11 +33,12 @@ export class PermissionComponent implements OnInit {
     private permissionService: PermissionService,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService) {
+
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.PERMISSION) {
-        let permissionId = message.data;
+        const permissionId = message.data;
         this.permissionService.deletePermission(permissionId)
           .subscribe(
             response => {

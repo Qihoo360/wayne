@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { State } from '@clr/angular';
 import { PageState } from '../../shared/page/page-state';
 import { AuditLogService } from '../../shared/client/v1/auditlog.service';
@@ -17,9 +16,7 @@ export class AuditLogComponent implements OnInit {
   state: State;
 
   constructor(private auditLogService: AuditLogService,
-              private messageHandlerService: MessageHandlerService,
-              private breadcrumbService: BreadcrumbService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/auditlog', '审计日志列表');
+              private messageHandlerService: MessageHandlerService) {
   }
 
   ngOnInit() {

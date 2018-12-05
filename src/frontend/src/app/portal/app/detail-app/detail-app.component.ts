@@ -24,6 +24,7 @@ import {
 } from '../../../shared/shared.const';
 import { EventManager } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
+import { CreateEditAppComponent } from '../create-edit-app/create-edit-app.component';
 
 @Component({
   selector: 'detail-app',
@@ -31,6 +32,9 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['detail-app.scss']
 })
 export class DetailAppComponent implements OnInit, OnDestroy {
+  @ViewChild(CreateEditAppComponent)
+  createEditApp: CreateEditAppComponent;
+
   appId: number;
   app: App = new App();
   resources: any;
@@ -163,4 +167,13 @@ export class DetailAppComponent implements OnInit, OnDestroy {
     return value === 0 ? Infinity : value;
   }
 
+  editApp(app: App) {
+    this.createEditApp.newOrEditApp(app.id);
+  }
+
+  updateAppEvent(update: boolean) {
+    if (update) {
+      this.ngOnInit();
+    }
+  }
 }
