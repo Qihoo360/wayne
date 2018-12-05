@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { Subscription } from 'rxjs/Subscription';
 import { ConfigService } from '../../../shared/client/v1/config.service';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
 
 @Component({
   selector: 'config-system',
@@ -14,11 +13,9 @@ export class ConfigSystemComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  constructor(private configService: ConfigService,
-              private breadcrumbService: BreadcrumbService,
-              private messageHandlerService: MessageHandlerService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/config', '系统配置', false);
-    breadcrumbService.addFriendlyNameForRoute('/admin/config/system', '文件配置');
+  constructor(
+    private configService: ConfigService,
+    private messageHandlerService: MessageHandlerService) {
   }
 
   ngOnInit(): void {
