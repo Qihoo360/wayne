@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ListSecretTplComponent } from './list-secrettpl/list-secrettpl.component';
@@ -33,12 +32,9 @@ export class SecretTplComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private breadcrumbService: BreadcrumbService,
     private secrettplService: SecretTplService,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/secret/tpl', this.componentName + '列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/secret/tpl/trash', '已删除' + this.componentName + '列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&

@@ -1,0 +1,62 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)">
+  <clr-dg-column [clrDgField]="'id'" class="col-query-id">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      ID
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'name'" class="col-app-name">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      名称
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'app.name'" class="col-namespace">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      所属项目
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column class="col-metadata">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      元数据
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'description'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      描述
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'user'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      创建者
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgSortBy]="'createTime'" class="col-time">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      创建时间
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-row *ngFor="let ingress of ingresses" [clrDgItem]="ingress">
+    <clr-dg-action-overflow >
+      <button class="action-item" (click)="editIngress(ingress)" >编辑</button>
+      <button class="action-item" (click)="deleteIngress(ingress)">删除</button>
+    </clr-dg-action-overflow>
+    <clr-dg-cell class="col-query-id">{{ingress.id}}</clr-dg-cell>
+    <clr-dg-cell class="col-app-name copy"><a href="javascript:void(0)" (click)="goToLink(ingress, 'tpl')">{{ingress.name}}</a></clr-dg-cell>
+    <clr-dg-cell class="col-namespace"><a href="javascript:void(0)" (click)="goToLink(ingress, 'app')">{{ingress.app.name}}</a></clr-dg-cell>
+    <clr-dg-cell class="col-metadata">
+      <div class="text-overflow">
+        <a href="javascript:;" (click)="detailMetaDataTpl(ingress.metaData)">{{ingress.metaData}}</a>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell>{{ingress.description}}</clr-dg-cell>
+    <clr-dg-cell>{{ingress.user}}</clr-dg-cell>
+    <clr-dg-cell class="col-time">{{ingress.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
+  </clr-dg-row>
+
+  <wayne-paginate
+    [(currentPage)]="currentPage"
+    [total]="page.totalCount"
+    [pageSizes]="[10, 20, 50]"
+    (sizeChange)="pageSizeChange($event)"
+  >
+  </wayne-paginate>
+</clr-datagrid>

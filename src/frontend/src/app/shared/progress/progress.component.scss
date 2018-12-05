@@ -53,4 +53,7 @@
   flex: 1;
   display: flex;
   align-items: center;
+  .num{
+    min-width: 15px;
+  }
 }

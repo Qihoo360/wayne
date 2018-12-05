@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
 import { AppService } from '../../../shared/client/v1/app.service';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { UserService } from '../../../shared/client/v1/user.service';
@@ -27,15 +26,13 @@ export class OverviewComponent implements OnInit {
     podTotal: 0,
   };
 
-  constructor(private breadcrumbService: BreadcrumbService,
-              private messageHandlerService: MessageHandlerService,
-              private appService: AppService,
-              private router: Router,
-              private userService: UserService,
-              private podClient: PodClient,
-              private nodeClient: NodeClient) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/reportform', '系统报表', false);
-    breadcrumbService.addFriendlyNameForRoute('/admin/reportform/overview', '平台概览');
+  constructor(
+    private messageHandlerService: MessageHandlerService,
+    private appService: AppService,
+    private router: Router,
+    private userService: UserService,
+    private podClient: PodClient,
+    private nodeClient: NodeClient) {
   }
 
   ngOnInit() {

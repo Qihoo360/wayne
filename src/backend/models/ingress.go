@@ -95,8 +95,7 @@ func (*ingressModel) GetById(id int64) (v *Ingress, err error) {
 }
 
 func (*ingressModel) DeleteById(id int64, logical bool) (err error) {
-	v := new(Ingress)
-	v.Id = id
+	v := Ingress{Id: id}
 
 	if err = Ormer().Read(&v); err != nil {
 		return
