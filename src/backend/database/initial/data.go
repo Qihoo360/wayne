@@ -86,6 +86,12 @@ var InitialData = []string{
 	`INSERT INTO  permission  ( id,  name,  comment,  create_time,  update_time ) VALUES ('120', 'SECRET_OFFLINE', '', now(), now());`,
 	`INSERT INTO  permission  ( id,  name,  comment,  create_time,  update_time ) VALUES ('121', 'PVC_OFFLINE', '', now(), now());`,
 
+	`INSERT INTO  permission  ( id,  name,  comment,  create_time,  update_time ) VALUES ('122', 'INGRESS_CREATE', '', now(), now());`,
+	`INSERT INTO  permission  ( id,  name,  comment,  create_time,  update_time ) VALUES ('123', 'INGRESS_UPDATE', '', now(), now());`,
+	`INSERT INTO  permission  ( id,  name,  comment,  create_time,  update_time ) VALUES ('124', 'INGRESS_READ', '', now(), now());`,
+	`INSERT INTO  permission  ( id,  name,  comment,  create_time,  update_time ) VALUES ('125', 'INGRESS_DELETE', '', now(), now());`,
+	`INSERT INTO  permission  ( id,  name,  comment,  create_time,  update_time ) VALUES ('126', 'INGRESS_DEPLOY', '', now(), now());`,
+
 	// -- group
 	// group 名称前加点可以解决group与mysql内置对象重名的问题
 	`INSERT INTO  .group  ( id,  name,  comment,  type,  create_time,  update_time ) VALUES ('1', '访客', '访客', '1', now(), now());`,
@@ -129,6 +135,21 @@ var InitialData = []string{
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('873', '10', '92');`,
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('874', '10', '93');`,
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('875', '10', '94');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('3876', '10', '95');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('3877', '10', '96');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('3878', '10', '97');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('3879', '10', '98');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('3880', '10', '99');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('3881', '10', '100');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('3882', '10', '101');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('3883', '10', '102');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('3884', '10', '103');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('3885', '10', '122');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('3886', '10', '123');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('3887', '10', '124');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('3888', '10', '125');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('3889', '10', '126');`,
+
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('876', '11', '54');`,
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('877', '11', '55');`,
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('878', '11', '56');`,
@@ -158,6 +179,14 @@ var InitialData = []string{
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('902', '11', '91');`,
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('903', '11', '92');`,
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('904', '11', '94');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('1905', '11', '96');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('1906', '11', '97');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('1907', '11', '99');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('1908', '11', '100');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('1909', '11', '123');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('1910', '11', '124');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('1911', '11', '126');`,
+
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('905', '12', '48');`,
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('906', '12', '54');`,
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('907', '12', '56');`,
@@ -172,8 +201,12 @@ var InitialData = []string{
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('916', '12', '83');`,
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('917', '12', '92');`,
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('918', '12', '94');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('2917', '12', '124');`,
+	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('2918', '12', '126');`,
+
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('919', '20', '92');`,
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('920', '20', '94');`,
+
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('921', '1', '56');`,
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('922', '1', '61');`,
 	`INSERT INTO  group_permissions  ( id,  group_id,  permission_id ) VALUES ('923', '1', '66');`,
