@@ -34,6 +34,8 @@ import { NavModule } from './nav/nav.module';
 import { NotificationModule } from './notification/notification.module';
 import { NodesModule } from './node/nodes.module';
 import { LibraryAdminModule } from '../../../lib/admin/library-admin.module';
+import { KubeDeploymentModule } from './kubernetes/deployment/kube-deployment.module';
+import { TplDetailModule } from '../shared/tpl-detail/tpl-detail.module';
 
 @NgModule({
   imports: [
@@ -68,7 +70,9 @@ import { LibraryAdminModule } from '../../../lib/admin/library-admin.module';
     NavModule,
     NotificationModule,
     NodesModule,
-    LibraryAdminModule
+    LibraryAdminModule,
+    KubeDeploymentModule,
+    TplDetailModule
   ],
   providers: [
     AdminAuthCheckGuard,

@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <kube-list-deployment
+      [deployments]="changedDeployments"
+      [page]="pageState.page"
+      (detail)="detail($event)"
+      (paginate)="retrieve($event)"></kube-list-deployment>
+  </div>
+</div>
+<wayne-float-window value="{{cluster}}">
+  <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster"
+                           (click)="jumpTo(cluster)"></wayne-float-window-item>
+</wayne-float-window>

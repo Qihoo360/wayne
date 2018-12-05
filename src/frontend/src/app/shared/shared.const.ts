@@ -9,6 +9,8 @@ export const KubeApiTypePersistentVolumeClaim = 'PersistentVolumeClaim';
 
 export const LoginTokenKey = 'wayne_token';
 
+export const AdminDefaultApiId = 0;
+
 export const enum AlertType {
   DANGER, WARNING, INFO, SUCCESS
 }
