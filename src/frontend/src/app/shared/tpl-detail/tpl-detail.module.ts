@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { TplDetailComponent } from './tpl-detail.component';
-import { SharedModule } from '../../../shared/shared.module';
+import { SharedModule } from '../shared.module';
 
 @NgModule({
   imports: [

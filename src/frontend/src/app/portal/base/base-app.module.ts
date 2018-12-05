@@ -5,7 +5,7 @@ import { FooterModule } from '../../shared/footer/footer.module';
 import { SidenavModule } from '../sidenav/sidenav.module';
 import { BaseComponent } from './base.component';
 import { PublishHistoryModule } from '../common/publish-history/publish-history.module';
-import { TplDetailModule } from '../common/tpl-detail/tpl-detail.module';
+import { TplDetailModule } from '../../shared/tpl-detail/tpl-detail.module';
 
 @NgModule({
   imports: [

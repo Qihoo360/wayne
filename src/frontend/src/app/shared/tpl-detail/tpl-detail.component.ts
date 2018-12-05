@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class TplDetailComponent implements OnInit, OnDestroy {
   modalOpened: boolean;
   text: string;
-  title: string = 'release_explain';
+  title = 'release_explain';
   textSub: Subscription;
 
   constructor(private tplDetailService: TplDetailService) {
@@ -28,7 +28,7 @@ export class TplDetailComponent implements OnInit, OnDestroy {
       msg => {
         this.modalOpened = true;
         this.text = msg.text;
-        if (msg.title) this.title = msg.title;
+        if (msg.title) { this.title = msg.title; }
       }
     );
   }

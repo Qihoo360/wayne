@@ -9,7 +9,7 @@ import { PublishConfigMapTplComponent } from '../publish-tpl/publish-tpl.compone
 import { ConfigMap } from '../../../shared/model/v1/configmap';
 import { ConfigMapTpl } from '../../../shared/model/v1/configmaptpl';
 import { ConfigMapTplService } from '../../../shared/client/v1/configmaptpl.service';
-import { TplDetailService } from '../../common/tpl-detail/tpl-detail.service';
+import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { App } from '../../../shared/model/v1/app';
 import { Page } from '../../../shared/page/page-state';

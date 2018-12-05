@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { PublishStatefulsetTplComponent } from '../publish-tpl/publish-tpl.component';
 import { ListEventComponent } from '../list-event/list-event.component';
 import { ListPodComponent } from '../list-pod/list-pod.component';
-import { TplDetailService } from '../../common/tpl-detail/tpl-detail.service';
+import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from '../../../shared/page/page-state';
