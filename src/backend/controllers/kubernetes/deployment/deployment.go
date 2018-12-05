@@ -53,19 +53,18 @@ func (c *KubeDeploymentController) Prepare() {
 
 // @Title List deployment
 // @Description get all deployment
-// @Param	cluster		query 	string	true		"the cluster name"
-// @Param	namespace	query 	string	true		"the namespace name"
 // @Param	pageNo		query 	int	false		"the page current no"
 // @Param	pageSize		query 	int	false		"the page size"
 // @Param	filter		query 	string	false		"column filter, ex. filter=name=test"
 // @Param	sortby		query 	string	false		"column sorted by, ex. sortby=-id, '-' representation desc, and sortby=id representation asc"
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace		path 	string	true		"the namespace name"
 // @Success 200 {object} common.Page success
-// @router / [get]
+// @router /namespaces/:namespace/clusters/:cluster [get]
 func (c *KubeDeploymentController) List() {
 	param := c.BuildQueryParam()
-
-	cluster := c.Input().Get("cluster")
-	namespace := c.Input().Get("namespace")
+	cluster := c.Ctx.Input.Param(":cluster")
+	namespace := c.Ctx.Input.Param(":namespace")
 
 	manager, err := client.Manager(cluster)
 	if err == nil {
@@ -251,6 +250,8 @@ func getNamespace(appId int64) (*models.Namespace, error) {
 
 // @Title Get
 // @Description find Deployment by cluster
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace		path 	string	true		"the namespace name"
 // @Success 200 {object} models.Deployment success
 // @router /:deployment/namespaces/:namespace/clusters/:cluster [get]
 func (c *KubeDeploymentController) Get() {
