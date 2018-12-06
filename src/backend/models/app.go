@@ -84,6 +84,10 @@ func (*appModel) List(q *common.QueryParam, starred bool, userId int64) (apps []
 	if err != nil {
 		return nil, err
 	}
+	for i := 0; i < len(apps); i++ {
+		apps[i].App.Namespace = &Namespace{Id: apps[i].NamespaceId}
+	}
+
 	return
 }
 

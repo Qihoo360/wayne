@@ -1,8 +1,8 @@
 <clr-datagrid class="wayne-clr-datagrid">
   <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
   <clr-dg-column [clrDgSortBy]="nameComparator">
-    <ng-container *clrDgHideableColumn="showState['名称']">
-      名称
+    <ng-container *clrDgHideableColumn="showState['name']">
+     {{'TITLE.NAME' | translate}}
     </ng-container>
     <clr-dg-string-filter [clrDgStringFilter]="nameFilter"></clr-dg-string-filter>
   </clr-dg-column>
@@ -23,7 +23,7 @@
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['状态']">
-      状态
+      {{'TITLE.STATUS' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
@@ -39,8 +39,8 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'pv.metadata.creationTimestamp'" [clrDgSortBy]="timeComparator"
                  [(clrDgSortOrder)]="sortOrder">
-    <ng-container *clrDgHideableColumn="showState['开始时间']">
-      开始时间
+    <ng-container *clrDgHideableColumn="showState[ 'start_time']">
+      {{'TITLE.START_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *clrDgItems="let pv of persistentVolumes">

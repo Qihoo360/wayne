@@ -15,7 +15,7 @@ import { KubeNode } from '../../shared/model/v1/kubernetes/node';
 import { AceEditorComponent } from '../../shared/ace-editor/ace-editor.component';
 
 const showState = {
-  '名称': {hidden: false},
+  'name': {hidden: false},
   '标签': {hidden: false},
   'Taints': {hidden: true},
   'Ready': {hidden: false},

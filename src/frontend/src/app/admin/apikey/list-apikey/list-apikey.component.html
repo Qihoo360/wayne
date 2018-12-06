@@ -33,7 +33,7 @@
   <clr-dg-row *ngFor="let apiKey of apiKeys" [clrDgItem]="apiKey">
     <clr-dg-action-overflow>
       <button class="action-item" (click)="editApiKey(apiKey)">编辑</button>
-      <button class="action-item" (click)="tokenDetail(apiKey)">查看token</button>
+      <button class="action-item" (click)="tokenDetail(apiKey)">{{'MESSAGE.VIEW_TOKEN' | translate}}</button>
       <button class="action-item" (click)="deleteApiKey(apiKey)">立即失效</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-id">{{apiKey.id}}</clr-dg-cell>

@@ -25,7 +25,7 @@ export class PublishHistoryComponent implements OnInit, OnDestroy {
   historySub: Subscription;
   publishHistories: PublishHistory[];
   pageState: PageState = new PageState();
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
 
   constructor(private publishService: PublishService,
@@ -56,7 +56,16 @@ export class PublishHistoryComponent implements OnInit, OnDestroy {
     }
   }
 
+  initState() {
+    this.state = {
+      page: {}
+    };
+  }
+
   pageSizeChange(pageSize: number) {
+    if (!this.state) {
+      this.initState();
+    }
     this.state.page.to = pageSize - 1;
     this.state.page.size = pageSize;
     this.currentPage = 1;
@@ -77,7 +86,7 @@ export class PublishHistoryComponent implements OnInit, OnDestroy {
     }
     this.publishService.listHistories(this.pageState, this.type, this.resourceId).subscribe(
       response => {
-        let data = response.data;
+        const data = response.data;
         this.pageState.page.totalPage = data.totalPage;
         this.pageState.page.totalCount = data.totalCount;
         this.publishHistories = data.list;

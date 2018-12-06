@@ -6,27 +6,27 @@
       <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          发布时间
+          {{'HISTORY.RELEASE_TIME' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          发布者
+          {{'HISTORY.RELEASE_USER' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          模版ID
+          {{'HISTORY.TMP_ID' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          机房
+          {{'TITLE.CLUSTER' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          状态
+          {{'TITLE.STATUS' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-row *ngFor="let history of publishHistories" [clrDgItem]="history">
@@ -34,7 +34,7 @@
         <clr-dg-cell>{{history.user}}</clr-dg-cell>
         <clr-dg-cell>{{history.templateId}}</clr-dg-cell>
         <clr-dg-cell>{{history.cluster}}</clr-dg-cell>
-        <clr-dg-cell>{{history.status == 1 ? '成功' : history.message}}</clr-dg-cell>
+        <clr-dg-cell>{{history.status == 1 ? 'success' : history.message}}</clr-dg-cell>
       </clr-dg-row>
       <wayne-paginate
         [(currentPage)]="currentPage"

@@ -1,49 +1,49 @@
 <clr-vertical-nav [clrVerticalNavCollapsible]="true">
   <a
     clrVerticalNavLink
-    title="项目概览"
+    [title]="'MENU.APP_OVERVIEW' | translate"
     routerLink="detail"
     routerLinkActive="active"
     *ngIf="authService.currentAppPermission.app.read || authService.currentUser.admin">
     <clr-icon clrVerticalNavIcon shape="help-info"></clr-icon>
-    项目概览
+    {{'MENU.APP_OVERVIEW' | translate}}
   </a>
   <div class="nav-divider"></div>
   <a
     clrVerticalNavLink
-    title="部署"
+    [title]="'MENU.DEPLOYMENT' | translate"
     routerLink="deployment"
     routerLinkActive="active"
     *ngIf="authService.currentAppPermission.deployment.read || authService.currentUser.admin">
     <clr-icon clrVerticalNavIcon shape="event"></clr-icon>
-    部署
+    {{'MENU.DEPLOYMENT' | translate}}
   </a>
   <a
     clrVerticalNavLink
-    title="状态副本集"
+    [title]="'MENU.STATEFULSET' | translate"
     routerLink="statefulset"
     routerLinkActive="active"
     *ngIf="authService.currentAppPermission.statefulset?.read || authService.currentUser.admin">
     <clr-icon clrVerticalNavIcon shape="blocks-group"></clr-icon>
-    状态副本集
+    {{'MENU.STATEFULSET' | translate}}
   </a>
   <a
     clrVerticalNavLink
-    title="守护进程集"
+    [title]="'MENU.DAEMONSET' | translate"
     routerLink="daemonset"
     routerLinkActive="active"
     *ngIf="authService.currentAppPermission.daemonSet.read || authService.currentUser.admin">
     <clr-icon clrVerticalNavIcon shape="layers"></clr-icon>
-    守护进程集
+    {{'MENU.DAEMONSET' | translate}}
   </a>
   <a
     clrVerticalNavLink
-    title="计划任务"
+    [title]="'MENU.CRONJOB' | translate"
     routerLink="cronjob"
     routerLinkActive="active"
     *ngIf="authService.currentAppPermission.cronjob.read || authService.currentUser.admin">
     <clr-icon clrVerticalNavIcon shape="clock"></clr-icon>
-    计划任务
+    {{'MENU.CRONJOB' | translate}}
   </a>
   <div class="nav-divider" *ngIf="authService.currentAppPermission.deployment.read ||
                                   authService.currentAppPermission.statefulset.read ||
@@ -51,12 +51,12 @@
                                   authService.currentUser.admin"></div>
   <a
     clrVerticalNavLink
-    title="负载均衡"
+    [title]="'MENU.SERVICE' | translate"
     routerLink="service"
     routerLinkActive="active"
     *ngIf="authService.currentAppPermission.service.read || authService.currentUser.admin">
     <clr-icon clrVerticalNavIcon shape="network-globe"></clr-icon>
-    负载均衡
+    {{'MENU.SERVICE' | translate}}
   </a>
   <a
     clrVerticalNavLink
@@ -72,21 +72,21 @@
                                       authService.currentUser.admin"></div>
   <a
     clrVerticalNavLink
-    title="配置集"
+    [title]="'MENU.CONFIGMAP' | translate"
     routerLink="configmap"
     routerLinkActive="active"
     *ngIf="authService.currentAppPermission.configmap.read || authService.currentUser.admin">
     <clr-icon clrVerticalNavIcon shape="file-settings"></clr-icon>
-    配置集
+    {{'MENU.CONFIGMAP' | translate}}
   </a>
   <a
     clrVerticalNavLink
-    title="加密字典"
+    [title]="'MENU.SECRET' | translate"
     routerLink="secret"
     routerLinkActive="active"
     *ngIf="authService.currentAppPermission.secret.read || authService.currentUser.admin">
     <clr-icon clrVerticalNavIcon shape="certificate"></clr-icon>
-    加密字典
+    {{'MENU.SECRET' | translate}}
   </a>
   <a
     clrVerticalNavLink
@@ -103,12 +103,12 @@
                                   authService.currentUser.admin"></div>
   <a
     clrVerticalNavLink
-    title="成员管理"
+    [title]="'MENU.MEMBER' | translate"
     routerLink="user"
     routerLinkActive="active"
     *ngIf="authService.currentAppPermission.appUser.read || authService.currentUser.admin">
     <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
-    成员管理
+    {{'MENU.MEMBER' | translate}}
   </a>
   <a
     clrVerticalNavLink
@@ -130,12 +130,12 @@
   </a>
   <a
     clrVerticalNavLink
-    title="查看监控"
+    [title]="'MENU.VIEW_MONITOR' | translate"
     (click)="goToMonitor()"
     href="javascript:void(0)"
     *ngIf="getMonitorUri() && (authService.currentAppPermission.appUser.read || authService.currentUser.admin)">
     <clr-icon clrVerticalNavIcon shape="dashboard"></clr-icon>
-    查看监控
+    {{'MENU.VIEW_MONITOR' | translate}}
   </a>
   <a href="javascript:;" style="flex: 1;"></a>
   <wayne-footer></wayne-footer>
