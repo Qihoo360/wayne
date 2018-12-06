@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {BreadcrumbService} from '../../../shared/client/v1/breadcrumb.service';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {PublishService} from '../../../shared/client/v1/publish.service';
-import {State} from '@clr/angular';
-import * as moment from "moment";
+import { Component, OnInit } from '@angular/core';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { PublishService } from '../../../shared/client/v1/publish.service';
+import { State } from '@clr/angular';
+import * as moment from 'moment';
 
 @Component({
   selector: 'wayne-deploy',
@@ -14,18 +13,16 @@ export class DeployComponent implements OnInit {
   startTime: string;
   endTime: string;
 
-  constructor(private breadcrumbService: BreadcrumbService,
-              private messageHandlerService: MessageHandlerService,
-              private publishService: PublishService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/reportform', '系统报表', false);
-    breadcrumbService.addFriendlyNameForRoute('/admin/reportform/deploy', '上线次数统计');
+  constructor(
+    private messageHandlerService: MessageHandlerService,
+    private publishService: PublishService) {
   }
 
 
   ngOnInit() {
     const now = new Date();
-    this.startTime = moment(new Date(now.getTime() - 1000 * 3600 * 24 * 7)).format("MM/DD/YYYY");
-    this.endTime = moment(now).format("MM/DD/YYYY");
+    this.startTime = moment(new Date(now.getTime() - 1000 * 3600 * 24 * 7)).format('MM/DD/YYYY');
+    this.endTime = moment(now).format('MM/DD/YYYY');
 
   }
 
@@ -33,11 +30,8 @@ export class DeployComponent implements OnInit {
     this.refresh();
   }
 
-  ngOnDestroy(): void {
-  }
-
   refresh(state?: State) {
-    this.publishService.getDeployStatistics(moment(this.startTime).format("YYYY-MM-DDTHH:mm:SS")+'Z', moment(this.endTime).format("YYYY-MM-DDTHH:mm:SS")+'Z').subscribe(
+    this.publishService.getDeployStatistics(moment(this.startTime).format('YYYY-MM-DDTHH:mm:SS') + 'Z', moment(this.endTime).format('YYYY-MM-DDTHH:mm:SS') + 'Z').subscribe(
       resp => {
         this.datas = resp.data;
       },

@@ -15,13 +15,13 @@
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let permission of permissions" [clrDgItem]="permission">
-    <clr-dg-action-overflow >
-      <button class="action-item" (click)="editPermission(permission)" >编辑</button>
-      <button class="action-item" (click)="deletePermission(permission)">删除</button>
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="editPermission(permission)">编辑</button>
+      <button class="action-item" (click)="deletePermission(permission)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
-      <clr-dg-cell class="col-query-id">{{permission.id}}</clr-dg-cell>
-      <clr-dg-cell class="copy">{{permission.name}}</clr-dg-cell>
-      <clr-dg-cell>{{permission.comment}}</clr-dg-cell>
+    <clr-dg-cell class="col-query-id">{{permission.id}}</clr-dg-cell>
+    <clr-dg-cell class="copy">{{permission.name}}</clr-dg-cell>
+    <clr-dg-cell>{{permission.comment}}</clr-dg-cell>
   </clr-dg-row>
   <wayne-paginate
     [(currentPage)]="currentPage"

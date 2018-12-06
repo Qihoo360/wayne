@@ -1,51 +1,57 @@
-<button (click)="createDeployment()" class="wayne-button primary" *ngIf="authService.currentAppPermission.deployment.create || authService.currentUser.admin">
-  创建部署
+<button (click)="createDeployment()" class="wayne-button primary"
+        *ngIf="authService.currentAppPermission.deployment.create || authService.currentUser.admin">
+  {{'DEPLOYMENT.CREATE' | translate}}
 </button>
 <create-edit-deployment (create)="create($event)"></create-edit-deployment>
 <div *ngIf="deploymentId && deployments?.length>0">
   <wayne-tabs>
     <wayne-tab (click)="tabClick(deployment.id)"
-                [id]="deployment.id"
-                *ngFor="let deployment of deployments"
-                [active]="deployment.id==deploymentId"
-                [description]="deployment.description"
-                >
+               [id]="deployment.id"
+               *ngFor="let deployment of deployments"
+               [active]="deployment.id==deploymentId"
+               [description]="deployment.description"
+    >
       {{deployment.name}}
     </wayne-tab>
   </wayne-tabs>
   <div class="table-search">
     <div class="table-search-left">
-      <button class="wayne-button normal" (click)="createDeploymentTpl()" *ngIf="authService.currentAppPermission.deployment.create || authService.currentUser.admin">
-        创建模版
+      <button class="wayne-button normal" (click)="createDeploymentTpl()"
+              *ngIf="authService.currentAppPermission.deployment.create || authService.currentUser.admin">
+        {{'DEPLOYMENT.CREATE_TMP' | translate}}
       </button>
-      <button class="wayne-button normal" (click)="editDeployment()" *ngIf="authService.currentAppPermission.deployment.update || authService.currentUser.admin">
-        编辑部署
+      <button class="wayne-button normal" (click)="editDeployment()"
+              *ngIf="authService.currentAppPermission.deployment.update || authService.currentUser.admin">
+        {{'DEPLOYMENT.EDIT' | translate}}
       </button>
-      <button class="wayne-button normal" (click)="publishHistory()" *ngIf="authService.currentAppPermission.deployment.read || authService.currentUser.admin">
-        发布历史
+      <button class="wayne-button normal" (click)="publishHistory()"
+              *ngIf="authService.currentAppPermission.deployment.read || authService.currentUser.admin">
+        {{'BUTTON.HISTORY' | translate}}
       </button>
-      <button class="wayne-button normal" (click)="deleteDeployment()" *ngIf="authService.currentAppPermission.deployment.offline || authService.currentUser.admin">
-        删除部署
+      <button class="wayne-button normal" (click)="deleteDeployment()"
+              *ngIf="authService.currentAppPermission.deployment.offline || authService.currentUser.admin">
+        {{'DEPLOYMENT.DELETE' | translate}}
       </button>
       <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
         <wayne-checkbox-group [(ngModel)]="showList">
-          <wayne-checkbox>创建时间</wayne-checkbox>
-          <wayne-checkbox>版本</wayne-checkbox>
-          <wayne-checkbox>上线机房</wayne-checkbox>
-          <wayne-checkbox>发布说明</wayne-checkbox>
-          <wayne-checkbox>创建者</wayne-checkbox>
-          <wayne-checkbox>操作</wayne-checkbox>
+          <wayne-checkbox value="create_time">{{'TITLE.CREATE_TIME' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="version">{{'TITLE.VERSION' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="online_cluster">{{'TITLE.ONLINE_CLUSTER' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="release_explain">{{'TITLE.RELEASE_EXPLAIN' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="create_user">{{'TITLE.CREATE_USER' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="action">{{'TITLE.ACTION' | translate}}</wayne-checkbox>
         </wayne-checkbox-group>
       </wayne-filter-box>
     </div>
     <div class="table-search-right">
       <div class="toggle-switch">
         <input type="checkbox" id="toggle_1" [(ngModel)]="isOnline" (change)="onlineChange()">
-        <label for="toggle_1">只显示上线模板</label>
+        <label for="toggle_1">{{'MESSAGE.ONLY_ONLINE_TEMPLATE' | translate}}</label>
       </div>
     </div>
   </div>
-  <list-deployment [deploymentTpls]="changedDeploymentTpls" (paginate)="retrieve($event)" (edit)="editDeployment($event)" (createTpl)="createDeploymentTpl($event)"  [showState]="showState"
-    (cloneTpl)="cloneDeploymentTpl($event)" [appId]="appId" [page]="pageState.page">
+  <list-deployment [deploymentTpls]="changedDeploymentTpls" (paginate)="retrieve($event)"
+                   (edit)="editDeployment($event)" (createTpl)="createDeploymentTpl($event)" [showState]="showState"
+                   (cloneTpl)="cloneDeploymentTpl($event)" [appId]="appId" [page]="pageState.page">
   </list-deployment>
 </div>

@@ -1,6 +1,6 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {DOCUMENT} from '@angular/common';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 
 const defaultInterval = 1000;
 const defaultLeftTime = 1;

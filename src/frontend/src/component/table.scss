@@ -1,109 +1,143 @@
-.table-search{
+.table-search {
   width: 100%;
   display: flex;
   align-items: center;
   height: 50px;
   margin-bottom: -0.8rem;
   justify-content: space-between;
-  button{
+
+  button {
     margin-right: 15px;
   }
-  .table-search-left{
+
+  .table-search-left {
     order: 1;
   }
-  .table-search-middle{
+
+  .table-search-middle {
     order: 3;
   }
-  .table-search-right{
+
+  .table-search-right {
     order: 5;
-    .toggle-switch{
+
+    .toggle-switch {
       margin-right: 0;
     }
   }
 }
-.datagrid-body clr-dg-row:nth-child(even){
+
+.datagrid-body clr-dg-row:nth-child(even) {
   background: rgba(232, 237, 246, .45);
 }
-div.datagrid-foot-description{
+
+div.datagrid-foot-description {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   white-space: pre;
 }
-.col-id{
+
+.col-id {
   width: 100px !important;
 }
-.column-switch-wrapper{
+
+.column-switch-wrapper {
   display: none;
 }
+
 /* 带查询的id */
-.col-query-id{
+.col-query-id {
   width: 158px !important;
 }
-.col-time{
+
+.col-time {
   min-width: 160px !important;
   font-family: Consolas, monospace;
 }
-.col-cluster{
+
+.col-cluster {
   width: 140px !important;
 }
-.col-version{
+
+.col-version {
   max-width: 280px !important;
 }
-.version-text{
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; direction: rtl;
+
+.version-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  direction: rtl;
 }
-.col-user{
+
+.col-user {
   width: 150px !important;
 }
-.col-operate{
+
+.col-operate {
   min-width: 160px !important;
 }
-.col-port{
+
+.col-port {
   width: 140px !important;
 }
-.col-port-range{
+
+.col-port-range {
   width: 150px !important;
 }
-.col-key{
+
+.col-key {
   width: 250px !important;
 }
-.col-email{
+
+.col-email {
   width: 210px !important;
 }
-.col-name{
+
+.col-name {
   width: 110px !important;
 }
-.col-identity{
+
+.col-identity {
   width: 130px !important;
 }
-.col-ip{
+
+.col-ip {
   width: 125px !important;
 }
-.col-type{
+
+.col-type {
   width: 130px !important;
 }
-.col-permission-name{
+
+.col-permission-name {
   width: 240px !important;
 }
-.col-cluster-name{
+
+.col-cluster-name {
   width: 110px !important;
 }
-.col-host{
+
+.col-host {
   width: 180px !important;
 }
-.col-metadata{
+
+.col-metadata {
   max-width: 160px !important;
 }
+
 /* 名称 */
-.col-app-name{
+.col-app-name {
   min-width: 160px !important;
   max-width: 300px !important;
 }
+
 /* 所属空间 */
-.col-namespace{
+.col-namespace {
   max-width: 160px !important;
 }
-.col-description{
+
+.col-description {
   max-width: 200px !important;
 }

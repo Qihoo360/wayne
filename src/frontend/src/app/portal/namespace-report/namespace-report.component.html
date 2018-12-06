@@ -1,27 +1,27 @@
-<div class="content-area"  style="position: relative">
+<div class="content-area" style="position: relative">
   <wayne-box style="padding: 15px;">
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
-          <h2 class="header-title">部门概览</h2>
+          <h2 class="header-title">{{'MENU.DEPARTMENT' | translate}}</h2>
         </div>
       </div>
     </div>
     <clr-tabs>
       <clr-tab>
-        <a clrTabLink>概览</a>
+        <a clrTabLink>{{'MENU.OVERVIEW' | translate}}</a>
         <clr-tab-content *clrIfActive="true">
           <overview></overview>
         </clr-tab-content>
       </clr-tab>
       <clr-tab>
-        <a clrTabLink>资源统计</a>
+        <a clrTabLink>{{'MENU.SOURCE_STAT' | translate}}</a>
         <clr-tab-content *clrIfActive>
           <report-resource></report-resource>
         </clr-tab-content>
       </clr-tab>
       <clr-tab>
-        <a clrTabLink>上线记录</a>
+        <a clrTabLink>{{'MENU.RELEASE_RECORD' | translate}}</a>
         <clr-tab-content *clrIfActive>
           <report-history></report-history>
         </clr-tab-content>

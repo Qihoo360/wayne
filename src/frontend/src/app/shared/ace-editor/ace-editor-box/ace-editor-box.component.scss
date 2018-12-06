@@ -27,14 +27,17 @@ div.aceeditor-menu {
   margin-left: 8px;
   margin-top: 5px;
 }
-:host{
+
+:host {
   width: 100%;
   min-height: 535px;
 }
-.select-box{
+
+.select-box {
   display: inline-block;
   position: relative;
-  .select-mask{
+
+  .select-mask {
     position: absolute;
     top: 0;
     right: 0;

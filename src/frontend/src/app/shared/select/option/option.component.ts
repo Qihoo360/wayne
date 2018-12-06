@@ -1,4 +1,4 @@
-import {Component, Input, ElementRef} from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 
 @Component({
   selector: 'wayne-option',
@@ -6,9 +6,11 @@ import {Component, Input, ElementRef} from '@angular/core';
   styleUrls: ['./option.component.scss']
 })
 
-export class OptionComponent{
+export class OptionComponent {
 
   @Input() value;
-  constructor(private el: ElementRef) {}
+
+  constructor(private el: ElementRef) {
+  }
 
 }

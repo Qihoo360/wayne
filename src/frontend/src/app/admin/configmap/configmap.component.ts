@@ -1,17 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {Router, ActivatedRoute, Params} from '@angular/router';
-import {State} from '@clr/angular';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {CreateEditConfigMapComponent} from './create-edit-configmap/create-edit-configmap.component';
-import {ListConfigMapComponent} from './list-configmap/list-configmap.component';
-import {ConfigMap} from '../../shared/model/v1/configmap';
-import {ConfigMapService} from '../../shared/client/v1/configmap.service';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { State } from '@clr/angular';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { CreateEditConfigMapComponent } from './create-edit-configmap/create-edit-configmap.component';
+import { ListConfigMapComponent } from './list-configmap/list-configmap.component';
+import { ConfigMap } from '../../shared/model/v1/configmap';
+import { ConfigMapService } from '../../shared/client/v1/configmap.service';
+import { PageState } from '../../shared/page/page-state';
 
 @Component({
   selector: 'wayne-configmap',
@@ -31,12 +30,9 @@ export class ConfigMapComponent implements OnInit {
 
   constructor(
     private configMapService: ConfigMapService,
-    private breadcrumbService: BreadcrumbService,
     private route: ActivatedRoute,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/configmap', '配置集列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/configmap/trash', '已删除配置集列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
@@ -83,7 +79,7 @@ export class ConfigMapComponent implements OnInit {
 
   createConfigMap(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

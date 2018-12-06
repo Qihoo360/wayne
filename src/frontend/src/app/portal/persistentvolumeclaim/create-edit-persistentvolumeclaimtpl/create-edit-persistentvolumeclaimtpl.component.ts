@@ -1,22 +1,22 @@
-import {Component, OnInit, ViewChild, AfterViewInit, Inject, OnDestroy} from '@angular/core';
-import {Location} from '@angular/common';
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType, appLabelKey} from '../../../shared/shared.const';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import {DOCUMENT, EventManager} from '@angular/platform-browser';
-import {App} from '../../../shared/model/v1/app';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {Cluster} from '../../../shared/model/v1/cluster';
-import {ClusterService} from '../../../shared/client/v1/cluster.service';
-import {PersistentVolumeClaim} from '../../../shared/model/v1/persistentvolumeclaim';
-import {PersistentVolumeClaimTpl} from '../../../shared/model/v1/persistentvolumeclaimtpl';
-import {PersistentVolumeClaimTplService} from '../../../shared/client/v1/persistentvolumeclaimtpl.service';
-import {PersistentVolumeClaimService} from '../../../shared/client/v1/persistentvolumeclaim.service';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType, appLabelKey } from '../../../shared/shared.const';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { App } from '../../../shared/model/v1/app';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { Cluster } from '../../../shared/model/v1/cluster';
+import { ClusterService } from '../../../shared/client/v1/cluster.service';
+import { PersistentVolumeClaim } from '../../../shared/model/v1/persistentvolumeclaim';
+import { PersistentVolumeClaimTpl } from '../../../shared/model/v1/persistentvolumeclaimtpl';
+import { PersistentVolumeClaimTplService } from '../../../shared/client/v1/persistentvolumeclaimtpl.service';
+import { PersistentVolumeClaimService } from '../../../shared/client/v1/persistentvolumeclaim.service';
 import {
   KubePersistentVolumeClaim,
   LabelSelector,
@@ -24,9 +24,9 @@ import {
   PersistentVolumeClaimSpec,
   ResourceRequirements
 } from '../../../shared/model/v1/kubernetes/persistentvolumeclaim';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
-import {AuthService} from '../../../shared/auth/auth.service';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { AuthService } from '../../../shared/auth/auth.service';
 
 @Component({
   selector: 'create-edit-persistentvolumeclaimtpl',
@@ -49,7 +49,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
 
   show: boolean = false;
   eventList: any[] = new Array();
-  
+
   constructor(private pvcTplService: PersistentVolumeClaimTplService,
               private pvcService: PersistentVolumeClaimService,
               private fb: FormBuilder,
@@ -64,7 +64,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
               private messageHandlerService: MessageHandlerService,
               @Inject(DOCUMENT) private document: any,
               private eventManager: EventManager
-            ) {
+  ) {
   }
 
   ngAfterViewInit() {
@@ -93,7 +93,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
       // hack
       setTimeout(() => {
         this.top = this.box.scrollTop + this.box.offsetHeight - 48;
-      }, 0)
+      }, 0);
     }
   }
 
@@ -108,7 +108,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
 
   onDeleteSelector(index: number) {
     if (this.selectors.controls.length <= 1) {
-      return
+      return;
     }
     this.selectors.removeAt(index);
   }
@@ -197,10 +197,10 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
     );
   }
 
-  filterCluster(clusters:Cluster[]): Cluster[] {
+  filterCluster(clusters: Cluster[]): Cluster[] {
     return clusters.filter((clusterObj: Cluster) => {
       return this.cacheService.namespace.metaDataObj.clusterMeta &&
-        this.cacheService.namespace.metaDataObj.clusterMeta[clusterObj.name]
+        this.cacheService.namespace.metaDataObj.clusterMeta[clusterObj.name];
     });
   }
 
@@ -301,7 +301,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
   }
 
   openModal(): void {
-    this.aceEditorService.announceMessage(AceEditorMsg.Instance(this.getKubePvcByForm(),true));
+    this.aceEditorService.announceMessage(AceEditorMsg.Instance(this.getKubePvcByForm(), true));
   }
 
   savePvcTpl(kubePvc: KubePersistentVolumeClaim) {
@@ -335,7 +335,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
           selectors.push(this.fb.group({
             key: key,
             value: kubePvc.spec.selector.matchLabels[key]
-          }))
+          }));
         });
       }
       let clusters = this.currentForm.get('clusters');

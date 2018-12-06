@@ -1,17 +1,18 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType, configKeyApiNameGenerateRule, defaultResources} from '../../../shared/shared.const';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType, configKeyApiNameGenerateRule, defaultResources } from '../../../shared/shared.const';
 import 'rxjs/add/observable/combineLatest';
-import {Cluster} from '../../../shared/model/v1/cluster';
-import {Resources} from '../../../shared/model/v1/resources-limit';
-import {ClusterMeta, Deployment} from '../../../shared/model/v1/deployment';
-import {DeploymentService} from '../../../shared/client/v1/deployment.service';
-import {App} from '../../../shared/model/v1/app';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {ApiNameGenerateRule} from '../../../shared/utils';
+import { Cluster } from '../../../shared/model/v1/cluster';
+import { Resources } from '../../../shared/model/v1/resources-limit';
+import { ClusterMeta, Deployment } from '../../../shared/model/v1/deployment';
+import { DeploymentService } from '../../../shared/client/v1/deployment.service';
+import { App } from '../../../shared/model/v1/app';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { ApiNameGenerateRule } from '../../../shared/utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'create-edit-deployment',
@@ -34,12 +35,13 @@ export class CreateEditDeploymentComponent implements OnInit {
   actionType: ActionType;
   modalOpened: boolean;
   app: App;
-  isMaster:boolean = false;
+  isMaster: boolean = false;
 
   @Output() create = new EventEmitter<number>();
 
   constructor(private deploymentService: DeploymentService,
               public authService: AuthService,
+              public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
   }
 
@@ -74,7 +76,7 @@ export class CreateEditDeploymentComponent implements OnInit {
           }
           if ('resources' in metaData) {
             for (let limit in metaData.resources) {
-                metaData.resources[limit] = /Percent$/.test(limit) ? parseFloat(metaData.resources[limit].replace(/%$/, '')) : parseFloat(metaData.resources[limit]);
+              metaData.resources[limit] = /Percent$/.test(limit) ? parseFloat(metaData.resources[limit].replace(/%$/, '')) : parseFloat(metaData.resources[limit]);
             }
             this.resourcesMetas = metaData.resources;
           }
@@ -97,22 +99,22 @@ export class CreateEditDeploymentComponent implements OnInit {
       let metaData = JSON.parse(this.deployment.metaData);
       if (metaData.resources &&
         metaData.resources.replicaLimit) {
-        replicaLimit = parseInt(metaData.resources.replicaLimit)
+        replicaLimit = parseInt(metaData.resources.replicaLimit);
       }
     }
     if (this.resourcesMetas.replicaLimit !== null && this.resourcesMetas.replicaLimit !== undefined) {
       replicaLimit = this.resourcesMetas.replicaLimit;
     }
-    return replicaLimit
+    return replicaLimit;
   }
 
   replicaValidation(cluster: string): boolean {
     let clusterMeta = this.clusterMetas[cluster];
     if (this.deployment && this.deployment.metaData && clusterMeta) {
       if (!clusterMeta.checked) {
-        return true
+        return true;
       }
-      return parseInt(clusterMeta.value) <= this.replicaLimit
+      return parseInt(clusterMeta.value) <= this.replicaLimit;
     }
     return false;
   }
@@ -155,13 +157,13 @@ export class CreateEditDeploymentComponent implements OnInit {
     }
     metaData.replicas = replicas;
     if (Object.keys(resources).length) metaData.resources = resources;
-      else delete metaData.resources;
+    else delete metaData.resources;
     return JSON.stringify(metaData);
   }
 
-  get nameGenerateRuleConfig():string{
+  get nameGenerateRuleConfig(): string {
     return ApiNameGenerateRule.config(
-      this.authService.config[configKeyApiNameGenerateRule], this.app.metaData)
+      this.authService.config[configKeyApiNameGenerateRule], this.app.metaData);
   }
 
   onSubmit() {
@@ -220,11 +222,11 @@ export class CreateEditDeploymentComponent implements OnInit {
       let value = this.resourcesMetas[resource];
       if (/Percent$/.test(resource) && value !== null) {
         if (value <= 0 || value > 100) {
-          return false
+          return false;
         }
       }
     }
-    return true
+    return true;
   }
 
   isClusterValid(): boolean {
@@ -243,20 +245,20 @@ export class CreateEditDeploymentComponent implements OnInit {
     if (this.clusters) {
       for (let clu of this.clusters) {
         if (!this.replicaValidation(clu.name)) {
-          return false
+          return false;
         }
       }
     }
     return true;
   }
 
-  
+
 
 //Handle the form validation
   handleValidation(): void {
     let cont = this.currentForm.controls['deployment_name'];
     if (cont) {
-      this.isNameValid = cont.valid
+      this.isNameValid = cont.valid;
     }
 
   }

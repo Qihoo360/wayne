@@ -1,14 +1,14 @@
-import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {PublishStatus} from '../../../shared/model/v1/publish-status';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets, TemplateState} from '../../../shared/shared.const';
-import {PersistentVolumeClaimClient} from '../../../shared/client/v1/kubernetes/persistentvolumeclaims';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {CreateSnapshot} from '../create-snapshot/create-snapshot.component';
-import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {ActivatedRoute} from '@angular/router';
-import {PersistentVolumeClaimRobinClient} from '../../../shared/client/v1/kubernetes/persistentvolumeclaims-robin';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { PublishStatus } from '../../../shared/model/v1/publish-status';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets, TemplateState } from '../../../shared/shared.const';
+import { PersistentVolumeClaimClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { CreateSnapshot } from '../create-snapshot/create-snapshot.component';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute } from '@angular/router';
+import { PersistentVolumeClaimRobinClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims-robin';
 
 @Component({
   selector: 'snapshot-persistentvolumeclaim',
@@ -83,7 +83,7 @@ export class SnapshotPersistentVolumeClaimComponent implements OnInit, OnDestroy
 
 
   openModal() {
-    this.createSnapshot.createSnap(this.state)
+    this.createSnapshot.createSnap(this.state);
   }
 
   ngOnInit(): void {

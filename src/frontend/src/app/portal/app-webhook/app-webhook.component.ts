@@ -1,27 +1,27 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {ActivatedRoute} from '@angular/router';
-import {ClrDatagridStateInterface} from '@clr/angular';
-import {ListAppWebHookComponent} from './list-app-webhook/list-app-webhook.component';
-import {CreateEditAppWebHookComponent} from './create-edit-app-webhook/create-edit-app-webhook.component';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {WebHook} from '../../shared/model/v1/webhook';
-import {WebHookService} from '../../shared/client/v1/webhook.service';
-import {AuthService} from '../../shared/auth/auth.service';
-import {CacheService} from '../../shared/auth/cache.service';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
+import { ActivatedRoute } from '@angular/router';
+import { ClrDatagridStateInterface } from '@clr/angular';
+import { ListAppWebHookComponent } from './list-app-webhook/list-app-webhook.component';
+import { CreateEditAppWebHookComponent } from './create-edit-app-webhook/create-edit-app-webhook.component';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { WebHook } from '../../shared/model/v1/webhook';
+import { WebHookService } from '../../shared/client/v1/webhook.service';
+import { AuthService } from '../../shared/auth/auth.service';
+import { CacheService } from '../../shared/auth/cache.service';
+import { PageState } from '../../shared/page/page-state';
 
 const showState = {
-  '名称': {hidden: false},
-  'URL': {hidden: false},
-  '启用状态': {hidden: false},
-  '创建用户': {hidden: false},
-  '创建时间': {hidden: false},
-  '操作': {hidden: false}
+  'name': {hidden: false},
+  'url': {hidden: false},
+  'start_status': {hidden: false},
+  'create_user': {hidden: false},
+  'create_time': {hidden: false},
+  'action': {hidden: false}
 };
 
 @Component({
@@ -77,7 +77,7 @@ export class AppWebHookComponent implements OnInit {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
       if (!this.showState[key].hidden) this.showList.push(key);
-    })
+    });
   }
 
   confirmEvent() {
@@ -87,7 +87,7 @@ export class AppWebHookComponent implements OnInit {
       } else {
         this.showState[key] = {hidden: true};
       }
-    })
+    });
   }
 
   cancelEvent() {
@@ -123,7 +123,7 @@ export class AppWebHookComponent implements OnInit {
 
   refresh(dirty: boolean) {
     if (dirty) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 
@@ -139,7 +139,7 @@ export class AppWebHookComponent implements OnInit {
   }
 
   editWebHook(webHook: WebHook) {
-    this.createEditWebHook.createEditWebHook(webHook)
+    this.createEditWebHook.createEditWebHook(webHook);
   }
 
   toggleWebHook(webHook: WebHook) {

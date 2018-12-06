@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../shared/auth/auth.service';
-import {Router} from '@angular/router';
-import {AuthoriseService} from '../../shared/client/v1/auth.service';
-import {LoginTokenKey} from '../../shared/shared.const';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../shared/auth/auth.service';
+import { Router } from '@angular/router';
+import { AuthoriseService } from '../../shared/client/v1/auth.service';
+import { LoginTokenKey } from '../../shared/shared.const';
 
 @Component({
   selector: 'wayne-nav',

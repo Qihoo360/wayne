@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {BreadcrumbService} from '../../../shared/client/v1/breadcrumb.service';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {Cronjob} from '../../../shared/model/v1/cronjob';
-import {Page} from '../../../shared/page/page-state';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { Cronjob } from '../../../shared/model/v1/cronjob';
+import { Page } from '../../../shared/page/page-state';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'list-cronjob',

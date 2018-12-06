@@ -1,25 +1,25 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {ActivatedRoute} from '@angular/router';
-import {State} from '@clr/angular';
-import {ListAppUserComponent} from './list-app-user/list-app-user.component';
-import {CreateEditAppUserComponent} from './create-edit-app-user/create-edit-app-user.component';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {AppUser} from '../../shared/model/v1/app-user';
-import {AppUserService} from '../../shared/client/v1/app-user.service';
-import {AuthService} from '../../shared/auth/auth.service';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
+import { ActivatedRoute } from '@angular/router';
+import { State } from '@clr/angular';
+import { ListAppUserComponent } from './list-app-user/list-app-user.component';
+import { CreateEditAppUserComponent } from './create-edit-app-user/create-edit-app-user.component';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { AppUser } from '../../shared/model/v1/app-user';
+import { AppUserService } from '../../shared/client/v1/app-user.service';
+import { AuthService } from '../../shared/auth/auth.service';
+import { PageState } from '../../shared/page/page-state';
 
 const showState = {
-  '用户名称': {hidden: false},
-  '项目名称': {hidden: false},
-  '所属群组': {hidden: false},
-  '创建时间': {hidden: false},
-  '操作': {hidden: false}
+  'user_name': {hidden: false},
+  'app_name': {hidden: false},
+  'group': {hidden: false},
+  'create_time': {hidden: false},
+  'action': {hidden: false}
 };
 
 @Component({
@@ -68,20 +68,20 @@ export class AppUserComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (typeof(this.route.parent.snapshot.params['id']) !== 'undefined') {
+    if (typeof (this.route.parent.snapshot.params['id']) !== 'undefined') {
       this.resourceId = this.route.parent.snapshot.params['id'];
       this.listType = 'app';
     } else {
       this.route.params.subscribe(params => {
-        this.resourceId = ''
-        if (typeof(params['aid']) !== 'undefined') {
+        this.resourceId = '';
+        if (typeof (params['aid']) !== 'undefined') {
           this.resourceId = params['aid'];
           this.listType = 'app';
-        } else if (typeof(params['uid']) !== 'undefined') {
+        } else if (typeof (params['uid']) !== 'undefined') {
           this.resourceId = params['uid'];
           this.listType = 'user';
         }
-      })
+      });
     }
     this.initShow();
   }
@@ -90,7 +90,7 @@ export class AppUserComponent implements OnInit {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
       if (!this.showState[key].hidden) this.showList.push(key);
-    })
+    });
   }
 
   confirmEvent() {
@@ -100,7 +100,7 @@ export class AppUserComponent implements OnInit {
       } else {
         this.showState[key] = {hidden: true};
       }
-    })
+    });
   }
 
   cancelEvent() {
@@ -131,7 +131,7 @@ export class AppUserComponent implements OnInit {
 
   createAppUser(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

@@ -1,17 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {Router, ActivatedRoute, Params} from '@angular/router';
-import {State} from '@clr/angular';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {ListDeploymentComponent} from './list-deployment/list-deployment.component';
-import {CreateEditDeploymentComponent} from './create-edit-deployment/create-edit-deployment.component';
-import {Deployment} from '../../shared/model/v1/deployment';
-import {DeploymentService} from '../../shared/client/v1/deployment.service';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { State } from '@clr/angular';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { ListDeploymentComponent } from './list-deployment/list-deployment.component';
+import { CreateEditDeploymentComponent } from './create-edit-deployment/create-edit-deployment.component';
+import { Deployment } from '../../shared/model/v1/deployment';
+import { DeploymentService } from '../../shared/client/v1/deployment.service';
+import { PageState } from '../../shared/page/page-state';
 
 @Component({
   selector: 'wayne-deployment',
@@ -32,14 +31,11 @@ export class DeploymentComponent implements OnInit {
   subscription: Subscription;
 
   constructor(
-    private breadcrumbService: BreadcrumbService,
     private deploymentService: DeploymentService,
     private route: ActivatedRoute,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService
   ) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/deployment', '部署列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/deployment/trash', '已删除部署列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
@@ -62,10 +58,10 @@ export class DeploymentComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.appId = params['aid'];
-      if (typeof(this.appId) == 'undefined') {
-          this.appId = ''
+      if (typeof (this.appId) == 'undefined') {
+        this.appId = '';
       }
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -79,19 +75,19 @@ export class DeploymentComponent implements OnInit {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.deploymentService.list(this.pageState, 'false', this.appId).subscribe(
-        response => {
-          let data = response.data;
-          this.pageState.page.totalPage = data.totalPage;
-          this.pageState.page.totalCount = data.totalCount;
-          this.changedDeployments = data.list;
-        },
-        error => this.messageHandlerService.handleError(error)
-      );
+      response => {
+        let data = response.data;
+        this.pageState.page.totalPage = data.totalPage;
+        this.pageState.page.totalCount = data.totalCount;
+        this.changedDeployments = data.list;
+      },
+      error => this.messageHandlerService.handleError(error)
+    );
   }
 
   createDeployment(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

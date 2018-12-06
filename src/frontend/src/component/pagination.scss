@@ -1,17 +1,20 @@
 $main-color: #4a87ee;
-ul.pagination-list{
+ul.pagination-list {
   align-items: center;
 }
-.pagination-list li{
+
+.pagination-list li {
   width: 20px;
   height: 20px;
   line-height: 20px;
   text-align: center;
-  &:hover button{
+
+  &:hover button {
     color: $main-color;
   }
 }
-.pagination-list .pagination-current{
+
+.pagination-list .pagination-current {
   background: $main-color;
   border-radius: 2px;
   color: #fff;

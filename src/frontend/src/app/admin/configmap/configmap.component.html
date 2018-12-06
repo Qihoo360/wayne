@@ -5,11 +5,14 @@
     </div>
     <div class="row flex-items-xs-between" style="height:32px;">
       <div class="option-left">
-        <button class="btn btn-link" (click)="openModal()"><clr-icon shape="add"></clr-icon>创建配置集</button>
+        <button class="btn btn-link" (click)="openModal()">
+          <clr-icon shape="add"></clr-icon>
+          {{'CONFIGMAP.CREATE' | translate}}</button>
         <create-edit-configmap (create)="createConfigMap($event)"></create-edit-configmap>
       </div>
     </div>
     <list-configmap [configMaps]="configMaps" (delete)="deleteConfigMap($event)"
-                    (edit)="editConfigMap($event)" (paginate)="retrieve($event)" [page]="pageState.page"></list-configmap>
+                    (edit)="editConfigMap($event)" (paginate)="retrieve($event)"
+                    [page]="pageState.page"></list-configmap>
   </div>
 </div>

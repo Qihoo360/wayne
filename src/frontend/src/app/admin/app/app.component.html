@@ -5,7 +5,10 @@
     </div>
     <div class="row flex-items-xs-between" style="height:32px;">
       <div class="option-left">
-        <button class="btn btn-link" (click)="openModal()"><clr-icon shape="add"></clr-icon>创建项目</button>
+        <button class="btn btn-link" (click)="openModal()">
+          <clr-icon shape="add"></clr-icon>
+          创建项目
+        </button>
         <create-edit-app (create)="createApp($event)"></create-edit-app>
       </div>
     </div>

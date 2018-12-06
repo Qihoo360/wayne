@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {TplDetailService} from './tpl-detail.service';
-import {Subscription} from 'rxjs/Subscription';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { TplDetailService } from './tpl-detail.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'tpl-detail',
@@ -11,7 +11,7 @@ import {Subscription} from 'rxjs/Subscription';
 export class TplDetailComponent implements OnInit, OnDestroy {
   modalOpened: boolean;
   text: string;
-  title: string = '发布说明';
+  title: string = 'release_explain';
   textSub: Subscription;
 
   constructor(private tplDetailService: TplDetailService) {
@@ -30,7 +30,7 @@ export class TplDetailComponent implements OnInit, OnDestroy {
         this.text = msg.text;
         if (msg.title) this.title = msg.title;
       }
-    )
+    );
   }
 
   ngOnDestroy() {

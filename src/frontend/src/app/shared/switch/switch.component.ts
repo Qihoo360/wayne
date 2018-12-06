@@ -1,5 +1,5 @@
-import {Component, OnInit, forwardRef, Input, Output, EventEmitter, Renderer2, ViewChild, ElementRef, TemplateRef} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import { Component, ElementRef, EventEmitter, forwardRef, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'wayne-switch',
@@ -12,7 +12,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
   }]
 })
 /**
- * 
+ *
  */
 export class SwitchComponent implements OnInit, ControlValueAccessor {
   choosed: any;
@@ -25,10 +25,12 @@ export class SwitchComponent implements OnInit, ControlValueAccessor {
   @ViewChild('span2') span2: ElementRef;
   @ViewChild('button') button: ElementRef;
   @Output() change = new EventEmitter<boolean>();
-  get span1Width(): string{
+
+  get span1Width(): string {
     return this.span1.nativeElement.clientWidth;
   }
-  get buttonWidth(): string{
+
+  get buttonWidth(): string {
     if (this.choosed === this.span1Value) {
       this._render.setStyle(this.button.nativeElement, 'left', `0px`);
       return this.span1Width + 'px';
@@ -40,22 +42,26 @@ export class SwitchComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  get span2Width(): string{
+  get span2Width(): string {
     return this.span2.nativeElement.clientWidth;
   }
-  updateEmit = (_: any) => {};
 
-  constructor (private _render: Renderer2) {}
+  updateEmit = (_: any) => {
+  };
 
-  ngOnInit() {}
+  constructor(private _render: Renderer2) {
+  }
 
-  changeItem () {
+  ngOnInit() {
+  }
+
+  changeItem() {
     this.choosed = this.choosed === this.span1Value ? this.span2Value : this.span1Value;
     this.updateEmit(this.choosed);
     this.change.emit(this.choosed);
   }
 
-  writeValue(value: any) :void {
+  writeValue(value: any): void {
     if (value !== this.choosed) {
       this.choosed = value;
     }
@@ -64,6 +70,8 @@ export class SwitchComponent implements OnInit, ControlValueAccessor {
   registerOnChange(fn: (_: any) => {}): void {
     this.updateEmit = fn;
   }
+
   // this is invalid so given an empty result
-  registerOnTouched(fn: any): void {}
+  registerOnTouched(fn: any): void {
+  }
 }

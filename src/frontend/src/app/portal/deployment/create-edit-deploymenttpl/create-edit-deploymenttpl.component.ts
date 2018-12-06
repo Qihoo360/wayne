@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {Location} from '@angular/common';
-import {FormBuilder, NgForm} from '@angular/forms';
-import {DOCUMENT, EventManager} from '@angular/platform-browser';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
+import { Location } from '@angular/common';
+import { FormBuilder, NgForm } from '@angular/forms';
+import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import {
   ConfigMapEnvSource,
   ConfigMapKeySelector,
@@ -26,21 +26,21 @@ import {
   TCPSocketAction,
 } from '../../../shared/model/v1/kubernetes/deployment';
 import 'rxjs/add/observable/combineLatest';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import {DeploymentTpl} from '../../../shared/model/v1/deploymenttpl';
-import {App} from '../../../shared/model/v1/app';
-import {Deployment} from '../../../shared/model/v1/deployment';
-import {DeploymentTplService} from '../../../shared/client/v1/deploymenttpl.service';
-import {DeploymentService} from '../../../shared/client/v1/deployment.service';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {ActionType, appLabelKey, defaultResources, namespaceLabelKey} from '../../../shared/shared.const';
-import {ResourceUnitConvertor} from '../../../shared/utils';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
-import {defaultDeployment} from '../../../shared/default-models/deployment.const';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { DeploymentTpl } from '../../../shared/model/v1/deploymenttpl';
+import { App } from '../../../shared/model/v1/app';
+import { Deployment } from '../../../shared/model/v1/deployment';
+import { DeploymentTplService } from '../../../shared/client/v1/deploymenttpl.service';
+import { DeploymentService } from '../../../shared/client/v1/deployment.service';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { ActionType, appLabelKey, defaultResources, namespaceLabelKey } from '../../../shared/shared.const';
+import { ResourceUnitConvertor } from '../../../shared/utils';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { defaultDeployment } from '../../../shared/default-models/deployment.const';
 
 const templateDom = [
   {
@@ -153,7 +153,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
       // hack
       setTimeout(() => {
         this.top = this.box.scrollTop + this.box.offsetHeight - 48;
-      }, 0)
+      }, 0);
     }
   }
 
@@ -166,11 +166,11 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
   }
 
   checkMemory(memory: string): boolean {
-    return memory === '' ? true : parseFloat(memory) <= this.memoryLimit && parseFloat(memory) > 0
+    return memory === '' ? true : parseFloat(memory) <= this.memoryLimit && parseFloat(memory) > 0;
   }
 
   checkCpu(cpu: string): boolean {
-    return cpu === '' ? true : parseFloat(cpu) <= this.cpuLimit && parseFloat(cpu) > 0
+    return cpu === '' ? true : parseFloat(cpu) <= this.cpuLimit && parseFloat(cpu) > 0;
   }
 
   get memoryLimit(): number {
@@ -179,10 +179,10 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
       let metaData = JSON.parse(this.deployment.metaData);
       if (metaData.resources &&
         metaData.resources.memoryLimit) {
-        memoryLimit = parseInt(metaData.resources.memoryLimit)
+        memoryLimit = parseInt(metaData.resources.memoryLimit);
       }
     }
-    return memoryLimit
+    return memoryLimit;
   }
 
   get cpuLimit(): number {
@@ -191,10 +191,10 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
       let metaData = JSON.parse(this.deployment.metaData);
       if (metaData.resources &&
         metaData.resources.cpuLimit) {
-        cpuLimit = parseInt(metaData.resources.cpuLimit)
+        cpuLimit = parseInt(metaData.resources.cpuLimit);
       }
     }
-    return cpuLimit
+    return cpuLimit;
   }
 
   get containersLength(): number {
@@ -226,8 +226,8 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
     dom.id += i ? i : '';
     dom.child.forEach(item => {
       item.id += i ? i : '';
-    })
-    return dom
+    });
+    return dom;
   }
 
   initNavList() {
@@ -262,7 +262,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
         let tpl = response[2];
         if (tpl) {
           this.deploymentTpl = tpl.data;
-          // 克隆置空发布说明
+
           this.deploymentTpl.description = null;
           this.saveDeployment(JSON.parse(this.deploymentTpl.template));
         }
@@ -545,17 +545,17 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
     kubeDeployment = this.convertProbeCommandToArray(kubeDeployment);
     kubeDeployment = this.addResourceUnit(kubeDeployment);
     kubeDeployment = this.fillDeploymentLabel(kubeDeployment);
-    return kubeDeployment
+    return kubeDeployment;
   }
 
   convertRollingUpdateIntOrString(kubeDeployment: KubeDeployment) {
     if (kubeDeployment.spec.strategy) {
       if (kubeDeployment.spec.strategy.type === 'RollingUpdate' && kubeDeployment.spec.strategy.rollingUpdate) {
         if (kubeDeployment.spec.strategy.rollingUpdate.maxSurge.toString().indexOf('%') < 0) {
-          kubeDeployment.spec.strategy.rollingUpdate.maxSurge = parseInt(kubeDeployment.spec.strategy.rollingUpdate.maxSurge.toString())
+          kubeDeployment.spec.strategy.rollingUpdate.maxSurge = parseInt(kubeDeployment.spec.strategy.rollingUpdate.maxSurge.toString());
         }
         if (kubeDeployment.spec.strategy.rollingUpdate.maxUnavailable.toString().indexOf('%') < 0) {
-          kubeDeployment.spec.strategy.rollingUpdate.maxUnavailable = parseInt(kubeDeployment.spec.strategy.rollingUpdate.maxUnavailable.toString())
+          kubeDeployment.spec.strategy.rollingUpdate.maxUnavailable = parseInt(kubeDeployment.spec.strategy.rollingUpdate.maxUnavailable.toString());
         }
       }
       if (kubeDeployment.spec.strategy.type === 'Recreate') {
@@ -563,7 +563,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
       }
     }
 
-    return kubeDeployment
+    return kubeDeployment;
   }
 
   convertProbeCommandToArray(kubeDeployment: KubeDeployment): KubeDeployment {
@@ -615,16 +615,16 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
       let metaData = JSON.parse(this.deployment.metaData);
       if (metaData.resources && metaData.resources.cpuRequestLimitPercent) {
         if (metaData.resources.cpuRequestLimitPercent.indexOf('%') > -1) {
-          cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent.replace('%', '')) / 100
+          cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent.replace('%', '')) / 100;
         } else {
-          cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent)
+          cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent);
         }
       }
       if (metaData.resources && metaData.resources.memoryRequestLimitPercent) {
         if (metaData.resources.memoryRequestLimitPercent.indexOf('%') > -1) {
-          memoryRequestLimitPercent = parseFloat(metaData.resources.memoryRequestLimitPercent.replace('%', '')) / 100
+          memoryRequestLimitPercent = parseFloat(metaData.resources.memoryRequestLimitPercent.replace('%', '')) / 100;
         } else {
-          memoryRequestLimitPercent = parseFloat(metaData.resources.memoryRequestLimitPercent)
+          memoryRequestLimitPercent = parseFloat(metaData.resources.memoryRequestLimitPercent);
         }
       }
     }
@@ -644,7 +644,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
         container.resources.requests['cpu'] = (parseFloat(cpuLimit) * cpuRequestLimitPercent).toString();
       }
     }
-    return kubeDeployment
+    return kubeDeployment;
   }
 
   get totalFee() {
@@ -655,15 +655,15 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
         let cpu = limit['cpu'];
         let memory = limit['memory'];
         if (cpu) {
-          fee += parseFloat(cpu) * this.cpuUnitPrice
+          fee += parseFloat(cpu) * this.cpuUnitPrice;
         }
         if (memory) {
-          fee += parseFloat(memory) * this.memoryUnitPrice
+          fee += parseFloat(memory) * this.memoryUnitPrice;
         }
 
       }
     }
-    return fee
+    return fee;
   }
 
   saveDeployment(kubeDeployment: KubeDeployment) {
@@ -727,10 +727,10 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
     if (kubeDeployment.spec.template.spec.containers && kubeDeployment.spec.template.spec.containers.length > 0) {
       for (let container of kubeDeployment.spec.template.spec.containers) {
         if (!container.resources) {
-          container.resources = ResourceRequirements.emptyObject()
+          container.resources = ResourceRequirements.emptyObject();
         }
         if (!container.resources.limits) {
-          container.resources.limits = {'cpu': '0', 'memory': '0Gi'}
+          container.resources.limits = {'cpu': '0', 'memory': '0Gi'};
         }
         container.resources.limits['cpu'] = ResourceUnitConvertor.cpuCoreValue(container.resources.limits['cpu']);
         container.resources.limits['memory'] = ResourceUnitConvertor.memoryGiValue(container.resources.limits['memory']);
@@ -759,7 +759,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
 
   getImagePrefixReg() {
     let imagePrefix = this.authService.config['system.image-prefix'];
-    return imagePrefix
+    return imagePrefix;
   }
 
 }

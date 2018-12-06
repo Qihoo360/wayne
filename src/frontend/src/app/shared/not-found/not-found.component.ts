@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {defaultRoutingUrl} from '../shared.const';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { defaultRoutingUrl } from '../shared.const';
 
 const defaultInterval = 1000;
 const defaultLeftTime = 3;

@@ -1,10 +1,9 @@
-import { Component, AfterViewInit, Inject, OnDestroy, ElementRef,  ContentChildren, QueryList } from '@angular/core';
-import {DOCUMENT} from '@angular/common';
-import {EventManager} from '@angular/platform-browser';
-import {ListStyle}  from './ListStyle';
-import {TabComponent} from './tab/tab.component';
-import {TabDragService} from '../client/v1/tab-drag.service';
-import { inject } from '../../../../node_modules/@angular/core/testing';
+import { AfterViewInit, Component, ContentChildren, ElementRef, Inject, OnDestroy, QueryList } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { EventManager } from '@angular/platform-browser';
+import { ListStyle } from './ListStyle';
+import { TabComponent } from './tab/tab.component';
+import { TabDragService } from '../client/v1/tab-drag.service';
 
 @Component({
   selector: 'wayne-tabs',
@@ -27,7 +26,7 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
   dragSubscribe: Array<any> = new Array();
   eventList: Array<any> = new Array();
 
-  constructor( 
+  constructor(
     private el: ElementRef,
     private eventManager: EventManager,
     private dragService: TabDragService,
@@ -42,12 +41,12 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
             }
           } else if (direction === 'left') {
             if (this.listStyle.translateX < 0) {
-              this.listStyle.translateX = this.listStyle.translateX > - 10 ? 0 : this.listStyle.translateX + 10;
-            } 
+              this.listStyle.translateX = this.listStyle.translateX > -10 ? 0 : this.listStyle.translateX + 10;
+            }
           }
         }
       )
-    )
+    );
   }
 
   ngOnDestroy() {
@@ -92,16 +91,16 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
   }
 
   get listTransform() {
-    return this.listStyle.translateX ? `translateX(${this.listStyle.translateX}px)` : ''
+    return this.listStyle.translateX ? `translateX(${this.listStyle.translateX}px)` : '';
   }
 
-  addClickEvent (tmpList: QueryList<any>) {
+  addClickEvent(tmpList: QueryList<any>) {
     tmpList.forEach((template, index) => {
       this.eventManager.addEventListener(template.el.nativeElement, 'click', this.setActive.bind(this, tmpList));
-    })
+    });
   }
 
-  setActive (tmpList: QueryList<any>) {
+  setActive(tmpList: QueryList<any>) {
     let existActive = false;
     tmpList.forEach((template, index) => {
       if (template.active) {
@@ -111,7 +110,7 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
       } else {
         template.el.nativeElement.querySelector('.tabs-item').classList.remove('active');
       }
-    })
+    });
   }
 
   ngAfterViewInit() {
@@ -127,19 +126,19 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
     this.dragService.init(this.el.nativeElement);
     this.eventList.push(
       this.eventManager.addEventListener(this.document.querySelector('.nav-trigger'), 'click', this.boxResize.bind(this, true))
-    )
+    );
   }
 
   prev() {
     const currentWidth = this.tabsListWidth + this.listStyle.translateX;
     if (Math.abs(this.listStyle.translateX) < this.tabsContentWidth) {
-      this.listStyle.translateX = 0
+      this.listStyle.translateX = 0;
     } else {
       this.listStyle.translateX += this.tabsContentWidth;
     }
     this.prevEnter();
   }
-  
+
   next() {
     const currentWidth = this.tabsListWidth + this.listStyle.translateX;
     // 这里不用缓冲是为了解决在tab切换时候出现滚动条会遮挡最后一个tab的情况。

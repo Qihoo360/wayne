@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'token-detail',
@@ -13,7 +13,7 @@ export class TokenDetailComponent {
 
   viewToken(token: string) {
     this.modalOpened = true;
-    this.token = token
+    this.token = token;
   }
 
 

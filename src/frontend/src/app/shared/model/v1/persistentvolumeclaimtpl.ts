@@ -1,4 +1,4 @@
-import {PublishStatus} from './publish-status';
+import { PublishStatus } from './publish-status';
 
 export class PersistentVolumeClaimTpl {
   id: number;
@@ -11,7 +11,7 @@ export class PersistentVolumeClaimTpl {
   user: string;
   createTime: Date;
   updateTime: Date;
-  clusters:string[];
+  clusters: string[];
   status: PublishStatus[];
 }
 

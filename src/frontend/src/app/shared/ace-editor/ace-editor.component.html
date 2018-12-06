@@ -7,7 +7,7 @@
     <wayne-ace-editor-box (modalChange)="modalInfo($event)"></wayne-ace-editor-box>
   </div>
   <div [hidden]="hiddenFooter" class="modal-footer">
-    <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
+    <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
     <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">保存</button>
   </div>
 </clr-modal>

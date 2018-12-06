@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
-import {Inventory, TimeComparator} from './inventory';
-import {Event} from '../../../shared/model/v1/event';
-import {SortOrder} from '@clr/angular';
+import { Inventory, TimeComparator } from './inventory';
+import { Event } from '../../../shared/model/v1/event';
+import { SortOrder } from '@clr/angular';
 
 @Component({
   selector: 'list-event',

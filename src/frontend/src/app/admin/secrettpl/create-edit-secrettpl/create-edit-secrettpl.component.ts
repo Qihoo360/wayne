@@ -1,17 +1,17 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType} from '../../../shared/shared.const';
-import {SecretTpl} from '../../../shared/model/v1/secrettpl';
-import {Secret} from '../../../shared/model/v1/secret';
-import {SecretTplService} from '../../../shared/client/v1/secrettpl.service';
-import {SecretService} from '../../../shared/client/v1/secret.service';
-import {AceEditorBoxComponent} from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType } from '../../../shared/shared.const';
+import { SecretTpl } from '../../../shared/model/v1/secrettpl';
+import { Secret } from '../../../shared/model/v1/secret';
+import { SecretTplService } from '../../../shared/client/v1/secrettpl.service';
+import { SecretService } from '../../../shared/client/v1/secret.service';
+import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'create-edit-secrettpl',
@@ -42,15 +42,16 @@ export class CreateEditSecretTplComponent {
     private secretService: SecretService,
     private messageHandlerService: MessageHandlerService,
     private aceEditorService: AceEditorService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.secretService.getNames().subscribe(
-        response => {
-          this.secrets = response.data;
-        },
-        error => this.messageHandlerService.handleError(error)
-      );
+      response => {
+        this.secrets = response.data;
+      },
+      error => this.messageHandlerService.handleError(error)
+    );
   }
 
   initJsonEditor(): void {
@@ -101,7 +102,7 @@ export class CreateEditSecretTplComponent {
     this.secrettpl.template = this.aceBox.getValue();
     for (let secret of this.secrets) {
       if (secret.id === this.secrettpl.secretId) {
-        this.secrettpl.name = secret.name
+        this.secrettpl.name = secret.name;
       }
     }
     switch (this.actionType) {
@@ -111,7 +112,7 @@ export class CreateEditSecretTplComponent {
             this.isSubmitOnGoing = false;
             this.create.emit(true);
             this.createSecrettplOpened = false;
-              this.messageHandlerService.showSuccess('创建加密文件模板成功！');
+            this.messageHandlerService.showSuccess('创建加密文件模板成功！');
           },
           error => {
             this.isSubmitOnGoing = false;
@@ -150,7 +151,7 @@ export class CreateEditSecretTplComponent {
   handleValidation(): void {
     let cont = this.currentForm.controls['secrettpl_name'];
     if (cont) {
-      this.isNameValid = cont.valid
+      this.isNameValid = cont.valid;
     }
   }
 }

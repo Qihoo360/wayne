@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {Namespace} from '../../model/v1/namespace';
-import {PageState} from '../../page/page-state';
-import {isNotEmpty} from '../../utils';
+import { Namespace } from '../../model/v1/namespace';
+import { PageState } from '../../page/page-state';
+import { isNotEmpty } from '../../utils';
 
 @Injectable()
 export class NamespaceService {
@@ -32,12 +32,12 @@ export class NamespaceService {
       let value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
-          filterList.push(`${key}=${value}`)
+          filterList.push(`${key}=${value}`);
         } else {
           filterList.push(`${key}__contains=${value}`);
         }
       }
-    })
+    });
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }
@@ -49,14 +49,14 @@ export class NamespaceService {
     return this.http
       .get('/api/v1/namespaces', {params: params})
       //
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   getNames(): Observable<any> {
     return this.http
       .get('/api/v1/namespaces/names')
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   createNamespace(ns: Namespace): Observable<any> {
@@ -74,11 +74,11 @@ export class NamespaceService {
   }
 
   deleteNamespace(nsId: number, logical?: boolean): Observable<any> {
-    let options : any = {};
+    let options: any = {};
     if (logical != null) {
       let params = new HttpParams();
       params = params.set('logical', logical + '');
-      options.params = params
+      options.params = params;
     }
     return this.http
       .delete(`/api/v1/namespaces/${nsId}`, options)

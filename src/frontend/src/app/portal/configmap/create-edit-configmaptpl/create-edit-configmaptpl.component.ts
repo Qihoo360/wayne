@@ -1,26 +1,26 @@
-import {Component, OnInit, AfterViewInit, Inject, OnDestroy} from '@angular/core';
-import {Location} from '@angular/common';
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType, appLabelKey, namespaceLabelKey} from '../../../shared/shared.const';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import {DOCUMENT, EventManager} from '@angular/platform-browser';
-import {ConfigMapTpl} from '../../../shared/model/v1/configmaptpl';
-import {App} from '../../../shared/model/v1/app';
-import {ConfigMap} from '../../../shared/model/v1/configmap';
-import {KubeConfigMap, ObjectMeta} from '../../../shared/model/v1/kubernetes/configmap';
-import {ConfigMapTplService} from '../../../shared/client/v1/configmaptpl.service';
-import {ConfigMapService} from '../../../shared/client/v1/configmap.service';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {Cluster} from '../../../shared/model/v1/cluster';
-import {ClusterService} from '../../../shared/client/v1/cluster.service';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
-import {AuthService} from '../../../shared/auth/auth.service';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType, appLabelKey, namespaceLabelKey } from '../../../shared/shared.const';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { ConfigMapTpl } from '../../../shared/model/v1/configmaptpl';
+import { App } from '../../../shared/model/v1/app';
+import { ConfigMap } from '../../../shared/model/v1/configmap';
+import { KubeConfigMap, ObjectMeta } from '../../../shared/model/v1/kubernetes/configmap';
+import { ConfigMapTplService } from '../../../shared/client/v1/configmaptpl.service';
+import { ConfigMapService } from '../../../shared/client/v1/configmap.service';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { Cluster } from '../../../shared/model/v1/cluster';
+import { ClusterService } from '../../../shared/client/v1/cluster.service';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { AuthService } from '../../../shared/auth/auth.service';
 
 @Component({
   selector: 'create-edit-configmaptpl',
@@ -72,7 +72,7 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
 
   ngOnDestroy() {
     this.eventList.forEach(item => {
-      item()
+      item();
     });
     this.box.style.paddingBottom = '.75rem';
   }
@@ -86,7 +86,7 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
       // hack
       setTimeout(() => {
         this.top = this.box.scrollTop + this.box.offsetHeight - 48;
-      }, 0)
+      }, 0);
     }
   }
 
@@ -108,7 +108,7 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
 
   onDeleteData(index: number) {
     if (this.datas.controls.length <= 1) {
-      return
+      return;
     }
     this.datas.removeAt(index);
   }
@@ -192,10 +192,10 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
     );
   }
 
-  filterCluster(clusters:Cluster[]): Cluster[] {
+  filterCluster(clusters: Cluster[]): Cluster[] {
     return clusters.filter((clusterObj: Cluster) => {
       return this.cacheService.namespace.metaDataObj.clusterMeta &&
-        this.cacheService.namespace.metaDataObj.clusterMeta[clusterObj.name]
+        this.cacheService.namespace.metaDataObj.clusterMeta[clusterObj.name];
     });
   }
 
@@ -275,7 +275,7 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
   }
 
   openModal(): void {
-    this.aceEditorService.announceMessage(AceEditorMsg.Instance(this.getKubeConfigMapByForm(),true));
+    this.aceEditorService.announceMessage(AceEditorMsg.Instance(this.getKubeConfigMapByForm(), true));
   }
 
   saveConfigMapTpl(kubeConfigMap: KubeConfigMap) {
@@ -286,7 +286,7 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
         datas.push(this.fb.group({
           dataName: key,
           dataValue: kubeConfigMap.data[key],
-        }),)
+        }),);
       });
       this.currentForm.setControl('datas', this.fb.array(datas));
     }

@@ -1,17 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {Router, ActivatedRoute, Params} from '@angular/router';
-import {State} from '@clr/angular';
-import {ListSecretComponent} from './list-secret/list-secret.component';
-import {CreateEditSecretComponent} from './create-edit-secret/create-edit-secret.component';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {Secret} from '../../shared/model/v1/secret';
-import {SecretService} from '../../shared/client/v1/secret.service';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { State } from '@clr/angular';
+import { ListSecretComponent } from './list-secret/list-secret.component';
+import { CreateEditSecretComponent } from './create-edit-secret/create-edit-secret.component';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { Secret } from '../../shared/model/v1/secret';
+import { SecretService } from '../../shared/client/v1/secret.service';
+import { PageState } from '../../shared/page/page-state';
 
 @Component({
   selector: 'wayne-secret',
@@ -32,13 +31,10 @@ export class SecretComponent implements OnInit {
   subscription: Subscription;
 
   constructor(
-    private breadcrumbService: BreadcrumbService,
     private secretService: SecretService,
     private route: ActivatedRoute,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/secret', this.componentName + '列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/secret/trash', '已删除' + this.componentName + '列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
@@ -61,10 +57,10 @@ export class SecretComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.appId = params['aid'];
-      if (typeof(this.appId) == 'undefined') {
-          this.appId = ''
+      if (typeof (this.appId) == 'undefined') {
+        this.appId = '';
       }
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -91,7 +87,7 @@ export class SecretComponent implements OnInit {
 
   createSecret(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 
@@ -107,7 +103,7 @@ export class SecretComponent implements OnInit {
   }
 
   openModal(): void {
-      this.createEditSecret.newOrEditSecret();
+    this.createEditSecret.newOrEditSecret();
   }
 
   editSecret(secret: Secret): void {

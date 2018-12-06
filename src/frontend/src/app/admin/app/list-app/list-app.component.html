@@ -6,7 +6,7 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'name'" class="col-app-name">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      名称
+     {{'TITLE.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-metadata">
@@ -16,7 +16,7 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'description'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-    描述
+      描述
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
@@ -26,30 +26,31 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user'" class="col-user">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建者
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgSortBy]="'createTime'" class="col-time">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建时间
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let app of apps" [clrDgItem]="app">
-    <clr-dg-action-overflow >
-      <button class="action-item" (click)="editApp(app)" >编辑</button>
-      <button class="action-item" (click)="deleteApp(app)">删除</button>
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="editApp(app)">编辑</button>
+      <button class="action-item" (click)="deleteApp(app)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
-      <clr-dg-cell class="col-id">{{app.id}}</clr-dg-cell>
-      <clr-dg-cell class="col-app-name copy"><a href="javascript:void(0)" (click)="goToLink(app, 'deploy')">{{app.name}}</a></clr-dg-cell>
-      <clr-dg-cell class="col-metadata">
-        <div class="text-overflow">
-          <a href="javascript:;" (click)="detailMetaDataTpl(app.metaData)">{{app.metaData}}</a>
-        </div>
-      </clr-dg-cell>
-      <clr-dg-cell>{{app.description}}</clr-dg-cell>
-      <clr-dg-cell class="copy">{{app.namespaceName}}</clr-dg-cell>
-      <clr-dg-cell class="col-user">{{app.user}}</clr-dg-cell>
-      <clr-dg-cell class="col-time">{{app.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
+    <clr-dg-cell class="col-id">{{app.id}}</clr-dg-cell>
+    <clr-dg-cell class="col-app-name copy"><a href="javascript:void(0)"
+                                              (click)="goToLink(app, 'deploy')">{{app.name}}</a></clr-dg-cell>
+    <clr-dg-cell class="col-metadata">
+      <div class="text-overflow">
+        <a href="javascript:;" (click)="detailMetaDataTpl(app.metaData)">{{app.metaData}}</a>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell>{{app.description}}</clr-dg-cell>
+    <clr-dg-cell class="copy">{{app.namespaceName}}</clr-dg-cell>
+    <clr-dg-cell class="col-user">{{app.user}}</clr-dg-cell>
+    <clr-dg-cell class="col-time">{{app.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
 
   </clr-dg-row>
 

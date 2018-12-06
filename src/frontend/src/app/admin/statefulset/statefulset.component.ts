@@ -1,17 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {ActivatedRoute} from '@angular/router';
-import {State} from '@clr/angular';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {ListStatefulsetComponent} from './list-statefulset/list-statefulset.component';
-import {CreateEditStatefulsetComponent} from './create-edit-statefulset/create-edit-statefulset.component';
-import {Statefulset} from '../../shared/model/v1/statefulset';
-import {StatefulsetService} from '../../shared/client/v1/statefulset.service';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { State } from '@clr/angular';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { ListStatefulsetComponent } from './list-statefulset/list-statefulset.component';
+import { CreateEditStatefulsetComponent } from './create-edit-statefulset/create-edit-statefulset.component';
+import { Statefulset } from '../../shared/model/v1/statefulset';
+import { StatefulsetService } from '../../shared/client/v1/statefulset.service';
+import { PageState } from '../../shared/page/page-state';
 
 
 @Component({
@@ -32,14 +31,11 @@ export class StatefulsetComponent implements OnInit {
   subscription: Subscription;
 
   constructor(
-    private breadcrumbService: BreadcrumbService,
     private statefulsetService: StatefulsetService,
     private route: ActivatedRoute,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService
   ) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/statefulset', '状态副本集列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/statefulset/trash', '已删除状态副本集列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
@@ -65,7 +61,7 @@ export class StatefulsetComponent implements OnInit {
       if (!this.appId) {
         this.appId = 0;
       }
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -98,7 +94,7 @@ export class StatefulsetComponent implements OnInit {
 
   createStatefulset(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

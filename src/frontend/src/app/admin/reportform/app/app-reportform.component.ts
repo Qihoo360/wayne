@@ -1,8 +1,7 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import * as echarts from 'echarts';
-import {BreadcrumbService} from '../../../shared/client/v1/breadcrumb.service';
-import {AppService} from '../../../shared/client/v1/app.service';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
+import { AppService } from '../../../shared/client/v1/app.service';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import ECharts = echarts.ECharts;
 import EChartOption = echarts.EChartOption;
 
@@ -15,18 +14,16 @@ export class AppReportFormComponent implements OnInit, AfterViewInit {
   options: EChartOption;
   private chart: ECharts;
 
-  constructor(private breadcrumbService: BreadcrumbService,
-              private messageHandlerService: MessageHandlerService,
-              private appService: AppService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/reportform', '系统报表', false);
-    breadcrumbService.addFriendlyNameForRoute('/admin/reportform/app', '项目概况');
+  constructor(
+    private messageHandlerService: MessageHandlerService,
+    private appService: AppService) {
   }
 
   ngAfterViewInit(): void {
     this.chart = echarts.init(this.elementView.nativeElement, 'vintage');
     this.appService.getStatistics().subscribe(
       resp => {
-        let data = resp.data;
+        const data = resp.data;
         this.initOptions(data);
         this.chart.setOption(this.options);
       },
@@ -38,7 +35,7 @@ export class AppReportFormComponent implements OnInit, AfterViewInit {
   }
 
   initOptions(datas: any) {
-    let data = this.getData(datas.details);
+    const data = this.getData(datas.details);
     this.options = {
       title: {
         text: '项目总数：' + (datas.total || 0),
@@ -81,12 +78,12 @@ export class AppReportFormComponent implements OnInit, AfterViewInit {
   }
 
   getData(details: any) {
-    let legendData = Array();
-    let seriesData = Array();
-    let dataCount = {};
-    let selected = {};
+    const legendData = Array();
+    const seriesData = Array();
+    const dataCount = {};
+    const selected = {};
     for (let i = 0; i < details.length; i++) {
-      let detail = details[i];
+      const detail = details[i];
       legendData.push(detail.name);
       seriesData.push({
         name: detail.name,
@@ -108,9 +105,5 @@ export class AppReportFormComponent implements OnInit, AfterViewInit {
   ngOnInit() {
 
   }
-
-  ngOnDestroy(): void {
-  }
-
 
 }

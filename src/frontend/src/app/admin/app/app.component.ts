@@ -1,18 +1,18 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {ActivatedRoute} from '@angular/router';
-import {State} from '@clr/angular';
-import {ListAppComponent} from './list-app/list-app.component';
-import {CreateEditAppComponent} from './create-edit-app/create-edit-app.component';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {App} from '../../shared/model/v1/app';
-import {AppService} from '../../shared/client/v1/app.service';
-import {NamespaceService} from '../../shared/client/v1/namespace.service';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
+import { ActivatedRoute } from '@angular/router';
+import { State } from '@clr/angular';
+import { ListAppComponent } from './list-app/list-app.component';
+import { CreateEditAppComponent } from './create-edit-app/create-edit-app.component';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { App } from '../../shared/model/v1/app';
+import { AppService } from '../../shared/client/v1/app.service';
+import { NamespaceService } from '../../shared/client/v1/namespace.service';
+import { PageState } from '../../shared/page/page-state';
 
 @Component({
   selector: 'wayne-app',
@@ -37,8 +37,6 @@ export class AppComponent implements OnInit {
               private messageHandlerService: MessageHandlerService,
               private namespaceService: NamespaceService,
               private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/app', '项目列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/app/trash', '已删除项目列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
@@ -61,13 +59,13 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.namespaceId = params['nid'];
-      if (typeof(this.namespaceId) === 'undefined') {
-        this.namespaceId = ''
+      if (typeof (this.namespaceId) === 'undefined') {
+        this.namespaceId = '';
       }
-      if (typeof(params['aid']) !== 'undefined') {
+      if (typeof (params['aid']) !== 'undefined') {
         this.idFilterInit = params['aid'];
       }
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -96,7 +94,7 @@ export class AppComponent implements OnInit {
 
   createApp(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

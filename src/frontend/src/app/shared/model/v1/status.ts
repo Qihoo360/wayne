@@ -1,6 +1,6 @@
-import {PublishStatus} from './publish-status';
-import {TemplateState} from '../../shared.const';
-import {Event} from './event';
+import { PublishStatus } from './publish-status';
+import { TemplateState } from '../../shared.const';
+import { Event } from './event';
 
 export class TemplateStatus {
   id: number;

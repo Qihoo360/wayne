@@ -1,25 +1,20 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {State} from '@clr/angular';
-import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmation-message';
-import {
-  ConfirmationButtons,
-  ConfirmationState,
-  ConfirmationTargets,
-  ResourcesActionType
-} from '../../../shared/shared.const';
-import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {PublishSecretTplComponent} from '../publish-tpl/publish-tpl.component';
-import {Secret} from '../../../shared/model/v1/secret';
-import {SecretTpl} from '../../../shared/model/v1/secrettpl';
-import {SecretTplService} from '../../../shared/client/v1/secrettpl.service';
-import {TplDetailService} from '../../common/tpl-detail/tpl-detail.service';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Page} from '../../../shared/page/page-state';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { State } from '@clr/angular';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets, ResourcesActionType } from '../../../shared/shared.const';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { PublishSecretTplComponent } from '../publish-tpl/publish-tpl.component';
+import { Secret } from '../../../shared/model/v1/secret';
+import { SecretTpl } from '../../../shared/model/v1/secrettpl';
+import { SecretTplService } from '../../../shared/client/v1/secrettpl.service';
+import { TplDetailService } from '../../common/tpl-detail/tpl-detail.service';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Page } from '../../../shared/page/page-state';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'list-secret',
@@ -97,11 +92,11 @@ export class ListSecretComponent implements OnInit, OnDestroy {
   }
 
   detailSecretTpl(tpl: SecretTpl) {
-    this.aceEditorService.announceMessage(AceEditorMsg.Instance(JSON.parse(tpl.template),false));
+    this.aceEditorService.announceMessage(AceEditorMsg.Instance(JSON.parse(tpl.template), false));
   }
 
   publishSecretTpl(tpl: SecretTpl) {
-    this.publishTpl.newPublishTpl(tpl, ResourcesActionType.PUBLISH)
+    this.publishTpl.newPublishTpl(tpl, ResourcesActionType.PUBLISH);
   }
 
   offlineSecretTpl(tpl: SecretTpl) {

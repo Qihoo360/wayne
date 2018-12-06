@@ -1,7 +1,7 @@
 $clr-thead-bgcolor: #e8edf6;
 
 // header
-header.header-6, .header.header-6{
+header.header-6, .header.header-6 {
   background-color: #1d2143 !important;
 }
 
@@ -24,14 +24,16 @@ $clr-vertical-nav-bg-color: $bg-color;
 $clr-vertical-nav-hover-bg-color: $bg-color;
 $clr-vertical-nav-icon-active-color: $clr-white;
 $clr-vertical-nav-toggle-icon-color: #adbbc4;
-.clr-vertical-nav .nav-link.active{
+.clr-vertical-nav .nav-link.active {
   background: $hover-color !important;
 }
-.clr-vertical-nav .nav-link:not(.active):hover{
-  .nav-icon{
+
+.clr-vertical-nav .nav-link:not(.active):hover {
+  .nav-icon {
     fill: $hover-color !important;
   }
-  .nav-text{
+
+  .nav-text {
     color: $hover-color;
   }
 }

@@ -1,43 +1,37 @@
-import {Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, AfterViewInit} from '@angular/core';
-import {State} from '@clr/angular';
-import {ListAppComponent} from './list-app/list-app.component';
-import {CreateEditAppComponent} from './create-edit-app/create-edit-app.component';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {App} from '../../shared/model/v1/app';
-import {AppService} from '../../shared/client/v1/app.service';
-import {Namespace} from '../../shared/model/v1/namespace';
-import {CacheService} from '../../shared/auth/cache.service';
-import {AuthService} from '../../shared/auth/auth.service';
-import {PageState} from '../../shared/page/page-state';
-import {isEmpty} from '../../shared/utils';
-import {ActivatedRoute} from '@angular/router';
-import {NamespaceClient} from '../../shared/client/v1/kubernetes/namespace';
-import {StorageService} from '../../shared/client/v1/storage.service';
-import {RedDot} from '../../shared/model/v1/red-dot';
-import {EventManager, DOCUMENT} from '@angular/platform-browser';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { State } from '@clr/angular';
+import { ListAppComponent } from './list-app/list-app.component';
+import { CreateEditAppComponent } from './create-edit-app/create-edit-app.component';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { App } from '../../shared/model/v1/app';
+import { AppService } from '../../shared/client/v1/app.service';
+import { Namespace } from '../../shared/model/v1/namespace';
+import { CacheService } from '../../shared/auth/cache.service';
+import { AuthService } from '../../shared/auth/auth.service';
+import { PageState } from '../../shared/page/page-state';
+import { ActivatedRoute } from '@angular/router';
+import { NamespaceClient } from '../../shared/client/v1/kubernetes/namespace';
+import { StorageService } from '../../shared/client/v1/storage.service';
+import { RedDot } from '../../shared/model/v1/red-dot';
+import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { TranslateService } from '@ngx-translate/core';
 
-class ClusterCard{
+class ClusterCard {
   name: string;
   state: boolean;
 }
 
 const showState = {
-  '名称': {hidden: false},
-  '描述': {hidden: false},
-  '创建时间': {hidden: false},
-  '创建者': {hidden: false},
-  '操作': {hidden: false}
+  'name': {hidden: false},
+  'description': {hidden: false},
+  'create_time': {hidden: false},
+  'create_user': {hidden: false},
+  'action': {hidden: false}
 };
 
 @Component({
@@ -89,6 +83,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
               private messageHandlerService: MessageHandlerService,
               private deletionDialogService: ConfirmationDialogService,
               private element: ElementRef,
+              public translate: TranslateService,
               private storage: StorageService,
               private eventManager: EventManager,
               @Inject(DOCUMENT) private document: any) {
@@ -118,7 +113,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       } else {
         this.showState[key] = {hidden: true};
       }
-    })
+    });
   }
 
   cancelEvent() {
@@ -134,14 +129,14 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     const length = this.clusters.length;
     setTimeout(() => {
       this.allowNumber = this.getClusterMaxNumber();
-      for(var i = length; i > 0; i--) {
+      for (var i = length; i > 0; i--) {
         if (i < this.allowNumber) {
           this.clusters[i - 1].state = true;
         } else {
           this.clusters[i - 1].state = false;
         }
       }
-    }, slow ? 200 : 1000 / 60)
+    }, slow ? 200 : 1000 / 60);
   }
 
   ngOnInit() {
@@ -162,7 +157,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
       if (!this.showState[key].hidden) this.showList.push(key);
-    })
+    });
   }
 
   dealLimitLogic(value: number): number {
@@ -177,12 +172,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
           this.clusters.push({name: cluster, state: false});
         });
         this.allowNumber = this.getClusterMaxNumber();
-        for(var i = 0; i < this.allowNumber - 1; i++) {
+        for (var i = 0; i < this.allowNumber - 1; i++) {
           setTimeout(((i) => {
-            if(this.clusters[i]) {
+            if (this.clusters[i]) {
               this.clusters[i].state = true;
             }
-          }).bind(this, i), 200 * i)
+          }).bind(this, i), 200 * i);
         }
       },
       error => this.messageHandlerService.handleError(error)
@@ -195,11 +190,11 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.allowShowAll) {
       this.allowShowAll = false;
       const length = this.clusters.length;
-      for(var i = length; i > 0; i--) {
+      for (var i = length; i > 0; i--) {
         if (i >= this.allowNumber) {
           setTimeout(((i) => {
             this.clusters[i - 1].state = false;
-          }).bind(this, i), 200 * count++)
+          }).bind(this, i), 200 * count++);
         }
       }
       svg.style.transform = 'rotateZ(0)';
@@ -211,7 +206,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
             item.state = true;
           }).bind(this, item), 200 * count++);
         }
-      })
+      });
       svg.style.transform = 'rotateZ(90deg)';
     }
   }
@@ -239,12 +234,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.eventList.forEach(item => {
       item();
-    })
+    });
   }
 
   retrieve(state?: State): void {
     if (!this.cacheService.currentNamespace) {
-      return
+      return;
     }
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
@@ -273,7 +268,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   createApp(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

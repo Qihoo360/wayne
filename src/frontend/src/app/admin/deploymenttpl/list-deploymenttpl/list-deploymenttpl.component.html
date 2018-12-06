@@ -6,7 +6,7 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'name'" class="col-app-name">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      名称
+     {{'TITLE.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
@@ -17,18 +17,18 @@
 
   <clr-dg-column [clrDgField]="'user'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建者
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgSortBy]="'createTime'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建时间
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let deploymentTpl of deploymentTpls" [clrDgItem]="deploymentTpl">
-    <clr-dg-action-overflow >
-      <button class="action-item" (click)="editDeploymentTpl(deploymentTpl)" >编辑</button>
-      <button class="action-item" (click)="deleteDeploymentTpl(deploymentTpl)">删除</button>
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="editDeploymentTpl(deploymentTpl)">编辑</button>
+      <button class="action-item" (click)="deleteDeploymentTpl(deploymentTpl)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{deploymentTpl.id}}</clr-dg-cell>
     <clr-dg-cell class="col-app-name copy">{{deploymentTpl.name}}</clr-dg-cell>

@@ -1,5 +1,5 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)" class="wayne-clr-datagrid">
-  <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+  <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
   <clr-dg-column class="col-id">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       #
@@ -7,32 +7,32 @@
   </clr-dg-column>
   <clr-dg-column class="col-time">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建时间
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-cluster">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      配置机房
+      {{'TITLE.CONFIG_CLUSTER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-cluster">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      已上线机房
+      {{'TITLE.ONLINE_CLUSTER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-description">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      发布说明
+      {{'TITLE.RELEASE_EXPLAIN' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建者
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-operate">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      操作
+      {{'TITLE.ACTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let tpl of pvcTpls" [clrDgItem]="tpl">
@@ -45,7 +45,8 @@
     </clr-dg-cell>
     <clr-dg-cell class="col-cluster">
       <div class="form-group" style="padding-bottom: 2px" *ngFor="let status of tpl.status">
-        {{status.cluster}}&nbsp;<clr-icon style="color: #FF3434" shape="exclamation-triangle" *ngIf="status.state == 1" class="is-solid"></clr-icon>
+        {{status.cluster}}&nbsp;<clr-icon style="color: #FF3434" shape="exclamation-triangle" *ngIf="status.state == 1"
+                                          class="is-solid"></clr-icon>
         <clr-icon style="color: green" shape="success-standard" *ngIf="status.state == 0" class="is-solid"></clr-icon>
       </div>
     </clr-dg-cell>
@@ -56,21 +57,26 @@
     </clr-dg-cell>
     <clr-dg-cell>{{tpl.user}}</clr-dg-cell>
     <clr-dg-cell class="col-operate">
-      <button class="wayne-button text" (click)="publishPvcTpl(tpl)" *ngIf="authService.currentAppPermission.pvc.deploy || authService.currentUser.admin">
-        发布
+      <button class="wayne-button text" (click)="publishPvcTpl(tpl)"
+              *ngIf="authService.currentAppPermission.pvc.deploy || authService.currentUser.admin">
+        {{'BUTTON.RELEASE' | translate}}
       </button>
-      <button class="wayne-button text" (click)="detailPvcTpl(tpl)" *ngIf="authService.currentAppPermission.pvc.read || authService.currentUser.admin">
-        详情
+      <button class="wayne-button text" (click)="detailPvcTpl(tpl)"
+              *ngIf="authService.currentAppPermission.pvc.read || authService.currentUser.admin">
+        {{'BUTTON.DETAIL' | translate}}
       </button>
-      <button class="wayne-button text" (click)="clonePvcTpl(tpl)" *ngIf="authService.currentAppPermission.pvc.create || authService.currentUser.admin">
-        克隆
+      <button class="wayne-button text" (click)="clonePvcTpl(tpl)"
+              *ngIf="authService.currentAppPermission.pvc.create || authService.currentUser.admin">
+        {{'BUTTON.CLONE' | translate}}
       </button>
-      <button class="wayne-button text" *ngIf="!tpl.status && (authService.currentAppPermission.pvc.delete || authService.currentUser.admin)"
-        (click)="deletePvcTpl(tpl)">
-        删除
+      <button class="wayne-button text"
+              *ngIf="!tpl.status && (authService.currentAppPermission.pvc.delete || authService.currentUser.admin)"
+              (click)="deletePvcTpl(tpl)">
+        {{'BUTTON.DELETE' | translate}}
       </button>
-      <button class="wayne-button text" title="下线" (click)="offlinePvcTpl(tpl)" *ngIf="tpl.status && (authService.currentAppPermission.pvc.offline || authService.currentUser.admin)">
-        下线
+      <button class="wayne-button text" (click)="offlinePvcTpl(tpl)"
+              *ngIf="tpl.status && (authService.currentAppPermission.pvc.offline || authService.currentUser.admin)">
+        {{'BUTTON.DROP' | translate}}
       </button>
     </clr-dg-cell>
   </clr-dg-row>
@@ -87,105 +93,112 @@
 <user-info></user-info>
 <publish-tpl (published)="published($event)"></publish-tpl>
 <div *ngIf="isEnableRobin">
-<h3>PVC部署状态</h3>
+  <h3>{{'PVC.DEPLOYMENT_STATUS' | translate}}</h3>
 
-<span *ngIf="loading" style="margin-left: 46%" class="spinner spinner-lg">
+  <span *ngIf="loading" style="margin-left: 46%" class="spinner spinner-lg">
   Loading...
 </span>
 
-<clr-datagrid *ngIf="!loading" class="wayne-clr-datagrid">
-  <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
-  <clr-dg-column style="width: 5%">
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      机房
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      总量
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      PV名称
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      访问模式
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      状态
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      文件系统状态
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      错误信息
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      操作
-    </ng-container>
-  </clr-dg-column>
-  <div *ngFor="let tpl of pvcTpls">
-    <div *ngIf="tpl.status">
-      <div *ngFor="let state of tpl.status">
-        <clr-dg-row *ngIf="state.pvc" [clrDgItem]="state.pvc">
-          <clr-dg-cell>{{state.cluster}}</clr-dg-cell>
-          <clr-dg-cell>{{state.pvc?.spec.resources.requests.storage}}</clr-dg-cell>
-          <clr-dg-cell class="copy">{{state.pvc?.spec.volumeName}}</clr-dg-cell>
-          <clr-dg-cell>
-            <div class="form-group" style="padding-bottom: 2px" *ngFor="let ac of state.pvc.status.accessModes">
-              <a href="javascript:void(0)" class="label label-success">
-                {{ac}}
-              </a>
-            </div>
-          </clr-dg-cell>
-          <clr-dg-cell>{{state.pvc?.status.phase}}</clr-dg-cell>
-          <clr-dg-cell>{{fileSystemState(state.fileSystemStatus)}}</clr-dg-cell>
-          <clr-dg-cell>{{state.fileSystemStatus?.msg}}</clr-dg-cell>
-          <clr-dg-cell>
-            <div *ngIf="state.state==0">
-              <button class="wayne-button text" *ngIf="!containState(state.fileSystemStatus,'Mount')" style="padding-right: 5px"
-                (click)="activePv(state)">
-                激活存储
-              </button>
-              <button class="wayne-button text" *ngIf="containState(state.fileSystemStatus,'Mount')" title="反激活存储" style="padding-right: 5px"
-                (click)="inActivePv(state)">
-                反激活存储
-              </button>
-              <button class="wayne-button text" *ngIf="containState(state.fileSystemStatus,'Mount') && !containState(state.fileSystemStatus,'LoginForbidden')"
-                title="强制下线用户" style="padding-right: 5px" (click)="offlineImageUser(state)">
-                强制下线用户
-              </button>
-              <button class="wayne-button text" *ngIf="containState(state.fileSystemStatus,'Mount') && containState(state.fileSystemStatus,'LoginForbidden')"
-                title="允许用户登录" style="padding-right: 5px" (click)="activePv(state)">
-                允许用户登录
-              </button>
-              <button class="wayne-button text" *ngIf="containState(state.fileSystemStatus,'Mount')" (click)="loginInfo(state)" title="查看用户名密码">
-                查看用户名密码
-              </button>
-              <button class="wayne-button text" *ngIf="containState(state.fileSystemStatus,'Mount') && containState(state.fileSystemStatus,'LoginForbidden')"
-                title="校验文件" style="padding-right: 5px" (click)="verifyFileSystem(state)">
-                校验文件
-              </button>
-            </div>
-          </clr-dg-cell>
-          <clr-dg-row-detail *clrIfExpanded>
-            <snapshot-persistentvolumeclaim *ngIf="state.fileSystemStatus?.imageType == 'rbd'" [appId]="appId" style="width: 98%"
-                                            [state]="state"></snapshot-persistentvolumeclaim>
-          </clr-dg-row-detail>
-        </clr-dg-row>
+  <clr-datagrid *ngIf="!loading" class="wayne-clr-datagrid">
+    <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
+    <clr-dg-column style="width: 5%">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        {{'TITLE.CLUSTER' | translate}}
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        {{'TITLE.TOTAL' | translate}}
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        {{'PVC.PV_NAME' | translate}}
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        {{'PVC.ACCESS_PATTERN' | translate}}
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        {{'TITLE.STATUS' | translate}}
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        {{'PVC.FILE_SYSTEM_STATUS' | translate}}
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+         {{'EVENT.ERROR_MESSAGE' | translate}}
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        {{'TITLE.ACTION' | translate}}
+      </ng-container>
+    </clr-dg-column>
+    <div *ngFor="let tpl of pvcTpls">
+      <div *ngIf="tpl.status">
+        <div *ngFor="let state of tpl.status">
+          <clr-dg-row *ngIf="state.pvc" [clrDgItem]="state.pvc">
+            <clr-dg-cell>{{state.cluster}}</clr-dg-cell>
+            <clr-dg-cell>{{state.pvc?.spec.resources.requests.storage}}</clr-dg-cell>
+            <clr-dg-cell class="copy">{{state.pvc?.spec.volumeName}}</clr-dg-cell>
+            <clr-dg-cell>
+              <div class="form-group" style="padding-bottom: 2px" *ngFor="let ac of state.pvc.status.accessModes">
+                <a href="javascript:void(0)" class="label label-success">
+                  {{ac}}
+                </a>
+              </div>
+            </clr-dg-cell>
+            <clr-dg-cell>{{state.pvc?.status.phase}}</clr-dg-cell>
+            <clr-dg-cell>{{fileSystemState(state.fileSystemStatus)}}</clr-dg-cell>
+            <clr-dg-cell>{{state.fileSystemStatus?.msg}}</clr-dg-cell>
+            <clr-dg-cell>
+              <div *ngIf="state.state==0">
+                <button class="wayne-button text" *ngIf="!containState(state.fileSystemStatus,'Mount')"
+                        style="padding-right: 5px"
+                        (click)="activePv(state)">
+                  {{'PVC.ACTIVATE_STORAGE' | translate}}
+                </button>
+                <button class="wayne-button text" *ngIf="containState(state.fileSystemStatus,'Mount')" [title]="'PVC.DEACTIVATED_STORAGE' | translate"
+                        style="padding-right: 5px"
+                        (click)="inActivePv(state)">
+                  {{'PVC.DEACTIVATED_STORAGE' | translate}}
+                </button>
+                <button class="wayne-button text"
+                        *ngIf="containState(state.fileSystemStatus,'Mount') && !containState(state.fileSystemStatus,'LoginForbidden')"
+                        [title]="'PVC.FORCE_OFFLINE_USER' | translate" style="padding-right: 5px" (click)="offlineImageUser(state)">
+                  {{'PVC.FORCE_OFFLINE_USER' | translate}}
+                </button>
+                <button class="wayne-button text"
+                        *ngIf="containState(state.fileSystemStatus,'Mount') && containState(state.fileSystemStatus,'LoginForbidden')"
+                        [title]="'PVC.ALLOW_USER_LOGIN' | translate" style="padding-right: 5px" (click)="activePv(state)">
+                  {{'PVC.ALLOW_USER_LOGIN' | translate}}
+                </button>
+                <button class="wayne-button text" *ngIf="containState(state.fileSystemStatus,'Mount')"
+                        (click)="loginInfo(state)" title="'PVC.VIEW_USER_PASS' | translate">
+                  {{'PVC.VIEW_USER_PASS' | translate}}
+                </button>
+                <button class="wayne-button text"
+                        *ngIf="containState(state.fileSystemStatus,'Mount') && containState(state.fileSystemStatus,'LoginForbidden')"
+                        title="'PVC.CHECK_FILE' | translate" style="padding-right: 5px" (click)="verifyFileSystem(state)">
+                  {{'PVC.CHECK_FILE' | translate}}
+                </button>
+              </div>
+            </clr-dg-cell>
+            <clr-dg-row-detail *clrIfExpanded>
+              <snapshot-persistentvolumeclaim *ngIf="state.fileSystemStatus?.imageType == 'rbd'" [appId]="appId"
+                                              style="width: 98%"
+                                              [state]="state"></snapshot-persistentvolumeclaim>
+            </clr-dg-row-detail>
+          </clr-dg-row>
+        </div>
       </div>
     </div>
-  </div>
-</clr-datagrid>
+  </clr-datagrid>
 </div>

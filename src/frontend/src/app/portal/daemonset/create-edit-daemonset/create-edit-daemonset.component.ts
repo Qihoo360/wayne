@@ -1,16 +1,17 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {ActionType, configKeyApiNameGenerateRule} from '../../../shared/shared.const';
-import {App} from '../../../shared/model/v1/app';
-import {Cluster} from '../../../shared/model/v1/cluster';
-import {DaemonSet} from '../../../shared/model/v1/daemonset';
-import {DaemonSetService} from '../../../shared/client/v1/daemonset.service';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {ApiNameGenerateRule} from '../../../shared/utils';
+import { NgForm } from '@angular/forms';
+import { ActionType, configKeyApiNameGenerateRule } from '../../../shared/shared.const';
+import { App } from '../../../shared/model/v1/app';
+import { Cluster } from '../../../shared/model/v1/cluster';
+import { DaemonSet } from '../../../shared/model/v1/daemonset';
+import { DaemonSetService } from '../../../shared/client/v1/daemonset.service';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { ApiNameGenerateRule } from '../../../shared/utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'create-edit-daemonset',
@@ -36,6 +37,7 @@ export class CreateEditDaemonSetComponent implements OnInit {
 
   constructor(private daemonSetService: DaemonSetService,
               private authService: AuthService,
+              public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
   }
 
@@ -55,7 +57,7 @@ export class CreateEditDaemonSetComponent implements OnInit {
     }
     if (id) {
       this.actionType = ActionType.EDIT;
-      this.title = '编辑守护进程集';
+      this.title = 'DAEMONSET.EDIT';
       this.daemonSetService.getById(id, this.app.id).subscribe(
         status => {
           let data = status.data;
@@ -68,7 +70,7 @@ export class CreateEditDaemonSetComponent implements OnInit {
             for (let cluster of metaData['clusters']) {
               for (let i = 0; i < this.clusters.length; i++) {
                 if (cluster == this.clusters[i].name) {
-                  this.clusters[i].checked = true
+                  this.clusters[i].checked = true;
                 }
               }
             }
@@ -80,7 +82,7 @@ export class CreateEditDaemonSetComponent implements OnInit {
         });
     } else {
       this.actionType = ActionType.ADD_NEW;
-      this.title = '创建守护进程集';
+      this.title = 'DAEMONSET.CREATE';
       this.daemonSet = new DaemonSet();
     }
   }
@@ -90,9 +92,9 @@ export class CreateEditDaemonSetComponent implements OnInit {
     this.currentForm.reset();
   }
 
-  get nameGenerateRuleConfig():string{
+  get nameGenerateRuleConfig(): string {
     return ApiNameGenerateRule.config(
-      this.authService.config[configKeyApiNameGenerateRule], this.app.metaData)
+      this.authService.config[configKeyApiNameGenerateRule], this.app.metaData);
   }
 
   onSubmit() {
@@ -108,7 +110,7 @@ export class CreateEditDaemonSetComponent implements OnInit {
     let checkedCluster = Array<string>();
     this.clusters.map(cluster => {
       if (cluster.checked) {
-        checkedCluster.push(cluster.name)
+        checkedCluster.push(cluster.name);
       }
     });
     metaData['clusters'] = checkedCluster;
@@ -164,7 +166,7 @@ export class CreateEditDaemonSetComponent implements OnInit {
   handleValidation(): void {
     let cont = this.currentForm.controls['name'];
     if (cont) {
-      this.isNameValid = cont.valid
+      this.isNameValid = cont.valid;
     }
 
   }

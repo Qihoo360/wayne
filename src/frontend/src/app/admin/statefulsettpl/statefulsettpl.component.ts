@@ -1,17 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {ActivatedRoute} from '@angular/router';
-import {State} from '@clr/angular';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {PageState} from '../../shared/page/page-state';
-import {ListStatefulsettplComponent} from './list-statefulsettpl/list-statefulsettpl.component';
-import {CreateEditStatefulsettplComponent} from './create-edit-statefulsettpl/create-edit-statefulsettpl.component';
-import {StatefulsetTplService} from '../../shared/client/v1/statefulsettpl.service';
-import {StatefulsetTemplate} from '../../shared/model/v1/statefulsettpl';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { State } from '@clr/angular';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { PageState } from '../../shared/page/page-state';
+import { ListStatefulsettplComponent } from './list-statefulsettpl/list-statefulsettpl.component';
+import { CreateEditStatefulsettplComponent } from './create-edit-statefulsettpl/create-edit-statefulsettpl.component';
+import { StatefulsetTplService } from '../../shared/client/v1/statefulsettpl.service';
+import { StatefulsetTemplate } from '../../shared/model/v1/statefulsettpl';
 
 @Component({
   selector: 'wayne-statefulsettpl',
@@ -31,13 +30,10 @@ export class StatefulsettplComponent implements OnInit {
   subscription: Subscription;
 
   constructor(
-    private breadcrumbService: BreadcrumbService,
     private statefulsetTplService: StatefulsetTplService,
     private route: ActivatedRoute,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/statefulset/tpl', '状态副本集模板列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/statefulset/tpl/trash', '已删除状态副本集模板列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
@@ -60,10 +56,10 @@ export class StatefulsettplComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.statefulsetId = params['did'];
-      if (typeof(this.statefulsetId) == 'undefined') {
-          this.statefulsetId = 0
+      if (typeof (this.statefulsetId) == 'undefined') {
+        this.statefulsetId = 0;
       }
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -74,7 +70,11 @@ export class StatefulsettplComponent implements OnInit {
 
   retrieve(state?: State): void {
     if (state) {
-      this.pageState = PageState.fromState(state, {pageSize: 10, totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
+      this.pageState = PageState.fromState(state, {
+        pageSize: 10,
+        totalPage: this.pageState.page.totalPage,
+        totalCount: this.pageState.page.totalCount
+      });
     }
     this.pageState.params['deleted'] = false;
     this.statefulsetTplService.listPage(this.pageState, this.statefulsetId)
@@ -91,7 +91,7 @@ export class StatefulsettplComponent implements OnInit {
 
   createStatefulset(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

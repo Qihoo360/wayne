@@ -11,7 +11,7 @@
       </clr-dg-column>
       <clr-dg-column [clrDgField]="'name'" class="col-app-name">
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          名称
+         {{'TITLE.NAME' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column class="col-metadata">
@@ -26,17 +26,17 @@
       </clr-dg-column>
       <clr-dg-column [clrDgField]="'user'">
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          创建者
+          {{'TITLE.CREATE_USER' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column [clrDgSortBy]="'createTime'" class="col-time">
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          创建时间
+          {{'TITLE.CREATE_TIME' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-row *ngFor="let configMap of configMaps" [clrDgItem]="configMap">
         <clr-dg-action-overflow>
-          <button class="action-item" (click)="recoverConfigMap(configMap)" >恢复</button>
+          <button class="action-item" (click)="recoverConfigMap(configMap)">恢复</button>
           <button class="action-item" (click)="deleteConfigMap(configMap)">彻底删除</button>
         </clr-dg-action-overflow>
         <clr-dg-cell class="col-query-id">{{configMap.id}}</clr-dg-cell>

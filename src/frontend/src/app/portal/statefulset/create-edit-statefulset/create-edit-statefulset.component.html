@@ -4,7 +4,8 @@
     <form #ngForm="ngForm" style="padding-right: 30px;width: 100%">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="statefulset_name" class="col-md-3 form-group-label-override required">名称</label>
+          <label for="statefulset_name"
+                 class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="statefulset_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <span *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</span>
@@ -14,19 +15,19 @@
                    required
                    *ngIf="app && actionType==0"
                    [readonly]="actionType==1"
-                   placeholder="英文小写，中划线分隔"
+                   [placeholder]="'PLACEHOLDER.APP_NAME' | translate"
                    pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
                    maxlength="64"
                    (keyup)='handleValidation()'>
             <span *ngIf="app && actionType==1">{{statefulset.name}}</span>
             <span class="tooltip-content">
-              名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?
+              {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
         </span>
           </label>
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label class="col-md-3 form-group-label-override required">机房</label>
+          <label class="col-md-3 form-group-label-override required">{{'TITLE.CLUSTER' | translate}}</label>
           <div *ngFor="let cluster of clusters" class="checkbox-inline">
             <div class="checkbox">
               <input [(ngModel)]="clusterMetas[cluster.name].checked"
@@ -38,19 +39,20 @@
                      role="tooltip"
                      [class.invalid]="!replicaValidation(cluster.name)"
                      class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-                <input placeholder="部署份数" [(ngModel)]="clusterMetas[cluster.name].value"
+                <input [placeholder]="'DEPLOYMENT.NUM' | translate" [(ngModel)]="clusterMetas[cluster.name].value"
                        id="{{cluster.name}}-replica"
                        name="{{cluster.name}}-replica"
                        type="number">
                 <span class="tooltip-content">
-                    部署份数超过系统最大限制{{replicaLimit}}
+                   {{'LIMIT.DELOYMENT' | translate}}{{replicaLimit}}
               </span>
               </label>
             </div>
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="statefulset_description" class="col-md-3 form-group-label-override">描述</label>
+          <label for="statefulset_description"
+                 class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="statefulset_description" [(ngModel)]="statefulset.description"
                     name="statefulset_description"
                     rows="3">
@@ -61,8 +63,9 @@
     </form>
   </div>
   <div class="modal-footer" style="padding-right: 5%">
-    <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
-    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
+    <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid"
+            (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
   </div>
 </clr-modal>
 

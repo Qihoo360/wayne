@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {ConfigMapTpl} from '../../../shared/model/v1/configmaptpl';
-import {Page} from '../../../shared/page/page-state';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { ConfigMapTpl } from '../../../shared/model/v1/configmaptpl';
+import { Page } from '../../../shared/page/page-state';
 
 @Component({
   selector: 'list-configmaptpl',
@@ -44,7 +44,7 @@ export class ListConfigMapTplComponent implements OnInit {
     this.delete.emit(configMapTpl);
   }
 
-  editConfigMapTpl(configMapTpl: ConfigMapTpl){
+  editConfigMapTpl(configMapTpl: ConfigMapTpl) {
     this.edit.emit(configMapTpl);
   }
 }

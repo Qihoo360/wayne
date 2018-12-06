@@ -1,16 +1,15 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {State} from '@clr/angular';
-import {ListGroupComponent} from './list-group/list-group.component';
-import {CreateEditGroupComponent} from './create-edit-group/create-edit-group.component';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {Group} from '../../shared/model/v1/group';
-import {GroupService} from '../../shared/client/v1/group.service';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { State } from '@clr/angular';
+import { ListGroupComponent } from './list-group/list-group.component';
+import { CreateEditGroupComponent } from './create-edit-group/create-edit-group.component';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { Group } from '../../shared/model/v1/group';
+import { GroupService } from '../../shared/client/v1/group.service';
+import { PageState } from '../../shared/page/page-state';
 
 @Component({
   selector: 'wayne-group',
@@ -28,17 +27,16 @@ export class GroupComponent implements OnInit {
 
   subscription: Subscription;
 
-    constructor(
-        private groupService: GroupService,
-        private breadcrumbService: BreadcrumbService,
-        private messageHandlerService: MessageHandlerService,
-        private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/system/group', '角色列表');
+  constructor(
+    private groupService: GroupService,
+    private messageHandlerService: MessageHandlerService,
+    private deletionDialogService: ConfirmationDialogService) {
+
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.GROUP) {
-        let groupId = message.data;
+        const groupId = message.data;
         this.groupService.deleteGroup(groupId)
           .subscribe(
             response => {
@@ -80,7 +78,7 @@ export class GroupComponent implements OnInit {
 
   createGroup(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 
@@ -96,17 +94,17 @@ export class GroupComponent implements OnInit {
   }
 
   openModal(): void {
-      this.createEditGroup.newOrEditGroup();
+    this.createEditGroup.newOrEditGroup();
   }
 
   initGroup(): void {
     this.groupService.initGroup().subscribe(
-        response => {
-          this.messageHandlerService.showSuccess('角色初始化成功！');
-          this.retrieve();
-        },
-        error => this.messageHandlerService.handleError(error)
-      );
+      response => {
+        this.messageHandlerService.showSuccess('角色初始化成功！');
+        this.retrieve();
+      },
+      error => this.messageHandlerService.handleError(error)
+    );
   }
 
   editGroup(group: Group): void {
