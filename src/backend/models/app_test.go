@@ -26,3 +26,16 @@ func TestListApp(t *testing.T) {
 	}
 	t.Log(string(app))
 }
+
+func TestCreatApp(t *testing.T) {
+	id, err := models.AppModel.Add(&models.App{
+		Name: "example",
+		Namespace: &models.Namespace{
+			Id: 1,
+		},
+	})
+	if err != nil {
+		t.Error(err)
+	}
+	t.Log(string(id))
+}
