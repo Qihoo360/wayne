@@ -15,7 +15,6 @@ type ParamBuilderController struct {
 
 // TODO: 需要重构成独立的Controller，参考Django的generic views设计
 func (c *ParamBuilderController) BuildQueryParam() *common.QueryParam {
-
 	pageNo := c.Input().Get("pageNo")
 	pageSize := c.Input().Get("pageSize")
 	if pageNo == "" {
@@ -82,7 +81,6 @@ func (c *ParamBuilderController) GetIDFromURL() int64 {
 }
 
 func (c *ParamBuilderController) GetIntParamFromURL(param string) int64 {
-
 	paramStr := c.Ctx.Input.Param(param)
 	if len(paramStr) == 0 {
 		c.AbortBadRequest(fmt.Sprintf("Invalid %s in URL", param))
