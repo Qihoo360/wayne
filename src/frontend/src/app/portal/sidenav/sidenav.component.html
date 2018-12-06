@@ -130,12 +130,12 @@
   </a>
   <a
     clrVerticalNavLink
-    [title]="'MENU.CHECK_MONITOR' | translate"
+    [title]="'MENU.VIEW_MONITOR' | translate"
     (click)="goToMonitor()"
     href="javascript:void(0)"
     *ngIf="getMonitorUri() && (authService.currentAppPermission.appUser.read || authService.currentUser.admin)">
     <clr-icon clrVerticalNavIcon shape="dashboard"></clr-icon>
-    {{'MENU.CHECK_MONITOR' | translate}}
+    {{'MENU.VIEW_MONITOR' | translate}}
   </a>
   <a href="javascript:;" style="flex: 1;"></a>
   <wayne-footer></wayne-footer>
