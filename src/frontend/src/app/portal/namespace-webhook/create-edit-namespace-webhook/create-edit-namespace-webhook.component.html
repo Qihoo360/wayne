@@ -13,9 +13,9 @@
                    required
                    size="32"
                    maxlength="32"
-                   placeholder="名称">
+                   [placeholder]="'PLACEHOLDER.NAME' | translate">
             <span class="tooltip-content">
-              名称不符合格式要求
+              {{ 'RULE.NAME' | translate }}
             </span>
           </label>
           <span class="spinner spinner-inline" [hidden]="!requestLocked"></span>
@@ -27,35 +27,35 @@
             <input class="form-control" type="text" id="webhook-url" [(ngModel)]="webHook.url"
                    name="webhook-url"
                    required
-                   placeholder="调用URL地址"
+                   [placeholder]="'PLACEHOLDER.URL_ADDR' | translate"
                    pattern="(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]">
             <span class="tooltip-content">
-              URL不符合格式要求 
+              {{'RULE.URL' | translate}}
             </span>
           </label>
           <span class="spinner spinner-inline" [hidden]="!requestLocked"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="webhook-secret" class="col-md-3 form-group-label-override">暗号</label>
+          <label for="webhook-secret" class="col-md-3 form-group-label-override">{{ 'WEBHOOK.CIPHER' | translate }}</label>
           <label for="webhook-secret" aria-haspopup="true" role="tooltip"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <input class="form-control" type="text" id="webhook-secret" [(ngModel)]="webHook.secret"
                    name="webhook-secret"
                    maxlength="120"
-                   placeholder="用于简单验证请求是平台发出（可选）">
+                   [placeholder]="'PLACEHOLDER.CIPHER' | translate">
           </label>
           <span class="spinner spinner-inline" [hidden]="!requestLocked"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;height:250px;">
-          <label for="webhook-events" class="col-md-3 form-group-label-override required">关注事件</label>
+          <label for="webhook-events" class="col-md-3 form-group-label-override required">{{ 'WEBHOOK.FOCUS_EVENT' | translate }}</label>
           <label for="webhook-events" aria-haspopup="true" role="tooltip"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <ng2-dual-list-box name="webhook-events"
                                [data]="hookEvents"
                                valueField="key"
                                textField="name"
-                               availableText="可选"
-                               selectedText="已选"
+                               [availableText]="'TITLE.AVAIL_ITEM' | translate"
+                               [selectedText]="'TITLE.CHOOSED_ITEM' | translate"
                                [(ngModel)]="watchEventKeys"
             >
             </ng2-dual-list-box>

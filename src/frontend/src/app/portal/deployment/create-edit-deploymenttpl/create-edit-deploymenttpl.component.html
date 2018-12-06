@@ -109,7 +109,7 @@
               <input type="number" style="width:inherit" name="container.resources.limits.memory_{{i}}" required
                      [(ngModel)]="container.resources.limits.memory"
                      [placeholder]="'UNIT.MEMORY' | translate">
-              <span translate="'RULE.MEMORY'" [translateParams]="{value: memoryLimit}" class="tooltip-content">
+              <span [translate]="'RULE.MEMORY'" [translateParams]="{value: memoryLimit}" class="tooltip-content">
               </span>
             </label>
             <label class="col-md-4">G&nbsp;&nbsp;&nbsp;
@@ -125,7 +125,7 @@
               <input type="number" name="container.resources.limits.cpu_{{i}}"
                      [(ngModel)]="container.resources.limits.cpu" style="width:inherit"
                      required [placeholder]="'UNIT.CPU' | translate">
-              <span translate="'RULE.CPU'" translateParams="{value: cpuLimit}" class="tooltip-content">
+              <span [translate]="'RULE.CPU'" translateParams="{value: cpuLimit}" class="tooltip-content">
               </span>
             </label>
             <label class="col-md-4">{{'UNIT.CORE' | translate}}&nbsp;&nbsp;&nbsp;

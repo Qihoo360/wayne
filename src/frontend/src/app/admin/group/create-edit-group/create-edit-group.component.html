@@ -51,7 +51,7 @@
                                [data]="allPermissions"
                                valueField="id"
                                textField="name"
-                               availableText="可选项"
+                               [availableText]="'TITLE.AVAIL_ITEM' | translate"
                                selectedText="已选项"
                                [(ngModel)]="selectPermissions"
             >

@@ -1,18 +1,17 @@
 <clr-modal [(clrModalOpen)]="modalOpened" clrModalSize="xl">
-  <h3 class="modal-title">机房资源列表</h3>
+  <h3 class="modal-title">{{'CLUSTER.RESOURCE_LIST' | translate}}</h3>
   <div class="modal-body">
     <clr-datagrid>
       <clr-dg-column>{{'TITLE.CLUSTER' | translate}}</clr-dg-column>
-      <clr-dg-column>Cpu使用 / Cpu总量（核）</clr-dg-column>
-      <clr-dg-column>内存使用 / 内存总量（G）</clr-dg-column>
+      <clr-dg-column>{{'CLUSTER.CPU_PERCENT' | translate}}</clr-dg-column>
+      <clr-dg-column>{{'CLUSTER.MEMORY_PERCENT' | translate}}</clr-dg-column>
 
       <clr-dg-row *ngFor="let cluster of resources">
         <clr-dg-cell>{{cluster.cluster}}</clr-dg-cell>
         <clr-dg-cell>{{cluster.resource.usage.cpu}} / {{cluster.resource.limit.cpu}}</clr-dg-cell>
         <clr-dg-cell>{{cluster.resource.usage.memory}} / {{cluster.resource.limit.memory}}</clr-dg-cell>
       </clr-dg-row>
-      <clr-dg-footer>
-        共  {{resources.length}} 条记录
+      <clr-dg-footer [translate]="'PAGE.TOTAL'" [translateParams]="{value: resources.length}">
       </clr-dg-footer>
     </clr-datagrid>
   </div>

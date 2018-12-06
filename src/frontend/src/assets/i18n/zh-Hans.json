@@ -11,18 +11,21 @@
     "NO_USER": "用户不存在",
     "ONLY_ONLINE_TEMPLATE": "只显示上线模板",
     "NO_MESSAGE": "暂无数据！",
-    "CPU": "请填写CPU限制",
-    "CPU_PERCENT": "请填写正确CPU限制百分比",
+    "CPU": "请填写 CPU 限制",
+    "CPU_PERCENT": "请填写正确 CPU 限制百分比",
     "MEMORY": "请填写内存限制份数",
     "MEMORY_PERCENT": "请填写正确内存限制百分比",
     "REPLICA": "请填写副本数限制",
     "DATA_CONTENT": "数据内容",
-    "FORCE_DROP": "确认资源已经不存在于Kubernetes，可以打开此开关强制下线"
+    "FORCE_DROP": "确认资源已经不存在于 Kubernetes，可以打开此开关强制下线",
+    "ERROR": "错误信息",
+    "VIEW_TOKEN": "查看 token"
   },
   "LIMIT": {
     "DELOYMENT": "部署份数超过系统最大限制",
-    "CPU": "CPU限制",
-    "CPU_PERCENT": "CPU限制百分比",
+    "STATEFULSET": "状态副本集份数超过系统最大限制",
+    "CPU": "CPU 限制",
+    "CPU_PERCENT": "CPU 限制百分比",
     "MEMORY": "内存限制",
     "MEMORY_PERCENT": "内存限制百分比",
     "REPLICA": "副本数限制"
@@ -61,9 +64,19 @@
     "DROP": "下线",
     "ADD_CONTAINER": "添加容器",
     "ADVANCED_CONFIG": "高级配置",
-    "LANG_UP": "挂起"
+    "LANG_UP": "挂起",
+    "DELETE_ALL": "删除所有"
   },
   "USER": {
+    "NAME": "用户名称",
+    "MESSAGE": "用户信息",
+    "LOGIN_COMMAND": "登录命令",
+    "LOGIN_PASS": "登录密码",
+    "APP_USER_LIST": "项目用户列表",
+    "CONNECT_APP_USER": "关联项目用户",
+    "APP_NAME": "项目名称",
+    "NO_USER": "用户不存在",
+    "GROUP": "群组"
   },
   "ACCOUNT": {
     "GO_BACK": "进入后台",
@@ -75,6 +88,7 @@
     "APP": "项目",
     "MEMBER": "成员列表",
     "OVERVIEW": "概览",
+    "APP_OVERVIEW": "项目概览",
     "SOURCE_STAT": "资源统计",
     "RELEASE_RECORD": "上线记录",
     "DEPLOYMENT": "部署",
@@ -88,6 +102,7 @@
     "SERVICE": "负载均衡",
     "SERVICE_LIST": "负载均衡列表",
     "CONFIGMAP": "配置集",
+    "VIEW_MONITOR": "查看监控",
     "CONFIGMAP_LIST": "配置集列表",
     "SECRET": "加密字典",
     "SECRET_LIST": "加密字典列表",
@@ -127,7 +142,7 @@
     "DEPARTMENT_NAME": "部门名称",
     "CREATE_TIME": "创建时间",
     "CPU_USAGE": "CPU 使用(核)",
-    "CPU_USAGE_SHORT": "cpu使用(核)",
+    "CPU_USAGE_SHORT": "CPU 使用(核)",
     "MEMORY_USAGE": "内存使用(G)",
     "MEMORY_USAGE_SHORT": "内存使用(G)",
     "DEPLOY_FREQ": "部署上线频数",
@@ -143,7 +158,8 @@
     "LIST": "列表",
     "ROLE": "角色",
     "EXPIRE_TIME": "过期时间",
-    "STATUS": "启用状态",
+    "START_STATUS": "启用状态",
+    "STATUS": "状态",
     "METADATA": "元数据",
     "MEMBER_LIST": "部门用户列表",
     "MEMBER_CONTECT": "关联部门用户",
@@ -160,7 +176,10 @@
     "MESSAGE": "信息",
     "RELEASE_EXPLAIN": "发布说明",
     "SCHEDULING_INTERVAL": "调度间隔",
-    "CONFIG_CLUSTER": "配置机房"
+    "CONFIG_CLUSTER": "配置机房",
+    "TOTAL": "总量",
+    "START_TIME": "开始时间",
+    "FINISH_TIME": "结束时间"
   },
   "TMP": {
     "CONTAINER_NAME": "容器名称",
@@ -173,7 +192,7 @@
     "REBUILD": "删除重建",
     "DELETE_CONTAINER": "删除容器",
     "SCROLL_NUM": "滚动数量",
-    "CORE_NUM": "CPU核数",
+    "CORE_NUM": "CPU 核数",
     "MAX_LIMIT": "最大不可用",
     "CONTAINER_CONFIG": "容器配置",
     "IMAGE_CONFIG": "镜像配置",
@@ -193,19 +212,19 @@
     "LOAD_ENVIRONMENT": "自定义环境变量",
     "ENVIRONMENT_NAME": "环境变量名称",
     "ENVIRONMENT_NUM": "环境变量值",
-    "CONFIGMAP_KEY": "配置集key",
-    "SECRET_KEY": "加密字典key",
+    "CONFIGMAP_KEY": "配置集 key",
+    "SECRET_KEY": "加密字典 key",
     "USABLE_CHECK": "可用性检查（建议开启）",
     "EXTEND_TIME": "超时时间",
     "CHECK_CYCLE": "检查周期",
     "FAIL_NUM": "失败重试次数",
     "USABLE_CHECK_WAY": "可用性检查方式",
-    "HTTP_REQUEST": "HTTP请求",
-    "TCP_PORT": "TCP端口",
+    "HTTP_REQUEST": "HTTP 请求",
+    "TCP_PORT": "TCP 端口",
     "EXECUTE_COMMAND": "执行命令",
-    "REQUEST_HTTP_PORT": "请求HTTP端口",
-    "REQUEST_URL": "请求URL",
-    "REQUEST_TCP_PORT": "请求TCP端口",
+    "REQUEST_HTTP_PORT": "请求 HTTP 端口",
+    "REQUEST_URL": "请求 URL",
+    "REQUEST_TCP_PORT": "请求 TCP 端口",
     "LIVE_CHECK": "存活检查",
     "CHECK_DELAY": "检查延迟",
     "LIFE_CYCLE": "生命周期",
@@ -219,9 +238,38 @@
     "CHECK_CYCLE_MESSAGE": "单位秒，执行检查间隔",
     "LIVE_CHECK_MESSAGE": "定期检查容器状态，检查失败将会重启容器（适用于可能假死并需要重启的服务）",
     "CHECK_DELAY_MESSAGE": "单位秒，启动多久之后开始存活检查，适用于启动时间较长的服务",
-    "LIFE_CYCLE_MESSAGE": "容器生命周期钩子，可以在postStart/preStop两个阶段定义额外的操作"
+    "LIFE_CYCLE_MESSAGE": "容器生命周期钩子，可以在 postStart/preStop 两个阶段定义额外的操作"
   },
-  "CREATE": {
+  "POD": {
+    "CONTAINER": "容器",
+    "LOG_SHOW_ROWS": "日志显示行数",
+    "LIST": "Pod 列表",
+    "RESTART_NUM": "重启次数",
+    "ENTER_CONTAINER": "进入容器",
+    "LOG": "日志",
+    "DATA_UPDATE": "数据实时更新: ",
+    "NAME": "节点名称",
+    "LOG_COMMAND": "日志命令"
+  },
+  "CLUSTER": {
+    "RESOURCE_LIST": "机房资源列表",
+    "CPU_PERCENT": "Cpu 使用 / Cpu 总量（核）",
+    "MEMORY_PERCENT": "内存使用 / 内存总量（G）"
+  },
+  "EVENT": {
+    "ERROR_MESSAGE": "错误信息",
+    "FINISH_CHECK_TIME": "最后检查时间",
+    "ERROR": "错误事件"
+  },
+  "HISTORY": {
+    "RELEASE_TIME": "发布时间",
+    "RELEASE_USER": "发布者",
+    "TMP_ID": "模版 ID"
+  },
+  "CREATE": {},
+  "COPY": {
+    "SUCCESS": "复制成功",
+    "SEARCH_COMMAND": "复制查询命令"
   },
   "ACTION": {
     "UNFOLD": "展开",
@@ -237,9 +285,14 @@
     "LOOK_UP": "查看",
     "DELETE_DATA": "删除数据",
     "ADD_DATA": "添加数据",
-    "FORCE_DROP": "强制下线"
+    "FORCE_DROP": "强制下线",
+    "REFRESH": "刷新",
+    "ALLOW": "允许",
+    "FORBID": "禁止",
+    "REPLACE": "替代"
   },
   "UNIT": {
+    "SECOND": "秒",
     "CORE": "核",
     "PRICE": "元/月",
     "PIECE": "份",
@@ -247,6 +300,7 @@
     "MEMORY": "单位 G"
   },
   "PLACEHOLDER": {
+    "NAME": "名称",
     "PRODUCT": "点击输入筛选过滤项目",
     "CHOOSE": "点击选择",
     "ENGLISH_NAME": "英文小写",
@@ -255,32 +309,40 @@
     "ENVIRONMENT": "为所有环境变量添加相同的前缀，可为空",
     "SECOND": "单位秒",
     "COMMAND": "多个命令换行输入，例如: \n/bin/healthz.sh\n--arg1\nfoo\n--arg2\nbar",
-    "CONFIG_KEY": "配置key",
-    "CONFIG_VALUE": "配置value",
-    "DICT_KEY": "字典key",
-    "DICT_VALUE": "字典value",
-    "SELECTOR_NAME": "selector名称",
-    "SELECTOR_VALUE": "selector值"
+    "CONFIG_KEY": "配置 key",
+    "CONFIG_VALUE": "配置 value",
+    "DICT_KEY": "字典 key",
+    "DICT_VALUE": "字典 value",
+    "SELECTOR_NAME": "selector 名称",
+    "SELECTOR_VALUE": "selector 值",
+    "DELIVERY_ADDR": "推送地址",
+    "CIPHER": "用于简单验证请求是平台发出（可选）",
+    "URL_ADDR": "调用 URL 地址",
+    "STATEFULSET": "状态副本集份数"
   },
   "PAGE": {
     "PAGE": "页",
     "TOTAL": "共{{value}}条记录"
   },
   "RULE": {
+    "NAME": "名称不符合格式要求",
     "REGEXT": "不符合规范，验证规则",
     "SCROLL": "滚动更新中最多可超过指定实例的总数量,数字或百分比",
     "NUMBER": "数量应为数字或百分比",
-    "CONTAINER": "英文，dns域名规则",
-    "MEMORY": "内存大小应该在0~{{value}}G之间",
-    "CPU": "CPU大小应该在0~{{value}}核之间"
+    "CONTAINER": "英文，dns 域名规则",
+    "MEMORY": "内存大小应该在0~{{value}}G 之间",
+    "CPU": "CPU 大小应该在0~{{value}}核之间",
+    "URL": "Url 不符合格式要求"
   },
   "DEPLOYMENT": {
     "CREATE": "创建部署",
     "CREATE_TMP": "创建部署模板",
     "EDIT": "编辑部署",
-    "DELETE": "删除部署"
+    "DELETE": "删除部署",
+    "NUM": "部署份数"
   },
   "STATEFULSET": {
+    "TITLE": "状态副本集",
     "CREATE": "创建状态副本集",
     "CREATE_TMP": "创建状态副本集模板",
     "EDIT": "编辑状态副本集",
@@ -298,7 +360,22 @@
     "EDIT": "编辑计划任务",
     "DELETE": "删除计划任务",
     "LIST": "计划任务列表",
-    "DELETE_LIST": "已删除计划任务列表"
+    "DELETE_LIST": "已删除计划任务列表",
+    "CONFIG": "计划任务配置",
+    "CONFIG_MESSAGE": "k8s 调度任务的时区是 UTC(+0)，按小时定期执行的任务，请减去8小时调整为北京时区(+8)<br>例如想在北京时间每天11点(0 11 * * *)执行定时任务，则设置为(0 2 * * *)",
+    "RUN_CYCLE": "运行周期",
+    "RUN_CYCLE_MESSAGE": "计划任务的定时周期,cron 表达式",
+    "EXPRESSION": "cron 表达式",
+    "EXPRESSION_MESSAGE": "cron 表达式填写不正确",
+    "PARALLEL_STRATEGY": "并行策略",
+    "PARALLEL_STRATEGY_MESSAGE": "允许:支持并行 JOB;禁止:如果之前的 JOB 未完成，下一个 JOB 禁止启动;替代:会取消当前未完成 JOB，替换成新 JOB",
+    "MAX_EXECUTE_TIME": "最大执行时间",
+    "MAX_EXECUTE_TIME_MESSAGE": "任务执行后，最大的执行时间，超出后会被中止",
+    "ERROR_EVENT": "错误事件",
+    "TIMER": "次数",
+    "ERROR_REASON": "错误原因",
+    "GROUP": "所属集群",
+    "FAIL_REASON": "失败原因"
   },
   "CONFIGMAP": {
     "CREATE": "创建配置集",
@@ -313,15 +390,38 @@
     "DELETE": "删除加密字典"
   },
   "PVC": {
-    "CREATE": "创建PVC",
-    "CREATE_TMP": "创建PVC模板",
-    "EDIT": "编辑PVC",
-    "DELETE": "删除PVC",
+    "CREATE": "创建 PVC",
+    "CREATE_TMP": "创建 PVC 模板",
+    "EDIT": "编辑 PVC",
+    "DELETE": "删除 PVC",
     "CONTAINER_NUM": "容量大小",
     "ACCESS_PATTERN": "访问模式",
     "ASSOCIATED_LABEL": "关联标签",
     "DELETE_LABEL": "删除标签",
-    "ADD_LABEL": "添加标签"
+    "ADD_LABEL": "添加标签",
+    "SNAPSHOOT_VERSION": "快照版本",
+    "DEPLOYMENT_STATUS": "PVC 部署状态",
+    "PV_NAME": "PV 名称",
+    "FILE_SYSTEM_STATUS": "文件系统状态",
+    "ACTIVATE_STORAGE": "激活存储",
+    "DEACTIVATED_STORAGE": "反激活存储",
+    "FORCE_OFFLINE_USER": "强制下线用户",
+    "ALLOW_USER_LOGIN": "允许用户登录",
+    "VIEW_USER_PASS": "查看用户名密码",
+    "CHECK_FILE": "校验文件",
+    "CREATE_MESSAGE": "PVC 创建之后无法修改，若要修改 PVC 请先下线已有 PVC，再重新发布",
+    "CREATE_SNAPSHOOT": "创建快照",
+    "SIZE": "大小",
+    "DELETE_SNAPSHOOT": "删除快照",
+    "ROLLBACK_SNAPSHOOT": "回滚快照",
+    "RECORD": "共{{value}}条快照记录"
+  },
+  "WEBHOOK": {
+    "TITLE": "{{ value }}列表",
+    "CREATE": "创建新的{{ value }}",
+    "CIPHER": "暗号",
+    "FOCUS_EVENT": "关注事件",
+    "ADDRESS": "地址"
   },
   "OTHER": "其他",
   "OF": "的"
