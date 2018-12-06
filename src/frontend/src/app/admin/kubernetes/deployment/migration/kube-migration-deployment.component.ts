@@ -95,7 +95,6 @@ export class KubeMigrationDeploymentComponent implements OnInit {
   }
 
   onSubmit() {
-
     if (this.isSubmitOnGoing) {
       return;
     }

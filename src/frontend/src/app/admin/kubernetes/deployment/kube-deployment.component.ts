@@ -15,11 +15,11 @@ import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service'
 import { KubeMigrationDeploymentComponent } from './migration/kube-migration-deployment.component';
 
 const showState = {
-  'Name': {hidden: false},
-  'Label': {hidden: false},
-  'Containers': {hidden: false},
-  'Status': {hidden: false},
-  'Age': {hidden: false}
+  'name': {hidden: false},
+  'label': {hidden: false},
+  'containers': {hidden: false},
+  'status': {hidden: false},
+  'age': {hidden: false}
 };
 
 @Component({

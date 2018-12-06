@@ -1,26 +1,26 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)">
   <clr-dg-column [clrDgField]="'name'">
-    <ng-container *clrDgHideableColumn="showState['Name']">
+    <ng-container *clrDgHideableColumn="showState['name']">
       名称
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-version">
-    <ng-container *clrDgHideableColumn="showState['Label']">
+    <ng-container *clrDgHideableColumn="showState['label']">
       Label
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-version">
-    <ng-container *clrDgHideableColumn="showState['Containers']">
+    <ng-container *clrDgHideableColumn="showState['containers']">
       镜像
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['Status']">
+    <ng-container *clrDgHideableColumn="showState['status']">
       容器状态
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-time">
-    <ng-container *clrDgHideableColumn="showState['Age']">
+    <ng-container *clrDgHideableColumn="showState['age']">
       Age
     </ng-container>
   </clr-dg-column>
