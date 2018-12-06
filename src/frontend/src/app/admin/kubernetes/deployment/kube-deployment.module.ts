@@ -4,6 +4,7 @@ import { KubeDeploymentComponent } from './kube-deployment.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DeploymentClient } from '../../../shared/client/v1/kubernetes/deployment';
 import { KubeListDeploymentComponent } from './list/kube-list-deployment.component';
+import { KubeMigrationDeploymentComponent } from './migration/kube-migration-deployment.component';
 
 @NgModule({
   imports: [
@@ -16,10 +17,12 @@ import { KubeListDeploymentComponent } from './list/kube-list-deployment.compone
   exports: [
     KubeDeploymentComponent,
     KubeListDeploymentComponent,
+    KubeMigrationDeploymentComponent
   ],
   declarations: [
     KubeDeploymentComponent,
-    KubeListDeploymentComponent
+    KubeListDeploymentComponent,
+    KubeMigrationDeploymentComponent
   ]
 })
 

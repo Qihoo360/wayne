@@ -1,13 +1,31 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="table-search">
+      <div class="table-search-left">
+        <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
+          <wayne-checkbox-group [(ngModel)]="showList">
+            <wayne-checkbox value="Name">名称</wayne-checkbox>
+            <wayne-checkbox value="Label">Label</wayne-checkbox>
+            <wayne-checkbox value="Containers">镜像</wayne-checkbox>
+            <wayne-checkbox value="Status">容器状态</wayne-checkbox>
+            <wayne-checkbox value="Age">Age</wayne-checkbox>
+          </wayne-checkbox-group>
+        </wayne-filter-box>
+      </div>
+    </div>
     <kube-list-deployment
       [deployments]="changedDeployments"
       [page]="pageState.page"
       (detail)="detail($event)"
+      (migration)="migration($event)"
+      [showState]="showState"
       (paginate)="retrieve($event)"></kube-list-deployment>
   </div>
 </div>
+<kube-migration-deployment></kube-migration-deployment>
+
 <wayne-float-window value="{{cluster}}">
   <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster"
                            (click)="jumpTo(cluster)"></wayne-float-window-item>
 </wayne-float-window>
+

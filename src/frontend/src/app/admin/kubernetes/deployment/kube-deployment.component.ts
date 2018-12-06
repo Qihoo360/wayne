@@ -12,16 +12,14 @@ import { DeploymentList } from '../../../shared/model/v1/deployment-list';
 import { AdminDefaultApiId } from '../../../shared/shared.const';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { KubeMigrationDeploymentComponent } from './migration/kube-migration-deployment.component';
 
 const showState = {
-  '名称': {hidden: false},
-  '总量': {hidden: false},
-  '回收策略': {hidden: true},
-  '访问模式': {hidden: false},
-  '状态': {hidden: false},
-  '已绑定PVC': {hidden: false},
-  '原因': {hidden: true},
-  '开始时间': {hidden: false},
+  'Name': {hidden: false},
+  'Label': {hidden: false},
+  'Containers': {hidden: false},
+  'Status': {hidden: false},
+  'Age': {hidden: false}
 };
 
 @Component({
@@ -31,6 +29,8 @@ const showState = {
 export class KubeDeploymentComponent implements OnInit {
   @ViewChild(KubeListDeploymentComponent)
   listDeployment: KubeListDeploymentComponent;
+  @ViewChild(KubeMigrationDeploymentComponent)
+  migrationDeployment: KubeMigrationDeploymentComponent;
 
   namespace = 'default';
   cluster: string;
@@ -58,6 +58,20 @@ export class KubeDeploymentComponent implements OnInit {
         this.showList.push(key);
       }
     });
+  }
+
+  confirmEvent() {
+    Object.keys(this.showState).forEach(key => {
+      if (this.showList.indexOf(key) > -1) {
+        this.showState[key] = {hidden: false};
+      } else {
+        this.showState[key] = {hidden: true};
+      }
+    });
+  }
+
+  cancelEvent() {
+    this.initShow();
   }
 
   ngOnInit() {
@@ -90,6 +104,17 @@ export class KubeDeploymentComponent implements OnInit {
         response => {
           const data = response.data;
           this.aceEditorService.announceMessage(AceEditorMsg.Instance(data, false, '详情'));
+        },
+        error => this.messageHandlerService.handleError(error)
+      );
+  }
+
+  migration(deploymentList: DeploymentList) {
+    this.deploymentClient.get(AdminDefaultApiId, this.cluster, deploymentList.objectMeta.namespace, deploymentList.objectMeta.name)
+      .subscribe(
+        response => {
+          const data = response.data;
+          this.migrationDeployment.openModal(this.cluster, data);
         },
         error => this.messageHandlerService.handleError(error)
       );

@@ -14,11 +14,13 @@ export class KubeListDeploymentComponent implements OnInit {
 
   @Input() deployments: DeploymentList[];
   @Input() page: Page;
+  @Input() showState: object;
   currentPage = 1;
   state: State;
 
   @Output() paginate = new EventEmitter<State>();
   @Output() detail = new EventEmitter<DeploymentList>();
+  @Output() migration = new EventEmitter<DeploymentList>();
 
   constructor(
     private breadcrumbService: BreadcrumbService,
@@ -47,5 +49,9 @@ export class KubeListDeploymentComponent implements OnInit {
 
   detailDeployment(obj: DeploymentList) {
     this.detail.emit(obj);
+  }
+
+  migrationDeployment(obj: DeploymentList) {
+    this.migration.emit(obj);
   }
 }

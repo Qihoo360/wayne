@@ -1,26 +1,26 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)">
   <clr-dg-column [clrDgField]="'name'">
-    <ng-container *clrDgHideableColumn="{hidden: false}">
+    <ng-container *clrDgHideableColumn="showState['Name']">
       名称
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-version">
-    <ng-container *clrDgHideableColumn="{hidden: false}">
+    <ng-container *clrDgHideableColumn="showState['Label']">
       Label
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-version">
-    <ng-container *clrDgHideableColumn="{hidden: false}">
+    <ng-container *clrDgHideableColumn="showState['Containers']">
       镜像
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      容器组
+    <ng-container *clrDgHideableColumn="showState['Status']">
+      容器状态
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-time">
-    <ng-container *clrDgHideableColumn="{hidden: false}">
+    <ng-container *clrDgHideableColumn="showState['Age']">
       Age
     </ng-container>
   </clr-dg-column>
@@ -29,7 +29,7 @@
   <clr-dg-row *ngFor="let deployment of deployments" [clrDgItem]="deployment">
     <clr-dg-action-overflow>
       <button class="action-item" (click)="detailDeployment(deployment)">详情</button>
-      <button class="action-item" (click)="detailDeployment(deployment)">迁移</button>
+      <button class="action-item" (click)="migrationDeployment(deployment)">迁移</button>
     </clr-dg-action-overflow>
     <clr-dg-cell>{{deployment.objectMeta.name}}</clr-dg-cell>
     <clr-dg-cell class="col-version">
