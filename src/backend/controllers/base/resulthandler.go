@@ -84,7 +84,13 @@ func (c *ResultHandlerController) HandleError(err error) int {
 	case *mysql.MySQLError:
 		errorResult.Code = http.StatusBadRequest
 		errorResult.SubCode = int(e.Number)
-		errorResult.Msg = e.Message
+		// MySQL error Duplicate entry;
+		// refer https://dev.mysql.com/doc/refman/5.6/en/error-messages-server.html
+		if e.Number == 1062 {
+			errorResult.Msg = "Resources already exist! "
+		} else {
+			errorResult.Msg = e.Message
+		}
 	case *ErrorResult:
 		errorResult = e
 	default:
