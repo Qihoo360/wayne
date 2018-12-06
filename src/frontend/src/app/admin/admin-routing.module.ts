@@ -29,11 +29,17 @@ import { TrashCronjobTplComponent } from './cronjobtpl/trash-cronjobtpl/trash-cr
 import { AdminAuthCheckGuard } from '../shared/auth/admin-auth-check-guard.service';
 import { PersistentVolumeComponent } from './persistentvolume/persistentvolume.component';
 import { PersistentVolumeClaimComponent } from './persistentvolumeclaim/persistentvolumeclaim.component';
-import { TrashPersistentVolumeClaimComponent } from './persistentvolumeclaim/trash-persistentvolumeclaim/trash-persistentvolumeclaim.component';
+import {
+  TrashPersistentVolumeClaimComponent
+} from './persistentvolumeclaim/trash-persistentvolumeclaim/trash-persistentvolumeclaim.component';
 import { PersistentVolumeClaimTplComponent } from './persistentvolumeclaimtpl/persistentvolumeclaimtpl.component';
-import { TrashPersistentVolumeClaimTplComponent } from './persistentvolumeclaimtpl/trash-persistentvolumeclaimtpl/trash-persistentvolumeclaimtpl.component';
+import {
+  TrashPersistentVolumeClaimTplComponent
+} from './persistentvolumeclaimtpl/trash-persistentvolumeclaimtpl/trash-persistentvolumeclaimtpl.component';
 import { AuditLogComponent } from './auditlog/auditlog.component';
-import { CreateEditPersistentVolumeComponent } from './persistentvolume/create-edit-persistentvolume/create-edit-persistentvolume.component';
+import {
+  CreateEditPersistentVolumeComponent
+} from './persistentvolume/create-edit-persistentvolume/create-edit-persistentvolume.component';
 import { ApiKeyComponent } from './apikey/apikey.component';
 import { AppReportFormComponent } from './reportform/app/app-reportform.component';
 import { OverviewComponent } from './reportform/overview/overview.component';
@@ -52,6 +58,10 @@ import { KubernetesDashboardComponent } from './kubernetes-dashboard/kubernetes-
 import { NotificationComponent } from './notification/notification.component';
 import { NodesComponent } from './node/nodes.component';
 import { ADMINROUTES } from '../../../lib/admin/library-routing-admin';
+import { IngressComponent } from './ingress/ingress.component';
+import { TrashIngressComponent } from './ingress/trash-ingress/trash-ingress.component';
+import { IngressTplComponent } from './ingresstpl/ingresstpl.component';
+import { TrashIngressTplComponent } from './ingresstpl/trash-ingresstpl/trash-ingresstpl.component';
 
 
 const routes: Routes = [
@@ -61,6 +71,11 @@ const routes: Routes = [
     canActivate: [AdminAuthCheckGuard],
     canActivateChild: [AdminAuthCheckGuard],
     children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'reportform/overview'
+      },
       {path: 'reportform/deploy', component: DeployComponent},
       {path: 'reportform/overview', component: OverviewComponent},
       {path: 'reportform/app', component: AppReportFormComponent},
@@ -128,6 +143,10 @@ const routes: Routes = [
       {path: 'kubernetes/persistentvolume/:cluster', component: PersistentVolumeComponent},
       {path: 'kubernetes/persistentvolume/:cluster/edit/:name', component: CreateEditPersistentVolumeComponent},
       {path: 'kubernetes/persistentvolume/:cluster/edit', component: CreateEditPersistentVolumeComponent},
+      {path: 'ingress', component: IngressComponent},
+      {path: 'ingress/trash', component: TrashIngressComponent},
+      {path: 'ingress/tpl', component: IngressTplComponent},
+      {path: 'ingress/tpl/trash', component: TrashIngressTplComponent},
       ...ADMINROUTES
     ]
   }

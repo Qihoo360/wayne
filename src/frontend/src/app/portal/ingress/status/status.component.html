@@ -1,0 +1,44 @@
+<clr-modal [clrModalSize]="'md'" [(clrModalOpen)]="createAppOpened">
+  <h3 class="modal-title">Ingress 详情</h3>
+  <div class="modal-body">
+    <hr>
+    <form>
+      <section class="form-block form-box">
+        <div class="row group">
+          <div class="col-sm-3">
+            Ingress 名称
+          </div>
+          <div class="col-sm-9">
+            {{kubeIngress?.metadata.name}}
+          </div>
+        </div>
+        <div *ngFor="let rule of kubeIngress?.spec.rules">
+          <div class="row group">
+            <div class="col-sm-3">
+            代理域名
+          </div>
+          <div class="col-sm-9">
+            {{rule.host}}
+          </div>
+        </div>
+        <div class="row group">
+          <div class="col-sm-3">
+            代理负载均衡
+          </div>
+          <div class="col-sm-9">
+            {{rule.http.paths[0].backend.serviceName}}
+          </div>
+        </div>
+          <div class="row group">
+            <div class="col-sm-3">
+              负载均衡端口
+            </div>
+            <div class="col-sm-9">
+              {{rule.http.paths[0].backend.servicePort}}
+            </div>
+          </div>
+        </div>
+      </section>
+    </form>
+  </div>
+</clr-modal>

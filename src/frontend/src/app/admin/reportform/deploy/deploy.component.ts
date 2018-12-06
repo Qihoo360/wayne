@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { PublishService } from '../../../shared/client/v1/publish.service';
 import { State } from '@clr/angular';
@@ -14,11 +13,9 @@ export class DeployComponent implements OnInit {
   startTime: string;
   endTime: string;
 
-  constructor(private breadcrumbService: BreadcrumbService,
-              private messageHandlerService: MessageHandlerService,
-              private publishService: PublishService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/reportform', '系统报表', false);
-    breadcrumbService.addFriendlyNameForRoute('/admin/reportform/deploy', '上线次数统计');
+  constructor(
+    private messageHandlerService: MessageHandlerService,
+    private publishService: PublishService) {
   }
 
 
@@ -31,9 +28,6 @@ export class DeployComponent implements OnInit {
 
   search() {
     this.refresh();
-  }
-
-  ngOnDestroy(): void {
   }
 
   refresh(state?: State) {

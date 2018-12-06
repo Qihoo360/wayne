@@ -38,6 +38,7 @@
           </div>
           <div class="col-sm-10">
             {{app.description}}
+            <a (click)="editApp(app)" *ngIf="authService.currentNamespacePermission.app.update || authService.currentUser.admin"  href="javascript:void();"><clr-icon shape="pencil"></clr-icon></a>
           </div>
         </div>
         <div class="row group">
@@ -129,3 +130,4 @@
     </form>
   </div>
 </div>
+<create-edit-app (create)="updateAppEvent($event)"></create-edit-app>

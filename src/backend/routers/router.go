@@ -162,12 +162,12 @@ func init() {
 				&apikey.ApiKeyController{},
 			),
 		),
-		beego.NSNamespace("/apps/:appid([0-9]+)/ingress",
+		beego.NSNamespace("/apps/:appid([0-9]+)/ingresses",
 			beego.NSInclude(
 				&ingress.IngressController{},
 			),
 		),
-		beego.NSNamespace("/app/appid([0-9]+)/ingress/tpls",
+		beego.NSNamespace("/apps/:appid([0-9]+)/ingresses/tpls",
 			beego.NSInclude(
 				&ingress.IngressTplController{},
 			),
@@ -230,7 +230,7 @@ func init() {
 				&kservice.KubeServiceController{},
 			),
 		),
-		beego.NSNamespace("/kubernetes/apps/:appid([0-9]+)/ingress",
+		beego.NSNamespace("/kubernetes/apps/:appid([0-9]+)/ingresses",
 			beego.NSInclude(
 				&kingress.KubeIngressController{},
 			),

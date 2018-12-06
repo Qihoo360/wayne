@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { State } from '@clr/angular';
 import { ListGroupComponent } from './list-group/list-group.component';
 import { CreateEditGroupComponent } from './create-edit-group/create-edit-group.component';
@@ -30,15 +29,14 @@ export class GroupComponent implements OnInit {
 
   constructor(
     private groupService: GroupService,
-    private breadcrumbService: BreadcrumbService,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/system/group', '角色列表');
+
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.GROUP) {
-        let groupId = message.data;
+        const groupId = message.data;
         this.groupService.deleteGroup(groupId)
           .subscribe(
             response => {

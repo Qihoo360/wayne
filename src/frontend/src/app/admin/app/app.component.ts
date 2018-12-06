@@ -37,8 +37,6 @@ export class AppComponent implements OnInit {
               private messageHandlerService: MessageHandlerService,
               private namespaceService: NamespaceService,
               private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/app', '项目列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/app/trash', '已删除项目列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
