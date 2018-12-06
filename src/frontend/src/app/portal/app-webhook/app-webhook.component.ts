@@ -16,10 +16,10 @@ import { CacheService } from '../../shared/auth/cache.service';
 import { PageState } from '../../shared/page/page-state';
 
 const showState = {
-  '名称': {hidden: false},
-  'URL': {hidden: false},
-  '启用状态': {hidden: false},
-  '创建用户': {hidden: false},
+  'name': {hidden: false},
+  'url': {hidden: false},
+  'start_status': {hidden: false},
+  'create_user': {hidden: false},
   'create_time': {hidden: false},
   'action': {hidden: false}
 };

@@ -1,8 +1,8 @@
 <clr-datagrid class="wayne-clr-datagrid">
   <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
   <clr-dg-column [clrDgSortBy]="nameComparator">
-    <ng-container *clrDgHideableColumn="showState['名称']">
-      名称
+    <ng-container *clrDgHideableColumn="showState['name']">
+     {{'TITLE.NAME' | translate}}
     </ng-container>
     <clr-dg-string-filter [clrDgStringFilter]="nameFilter"></clr-dg-string-filter>
   </clr-dg-column>

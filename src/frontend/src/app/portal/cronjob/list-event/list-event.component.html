@@ -1,37 +1,37 @@
 <clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'xl'">
-  <h3 class="modal-title">错误事件</h3>
+  <h3 class="modal-title">{{'CRONJOB.ERROR_EVENT' | translate}}</h3>
   <div class="modal-body">
     <hr>
     <clr-datagrid>
       <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          名称
+          {{'TITLE.NAME' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          次数
+          {{'CRONJOB.TIMER' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          错误原因
+           {{'CRONJOB.ERROR_REASON' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          错误信息
+           {{'EVENT.ERROR_MESSAGE' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column [clrDgField]="'firstSeen'" [clrDgSortBy]="timeComparator" [(clrDgSortOrder)]="sortOrder">
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          开始时间
+          {{'TITLE.START_TIME' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          最后检查时间
+          {{'EVENT.FINISH_CHECK_TIME' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-row *clrDgItems="let warning of warnings">

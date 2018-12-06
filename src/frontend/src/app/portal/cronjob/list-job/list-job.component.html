@@ -2,32 +2,32 @@
   <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      名称
+      {{'TITLE.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      所属集群
+      {{'CRONJOB.GROUP' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      状态
+      {{'TITLE.STATUS' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      失败原因
+      {{'CRONJOB.FAIL_REASON' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      开始时间
+      {{'TITLE.START_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      结束时间
+      {{'TITLE.FINI_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *clrDgItems="let job of jobs">
@@ -64,7 +64,7 @@
       </wayne-select>
       {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}}
     </ng-container>
-    共{{page.totalCount}} 条记录
+    <span [translate]="'TOTAL.PAGE'" [translateParams]="{value: page.totalCount}"></span>
     <clr-dg-pagination #pagination [clrDgPageSize]="pageSize"></clr-dg-pagination>
   </clr-dg-footer>
 </clr-datagrid>
