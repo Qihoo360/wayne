@@ -88,29 +88,8 @@ export class IngressComponent extends Resource implements OnInit, OnDestroy, Aft
       messageHandlerService
     )
     super.setResourceType('ingress');
-    this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
-      if (over) {
-        this.onResourceabChanged();
-      }
-    })
-    this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
-      if (message &&
-        message.state === ConfirmationState.CONFIRMED &&
-        message.source === ConfirmationTargets.INGRESS) {
-        const ingressId = message.data;
-        this.ingressService.deleteById(ingressId, this.appId)
-          .subscribe(
-            response => {
-              this.messageHandlerService.showSuccess('ingress 删除成功！');
-              this.resourceId = null;
-              this.initResource(true);
-            },
-            error => {
-              this.messageHandlerService.handleError(error);
-            }
-          );
-      }
-    });
+    super.registPublishType(PublishType.INGRESS);
+    super.registSubscription(ConfirmationTargets.INGRESS, 'ingress 删除成功！');
   }
 
   ngOnInit() {

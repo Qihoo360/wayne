@@ -17,7 +17,10 @@ import { IngressTpl } from '../../app/shared/model/v1/ingresstpl';
 import { App } from '../../app/shared/model/v1/app';
 import { PublishService } from '../../app/shared/client/v1/publish.service';
 import { ConfirmationMessage } from '../../app/shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationTargets, httpStatusCode, PublishType, TemplateState } from '../../app/shared/shared.const';
+import {
+  ConfirmationButtons, ConfirmationState, ConfirmationTargets, httpStatusCode, PublishType,
+  TemplateState
+} from '../../app/shared/shared.const';
 import { Observable } from 'rxjs/Observable';
 import { State } from '@clr/angular';
 import { KubeIngress } from '../../app/shared/model/v1/kubernetes/ingress';
@@ -56,7 +59,6 @@ export class Resource {
   resourceType: string;
   message: string;
   publishType: PublishType;
-  // confirmTargetID:
 
   constructor(public resourceService: any,
               public templateService: any,
@@ -74,6 +76,11 @@ export class Resource {
               public tabDragService: TabDragService,
               public el: ElementRef,
               public messageHandlerService: MessageHandlerService) {
+    this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
+      if (over) {
+        this.onResourceabChanged();
+      }
+    });
   }
 
   setResourceType(resourceType: string) {
@@ -82,6 +89,27 @@ export class Resource {
 
   registPublishType(publishType: PublishType) {
     this.publishType = this.publishType;
+  }
+
+  registSubscription(confirmTarget: ConfirmationTargets, msg: string) {
+    this.subscription = this.deletionDialogService.confirmationConfirm$.subscribe(message => {
+      if (message &&
+        message.state === ConfirmationState.CONFIRMED &&
+        message.source === confirmTarget) {
+        const ingressId = message.data;
+        this.resourceService.deleteById(ingressId, this.appId)
+          .subscribe(
+            response => {
+              this.messageHandlerService.showSuccess(msg);
+              this.resourceId = null;
+              this.initResource(true);
+            },
+            error => {
+              this.messageHandlerService.handleError(error);
+            }
+          );
+      }
+    });
   }
 
   // change
@@ -167,11 +195,10 @@ export class Resource {
       this.publishService.listStatus(PublishType.INGRESS, this.resourceId)
     ).subscribe(
       response => {
-        this.publishStatus = response[1].data;
-        this.templates = response[0]['data'].list;
+        // this.publishStatus = response[1].data; TODO
         this.pageState.page.totalPage = response[0]['data'].totalPage;
         this.pageState.page.totalCount = response[0]['data'].totalCount;
-        this.generateTemplateList(tpls.list, response[1].data);
+        this.generateTemplateList(response[0]['data'].list, response[1].data);
         this.addStatusInfo();
       },
       error => this.messageHandlerService.handleError(error)
@@ -190,10 +217,10 @@ export class Resource {
     );
   }
 
-  generateTemplateList(ingressTpls: IngressTpl[], status: PublishStatus[]): IngressTpl[] {
+  generateTemplateList(templatedata: any[], publishdata: any[]): void {
     const tplStatusMap = {};
-    if (status && status.length > 0) {
-      for (const state of status) {
+    if (publishdata && publishdata.length > 0) {
+      for (const state of publishdata) {
         if (!tplStatusMap[state.templateId]) {
           tplStatusMap[state.templateId] = Array<PublishStatus>();
         }
@@ -201,18 +228,18 @@ export class Resource {
         tplStatusMap[state.templateId].push(state);
       }
     }
-    if (ingressTpls && ingressTpls.length > 0) {
-      for (let i = 0; i < ingressTpls.length; i++) {
-        const ing: KubeIngress = JSON.parse(ingressTpls[i].template);
+    if (templatedata && templatedata.length > 0) {
+      for (let i = 0; i < templatedata.length; i++) {
+        const ing: KubeIngress = JSON.parse(templatedata[i].template);
         if (ing.spec.rules && ing.spec.rules.length > 0) {
-          const publishStatus = tplStatusMap[ingressTpls[i].id];
+          const publishStatus = tplStatusMap[templatedata[i].id];
           if (publishStatus && publishStatus.length > 0) {
-            ingressTpls[i].status = publishStatus;
+            templatedata[i].status = publishStatus;
           }
         }
       }
     }
-    return ingressTpls;
+    this.templates = templatedata;
   }
 
   addStatusInfo(): void {
@@ -248,9 +275,9 @@ export class Resource {
                   this.templates[i].status &&
                   this.templates[i].status[j]) {
                   this.templates[i].status[j].errNum += 1;
-                  this.messageHandlerService.showError(`${status.cluster}请求错误次数 ${this.templates[i].status[j].errNum} 次`);
+                  this.messageHandlerService.showError(`${status.cluster} 请求错误次数 ${this.templates[i].status[j].errNum} 次`);
                   if (this.templates[i].status[j].errNum === 3) {
-                    this.messageHandlerService.showError(`${status.cluster}的错误请求已经停止，请联系管理员解决`);
+                    this.messageHandlerService.showError(`${status.cluster} 的错误请求已经停止，请联系管理员解决`);
                   }
                 }
               }
