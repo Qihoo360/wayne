@@ -173,7 +173,11 @@ export class DetailAppComponent implements OnInit, OnDestroy {
 
   updateAppEvent(update: boolean) {
     if (update) {
-      this.ngOnInit();
+      this.appService.getById(this.appId, this.cacheService.namespaceId).subscribe(response => {
+          this.app = response.data;
+        },
+        error => this.messageHandlerService.handleError(error)
+      );
     }
   }
 }
