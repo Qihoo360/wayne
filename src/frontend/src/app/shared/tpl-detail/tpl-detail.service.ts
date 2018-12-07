@@ -15,9 +15,9 @@ export class TplDetailService {
   text$ = this.text.asObservable();
 
   openModal(text: string, title?: string) {
-    let msg = new Message();
+    const msg = new Message();
     msg.text = text;
-    if (title) msg.title = title;
+    if (title) { msg.title = title; }
     this.text.next(msg);
   }
 

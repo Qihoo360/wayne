@@ -8,7 +8,6 @@ import { EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { IngressService } from '../../../shared/client/v1/ingress.service';
 import { IngressTplService } from '../../../shared/client/v1/ingresstpl.service';
-import { TplDetailService } from '../../common/tpl-detail/tpl-detail.service';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,6 +25,7 @@ import {
   ResourcesActionType,
   TemplateState
 } from '../../../shared/shared.const';
+import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
 
 
 @Component({
@@ -112,7 +112,7 @@ export class ListIngressComponent implements OnInit, OnDestroy {
     this.ingressService.getById(tpl.ingressId, this.appId).subscribe(
       response => {
         const ingress = response.data;
-        this.publishTpl.newPublishTpl(ingress, tpl, ResourcesActionType.PUBLISH)
+        this.publishTpl.newPublishTpl(ingress, tpl, ResourcesActionType.PUBLISH);
       },
       error => {
         this.messageHandlerService.handleError(error);
@@ -123,7 +123,7 @@ export class ListIngressComponent implements OnInit, OnDestroy {
 
   ingressState(status: PublishStatus, tpl: IngressTpl) {
     if (status.cluster && status.state !== TemplateState.NOT_FOUND) {
-      this.ingressStatus.newIngressStatus(status.cluster, tpl)
+      this.ingressStatus.newIngressStatus(status.cluster, tpl);
     }
 
   }

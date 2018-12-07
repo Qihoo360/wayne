@@ -9,7 +9,7 @@ import { PublishCronjobTplComponent } from '../publish-tpl/publish-tpl.component
 import { CronjobTpl } from '../../../shared/model/v1/cronjobtpl';
 import { CronjobService } from '../../../shared/client/v1/cronjob.service';
 import { CronjobTplService } from '../../../shared/client/v1/cronjobtpl.service';
-import { TplDetailService } from '../../common/tpl-detail/tpl-detail.service';
+import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from '../../../shared/page/page-state';

@@ -39,7 +39,7 @@
                      role="tooltip"
                      [class.invalid]="!replicaValidation(cluster.name)"
                      class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-                <input placeholder="部署份数" [(ngModel)]="clusterMetas[cluster.name].value"
+                <input [placeholder]="'DEPLOYMENT.NUM' | translate" [(ngModel)]="clusterMetas[cluster.name].value"
                        id="{{cluster.name}}-replica"
                        name="{{cluster.name}}-replica"
                        type="number">

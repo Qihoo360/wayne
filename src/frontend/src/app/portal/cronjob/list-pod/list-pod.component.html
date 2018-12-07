@@ -1,17 +1,17 @@
 <clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'xl'">
-  <h3 class="modal-title">Pod列表</h3>
+  <h3 class="modal-title">{{'POD.LIST' | translate}}</h3>
   <div class="modal-body">
     <hr>
     <clr-datagrid>
       <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          名称
+         {{'TITLE.NAME' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column [clrDgSortBy]="stateComparator">
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          状态
+          {{'TITLE.STATUS' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column>
@@ -21,7 +21,7 @@
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          重启次数
+          {{'POD.RESTART_NUM' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column [clrDgSortBy]="timeComparator" [(clrDgSortOrder)]="sortOrder">
@@ -47,8 +47,8 @@
         </clr-dg-cell>
         <clr-dg-cell>{{pod.startTime | relativeTime}}</clr-dg-cell>
         <clr-dg-cell>
-          <button class="wayne-button text" (click)="enterContainer(pod)">进入容器</button>
-          <button class="wayne-button text" (click)="podLog(pod)">日志</button>
+          <button class="wayne-button text" (click)="enterContainer(pod)"> {{'POD.ENTER_CONTAINER' | translate}}</button>
+          <button class="wayne-button text" (click)="podLog(pod)"> {{'POD.LOG' | translate}}</button>
           <button class="wayne-button text" (click)="deletePod(pod)">{{'BUTTON.DELETE' | translate}}</button>
         </clr-dg-cell>
       </clr-dg-row>

@@ -26,7 +26,9 @@ type KubeDeploymentController struct {
 }
 
 func (c *KubeDeploymentController) URLMapping() {
+	c.Mapping("List", c.List)
 	c.Mapping("Get", c.Get)
+	c.Mapping("GetDetail", c.GetDetail)
 	c.Mapping("Offline", c.Offline)
 	c.Mapping("Deploy", c.Deploy)
 }
@@ -47,6 +49,35 @@ func (c *KubeDeploymentController) Prepare() {
 	}
 	if perAction != "" {
 		c.CheckPermission(models.PermissionTypeDeployment, perAction)
+	}
+}
+
+// @Title List deployment
+// @Description get all deployment
+// @Param	pageNo		query 	int	false		"the page current no"
+// @Param	pageSize		query 	int	false		"the page size"
+// @Param	filter		query 	string	false		"column filter, ex. filter=name=test"
+// @Param	sortby		query 	string	false		"column sorted by, ex. sortby=-id, '-' representation desc, and sortby=id representation asc"
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace		path 	string	true		"the namespace name"
+// @Success 200 {object} common.Page success
+// @router /namespaces/:namespace/clusters/:cluster [get]
+func (c *KubeDeploymentController) List() {
+	param := c.BuildQueryParam()
+	cluster := c.Ctx.Input.Param(":cluster")
+	namespace := c.Ctx.Input.Param(":namespace")
+
+	manager, err := client.Manager(cluster)
+	if err == nil {
+		result, err := deployment.GetDeploymentPage(manager.Client, manager.Indexer, namespace, param)
+		if err != nil {
+			logs.Error("list kubernetes deployments error.", cluster, namespace, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
 	}
 }
 
@@ -220,9 +251,11 @@ func getNamespace(appId int64) (*models.Namespace, error) {
 
 // @Title Get
 // @Description find Deployment by cluster
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace		path 	string	true		"the namespace name"
 // @Success 200 {object} models.Deployment success
-// @router /:deployment/namespaces/:namespace/clusters/:cluster [get]
-func (c *KubeDeploymentController) Get() {
+// @router /:deployment/detail/namespaces/:namespace/clusters/:cluster [get]
+func (c *KubeDeploymentController) GetDetail() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":deployment")
@@ -231,6 +264,30 @@ func (c *KubeDeploymentController) Get() {
 		result, err := deployment.GetDeploymentDetail(manager.Client, manager.Indexer, name, namespace)
 		if err != nil {
 			logs.Error("get kubernetes deployment detail error.", cluster, namespace, name, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
+	}
+}
+
+// @Title Get
+// @Description find Deployment by cluster
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace		path 	string	true		"the namespace name"
+// @Success 200 {object} models.Deployment success
+// @router /:deployment/namespaces/:namespace/clusters/:cluster [get]
+func (c *KubeDeploymentController) Get() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	namespace := c.Ctx.Input.Param(":namespace")
+	name := c.Ctx.Input.Param(":deployment")
+	manager, err := client.Manager(cluster)
+	if err == nil {
+		result, err := deployment.GetDeployment(manager.Client, name, namespace)
+		if err != nil {
+			logs.Error("get kubernetes deployment error.", cluster, namespace, name, err)
 			c.HandleError(err)
 			return
 		}
