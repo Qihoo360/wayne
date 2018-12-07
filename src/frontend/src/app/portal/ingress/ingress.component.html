@@ -48,13 +48,13 @@
     </div>
   </div>
   <list-ingress
-    [ingresses]="resources"
-    [ingressTpls]="templates"
+    [resources]="resources"
+    [templates]="templates"
     [appId]="appId"
     [resourceId] = "resourceId"
     [showState]="showState"
     [page]="pageState.page"
     (paginate)="retrieveTemplates($event)"
-    (cloneTpl)="cloneTemplate($event)"
+    (cloneTemplate)="cloneTemplate($event)"
   ></list-ingress>
 </div>

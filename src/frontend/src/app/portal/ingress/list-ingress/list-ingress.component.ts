@@ -35,23 +35,21 @@ import { ListResource} from '../../../../packages/kubernetes/list-resource';
   styleUrls: ['list-ingress.scss']
 })
 export class ListIngressComponent extends ListResource implements OnInit, OnDestroy {
-  @Input() showState: object;
   @ViewChild(PublishIngressTplComponent)
   publishTemplateComponent: PublishIngressTplComponent;
   @ViewChild(IngressStatusComponent)
   resourceStatusComponent: IngressStatusComponent;
 
-  @Input() ingresses: Ingress[];
-  @Input() ingressTpls: IngressTpl[];
-  @Input() page: Page;
-  @Input() appId: number;
-  state: State;
-  currentPage = 1;
-
-  @Output() paginate = new EventEmitter<State>();
-  @Output() serviceTab = new EventEmitter<number>();
-  @Output() cloneTpl = new EventEmitter<IngressTpl>();
-  subscription: Subscription;
+  // @Input() showState: object;
+  // @Input() resources: any[];
+  // @Input() templates: any[];
+  // @Input() page: Page;
+  // @Input() appId: number;
+  // @Input() resourceId: number;
+  //
+  // @Output() paginate = new EventEmitter<State>();
+  // @Output() serviceTab = new EventEmitter<number>();
+  // @Output() cloneTemplate = new EventEmitter<any>();
 
   constructor(public ingressTplService: IngressTplService,
               public ingressService: IngressService,
@@ -74,7 +72,6 @@ export class ListIngressComponent extends ListResource implements OnInit, OnDest
       deletionDialogService
     )
     super.registSubscription(ConfirmationTargets.INGRESS_TPL, 'Ingress 模版删除成功！');
-
     super.registConfirmationTarget(ConfirmationTargets.INGRESS_TPL);
   }
 
@@ -86,17 +83,5 @@ export class ListIngressComponent extends ListResource implements OnInit, OnDest
       this.subscription.unsubscribe();
     }
   }
-
-
-  // deleteIngressTpl(tpl: IngressTpl): void {
-  //   const deletionMessage = new ConfirmationMessage(
-  //     '删除 Ingress 模版确认',
-  //     `你确认删除 Ingress 模版 ${tpl.name}？`,
-  //     tpl.id,
-  //     ConfirmationTargets.INGRESS_TPL,
-  //     ConfirmationButtons.DELETE_CANCEL
-  //   );
-  //   this.deletionDialogService.openComfirmDialog(deletionMessage);
-  // }
 
 }

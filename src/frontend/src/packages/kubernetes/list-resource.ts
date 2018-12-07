@@ -23,26 +23,23 @@ import { AceEditorMsg } from '../../app/shared/ace-editor/ace-editor';
 import { PublishStatus } from '../../app/shared/model/v1/publish-status';
 
 export class ListResource {
-  @Input() showState: object;
-
   publishTemplateComponent: any;
   resourceStatusComponent: any;
 
+  @Input() showState: object;
   @Input() resources: any[];
   @Input() templates: any[];
   @Input() page: Page;
   @Input() appId: number;
-
-  state: State;
-  currentPage = 1;
+  @Input() resourceId: number;
 
   @Output() paginate = new EventEmitter<State>();
   @Output() serviceTab = new EventEmitter<number>();
   @Output() cloneTemplate = new EventEmitter<any>();
+
   subscription: Subscription;
-
-  @Input() resourceId: number;
-
+  state: State;
+  currentPage = 1;
   confirmationTarget: ConfirmationTargets;
 
   constructor(public templateService: any,
@@ -134,7 +131,7 @@ export class ListResource {
     );
   }
 
-  showResourceState(status: PublishStatus, tpl: IngressTpl) {
+  showResourceState(status: PublishStatus, tpl: any) {
     if (status.cluster && status.state !== TemplateState.NOT_FOUND) {
       this.resourceStatusComponent.newIngressStatus(status.cluster, tpl);
     }
