@@ -37,7 +37,6 @@ export class Resource {
   pageState: PageState = new PageState();
 
   isOnline = false;
-
   timer: any = null;
 
   subscription: Subscription;
@@ -56,6 +55,8 @@ export class Resource {
 
   resourceType: string;
   message: string;
+  publishType: PublishType;
+  // confirmTargetID:
 
   constructor(public resourceService: any,
               public templateService: any,
@@ -79,28 +80,37 @@ export class Resource {
     this.resourceType = resourceType;
   }
 
+  registPublishType(publishType: PublishType) {
+    this.publishType = this.publishType;
+  }
+
+  // change
   setMessage(message: string) {
     this.message = message;
   }
 
+
+  // TODO 更新函数名
   createResource(): void {
     this.createEditResource.newOrEditIngress(this.app, this.filterCluster());
   }
 
+  // TODO 更新函数名
   editResource() {
     this.createEditResource.newOrEditIngress(this.app, this.filterCluster(), this.resourceId);
   }
 
-  deleteResource() {
+  deleteResource(title: string , message: string, target: ConfirmationTargets, warningMessage: string) {
     if (this.publishStatus && this.publishStatus.length > 0) {
-      this.messageHandlerService.warning('已上线 ingress 无法删除，请先下线 ingress！');
+      // '已上线 ingress 无法删除，请先下线 ingress！'
+      this.messageHandlerService.warning(warningMessage);
     } else {
+      // '删除 ingress 确认',
+      //   '是否确认删除 ingress',
+      //
+      //   ConfirmationTargets.INGRESS,
       const deletionMessage = new ConfirmationMessage(
-        '删除 ingress 确认',
-        '是否确认删除 ingress',
-        this.resourceId,
-        ConfirmationTargets.INGRESS,
-        ConfirmationButtons.DELETE_CANCEL
+        title, message, this.resourceId, target, ConfirmationButtons.DELETE_CANCEL
       );
       this.deletionDialogService.openComfirmDialog(deletionMessage);
     }
@@ -128,7 +138,7 @@ export class Resource {
   }
 
   listPublishHistory() {
-    this.publishHistoryService.openModal(PublishType.DEPLOYMENT, this.resourceId);
+    this.publishHistoryService.openModal(this.publishType, this.resourceId);
   }
 
   reloadAfterCreate(id: number) {
@@ -158,10 +168,10 @@ export class Resource {
     ).subscribe(
       response => {
         this.publishStatus = response[1].data;
-        const tpls = response[0]['data'];
-        this.pageState.page.totalPage = tpls.totalPage;
-        this.pageState.page.totalCount = tpls.totalCount;
-        this.templates = this.generateTemplateList(tpls.list, response[1].data);
+        this.templates = response[0]['data'].list;
+        this.pageState.page.totalPage = response[0]['data'].totalPage;
+        this.pageState.page.totalCount = response[0]['data'].totalCount;
+        this.generateTemplateList(tpls.list, response[1].data);
         this.addStatusInfo();
       },
       error => this.messageHandlerService.handleError(error)
