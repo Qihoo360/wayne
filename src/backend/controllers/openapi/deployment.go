@@ -259,12 +259,7 @@ func (c *OpenAPIController) RestartDeployment() {
 		c.AddErrorAndResponse(fmt.Sprintf("Failed get deployment by name(%s)", param.Deployment), http.StatusBadRequest)
 		return
 	}
-	err = json.Unmarshal([]byte(deployResource.MetaData), &deployResource.MetaDataObj)
-	if err != nil {
-		logs.Error(fmt.Sprintf("Failed to parse metadata: %s", err.Error()))
-		c.AddErrorAndResponse("", http.StatusInternalServerError)
-		return
-	}
+
 	cli, err := client.Client(param.Cluster)
 	if err != nil {
 		logs.Error("Failed to connect to k8s client", err)
