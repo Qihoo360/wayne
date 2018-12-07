@@ -283,6 +283,7 @@ func (c *OpenAPIController) RestartDeployment() {
 	if err := updateDeployment(deployObj, param.Cluster, c.APIKey.String(), "Restart Deployment", deployResource.Id); err != nil {
 		logs.Error("Failed to restart from k8s client", err.Error())
 		c.AddErrorAndResponse(fmt.Sprintf("Failed to restart from k8s client on %s!", param.Cluster), http.StatusInternalServerError)
+		return
 	}
 	c.HandleResponse(nil)
 }
@@ -528,6 +529,7 @@ func (c *OpenAPIController) ScaleDeployment() {
 	if err := updateDeployment(deployObj, param.Cluster, c.APIKey.String(), "Scale Deployment", deployResource.Id); err != nil {
 		logs.Error("Failed to upgrade from k8s client", err.Error())
 		c.AddErrorAndResponse(fmt.Sprintf("Failed to upgrade from k8s client on %s!", param.Cluster), http.StatusInternalServerError)
+		return
 	}
 	err = models.DeploymentModel.Update(replicas32, deployResource, param.Cluster)
 	if err != nil {
