@@ -232,13 +232,7 @@ func (c *OpenAPIController) RestartDeployment() {
 		Namespace:  c.GetString("namespace"),
 		Cluster:    c.GetString("cluster"),
 	}
-	if !c.CheckoutRoutePermission(RestartDeploymentAction) {
-		return
-	}
-	if !c.CheckDeploymentPermission(param.Deployment) {
-		return
-	}
-	if !c.CheckNamespacePermission(param.Namespace) {
+	if !c.CheckoutRoutePermission(RestartDeploymentAction) || !c.CheckDeploymentPermission(param.Deployment) || !c.CheckNamespacePermission(param.Namespace) {
 		return
 	}
 	if len(param.Namespace) == 0 {
@@ -287,8 +281,8 @@ func (c *OpenAPIController) RestartDeployment() {
 	deployObj.Spec.Template.ObjectMeta.Labels["timestamp"] = strconv.FormatInt(time.Now().Unix(), 10)
 
 	if err := updateDeployment(deployObj, param.Cluster, c.APIKey.String(), "Restart Deployment", deployResource.Id); err != nil {
-		logs.Error("Failed to upgrade from k8s client", err.Error())
-		c.AddErrorAndResponse(fmt.Sprintf("Failed to upgrade from k8s client on %s!", param.Cluster), http.StatusInternalServerError)
+		logs.Error("Failed to restart from k8s client", err.Error())
+		c.AddErrorAndResponse(fmt.Sprintf("Failed to restart from k8s client on %s!", param.Cluster), http.StatusInternalServerError)
 	}
 	c.HandleResponse(nil)
 }
@@ -317,13 +311,7 @@ func (c *OpenAPIController) UpgradeDeployment() {
 		Description: c.GetString("description"),
 		Images:      c.GetString("images"),
 	}
-	if !c.CheckoutRoutePermission(UpgradeDeploymentAction) {
-		return
-	}
-	if !c.CheckDeploymentPermission(param.Deployment) {
-		return
-	}
-	if !c.CheckNamespacePermission(param.Namespace) {
+	if !c.CheckoutRoutePermission(UpgradeDeploymentAction) || !c.CheckDeploymentPermission(param.Deployment) || !c.CheckNamespacePermission(param.Namespace) {
 		return
 	}
 	param.clusters = strings.Split(param.Cluster, ",")
@@ -477,13 +465,7 @@ func (c *OpenAPIController) ScaleDeployment() {
 		Namespace:  c.GetString("namespace"),
 		Cluster:    c.GetString("cluster"),
 	}
-	if !c.CheckoutRoutePermission(ScaleDeploymentAction) {
-		return
-	}
-	if !c.CheckDeploymentPermission(param.Deployment) {
-		return
-	}
-	if !c.CheckNamespacePermission(param.Namespace) {
+	if !c.CheckoutRoutePermission(ScaleDeploymentAction) || !c.CheckDeploymentPermission(param.Deployment) || !c.CheckNamespacePermission(param.Namespace) {
 		return
 	}
 	var err error
