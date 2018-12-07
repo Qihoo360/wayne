@@ -40,17 +40,6 @@ export class ListIngressComponent extends ListResource implements OnInit, OnDest
   @ViewChild(IngressStatusComponent)
   resourceStatusComponent: IngressStatusComponent;
 
-  // @Input() showState: object;
-  // @Input() resources: any[];
-  // @Input() templates: any[];
-  // @Input() page: Page;
-  // @Input() appId: number;
-  // @Input() resourceId: number;
-  //
-  // @Output() paginate = new EventEmitter<State>();
-  // @Output() serviceTab = new EventEmitter<number>();
-  // @Output() cloneTemplate = new EventEmitter<any>();
-
   constructor(public ingressTplService: IngressTplService,
               public ingressService: IngressService,
               public tplDetailService: TplDetailService,
