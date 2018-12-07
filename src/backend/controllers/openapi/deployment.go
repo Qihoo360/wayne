@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/common"
@@ -35,6 +36,18 @@ type DeploymentStatusParam struct {
 	Namespace string `json:"namespace"`
 	// Required: true
 	Cluster string `json:"cluster"`
+}
+
+// swagger:parameters RestartDeploymentParam
+type RestartDeploymentParam struct {
+	// in: query
+	// Required: true
+	Deployment string `json:"deployment"`
+	// Required: true
+	Namespace string `json:"namespace"`
+	// Required: true
+	Cluster  string   `json:"cluster"`
+	clusters []string `json:"-"`
 }
 
 // swagger:parameters UpgradeDeploymentParam
@@ -199,6 +212,62 @@ func (c *OpenAPIController) GetDeploymentStatus() {
 		c.AddErrorAndResponse("Failed to get k8s client list!", http.StatusInternalServerError)
 		return
 	}
+}
+
+// swagger:route GET /restart_deployment deploy RestartDeploymentParam
+//
+// 用于用户调用以实现强制重启部署
+//
+// 该接口只能使用 app 级别的 apikey，这样做的目的主要是防止 apikey 的滥用
+//
+//     Responses:
+//       200: responseSuccess
+//       400: responseState
+//       401: responseState
+//       500: responseState
+// @router /restart_deployment [get]
+func (c *OpenAPIController) RestartDeployment() {
+	param := RestartDeploymentParam{
+		Deployment: c.GetString("deployment"),
+		Namespace:  c.GetString("namespace"),
+		Cluster:    c.GetString("cluster"),
+	}
+	if !c.CheckoutRoutePermission(RestartDeploymentAction) {
+		return
+	}
+	if !c.CheckDeploymentPermission(param.Deployment) {
+		return
+	}
+	if !c.CheckNamespacePermission(param.Namespace) {
+		return
+	}
+	param.clusters = strings.Split(param.Cluster, ",")
+
+	for _, cluster := range param.clusters {
+		deployInfo, err := getOnlineDeploymenetInfo(param.Deployment, param.Namespace, cluster, 0)
+		if err != nil {
+			c.AddError(fmt.Sprintf("Failed to get online deployment info on %s", cluster))
+			continue
+		}
+		common.DeploymentPreDeploy(deployInfo.DeploymentObject, deployInfo.Deployment, deployInfo.Cluster, deployInfo.Namespace)
+
+		deployInfo.DeploymentTemplete.User = c.APIKey.String()
+
+		deploymentTemplate, err := json.Marshal(deployInfo.DeploymentObject)
+		if err != nil {
+			logs.Error("Failed to parse metadata: %s", err)
+			c.AddError(fmt.Sprintf("Failed to parse metadata!"))
+			continue
+		}
+		deployInfo.DeploymentTemplete.Template = string(deploymentTemplate)
+		err = publishDeployment(deployInfo, c.APIKey.String())
+		if err != nil {
+			logs.Error("Failed to publish deployment", err)
+			c.AddError(fmt.Sprintf("Failed to publish deployment on %s!", deployInfo.Cluster.Name))
+		}
+		time.Sleep(time.Second * 1)
+	}
+	c.HandleResponse(nil)
 }
 
 // swagger:route GET /upgrade_deployment deploy UpgradeDeploymentParam

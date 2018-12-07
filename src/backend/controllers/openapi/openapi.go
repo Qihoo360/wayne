@@ -49,6 +49,7 @@ const (
 	GetDeploymentStatusAction = "GET_DEPLOYMENT_STATUS"
 	UpgradeDeploymentAction   = "UPGRADE_DEPLOYMENT"
 	ScaleDeploymentAction     = "SCALE_DEPLOYMENT"
+	RestartDeploymentAction   = "RESTART_DEPLOYMENT"
 	PermissionPrefix          = "OPENAPI_"
 )
 
