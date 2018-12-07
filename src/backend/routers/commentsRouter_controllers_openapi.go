@@ -33,6 +33,14 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/openapi:OpenAPIController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/openapi:OpenAPIController"],
 		beego.ControllerComments{
+			Method:           "RestartDeployment",
+			Router:           `/restart_deployment`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams:     param.Make(),
+			Params:           nil})
+
+	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/openapi:OpenAPIController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/openapi:OpenAPIController"],
+		beego.ControllerComments{
 			Method:           "ScaleDeployment",
 			Router:           `/scale_deployment`,
 			AllowHTTPMethods: []string{"get"},
