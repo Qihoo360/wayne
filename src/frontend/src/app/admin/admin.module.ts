@@ -36,6 +36,8 @@ import { NodesModule } from './node/nodes.module';
 import { LibraryAdminModule } from '../../../lib/admin/library-admin.module';
 import { IngressModule } from './ingress/ingress.module';
 import { IngressTplModule } from './ingresstpl/ingresstpl.module';
+import { KubeDeploymentModule } from './kubernetes/deployment/kube-deployment.module';
+import { TplDetailModule } from '../shared/tpl-detail/tpl-detail.module';
 
 @NgModule({
   imports: [
@@ -72,7 +74,9 @@ import { IngressTplModule } from './ingresstpl/ingresstpl.module';
     NodesModule,
     LibraryAdminModule,
     IngressModule,
-    IngressTplModule
+    IngressTplModule,
+    KubeDeploymentModule,
+    TplDetailModule
   ],
   providers: [
     AdminAuthCheckGuard,

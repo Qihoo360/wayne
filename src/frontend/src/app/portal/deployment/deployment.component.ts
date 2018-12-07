@@ -178,7 +178,7 @@ export class DeploymentComponent implements OnInit, OnDestroy {
             let status = tpl.status[j];
             // 错误超过俩次时候停止请求
             if (status.errNum > 2) continue;
-            this.deploymentClient.get(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
+            this.deploymentClient.getDetail(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
               response => {
                 let code = response.statusCode | response.status;
                 if (code === httpStatusCode.NoContent) {

@@ -15,7 +15,7 @@ import { CacheService } from '../shared/auth/cache.service';
 import { PublishHistoryService } from './common/publish-history/publish-history.service';
 import { AppUserModule } from './app-user/app-user.module';
 import { NamespaceUserModule } from './namespace-user/namespace-user.module';
-import { TplDetailService } from './common/tpl-detail/tpl-detail.service';
+import { TplDetailService } from '../shared/tpl-detail/tpl-detail.service';
 import { PersistentVolumeClaimModule } from './persistentvolumeclaim/persistentvolumeclaim.module';
 import { NamespaceApiKeyModule } from './namespace-apikey/apikey.module';
 import { AppApiKeyModule } from './app-apikey/apikey.module';
@@ -28,7 +28,7 @@ import { PodLoggingComponent } from './pod-logging/pod-logging.component';
 import { NamespaceReportModule } from './namespace-report/namespace-report.module';
 import { BaseAppModule } from './base/base-app.module';
 import { PublishHistoryModule } from './common/publish-history/publish-history.module';
-import { TplDetailModule } from './common/tpl-detail/tpl-detail.module';
+import { TplDetailModule } from '../shared/tpl-detail/tpl-detail.module';
 import { MarkdownModule } from 'ngx-markdown';
 import { LibraryPortalModule } from '../../../lib/portal/library-portal.module';
 

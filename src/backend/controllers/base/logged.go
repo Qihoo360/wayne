@@ -11,7 +11,6 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	"github.com/astaxie/beego"
 	"github.com/dgrijalva/jwt-go"
 )
 
@@ -25,7 +24,7 @@ var (
 )
 
 type LoggedInController struct {
-	beego.Controller
+	ParamBuilderController
 
 	User *models.User
 }

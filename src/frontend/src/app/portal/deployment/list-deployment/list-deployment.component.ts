@@ -17,7 +17,7 @@ import { ListPodComponent } from '../list-pod/list-pod.component';
 import { DeploymentStatus, DeploymentTpl, Event } from '../../../shared/model/v1/deploymenttpl';
 import { DeploymentService } from '../../../shared/client/v1/deployment.service';
 import { DeploymentTplService } from '../../../shared/client/v1/deploymenttpl.service';
-import { TplDetailService } from '../../common/tpl-detail/tpl-detail.service';
+import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from '../../../shared/page/page-state';

@@ -184,6 +184,9 @@ export class AdminComponent implements OnInit {
     '/admin/kubernetes/persistentvolume': {
       i18nKey: 'MENU.PV',
     },
+    '/admin/kubernetes/deployment': {
+      i18nKey: 'MENU.DEPLOYMENT',
+    },
   };
 
   constructor(
