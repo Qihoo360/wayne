@@ -1,11 +1,4 @@
-import { OnInit, Component, OnDestroy, AfterContentInit, ViewChild, ElementRef, Output, Input } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { State } from '@clr/angular';
-import { Ingress } from '../../../shared/model/v1/ingress';
-import { IngressTpl } from '../../../shared/model/v1/ingresstpl';
-import { Page } from '../../../shared/page/page-state';
-import { EventEmitter } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { OnInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { IngressService } from '../../../shared/client/v1/ingress.service';
 import { IngressTplService } from '../../../shared/client/v1/ingresstpl.service';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
@@ -13,20 +6,11 @@ import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service'
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
-import { PublishStatus } from '../../../shared/model/v1/publish-status';
 import { PublishIngressTplComponent } from '../publish-tpl/publish-tpl.component';
 import { IngressStatusComponent } from '../status/status.component';
-import {
-  ConfirmationButtons,
-  ConfirmationState,
-  ConfirmationTargets,
-  ResourcesActionType,
-  TemplateState
-} from '../../../shared/shared.const';
+import { ConfirmationTargets } from '../../../shared/shared.const';
 import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
-import { ListResource} from '../../../../packages/kubernetes/list-resource';
+import { ListResource } from '../../../../packages/kubernetes/list-resource';
 
 
 @Component({
@@ -72,5 +56,4 @@ export class ListIngressComponent extends ListResource implements OnInit, OnDest
       this.subscription.unsubscribe();
     }
   }
-
 }

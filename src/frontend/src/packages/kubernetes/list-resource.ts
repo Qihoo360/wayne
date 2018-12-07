@@ -4,18 +4,15 @@ import { TplDetailService } from '../../app/shared/tpl-detail/tpl-detail.service
 import { AceEditorService } from '../../app/shared/ace-editor/ace-editor.service';
 import { AuthService } from '../../app/shared/auth/auth.service';
 import { MessageHandlerService } from '../../app/shared/message-handler/message-handler.service';
-import { IngressTplService } from '../../app/shared/client/v1/ingresstpl.service';
-import { IngressService } from '../../app/shared/client/v1/ingress.service';
 import { Page } from '../../app/shared/page/page-state';
-import { PublishIngressTplComponent } from '../../app/portal/ingress/publish-tpl/publish-tpl.component';
-import { EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { IngressStatusComponent } from '../../app/portal/ingress/status/status.component';
+import { EventEmitter, Input, Output } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { IngressTpl } from '../../app/shared/model/v1/ingresstpl';
-import { Ingress } from '../../app/shared/model/v1/ingress';
 import { State } from '@clr/angular';
 import {
-  ConfirmationButtons, ConfirmationState, ConfirmationTargets, ResourcesActionType,
+  ConfirmationButtons,
+  ConfirmationState,
+  ConfirmationTargets,
+  ResourcesActionType,
   TemplateState
 } from '../../app/shared/shared.const';
 import { ConfirmationMessage } from '../../app/shared/confirmation-dialog/confirmation-message';
@@ -51,7 +48,6 @@ export class ListResource {
               public router: Router,
               public authService: AuthService,
               public deletionDialogService: ConfirmationDialogService) {
-    //
   }
 
   registSubscription(confirmTarget: ConfirmationTargets, msg: string) {
