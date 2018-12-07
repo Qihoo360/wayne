@@ -21,7 +21,6 @@ import { TranslateService } from '@ngx-translate/core';
 })
 
 export class CreateEditDeploymentComponent implements OnInit {
-  deploymentForm: NgForm;
   @ViewChild('deploymentForm')
   currentForm: NgForm;
   clusters: Cluster[];
@@ -29,13 +28,13 @@ export class CreateEditDeploymentComponent implements OnInit {
   resourcesMetas = new Resources();
   title: string;
   deployment: Deployment = new Deployment();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
   actionType: ActionType;
   modalOpened: boolean;
   app: App;
-  isMaster: boolean = false;
+  isMaster = false;
 
   @Output() create = new EventEmitter<number>();
 
@@ -52,7 +51,7 @@ export class CreateEditDeploymentComponent implements OnInit {
     this.clusters = clusters;
     this.clusterMetas = {};
     if (this.clusters && this.clusters.length > 0) {
-      for (let clu of this.clusters) {
+      for (const clu of this.clusters) {
         this.clusterMetas[clu.name] = new ClusterMeta(false);
       }
     }
@@ -62,11 +61,11 @@ export class CreateEditDeploymentComponent implements OnInit {
       this.deploymentService.getById(id, app.id).subscribe(
         status => {
           this.deployment = status.data;
-          let metaData = JSON.parse(this.deployment.metaData);
+          const metaData = JSON.parse(this.deployment.metaData ? this.deployment.metaData : '{}');
           if (this.clusters && this.clusters.length > 0) {
-            let replicas = metaData['replicas'];
-            for (let clu of this.clusters) {
-              let culsterMeta = new ClusterMeta(false);
+            const replicas = metaData['replicas'];
+            for (const clu of this.clusters) {
+              const culsterMeta = new ClusterMeta(false);
               if (replicas && replicas[clu.name]) {
                 culsterMeta.checked = true;
                 culsterMeta.value = replicas[clu.name];
@@ -75,8 +74,9 @@ export class CreateEditDeploymentComponent implements OnInit {
             }
           }
           if ('resources' in metaData) {
-            for (let limit in metaData.resources) {
-              metaData.resources[limit] = /Percent$/.test(limit) ? parseFloat(metaData.resources[limit].replace(/%$/, '')) : parseFloat(metaData.resources[limit]);
+            for (const limit in metaData.resources) {
+              metaData.resources[limit] = /Percent$/.test(limit) ?
+                parseFloat(metaData.resources[limit].replace(/%$/, '')) : parseFloat(metaData.resources[limit]);
             }
             this.resourcesMetas = metaData.resources;
           }
@@ -96,7 +96,7 @@ export class CreateEditDeploymentComponent implements OnInit {
   get replicaLimit(): number {
     let replicaLimit = defaultResources.replicaLimit;
     if (this.deployment && this.deployment.metaData) {
-      let metaData = JSON.parse(this.deployment.metaData);
+      const metaData = JSON.parse(this.deployment.metaData);
       if (metaData.resources &&
         metaData.resources.replicaLimit) {
         replicaLimit = parseInt(metaData.resources.replicaLimit);
@@ -109,7 +109,7 @@ export class CreateEditDeploymentComponent implements OnInit {
   }
 
   replicaValidation(cluster: string): boolean {
-    let clusterMeta = this.clusterMetas[cluster];
+    const clusterMeta = this.clusterMetas[cluster];
     if (this.deployment && this.deployment.metaData && clusterMeta) {
       if (!clusterMeta.checked) {
         return true;
@@ -120,7 +120,7 @@ export class CreateEditDeploymentComponent implements OnInit {
   }
 
   resourcesValidation(resource: string): boolean {
-    let value = this.resourcesMetas[resource];
+    const value = this.resourcesMetas[resource];
     if (/Percent$/.test(resource) && value !== null) {
       if (value <= 0 || value > 100) {
         return false;
@@ -143,21 +143,26 @@ export class CreateEditDeploymentComponent implements OnInit {
     if (!this.deployment.metaData) {
       this.deployment.metaData = '{}';
     }
-    let metaData = JSON.parse(this.deployment.metaData);
-    let replicas = {};
-    let resources = {};
-    for (let clu of this.clusters) {
-      let clusterMeta = this.clusterMetas[clu.name];
+    const metaData = JSON.parse(this.deployment.metaData);
+    const replicas = {};
+    const resources = {};
+    for (const clu of this.clusters) {
+      const clusterMeta = this.clusterMetas[clu.name];
       if (clusterMeta && clusterMeta.checked && clusterMeta.value) {
         replicas[clu.name] = clusterMeta.value;
       }
     }
-    for (let resource in this.resourcesMetas) {
-      if (this.resourcesMetas[resource] !== null) resources[resource] = /Percent$/.test(resource) ? this.resourcesMetas[resource] + '%' : this.resourcesMetas[resource].toString();
+    for (const resource in this.resourcesMetas) {
+      if (this.resourcesMetas[resource] !== null) {
+        resources[resource] = /Percent$/.test(resource) ? this.resourcesMetas[resource] + '%' : this.resourcesMetas[resource].toString();
+      }
     }
     metaData.replicas = replicas;
-    if (Object.keys(resources).length) metaData.resources = resources;
-    else delete metaData.resources;
+    if (Object.keys(resources).length) {
+      metaData.resources = resources;
+    } else {
+      delete metaData.resources;
+    }
     return JSON.stringify(metaData);
   }
 
@@ -218,8 +223,8 @@ export class CreateEditDeploymentComponent implements OnInit {
   }
 
   isResourcesValid(): boolean {
-    for (let resource in this.resourcesMetas) {
-      let value = this.resourcesMetas[resource];
+    for (const resource in this.resourcesMetas) {
+      const value = this.resourcesMetas[resource];
       if (/Percent$/.test(resource) && value !== null) {
         if (value <= 0 || value > 100) {
           return false;
@@ -231,8 +236,8 @@ export class CreateEditDeploymentComponent implements OnInit {
 
   isClusterValid(): boolean {
     if (this.clusters) {
-      for (let clu of this.clusters) {
-        let clusterMeta = this.clusterMetas[clu.name];
+      for (const clu of this.clusters) {
+        const clusterMeta = this.clusterMetas[clu.name];
         if (clusterMeta && clusterMeta.checked && clusterMeta.value) {
           return true;
         }
@@ -243,7 +248,7 @@ export class CreateEditDeploymentComponent implements OnInit {
 
   isClusterReplicaValid(): boolean {
     if (this.clusters) {
-      for (let clu of this.clusters) {
+      for (const clu of this.clusters) {
         if (!this.replicaValidation(clu.name)) {
           return false;
         }
@@ -256,7 +261,7 @@ export class CreateEditDeploymentComponent implements OnInit {
 
 //Handle the form validation
   handleValidation(): void {
-    let cont = this.currentForm.controls['deployment_name'];
+    const cont = this.currentForm.controls['deployment_name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }

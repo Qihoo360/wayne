@@ -14,7 +14,7 @@ import {
 import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { TplDetailService } from '../../common/tpl-detail/tpl-detail.service';
+import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { PersistentVolumeClaimTplService } from '../../../shared/client/v1/persistentvolumeclaimtpl.service';
 import { PersistentVolumeClaimTpl } from '../../../shared/model/v1/persistentvolumeclaimtpl';
@@ -48,9 +48,9 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   appId: number;
   pvcId: number;
   state: State;
-  currentPage: number = 1;
+  currentPage = 1;
   pageState: PageState = new PageState();
-  isOnline: boolean = false;
+  isOnline = false;
   loading: boolean;
   pvcTpls: PersistentVolumeClaimTpl[];
   publishStatus: PublishStatus[];
@@ -61,7 +61,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   isOnlineObservable: Subscription;
 
-  componentName: string = 'PVC';
+  componentName = 'PVC';
 
   constructor(private pvcTplService: PersistentVolumeClaimTplService,
               private tplDetailService: TplDetailService,
@@ -85,7 +85,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.PERSISTENT_VOLUME_CLAIM_TPL) {
-        let tplId = message.data;
+        const tplId = message.data;
         this.pvcTplService.deleteById(tplId, this.appId)
           .subscribe(
             response => {
@@ -114,19 +114,19 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   syncStatus(): void {
     if (this.pvcTpls && this.pvcTpls.length > 0) {
       for (let i = 0; i < this.pvcTpls.length; i++) {
-        let tpl = this.pvcTpls[i];
+        const tpl = this.pvcTpls[i];
         if (tpl.status && tpl.status.length > 0) {
           for (let j = 0; j < tpl.status.length; j++) {
-            let status = tpl.status[j];
+            const status = tpl.status[j];
             this.pvcClient.get(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
               response => {
-                let code = response.statusCode | response.status;
+                const code = response.statusCode | response.status;
                 if (code === httpStatusCode.NoContent) {
                   this.pvcTpls[i].status[j].state = TemplateState.NOT_FOUND;
                   return;
                 }
 
-                let pvc = response.data;
+                const pvc = response.data;
                 this.pvcTpls[i].status[j].pvc = pvc;
                 if (response.data &&
                   this.pvcTpls &&
@@ -154,7 +154,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
 
 
   pvcFileSystemStatus(publishStatus: PublishStatus) {
-    if (publishStatus.state == TemplateState.SUCCESS) {
+    if (publishStatus.state === TemplateState.SUCCESS) {
       this.persistentVolumeClaimRobinClient.getStatus(this.appId, publishStatus.cluster, publishStatus.pvc.metadata.namespace, publishStatus.pvc.metadata.name).subscribe(
         response => {
           publishStatus.fileSystemStatus = response.data;
@@ -168,23 +168,23 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   }
 
   fileSystemState(fileSystemStatus: PersistentVolumeClaimFileSystemStatus) {
-    let status = Array<string>();
+    const status = Array<string>();
     if (fileSystemStatus) {
       if (isArrayNotEmpty(fileSystemStatus.status)) {
-        for (let state of fileSystemStatus.status) {
-          if (state == 'Mount') {
+        for (const state of fileSystemStatus.status) {
+          if (state === 'Mount') {
             status.push('已激活');
           }
-          if (state == 'LoginForbidden') {
+          if (state === 'LoginForbidden') {
             status.push('禁止登录');
           }
-          if (state == 'Verifying') {
+          if (state === 'Verifying') {
             status.push('校验中');
           }
-          if (state == 'VerifyOk') {
+          if (state === 'VerifyOk') {
             status.push('校验成功');
           }
-          if (state == 'VerifyFailed') {
+          if (state === 'VerifyFailed') {
             status.push('校验失败');
           }
         }
@@ -200,8 +200,8 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   activedFileSystem(fileSystemStatus: PersistentVolumeClaimFileSystemStatus) {
     if (fileSystemStatus) {
       if (isArrayNotEmpty(fileSystemStatus.status)) {
-        for (let state of fileSystemStatus.status) {
-          if (state == 'Mount') {
+        for (const state of fileSystemStatus.status) {
+          if (state === 'Mount') {
             return true;
           }
         }
@@ -213,8 +213,8 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   containState(fileSystemStatus: PersistentVolumeClaimFileSystemStatus, state: string) {
     if (fileSystemStatus) {
       if (isArrayNotEmpty(fileSystemStatus.status)) {
-        for (let fstate of fileSystemStatus.status) {
-          if (fstate == state) {
+        for (const fstate of fileSystemStatus.status) {
+          if (fstate === state) {
             return true;
           }
         }
@@ -225,7 +225,8 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
 
   activePv(status: PublishStatus) {
     this.loading = true;
-    this.persistentVolumeClaimRobinClient.activeRbdImage(this.appId, status.cluster, status.pvc.metadata.namespace, status.pvc.metadata.name).subscribe(
+    this.persistentVolumeClaimRobinClient.activeRbdImage(this.appId, status.cluster,
+      status.pvc.metadata.namespace, status.pvc.metadata.name).subscribe(
       response => {
         this.syncStatus();
         this.messageHandlerService.showSuccess('激活成功！');
@@ -239,7 +240,8 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
 
   inActivePv(status: PublishStatus) {
     this.loading = true;
-    this.persistentVolumeClaimRobinClient.inActiveRbdImage(this.appId, status.cluster, status.pvc.metadata.namespace, status.pvc.metadata.name).subscribe(
+    this.persistentVolumeClaimRobinClient.inActiveRbdImage(this.appId, status.cluster,
+      status.pvc.metadata.namespace, status.pvc.metadata.name).subscribe(
       response => {
         this.syncStatus();
         this.messageHandlerService.showSuccess('取消激活成功！');
@@ -253,7 +255,8 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
 
   offlineImageUser(status: PublishStatus) {
     this.loading = true;
-    this.persistentVolumeClaimRobinClient.offlineRbdImageUser(this.appId, status.cluster, status.pvc.metadata.namespace, status.pvc.metadata.name).subscribe(
+    this.persistentVolumeClaimRobinClient.offlineRbdImageUser(this.appId, status.cluster,
+      status.pvc.metadata.namespace, status.pvc.metadata.name).subscribe(
       response => {
         this.syncStatus();
         this.messageHandlerService.showSuccess('下线所有用户成功！');
@@ -267,7 +270,8 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
 
 
   loginInfo(status: PublishStatus) {
-    this.persistentVolumeClaimRobinClient.loginInfo(this.appId, status.cluster, status.pvc.metadata.namespace, status.pvc.metadata.name).subscribe(
+    this.persistentVolumeClaimRobinClient.loginInfo(this.appId, status.cluster,
+      status.pvc.metadata.namespace, status.pvc.metadata.name).subscribe(
       response => {
         this.userInfoComponent.openModal(response.data);
       },
@@ -280,7 +284,8 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
 
   verifyFileSystem(status: PublishStatus) {
     this.loading = true;
-    this.persistentVolumeClaimRobinClient.verify(this.appId, status.cluster, status.pvc.metadata.namespace, status.pvc.metadata.name).subscribe(
+    this.persistentVolumeClaimRobinClient.verify(this.appId, status.cluster,
+      status.pvc.metadata.namespace, status.pvc.metadata.name).subscribe(
       response => {
         this.messageHandlerService.showSuccess('发送校验请求成功！');
         this.loading = false;
@@ -322,7 +327,8 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   }
 
   clonePvcTpl(tpl: PersistentVolumeClaimTpl) {
-    this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.appId}/persistentvolumeclaim/${this.pvcId}/tpl/${tpl.id}`]);
+    this.router.navigate([
+      `portal/namespace/${this.cacheService.namespaceId}/app/${this.appId}/persistentvolumeclaim/${this.pvcId}/tpl/${tpl.id}`]);
   }
 
   detailPvcTpl(tpl: PersistentVolumeClaimTpl) {
@@ -338,7 +344,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   }
 
   deletePvcTpl(tpl: PersistentVolumeClaimTpl): void {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除' + this.componentName + '模版确认',
       `你确认删除` + this.componentName + `${tpl.name}？`,
       tpl.id,
@@ -363,11 +369,11 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
       this.publishService.listStatus(PublishType.PERSISTENT_VOLUME_CLAIM, this.pvcId)
     ).subscribe(
       response => {
-        let status = response[1].data;
+        const status = response[1].data;
         this.publishStatus = status;
-        let tplStatusMap = {};
+        const tplStatusMap = {};
         if (status && status.length > 0) {
-          for (let state of status) {
+          for (const state of status) {
             if (!tplStatusMap[state.templateId]) {
               tplStatusMap[state.templateId] = Array<PublishStatus>();
             }
@@ -376,7 +382,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
         }
         this.tplStatusMap = tplStatusMap;
 
-        let tpls = response[0].data;
+        const tpls = response[0].data;
         this.buildTplList(tpls.list);
         this.pvcTpls = tpls.list;
         this.pageState.page.totalPage = tpls.totalPage;
@@ -389,11 +395,11 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
 
   buildTplList(pvcTpls: PersistentVolumeClaimTpl[]) {
     if (pvcTpls) {
-      for (let tpl of pvcTpls) {
-        let metaData = tpl.metaData ? tpl.metaData : '{}';
+      for (const tpl of pvcTpls) {
+        const metaData = tpl.metaData ? tpl.metaData : '{}';
         tpl.clusters = JSON.parse(metaData).clusters;
 
-        let publishStatus = this.tplStatusMap[tpl.id];
+        const publishStatus = this.tplStatusMap[tpl.id];
         if (publishStatus && publishStatus.length > 0) {
           tpl.status = publishStatus;
         }

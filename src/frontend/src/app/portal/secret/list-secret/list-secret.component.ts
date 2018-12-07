@@ -9,7 +9,7 @@ import { PublishSecretTplComponent } from '../publish-tpl/publish-tpl.component'
 import { Secret } from '../../../shared/model/v1/secret';
 import { SecretTpl } from '../../../shared/model/v1/secrettpl';
 import { SecretTplService } from '../../../shared/client/v1/secrettpl.service';
-import { TplDetailService } from '../../common/tpl-detail/tpl-detail.service';
+import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from '../../../shared/page/page-state';
@@ -31,14 +31,14 @@ export class ListSecretComponent implements OnInit, OnDestroy {
   @Input() page: Page;
   @Input() appId: number;
   state: State;
-  currentPage: number = 1;
+  currentPage = 1;
 
   @Output() paginate = new EventEmitter<State>();
   @Output() secretTab = new EventEmitter<number>();
   @Output() cloneTpl = new EventEmitter<SecretTpl>();
   subscription: Subscription;
 
-  componentName: string = '加密字典';
+  componentName = '加密字典';
 
   constructor(private secretTplService: SecretTplService,
               private tplDetailService: TplDetailService,
@@ -52,7 +52,7 @@ export class ListSecretComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.SECRET_TPL) {
-        let tplId = message.data;
+        const tplId = message.data;
         this.secretTplService.deleteById(tplId, this.appId)
           .subscribe(
             response => {
@@ -104,7 +104,7 @@ export class ListSecretComponent implements OnInit, OnDestroy {
   }
 
   deleteSecretTpl(tpl: SecretTpl): void {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除' + this.componentName + '模版确认',
       `你确认删除` + this.componentName + `${tpl.name}？`,
       tpl.id,

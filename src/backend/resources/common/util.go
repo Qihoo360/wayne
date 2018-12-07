@@ -36,3 +36,16 @@ func ContainersResourceList(containers []v1.Container) *ResourceList {
 		Memory: memoryUsage,
 	}
 }
+
+func CompareLabels(source map[string]string, target map[string]string) bool {
+	if len(source) != len(target) {
+		return false
+	}
+	for key, value := range source {
+		targetValue, ok := target[key]
+		if !ok || value != targetValue {
+			return false
+		}
+	}
+	return true
+}

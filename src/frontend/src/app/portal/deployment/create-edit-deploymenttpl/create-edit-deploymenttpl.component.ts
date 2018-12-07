@@ -90,7 +90,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
 
   actionType: ActionType;
   deploymentTpl: DeploymentTpl = new DeploymentTpl();
-  isSubmitOnGoing: boolean = false;
+  isSubmitOnGoing = false;
   app: App;
   deployment: Deployment;
   kubeDeployment: KubeDeployment = new KubeDeployment();
@@ -176,7 +176,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
   get memoryLimit(): number {
     let memoryLimit = defaultResources.memoryLimit;
     if (this.deployment && this.deployment.metaData) {
-      let metaData = JSON.parse(this.deployment.metaData);
+      const metaData = JSON.parse(this.deployment.metaData);
       if (metaData.resources &&
         metaData.resources.memoryLimit) {
         memoryLimit = parseInt(metaData.resources.memoryLimit);
@@ -188,7 +188,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
   get cpuLimit(): number {
     let cpuLimit = defaultResources.cpuLimit;
     if (this.deployment && this.deployment.metaData) {
-      let metaData = JSON.parse(this.deployment.metaData);
+      const metaData = JSON.parse(this.deployment.metaData);
       if (metaData.resources &&
         metaData.resources.cpuLimit) {
         cpuLimit = parseInt(metaData.resources.cpuLimit);
@@ -211,7 +211,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
   }
 
   defaultContainer(): Container {
-    let container = new Container();
+    const container = new Container();
     container.resources = new ResourceRequirements();
     container.resources.limits = {'memory': '', 'cpu': ''};
     container.env = [];
@@ -222,7 +222,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
   // 初始化navigation数据
 
   setContainDom(i) {
-    let dom = JSON.parse(JSON.stringify(containerDom));
+    const dom = JSON.parse(JSON.stringify(containerDom));
     dom.id += i ? i : '';
     dom.child.forEach(item => {
       item.id += i ? i : '';
@@ -232,7 +232,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
 
   initNavList() {
     this.naviList = null;
-    let naviList = JSON.parse(JSON.stringify(templateDom));
+    const naviList = JSON.parse(JSON.stringify(templateDom));
     for (let key = 0; key < this.containersLength; key++) {
       naviList[0].child.push(this.setContainDom(key));
     }
@@ -241,11 +241,11 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
 
   ngOnInit(): void {
     this.initDefault();
-    let appId = parseInt(this.route.parent.snapshot.params['id']);
-    let namespaceId = this.cacheService.namespaceId;
-    let deploymentId = parseInt(this.route.snapshot.params['deploymentId']);
-    let tplId = parseInt(this.route.snapshot.params['tplId']);
-    let observables = Array(
+    const appId = parseInt(this.route.parent.snapshot.params['id']);
+    const namespaceId = this.cacheService.namespaceId;
+    const deploymentId = parseInt(this.route.snapshot.params['deploymentId']);
+    const tplId = parseInt(this.route.snapshot.params['tplId']);
+    const observables = Array(
       this.appService.getById(appId, namespaceId),
       this.deploymentService.getById(deploymentId, appId)
     );
@@ -259,7 +259,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
       response => {
         this.app = response[0].data;
         this.deployment = response[1].data;
-        let tpl = response[2];
+        const tpl = response[2];
         if (tpl) {
           this.deploymentTpl = tpl.data;
 
@@ -284,21 +284,16 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
     return labels;
   }
 
-  // 兼容旧的deployment
-  buildSelectorLabels(labels: {}) {
-    if (!labels) {
-      labels = {};
-    }
-    labels[this.authService.config[appLabelKey]] = this.app.name;
-    labels['app'] = this.deployment.name;
-    delete labels[this.authService.config[namespaceLabelKey]];
-    return labels;
+  buildSelectorLabels() {
+    const result = {};
+    result['app'] = this.deployment.name;
+    return result;
   }
 
   fillDeploymentLabel(kubeDeployment: KubeDeployment): KubeDeployment {
     kubeDeployment.metadata.name = this.deployment.name;
     kubeDeployment.metadata.labels = this.buildLabels(this.kubeDeployment.metadata.labels);
-    kubeDeployment.spec.selector.matchLabels = this.buildSelectorLabels(this.kubeDeployment.spec.selector.matchLabels);
+    kubeDeployment.spec.selector.matchLabels = this.buildSelectorLabels();
     kubeDeployment.spec.template.metadata.labels = this.buildLabels(this.kubeDeployment.spec.template.metadata.labels);
     return kubeDeployment;
   }
@@ -464,14 +459,14 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
   }
 
   normalPreStopExecSelected(i: number): boolean {
-    let preStop = this.kubeDeployment.spec.template.spec.containers[i].lifecycle.preStop;
+    const preStop = this.kubeDeployment.spec.template.spec.containers[i].lifecycle.preStop;
     return preStop && preStop.exec &&
       preStop.exec.command && preStop.exec.command.length > 0 &&
       preStop.exec.command[0] != this.defaultSafeExecCommand;
   }
 
   safeExitSelected(i: number): boolean {
-    let preStop = this.kubeDeployment.spec.template.spec.containers[i].lifecycle.preStop;
+    const preStop = this.kubeDeployment.spec.template.spec.containers[i].lifecycle.preStop;
     return preStop && preStop.exec &&
       preStop.exec.command && preStop.exec.command.length > 0 &&
       preStop.exec.command[0] == this.defaultSafeExecCommand;
@@ -482,7 +477,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
   }
 
   defaultEnv(type: number): EnvVar {
-    let env = new EnvVar();
+    const env = new EnvVar();
     switch (parseInt(type.toString())) {
       case 0:
         env.value = '';
@@ -502,7 +497,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
   }
 
   defaultEnvFrom(type: number): EnvFromSource {
-    let envFrom = new EnvFromSource();
+    const envFrom = new EnvFromSource();
     switch (parseInt(type.toString())) {
       case 1:
         envFrom.configMapRef = new ConfigMapEnvSource();
@@ -568,11 +563,13 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
 
   convertProbeCommandToArray(kubeDeployment: KubeDeployment): KubeDeployment {
     if (kubeDeployment.spec.template.spec.containers && kubeDeployment.spec.template.spec.containers.length > 0) {
-      for (let container of kubeDeployment.spec.template.spec.containers) {
-        if (container.livenessProbe && container.livenessProbe.exec && container.livenessProbe.exec.command && container.livenessProbe.exec.command.length > 0) {
+      for (const container of kubeDeployment.spec.template.spec.containers) {
+        if (container.livenessProbe && container.livenessProbe.exec && container.livenessProbe.exec.command
+          && container.livenessProbe.exec.command.length > 0) {
           container.livenessProbe.exec.command = container.livenessProbe.exec.command[0].split('\n');
         }
-        if (container.readinessProbe && container.readinessProbe.exec && container.readinessProbe.exec.command && container.readinessProbe.exec.command.length > 0) {
+        if (container.readinessProbe && container.readinessProbe.exec && container.readinessProbe.exec.command
+          && container.readinessProbe.exec.command.length > 0) {
           container.readinessProbe.exec.command = container.readinessProbe.exec.command[0].split('\n');
         }
         if (container.lifecycle) {
@@ -612,7 +609,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
     let cpuRequestLimitPercent = 0.5;
     let memoryRequestLimitPercent = 1;
     if (this.deployment.metaData) {
-      let metaData = JSON.parse(this.deployment.metaData);
+      const metaData = JSON.parse(this.deployment.metaData);
       if (metaData.resources && metaData.resources.cpuRequestLimitPercent) {
         if (metaData.resources.cpuRequestLimitPercent.indexOf('%') > -1) {
           cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent.replace('%', '')) / 100;
@@ -629,9 +626,9 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
       }
     }
 
-    for (let container of kubeDeployment.spec.template.spec.containers) {
-      let memoryLimit = container.resources.limits['memory'];
-      let cpuLimit = container.resources.limits['cpu'];
+    for (const container of kubeDeployment.spec.template.spec.containers) {
+      const memoryLimit = container.resources.limits['memory'];
+      const cpuLimit = container.resources.limits['cpu'];
       if (!container.resources.requests) {
         container.resources.requests = {};
       }
@@ -650,10 +647,10 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
   get totalFee() {
     let fee = 0;
     if (this.kubeDeployment.spec.template.spec.containers) {
-      for (let container of this.kubeDeployment.spec.template.spec.containers) {
-        let limit = container.resources.limits;
-        let cpu = limit['cpu'];
-        let memory = limit['memory'];
+      for (const container of this.kubeDeployment.spec.template.spec.containers) {
+        const limit = container.resources.limits;
+        const cpu = limit['cpu'];
+        const memory = limit['memory'];
         if (cpu) {
           fee += parseFloat(cpu) * this.cpuUnitPrice;
         }
@@ -676,14 +673,16 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
 
   convertProbeCommandToText(kubeDeployment: KubeDeployment) {
     if (kubeDeployment.spec.template.spec.containers && kubeDeployment.spec.template.spec.containers.length > 0) {
-      for (let container of kubeDeployment.spec.template.spec.containers) {
-        if (container.livenessProbe && container.livenessProbe.exec && container.livenessProbe.exec.command && container.livenessProbe.exec.command.length > 0) {
-          let commands = container.livenessProbe.exec.command;
+      for (const container of kubeDeployment.spec.template.spec.containers) {
+        if (container.livenessProbe && container.livenessProbe.exec && container.livenessProbe.exec.command
+          && container.livenessProbe.exec.command.length > 0) {
+          const commands = container.livenessProbe.exec.command;
           container.livenessProbe.exec.command = Array();
           container.livenessProbe.exec.command.push(commands.join('\n'));
         }
-        if (container.readinessProbe && container.readinessProbe.exec && container.readinessProbe.exec.command && container.readinessProbe.exec.command.length > 0) {
-          let commands = container.readinessProbe.exec.command;
+        if (container.readinessProbe && container.readinessProbe.exec && container.readinessProbe.exec.command
+          && container.readinessProbe.exec.command.length > 0) {
+          const commands = container.readinessProbe.exec.command;
           container.readinessProbe.exec.command = Array();
           container.readinessProbe.exec.command.push(commands.join('\n'));
         }
@@ -692,7 +691,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
           container.lifecycle.postStart.exec.command &&
           container.lifecycle.postStart.exec.command.length > 0) {
 
-          let commands = container.lifecycle.postStart.exec.command;
+          const commands = container.lifecycle.postStart.exec.command;
           container.lifecycle.postStart.exec.command = Array();
           container.lifecycle.postStart.exec.command.push(commands.join('\n'));
 
@@ -703,7 +702,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
           container.lifecycle.preStop.exec.command &&
           container.lifecycle.preStop.exec.command.length > 0) {
 
-          let commands = container.lifecycle.preStop.exec.command;
+          const commands = container.lifecycle.preStop.exec.command;
           container.lifecycle.preStop.exec.command = Array();
           container.lifecycle.preStop.exec.command.push(commands.join('\n'));
 
@@ -725,7 +724,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
       kubeDeployment.spec.strategy.rollingUpdate.maxUnavailable = 1;
     }
     if (kubeDeployment.spec.template.spec.containers && kubeDeployment.spec.template.spec.containers.length > 0) {
-      for (let container of kubeDeployment.spec.template.spec.containers) {
+      for (const container of kubeDeployment.spec.template.spec.containers) {
         if (!container.resources) {
           container.resources = ResourceRequirements.emptyObject();
         }
@@ -758,7 +757,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
   }
 
   getImagePrefixReg() {
-    let imagePrefix = this.authService.config['system.image-prefix'];
+    const imagePrefix = this.authService.config['system.image-prefix'];
     return imagePrefix;
   }
 
