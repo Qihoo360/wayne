@@ -14,7 +14,7 @@
 //     Schemes: https
 //     Host: localhost
 //     BasePath: /openapi/v1/gateway/action
-//     Version: 1.0.1
+//     Version: 1.1.0
 //
 //     Consumes:
 //     - application/json
@@ -49,6 +49,7 @@ const (
 	GetDeploymentStatusAction = "GET_DEPLOYMENT_STATUS"
 	UpgradeDeploymentAction   = "UPGRADE_DEPLOYMENT"
 	ScaleDeploymentAction     = "SCALE_DEPLOYMENT"
+	RestartDeploymentAction   = "RESTART_DEPLOYMENT"
 	PermissionPrefix          = "OPENAPI_"
 )
 
