@@ -1,6 +1,5 @@
-<wayne-input [(ngModel)]="value" style="width: 100%; height: 100%;" [placeholder]="placeholder"
-             (click)="inputClickEvent($event)" (input)="inputEvent($event)" [readonly]="readonly"
-             [cursor]="cursor"></wayne-input>
+<wayne-input [(ngModel)]="value" style="width: 100%; height: 100%;" [placeholder]="placeholder" (click)="inputClickEvent($event)"
+  (input)="inputEvent($event)" [readonly]="readonly" [cursor]="cursor"></wayne-input>
 <svg xmlns="http://www.w3.org/2000/svg" (click)="inputClickEvent($event)" viewBox="0, 0, 10, 5">
   <polygon points="0,0 10,0 5,5"></polygon>
 </svg>
@@ -9,5 +8,5 @@
     <ng-content select="wayne-option"></ng-content>
   </div>
   <div class="scroll-bar" [@barState]="barState" (mousedown)="mouseDownEvent($event)" [style.transform]="barTop"
-       [style.height.px]="barHeight"></div>
+    [style.height.px]="barHeight"></div>
 </div>

@@ -47,11 +47,9 @@ import { ScrollBarService } from '../client/v1/scrollBar.service';
 
 export class SelectComponent implements AfterViewInit, ControlValueAccessor {
   _value: any = '';
-  barState: string = 'hide';
-  showBox: boolean = false;
-  updateEmit = (_: any) => {
-  };
-  top: number = 0;
+  barState = 'hide';
+  showBox = false;
+  top = 0;
   barHeight: number;
   maxTrans: number;
   wrap: HTMLElement;
@@ -68,6 +66,7 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
   @Input('type') type = '';
   @Input('placeholder') placeholder = '';
   @Output() change = new EventEmitter<any>();
+  updateEmit = (_: any) => {};
 
   get value() {
     return this._value;
@@ -76,8 +75,10 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
   set value(value: any) {
     if (this._value !== value) {
       if (this.type === 'page') {
-        this._value = parseInt(value) || null;
-        if (this._value) this.updateValue(this._value);
+        this._value = parseInt(value, 10) || null;
+        if (this._value) {
+          this.updateValue(this._value);
+        }
       } else {
         this._value = value;
         this.updateValue(this._value);
@@ -114,7 +115,9 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
 
   isClickBox(target: Element): boolean {
     while (target.tagName.toLowerCase() !== 'body') {
-      if (target.tagName.toLowerCase() === 'wayne-select') return true;
+      if (target.tagName.toLowerCase() === 'wayne-select') {
+        return true;
+      }
       target = target.parentElement;
     }
     return false;
@@ -177,7 +180,7 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
   }
 
   docuMouseDown(event) {
-    let target = event.target;
+    const target = event.target;
     if (this.showBox) {
       if (!this.isClickBox(target)) {
         this.destoryBar();
@@ -203,7 +206,9 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
    */
   scrollEvent(event) {
     event.stopPropagation();
-    if (Object.prototype.toString.call(this.clickStart) !== '[object Null]') return;
+    if (Object.prototype.toString.call(this.clickStart) !== '[object Null]') {
+      return;
+    }
     const target = event.target;
     this.top = Number((target.scrollTop / target.clientHeight * 100).toFixed(2));
   }
@@ -226,7 +231,7 @@ export class SelectComponent implements AfterViewInit, ControlValueAccessor {
     }
     this.removeStyle(this._options);
     this._options.forEach(option => {
-      if (option.value == this.value) {
+      if (option.value === this.value) {
         option.el.nativeElement.style.background = 'rgba(232, 237, 246, .45)';
         this.wrap.scrollTop = option.el.nativeElement.offsetTop - 5;
       }
