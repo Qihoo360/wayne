@@ -59,7 +59,7 @@ export class CreateEditIngressTplComponent extends CreateEditResourceTemplate im
 
     const appId = parseInt(this.route.parent.snapshot.params['id'], 10);
     const namespaceId = this.cacheService.namespaceId;
-    const ingressId = parseInt(this.route.snapshot.params['ingressId'], 10);
+    const ingressId = parseInt(this.route.snapshot.params['resourceId'], 10);
     const tplId = parseInt(this.route.snapshot.params['tplId'], 10);
     const observables = Array(
       this.appService.getById(appId, namespaceId),

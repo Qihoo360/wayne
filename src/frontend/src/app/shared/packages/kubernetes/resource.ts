@@ -101,8 +101,8 @@ export class Resource {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === this.confirmationTarget) {
-        const ingressId = message.data;
-        this.resourceService.deleteById(ingressId, this.appId)
+        const resourceId = message.data;
+        this.resourceService.deleteById(resourceId, this.appId)
           .subscribe(
             response => {
               this.messageHandlerService.showSuccess(msg);
