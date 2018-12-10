@@ -27,7 +27,7 @@
               *ngIf="authService.currentAppPermission.ingress.read || authService.currentUser.admin">
         发布历史
       </button>
-      <button (click)="deleteResource()" class="wayne-button normal" *ngIf="authService.currentAppPermission.ingress.offline || authService.currentUser.admin">
+      <button (click)="deleteResource('删除 Ingress','是否确定删除 Ingress')" class="wayne-button normal" *ngIf="authService.currentAppPermission.ingress.offline || authService.currentUser.admin">
         删除 ingress
       </button>
       <wayne-filter-box (confirm)="onConfirmClick()" (cancel)="onCancelClick()">

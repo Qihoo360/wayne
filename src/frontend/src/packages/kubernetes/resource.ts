@@ -59,6 +59,7 @@ export class Resource {
   resourceType: string;
   message: string;
   publishType: PublishType;
+  confirmationTarget: ConfirmationTargets;
 
   constructor(public resourceService: any,
               public templateService: any,
@@ -91,6 +92,10 @@ export class Resource {
     this.publishType = this.publishType;
   }
 
+  registConfirmationTarget(confirmationTarget: ConfirmationTargets) {
+    this.confirmationTarget = confirmationTarget;
+  }
+
   registSubscription(confirmTarget: ConfirmationTargets, msg: string) {
     this.subscription = this.deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
@@ -117,28 +122,20 @@ export class Resource {
     this.message = message;
   }
 
-
-  // TODO 更新函数名
   createResource(): void {
-    this.createEditResource.newOrEditIngress(this.app, this.filterCluster());
+    this.createEditResource.newOrEditResource(this.app, this.filterCluster());
   }
 
-  // TODO 更新函数名
   editResource() {
-    this.createEditResource.newOrEditIngress(this.app, this.filterCluster(), this.resourceId);
+    this.createEditResource.newOrEditResource(this.app, this.filterCluster(), this.resourceId);
   }
 
-  deleteResource(title: string , message: string, target: ConfirmationTargets, warningMessage: string) {
+  deleteResource(title: string , message: string, warningMessage: string) {
     if (this.publishStatus && this.publishStatus.length > 0) {
-      // '已上线 ingress 无法删除，请先下线 ingress！'
       this.messageHandlerService.warning(warningMessage);
     } else {
-      // '删除 ingress 确认',
-      //   '是否确认删除 ingress',
-      //
-      //   ConfirmationTargets.INGRESS,
       const deletionMessage = new ConfirmationMessage(
-        title, message, this.resourceId, target, ConfirmationButtons.DELETE_CANCEL
+        title, message, this.resourceId, this.confirmationTarget, ConfirmationButtons.DELETE_CANCEL
       );
       this.deletionDialogService.openComfirmDialog(deletionMessage);
     }
@@ -392,6 +389,17 @@ export class Resource {
     if (id) {
       this.resourceId = id;
       this.setNavigateURI();
+      Observable.combineLatest(
+        this.resourceService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
+      ).subscribe(
+        response => {
+          this.resources = response[0]['data'].list.sort((a, b) => a.order - b.order);
+          this.initOrder(this.resources);
+        },
+        error => {
+          this.messageHandlerService.handleError(error);
+        }
+      );
       this.retrieveTemplates();
     }
   }

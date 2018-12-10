@@ -90,6 +90,7 @@ export class IngressComponent extends Resource implements OnInit, OnDestroy, Aft
     super.setResourceType('ingress');
     super.registPublishType(PublishType.INGRESS);
     super.registSubscription(ConfirmationTargets.INGRESS, 'ingress 删除成功！');
+    super.registConfirmationTarget(ConfirmationTargets.INGRESS);
   }
 
   ngOnInit() {

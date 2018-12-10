@@ -127,9 +127,10 @@ export class ListResource {
     );
   }
 
+  // TODO 更换函数名
   showResourceState(status: PublishStatus, tpl: any) {
     if (status.cluster && status.state !== TemplateState.NOT_FOUND) {
-      this.resourceStatusComponent.newIngressStatus(status.cluster, tpl);
+      this.resourceStatusComponent.newResourceStatus(status.cluster, tpl);
     }
 
   }
