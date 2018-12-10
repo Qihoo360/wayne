@@ -87,10 +87,17 @@ export class IngressComponent extends Resource implements OnInit, OnDestroy, Aft
       el,
       messageHandlerService
     )
-    super.setResourceType('ingress');
+    super.registResourceType('ingress');
     super.registPublishType(PublishType.INGRESS);
     super.registSubscription(ConfirmationTargets.INGRESS, 'ingress 删除成功！');
     super.registConfirmationTarget(ConfirmationTargets.INGRESS);
+    super.registShowState({
+      '创建时间': {hidden: false},
+      '上线机房': {hidden: false},
+      '发布说明': {hidden: false},
+      '创建者': {hidden: false},
+      '操作': {hidden: false}
+    });
   }
 
   ngOnInit() {

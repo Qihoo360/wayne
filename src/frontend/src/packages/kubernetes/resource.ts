@@ -13,7 +13,6 @@ import { AuthService } from '../../app/shared/auth/auth.service';
 import { MessageHandlerService } from '../../app/shared/message-handler/message-handler.service';
 import { CacheService } from '../../app/shared/auth/cache.service';
 import { ConfirmationDialogService } from '../../app/shared/confirmation-dialog/confirmation-dialog.service';
-import { IngressTpl } from '../../app/shared/model/v1/ingresstpl';
 import { App } from '../../app/shared/model/v1/app';
 import { PublishService } from '../../app/shared/client/v1/publish.service';
 import { ConfirmationMessage } from '../../app/shared/confirmation-dialog/confirmation-message';
@@ -24,14 +23,6 @@ import {
 import { Observable } from 'rxjs/Observable';
 import { State } from '@clr/angular';
 import { KubeIngress } from '../../app/shared/model/v1/kubernetes/ingress';
-
-const showState = {
-  '创建时间': {hidden: false},
-  '上线机房': {hidden: false},
-  '发布说明': {hidden: false},
-  '创建者': {hidden: false},
-  '操作': {hidden: false}
-};
 
 export class Resource {
   createEditResource: any;
@@ -44,7 +35,7 @@ export class Resource {
 
   subscription: Subscription;
   showList: any[] = new Array();
-  showState: object = showState;
+  showState: object;
   tabScription: Subscription;
   orderCache: Array<OrderItem>;
 
@@ -84,7 +75,7 @@ export class Resource {
     });
   }
 
-  setResourceType(resourceType: string) {
+  registResourceType(resourceType: string) {
     this.resourceType = resourceType;
   }
 
@@ -94,6 +85,10 @@ export class Resource {
 
   registConfirmationTarget(confirmationTarget: ConfirmationTargets) {
     this.confirmationTarget = confirmationTarget;
+  }
+  registShowState(showState: object) {
+    this.showState = showState;
+
   }
 
   registSubscription(confirmTarget: ConfirmationTargets, msg: string) {
