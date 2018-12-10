@@ -73,7 +73,7 @@ export class Resource {
               public messageHandlerService: MessageHandlerService) {
     this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
       if (over) {
-        this.onResourceabChanged();
+        this.onResourceTabChanged();
       }
     });
   }
@@ -94,11 +94,11 @@ export class Resource {
 
   }
 
-  registSubscription(confirmTarget: ConfirmationTargets, msg: string) {
+  registSubscription( msg: string) {
     this.subscription = this.deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
-        message.source === confirmTarget) {
+        message.source === this.confirmationTarget) {
         const ingressId = message.data;
         this.resourceService.deleteById(ingressId, this.appId)
           .subscribe(
@@ -115,19 +115,17 @@ export class Resource {
     });
   }
 
-  // change
-  setMessage(message: string) {
-    this.message = message;
-  }
-
+  // 创建资源的动作
   createResource(): void {
     this.createEditResource.newOrEditResource(this.app, this.filterCluster());
   }
 
+  // 编辑资源的动作
   editResource() {
     this.createEditResource.newOrEditResource(this.app, this.filterCluster(), this.resourceId);
   }
 
+  // 删除资源的动作
   deleteResource(title: string , message: string, warningMessage: string) {
     if (this.publishStatus && this.publishStatus.length > 0) {
       this.messageHandlerService.warning(warningMessage);
@@ -139,12 +137,14 @@ export class Resource {
     }
   }
 
+  // 创建模板的动作
   createTemplate() {
     this.router.navigate(
       [`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/${this.resourceType}/${this.resourceId}/tpl`]
     );
   }
 
+  // 克隆模板的动作
   cloneTemplate(tpl: any) {
     if (tpl) {
       this.router.navigate(
@@ -160,10 +160,12 @@ export class Resource {
     });
   }
 
+  // 展示发布历史
   listPublishHistory() {
     this.publishHistoryService.openModal(this.publishType, this.resourceId);
   }
 
+  // 创建操作执行后重新加载数据
   reloadAfterCreate(id: number) {
     if (id) {
       this.resourceId = id;
@@ -173,6 +175,7 @@ export class Resource {
     }
   }
 
+  // 获取模板列表
   retrieveTemplates(state?: State): void {
     if (!this.resourceId) {
       return;
@@ -199,6 +202,7 @@ export class Resource {
     );
   }
 
+  // 获取资源列表
   retrieveResources() {
     this.resourceService.list(PageState.fromState(
       {sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + '').subscribe(
@@ -212,9 +216,11 @@ export class Resource {
     );
   }
 
+  // 绑定模板数据和发布状态数据的接口，每个资源的处理方式都有差别
   generateTemplateList(templatedata: any[], publishdata: any[]): void {
   }
 
+  // 添加线上状态信息
   addStatusInfo(): void {
     if (this.templates && this.templates.length > 0) {
       for (let i = 0; i < this.templates.length; i++) {
@@ -261,6 +267,7 @@ export class Resource {
     }
   }
 
+  // 初始化资源列表
   initResource(refreshTpl?: boolean) {
     this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
     const namespaceId = this.cacheService.namespaceId;
@@ -289,10 +296,12 @@ export class Resource {
     );
   }
 
+  // 更新路由
   setNavigateURI() {
     this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/ingress/${this.resourceId}`]);
   }
 
+  // 初始化默认资源 ID 号
   initDefaultResourceId(): boolean {
     if (this.resources && this.resources.length > 0) {
       if (!this.resourceId) {
@@ -311,6 +320,7 @@ export class Resource {
     }
   }
 
+  // 初始化 show list
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
@@ -320,6 +330,7 @@ export class Resource {
     });
   }
 
+  // 监听确认按钮触发的事件
   onConfirmClick() {
     Object.keys(this.showState).forEach(key => {
       if (this.showList.indexOf(key) > -1) {
@@ -330,15 +341,18 @@ export class Resource {
     });
   }
 
+  // 监听退出按钮触发的事件
   onCancelClick() {
     this.initShow();
   }
 
+  // 监听模板列表发生变化的事件
   onTemplateListChanged() {
     this.retrieveTemplates();
   }
 
-  onResourceabChanged() {
+  // 监听重新排序的事件
+  onResourceTabChanged() {
     const orderList = [].slice.call(this.el.nativeElement.querySelectorAll('.tabs-item')).map((item, index) => {
       return {
         id: parseInt(item.id, 10),
@@ -361,6 +375,7 @@ export class Resource {
     );
   }
 
+  // 监听创建资源之后出发的重新处理资源的事件
   onResourceCreatedEvent(id: number) {
     if (id) {
       this.resourceId = id;
@@ -380,6 +395,7 @@ export class Resource {
     }
   }
 
+  // 用于对获取的资源列表排序的工作
   initOrder(resources?: any[]) {
     if (resources) {
       this.orderCache = resources.map(item => {

@@ -29,7 +29,6 @@ export class CreateEditResourceTemplate {
   defaultKubeResource: any;
 
   resourceType: string;
-  message: string;
 
 
 
@@ -47,31 +46,21 @@ export class CreateEditResourceTemplate {
   ) {
   }
 
-  setResourceType(resourceType: string) {
+  registResourceType(resourceType: string) {
     this.resourceType = resourceType;
   }
 
-  setDefaultKubeResource(kubeResource: any) {
+  registDefaultKubeResource(kubeResource: any) {
     this.defaultKubeResource = kubeResource;
   }
 
-  setMessage(message: string) {
-    this.message = message;
-  }
-
-  public get isValid(): boolean {
-    return this.currentForm &&
-      this.currentForm.valid &&
-      !this.isSubmitOnGoing &&
-      !this.checkOnGoing && this.isValidResource();
-  }
-
-
+  // 监听退出事件
   onCancel() {
     this.currentForm.reset();
     this.location.back();
   }
 
+  // 监听提交表单的事件
   onSubmit() {
     if (this.isSubmitOnGoing) {
       return;
@@ -92,7 +81,7 @@ export class CreateEditResourceTemplate {
           [`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/${this.resourceType}/${this.resource.id}`]
         );
         // TODO 路由变化后下面不会生效
-        this.messageHandlerService.showSuccess(this.message);
+        this.messageHandlerService.showSuccess('创建' + this.resourceType + '模板成功！');
       },
       error => {
         this.isSubmitOnGoing = false;
@@ -102,18 +91,21 @@ export class CreateEditResourceTemplate {
     );
   }
 
-  openModal(): void {
+  // 监听打开 Modal
+  onOpenModal(): void {
     let resourceObj = JSON.parse(JSON.stringify(this.kubeResource));
     resourceObj = this.generateResource(resourceObj);
     this.aceEditorService.announceMessage(AceEditorMsg.Instance(resourceObj, true));
   }
 
+  // 处理资源（挂载系统 label 等）
   generateResource(kubeResource: any): any {
     kubeResource.metadata.name = this.resource.name;
     kubeResource.metadata.labels = this.generateLabels(this.kubeResource.metadata.labels);
     return kubeResource;
   }
 
+  // 处理系统定义的 label
   generateLabels(labels: {}) {
     if (!labels) {
       labels = {};
@@ -126,6 +118,13 @@ export class CreateEditResourceTemplate {
 
   saveResourceTemplate() {
     this.kubeResource = mergeDeep(JSON.parse(this.defaultKubeResource), JSON.parse( this.template.template));
+  }
+
+  public get isValid(): boolean {
+    return this.currentForm &&
+      this.currentForm.valid &&
+      !this.isSubmitOnGoing &&
+      !this.checkOnGoing && this.isValidResource();
   }
 
   isValidResource(): boolean {

@@ -49,9 +49,8 @@ export class CreateEditIngressTplComponent extends CreateEditResourceTemplate im
       aceEditorService,
       messageHandlerService
     );
-    super.setResourceType('ingress');
-    super.setDefaultKubeResource(defaultIngress);
-    super.setMessage('Hello Ingress!');
+    super.registResourceType('Ingress');
+    super.registDefaultKubeResource(defaultIngress);
     this.template = new IngressTpl();
   }
 

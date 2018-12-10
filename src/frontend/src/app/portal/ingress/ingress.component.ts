@@ -77,8 +77,8 @@ export class IngressComponent extends Resource implements OnInit, OnDestroy, Aft
     )
     super.registResourceType('ingress');
     super.registPublishType(PublishType.INGRESS);
-    super.registSubscription(ConfirmationTargets.INGRESS, 'ingress 删除成功！');
     super.registConfirmationTarget(ConfirmationTargets.INGRESS);
+    super.registSubscription( 'ingress 删除成功！');
     super.registShowState({
       '创建时间': {hidden: false},
       '上线机房': {hidden: false},

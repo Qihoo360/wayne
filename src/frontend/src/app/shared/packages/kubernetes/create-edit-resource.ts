@@ -76,22 +76,7 @@ export class CreateEditResource {
       this.resource.metaData = '{}';
     }
   }
-
-  checkReplica(cluster: string): boolean {
-    return true;
-  }
-
-  checkResources(resource: string): boolean {
-    const value = this.resourcesMetas[resource];
-    if (/Percent$/.test(resource) && value !== null) {
-      if (value <= 0 || value > 100) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-
+  
   checkNameValid(): void {
     const cont = this.currentForm.controls['name'];
     if (cont) {

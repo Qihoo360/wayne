@@ -60,7 +60,7 @@ export class ListResource {
           .subscribe(
             response => {
               this.messageHandlerService.showSuccess(msg);
-              this.refresh();
+              this.reloadAfterPublish();
             },
             error => {
               this.messageHandlerService.handleError(error);
@@ -75,7 +75,8 @@ export class ListResource {
 
   }
 
-  onDeleteResourceTemplate(title: string, message: string, template: any ): void {
+  // 监听删除模板的事件
+  onDeleteTemplate(title: string, message: string, template: any ): void {
     const deletionMessage = new ConfirmationMessage(
       title,
       message +  template.name,
@@ -86,6 +87,7 @@ export class ListResource {
     this.deletionDialogService.openComfirmDialog(deletionMessage);
   }
 
+  // 监听页面长度更改
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;
     this.state.page.size = pageSize;
@@ -93,18 +95,22 @@ export class ListResource {
     this.paginate.emit(this.state);
   }
 
+  // 监听克隆模板的事件
   oncloneTemplate(template: any) {
     this.cloneTemplate.emit(template);
   }
 
+  // 监听查看模板的事件
   onViewTemplate(template: any) {
     this.aceEditorService.announceMessage(AceEditorMsg.Instance(JSON.parse(template.template), false));
   }
 
+  // 监听查看模板描述
   onViewTemplateDescription(template: any) {
     this.tplDetailService.openModal(template.description);
   }
 
+  // 监听发布资源模板的事件
   onPublishResourceTemplate(template: any) {
     this.resourceService.getById(this.resourceId, this.appId).subscribe(
       response => {
@@ -116,6 +122,7 @@ export class ListResource {
     );
   }
 
+  // 监听下线资源模板触发的事件
   onOfflineResourceTemplate(template: any) {
     this.resourceService.getById(this.resourceId, this.appId).subscribe(
       response => {
@@ -127,7 +134,7 @@ export class ListResource {
     );
   }
 
-  // TODO 更换函数名
+  // 查看资源线上状态
   showResourceState(status: PublishStatus, tpl: any) {
     if (status.cluster && status.state !== TemplateState.NOT_FOUND) {
       this.resourceStatusComponent.newResourceStatus(status.cluster, tpl);
@@ -135,14 +142,15 @@ export class ListResource {
 
   }
 
-  refresh(state?: State) {
-    this.state = state;
-    this.paginate.emit(state);
-  }
-
+  // 监听发布事件
   onPublishEvent(success: boolean) {
     if (success) {
-      this.refresh();
+      this.reloadAfterPublish();
     }
+  }
+
+  reloadAfterPublish(state?: State) {
+    this.state = state;
+    this.paginate.emit(state);
   }
 }
