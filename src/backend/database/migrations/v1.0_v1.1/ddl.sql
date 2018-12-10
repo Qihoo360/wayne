@@ -1,5 +1,5 @@
 -- remove app name unique index
-ALTER TABLE `app` DROP INDEX `name`, ADD INDEX `name` (`name` ASC);
+ALTER TABLE `app` DROP INDEX `name`, ADD INDEX `app_name` (`name` ASC);
 
 -- add new tables
 CREATE TABLE `ingress`
