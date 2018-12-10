@@ -37,7 +37,7 @@ const showState = {
 })
 export class IngressComponent extends Resource implements OnInit, OnDestroy, AfterContentInit {
   @ViewChild(CreateEditIngressComponent)
-  createEditResource: CreateEditIngressComponent;
+  createEditResourceComponent: CreateEditIngressComponent;
   @ViewChild(ListIngressComponent)
   listResourceComponent: ListIngressComponent;
 

@@ -26,10 +26,12 @@ import {
 } from '../../shared.const';
 import { Observable } from 'rxjs/Observable';
 import { State } from '@clr/angular';
+import { CreateEditResource } from './create-edit-resource';
+import { ListResource } from './list-resource';
 
 export class Resource {
-  createEditResource: any;
-  listResourceComponent: any;
+  createEditResourceComponent: CreateEditResource;
+  listResourceComponent: ListResource;
 
   pageState: PageState = new PageState();
 
@@ -117,12 +119,12 @@ export class Resource {
 
   // 创建资源的动作
   createResource(): void {
-    this.createEditResource.newOrEditResource(this.app, this.filterCluster());
+    this.createEditResourceComponent.newOrEditResource(this.app, this.filterCluster());
   }
 
   // 编辑资源的动作
   editResource() {
-    this.createEditResource.newOrEditResource(this.app, this.filterCluster(), this.resourceId);
+    this.createEditResourceComponent.newOrEditResource(this.app, this.filterCluster(), this.resourceId);
   }
 
   // 删除资源的动作
@@ -195,6 +197,7 @@ export class Resource {
       response => {
         this.pageState.page.totalPage = response[0]['data'].totalPage;
         this.pageState.page.totalCount = response[0]['data'].totalCount;
+        this.publishStatus = response[1].data;
         this.generateTemplateList(response[0]['data'].list, response[1].data);
         this.addStatusInfo();
       },

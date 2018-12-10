@@ -76,7 +76,7 @@ export class CreateEditResource {
       this.resource.metaData = '{}';
     }
   }
-  
+
   checkNameValid(): void {
     const cont = this.currentForm.controls['name'];
     if (cont) {
