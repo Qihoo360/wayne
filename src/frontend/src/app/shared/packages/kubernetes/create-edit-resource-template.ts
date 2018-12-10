@@ -1,16 +1,16 @@
 import { NgForm } from '@angular/forms';
 import { ViewChild } from '@angular/core';
-import { App } from '../../app/shared/model/v1/app';
-import { ActionType, appLabelKey, namespaceLabelKey } from '../../app/shared/shared.const';
+import { App } from '../../model/v1/app';
+import { ActionType, appLabelKey, namespaceLabelKey } from '../../shared.const';
 import { Location } from '@angular/common';
-import { AppService } from '../../app/shared/client/v1/app.service';
+import { AppService } from '../../client/v1/app.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../app/shared/auth/auth.service';
-import { AceEditorService } from '../../app/shared/ace-editor/ace-editor.service';
-import { MessageHandlerService } from '../../app/shared/message-handler/message-handler.service';
-import { CacheService } from '../../app/shared/auth/cache.service';
-import { AceEditorMsg } from '../../app/shared/ace-editor/ace-editor';
-import { mergeDeep } from '../../app/shared/utils';
+import { AuthService } from '../../auth/auth.service';
+import { AceEditorService } from '../../ace-editor/ace-editor.service';
+import { MessageHandlerService } from '../../message-handler/message-handler.service';
+import { CacheService } from '../../auth/cache.service';
+import { AceEditorMsg } from '../../ace-editor/ace-editor';
+import { mergeDeep } from '../../utils';
 
 export class CreateEditResourceTemplate {
   ngForm: NgForm;

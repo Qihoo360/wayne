@@ -1,10 +1,10 @@
-import { ConfirmationDialogService } from '../../app/shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationDialogService } from '../../confirmation-dialog/confirmation-dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TplDetailService } from '../../app/shared/tpl-detail/tpl-detail.service';
-import { AceEditorService } from '../../app/shared/ace-editor/ace-editor.service';
-import { AuthService } from '../../app/shared/auth/auth.service';
-import { MessageHandlerService } from '../../app/shared/message-handler/message-handler.service';
-import { Page } from '../../app/shared/page/page-state';
+import { TplDetailService } from '../../tpl-detail/tpl-detail.service';
+import { AceEditorService } from '../../ace-editor/ace-editor.service';
+import { AuthService } from '../../auth/auth.service';
+import { MessageHandlerService } from '../../message-handler/message-handler.service';
+import { Page } from '../../page/page-state';
 import { EventEmitter, Input, Output } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { State } from '@clr/angular';
@@ -14,10 +14,10 @@ import {
   ConfirmationTargets,
   ResourcesActionType,
   TemplateState
-} from '../../app/shared/shared.const';
-import { ConfirmationMessage } from '../../app/shared/confirmation-dialog/confirmation-message';
-import { AceEditorMsg } from '../../app/shared/ace-editor/ace-editor';
-import { PublishStatus } from '../../app/shared/model/v1/publish-status';
+} from '../../shared.const';
+import { ConfirmationMessage } from '../../confirmation-dialog/confirmation-message';
+import { AceEditorMsg } from '../../ace-editor/ace-editor';
+import { PublishStatus } from '../../model/v1/publish-status';
 
 export class ListResource {
   publishTemplateComponent: any;

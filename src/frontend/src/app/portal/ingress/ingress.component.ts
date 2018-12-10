@@ -2,37 +2,25 @@ import { OnInit, ChangeDetectorRef, Component, OnDestroy, AfterContentInit, View
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreateEditIngressComponent } from './create-edit-ingress/create-edit-ingress.component';
-import { Observable } from 'rxjs/Observable';
-import { State } from '@clr/angular';
-import { App } from '../../shared/model/v1/app';
-import { Cluster } from '../../shared/model/v1/cluster';
-import { Ingress } from '../../shared/model/v1/ingress';
 import { IngressService } from '../../shared/client/v1/ingress.service';
 import { AppService } from '../../shared/client/v1/app.service';
 import { ClusterService } from '../../shared/client/v1/cluster.service';
 import { CacheService } from '../../shared/auth/cache.service';
 import { PublishHistoryService } from '../common/publish-history/publish-history.service';
 import {
-  ConfirmationButtons,
-  ConfirmationState,
-  ConfirmationTargets, httpStatusCode,
-  PublishType, TemplateState,
+  ConfirmationTargets,
+  PublishType,
 } from '../../shared/shared.const';
 import { AuthService } from '../../shared/auth/auth.service';
 import { PublishService } from '../../shared/client/v1/publish.service';
 import { PublishStatus } from '../../shared/model/v1/publish-status';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { Subscription } from 'rxjs/Subscription';
-import { PageState } from '../../shared/page/page-state';
 import { TabDragService } from '../../shared/client/v1/tab-drag.service';
-import { OrderItem } from '../../shared/model/v1/order';
 import { ListIngressComponent } from './list-ingress/list-ingress.component';
 import { IngressTplService } from '../../shared/client/v1/ingresstpl.service';
-import { IngressTpl } from '../../shared/model/v1/ingresstpl';
-import { IngressStatus, KubeIngress } from '../../shared/model/v1/kubernetes/ingress';
+import { KubeIngress } from '../../shared/model/v1/kubernetes/ingress';
 import { IngressClient } from '../../shared/client/v1/kubernetes/ingress';
-import { Resource } from '../../../packages/kubernetes/resource';
+import { Resource } from '../../shared/packages/kubernetes/resource';
 
 const showState = {
   '创建时间': {hidden: false},
@@ -112,5 +100,30 @@ export class IngressComponent extends Resource implements OnInit, OnDestroy, Aft
 
   ngAfterContentInit() {
     this.initResource();
+  }
+
+  generateTemplateList(templatedata: any[], publishdata: any[]): void {
+    const tplStatusMap = {};
+    if (publishdata && publishdata.length > 0) {
+      for (const state of publishdata) {
+        if (!tplStatusMap[state.templateId]) {
+          tplStatusMap[state.templateId] = Array<PublishStatus>();
+        }
+        state.errNum = 0;
+        tplStatusMap[state.templateId].push(state);
+      }
+    }
+    if (templatedata && templatedata.length > 0) {
+      for (let i = 0; i < templatedata.length; i++) {
+        const ing: KubeIngress = JSON.parse(templatedata[i].template);
+        if (ing.spec.rules && ing.spec.rules.length > 0) {
+          const publishStatus = tplStatusMap[templatedata[i].id];
+          if (publishStatus && publishStatus.length > 0) {
+            templatedata[i].status = publishStatus;
+          }
+        }
+      }
+    }
+    this.templates = templatedata;
   }
 }

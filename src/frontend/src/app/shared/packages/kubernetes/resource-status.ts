@@ -1,6 +1,6 @@
-import { CacheService } from '../../app/shared/auth/cache.service';
+import { CacheService } from '../../auth/cache.service';
 import { ActivatedRoute } from '@angular/router';
-import { MessageHandlerService } from '../../app/shared/message-handler/message-handler.service';
+import { MessageHandlerService } from '../../message-handler/message-handler.service';
 
 export class ResourceStatus {
   statusOpened = false;

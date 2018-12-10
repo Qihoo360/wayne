@@ -1,28 +1,31 @@
-import { PublishHistoryService } from '../../app/portal/common/publish-history/publish-history.service';
-import { TabDragService } from '../../app/shared/client/v1/tab-drag.service';
-import { OrderItem } from '../../app/shared/model/v1/order';
+import { PublishHistoryService } from '../../../portal/common/publish-history/publish-history.service';
+import { TabDragService } from '../../client/v1/tab-drag.service';
+import { OrderItem } from '../../model/v1/order';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
-import { Cluster } from '../../app/shared/model/v1/cluster';
-import { ClusterService } from '../../app/shared/client/v1/cluster.service';
-import { AppService } from '../../app/shared/client/v1/app.service';
-import { PageState } from '../../app/shared/page/page-state';
-import { PublishStatus } from '../../app/shared/model/v1/publish-status';
-import { AuthService } from '../../app/shared/auth/auth.service';
-import { MessageHandlerService } from '../../app/shared/message-handler/message-handler.service';
-import { CacheService } from '../../app/shared/auth/cache.service';
-import { ConfirmationDialogService } from '../../app/shared/confirmation-dialog/confirmation-dialog.service';
-import { App } from '../../app/shared/model/v1/app';
-import { PublishService } from '../../app/shared/client/v1/publish.service';
-import { ConfirmationMessage } from '../../app/shared/confirmation-dialog/confirmation-message';
+import { Cluster } from '../../model/v1/cluster';
+import { ClusterService } from '../../client/v1/cluster.service';
+import { AppService } from '../../client/v1/app.service';
+import { PageState } from '../../page/page-state';
+import { PublishStatus } from '../../model/v1/publish-status';
+import { AuthService } from '../../auth/auth.service';
+import { MessageHandlerService } from '../../message-handler/message-handler.service';
+import { CacheService } from '../../auth/cache.service';
+import { ConfirmationDialogService } from '../../confirmation-dialog/confirmation-dialog.service';
+import { App } from '../../model/v1/app';
+import { PublishService } from '../../client/v1/publish.service';
+import { ConfirmationMessage } from '../../confirmation-dialog/confirmation-message';
 import {
-  ConfirmationButtons, ConfirmationState, ConfirmationTargets, httpStatusCode, PublishType,
+  ConfirmationButtons,
+  ConfirmationState,
+  ConfirmationTargets,
+  httpStatusCode,
+  PublishType,
   TemplateState
-} from '../../app/shared/shared.const';
+} from '../../shared.const';
 import { Observable } from 'rxjs/Observable';
 import { State } from '@clr/angular';
-import { KubeIngress } from '../../app/shared/model/v1/kubernetes/ingress';
 
 export class Resource {
   createEditResource: any;
@@ -187,7 +190,6 @@ export class Resource {
       this.publishService.listStatus(PublishType.INGRESS, this.resourceId)
     ).subscribe(
       response => {
-        // this.publishStatus = response[1].data; TODO
         this.pageState.page.totalPage = response[0]['data'].totalPage;
         this.pageState.page.totalCount = response[0]['data'].totalCount;
         this.generateTemplateList(response[0]['data'].list, response[1].data);
@@ -198,7 +200,8 @@ export class Resource {
   }
 
   retrieveResources() {
-    this.resourceService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + '').subscribe(
+    this.resourceService.list(PageState.fromState(
+      {sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + '').subscribe(
       response => {
         this.resources = response.data.list.sort((a, b) => a.order - b.order);
         this.initOrder(this.resources);
@@ -210,28 +213,6 @@ export class Resource {
   }
 
   generateTemplateList(templatedata: any[], publishdata: any[]): void {
-    const tplStatusMap = {};
-    if (publishdata && publishdata.length > 0) {
-      for (const state of publishdata) {
-        if (!tplStatusMap[state.templateId]) {
-          tplStatusMap[state.templateId] = Array<PublishStatus>();
-        }
-        state.errNum = 0;
-        tplStatusMap[state.templateId].push(state);
-      }
-    }
-    if (templatedata && templatedata.length > 0) {
-      for (let i = 0; i < templatedata.length; i++) {
-        const ing: KubeIngress = JSON.parse(templatedata[i].template);
-        if (ing.spec.rules && ing.spec.rules.length > 0) {
-          const publishStatus = tplStatusMap[templatedata[i].id];
-          if (publishStatus && publishStatus.length > 0) {
-            templatedata[i].status = publishStatus;
-          }
-        }
-      }
-    }
-    this.templates = templatedata;
   }
 
   addStatusInfo(): void {

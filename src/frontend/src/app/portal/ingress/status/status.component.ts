@@ -5,7 +5,7 @@ import { CacheService } from '../../../shared/auth/cache.service';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ActivatedRoute } from '@angular/router';
 import { IngressClient } from '../../../shared/client/v1/kubernetes/ingress';
-import { ResourceStatus } from '../../../../packages/kubernetes/resource-status';
+import { ResourceStatus } from '../../../shared/packages/kubernetes/resource-status';
 
 @Component({
   selector: 'status',

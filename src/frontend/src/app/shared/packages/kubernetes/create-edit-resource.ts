@@ -1,13 +1,13 @@
-import { App } from '../../app/shared/model/v1/app';
-import { ActionType, configKeyApiNameGenerateRule, defaultResources } from '../../app/shared/shared.const';
+import { App } from '../../model/v1/app';
+import { ActionType, configKeyApiNameGenerateRule, defaultResources } from '../../shared.const';
 import { NgForm } from '@angular/forms';
 import { EventEmitter, Output, ViewChild } from '@angular/core';
-import { Ingress } from '../../app/shared/model/v1/ingress';
-import { Cluster } from '../../app/shared/model/v1/cluster';
-import { MessageHandlerService } from '../../app/shared/message-handler/message-handler.service';
-import { AuthService } from '../../app/shared/auth/auth.service';
-import { ApiNameGenerateRule } from '../../app/shared/utils';
-import { Resources } from '../../app/shared/model/v1/resources-limit';
+import { Ingress } from '../../model/v1/ingress';
+import { Cluster } from '../../model/v1/cluster';
+import { MessageHandlerService } from '../../message-handler/message-handler.service';
+import { AuthService } from '../../auth/auth.service';
+import { ApiNameGenerateRule } from '../../utils';
+import { Resources } from '../../model/v1/resources-limit';
 
 export class CreateEditResource {
   ngForm: NgForm;
