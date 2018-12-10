@@ -76,15 +76,15 @@ export class KubeDeploymentComponent implements OnInit {
 
   ngOnInit() {
     this.initShow();
-    let cluster = this.route.snapshot.params['cluster'];
+    const cluster = this.route.snapshot.params['cluster'];
     this.clusterService.getNames().subscribe(
       response => {
         const data = response.data;
-        if (data) {
-          this.clusters = data.map(item => item.name);
-          if (data.length > 0 && !this.cluster || this.clusters.indexOf(this.cluster) === -1) {
-            cluster = cluster ? cluster : data[0].name;
-          }
+        if (data && data.length > 0 && !cluster) {
+          this.router.navigateByUrl(`admin/kubernetes/deployment/${data[0].name}`);
+          return;
+        }
+        if (cluster) {
           this.jumpTo(cluster);
         }
       },
