@@ -116,5 +116,36 @@ export class CreateEditIngressTplComponent extends CreateEditResourceTemplate im
     }
     return true;
   }
+
+  // 监听提交表单的事件
+  onSubmit() {
+    if (this.isSubmitOnGoing) {
+      return;
+    }
+    this.isSubmitOnGoing = true;
+
+    let resourceObj = JSON.parse(JSON.stringify(this.kubeResource));
+    resourceObj = this.generateResource(resourceObj);
+    this.template.ingressId = this.resource.id;
+    this.template.template = JSON.stringify(resourceObj);
+
+    this.template.id = undefined;
+    this.template.name = this.resource.name;
+    this.templateService.create(this.template, this.app.id).subscribe(
+      status => {
+        this.isSubmitOnGoing = false;
+        this.router.navigate(
+          [`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/${this.resourceType}/${this.resource.id}`]
+        );
+        // TODO 路由变化后下面不会生效
+        this.messageHandlerService.showSuccess('创建' + this.resourceType + '模板成功！');
+      },
+      error => {
+        this.isSubmitOnGoing = false;
+        this.messageHandlerService.handleError(error);
+
+      }
+    );
+  }
 }
 

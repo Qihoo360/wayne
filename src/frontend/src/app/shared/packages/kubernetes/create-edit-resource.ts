@@ -2,7 +2,6 @@ import { App } from '../../model/v1/app';
 import { ActionType, configKeyApiNameGenerateRule, defaultResources } from '../../shared.const';
 import { NgForm } from '@angular/forms';
 import { EventEmitter, Output, ViewChild } from '@angular/core';
-import { Ingress } from '../../model/v1/ingress';
 import { Cluster } from '../../model/v1/cluster';
 import { MessageHandlerService } from '../../message-handler/message-handler.service';
 import { AuthService } from '../../auth/auth.service';
@@ -71,7 +70,6 @@ export class CreateEditResource {
     } else {
       this.actionType = ActionType.ADD_NEW;
       this.title = '创建' + this.resourceType;
-      this.resource = new Ingress();
       this.resourcesMetas = Object.assign({}, defaultResources);
       this.resource.metaData = '{}';
     }
