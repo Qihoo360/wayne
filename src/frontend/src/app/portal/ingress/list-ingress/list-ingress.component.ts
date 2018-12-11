@@ -10,7 +10,7 @@ import { PublishIngressTplComponent } from '../publish-tpl/publish-tpl.component
 import { IngressStatusComponent } from '../status/status.component';
 import { ConfirmationTargets } from '../../../shared/shared.const';
 import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
-import { ListResource } from '../../../shared/packages/kubernetes/list-resource';
+import { ListResource } from '../../../shared/base/resource/list-resource';
 
 
 @Component({

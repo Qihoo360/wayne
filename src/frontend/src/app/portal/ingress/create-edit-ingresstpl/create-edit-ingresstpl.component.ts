@@ -14,7 +14,7 @@ import { IngressTpl } from '../../../shared/model/v1/ingresstpl';
 import { IngressService } from '../../../shared/client/v1/ingress.service';
 import { IngressTplService } from '../../../shared/client/v1/ingresstpl.service';
 import { AuthService } from '../../../shared/auth/auth.service';
-import { CreateEditResourceTemplate } from '../../../shared/packages/kubernetes/create-edit-resource-template';
+import { CreateEditResourceTemplate } from '../../../shared/base/resource/create-edit-resource-template';
 
 
 @Component({

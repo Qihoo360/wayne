@@ -20,7 +20,7 @@ import { ListIngressComponent } from './list-ingress/list-ingress.component';
 import { IngressTplService } from '../../shared/client/v1/ingresstpl.service';
 import { KubeIngress } from '../../shared/model/v1/kubernetes/ingress';
 import { IngressClient } from '../../shared/client/v1/kubernetes/ingress';
-import { Resource } from '../../shared/packages/kubernetes/resource';
+import { Resource } from '../../shared/base/resource/resource';
 
 const showState = {
   '创建时间': {hidden: false},

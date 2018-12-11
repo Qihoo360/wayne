@@ -6,7 +6,7 @@ import 'rxjs/add/observable/combineLatest';
 import { Ingress } from '../../../shared/model/v1/ingress';
 import { IngressService } from '../../../shared/client/v1/ingress.service';
 import { AuthService } from '../../../shared/auth/auth.service';
-import { CreateEditResource } from '../../../shared/packages/kubernetes/create-edit-resource';
+import { CreateEditResource } from '../../../shared/base/resource/create-edit-resource';
 
 @Component({
   selector: 'create-edit-ingress',
