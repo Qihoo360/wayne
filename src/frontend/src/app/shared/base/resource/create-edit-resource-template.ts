@@ -11,7 +11,6 @@ import { MessageHandlerService } from '../../message-handler/message-handler.ser
 import { CacheService } from '../../auth/cache.service';
 import { AceEditorMsg } from '../../ace-editor/ace-editor';
 import { mergeDeep } from '../../utils';
-import {KubeService} from '../../../../../lib/shared/model/kubernetes/service';
 
 export class CreateEditResourceTemplate {
   ngForm: NgForm;
