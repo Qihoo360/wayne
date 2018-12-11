@@ -7,6 +7,12 @@ export class NamespaceClient {
   constructor(private http: HttpClient) {
   }
 
+  list(cluster: string): Observable<any> {
+    return this.http
+      .get(`/api/v1/kubernetes/namespaces/clusters/${cluster}`)
+      .catch(error => Observable.throw(error));
+  }
+
   getResourceUsage(namespaceId: number, appName?: string): Observable<any> {
     let params = new HttpParams();
     if (appName) {

@@ -6,7 +6,7 @@
   </clr-dg-column>
   <clr-dg-column class="col-version">
     <ng-container *clrDgHideableColumn="showState['label']">
-      Label
+      标签
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-version">
@@ -21,14 +21,14 @@
   </clr-dg-column>
   <clr-dg-column class="col-time">
     <ng-container *clrDgHideableColumn="showState['age']">
-      Age
+      已创建
     </ng-container>
   </clr-dg-column>
 
 
   <clr-dg-row *ngFor="let deployment of deployments" [clrDgItem]="deployment">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="detailDeployment(deployment)">详情</button>
+      <button class="action-item" (click)="detailDeployment(deployment)">编辑</button>
       <button class="action-item" (click)="migrationDeployment(deployment)">迁移</button>
     </clr-dg-action-overflow>
     <clr-dg-cell>{{deployment.objectMeta.name}}</clr-dg-cell>
