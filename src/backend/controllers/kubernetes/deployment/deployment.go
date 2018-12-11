@@ -175,6 +175,7 @@ func (c *KubeDeploymentController) Deploy() {
 			Cluster:      publishHistory.Cluster,
 			Status:       publishHistory.Status,
 			Message:      publishHistory.Message,
+			Object:       kubeDeployment,
 		})
 		c.Success("ok")
 	} else {
