@@ -85,7 +85,7 @@ export class Resource {
   }
 
   registPublishType(publishType: PublishType) {
-    this.publishType = this.publishType;
+    this.publishType = publishType;
   }
 
   registConfirmationTarget(confirmationTarget: ConfirmationTargets) {
@@ -192,7 +192,7 @@ export class Resource {
     this.pageState.params['isOnline'] = this.isOnline;
     Observable.combineLatest(
       this.templateService.listPage(this.pageState, this.appId, this.resourceId.toString()),
-      this.publishService.listStatus(PublishType.INGRESS, this.resourceId)
+      this.publishService.listStatus(this.publishType, this.resourceId)
     ).subscribe(
       response => {
         this.pageState.page.totalPage = response[0]['data'].totalPage;
