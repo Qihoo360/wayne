@@ -121,7 +121,7 @@ export class CreateEditResourceTemplate {
     if (!template) {
       template = this.template.template;
     }
-    this.kubeResource = mergeDeep(JSON.parse(this.defaultKubeResource), JSON.parse(template));
+    this.kubeResource = mergeDeep(JSON.parse(this.defaultKubeResource), template);
   }
 
   public get isValid(): boolean {
