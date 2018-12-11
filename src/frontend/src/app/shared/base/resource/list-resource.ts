@@ -60,7 +60,7 @@ export class ListResource {
           .subscribe(
             response => {
               this.messageHandlerService.showSuccess(msg);
-              this.reloadPage();
+              this.refresh();
             },
             error => {
               this.messageHandlerService.handleError(error);
@@ -145,11 +145,11 @@ export class ListResource {
   // 监听发布事件
   onPublishEvent(success: boolean) {
     if (success) {
-      this.reloadPage();
+      this.refresh();
     }
   }
 
-  reloadPage(state?: State) {
+  refresh(state?: State) {
     this.state = state;
     this.paginate.emit(state);
   }
