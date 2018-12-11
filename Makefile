@@ -22,6 +22,9 @@ run-backend:
 run-worker:
 	cd src/backend/ && bee run -main=./main.go -runargs="worker -t AuditWorker -c 2"
 
+run-webhook:
+	cd src/backend/ && bee run -main=./main.go -runargs="worker -t WebhookWorker -c 2"
+
 run-frontend:
 	cd src/frontend/ && npm start
 
