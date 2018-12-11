@@ -6,8 +6,10 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
+	"github.com/Qihoo360/wayne/src/backend/models/response"
 	"github.com/Qihoo360/wayne/src/backend/resources/ingress"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
+	"github.com/Qihoo360/wayne/src/backend/workers/webhook"
 	kapiv1beta1 "k8s.io/api/extensions/v1beta1"
 )
 
@@ -88,6 +90,15 @@ func (c *KubeIngressController) Deploy() {
 		c.HandleError(err)
 		return
 	}
+	webhook.PublishEventIngress(c.NamespaceId, c.AppId, c.User.Name, c.Ctx.Input.IP(), webhook.OnlineIngress, response.Resource{
+		Type:         publishHistory.Type,
+		ResourceId:   publishHistory.ResourceId,
+		ResourceName: publishHistory.ResourceName,
+		TemplateId:   publishHistory.TemplateId,
+		Cluster:      publishHistory.Cluster,
+		Status:       publishHistory.Status,
+		Message:      publishHistory.Message,
+	})
 	c.Success("ok")
 }
 
@@ -123,6 +134,10 @@ func (c *KubeIngressController) Offline() {
 		c.HandleError(err)
 		return
 	}
+	webhook.PublishEventIngress(c.NamespaceId, c.AppId, c.User.Name, c.Ctx.Input.IP(), webhook.OfflineIngress, response.Resource{
+		Type:         models.PublishTypeIngress,
+		ResourceName: name,
+		Cluster:      cluster,
+	})
 	c.Success("OK")
-	return
 }

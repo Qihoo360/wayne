@@ -18,7 +18,13 @@ var (
 	EventService = &HookEvent{
 		Key:         "service",
 		Name:        "负载均衡",
-		Description: "负载均衡相关动作行为，如创建、上下线等",
+		Description: "负载均衡相关动作行为，如上下线等",
+	}
+
+	EventIngress = &HookEvent{
+		Key:         "ingress",
+		Name:        "Ingress",
+		Description: "Ingress 相关动作行为，如上下线等",
 	}
 
 	EventMember = &HookEvent{
@@ -36,4 +42,5 @@ func init() {
 	Registry(EventDeployment)
 	Registry(EventService)
 	Registry(EventMember)
+	Registry(EventIngress)
 }
