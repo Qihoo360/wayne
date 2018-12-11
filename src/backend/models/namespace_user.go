@@ -119,7 +119,10 @@ func (n *namespaceUserModel) GetById(id int64, allGroupFlag bool) (v *NamespaceU
 	if err = Ormer().Read(v); err != nil {
 		return nil, err
 	}
-
+	v.User, err = UserModel.GetUserById(v.User.Id)
+	if err != nil {
+		return nil, err
+	}
 	if allGroupFlag {
 		namespaceUsers := []NamespaceUser{}
 		_, err := Ormer().QueryTable(TableNameNamespaceUser).Filter("Namespace", v.Namespace.Id).Filter("User", v.User.Id).RelatedSel("Group").All(&namespaceUsers)
