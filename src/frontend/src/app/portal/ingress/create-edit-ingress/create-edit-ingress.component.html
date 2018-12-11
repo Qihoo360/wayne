@@ -7,14 +7,14 @@
           <label for="name" class="col-md-3 form-group-label-override required">名称</label>
           <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <label *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</label>
-            <input type="text" id="name"  [(ngModel)]="ingress.name"
+            <input type="text" id="name"  [(ngModel)]="resource.name"
                    name="name"
                    required
                    placeholder="英文小写"
                    [readonly]="actionType==1"
                    maxlength="64"
                    pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
-                   (keyup)='handleValidation()'>
+                   (keyup)='checkNameValid()'>
             <span class="tooltip-content">
               服务名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?
             </span>
@@ -33,7 +33,7 @@
         </div>
         <div class="form-group" style="padding-left: 135px;">
           <label for="description" class="col-md-3 form-group-label-override">描述</label>
-          <textarea id="description" [(ngModel)]="ingress.description"
+          <textarea id="description" [(ngModel)]="resource.description"
                     name="description"
                     rows="3">
           </textarea>
@@ -43,7 +43,7 @@
   </div>
   <div class="modal-footer" style="padding-right: 5%">
     <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
-    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValidForm" (click)="onSubmit()">提交</button>
   </div>
 </clr-modal>
 
