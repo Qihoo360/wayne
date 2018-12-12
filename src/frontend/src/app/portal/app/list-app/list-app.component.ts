@@ -20,7 +20,7 @@ export class ListAppComponent implements OnInit {
   @Input() apps: App[];
   @Input() page: Page;
   state: State;
-  currentPage: number = 1;
+  currentPage = 1;
   @Input() showState: object;
   @Output() paginate = new EventEmitter<State>();
   @Output() delete = new EventEmitter<App>();
@@ -71,7 +71,7 @@ export class ListAppComponent implements OnInit {
   }
 
   starredApp(app: App) {
-    let appStarred = new AppStarred();
+    const appStarred = new AppStarred();
     appStarred.app = app;
     this.appStarredService.create(appStarred).subscribe(
       response => {
