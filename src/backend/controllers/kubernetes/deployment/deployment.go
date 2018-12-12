@@ -28,6 +28,7 @@ type KubeDeploymentController struct {
 func (c *KubeDeploymentController) URLMapping() {
 	c.Mapping("List", c.List)
 	c.Mapping("Get", c.Get)
+	c.Mapping("Update", c.Update)
 	c.Mapping("GetDetail", c.GetDetail)
 	c.Mapping("Offline", c.Offline)
 	c.Mapping("Deploy", c.Deploy)
@@ -72,6 +73,36 @@ func (c *KubeDeploymentController) List() {
 		result, err := deployment.GetDeploymentPage(manager.Client, manager.Indexer, namespace, param)
 		if err != nil {
 			logs.Error("list kubernetes deployments error.", cluster, namespace, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
+	}
+}
+
+// @Title Update
+// @Description update the Deployment
+// @Param	id		path 	int	true		"The id you want to update"
+// @Param	body		body 	models.App	true		"The body"
+// @Success 200 models.Namespace success
+// @router /:deployment/namespaces/:namespace/clusters/:cluster [put]
+func (c *KubeDeploymentController) Update() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	namespace := c.Ctx.Input.Param(":namespace")
+	name := c.Ctx.Input.Param(":deployment")
+	var obj v1beta1.Deployment
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &obj)
+	if err != nil {
+		logs.Error("Invalid param body.%v", err)
+		c.AbortBadRequestFormat("Deployment")
+	}
+	cli, err := client.Client(cluster)
+	if err == nil {
+		result, err := deployment.UpdateDeployment(cli, &obj)
+		if err != nil {
+			logs.Error("update kubernetes deployment error.", cluster, namespace, name, err)
 			c.HandleError(err)
 			return
 		}
