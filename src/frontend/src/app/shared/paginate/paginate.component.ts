@@ -16,25 +16,23 @@ export class PaginateComponent implements OnInit {
     */
   private _current: number;
   @Input() total: number;
-
   @Input() set currentPage(value) {
     this._current = value;
-  };
-
+  }
   @Input() pageSizes: Array<number>;
-  @Input() rate: number = 1;
-  @Input() _size: number = 10;
-  @Input() localSave: boolean = true;
+  @Input() rate = 1;
+  @Input() _size = 10;
+  @Input() localSave = true;
   @Output() sizeChange = new EventEmitter<number>();
   @Output() currentPageChange = new EventEmitter<number>();
 
   get current() {
     return this._current || 1;
-  };
+  }
 
   set current(value: number) {
     this.currentPageChange.emit(value);
-  };
+  }
 
   get lastPage(): number {
     try {
@@ -46,7 +44,7 @@ export class PaginateComponent implements OnInit {
 
   get pageList(): Array<any> {
     try {
-      let pageList = Array();
+      const pageList = Array();
       for (let key = 1; key <= this.lastPage; key++) {
         pageList.push(key);
       }
@@ -58,7 +56,7 @@ export class PaginateComponent implements OnInit {
 
   get showSize() {
     return this.pageSizes !== undefined;
-  };
+  }
 
   constructor(
     private storage: StorageService,
@@ -68,7 +66,7 @@ export class PaginateComponent implements OnInit {
 
   ngOnInit() {
     if (this.localSave && this.pageSizes) {
-      this._size = parseInt(this.storage.get('pagesize')) * this.rate || 10 * this.rate;
+      this._size = parseInt(this.storage.get('pagesize'), 10) * this.rate || 10 * this.rate;
       if (this.pageSizes.indexOf(this._size) === -1) {
         this.pageSizes.push(this._size);
         this.pageSizes.sort((a, b) => a - b);
@@ -80,9 +78,12 @@ export class PaginateComponent implements OnInit {
     return this._size;
   }
 
-  set size(value) {
+  set size(value: any) {
+    value = parseInt(value, 10);
     this._size = value;
-    if (this.localSave && this.pageSizes && this.pageSizes.indexOf(value) > -1) this.storage.save('pagesize', this._size / this.rate);
+    if (this.localSave && this.pageSizes && this.pageSizes.indexOf(value) > -1) {
+      this.storage.save('pagesize', this._size / this.rate);
+    }
     this.sizeChange.emit(this._size);
   }
 
