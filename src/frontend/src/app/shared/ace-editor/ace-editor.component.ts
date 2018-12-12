@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AceEditorBoxComponent } from './ace-editor-box/ace-editor-box.component';
 import { ModalInfo } from './modalInfo';
 import * as YAML from 'js-yaml';
@@ -15,6 +15,7 @@ export class AceEditorComponent implements OnInit {
   hiddenFooter: boolean;
   @ViewChild(AceEditorBoxComponent) box: AceEditorBoxComponent;
 
+  @Input() warningMsg = '';
   @Output() outputObj = new EventEmitter<any>();
 
   constructor() {
