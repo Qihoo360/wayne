@@ -3,7 +3,6 @@ package openapi
 import (
 	"fmt"
 	"net/http"
-
 	"strings"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
