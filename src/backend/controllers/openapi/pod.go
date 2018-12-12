@@ -38,8 +38,8 @@ type PodInfoFromIPParam struct {
 	// A list of ip.
 	// in: query
 	// Required: true
-	IPS string   `json:"ips"`
-	ips []string `json:"-"`
+	IPS string          `json:"ips"`
+	ips map[string]bool `json:"-"`
 	// Required: true
 	Cluster string `json:"cluster"`
 }
@@ -115,7 +115,10 @@ func (c *OpenAPIController) GetPodInfoFromIP() {
 		c.AddErrorAndResponse("Invalid cluster parameter:must required!", http.StatusBadRequest)
 		return
 	}
-	params.ips = strings.Split(params.IPS, ",")
+	params.ips = make(map[string]bool)
+	for _, ip := range strings.Split(params.IPS, ",") {
+		params.ips[ip] = true
+	}
 	manager, err := client.Manager(params.Cluster)
 	if err != nil {
 		c.AddErrorAndResponse("Invalid cluster parameter:not exist!", http.StatusBadRequest)
@@ -130,10 +133,8 @@ func (c *OpenAPIController) GetPodInfoFromIP() {
 	podList := resppodlist{}
 	podList.Body.Code = http.StatusOK
 	for _, p := range pods {
-		for _, ip := range params.ips {
-			if ip == p.Status.PodIP {
-				podList.Body.Pods = append(podList.Body.Pods, response.Pod{Labels: p.Labels, PodIp: p.Status.PodIP})
-			}
+		if params.ips[p.Status.PodIP] {
+			podList.Body.Pods = append(podList.Body.Pods, response.Pod{Labels: p.Labels, PodIp: p.Status.PodIP})
 		}
 	}
 	c.HandleResponse(podList.Body)
