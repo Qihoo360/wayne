@@ -117,12 +117,12 @@ func (c *OpenAPIController) GetPodInfoFromIP() {
 		return
 	}
 	params.ips = strings.Split(params.IPS, ",")
-	clis := client.Clients()
-	if clis[params.Cluster] == nil {
+	manager, err := client.Manager(params.Cluster)
+	if err != nil {
 		c.AddErrorAndResponse("Invalid cluster parameter:not exist!", http.StatusBadRequest)
 		return
 	}
-	pods, err := pod.GetAllPods(clis[params.Cluster])
+	pods := pod.GetPodsBySelectorFromCache(manager.Indexer, "", nil)
 	if err != nil {
 		logs.Error(fmt.Sprintf("Failed to parse metadata: %s", err.Error()))
 		c.AddErrorAndResponse(fmt.Sprintf("Maybe a problematic k8s cluster(%s)!", params.Cluster), http.StatusInternalServerError)
@@ -132,8 +132,8 @@ func (c *OpenAPIController) GetPodInfoFromIP() {
 	podList.Body.Code = http.StatusOK
 	for _, p := range pods {
 		for _, ip := range params.ips {
-			if ip == p.PodIp {
-				podList.Body.Pods = append(podList.Body.Pods, response.Pod{Labels: p.Labels, PodIp: p.PodIp})
+			if ip == p.Status.PodIP {
+				podList.Body.Pods = append(podList.Body.Pods, response.Pod{Labels: p.Labels, PodIp: p.Status.PodIP})
 			}
 		}
 	}

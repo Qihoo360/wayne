@@ -57,11 +57,11 @@ func GetPodsBySelectorFromCache(indexer *client.CacheIndexer, namespace string, 
 		if !ok {
 			continue
 		}
-		if namespace != cachePod.Namespace {
+		if namespace != "" && namespace != cachePod.Namespace {
 			continue
 		}
 
-		if !common.CompareLabels(labels, cachePod.Labels) {
+		if labels != nil && !common.CompareLabels(labels, cachePod.Labels) {
 			continue
 		}
 
@@ -73,21 +73,6 @@ func GetPodsBySelectorFromCache(indexer *client.CacheIndexer, namespace string, 
 
 func GetAllPodByLabelSelector(cli *kubernetes.Clientset, labelSelector string) ([]*Pod, error) {
 	podList, err := cli.CoreV1().Pods(metaV1.NamespaceAll).List(metaV1.ListOptions{LabelSelector: labelSelector})
-	if err != nil {
-		return nil, err
-	}
-	pods := make([]*Pod, 0)
-	for _, pod := range podList.Items {
-		pods = append(pods, &Pod{
-			Labels: pod.Labels,
-			PodIp:  pod.Status.PodIP,
-		})
-	}
-	return pods, nil
-}
-
-func GetAllPods(cli *kubernetes.Clientset) ([]*Pod, error) {
-	podList, err := cli.CoreV1().Pods(metaV1.NamespaceAll).List(metaV1.ListOptions{})
 	if err != nil {
 		return nil, err
 	}
