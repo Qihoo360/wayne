@@ -86,6 +86,21 @@ func GetAllPodByLabelSelector(cli *kubernetes.Clientset, labelSelector string) (
 	return pods, nil
 }
 
+func GetAllPods(cli *kubernetes.Clientset) ([]*Pod, error) {
+	podList, err := cli.CoreV1().Pods(metaV1.NamespaceAll).List(metaV1.ListOptions{})
+	if err != nil {
+		return nil, err
+	}
+	pods := make([]*Pod, 0)
+	for _, pod := range podList.Items {
+		pods = append(pods, &Pod{
+			Labels: pod.Labels,
+			PodIp:  pod.Status.PodIP,
+		})
+	}
+	return pods, nil
+}
+
 func GetPodsBySelector(cli *kubernetes.Clientset, namespace, labelSelector string) ([]v1.Pod, error) {
 	podList, err := cli.CoreV1().Pods(namespace).List(metaV1.ListOptions{LabelSelector: labelSelector})
 	if err != nil {
