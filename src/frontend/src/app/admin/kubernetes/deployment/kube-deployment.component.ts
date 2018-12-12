@@ -10,9 +10,11 @@ import { KubeListDeploymentComponent } from './list/kube-list-deployment.compone
 import { ClusterService } from '../../../shared/client/v1/cluster.service';
 import { DeploymentList } from '../../../shared/model/v1/deployment-list';
 import { AdminDefaultApiId } from '../../../shared/shared.const';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { KubeMigrationDeploymentComponent } from './migration/kube-migration-deployment.component';
+import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
+import { AceEditorComponent } from '../../../shared/ace-editor/ace-editor.component';
+import { KubeDeployment } from '../../../shared/model/v1/kubernetes/deployment';
 
 const showState = {
   'name': {hidden: false},
@@ -31,6 +33,8 @@ export class KubeDeploymentComponent implements OnInit {
   listDeployment: KubeListDeploymentComponent;
   @ViewChild(KubeMigrationDeploymentComponent)
   migrationDeployment: KubeMigrationDeploymentComponent;
+  @ViewChild(AceEditorComponent)
+  editModal: AceEditorComponent;
 
   namespace = 'default';
   cluster: string;
@@ -42,9 +46,12 @@ export class KubeDeploymentComponent implements OnInit {
   showList: any[] = Array();
   showState: object = showState;
 
+  namespaces: any;
+
   constructor(private breadcrumbService: BreadcrumbService,
               private deploymentClient: DeploymentClient,
               private clusterService: ClusterService,
+              private namespaceClient: NamespaceClient,
               private route: ActivatedRoute,
               private router: Router,
               private aceEditorService: AceEditorService,
@@ -76,16 +83,23 @@ export class KubeDeploymentComponent implements OnInit {
 
   ngOnInit() {
     this.initShow();
-    let cluster = this.route.snapshot.params['cluster'];
+    const cluster = this.route.snapshot.params['cluster'];
     this.clusterService.getNames().subscribe(
       response => {
         const data = response.data;
-        if (data) {
-          this.clusters = data.map(item => item.name);
-          if (data.length > 0 && !this.cluster || this.clusters.indexOf(this.cluster) === -1) {
-            cluster = cluster ? cluster : data[0].name;
-          }
-          this.jumpTo(cluster);
+        this.clusters = data.map(item => item.name);
+        if (data && data.length > 0 && !cluster) {
+          this.router.navigateByUrl(`admin/kubernetes/deployment/${data[0].name}`);
+          return;
+        }
+        if (cluster) {
+          this.namespaceClient.list(cluster).subscribe(
+            resp => {
+              this.namespaces = resp.data;
+              this.jumpTo(cluster);
+            },
+            error => this.messageHandlerService.handleError(error)
+          );
         }
       },
       error => this.messageHandlerService.handleError(error)
@@ -103,7 +117,7 @@ export class KubeDeploymentComponent implements OnInit {
       .subscribe(
         response => {
           const data = response.data;
-          this.aceEditorService.announceMessage(AceEditorMsg.Instance(data, false, '详情'));
+          this.editModal.openModal(data, '编辑节点', true);
         },
         error => this.messageHandlerService.handleError(error)
       );
@@ -118,6 +132,19 @@ export class KubeDeploymentComponent implements OnInit {
         },
         error => this.messageHandlerService.handleError(error)
       );
+  }
+
+  save(obj: KubeDeployment) {
+    this.deploymentClient.update(AdminDefaultApiId, this.cluster, obj.metadata.namespace, obj.metadata.name, obj).subscribe(
+      resp => {
+        this.messageHandlerService.showSuccess('更新成功！');
+        this.retrieve();
+      },
+      error => {
+        this.messageHandlerService.handleError(error);
+      }
+    );
+
   }
 
   retrieve(state?: State): void {

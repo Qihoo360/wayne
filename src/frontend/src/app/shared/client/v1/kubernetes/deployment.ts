@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { PageState } from '../../../page/page-state';
 import { BaseClient } from './base-client';
+import { KubeDeployment, ObjectMeta } from '../../../model/v1/kubernetes/deployment';
 
 @Injectable()
 export class DeploymentClient {
@@ -36,6 +37,12 @@ export class DeploymentClient {
   get(appId: number, cluster: string, namespace: string, name: string): Observable<any> {
     return this.http
       .get(`/api/v1/kubernetes/apps/${appId}/deployments/${name}/namespaces/${namespace}/clusters/${cluster}`)
+      .catch(error => Observable.throw(error));
+  }
+
+  update(appId: number, cluster: string, namespace: string, name: string, obj: KubeDeployment): Observable<any> {
+    return this.http
+      .put(`/api/v1/kubernetes/apps/${appId}/deployments/${name}/namespaces/${namespace}/clusters/${cluster}`, obj)
       .catch(error => Observable.throw(error));
   }
 

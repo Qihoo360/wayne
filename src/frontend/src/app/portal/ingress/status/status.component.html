@@ -1,4 +1,4 @@
-<clr-modal [clrModalSize]="'md'" [(clrModalOpen)]="createAppOpened">
+<clr-modal [clrModalSize]="'md'" [(clrModalOpen)]="statusOpened">
   <h3 class="modal-title">Ingress 详情</h3>
   <div class="modal-body">
     <hr>
@@ -9,10 +9,10 @@
             Ingress 名称
           </div>
           <div class="col-sm-9">
-            {{kubeIngress?.metadata.name}}
+            {{kubeResource?.metadata.name}}
           </div>
         </div>
-        <div *ngFor="let rule of kubeIngress?.spec.rules">
+        <div *ngFor="let rule of kubeResource?.spec.rules">
           <div class="row group">
             <div class="col-sm-3">
             代理域名

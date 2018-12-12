@@ -22,11 +22,34 @@ type KubeNamespaceController struct {
 
 func (c *KubeNamespaceController) URLMapping() {
 	c.Mapping("Resources", c.Resources)
+	c.Mapping("List", c.List)
 }
 
 func (c *KubeNamespaceController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
+}
+
+// @Title List namespace
+// @Description get all namespace
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Success 200 {object} common.Page success
+// @router /clusters/:cluster [get]
+func (c *KubeNamespaceController) List() {
+	cluster := c.Ctx.Input.Param(":cluster")
+
+	cli, err := client.Client(cluster)
+	if err == nil {
+		result, err := namespace.GetNamespaceList(cli)
+		if err != nil {
+			logs.Error("list kubernetes namespaces error.", cluster, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
+	}
 }
 
 // @Title Get namespace resource statistics

@@ -86,9 +86,9 @@ const routes: Routes = [
           {path: 'daemonset/:daemonSetId/tpl', component: CreateEditDaemonSetTplComponent},
           {path: 'daemonset/:daemonSetId/tpl/:tplId', component: CreateEditDaemonSetTplComponent},
           {path: 'ingress', component: IngressComponent},
-          {path: 'ingress/:ingressId', component: IngressComponent},
-          {path: 'ingress/:ingressId/tpl', component: CreateEditIngressTplComponent},
-          {path: 'ingress/:ingressId/tpl/:tplId', component: CreateEditIngressTplComponent},
+          {path: 'ingress/:resourceId', component: IngressComponent},
+          {path: 'ingress/:resourceId/tpl', component: CreateEditIngressTplComponent},
+          {path: 'ingress/:resourceId/tpl/:tplId', component: CreateEditIngressTplComponent},
           ...PORTALROUTES
         ]
       },
