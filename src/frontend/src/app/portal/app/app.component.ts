@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, HostBinding } from '@angular/core';
 import { State } from '@clr/angular';
 import { ListAppComponent } from './list-app/list-app.component';
 import { CreateEditAppComponent } from './create-edit-app/create-edit-app.component';
@@ -36,9 +36,6 @@ const showState = {
 
 @Component({
   selector: 'wayne-app',
-  host: {
-    'class': 'content-container'
-  },
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   animations: [
@@ -54,6 +51,7 @@ const showState = {
   ]
 })
 export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
+  @HostBinding('attr.class') class = 'content-container';
   @ViewChild(ListAppComponent)
   listApp: ListAppComponent;
   @ViewChild(CreateEditAppComponent)
@@ -69,8 +67,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   subscription: Subscription;
   resources: object = new Object();
   clusters: ClusterCard[] = [];
-  allowNumber: number = 10;
-  allowShowAll: boolean = false;
+  allowNumber = 10;
+  allowShowAll = false;
   showList: any[] = new Array();
   showState: object = showState;
   eventList: any[] = new Array();
@@ -91,7 +89,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.APP) {
-        let appId = message.data;
+        const appId = message.data;
         this.appService.deleteById(appId, this.cacheService.namespaceId)
           .subscribe(
             response => {
@@ -125,11 +123,13 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   boxResize(slow?: boolean) {
-    if (this.allowShowAll) return;
+    if (this.allowShowAll) {
+      return;
+    }
     const length = this.clusters.length;
     setTimeout(() => {
       this.allowNumber = this.getClusterMaxNumber();
-      for (var i = length; i > 0; i--) {
+      for (let i = length; i > 0; i--) {
         if (i < this.allowNumber) {
           this.clusters[i - 1].state = true;
         } else {
@@ -156,7 +156,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) this.showList.push(key);
+      if (!this.showState[key].hidden) {
+        this.showList.push(key);
+      }
     });
   }
 
@@ -172,7 +174,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
           this.clusters.push({name: cluster, state: false});
         });
         this.allowNumber = this.getClusterMaxNumber();
-        for (var i = 0; i < this.allowNumber - 1; i++) {
+        for (let i = 0; i < this.allowNumber - 1; i++) {
           setTimeout(((i) => {
             if (this.clusters[i]) {
               this.clusters[i].state = true;
@@ -185,12 +187,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   changeCard() {
-    let svg = this.element.nativeElement.querySelector('.card-change-svg');
+    const svg = this.element.nativeElement.querySelector('.card-change-svg');
     let count = 0;
     if (this.allowShowAll) {
       this.allowShowAll = false;
       const length = this.clusters.length;
-      for (var i = length; i > 0; i--) {
+      for (let i = length; i > 0; i--) {
         if (i >= this.allowNumber) {
           setTimeout(((i) => {
             this.clusters[i - 1].state = false;
@@ -202,7 +204,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       this.allowShowAll = true;
       this.clusters.forEach(item => {
         if (!item.state) {
-          setTimeout(((item) => {
+          setTimeout((item => {
             item.state = true;
           }).bind(this, item), 200 * count++);
         }
@@ -213,7 +215,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // 处理回车事件也可以搜索
   keyDownFunction(event: KeyboardEvent) {
-    if (event.keyCode == 13) {
+    if (event.keyCode === 13) {
       this.searchApp();
     }
   }
@@ -244,7 +246,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
-    let namespaceId = this.cacheService.namespaceId;
+    const namespaceId = this.cacheService.namespaceId;
     this.pageState.params['name'] = this.appName;
     this.pageState.params['deleted'] = false;
     this.pageState.params['namespace'] = namespaceId;
@@ -256,7 +258,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.appService.listPage(this.pageState, namespaceId.toString())
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedApps = data.list;
@@ -277,7 +279,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   deleteApp(app: App) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除项目确认',
       '你确认删除项目 ' + app.name + ' ？',
       app.id,
