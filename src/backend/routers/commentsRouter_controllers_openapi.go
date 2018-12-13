@@ -25,6 +25,14 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/openapi:OpenAPIController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/openapi:OpenAPIController"],
 		beego.ControllerComments{
+			Method:           "GetPodInfoFromIP",
+			Router:           `/get_pod_info_from_ip`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams:     param.Make(),
+			Params:           nil})
+
+	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/openapi:OpenAPIController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/openapi:OpenAPIController"],
+		beego.ControllerComments{
 			Method:           "GetResourceInfo",
 			Router:           `/get_resource_info`,
 			AllowHTTPMethods: []string{"get"},

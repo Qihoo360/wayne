@@ -32,7 +32,7 @@ export class CreateEditNamespaceUserComponent {
   checkOnGoing: boolean = false;
   isSubmitOnGoing: boolean = false;
   isNameValid: boolean = true;
-  componentName: string = '命名空间';
+  componentName: string = '命名空间用户';
 
   allGroups: Array<any>;
   mapGroups: Map<string, Group> = new Map<string, Group>();

@@ -6,8 +6,10 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
+	"github.com/Qihoo360/wayne/src/backend/models/response"
 	"github.com/Qihoo360/wayne/src/backend/resources/ingress"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
+	"github.com/Qihoo360/wayne/src/backend/workers/webhook"
 	kapiv1beta1 "k8s.io/api/extensions/v1beta1"
 )
 
@@ -67,7 +69,7 @@ func (c *KubeIngressController) Deploy() {
 			logs.Critical("insert log into database failed: %s", err)
 		}
 	}()
-	_, err = ingress.CreateOrUpdateService(k8sClient, &kubeIngress)
+	_, err = ingress.CreateOrUpdateIngress(k8sClient, &kubeIngress)
 	if err != nil {
 		publishHistory.Status = models.ReleaseFailure
 		publishHistory.Message = err.Error()
@@ -88,6 +90,16 @@ func (c *KubeIngressController) Deploy() {
 		c.HandleError(err)
 		return
 	}
+	webhook.PublishEventIngress(c.NamespaceId, c.AppId, c.User.Name, c.Ctx.Input.IP(), webhook.OnlineIngress, response.Resource{
+		Type:         publishHistory.Type,
+		ResourceId:   publishHistory.ResourceId,
+		ResourceName: publishHistory.ResourceName,
+		TemplateId:   publishHistory.TemplateId,
+		Cluster:      publishHistory.Cluster,
+		Status:       publishHistory.Status,
+		Message:      publishHistory.Message,
+		Object:       kubeIngress,
+	})
 	c.Success("ok")
 }
 
@@ -100,7 +112,7 @@ func (c *KubeIngressController) Get() {
 		c.AbortBadRequestFormat("Cluster")
 		return
 	}
-	res, err := ingress.GetServiceDetail(k8sClinet, name, namespace)
+	res, err := ingress.GetIngressDetail(k8sClinet, name, namespace)
 	if err != nil {
 		logs.Error("get ingress error cluster: %s, namespace: %s", cluster, namespace)
 		c.HandleError(err)
@@ -118,11 +130,15 @@ func (c *KubeIngressController) Offline() {
 		c.AbortBadRequestFormat("Cluster")
 		return
 	}
-	if err = ingress.DeleteService(k8sClient, name, namespace); err != nil {
+	if err = ingress.DeleteIngress(k8sClient, name, namespace); err != nil {
 		logs.Error("delete ingress: %s in namespace: %s, error: %s", name, namespace, err.Error())
 		c.HandleError(err)
 		return
 	}
+	webhook.PublishEventIngress(c.NamespaceId, c.AppId, c.User.Name, c.Ctx.Input.IP(), webhook.OfflineIngress, response.Resource{
+		Type:         models.PublishTypeIngress,
+		ResourceName: name,
+		Cluster:      cluster,
+	})
 	c.Success("OK")
-	return
 }
