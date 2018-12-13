@@ -102,6 +102,7 @@ func (c *KubeServiceController) Deploy() {
 			Cluster:      publishHistory.Cluster,
 			Status:       publishHistory.Status,
 			Message:      publishHistory.Message,
+			Object:       kubeService,
 		})
 
 		c.Success("ok")

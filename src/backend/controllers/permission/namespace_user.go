@@ -6,6 +6,7 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
+	"github.com/Qihoo360/wayne/src/backend/workers/webhook"
 	"github.com/mitchellh/mapstructure"
 )
 
@@ -118,6 +119,7 @@ func (c *NamespaceUserController) Create() {
 		c.HandleError(err)
 		return
 	}
+	webhook.PublishEventMember(c.NamespaceId, c.AppId, c.User.Name, c.Ctx.Input.IP(), webhook.AddMember, *namespaceUser.User)
 	c.Success(namespaceUser)
 }
 
@@ -173,6 +175,7 @@ func (c *NamespaceUserController) Update() {
 		c.HandleError(err)
 		return
 	}
+	webhook.PublishEventMember(c.NamespaceId, c.AppId, c.User.Name, c.Ctx.Input.IP(), webhook.UpdateMember, *namespaceUser.User)
 	c.Success(namespaceUser)
 }
 
@@ -190,13 +193,19 @@ func (c *NamespaceUserController) Delete() {
 	if oneGroup != "" {
 		groupsFlag = false
 	}
-
-	err := models.NamespaceUserModel.DeleteById(int64(id), groupsFlag)
+	namespaceUser, err := models.NamespaceUserModel.GetById(int64(id), groupsFlag)
+	if err != nil {
+		logs.Error("get by %d error.%v", id, err)
+		c.HandleError(err)
+		return
+	}
+	err = models.NamespaceUserModel.DeleteById(int64(id), groupsFlag)
 	if err != nil {
 		logs.Error("delete %d error.%v", id, err)
 		c.HandleError(err)
 		return
 	}
+	webhook.PublishEventMember(c.NamespaceId, c.AppId, c.User.Name, c.Ctx.Input.IP(), webhook.DeleteMember, *namespaceUser.User)
 	c.Success(nil)
 }
 
