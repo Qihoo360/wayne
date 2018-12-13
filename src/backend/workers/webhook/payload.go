@@ -33,6 +33,11 @@ type EventServicePayload struct {
 	Service response.Resource `json:"service"`
 }
 
+type EventIngressPayload struct {
+	Action  Action            `json:"action"`
+	Ingress response.Resource `json:"ingress"`
+}
+
 type EventMemberPayload struct {
 	Action Action        `json:"action"`
 	Member response.User `json:"member"`
@@ -48,6 +53,8 @@ const (
 	DeleteDeployment  Action = "OfflineDeployment"
 	OnlineService     Action = "OnlineService"
 	OfflineService    Action = "OfflineService"
+	OnlineIngress     Action = "OnlineIngress"
+	OfflineIngress    Action = "OfflineIngress"
 )
 
 func PublishEventDeployment(namespaceId int64, appId int64, user string, ip string, action Action, deployment response.Resource) {
@@ -93,6 +100,35 @@ func PublishEventService(namespaceId int64, appId int64, user string, ip string,
 		Payload: EventServicePayload{
 			Action:  action,
 			Service: service,
+		},
+	})
+	if err != nil {
+		logs.Error(err)
+	} else {
+		msg := message.Message{
+			Type: message.TypeHook,
+			Data: json.RawMessage(messageData),
+		}
+		if err := bus.Notify(msg); err != nil {
+			logs.Error(err)
+		}
+	}
+}
+
+func PublishEventIngress(namespaceId int64, appId int64, user string, ip string, action Action, ingress response.Resource) {
+	if !enable() {
+		return
+	}
+	messageData, err := json.Marshal(message.HookMessageData{
+		NamespaceId: namespaceId,
+		AppId:       appId,
+		User:        user,
+		IP:          ip,
+		Datetime:    time.Now(),
+		EventKey:    hookevent.EventIngress.Key,
+		Payload: EventIngressPayload{
+			Action:  action,
+			Ingress: ingress,
 		},
 	})
 	if err != nil {

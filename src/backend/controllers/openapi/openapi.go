@@ -45,6 +45,7 @@ import (
 
 const (
 	GetPodInfoAction          = "GET_POD_INFO"
+	GetPodInfoFromIPAction    = "GET_POD_INFO_FROM_IP"
 	GetResourceInfoAction     = "GET_RESOURCE_INFO"
 	GetDeploymentStatusAction = "GET_DEPLOYMENT_STATUS"
 	UpgradeDeploymentAction   = "UPGRADE_DEPLOYMENT"
