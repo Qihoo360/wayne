@@ -142,7 +142,7 @@
     "DEPARTMENT_NAME": "部门名称",
     "CREATE_TIME": "创建时间",
     "CPU_USAGE": "CPU 使用(核)",
-    "CPU_USAGE_SHORT": "CPU使用(核)",
+    "CPU_USAGE_SHORT": "CPU 使用(核)",
     "MEMORY_USAGE": "内存使用(G)",
     "MEMORY_USAGE_SHORT": "内存使用(G)",
     "DEPLOY_FREQ": "部署上线频数",
@@ -339,26 +339,38 @@
     "CREATE_TMP": "创建部署模板",
     "EDIT": "编辑部署",
     "DELETE": "删除部署",
-    "NUM": "部署份数"
+    "NUM": "部署份数",
+    "CREATE_EDIT": {
+      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建部署"
+    }
   },
   "STATEFULSET": {
     "TITLE": "状态副本集",
     "CREATE": "创建状态副本集",
     "CREATE_TMP": "创建状态副本集模板",
     "EDIT": "编辑状态副本集",
-    "DELETE": "删除状态副本集"
+    "DELETE": "删除状态副本集",
+    "CREATE_EDIT": {
+      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建部署"
+    }
   },
   "DAEMONSET": {
     "CREATE": "创建守护进程集",
     "CREATE_TMP": "创建守护进程集模板",
     "EDIT": "编辑守护进程集",
-    "DELETE": "删除守护进程集"
+    "DELETE": "删除守护进程集",
+    "CREATE_EDIT": {
+      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建部署"
+    }
   },
   "CRONJOB": {
     "CREATE": "创建计划任务",
     "CREATE_TMP": "创建计划任务模板",
     "EDIT": "编辑计划任务",
     "DELETE": "删除计划任务",
+    "CREATE_EDIT": {
+      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建部署"
+    },
     "LIST": "计划任务列表",
     "DELETE_LIST": "已删除计划任务列表",
     "CONFIG": "计划任务配置",
@@ -377,17 +389,28 @@
     "GROUP": "所属集群",
     "FAIL_REASON": "失败原因"
   },
+  "INGRESS": {
+    "CREATE_EDIT": {
+      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建部署"
+    }
+  },
   "CONFIGMAP": {
     "CREATE": "创建配置集",
     "CREATE_TMP": "创建配置集模板",
     "EDIT": "编辑配置集",
-    "DELETE": "删除配置集"
+    "DELETE": "删除配置集",
+    "CREATE_EDIT_TMP": {
+      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建部署"
+    }
   },
   "SECRET": {
     "CREATE": "创建加密字典",
     "CREATE_TMP": "创建加密字典模板",
     "EDIT": "编辑加密字典",
-    "DELETE": "删除加密字典"
+    "DELETE": "删除加密字典",
+    "CREATE_EDIT_TMP": {
+      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建部署"
+    }
   },
   "PVC": {
     "CREATE": "创建 PVC",
@@ -414,7 +437,10 @@
     "SIZE": "大小",
     "DELETE_SNAPSHOOT": "删除快照",
     "ROLLBACK_SNAPSHOOT": "回滚快照",
-    "RECORD": "共{{value}}条快照记录"
+    "RECORD": "共{{value}}条快照记录",
+    "CREATE_EDIT_TMP": {
+      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建部署"
+    }
   },
   "WEBHOOK": {
     "TITLE": "{{ value }}列表",
