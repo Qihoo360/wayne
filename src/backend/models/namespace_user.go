@@ -116,12 +116,8 @@ func (*namespaceUserModel) Add(m *NamespaceUser, allGroupFlag bool) (id int64, e
 
 func (n *namespaceUserModel) GetById(id int64, allGroupFlag bool) (v *NamespaceUser, err error) {
 	v = &NamespaceUser{Id: id}
-	if err = Ormer().Read(v); err != nil {
+	if err = Ormer().QueryTable(TableNameNamespaceUser).Filter("Id", id).RelatedSel("User").One(v); err != nil {
 		return nil, err
-	}
-	_, err = Ormer().LoadRelated(v, "User")
-	if err == nil {
-		return v, nil
 	}
 	if allGroupFlag {
 		namespaceUsers := []NamespaceUser{}
