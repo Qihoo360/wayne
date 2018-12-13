@@ -35,6 +35,25 @@ func GetIngressDetail(c *kubernetes.Clientset, name, namespace string) (*Ingress
 	return toIngress(ingress), nil
 }
 
+func GetIngress(c *kubernetes.Clientset, name, namespace string) (ingress *extensions.Ingress, err error) {
+	ingress, err = c.ExtensionsV1beta1().Ingresses(namespace).Get(name, metaV1.GetOptions{})
+	if err != nil {
+		return nil, err
+	}
+	return
+}
+
 func DeleteIngress(c *kubernetes.Clientset, name, namespace string) error {
 	return c.ExtensionsV1beta1().Ingresses(namespace).Delete(name, &metaV1.DeleteOptions{})
+}
+
+func GetIngressList(cli *kubernetes.Clientset, namespace string, opts metaV1.ListOptions) (list []*Ingress, err error) {
+	kubeIngressList, err := cli.ExtensionsV1beta1().Ingresses(namespace).List(opts)
+	if err != nil {
+		return nil, err
+	}
+	for _, kubeIngress := range kubeIngressList.Items {
+		list = append(list, toIngress(&kubeIngress))
+	}
+	return
 }

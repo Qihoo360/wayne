@@ -2,12 +2,11 @@ package ingress
 
 import (
 	"github.com/Qihoo360/wayne/src/backend/resources/dataselector"
-	extensions "k8s.io/api/extensions/v1beta1"
 )
 
 // The code below allows to perform complex data section on []extensions.Ingress
 
-type IngressCell extensions.Ingress
+type IngressCell Ingress
 
 func (self IngressCell) GetProperty(name dataselector.PropertyName) dataselector.ComparableValue {
 	switch name {
@@ -23,7 +22,7 @@ func (self IngressCell) GetProperty(name dataselector.PropertyName) dataselector
 	}
 }
 
-func toCells(std []extensions.Ingress) []dataselector.DataCell {
+func toCells(std []Ingress) []dataselector.DataCell {
 	cells := make([]dataselector.DataCell, len(std))
 	for i := range std {
 		cells[i] = IngressCell(std[i])
@@ -31,10 +30,10 @@ func toCells(std []extensions.Ingress) []dataselector.DataCell {
 	return cells
 }
 
-func fromCells(cells []dataselector.DataCell) []extensions.Ingress {
-	std := make([]extensions.Ingress, len(cells))
+func fromCells(cells []dataselector.DataCell) []Ingress {
+	std := make([]Ingress, len(cells))
 	for i := range std {
-		std[i] = extensions.Ingress(cells[i].(IngressCell))
+		std[i] = Ingress(cells[i].(IngressCell))
 	}
 	return std
 }
