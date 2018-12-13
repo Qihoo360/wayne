@@ -4,7 +4,6 @@ import (
 	backendCommon "github.com/Qihoo360/wayne/src/backend/common"
 	"github.com/Qihoo360/wayne/src/backend/resources/common"
 	"github.com/Qihoo360/wayne/src/backend/resources/dataselector"
-	"github.com/kubernetes/dashboard/src/app/backend/api"
 	extensions "k8s.io/api/extensions/v1beta1"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
@@ -30,7 +29,7 @@ func getEndpoints(ingress *extensions.Ingress) []common.Endpoint {
 func toIngress(ingress *extensions.Ingress) *Ingress {
 	modelIngress := &Ingress{
 		ObjectMeta: common.NewObjectMeta(ingress.ObjectMeta),
-		TypeMeta:   common.NewTypeMeta(api.ResourceKindIngress),
+		TypeMeta:   common.NewTypeMeta("ingress"),
 		Endpoints:  getEndpoints(ingress),
 	}
 	return modelIngress
