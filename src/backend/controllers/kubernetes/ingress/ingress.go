@@ -40,6 +40,11 @@ func (c *KubeIngressController) Prepare() {
 	}
 }
 
+// @Title deploy
+// @Description deploy tpl
+// @Param	body	body 	string	true	"The tpl content"
+// @Success 200 return ok success
+// @router /:ingressId([0-9]+)/tpls/:tplId([0-9]+)/clusters/:cluster [post]
 func (c *KubeIngressController) Deploy() {
 	ingressId := c.GetIntParamFromURL(":ingressId")
 	tplId := c.GetIntParamFromURL(":tplId")
@@ -103,6 +108,12 @@ func (c *KubeIngressController) Deploy() {
 	c.Success("ok")
 }
 
+// @Title Get
+// @Description find Deployment by cluster
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace		path 	string	true		"the namespace name"
+// @Success 200 {object} models.Deployment success
+// @router /:ingress/namespaces/:namespace/clusters/:cluster [get]
 func (c *KubeIngressController) Get() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
@@ -121,6 +132,13 @@ func (c *KubeIngressController) Get() {
 	c.Success(res)
 }
 
+// @Title Delete
+// @Description delete the Ingress
+// @Param	cluster		path 	string	true		"the cluster want to delete"
+// @Param	namespace		path 	string	true		"the namespace want to delete"
+// @Param	deployment		path 	string	true		"the deployment name want to delete"
+// @Success 200 {string} delete success!
+// @router /:ingress/namespaces/:namespace/clusters/:cluster [delete]
 func (c *KubeIngressController) Offline() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
