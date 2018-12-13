@@ -11,20 +11,26 @@ var (
 
 	EventDeployment = &HookEvent{
 		Key:         "deployment",
-		Name:        "部署",
-		Description: "部署相关动作行为，如创建、上下线、实例数量调整等",
+		Name:        "Deployment(部署)",
+		Description: "Related actions of \"deployment\", such as creation, online and offline, instance number adjustment, etc.",
 	}
 
 	EventService = &HookEvent{
 		Key:         "service",
-		Name:        "负载均衡",
-		Description: "负载均衡相关动作行为，如创建、上下线等",
+		Name:        "Service(负载均衡)",
+		Description: "Related actions of \"Service\", such as the above online, offline, etc.",
+	}
+
+	EventIngress = &HookEvent{
+		Key:         "ingress",
+		Name:        "Ingress",
+		Description: "Related actions of \"Ingress\", such as the above online, offline, etc.",
 	}
 
 	EventMember = &HookEvent{
 		Key:         "member",
-		Name:        "成员",
-		Description: "项目/部门成员增删或权限变更",
+		Name:        "Member(成员)",
+		Description: "Monitor the additions, deletions, or changes in permissions of members of a application or namespace.",
 	}
 )
 
@@ -36,4 +42,5 @@ func init() {
 	Registry(EventDeployment)
 	Registry(EventService)
 	Registry(EventMember)
+	Registry(EventIngress)
 }

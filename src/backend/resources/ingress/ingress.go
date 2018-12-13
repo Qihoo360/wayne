@@ -7,7 +7,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 )
 
-func CreateOrUpdateService(c *kubernetes.Clientset, ingress *k8sv1beta1.Ingress) (*k8sv1beta1.Ingress, error) {
+func CreateOrUpdateIngress(c *kubernetes.Clientset, ingress *k8sv1beta1.Ingress) (*k8sv1beta1.Ingress, error) {
 	old, err := c.ExtensionsV1beta1().Ingresses(ingress.Namespace).Get(ingress.Name, metaV1.GetOptions{})
 	if err != nil {
 		if errors.IsNotFound(err) {
@@ -19,7 +19,7 @@ func CreateOrUpdateService(c *kubernetes.Clientset, ingress *k8sv1beta1.Ingress)
 	return c.ExtensionsV1beta1().Ingresses(ingress.Namespace).Update(old)
 }
 
-func GetServiceDetail(c *kubernetes.Clientset, name, namespace string) (*k8sv1beta1.Ingress, error) {
+func GetIngressDetail(c *kubernetes.Clientset, name, namespace string) (*k8sv1beta1.Ingress, error) {
 	ingress, err := c.ExtensionsV1beta1().Ingresses(namespace).Get(name, metaV1.GetOptions{})
 	if err != nil {
 		return nil, err
@@ -27,6 +27,6 @@ func GetServiceDetail(c *kubernetes.Clientset, name, namespace string) (*k8sv1be
 	return ingress, nil
 }
 
-func DeleteService(c *kubernetes.Clientset, name, namespace string) error {
+func DeleteIngress(c *kubernetes.Clientset, name, namespace string) error {
 	return c.ExtensionsV1beta1().Ingresses(namespace).Delete(name, &metaV1.DeleteOptions{})
 }
