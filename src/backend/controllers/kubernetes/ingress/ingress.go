@@ -74,7 +74,8 @@ func (c *KubeIngressController) Deploy() {
 			logs.Critical("insert log into database failed: %s", err)
 		}
 	}()
-	_, err = ingress.CreateOrUpdateIngress(k8sClient, &kubeIngress)
+	// ingressDetail include endpoints
+	ingressDetail, err := ingress.CreateOrUpdateIngress(k8sClient, &kubeIngress)
 	if err != nil {
 		publishHistory.Status = models.ReleaseFailure
 		publishHistory.Message = err.Error()
@@ -82,6 +83,7 @@ func (c *KubeIngressController) Deploy() {
 		c.HandleError(err)
 		return
 	}
+
 	publishHistory.Status = models.ReleaseSuccess
 	publishStatus := models.PublishStatus{
 		ResourceId: int64(ingressId),
