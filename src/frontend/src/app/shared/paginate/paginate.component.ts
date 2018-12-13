@@ -78,13 +78,13 @@ export class PaginateComponent implements OnInit {
     return this._size;
   }
 
-  set size(value: any) {
-    value = parseInt(value, 10);
-    this._size = value;
-    if (this.localSave && this.pageSizes && this.pageSizes.indexOf(value) > -1) {
-      this.storage.save('pagesize', this._size / this.rate);
+  set size(value) {
+    if (value !== this._size) {
+      this._size = value;
+      if (this.localSave && this.pageSizes && this.pageSizes.indexOf(value) > -1) {
+        this.storage.save('pagesize', this._size / this.rate);
+      }
+      this.sizeChange.emit(this._size);
     }
-    this.sizeChange.emit(this._size);
   }
-
 }
