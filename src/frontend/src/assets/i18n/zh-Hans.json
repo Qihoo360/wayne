@@ -351,7 +351,7 @@
     "EDIT": "编辑状态副本集",
     "DELETE": "删除状态副本集",
     "CREATE_EDIT": {
-      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建部署"
+      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建状态副本集"
     }
   },
   "DAEMONSET": {
@@ -360,7 +360,7 @@
     "EDIT": "编辑守护进程集",
     "DELETE": "删除守护进程集",
     "CREATE_EDIT": {
-      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建部署"
+      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建守护进程集"
     }
   },
   "CRONJOB": {
@@ -369,7 +369,7 @@
     "EDIT": "编辑计划任务",
     "DELETE": "删除计划任务",
     "CREATE_EDIT": {
-      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建部署"
+      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建计划任务"
     },
     "LIST": "计划任务列表",
     "DELETE_LIST": "已删除计划任务列表",
@@ -391,7 +391,7 @@
   },
   "INGRESS": {
     "CREATE_EDIT": {
-      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建部署"
+      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建 Ingress"
     }
   },
   "CONFIGMAP": {
@@ -400,7 +400,7 @@
     "EDIT": "编辑配置集",
     "DELETE": "删除配置集",
     "CREATE_EDIT_TMP": {
-      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建部署"
+      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建配置集"
     }
   },
   "SECRET": {
@@ -409,7 +409,7 @@
     "EDIT": "编辑加密字典",
     "DELETE": "删除加密字典",
     "CREATE_EDIT_TMP": {
-      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建部署"
+      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建加密字典"
     }
   },
   "PVC": {
@@ -439,7 +439,7 @@
     "ROLLBACK_SNAPSHOOT": "回滚快照",
     "RECORD": "共{{value}}条快照记录",
     "CREATE_EDIT_TMP": {
-      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建部署"
+      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建 PVC"
     }
   },
   "WEBHOOK": {
