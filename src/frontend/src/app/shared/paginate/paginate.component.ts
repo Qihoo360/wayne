@@ -16,11 +16,9 @@ export class PaginateComponent implements OnInit {
     */
   private _current: number;
   @Input() total: number;
-
   @Input() set currentPage(value) {
     this._current = value;
   }
-
   @Input() pageSizes: Array<number>;
   @Input() rate = 1;
   @Input() _size = 10;
@@ -89,5 +87,4 @@ export class PaginateComponent implements OnInit {
       this.sizeChange.emit(this._size);
     }
   }
-
 }
