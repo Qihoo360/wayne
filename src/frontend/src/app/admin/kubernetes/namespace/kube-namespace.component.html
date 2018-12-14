@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="table-search">
+      <div class="table-search-left">
+        <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
+          <wayne-checkbox-group [(ngModel)]="showList">
+            <wayne-checkbox>{{'TITLE.NAME' | translate}}</wayne-checkbox>
+          </wayne-checkbox-group>
+        </wayne-filter-box>
+      </div>
+    </div>
+
+    <wayne-list-namespace
+      [resources]="namespaces"
+      [showState]="showState"
+      (refresh)="refresh($event)"
+      (delete)="deleteNode($event)"
+      (edit)="editNode($event)"
+    >
+    </wayne-list-namespace>
+  </div>
+</div>
+<wayne-ace-editor (outputObj)="saveNode($event)"></wayne-ace-editor>
+<wayne-float-window value="{{ cluster }}">
+  <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster"
+                           (click)="jumpTo(cluster)"></wayne-float-window-item>
+</wayne-float-window>

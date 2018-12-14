@@ -38,6 +38,7 @@ import { IngressModule } from './ingress/ingress.module';
 import { IngressTplModule } from './ingresstpl/ingresstpl.module';
 import { KubeDeploymentModule } from './kubernetes/deployment/kube-deployment.module';
 import { TplDetailModule } from '../shared/tpl-detail/tpl-detail.module';
+import { KubeNamespaceModule } from './kubernetes/namespace/kube-namespace.module';
 
 @NgModule({
   imports: [
@@ -72,6 +73,7 @@ import { TplDetailModule } from '../shared/tpl-detail/tpl-detail.module';
     NavModule,
     NotificationModule,
     NodesModule,
+    KubeNamespaceModule,
     LibraryAdminModule,
     IngressModule,
     IngressTplModule,
