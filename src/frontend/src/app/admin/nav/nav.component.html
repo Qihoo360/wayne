@@ -9,7 +9,17 @@
 
   <div class="header-actions">
     <wayne-dropdown size="small">
-      <clr-icon shape="organization" style="margin-right: 5px"></clr-icon>
+      <clr-icon shape="world" style="margin-right: 5px"></clr-icon>
+      {{showLang(currentLang)}}
+      <clr-icon shape="caret down" size="12" style="margin-left: 5px;"></clr-icon>
+      <wayne-dropdown-item>
+        <ng-container *ngFor="let lang of translate.getLangs()">
+          <span (click)="changeLang(lang)">{{showLang(lang)}}</span>
+        </ng-container>
+      </wayne-dropdown-item>
+    </wayne-dropdown>
+    <wayne-dropdown size="small">
+      <clr-icon shape="user" style="margin-right: 5px"></clr-icon>
       {{authService.currentUser?.display}}
       <clr-icon shape="caret down" size="12" style="margin-left: 5px;"></clr-icon>
       <wayne-dropdown-item>
