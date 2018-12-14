@@ -13,9 +13,12 @@ import { KubeNode } from '../../../shared/model/v1/kubernetes/node';
 import { AceEditorComponent } from '../../../shared/ace-editor/ace-editor.component';
 import { ListNamespaceComponent } from './list-namespace/list-namespace.component';
 import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
+import {PageState} from '../../../shared/page/page-state';
 
 const showState = {
-  'name': {hidden: false},
+  '名称': {hidden: false},
+  '状态': {hidden: false},
+  '创建时间': {hidden: false},
 };
 
 @Component({
@@ -121,9 +124,21 @@ export class KubeNamespaceComponent implements OnInit, OnDestroy {
   }
 
   refresh(refresh: boolean) {
+    if (refresh) {
+      this.retrieve();
+    }
   }
 
   retrieve(): void {
+    if (this.cluster) {
+      this.namespaceClient.list(this.cluster)
+        .subscribe(
+          response => {
+            this.namespaces = response.data;
+          },
+          error => this.messageHandlerService.handleError(error)
+        );
+    }
   }
 
 

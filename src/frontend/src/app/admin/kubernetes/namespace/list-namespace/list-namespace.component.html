@@ -1,16 +1,16 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)">
   <clr-dg-column [clrDgField]="'name'">
-    <ng-container *clrDgHideableColumn="showState['name']">
+    <ng-container *clrDgHideableColumn="showState['名称']">
       名称
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column [clrDgField]="'name'">
-    <ng-container *clrDgHideableColumn="showState['name']">
+  <clr-dg-column [clrDgField]="'status'">
+    <ng-container *clrDgHideableColumn="showState['状态']">
       状态
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column [clrDgField]="'name'">
-    <ng-container *clrDgHideableColumn="showState['name']">
+  <clr-dg-column [clrDgField]="'createTime'">
+    <ng-container *clrDgHideableColumn="showState['创建时间']">
       创建时间
     </ng-container>
   </clr-dg-column>
