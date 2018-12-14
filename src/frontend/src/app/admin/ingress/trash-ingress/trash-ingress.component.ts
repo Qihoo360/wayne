@@ -31,8 +31,8 @@ export class TrashIngressComponent implements OnInit, OnDestroy {
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
-        message.source === ConfirmationTargets.TRASH_SERVICE) {
-        let id = message.data;
+        message.source === ConfirmationTargets.TRASH_INGRESS) {
+        const id = message.data;
         this.ingressService.deleteById(id, 0, false)
           .subscribe(
             response => {
@@ -71,7 +71,7 @@ export class TrashIngressComponent implements OnInit, OnDestroy {
     this.ingressService.list(this.pageState, 'true')
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.ingresses = data.list;
@@ -81,7 +81,7 @@ export class TrashIngressComponent implements OnInit, OnDestroy {
   }
 
   deleteIngress(ingress: Ingress) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除 Ingress 确认',
       '你确认永久删除 Ingress ' + ingress.name + ' ？删除后将不可恢复！',
       ingress.id,
