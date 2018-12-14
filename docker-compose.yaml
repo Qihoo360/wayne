@@ -3,6 +3,8 @@ services:
   rabbitmq:
     environment:
       RABBITMQ_NODENAME: "rabbit"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
     image: rabbitmq:3.7.8-management
     networks:
     - default

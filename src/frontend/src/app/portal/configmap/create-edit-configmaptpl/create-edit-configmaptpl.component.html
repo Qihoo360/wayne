@@ -6,6 +6,7 @@
     <section class="form-block wrap">
       <div *ngIf="clusters" formArrayName="clusters" class="form-group form-group-padding">
         <label class="col-md-3 form-group-label-override required">{{'TITLE.CLUSTER' | translate}}</label>
+        <span class="warning-text" *ngIf="!clusters || clusters && clusters.length === 0">{{'CONFIGMAP.CREATE_EDIT_TMP.CLUSTER_MESSAGE' | translate}}</span>
         <div *ngFor="let cluster of clusters;let i=index"
              style="padding-right: 15px" class="checkbox-inline"
              [formGroupName]="i">

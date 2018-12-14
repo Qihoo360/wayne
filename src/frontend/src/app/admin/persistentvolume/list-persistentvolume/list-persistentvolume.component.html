@@ -99,8 +99,7 @@
 
   <clr-dg-footer>
     <ng-container *ngIf="pagination.totalItems">
-      <wayne-select [(ngModel)]="pageSize" style="width: 50px; height: 24px;margin-left: 12px;" [type]="'page'"
-                    [cursor]="'pointer'">
+      <wayne-select [(ngModel)]="pageSize" style="width: 50px; height: 24px;margin-left: 12px;" inputable>
         <wayne-option *ngFor="let pagesize of pageSizes" [value]="pagesize">{{pagesize}}</wayne-option>
       </wayne-select>
     </ng-container>
