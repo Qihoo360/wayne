@@ -52,7 +52,7 @@ export class ListIngressComponent implements OnInit {
     this.delete.emit(ingress);
   }
 
-  editService(ingress: Ingress) {
+  editIngress(ingress: Ingress) {
     this.edit.emit(ingress);
   }
 
