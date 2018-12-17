@@ -106,6 +106,29 @@ func (c *KubeNamespaceController) Update() {
 	}
 }
 
+// @Title Create
+// @Description create the namespace
+// @router /:name/clusters/:cluster [post]
+func (c *KubeNamespaceController) Create() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	name := c.Ctx.Input.Param(":name")
+	tpl := new(v1.Namespace)
+	tpl.Name = name
+
+	cli, err := client.Client(cluster)
+	if err == nil {
+		result, err := namespace.CreateNamespace(cli, tpl)
+		if err != nil {
+			logs.Error("create namespace (%v) by cluster (%s) error.%v", tpl, cluster, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
+	}
+}
+
 // @Title Get namespace resource statistics
 // @Description Get namespace resource statistics
 // @Param	app	query 	string	false	"The app Name"
