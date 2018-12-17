@@ -34,3 +34,11 @@ func GetNamespace(cli *kubernetes.Clientset, namespace string) (*v1.Namespace, e
 	}
 	return nil, nil
 }
+
+func UpdateNamespace(cli *kubernetes.Clientset, ns *v1.Namespace) (*v1.Namespace, error) {
+	newNS, err := cli.CoreV1().Namespaces().Update(ns)
+	if err != nil {
+		return nil, err
+	}
+	return newNS, nil
+}

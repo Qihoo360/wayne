@@ -12,6 +12,7 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/util"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
+	"k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	utilerrors "k8s.io/apimachinery/pkg/util/errors"
 )
@@ -57,16 +58,45 @@ func (c *KubeNamespaceController) List() {
 // @Param	cluster		path 	string	true		"the cluster name"
 // @Param	namespace	path 	string	true		"the namespace name"
 // @Success 200 {object} common.Page success
-// @router /:namespace/clusters/:cluster [get]
+// @router /:name/clusters/:cluster [get]
 func (c *KubeNamespaceController) Get() {
 	cluster := c.Ctx.Input.Param(":cluster")
-	ns := c.Ctx.Input.Param(":namespace")
+	ns := c.Ctx.Input.Param(":name")
 
 	cli, err := client.Client(cluster)
 	if err == nil {
 		result, err := namespace.GetNamespace(cli, ns)
 		if err != nil {
 			logs.Error("get kubernetes namespaces error.", cluster, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
+	}
+}
+
+// @Title Update
+// @Description update the Namespace
+// @router /:name/clusters/:cluster [put]
+func (c *KubeNamespaceController) Update() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	name := c.Ctx.Input.Param(":name")
+	var tpl v1.Namespace
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &tpl)
+	if err != nil {
+		c.AbortBadRequestFormat("Namespace")
+	}
+	if name != tpl.Name {
+		c.AbortBadRequestFormat("Name")
+	}
+
+	cli, err := client.Client(cluster)
+	if err == nil {
+		result, err := namespace.UpdateNamespace(cli, &tpl)
+		if err != nil {
+			logs.Error("update namespace (%v) by cluster (%s) error.%v", tpl, cluster, err)
 			c.HandleError(err)
 			return
 		}
