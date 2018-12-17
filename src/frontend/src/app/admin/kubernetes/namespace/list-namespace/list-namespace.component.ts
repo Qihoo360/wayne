@@ -13,14 +13,7 @@ import { NamespaceList } from '../../../../shared/model/v1/namespace-list';
 
 export class ListNamespaceComponent implements OnInit, OnDestroy {
   @Input() resources: NamespaceList[];
-  @Input() page: Page;
   @Input() showState: object;
-  currentPage = 1;
-  state: State;
-
-  @Output() paginate = new EventEmitter<State>();
-  @Output() detail = new EventEmitter<NamespaceList>();
-  @Output() migration = new EventEmitter<NamespaceList>();
 
   constructor() {
   }
@@ -29,17 +22,5 @@ export class ListNamespaceComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-  }
-
-  refresh(state: State) {
-    this.state = state;
-    this.paginate.emit(state);
-  }
-
-  pageSizeChange(pageSize: number) {
-    this.state.page.to = pageSize - 1;
-    this.state.page.size = pageSize;
-    this.currentPage = 1;
-    this.paginate.emit(this.state);
   }
 }
