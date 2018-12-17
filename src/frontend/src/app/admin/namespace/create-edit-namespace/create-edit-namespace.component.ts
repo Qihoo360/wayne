@@ -27,9 +27,9 @@ export class CreateEditNamespaceComponent {
   @ViewChild('namespaceForm')
   currentForm: NgForm;
   ns: Namespace = new Namespace();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
   nsTitle: string;
   actionType: ActionType;
 
@@ -48,7 +48,7 @@ export class CreateEditNamespaceComponent {
     this.clusterMetas = {};
     this.clusters = clusters;
     if (this.clusters && this.clusters.length > 0) {
-      for (let clu of this.clusters) {
+      for (const clu of this.clusters) {
         this.clusterMetas[clu.name] = {'checked': false, 'cpu': null, 'memory': null};
       }
     }
@@ -102,8 +102,8 @@ export class CreateEditNamespaceComponent {
   setClusterMetas() {
     if (this.ns && this.ns.metaDataObj && this.ns.metaDataObj.clusterMeta) {
       Object.getOwnPropertyNames(this.ns.metaDataObj.clusterMeta).map(cluster => {
-        let clusterMeta = this.clusterMetas[cluster];
-        let clusterMetaData = this.ns.metaDataObj.clusterMeta[cluster];
+        const clusterMeta = this.clusterMetas[cluster];
+        const clusterMetaData = this.ns.metaDataObj.clusterMeta[cluster];
         if (clusterMeta) {
           clusterMeta.checked = true;
           clusterMeta.cpu = clusterMetaData.resourcesLimit.cpu;
@@ -117,9 +117,9 @@ export class CreateEditNamespaceComponent {
   buildMetaDataObj() {
     if (this.clusterMetas) {
       Object.getOwnPropertyNames(this.clusterMetas).map(cluster => {
-        let clusterMeta = this.clusterMetas[cluster];
+        const clusterMeta = this.clusterMetas[cluster];
         if (clusterMeta && clusterMeta.checked) {
-          let clusterMetaData = new ClusterMeta();
+          const clusterMetaData = new ClusterMeta();
           clusterMetaData.resourcesLimit.cpu = clusterMeta.cpu;
           clusterMetaData.resourcesLimit.memory = clusterMeta.memory;
           this.ns.metaDataObj.clusterMeta[cluster] = clusterMetaData;
@@ -186,7 +186,7 @@ export class CreateEditNamespaceComponent {
 
   // Handle the form validation
   handleValidation(): void {
-    let cont = this.currentForm.controls['ns_name'];
+    const cont = this.currentForm.controls['ns_name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }
