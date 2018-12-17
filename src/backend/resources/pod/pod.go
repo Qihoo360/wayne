@@ -57,11 +57,11 @@ func GetPodsBySelectorFromCache(indexer *client.CacheIndexer, namespace string, 
 		if !ok {
 			continue
 		}
-		if namespace != cachePod.Namespace {
+		if namespace != "" && namespace != cachePod.Namespace {
 			continue
 		}
 
-		if !common.CompareLabels(labels, cachePod.Labels) {
+		if labels != nil && !common.CompareLabels(labels, cachePod.Labels) {
 			continue
 		}
 

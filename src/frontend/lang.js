@@ -43,9 +43,18 @@ if (process.argv[2] === 'format') {
   }
   if (process.argv[3] === 'zh-Hans') {
     const filePath = path.resolve(__dirname, 'src/assets/i18n', 'zh-Hans.json');
+    const enSet = new Set([]);
+    const zhSet = new Set([]);
+    const matchSet = new Set(['CPU使用']);
     const result = JSON.stringify(defaultValue, null, 2).replace(/([\u4e00-\u9fa5]+)([a-zA-Z]+)/g, function (match, $1, $2) {
+      if (matchSet.has(match) || zhSet.has($1) || enSet.has($2)) {
+        return match
+      }
       return $1 + ' ' + $2;
     }).replace(/([a-zA-Z]+)([\u4e00-\u9fa5]+)/g, function (match, $1, $2) {
+      if (matchSet.has(match) || zhSet.has($2) || enSet.has($1)) {
+        return match;
+      }
       return $1 + ' ' + $2;
     });
     fs.writeFile(filePath, result, err => {

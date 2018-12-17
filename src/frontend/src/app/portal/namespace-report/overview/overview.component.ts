@@ -26,9 +26,7 @@ export class OverviewComponent implements OnInit {
   resources: object = new Object();
   clusters: string[] = [];
   clusterList: Cluster[] = [];
-  showNumber: number = 10;
-
-
+  showNumber = 10;
   resourceCountMap: any;
   readonly deployment = KubeApiTypeDeployment;
   readonly cronJob = KubeApiTypeCronJob;
@@ -76,7 +74,7 @@ export class OverviewComponent implements OnInit {
       response => {
         this.resources = response.data;
         this.clusterList = Object.keys(this.resources).map(item => {
-          let a = new Cluster();
+          const a = new Cluster();
           a['cluster'] = item;
           a['resource'] = this.resources[item];
           return a;
