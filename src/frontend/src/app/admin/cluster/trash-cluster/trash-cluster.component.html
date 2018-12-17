@@ -37,7 +37,7 @@
       <clr-dg-row *ngFor="let cluster of clusters" [clrDgItem]="cluster">
         <clr-dg-action-overflow>
           <button class="action-item" (click)="recoverCluster(cluster)">{{'BUTTON.RESTORE' | translate}}</button>
-          <button class="action-item" (click)="deleteCluster(cluster)">{{'BUTTON.DELETE_COMPLETE' | translate}}</button>
+          <button class="action-item" (click)="deleteCluster(cluster)">{{'BUTTON.DELETE_PERMANENTLY' | translate}}</button>
         </clr-dg-action-overflow>
         <clr-dg-cell class="col-id">{{cluster.id}}</clr-dg-cell>
         <clr-dg-cell class="col-app-name copy">{{cluster.name}}</clr-dg-cell>

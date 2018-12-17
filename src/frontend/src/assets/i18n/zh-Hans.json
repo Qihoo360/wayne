@@ -35,7 +35,7 @@
     "COPY": "COPY",
     "DELETE": "删除",
     "DELETE_ALL": "删除所有",
-    "DELETE_COMPLETE": "彻底删除",
+    "DELETE_PERMANENTLY": "彻底删除",
     "DETAIL": "详情",
     "DROP": "下线",
     "EDIT": "编辑",

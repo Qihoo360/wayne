@@ -38,7 +38,7 @@
       <clr-dg-row *ngFor="let daemonsetTpl of daemonsetTpls" [clrDgItem]="daemonsetTpl">
         <clr-dg-action-overflow>
           <button class="action-item" (click)="recoverDaemonsetTpl(daemonsetTpl)">{{'BUTTON.RESTORE' | translate}}</button>
-          <button class="action-item" (click)="deleteDaemonsetTpl(daemonsetTpl)">{{'BUTTON.DELETE_COMPLETE' | translate}}</button>
+          <button class="action-item" (click)="deleteDaemonsetTpl(daemonsetTpl)">{{'BUTTON.DELETE_PERMANENTLY' | translate}}</button>
         </clr-dg-action-overflow>
         <clr-dg-cell>{{daemonsetTpl.id}}</clr-dg-cell>
         <clr-dg-cell>{{daemonsetTpl.name}}</clr-dg-cell>

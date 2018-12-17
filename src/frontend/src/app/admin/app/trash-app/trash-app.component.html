@@ -38,7 +38,7 @@
         <clr-dg-action-overflow>
           <button class="action-item" (click)="recoverApp(app)">{{'BUTTON.RESTORE' | translate}}</button>
           <!-- 暂时不支持app的硬删除 -->
-          <!-- <button class="action-item" (click)="deleteApp(app)">{{'BUTTON.DELETE_COMPLETE' | translate}}</button> -->
+          <!-- <button class="action-item" (click)="deleteApp(app)">{{'BUTTON.DELETE_PERMANENTLY' | translate}}</button> -->
         </clr-dg-action-overflow>
         <clr-dg-cell class="col-id">{{app.id}}</clr-dg-cell>
         <clr-dg-cell class="col-app-name copy">{{app.name}}</clr-dg-cell>

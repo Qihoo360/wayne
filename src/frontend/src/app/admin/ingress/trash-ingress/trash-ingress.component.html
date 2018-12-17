@@ -37,7 +37,7 @@
       <clr-dg-row *ngFor="let ingress of ingresses" [clrDgItem]="ingress">
         <clr-dg-action-overflow>
           <button class="action-item" (click)="recoverIngress(ingress)" >{{'BUTTON.RESTORE' | translate}}</button>
-          <button class="action-item" (click)="deleteIngress(ingress)">{{'BUTTON.DELETE_COMPLETE' | translate}}</button>
+          <button class="action-item" (click)="deleteIngress(ingress)">{{'BUTTON.DELETE_PERMANENTLY' | translate}}</button>
         </clr-dg-action-overflow>
         <clr-dg-cell class="col-query-id">{{ingress.id}}</clr-dg-cell>
         <clr-dg-cell class="col-app-name copy">{{ingress.name}}</clr-dg-cell>
