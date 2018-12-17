@@ -3,6 +3,7 @@ import { NodeClient } from '../../../../shared/client/v1/kubernetes/node';
 import { State } from '@clr/angular';
 import { Page } from '../../../../shared/page/page-state';
 import { NamespaceList } from '../../../../shared/model/v1/namespace-list';
+import {DeploymentList} from '../../../../shared/model/v1/deployment-list';
 
 
 @Component({
@@ -15,6 +16,8 @@ export class ListNamespaceComponent implements OnInit, OnDestroy {
   @Input() resources: NamespaceList[];
   @Input() showState: object;
 
+  @Output() detail = new EventEmitter<NamespaceList>();
+
   constructor() {
   }
 
@@ -22,5 +25,9 @@ export class ListNamespaceComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+  }
+
+  onDetailEvent(obj: any) {
+    this.detail.emit(obj);
   }
 }

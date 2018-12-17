@@ -8,6 +8,9 @@ import { AceEditorComponent } from '../../../shared/ace-editor/ace-editor.compon
 import { ListNamespaceComponent } from './list-namespace/list-namespace.component';
 import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
 import { KubernetesResource } from '../../../shared/base/kubernetes/kubernetes-resource';
+import {AdminDefaultApiId} from '../../../shared/shared.const';
+import {DeploymentList} from '../../../shared/model/v1/deployment-list';
+import {NamespaceList} from '../../../shared/model/v1/namespace-list';
 
 const showState = {
   '名称': {hidden: false},
@@ -66,6 +69,17 @@ export class KubeNamespaceComponent extends KubernetesResource implements OnInit
   }
 
   ngOnDestroy(): void {
+  }
+
+  onEditResourceEvent(ns: NamespaceList) {
+    this.namespaceClient.getNamespaceDetail( this.cluster, ns.objectMeta.name)
+      .subscribe(
+        response => {
+          const data = response.data;
+          this.aceEditorModal.openModal(data, '查看 namespace', true);
+        },
+        error => this.messageHandlerService.handleError(error)
+      );
   }
 
 }

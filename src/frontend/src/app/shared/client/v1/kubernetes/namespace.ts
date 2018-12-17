@@ -13,6 +13,12 @@ export class NamespaceClient {
       .catch(error => Observable.throw(error));
   }
 
+  getNamespaceDetail(cluster: string, namespace: string): Observable<any> {
+    return this.http
+      .get(`/api/v1/kubernetes/namespaces/${namespace}/clusters/${cluster}`)
+      .catch(error => Observable.throw(error));
+  }
+
   getResourceUsage(namespaceId: number, appName?: string): Observable<any> {
     let params = new HttpParams();
     if (appName) {
