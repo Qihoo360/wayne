@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Namespace } from '../../../model/v1/kubernetes/namespace';
 
 @Injectable()
 export class NamespaceClient {
@@ -18,6 +19,13 @@ export class NamespaceClient {
       .get(`/api/v1/kubernetes/namespaces/${namespace}/clusters/${cluster}`)
       .catch(error => Observable.throw(error));
   }
+
+  update(ns: Namespace, cluster: string): Observable<any> {
+    return this.http
+      .put(`/api/v1/kubernetes/namespaces/${ns.metadata.name}/clusters/${cluster}`, ns)
+      .catch(error => Observable.throw(error));
+  }
+
 
   getResourceUsage(namespaceId: number, appName?: string): Observable<any> {
     let params = new HttpParams();

@@ -8,9 +8,8 @@ import { AceEditorComponent } from '../../../shared/ace-editor/ace-editor.compon
 import { ListNamespaceComponent } from './list-namespace/list-namespace.component';
 import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
 import { KubernetesResource } from '../../../shared/base/kubernetes/kubernetes-resource';
-import {AdminDefaultApiId} from '../../../shared/shared.const';
-import {DeploymentList} from '../../../shared/model/v1/deployment-list';
-import {NamespaceList} from '../../../shared/model/v1/namespace-list';
+import { NamespaceList } from '../../../shared/model/v1/namespace-list';
+import { Namespace } from '../../../shared/model/v1/kubernetes/namespace';
 
 const showState = {
   '名称': {hidden: false},
@@ -76,10 +75,34 @@ export class KubeNamespaceComponent extends KubernetesResource implements OnInit
       .subscribe(
         response => {
           const data = response.data;
-          this.aceEditorModal.openModal(data, '查看 namespace', true);
+          this.aceEditorModal.openModal(data, '编辑 namespace', true);
         },
         error => this.messageHandlerService.handleError(error)
       );
+  }
+
+  onSaveResourceEvent(ns: Namespace) {
+    this.namespaceClient.getNamespaceDetail( this.cluster, ns.metadata.name).subscribe(
+      resp => {
+        const namespace: Namespace = resp.data;
+        namespace.spec = ns.spec;
+        namespace.metadata.labels = ns.metadata.labels;
+        namespace.metadata.annotations = ns.metadata.annotations;
+        this.namespaceClient.update(namespace, this.cluster).subscribe(
+          resp2 => {
+            this.messageHandlerService.showSuccess('namespace 更新成功！');
+            this.retrieveResource();
+          },
+          error => {
+            this.messageHandlerService.handleError(error);
+          }
+        );
+      },
+      error => {
+        this.messageHandlerService.handleError(error);
+      }
+    );
+
   }
 
 }
