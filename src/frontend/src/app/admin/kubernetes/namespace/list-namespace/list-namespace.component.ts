@@ -1,9 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { NodeClient } from '../../../../shared/client/v1/kubernetes/node';
-import { State } from '@clr/angular';
-import { Page } from '../../../../shared/page/page-state';
 import { NamespaceList } from '../../../../shared/model/v1/namespace-list';
-import {DeploymentList} from '../../../../shared/model/v1/deployment-list';
 
 
 @Component({

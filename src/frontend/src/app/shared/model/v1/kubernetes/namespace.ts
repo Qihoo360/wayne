@@ -290,14 +290,14 @@ export class ObjectMeta {
     }
 
 }
-export class Namespace {
+export class KubeNamespace {
     kind: string;
     apiVersion: string;
     metadata: ObjectMeta;
     spec: NamespaceSpec;
     status: NamespaceStatus;
 
-    constructor(init?: Namespace) {
+    constructor(init?: KubeNamespace) {
         if (!init) { return ; }
         if (init.kind) { this.kind = init.kind; }
         if (init.apiVersion) { this.apiVersion = init.apiVersion; }
@@ -307,8 +307,8 @@ export class Namespace {
     }
 
 
-    static emptyObject(): Namespace {
-        const result = new Namespace();
+    static emptyObject(): KubeNamespace {
+        const result = new KubeNamespace();
         result.kind = '';
         result.apiVersion = '';
         result.metadata = ObjectMeta.emptyObject();

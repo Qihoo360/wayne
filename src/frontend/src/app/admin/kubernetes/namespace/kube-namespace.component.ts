@@ -9,7 +9,7 @@ import { ListNamespaceComponent } from './list-namespace/list-namespace.componen
 import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
 import { KubernetesResource } from '../../../shared/base/kubernetes/kubernetes-resource';
 import { NamespaceList } from '../../../shared/model/v1/namespace-list';
-import { Namespace } from '../../../shared/model/v1/kubernetes/namespace';
+import { KubeNamespace } from '../../../shared/model/v1/kubernetes/namespace';
 
 const showState = {
   '名称': {hidden: false},
@@ -81,10 +81,10 @@ export class KubeNamespaceComponent extends KubernetesResource implements OnInit
       );
   }
 
-  onSaveResourceEvent(ns: Namespace) {
+  onSaveResourceEvent(ns: KubeNamespace) {
     this.namespaceClient.getNamespaceDetail( this.cluster, ns.metadata.name).subscribe(
       resp => {
-        const namespace: Namespace = resp.data;
+        const namespace: KubeNamespace = resp.data;
         namespace.spec = ns.spec;
         namespace.metadata.labels = ns.metadata.labels;
         namespace.metadata.annotations = ns.metadata.annotations;

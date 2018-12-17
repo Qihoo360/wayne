@@ -7,6 +7,8 @@ import { ActionType } from '../../../shared/shared.const';
 import { ClusterMeta, Namespace } from '../../../shared/model/v1/namespace';
 import { NamespaceService } from '../../../shared/client/v1/namespace.service';
 import { Cluster } from '../../../shared/model/v1/cluster';
+import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
+import { KubeNamespace } from '../../../shared/model/v1/kubernetes/namespace';
 
 @Component({
   selector: 'create-edit-namespace',
@@ -30,6 +32,7 @@ export class CreateEditNamespaceComponent {
   checkOnGoing = false;
   isSubmitOnGoing = false;
   isNameValid = true;
+  autoCreate = false;
   nsTitle: string;
   actionType: ActionType;
 
@@ -38,6 +41,7 @@ export class CreateEditNamespaceComponent {
 
 
   constructor(
+    private namespaceClient: NamespaceClient,
     private namespaceService: NamespaceService,
     private messageHandlerService: MessageHandlerService) {
   }
@@ -150,6 +154,21 @@ export class CreateEditNamespaceComponent {
             this.create.emit(true);
             this.opened = false;
             this.messageHandlerService.showSuccess('创建命名空间成功！');
+            if (this.autoCreate && this.clusterMetas) {
+              Object.getOwnPropertyNames(this.clusterMetas).map(cluster => {
+                const clusterMeta = this.clusterMetas[cluster];
+                if (clusterMeta && clusterMeta.checked) {
+                  this.namespaceClient.create(this.ns.metaDataObj.namespace, cluster).subscribe(
+                    next => {
+                      this.messageHandlerService.showSuccess(`集群 ${cluster} 创建 kubernetes namespace 成功！`);
+                    },
+                    error => {
+                      this.messageHandlerService.handleError(error);
+                    }
+                  );
+                }
+              });
+            }
           },
           error => {
             this.isSubmitOnGoing = false;
@@ -165,6 +184,21 @@ export class CreateEditNamespaceComponent {
             this.create.emit(true);
             this.opened = false;
             this.messageHandlerService.showSuccess('更新命名空间成功！');
+            if (this.autoCreate && this.clusterMetas) {
+              Object.getOwnPropertyNames(this.clusterMetas).map(cluster => {
+                const clusterMeta = this.clusterMetas[cluster];
+                if (clusterMeta && clusterMeta.checked) {
+                  this.namespaceClient.create(this.ns.metaDataObj.namespace, cluster).subscribe(
+                    next => {
+                      this.messageHandlerService.showSuccess(`集群 ${cluster} 创建 kubernetes namespace 成功！`);
+                    },
+                    error => {
+                      this.messageHandlerService.handleError(error);
+                    }
+                  );
+                }
+              });
+            }
           },
           error => {
             this.isSubmitOnGoing = false;
