@@ -52,6 +52,30 @@ func (c *KubeNamespaceController) List() {
 	}
 }
 
+// @Title Get namespace info
+// @Description get one namespace detail
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace	path 	string	true		"the namespace name"
+// @Success 200 {object} common.Page success
+// @router /:namespace/clusters/:cluster [get]
+func (c *KubeNamespaceController) Get() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	ns := c.Ctx.Input.Param(":namespace")
+
+	cli, err := client.Client(cluster)
+	if err == nil {
+		result, err := namespace.GetNamespace(cli, ns)
+		if err != nil {
+			logs.Error("get kubernetes namespaces error.", cluster, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
+	}
+}
+
 // @Title Get namespace resource statistics
 // @Description Get namespace resource statistics
 // @Param	app	query 	string	false	"The app Name"
