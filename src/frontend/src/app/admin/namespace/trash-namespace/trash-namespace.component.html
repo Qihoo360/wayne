@@ -31,8 +31,8 @@
       </clr-dg-column>
       <clr-dg-row *ngFor="let ns of namespaces" [clrDgItem]="ns">
         <clr-dg-action-overflow>
-          <button class="action-item" (click)="recoverNamespace(ns)">恢复</button>
-          <button class="action-item" (click)="deleteNamespace(ns)">彻底删除</button>
+          <button class="action-item" (click)="recoverNamespace(ns)">{{'BUTTON.RESTORE' | translate}}</button>
+          <button class="action-item" (click)="deleteNamespace(ns)">{{'BUTTON.DELETE_COMPLETE' | translate}}</button>
         </clr-dg-action-overflow>
         <clr-dg-cell class="col-id">{{ns.id}}</clr-dg-cell>
         <clr-dg-cell class="col-app-name copy">{{ns.name}}</clr-dg-cell>

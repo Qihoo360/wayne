@@ -65,7 +65,10 @@
     "ADD_CONTAINER": "添加容器",
     "ADVANCED_CONFIG": "高级配置",
     "LANG_UP": "挂起",
-    "DELETE_ALL": "删除所有"
+    "DELETE_ALL": "删除所有",
+    "RESTORE": "恢复",
+    "DELETE_COMPLETE": "彻底删除",
+    "TMP_DETAIL": "模板详情"
   },
   "USER": {
     "NAME": "用户名称",
@@ -179,7 +182,8 @@
     "CONFIG_CLUSTER": "配置机房",
     "TOTAL": "总量",
     "START_TIME": "开始时间",
-    "FINISH_TIME": "结束时间"
+    "FINISH_TIME": "结束时间",
+    "BELONG_APP": "所属项目"
   },
   "TMP": {
     "CONTAINER_NAME": "容器名称",
@@ -340,6 +344,29 @@
     "EDIT": "编辑部署",
     "DELETE": "删除部署",
     "NUM": "部署份数"
+  },
+  "DEPLOYMENT_ADMIN": {
+    "DEPLOYMENT_LIST": "部署列表",
+    "DEPLOYMENT_CREATE": "创建部署",
+    "CREATE": {
+      "APPLYMENT": "应用",
+      "METADATA": "元数据"
+    },
+    "TRASH": {
+      "DEPLOYMENT_DELETE_LIST": "已删除部署列表"
+    },
+    "TMP": {
+      "DEPLOYMENT_TMP_LIST": "部署模版列表",
+      "DEPLOYMENT_TMP_CREATE": "创建部署模版",
+      "CREATE": {
+        "DEPLOYMENT": "部署",
+        "DESCRIPTION": "描述",
+        "TMP": "模版"
+      },
+      "TRASH": {
+        "DEPLOYMENT_DELETE_LIST": "已删除部署模版列表"
+      }
+    }
   },
   "STATEFULSET": {
     "TITLE": "状态副本集",

@@ -7,7 +7,7 @@
 
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="deployment_app_id" class="col-md-3 form-group-label-override required">部署</label>
+          <label for="deployment_app_id" class="col-md-3 form-group-label-override required">{{'DEPLOYMENT_ADMIN.TMP.CREATE.DEPLOYMENT' | translate}}</label>
           <div class="select form-control">
             <select id="deployment_app_id" [(ngModel)]="deploymentTpl.deploymentId" [disabled]="actionType==1"
                     name="deployment_app_id">
@@ -20,7 +20,7 @@
         </div>
         <div class="form-group" style="padding-left: 135px;">
           <label for="deployment_description"
-                 class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
+                 class="col-md-3 form-group-label-override">{{'DEPLOYMENT_ADMIN.TMP.CREATE.DESCRIPTION' | translate}}</label>
           <textarea id="deployment_description" [(ngModel)]="deploymentTpl.description"
                     name="deployment_description"
                     rows="3">
@@ -28,13 +28,8 @@
 
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="deployment_template" class="col-md-3 form-group-label-override">模版</label>
+          <label for="deployment_template" class="col-md-3 form-group-label-override">{{'DEPLOYMENT_ADMIN.TMP.CREATE.TMP' | translate}}</label>
           <wayne-ace-editor-box></wayne-ace-editor-box>
-          <!--<textarea id="deployment_template" [(ngModel)]="deploymentTpl.template"-->
-          <!--name="deployment_template"-->
-          <!--rows="7">-->
-          <!--</textarea>-->
-
         </div>
       </section>
     </form>

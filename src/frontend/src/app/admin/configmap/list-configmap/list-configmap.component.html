@@ -11,17 +11,17 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'app.name'" class="col-namespace">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      所属项目
+      {{'TITLE.BELONG_APP' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-metadata">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      元数据
+      {{'TITLE.METADATA' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'description'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      描述
+      {{'TITLE.DESCRIPTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user'">
@@ -36,7 +36,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let configMap of configMaps" [clrDgItem]="configMap">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editConfigMap(configMap)">编辑</button>
+      <button class="action-item" (click)="editConfigMap(configMap)">{{'BUTTON.EDIT' | translate}]</button>
       <button class="action-item" (click)="deleteConfigMap(configMap)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{configMap.id}}</clr-dg-cell>

@@ -11,7 +11,7 @@
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      描述
+      {{'TITLE.DESCRIPTION' | translate}}
     </ng-container>
   </clr-dg-column>
 
@@ -27,7 +27,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let statefulsetTpl of statefulsetTpls" [clrDgItem]="statefulsetTpl">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editStatefulsetTpl(statefulsetTpl)">编辑</button>
+      <button class="action-item" (click)="editStatefulsetTpl(statefulsetTpl)">{{'BUTTON.EDIT' | translate}]</button>
       <button class="action-item"
               (click)="deleteStatefulsetTpl(statefulsetTpl)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>

@@ -16,7 +16,7 @@
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          描述
+          {{'TITLE.DESCRIPTION' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column>
@@ -31,9 +31,9 @@
       </clr-dg-column>
       <clr-dg-row *ngFor="let tpl of pvcTpls" [clrDgItem]="tpl">
         <clr-dg-action-overflow>
-          <button class="action-item" (click)="tplDetail(tpl)">模板详情</button>
-          <button class="action-item" (click)="recoverPvcTpl(tpl)">恢复</button>
-          <button class="action-item" (click)="deletePvcTpl(tpl)">彻底删除</button>
+          <button class="action-item" (click)="tplDetail(tpl)">{{'BUTTON.TMP_DETAIL' | translate}}</button>
+          <button class="action-item" (click)="recoverPvcTpl(tpl)">{{'BUTTON.RESTORE' | translate}}</button>
+          <button class="action-item" (click)="deletePvcTpl(tpl)">{{'BUTTON.DELETE_COMPLETE' | translate}}</button>
         </clr-dg-action-overflow>
         <clr-dg-cell class="col-query-id">{{tpl.id}}</clr-dg-cell>
         <clr-dg-cell class="copy">{{tpl.name}}</clr-dg-cell>
