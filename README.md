@@ -60,7 +60,7 @@ $ go get github.com/Qihoo360/wayne
 If you don't have a MySQL service available, you can quickly create it with docker-compose:
 
 ```bash
-$ docker-compose up mysql
+$ docker-compose up -d mysql
 ```
 
 - Create configuration file
@@ -73,9 +73,15 @@ $ cd src/backend/conf && touch dev.conf
 
 ```bash
 DBName = wayne
-# MySQL address,if MySQL is started via docker-compose,
+# MySQL connection config, default its container name for its in the same network with wayne,
+# if you run MySQL via docker-compose and you didn't change the mysql's container name, just
+# keep it default.
+# You can also run "docker network inspect wayne_default"(replace wayne_default to the real 
+# docker network MySQL container use) to get the real IP for wayne_mysql_1, and replace 
+# MySQL docker name(wayne_mysql_1) to the real IP. Its more flexible when you want customize
+# your environment for wayne running. For example "DBTns = tcp(172.17.0.2:3306)"
 # Cannot be accessed directly through 127.0.0.1 under Mac OS.Please change to actual IP.
-DBTns = tcp(127.0.0.1:3306)
+DBTns = tcp(wayne_mysql_1:3306)
 DBUser = root
 DBPasswd = root
 ```
@@ -85,7 +91,7 @@ DBPasswd = root
 cd Wayne root directory and execute
 
 ```bash
-$ docker-compose up wayne
+$ docker-compose up -d wayne
 ```
 
 With the above command, you can access the local Wayne from http://127.0.0.1:8080/admin, the default administrator account admin:admin.
