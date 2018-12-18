@@ -160,7 +160,11 @@ export class CreateEditNamespaceComponent {
                 if (clusterMeta && clusterMeta.checked) {
                   this.namespaceClient.create(this.ns.metaDataObj.namespace, cluster).subscribe(
                     next => {
-                      this.messageHandlerService.showSuccess(`集群 ${cluster} 创建 kubernetes namespace 成功！`);
+                      if (next.data === null) {
+                        this.messageHandlerService.showSuccess(`集群 ${cluster} 已存在对应的 kubernetes namespace！`);
+                      } else {
+                        this.messageHandlerService.showSuccess(`集群 ${cluster} 创建 kubernetes namespace 成功！`);
+                      }
                     },
                     error => {
                       this.messageHandlerService.handleError(error);
@@ -190,7 +194,11 @@ export class CreateEditNamespaceComponent {
                 if (clusterMeta && clusterMeta.checked) {
                   this.namespaceClient.create(this.ns.metaDataObj.namespace, cluster).subscribe(
                     next => {
-                      this.messageHandlerService.showSuccess(`集群 ${cluster} 创建 kubernetes namespace 成功！`);
+                      if (next.data === null) {
+                        this.messageHandlerService.showSuccess(`集群 ${cluster} 已存在对应的 kubernetes namespace！`);
+                      } else {
+                          this.messageHandlerService.showSuccess(`集群 ${cluster} 创建 kubernetes namespace 成功！`);
+                      }
                     },
                     error => {
                       this.messageHandlerService.handleError(error);
