@@ -1,3 +1,7 @@
+/**
+ * 使用方法请参考 wiki 文档
+ * https://github.com/Qihoo360/wayne/wiki/Wayne-dev-i18n
+ */
 const fs = require('fs');
 const path = require('path');
 
@@ -64,7 +68,7 @@ if (process.argv[2] === 'format') {
   }
 }
 
-// sort 不传数据会 sort 所有文件，或者换紧跟文件前缀
+// sort
 if (process.argv[2] === 'sort') {
   /**
    * {@param} value: Object
@@ -91,11 +95,11 @@ if (process.argv[2] === 'sort') {
       })
     }
   } else {
-    fs.readdir(dirPath, function (error, files) {
+    fs.readdir(dirPath, (error, files) => {
       if (error) {
         console.warn(error);
       } else {
-        files.forEach(function (filePath) {
+        files.forEach(filePath => {
           fs.writeFile(path.resolve(dirPath, filePath), JSON.stringify(sort(require(path.resolve(dirPath, filePath))), null, 2), 'utf8', err => {
             if (err) throw error(err);
             console.log(filePath + ' done');
