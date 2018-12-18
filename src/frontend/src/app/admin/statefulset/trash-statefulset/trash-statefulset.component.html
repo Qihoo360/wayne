@@ -16,12 +16,12 @@
       </clr-dg-column>
       <clr-dg-column class="col-metadata">
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          元数据
+          {{'TITLE.METADATA' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          描述
+          {{'TITLE.DESCRIPTION' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column [clrDgField]="'user'">
@@ -36,8 +36,8 @@
       </clr-dg-column>
       <clr-dg-row *ngFor="let statefulset of statefulsets" [clrDgItem]="statefulset">
         <clr-dg-action-overflow>
-          <button class="action-item" (click)="recoverStatefulset(statefulset)">恢复</button>
-          <button class="action-item" (click)="deleteStatefulset(statefulset)">彻底删除</button>
+          <button class="action-item" (click)="recoverStatefulset(statefulset)">{{'BUTTON.RESTORE' | translate}}</button>
+          <button class="action-item" (click)="deleteStatefulset(statefulset)">{{'BUTTON.DELETE_PERMANENTLY' | translate}}</button>
         </clr-dg-action-overflow>
         <clr-dg-cell class="col-query-id">{{statefulset.id}}</clr-dg-cell>
         <clr-dg-cell class="col-app-name copy">{{statefulset.name}}</clr-dg-cell>

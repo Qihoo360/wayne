@@ -16,7 +16,7 @@
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: true}">
-      元数据
+      {{'TITLE.METADATA' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
@@ -36,7 +36,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let ns of namespaces" [clrDgItem]="ns">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editNamespace(ns)">编辑</button>
+      <button class="action-item" (click)="editNamespace(ns)">{{'BUTTON.EDIT' | translate}]</button>
       <button class="action-item" (click)="deleteNamespace(ns)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-id">{{ns.id}}</clr-dg-cell>

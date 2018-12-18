@@ -16,12 +16,12 @@
       </clr-dg-column>
       <clr-dg-column class="col-metadata">
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          元数据
+          {{'TITLE.METADATA' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column [clrDgField]="'description'">
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          描述
+          {{'TITLE.DESCRIPTION' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column [clrDgField]="'user'">
@@ -36,8 +36,8 @@
       </clr-dg-column>
       <clr-dg-row *ngFor="let ingress of ingresses" [clrDgItem]="ingress">
         <clr-dg-action-overflow>
-          <button class="action-item" (click)="recoverIngress(ingress)" >恢复</button>
-          <button class="action-item" (click)="deleteIngress(ingress)">彻底删除</button>
+          <button class="action-item" (click)="recoverIngress(ingress)" >{{'BUTTON.RESTORE' | translate}}</button>
+          <button class="action-item" (click)="deleteIngress(ingress)">{{'BUTTON.DELETE_PERMANENTLY' | translate}}</button>
         </clr-dg-action-overflow>
         <clr-dg-cell class="col-query-id">{{ingress.id}}</clr-dg-cell>
         <clr-dg-cell class="col-app-name copy">{{ingress.name}}</clr-dg-cell>

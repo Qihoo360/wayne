@@ -71,7 +71,7 @@
   </clr-dg-column>
   <clr-dg-row *clrDgItems="let node of nodes">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editNode(node)">编辑</button>
+      <button class="action-item" (click)="editNode(node)">{{'BUTTON.EDIT' | translate}]</button>
       <button class="action-item" (click)="deleteNode(node)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="copy">{{node.name}}</clr-dg-cell>

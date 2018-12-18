@@ -11,12 +11,12 @@
   </clr-dg-column>
   <clr-dg-column class="col-metadata">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      元数据
+      {{'TITLE.METADATA' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'description'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      描述
+      {{'TITLE.DESCRIPTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
@@ -36,7 +36,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let app of apps" [clrDgItem]="app">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editApp(app)">编辑</button>
+      <button class="action-item" (click)="editApp(app)">{{'BUTTON.EDIT' | translate}]</button>
       <button class="action-item" (click)="deleteApp(app)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-id">{{app.id}}</clr-dg-cell>

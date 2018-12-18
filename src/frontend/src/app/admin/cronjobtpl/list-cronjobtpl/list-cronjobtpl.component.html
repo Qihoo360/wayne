@@ -11,12 +11,12 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'description'" class="col-description">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      描述
+      {{'TITLE.DESCRIPTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-metadata">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      元数据
+      {{'TITLE.METADATA' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user'">
@@ -31,7 +31,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let cronjobTpl of cronjobTpls" [clrDgItem]="cronjobTpl">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editCronjobTpl(cronjobTpl)">编辑</button>
+      <button class="action-item" (click)="editCronjobTpl(cronjobTpl)">{{'BUTTON.EDIT' | translate}]</button>
       <button class="action-item" (click)="deleteCronjobTpl(cronjobTpl)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{cronjobTpl.id}}</clr-dg-cell>

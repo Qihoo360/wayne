@@ -11,7 +11,7 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'description'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      描述
+      {{'TITLE.DESCRIPTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user'">
@@ -26,7 +26,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let ingressTpl of ingressTpls" [clrDgItem]="serviceTpl">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editIngressTpl(ingressTpl)" >编辑</button>
+      <button class="action-item" (click)="editIngressTpl(ingressTpl)" >{{'BUTTON.EDIT' | translate}]</button>
       <button class="action-item" (click)="deleteIngressTpl(ingressTpl)">删除</button>
     </clr-dg-action-overflow>
     <clr-dg-cell>{{ingressTpl.id}}</clr-dg-cell>

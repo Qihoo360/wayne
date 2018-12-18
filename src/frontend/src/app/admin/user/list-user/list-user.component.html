@@ -36,14 +36,14 @@
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      描述
+      {{'TITLE.DESCRIPTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let user of users" [clrDgItem]="user">
     <clr-dg-action-overflow>
       <button class="action-item" (click)="resetPassword(user)">重置密码</button>
       <button class="action-item" (click)="changeAdminRole(user)">{{adminActions(user)}}</button>
-      <button class="action-item" (click)="editUser(user)">编辑</button>
+      <button class="action-item" (click)="editUser(user)">{{'BUTTON.EDIT' | translate}]</button>
       <button class="action-item" (click)="deleteUser(user)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-id">{{user.id}}</clr-dg-cell>
