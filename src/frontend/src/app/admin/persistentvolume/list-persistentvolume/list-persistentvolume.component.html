@@ -51,7 +51,7 @@
       <button *ngIf="pv.spec.rbd && !pv.spec.rbd.created && isEnableRobin" class="action-item"
               (click)="createRbdImage(pv)">创建Rbd镜像
       </button>
-      <button class="action-item" (click)="editPv(pv)">编辑</button>
+      <button class="action-item" (click)="editPv(pv)">{{'BUTTON.EDIT' | translate}]</button>
       <button class="action-item" (click)="deletePv(pv)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="copy">{{pv.metadata.name}}</clr-dg-cell>

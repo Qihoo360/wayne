@@ -16,7 +16,7 @@
       </clr-dg-column>
       <clr-dg-column [clrDgField]="'description'">
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          描述
+          {{'TITLE.DESCRIPTION' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column [clrDgField]="'user'">
@@ -31,9 +31,9 @@
       </clr-dg-column>
       <clr-dg-row *ngFor="let ingressTpl of ingressTpls" [clrDgItem]="ingressTpl">
         <clr-dg-action-overflow>
-          <button class="action-item" (click)="tplDetail(ingressTpl)" >模板详情</button>
-          <button class="action-item" (click)="recoverIngressTpl(ingressTpl)" >恢复</button>
-          <button class="action-item" (click)="deleteIngressTpl(ingressTpl)">彻底删除</button>
+          <button class="action-item" (click)="tplDetail(ingressTpl)" >{{'BUTTON.TMP_DETAIL' | translate}}</button>
+          <button class="action-item" (click)="recoverIngressTpl(ingressTpl)" >{{'BUTTON.RESTORE' | translate}}</button>
+          <button class="action-item" (click)="deleteIngressTpl(ingressTpl)">{{'BUTTON.DELETE_PERMANENTLY' | translate}}</button>
         </clr-dg-action-overflow>
         <clr-dg-cell>{{ingressTpl.id}}</clr-dg-cell>
         <clr-dg-cell class="copy">{{ingressTpl.name}}</clr-dg-cell>

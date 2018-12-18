@@ -16,12 +16,12 @@
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          元数据
+          {{'TITLE.METADATA' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column [clrDgField]="'description'">
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          描述
+          {{'TITLE.DESCRIPTION' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column [clrDgField]="'user'">
@@ -36,9 +36,9 @@
       </clr-dg-column>
       <clr-dg-row *ngFor="let app of apps" [clrDgItem]="app">
         <clr-dg-action-overflow>
-          <button class="action-item" (click)="recoverApp(app)">恢复</button>
+          <button class="action-item" (click)="recoverApp(app)">{{'BUTTON.RESTORE' | translate}}</button>
           <!-- 暂时不支持app的硬删除 -->
-          <!-- <button class="action-item" (click)="deleteApp(app)">彻底删除</button> -->
+          <!-- <button class="action-item" (click)="deleteApp(app)">{{'BUTTON.DELETE_PERMANENTLY' | translate}}</button> -->
         </clr-dg-action-overflow>
         <clr-dg-cell class="col-id">{{app.id}}</clr-dg-cell>
         <clr-dg-cell class="col-app-name copy">{{app.name}}</clr-dg-cell>

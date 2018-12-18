@@ -1,3 +1,7 @@
+/**
+ * 使用方法请参考 wiki 文档
+ * https://github.com/Qihoo360/wayne/wiki/Wayne-dev-i18n
+ */
 const fs = require('fs');
 const path = require('path');
 
@@ -60,6 +64,48 @@ if (process.argv[2] === 'format') {
     fs.writeFile(filePath, result, err => {
       if (err) throw error(err);
       console.log('done');
+    })
+  }
+}
+
+// sort
+if (process.argv[2] === 'sort') {
+  /**
+   * {@param} value: Object
+   * {@return} sortValue: Object 
+   */
+  function sort(value) {
+    const obj = {};
+    if (typeof value === 'object') {
+      Object.keys(value).sort().forEach(item => {
+        obj[item] = sort(value[item]);
+      })
+    } else {
+      return value;
+    }
+    return obj;
+  }
+  const dirPath = path.resolve(__dirname, 'src/assets/i18n');
+  if (process.argv[3] !== undefined) {
+    const filePath = path.resolve(__dirname, 'src/assets/i18n', /\.json$/.test(process.argv[3]) ? process.argv[3] : process.argv[3] + '.json');
+    if (fs.existsSync(filePath)) {
+      fs.writeFile(filePath, JSON.stringify(sort(require(filePath)), null, 2), 'utf8', err => {
+        if (err) throw error(err);
+        console.log('done');
+      })
+    }
+  } else {
+    fs.readdir(dirPath, (error, files) => {
+      if (error) {
+        console.warn(error);
+      } else {
+        files.forEach(filePath => {
+          fs.writeFile(path.resolve(dirPath, filePath), JSON.stringify(sort(require(path.resolve(dirPath, filePath))), null, 2), 'utf8', err => {
+            if (err) throw error(err);
+            console.log(filePath + ' done');
+          })
+        })
+      }
     })
   }
 }
