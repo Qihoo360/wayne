@@ -28,7 +28,7 @@
 
   <clr-dg-row *ngFor="let deployment of deployments" [clrDgItem]="deployment">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="detailDeployment(deployment)">编辑</button>
+      <button class="action-item" (click)="detailDeployment(deployment)">{{'BUTTON.EDIT' | translate}]</button>
       <button class="action-item" (click)="migrationDeployment(deployment)">迁移</button>
     </clr-dg-action-overflow>
     <clr-dg-cell>{{deployment.objectMeta.name}}</clr-dg-cell>

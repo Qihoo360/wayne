@@ -16,12 +16,12 @@
       </clr-dg-column>
       <clr-dg-column class="col-metadata">
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          元数据
+          {{'TITLE.METADATA' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          描述
+          {{'TITLE.DESCRIPTION' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column [clrDgField]="'user'">
@@ -36,8 +36,8 @@
       </clr-dg-column>
       <clr-dg-row *ngFor="let daemonset of daemonsets" [clrDgItem]="daemonset">
         <clr-dg-action-overflow>
-          <button class="action-item" (click)="recoverDaemonset(daemonset)">恢复</button>
-          <button class="action-item" (click)="deleteDaemonset(daemonset)">彻底删除</button>
+          <button class="action-item" (click)="recoverDaemonset(daemonset)">{{'BUTTON.RESTORE' | translate}}</button>
+          <button class="action-item" (click)="deleteDaemonset(daemonset)">{{'BUTTON.DELETE_PERMANENTLY' | translate}}</button>
         </clr-dg-action-overflow>
         <clr-dg-cell class="col-query-id">{{daemonset.id}}</clr-dg-cell>
         <clr-dg-cell class="col-app-name">{{daemonset.name}}</clr-dg-cell>

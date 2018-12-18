@@ -11,17 +11,17 @@
   </clr-dg-column>
   <clr-dg-column class="col-namespace" [clrDgField]="'app.name'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      所属项目
+      {{'TITLE.BELONG_APP' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-metadata">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      元数据
+      {{'TITLE.METADATA' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'description'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      描述
+      {{'TITLE.DESCRIPTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user'">
@@ -36,7 +36,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let cronjob of cronjobs" [clrDgItem]="cronjob">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editCronjob(cronjob)">编辑</button>
+      <button class="action-item" (click)="editCronjob(cronjob)">{{'BUTTON.EDIT' | translate}]</button>
       <button class="action-item" (click)="deleteCronjob(cronjob)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{cronjob.id}}</clr-dg-cell>
