@@ -34,6 +34,7 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { defaultCronJob } from '../../../shared/default-models/cronjob.const';
 import { Observable } from 'rxjs';
 import * as cron from 'cron-parser';
+import { ObjectMeta } from '../../../shared/model/v1/kubernetes/deployment';
 
 const templateDom = [
   {
@@ -73,7 +74,7 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
 
   actionType: ActionType;
   cronjobTpl: CronjobTpl = new CronjobTpl();
-  isSubmitOnGoing: boolean = false;
+  isSubmitOnGoing = false;
   app: App;
   cronjob: Cronjob;
   kubeCronjob: KubeCronJob = new KubeCronJob();
@@ -138,7 +139,7 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
   }
 
   setContainDom(i) {
-    let dom = JSON.parse(JSON.stringify(containerDom));
+    const dom = JSON.parse(JSON.stringify(containerDom));
     dom.id += i ? i : '';
     dom.child.forEach(item => {
       item.id += i ? i : '';
@@ -148,7 +149,7 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
 
   initNavList() {
     this.naviList = null;
-    let naviList = JSON.parse(JSON.stringify(templateDom));
+    const naviList = JSON.parse(JSON.stringify(templateDom));
     for (let key = 0; key < this.containersLength; key++) {
       naviList[0].child.push(this.setContainDom(key));
     }
@@ -156,9 +157,11 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
   }
 
   get isScheduleValid(): boolean {
-    if (!this.kubeCronjob.spec.schedule) return false;
-    let result = cron.parseString(this.kubeCronjob.spec.schedule);
-    if (Object.keys(result.errors).length != 0) {
+    if (!this.kubeCronjob.spec.schedule) {
+      return false;
+    }
+    const result = cron.parseString(this.kubeCronjob.spec.schedule);
+    if (Object.keys(result.errors).length !== 0) {
       return false;
     }
     return true;
@@ -191,10 +194,10 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
   get memoryLimit(): number {
     let memoryLimit = defaultResources.memoryLimit;
     if (this.cronjob && this.cronjob.metaData) {
-      let metaData = JSON.parse(this.cronjob.metaData);
+      const metaData = JSON.parse(this.cronjob.metaData);
       if (metaData.resources &&
         metaData.resources.memoryLimit) {
-        memoryLimit = parseInt(metaData.resources.memoryLimit);
+        memoryLimit = parseInt(metaData.resources.memoryLimit, 10);
       }
     }
     return memoryLimit;
@@ -203,10 +206,10 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
   get cpuLimit(): number {
     let cpuLimit = defaultResources.cpuLimit;
     if (this.cronjob && this.cronjob.metaData) {
-      let metaData = JSON.parse(this.cronjob.metaData);
+      const metaData = JSON.parse(this.cronjob.metaData);
       if (metaData.resources &&
         metaData.resources.cpuLimit) {
-        cpuLimit = parseInt(metaData.resources.cpuLimit);
+        cpuLimit = parseInt(metaData.resources.cpuLimit, 10);
       }
     }
     return cpuLimit;
@@ -218,7 +221,7 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
   }
 
   defaultContainer(): Container {
-    let container = new Container();
+    const container = new Container();
     container.resources = new ResourceRequirements();
     container.resources.limits = {'memory': '', 'cpu': ''};
     container.env = [];
@@ -228,11 +231,11 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
 
   ngOnInit(): void {
     this.initDefault();
-    let appId = parseInt(this.route.parent.snapshot.params['id']);
-    let namespaceId = this.cacheService.namespaceId;
-    let cronjobId = parseInt(this.route.snapshot.params['cronjobId']);
-    let tplId = parseInt(this.route.snapshot.params['tplId']);
-    let observables = Array(
+    const appId = parseInt(this.route.parent.snapshot.params['id'], 10);
+    const namespaceId = this.cacheService.namespaceId;
+    const cronjobId = parseInt(this.route.snapshot.params['cronjobId'], 10);
+    const tplId = parseInt(this.route.snapshot.params['tplId'], 10);
+    const observables = Array(
       this.appService.getById(appId, namespaceId),
       this.cronjobService.getById(cronjobId, appId)
     );
@@ -246,7 +249,7 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
       response => {
         this.app = response[0].data;
         this.cronjob = response[1].data;
-        let tpl = response[2];
+        const tpl = response[2];
         if (tpl) {
           this.cronjobTpl = tpl.data;
           this.cronjobTpl.description = null;
@@ -274,7 +277,8 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
     kubeCronJob.metadata.name = this.cronjob.name;
     kubeCronJob.metadata.labels = this.buildLabels(this.kubeCronjob.metadata.labels);
     kubeCronJob.spec.jobTemplate.metadata.labels = this.buildLabels(this.kubeCronjob.spec.jobTemplate.metadata.labels);
-    kubeCronJob.spec.jobTemplate.spec.template.metadata.labels = this.buildLabels(this.kubeCronjob.spec.jobTemplate.spec.template.metadata.labels);
+    kubeCronJob.spec.jobTemplate.spec.template.metadata.labels = this.buildLabels(
+      this.kubeCronjob.spec.jobTemplate.spec.template.metadata.labels);
     return kubeCronJob;
   }
 
@@ -319,8 +323,8 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
   }
 
   defaultEnv(type: number): EnvVar {
-    let env = new EnvVar();
-    switch (parseInt(type.toString())) {
+    const env = new EnvVar();
+    switch (parseInt(type.toString(), 10)) {
       case 0:
         env.value = '';
         break;
@@ -339,8 +343,8 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
   }
 
   defaultEnvFrom(type: number): EnvFromSource {
-    let envFrom = new EnvFromSource();
-    switch (parseInt(type.toString())) {
+    const envFrom = new EnvFromSource();
+    switch (parseInt(type.toString(), 10)) {
       case 1:
         envFrom.configMapRef = new ConfigMapEnvSource();
         break;
@@ -388,15 +392,28 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
 
   saveCronjob(kubeCronjob: KubeCronJob) {
     // this.removeResourceUnit(kubeStatefulSet);
+    this.removeUnused(kubeCronjob);
     this.fillDefault(kubeCronjob);
     this.kubeCronjob = kubeCronjob;
     this.initNavList();
   }
 
+  // remove unused fields, deal with user advanced mode paste yaml/json manually
+  removeUnused(obj: KubeCronJob) {
+    const metaData = new ObjectMeta();
+    metaData.name = obj.metadata.name;
+    metaData.namespace = obj.metadata.namespace;
+    metaData.labels = obj.metadata.labels;
+    metaData.annotations = obj.metadata.annotations;
+    obj.metadata = metaData;
+    obj.status = undefined;
+  }
+
   fillDefault(kubeCronjob: KubeCronJob) {
     this.kubeCronjob = mergeDeep(JSON.parse(defaultCronJob), kubeCronjob);
-    if (this.kubeCronjob.spec.jobTemplate.spec.template.spec.containers && this.kubeCronjob.spec.jobTemplate.spec.template.spec.containers.length > 0) {
-      for (let container of this.kubeCronjob.spec.jobTemplate.spec.template.spec.containers) {
+    if (this.kubeCronjob.spec.jobTemplate.spec.template.spec.containers &&
+      this.kubeCronjob.spec.jobTemplate.spec.template.spec.containers.length > 0) {
+      for (const container of this.kubeCronjob.spec.jobTemplate.spec.template.spec.containers) {
         if (!container.resources) {
           container.resources = ResourceRequirements.emptyObject();
         }
@@ -413,7 +430,7 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
     let cpuRequestLimitPercent = 0.5;
     let memoryRequestLimitPercent = 1;
     if (this.cronjob.metaData) {
-      let metaData = JSON.parse(this.cronjob.metaData);
+      const metaData = JSON.parse(this.cronjob.metaData);
       if (metaData.resources && metaData.resources.cpuRequestLimitPercent) {
         if (metaData.resources.cpuRequestLimitPercent.indexOf('%') > -1) {
           cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent.replace('%', '')) / 100;
@@ -430,9 +447,9 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
       }
     }
 
-    for (let container of kubeCronjob.spec.jobTemplate.spec.template.spec.containers) {
-      let memoryLimit = container.resources.limits['memory'];
-      let cpuLimit = container.resources.limits['cpu'];
+    for (const container of kubeCronjob.spec.jobTemplate.spec.template.spec.containers) {
+      const memoryLimit = container.resources.limits['memory'];
+      const cpuLimit = container.resources.limits['cpu'];
       if (!container.resources.requests) {
         container.resources.requests = {};
       }
@@ -460,7 +477,7 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
   }
 
   getImagePrefixReg() {
-    let imagePrefix = this.authService.config['system.image-prefix'];
+    const imagePrefix = this.authService.config['system.image-prefix'];
     return imagePrefix;
   }
 

@@ -4,7 +4,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ActionType, appLabelKey } from '../../../shared/shared.const';
+import { ActionType, appLabelKey, namespaceLabelKey } from '../../../shared/shared.const';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { DOCUMENT, EventManager } from '@angular/platform-browser';
@@ -36,8 +36,8 @@ import { AuthService } from '../../../shared/auth/auth.service';
 export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, AfterViewInit, OnDestroy {
   currentForm: FormGroup;
   pvcTpl: PersistentVolumeClaimTpl = new PersistentVolumeClaimTpl();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
   actionType: ActionType;
   app: App;
   top: number;
@@ -47,8 +47,8 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
   componentName = 'PVC';
   clusters: Cluster[];
 
-  show: boolean = false;
-  eventList: any[] = new Array();
+  show = false;
+  eventList: any[] = Array();
 
   constructor(private pvcTplService: PersistentVolumeClaimTplService,
               private pvcService: PersistentVolumeClaimService,
@@ -99,7 +99,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
 
   get selectors(): FormArray {
     return this.currentForm.get('selectors') as FormArray;
-  };
+  }
 
   onAddSelector(index: number) {
     const selectors = this.currentForm.get(`selectors`) as FormArray;
@@ -132,7 +132,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
   }
 
   initClusterGroups() {
-    let clusters = Array<FormGroup>();
+    const clusters = Array<FormGroup>();
     this.clusters.forEach(cluster => {
       clusters.push(this.fb.group({
         checked: cluster.checked,
@@ -148,11 +148,11 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
   ngOnInit(): void {
     this.kubePvc = new KubePersistentVolumeClaim();
 
-    let appId = parseInt(this.route.parent.snapshot.params['id']);
-    let namespaceId = this.cacheService.namespaceId;
-    let pvcId = parseInt(this.route.snapshot.params['pvcId']);
-    let tplId = parseInt(this.route.snapshot.params['tplId']);
-    let observables = Array(
+    const appId = parseInt(this.route.parent.snapshot.params['id'], 10);
+    const namespaceId = this.cacheService.namespaceId;
+    const pvcId = parseInt(this.route.snapshot.params['pvcId'], 10);
+    const tplId = parseInt(this.route.snapshot.params['tplId'], 10);
+    const observables = Array(
       this.clusterService.getNames(),
       this.appService.getById(appId, namespaceId),
       this.pvcService.getById(pvcId, appId)
@@ -166,23 +166,23 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
     this.createForm();
     Observable.combineLatest(observables).subscribe(
       response => {
-        let clusters = response[0].data;
+        const clusters = response[0].data;
         for (let i = 0; i < clusters.length; i++) {
           clusters[i].checked = false;
         }
         this.clusters = this.filterCluster(clusters);
         this.app = response[1].data;
         this.pvc = response[2].data;
-        let tpl = response[3];
+        const tpl = response[3];
         if (tpl) {
           this.pvcTpl = tpl.data;
           this.pvcTpl.description = null;
           this.savePvcTpl(JSON.parse(this.pvcTpl.template));
           if (this.pvcTpl.metaData) {
-            let clusters = JSON.parse(this.pvcTpl.metaData).clusters;
-            for (let cluster of clusters) {
+            const configedClusters = JSON.parse(this.pvcTpl.metaData).clusters;
+            for (const cluster of configedClusters) {
               for (let i = 0; i < this.clusters.length; i++) {
-                if (cluster == this.clusters[i].name) {
+                if (cluster === this.clusters[i].name) {
                   this.clusters[i].checked = true;
                 }
               }
@@ -215,24 +215,25 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
     }
     this.isSubmitOnGoing = true;
 
-    let metaDataStr = this.pvcTpl.metaData ? this.pvcTpl.metaData : '{}';
-    let clusters = Array<string>();
+    const metaDataStr = this.pvcTpl.metaData ? this.pvcTpl.metaData : '{}';
+    const clusters = Array<string>();
     this.currentForm.controls.clusters.value.map((cluster: Cluster) => {
       if (cluster.checked) {
         clusters.push(cluster.name);
       }
     });
-    let metaData = JSON.parse(metaDataStr);
+    const metaData = JSON.parse(metaDataStr);
     metaData['clusters'] = clusters;
     this.pvcTpl.metaData = JSON.stringify(metaData);
-    let kubePvc = this.getKubePvcByForm();
+    const kubePvc = this.getKubePvcByForm();
     this.pvcTpl.template = JSON.stringify(kubePvc);
     this.pvcTpl.id = undefined;
     this.pvcTplService.create(this.pvcTpl, this.app.id).subscribe(
       status => {
         this.isSubmitOnGoing = false;
         this.messageHandlerService.showSuccess('创建' + this.componentName + '模版成功！');
-        this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/persistentvolumeclaim/${this.pvc.id}/list`]);
+        this.router.navigate(
+          [`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/persistentvolumeclaim/${this.pvc.id}/list`]);
       },
       error => {
         this.isSubmitOnGoing = false;
@@ -253,6 +254,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
       labels = {};
     }
     labels[this.authService.config[appLabelKey]] = this.app.name;
+    labels[this.authService.config[namespaceLabelKey]] = this.cacheService.currentNamespace.name;
     labels['app'] = this.pvc.name;
     return labels;
   }
@@ -263,7 +265,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
     this.pvcTpl.name = this.pvc.name;
     this.pvcTpl.persistentVolumeClaimId = this.pvc.id;
 
-    let kubePvc = this.kubePvc;
+    const kubePvc = this.kubePvc;
     if (!kubePvc.metadata) {
       kubePvc.metadata = new ObjectMeta();
     }
@@ -276,7 +278,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
       kubePvc.spec.resources = new ResourceRequirements();
     }
     kubePvc.spec.resources.requests = {'storage': formValue.storage + 'Gi'};
-    let accessModes = Array<string>();
+    const accessModes = Array<string>();
     if (formValue.readWriteOnce) {
       accessModes.push('ReadWriteOnce');
     }
@@ -292,7 +294,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
     }
     kubePvc.spec.selector.matchLabels = {};
     if (formValue.selectors && formValue.selectors.length > 0) {
-      for (let selector of formValue.selectors) {
+      for (const selector of formValue.selectors) {
         kubePvc.spec.selector.matchLabels[selector.key] = selector.value;
       }
     }
@@ -305,6 +307,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
   }
 
   savePvcTpl(kubePvc: KubePersistentVolumeClaim) {
+    this.removeUnused(kubePvc);
     if (kubePvc && kubePvc.spec) {
       this.kubePvc = kubePvc;
       let storage;
@@ -329,7 +332,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
           }
         });
       }
-      let selectors = Array<FormGroup>();
+      const selectors = Array<FormGroup>();
       if (kubePvc.spec.selector && kubePvc.spec.selector.matchLabels) {
         Object.getOwnPropertyNames(kubePvc.spec.selector.matchLabels).map(key => {
           selectors.push(this.fb.group({
@@ -338,7 +341,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
           }));
         });
       }
-      let clusters = this.currentForm.get('clusters');
+      const clusters = this.currentForm.get('clusters');
       this.currentForm = this.fb.group({
         description: this.currentForm.get('description').value,
         storage: storage,
@@ -349,6 +352,17 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
       });
       this.currentForm.setControl('clusters', clusters);
     }
+  }
+
+  // remove unused fields, deal with user advanced mode paste yaml/json manually
+  removeUnused(obj: any) {
+    const metaData = new ObjectMeta();
+    metaData.name = obj.metadata.name;
+    metaData.namespace = obj.metadata.namespace;
+    metaData.labels = obj.metadata.labels;
+    metaData.annotations = obj.metadata.annotations;
+    obj.metadata = metaData;
+    obj.status = undefined;
   }
 }
 
