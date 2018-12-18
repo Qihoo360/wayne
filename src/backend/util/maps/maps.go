@@ -24,7 +24,7 @@ func MergeLabels(old map[string]string, new map[string]string) map[string]string
 }
 
 func LabelsToString(labels map[string]string) string {
-	result := make([]string, len(labels))
+	result := make([]string, 0)
 	for k, v := range labels {
 		result = append(result, fmt.Sprintf("%s=%s", k, v))
 

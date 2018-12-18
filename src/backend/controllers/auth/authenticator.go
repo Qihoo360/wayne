@@ -10,6 +10,7 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	selfoauth "github.com/Qihoo360/wayne/src/backend/oauth2"
+	"github.com/Qihoo360/wayne/src/backend/util/errors"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/astaxie/beego"
@@ -172,7 +173,7 @@ func (c *AuthController) CurrentUser() {
 		// we also only use its public counter part to verify
 		return rsakey.RsaPublicKey, nil
 	})
-	errResult := base.ErrorResult{}
+	errResult := errors.ErrorResult{}
 	switch err.(type) {
 	case nil: // no error
 		if !token.Valid { // but may still be invalid

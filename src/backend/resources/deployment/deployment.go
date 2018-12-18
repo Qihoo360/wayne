@@ -2,11 +2,13 @@ package deployment
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/resources/common"
 	"github.com/Qihoo360/wayne/src/backend/resources/event"
 	"github.com/Qihoo360/wayne/src/backend/resources/pod"
+	erroresult "github.com/Qihoo360/wayne/src/backend/util/errors"
 	"github.com/Qihoo360/wayne/src/backend/util/maps"
 	"k8s.io/api/apps/v1beta1"
 	"k8s.io/apimachinery/pkg/api/errors"
@@ -89,8 +91,11 @@ func checkDeploymentLabelSelector(new *v1beta1.Deployment, old *v1beta1.Deployme
 	for key, value := range new.Spec.Selector.MatchLabels {
 		oldValue, ok := old.Spec.Selector.MatchLabels[key]
 		if !ok || oldValue != value {
-			return fmt.Errorf("New's Deployment .Spec.Selector.MatchLabels(%s) not match old MatchLabels(%s),do not allow deploy to prevent the orphan ReplicaSet. ",
-				maps.LabelsToString(new.Spec.Selector.MatchLabels), maps.LabelsToString(old.Spec.Selector.MatchLabels))
+			return &erroresult.ErrorResult{
+				Code: http.StatusBadRequest,
+				Msg: fmt.Sprintf("New's Deployment MatchLabels(%s) not match old MatchLabels(%s), do not allow deploy to prevent the orphan ReplicaSet. ",
+					maps.LabelsToString(new.Spec.Selector.MatchLabels), maps.LabelsToString(old.Spec.Selector.MatchLabels)),
+			}
 		}
 	}
 

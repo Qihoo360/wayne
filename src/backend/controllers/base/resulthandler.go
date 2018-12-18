@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
+	erroresult "github.com/Qihoo360/wayne/src/backend/util/errors"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/astaxie/beego"
@@ -19,21 +20,6 @@ type ResultHandlerController struct {
 
 type Result struct {
 	Data interface{} `json:"data"`
-}
-
-var _ error = &ErrorResult{}
-
-// Error implements the Error interface.
-func (e *ErrorResult) Error() string {
-	return fmt.Sprintf("code:%d,subCode:%d,msg:%s", e.Code, e.SubCode, e.Msg)
-}
-
-type ErrorResult struct {
-	// http code
-	Code int `json:"code"`
-	// The custom code
-	SubCode int    `json:"subCode"`
-	Msg     string `json:"msg"`
 }
 
 func (c *ResultHandlerController) Success(data interface{}) {
@@ -72,7 +58,7 @@ func (c *ResultHandlerController) AbortUnauthorized(msg string) {
 
 // Handle return http code and body normally, need return
 func (c *ResultHandlerController) HandleError(err error) int {
-	errorResult := &ErrorResult{
+	errorResult := &erroresult.ErrorResult{
 		Code: http.StatusInternalServerError,
 	}
 	switch e := err.(type) {
@@ -91,7 +77,7 @@ func (c *ResultHandlerController) HandleError(err error) int {
 		} else {
 			errorResult.Msg = e.Message
 		}
-	case *ErrorResult:
+	case *erroresult.ErrorResult:
 		errorResult = e
 	default:
 		if err == orm.ErrNoRows {
@@ -120,7 +106,7 @@ func (c *ResultHandlerController) HandleError(err error) int {
 }
 
 func (c *ResultHandlerController) errorResult(code int, msg string) []byte {
-	errorResult := ErrorResult{
+	errorResult := erroresult.ErrorResult{
 		Code: code,
 		Msg:  msg,
 	}
