@@ -117,7 +117,8 @@ func (c *KubeNamespaceController) Create() {
 
 	cli, err := client.Client(cluster)
 	if err == nil {
-		result, err := namespace.CreateNamespace(cli, tpl)
+		// If the namespace does not exist, the value of result is nil.
+		result, err := namespace.CreateNotExitNamespace(cli, tpl)
 		if err != nil {
 			logs.Error("create namespace (%v) by cluster (%s) error.%v", tpl, cluster, err)
 			c.HandleError(err)

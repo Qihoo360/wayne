@@ -2,6 +2,7 @@ package namespace
 
 import (
 	"k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/api/errors"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 )
@@ -43,10 +44,13 @@ func UpdateNamespace(cli *kubernetes.Clientset, ns *v1.Namespace) (*v1.Namespace
 	return newNS, nil
 }
 
-func CreateNamespace(cli *kubernetes.Clientset, ns *v1.Namespace) (*v1.Namespace, error) {
-	newNS, err := cli.CoreV1().Namespaces().Create(ns)
+func CreateNotExitNamespace(cli *kubernetes.Clientset, ns *v1.Namespace) (*v1.Namespace, error) {
+	_, err := cli.CoreV1().Namespaces().Get(ns.Name, metaV1.GetOptions{})
 	if err != nil {
+		if errors.IsNotFound(err) {
+			return cli.CoreV1().Namespaces().Create(ns)
+		}
 		return nil, err
 	}
-	return newNS, nil
+	return nil, nil
 }
