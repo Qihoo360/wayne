@@ -5,13 +5,14 @@ import (
 	"fmt"
 	"net/http"
 
-	erroresult "github.com/Qihoo360/wayne/src/backend/util/errors"
-	"github.com/Qihoo360/wayne/src/backend/util/hack"
-	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"github.com/go-sql-driver/mysql"
 	"k8s.io/apimachinery/pkg/api/errors"
+
+	erroresult "github.com/Qihoo360/wayne/src/backend/models/response/errors"
+	"github.com/Qihoo360/wayne/src/backend/util/hack"
+	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
 
 type ResultHandlerController struct {

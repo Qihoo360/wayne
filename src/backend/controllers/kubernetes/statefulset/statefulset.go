@@ -5,18 +5,19 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Qihoo360/wayne/src/backend/client"
-	"github.com/Qihoo360/wayne/src/backend/controllers/base"
-	"github.com/Qihoo360/wayne/src/backend/models"
-	"github.com/Qihoo360/wayne/src/backend/resources/namespace"
-	"github.com/Qihoo360/wayne/src/backend/resources/statefulset"
-	"github.com/Qihoo360/wayne/src/backend/util"
-	"github.com/Qihoo360/wayne/src/backend/util/errors"
-	"github.com/Qihoo360/wayne/src/backend/util/hack"
-	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"k8s.io/api/apps/v1beta1"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/kubernetes"
+
+	"github.com/Qihoo360/wayne/src/backend/client"
+	"github.com/Qihoo360/wayne/src/backend/controllers/base"
+	"github.com/Qihoo360/wayne/src/backend/models"
+	"github.com/Qihoo360/wayne/src/backend/models/response/errors"
+	"github.com/Qihoo360/wayne/src/backend/resources/namespace"
+	"github.com/Qihoo360/wayne/src/backend/resources/statefulset"
+	"github.com/Qihoo360/wayne/src/backend/util"
+	"github.com/Qihoo360/wayne/src/backend/util/hack"
+	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
 
 type KubeStatefulsetController struct {
