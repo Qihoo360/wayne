@@ -12,9 +12,9 @@ import { NamespaceList } from '../../../shared/model/v1/namespace-list';
 import { KubeNamespace } from '../../../shared/model/v1/kubernetes/namespace';
 
 const showState = {
-  '名称': {hidden: false},
-  '状态': {hidden: false},
-  '创建时间': {hidden: false},
+  'name': {hidden: false},
+  'status': {hidden: false},
+  'createTime': {hidden: false},
 };
 
 @Component({

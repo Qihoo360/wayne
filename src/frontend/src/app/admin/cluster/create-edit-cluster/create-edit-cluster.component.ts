@@ -78,7 +78,7 @@ export class CreateEditClusterComponent {
         });
     } else {
       this.actionType = ActionType.ADD_NEW;
-      this.title = '绑定集群';
+      this.title = '关联集群';
       this.cluster = new Cluster();
       this.initJsonEditor();
 

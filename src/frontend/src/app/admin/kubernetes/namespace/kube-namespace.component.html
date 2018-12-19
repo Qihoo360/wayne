@@ -4,9 +4,9 @@
       <div class="table-search-left">
         <wayne-filter-box (confirm)="onConfirmEvent()" (cancel)="onCancelEvent()">
           <wayne-checkbox-group [(ngModel)]="showList">
-            <wayne-checkbox>名称</wayne-checkbox>
-            <wayne-checkbox>状态</wayne-checkbox>
-            <wayne-checkbox>创建时间</wayne-checkbox>
+            <wayne-checkbox value="name">名称</wayne-checkbox>
+            <wayne-checkbox value="status">状态</wayne-checkbox>
+            <wayne-checkbox value="createTime">创建时间</wayne-checkbox>
           </wayne-checkbox-group>
         </wayne-filter-box>
       </div>
