@@ -75,7 +75,7 @@ $ cd src/backend/conf && touch dev.conf
 ```bash
 DBName = wayne
 # MySQL address，如果MySQL是通过docker-compose启动的，
-# 这里使用docker-compose定义的mysql虚拟域名,绕过Mac OS 下无法直接访问127.0.0.1的问题
+# 这里使用 docker-compose 定义的 MySQL 虚拟域名,绕过Mac OS 下无法直接访问127.0.0.1的问题
 DBTns = tcp(mysql:3306)
 DBUser = root
 DBPasswd = root
