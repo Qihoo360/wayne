@@ -27,7 +27,7 @@ import { TrashCronjobComponent } from './cronjob/trash-cronjob/trash-cronjob.com
 import { CronjobTplComponent } from './cronjobtpl/cronjobtpl.component';
 import { TrashCronjobTplComponent } from './cronjobtpl/trash-cronjobtpl/trash-cronjobtpl.component';
 import { AdminAuthCheckGuard } from '../shared/auth/admin-auth-check-guard.service';
-import { PersistentVolumeComponent } from './persistentvolume/persistentvolume.component';
+import { PersistentVolumeComponent } from './kubernetes/persistentvolume/persistentvolume.component';
 import { PersistentVolumeClaimComponent } from './persistentvolumeclaim/persistentvolumeclaim.component';
 import {
   TrashPersistentVolumeClaimComponent
@@ -39,7 +39,7 @@ import {
 import { AuditLogComponent } from './auditlog/auditlog.component';
 import {
   CreateEditPersistentVolumeComponent
-} from './persistentvolume/create-edit-persistentvolume/create-edit-persistentvolume.component';
+} from './kubernetes/persistentvolume/create-edit-persistentvolume/create-edit-persistentvolume.component';
 import { ApiKeyComponent } from './apikey/apikey.component';
 import { AppReportFormComponent } from './reportform/app/app-reportform.component';
 import { OverviewComponent } from './reportform/overview/overview.component';
@@ -54,15 +54,16 @@ import { DaemonsettplComponent } from './daemonsettpl/daemonsettpl.component';
 import { TrashDaemonsettplComponent } from './daemonsettpl/trash-daemonsettpl/trash-daemonsettpl.component';
 import { ConfigComponent } from './config/config.component';
 import { ConfigSystemComponent } from './config/list-config-system/config-system.component';
-import { KubernetesDashboardComponent } from './kubernetes-dashboard/kubernetes-dashboard.component';
+import { KubernetesDashboardComponent } from './kubernetes/dashboard/dashboard.component';
 import { NotificationComponent } from './notification/notification.component';
-import { NodesComponent } from './node/nodes.component';
+import { NodesComponent } from './kubernetes/node/nodes.component';
 import { ADMINROUTES } from '../../../lib/admin/library-routing-admin';
 import { IngressComponent } from './ingress/ingress.component';
 import { TrashIngressComponent } from './ingress/trash-ingress/trash-ingress.component';
 import { IngressTplComponent } from './ingresstpl/ingresstpl.component';
 import { TrashIngressTplComponent } from './ingresstpl/trash-ingresstpl/trash-ingresstpl.component';
 import { KubeDeploymentComponent } from './kubernetes/deployment/kube-deployment.component';
+import {KubeNamespaceComponent} from './kubernetes/namespace/kube-namespace.component';
 
 
 const routes: Routes = [
@@ -150,6 +151,8 @@ const routes: Routes = [
       {path: 'ingress/tpl/trash', component: TrashIngressTplComponent},
       {path: 'kubernetes/deployment', component: KubeDeploymentComponent},
       {path: 'kubernetes/deployment/:cluster', component: KubeDeploymentComponent},
+      {path: 'kubernetes/namespace', component: KubeNamespaceComponent},
+      {path: 'kubernetes/namespace/:cluster', component: KubeNamespaceComponent},
       ...ADMINROUTES
     ]
   }
