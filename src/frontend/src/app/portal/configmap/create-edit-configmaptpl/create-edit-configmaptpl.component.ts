@@ -30,8 +30,8 @@ import { AuthService } from '../../../shared/auth/auth.service';
 export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, OnDestroy {
   currentForm: FormGroup;
   configMapTpl: ConfigMapTpl = new ConfigMapTpl();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
   actionType: ActionType;
   app: App;
   configMap: ConfigMap;
@@ -41,8 +41,8 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
 
   top: number;
   box: HTMLElement;
-  show: boolean = false;
-  eventList: any = new Array();
+  show = false;
+  eventList: any = Array();
 
   constructor(private configMapTplService: ConfigMapTplService,
               private configMapService: ConfigMapService,
@@ -92,7 +92,7 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
 
   get datas(): FormArray {
     return this.currentForm.get('datas') as FormArray;
-  };
+  }
 
   initData() {
     return this.fb.group({
@@ -115,7 +115,7 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
 
   createForm() {
     let disabled = false;
-    if (this.actionType == ActionType.EDIT) {
+    if (this.actionType === ActionType.EDIT) {
       disabled = true;
     }
     this.currentForm = this.fb.group({
@@ -130,7 +130,7 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
   }
 
   initClusterGroups() {
-    let clusters = Array<FormGroup>();
+    const clusters = Array<FormGroup>();
     this.clusters.forEach(cluster => {
       clusters.push(this.fb.group({
         checked: cluster.checked,
@@ -144,11 +144,11 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
   }
 
   ngOnInit(): void {
-    let appId = parseInt(this.route.parent.snapshot.params['id']);
-    let namespaceId = this.cacheService.namespaceId;
-    let configMapId = parseInt(this.route.snapshot.params['configMapId']);
-    let tplId = parseInt(this.route.snapshot.params['tplId']);
-    let observables = Array(
+    const appId = parseInt(this.route.parent.snapshot.params['id'], 10);
+    const namespaceId = this.cacheService.namespaceId;
+    const configMapId = parseInt(this.route.snapshot.params['configMapId'], 10);
+    const tplId = parseInt(this.route.snapshot.params['tplId'], 10);
+    const observables = Array(
       this.clusterService.getNames(),
       this.appService.getById(appId, namespaceId),
       this.configMapService.getById(configMapId, appId)
@@ -162,22 +162,22 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
     this.createForm();
     Observable.combineLatest(observables).subscribe(
       response => {
-        let clusters = response[0].data;
+        const clusters = response[0].data;
         for (let i = 0; i < clusters.length; i++) {
           clusters[i].checked = false;
         }
         this.clusters = this.filterCluster(clusters);
         this.app = response[1].data;
         this.configMap = response[2].data;
-        let tpl = response[3];
+        const tpl = response[3];
         if (tpl) {
           this.configMapTpl = tpl.data;
           this.saveConfigMapTpl(JSON.parse(this.configMapTpl.template));
           if (this.configMapTpl.metaData) {
-            let clusters = JSON.parse(this.configMapTpl.metaData).clusters;
-            for (let cluster of clusters) {
+            const configedClusters = JSON.parse(this.configMapTpl.metaData).clusters;
+            for (const cluster of configedClusters) {
               for (let i = 0; i < this.clusters.length; i++) {
-                if (cluster == this.clusters[i].name) {
+                if (cluster === this.clusters[i].name) {
                   this.clusters[i].checked = true;
                 }
               }
@@ -210,17 +210,17 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
     }
     this.isSubmitOnGoing = true;
 
-    let metaDataStr = this.configMapTpl.metaData ? this.configMapTpl.metaData : '{}';
-    let clusters = Array<string>();
+    const metaDataStr = this.configMapTpl.metaData ? this.configMapTpl.metaData : '{}';
+    const clusters = Array<string>();
     this.currentForm.controls.clusters.value.map((cluster: Cluster) => {
       if (cluster.checked) {
         clusters.push(cluster.name);
       }
     });
-    let metaData = JSON.parse(metaDataStr);
+    const metaData = JSON.parse(metaDataStr);
     metaData['clusters'] = clusters;
     this.configMapTpl.metaData = JSON.stringify(metaData);
-    let kubeConfigMap = this.getKubeConfigMapByForm();
+    const kubeConfigMap = this.getKubeConfigMapByForm();
     this.configMapTpl.template = JSON.stringify(kubeConfigMap);
     this.configMapTpl.id = undefined;
     this.configMapTplService.create(this.configMapTpl, this.app.id).subscribe(
@@ -259,7 +259,7 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
     this.configMapTpl.name = this.configMap.name;
     this.configMapTpl.configMapId = this.configMap.id;
 
-    let kubeConfigMap = this.kubeConfigMap;
+    const kubeConfigMap = this.kubeConfigMap;
     if (!kubeConfigMap.metadata) {
       kubeConfigMap.metadata = new ObjectMeta();
     }
@@ -267,7 +267,7 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
     kubeConfigMap.metadata.labels = this.buildLabels(kubeConfigMap.metadata.labels);
     if (formValue.datas && formValue.datas.length > 0) {
       kubeConfigMap.data = {};
-      for (let data of formValue.datas) {
+      for (const data of formValue.datas) {
         kubeConfigMap.data[data.dataName] = data.dataValue;
       }
     }
@@ -279,17 +279,29 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
   }
 
   saveConfigMapTpl(kubeConfigMap: KubeConfigMap) {
+    this.removeUnused(kubeConfigMap);
     if (kubeConfigMap && kubeConfigMap.data) {
       this.kubeConfigMap = kubeConfigMap;
-      let datas = Array<FormGroup>();
+      const datas = Array<FormGroup>();
       Object.getOwnPropertyNames(kubeConfigMap.data).map(key => {
         datas.push(this.fb.group({
           dataName: key,
           dataValue: kubeConfigMap.data[key],
-        }),);
+        }));
       });
       this.currentForm.setControl('datas', this.fb.array(datas));
     }
+  }
+
+  // remove unused fields, deal with user advanced mode paste yaml/json manually
+  removeUnused(obj: any) {
+    const metaData = new ObjectMeta();
+    metaData.name = obj.metadata.name;
+    metaData.namespace = obj.metadata.namespace;
+    metaData.labels = obj.metadata.labels;
+    metaData.annotations = obj.metadata.annotations;
+    obj.metadata = metaData;
+    obj.status = undefined;
   }
 }
 
