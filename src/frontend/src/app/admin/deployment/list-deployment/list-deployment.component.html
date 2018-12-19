@@ -36,7 +36,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let deployment of deployments" [clrDgItem]="deployment">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editDeployment(deployment)">{{'BUTTON.EDIT' | translate}]</button>
+      <button class="action-item" (click)="editDeployment(deployment)">{{'BUTTON.EDIT' | translate}}</button>
       <button class="action-item" (click)="deleteDeployment(deployment)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{deployment.id}}</clr-dg-cell>

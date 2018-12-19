@@ -27,7 +27,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let statefulsetTpl of statefulsetTpls" [clrDgItem]="statefulsetTpl">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editStatefulsetTpl(statefulsetTpl)">{{'BUTTON.EDIT' | translate}]</button>
+      <button class="action-item" (click)="editStatefulsetTpl(statefulsetTpl)">{{'BUTTON.EDIT' | translate}}</button>
       <button class="action-item"
               (click)="deleteStatefulsetTpl(statefulsetTpl)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>

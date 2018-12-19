@@ -36,7 +36,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let pvc of pvcs" [clrDgItem]="pvc">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editPvc(pvc)">{{'BUTTON.EDIT' | translate}]</button>
+      <button class="action-item" (click)="editPvc(pvc)">{{'BUTTON.EDIT' | translate}}</button>
       <button class="action-item" (click)="deletePvc(pvc)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{pvc.id}}</clr-dg-cell>
