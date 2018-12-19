@@ -18,7 +18,7 @@ import { CronjobModule } from './cronjob/cronjob.module';
 import { CronjobTplModule } from './cronjobtpl/cronjobtpl.module';
 import { AuthService } from '../shared/auth/auth.service';
 import { AdminAuthCheckGuard } from '../shared/auth/admin-auth-check-guard.service';
-import { PersistentVolumeModule } from './persistentvolume/persistentvolume.module';
+import { PersistentVolumeModule } from './kubernetes/persistentvolume/persistentvolume.module';
 import { PersistentVolumeClaimModule } from './persistentvolumeclaim/persistentvolumeclaim.module';
 import { PersistentVolumeClaimTplModule } from './persistentvolumeclaimtpl/persistentvolumeclaimtpl.module';
 import { AuditLogModule } from './auditlog/auditlog.module';
@@ -29,15 +29,16 @@ import { DaemonsettplModule } from './daemonsettpl/daemonsettpl.module';
 import { StatefulsetModule } from './statefulset/statefulset.module';
 import { StatefulsettplModule } from './statefulsettpl/statefulsettpl.module';
 import { ConfigModule } from './config/config.module';
-import { KubernetesDashboardModule } from './kubernetes-dashboard/kubernetes-dashboard.module';
+import { KubernetesDashboardModule } from './kubernetes/dashboard/dashboard.module';
 import { NavModule } from './nav/nav.module';
 import { NotificationModule } from './notification/notification.module';
-import { NodesModule } from './node/nodes.module';
+import { NodesModule } from './kubernetes/node/nodes.module';
 import { LibraryAdminModule } from '../../../lib/admin/library-admin.module';
 import { IngressModule } from './ingress/ingress.module';
 import { IngressTplModule } from './ingresstpl/ingresstpl.module';
 import { KubeDeploymentModule } from './kubernetes/deployment/kube-deployment.module';
 import { TplDetailModule } from '../shared/tpl-detail/tpl-detail.module';
+import { KubeNamespaceModule } from './kubernetes/namespace/kube-namespace.module';
 
 @NgModule({
   imports: [
@@ -72,6 +73,7 @@ import { TplDetailModule } from '../shared/tpl-detail/tpl-detail.module';
     NavModule,
     NotificationModule,
     NodesModule,
+    KubeNamespaceModule,
     LibraryAdminModule,
     IngressModule,
     IngressTplModule,
