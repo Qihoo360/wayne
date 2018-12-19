@@ -27,23 +27,18 @@
             [(ngModel)]="kubeResource.spec.rules[i].host">
           </label>
         </div>
-          <div class="form-group form-group-padding" >
-            <label class="col-md-3 form-group-label-override required">负载均衡名称</label>
-            <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="text" style="width: 217px"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.rules[i].http.paths[0].backend.serviceName">
-            </label>
-          </div>
-          <div class="form-group form-group-padding" >
-            <label class="col-md-3 form-group-label-override required">负载均衡端口</label>
-            <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="number" style="width: 217px"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.rules[i].http.paths[0].backend.servicePort">
-            </label>
-          </div>
-          <div class="form-group form-group-padding" >
-            <label class="col-md-3 form-group-label-override required">请求路由</label>
-            <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="text" style="width: 217px"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.rules[i].http.paths[0].path">
-            </label>
+          <div *ngFor="let rule of kubeResource.spec.rules; let i = index">
+            <div *ngFor="let path of kubeResource.spec.rules[i].http.paths; let j = index">
+              <div class="form-group form-group-padding" >
+                <label class="col-md-3 form-group-label-override required">负载均衡名称</label>
+                <input type="text" class="col-md-2"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.rules[i].http.paths[j].backend.serviceName">
+                <label class="col-md-2 form-group-label-override required">端口</label>
+                <input type="number" class="col-md-2"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.rules[i].http.paths[j].backend.servicePort">
+                <label class="col-md-2 form-group-label-override required">路由</label>
+                <input type="text" class="col-md-2"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.rules[i].http.paths[j].path">
+              </div>
+            </div>
+            <a href="javascript:void(0)"><clr-icon (click)="onAddPath(i)" shape="plus-circle" title="添加路由" class="is-solid clr-icon"></clr-icon></a>
           </div>
         </div>
       </div>

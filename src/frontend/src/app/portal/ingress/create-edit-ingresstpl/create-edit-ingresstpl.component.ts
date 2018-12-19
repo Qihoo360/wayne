@@ -15,6 +15,7 @@ import { IngressService } from '../../../shared/client/v1/ingress.service';
 import { IngressTplService } from '../../../shared/client/v1/ingresstpl.service';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { CreateEditResourceTemplate } from '../../../shared/base/resource/create-edit-resource-template';
+import { KubeIngress, IngressRule, IngressPath } from '../../../shared/model/v1/kubernetes/ingress';
 
 
 @Component({
@@ -146,6 +147,10 @@ export class CreateEditIngressTplComponent extends CreateEditResourceTemplate im
 
       }
     );
+  }
+
+  onAddPath(idx: number) {
+    this.kubeResource.spec.rules[idx].http.paths.push(new IngressPath());
   }
 }
 
