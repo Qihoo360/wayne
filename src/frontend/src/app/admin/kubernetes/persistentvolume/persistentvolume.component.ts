@@ -1,19 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ListPersistentVolumeComponent } from './list-persistentvolume/list-persistentvolume.component';
-import { PersistentVolume } from '../../shared/model/v1/kubernetes/persistentvolume';
-import { PersistentVolumeClient } from '../../shared/client/v1/kubernetes/persistentvolume';
-import { ClusterService } from '../../shared/client/v1/cluster.service';
+import { PersistentVolume } from '../../../shared/model/v1/kubernetes/persistentvolume';
+import { PersistentVolumeClient } from '../../../shared/client/v1/kubernetes/persistentvolume';
+import { ClusterService } from '../../../shared/client/v1/cluster.service';
 import { Inventory } from './list-persistentvolume/inventory';
 import { CreateEditPersistentVolumeComponent } from './create-edit-persistentvolume/create-edit-persistentvolume.component';
-import { isArrayNotEmpty, isNotEmpty } from '../../shared/utils';
-import { AuthService } from '../../shared/auth/auth.service';
-import { PersistentVolumeRobinClient } from '../../shared/client/v1/kubernetes/persistentvolume-robin';
+import { isArrayNotEmpty, isNotEmpty } from '../../../shared/utils';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { PersistentVolumeRobinClient } from '../../../shared/client/v1/kubernetes/persistentvolume-robin';
 
 const showState = {
   '名称': {hidden: false},
@@ -32,7 +32,7 @@ const showState = {
   templateUrl: './persistentvolume.component.html',
   styleUrls: ['./persistentvolume.component.scss']
 })
-export class PersistentVolumeComponent implements OnInit {
+export class PersistentVolumeComponent implements OnInit, OnDestroy {
   @ViewChild(ListPersistentVolumeComponent)
   list: ListPersistentVolumeComponent;
   @ViewChild(CreateEditPersistentVolumeComponent)
@@ -59,7 +59,7 @@ export class PersistentVolumeComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.PERSISTENT_VOLUME) {
-        let name = message.data;
+        const name = message.data;
         this.persistentVolumeClient
           .deleteById(name, this.cluster)
           .subscribe(
@@ -92,7 +92,9 @@ export class PersistentVolumeComponent implements OnInit {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) this.showList.push(key);
+      if (!this.showState[key].hidden) {
+        this.showList.push(key);
+      }
     });
   }
 
@@ -101,7 +103,7 @@ export class PersistentVolumeComponent implements OnInit {
     let cluster = this.route.snapshot.params['cluster'];
     this.clusterService.getNames().subscribe(
       response => {
-        let data = response.data;
+        const data = response.data;
         if (data) {
           this.clusters = data.map(item => item.name);
           if (data.length > 0 && !this.cluster || this.clusters.indexOf(this.cluster) === -1) {
@@ -143,25 +145,26 @@ export class PersistentVolumeComponent implements OnInit {
 
     this.persistentVolumeClient.list(this.cluster).subscribe(
       response => {
-        let pvs = response.data;
+        const pvs = response.data;
         this.inventory.size = pvs.length;
         this.inventory.reset(pvs);
         this.persistentVolumes = this.inventory.all;
         if (this.isEnableRobin) {
-          this.persistentVolumeRobinClient.listRbdImages(this.cluster).subscribe(
-            response => {
-              let rbdImages = {};
-              if (isNotEmpty(response.data) && isArrayNotEmpty(response.data.images)) {
-                for (let rbd of response.data.images) {
+          this.persistentVolumeRobinClient.listRbdImages(this.cluster).
+          subscribe(
+            response2 => {
+              const rbdImages = {};
+              if (isNotEmpty(response2.data) && isArrayNotEmpty(response2.data.images)) {
+                for (const rbd of response2.data.images) {
                   rbdImages[rbd.name] = rbd;
                 }
               }
-              for (let pv of pvs) {
+              for (const pv of pvs) {
                 if (isNotEmpty(pv.spec.rbd) && rbdImages[pv.spec.rbd.image] && rbdImages[pv.spec.rbd.image].type == 'rbd') {
                   pv.spec.rbd.created = true;
                 } else if (isNotEmpty(pv.spec.cephfs)) {
-                  let name = this.getCephfsName(pv.spec.cephfs.path);
-                  if (rbdImages[name] && rbdImages[name].type == 'cephfs') {
+                  const name = this.getCephfsName(pv.spec.cephfs.path);
+                  if (rbdImages[name] && rbdImages[name].type === 'cephfs') {
                     pv.spec.cephfs.created = true;
                   }
                 }
@@ -181,7 +184,7 @@ export class PersistentVolumeComponent implements OnInit {
   }
 
   getCephfsName(path: string): string {
-    let paths = path.split('/');
+    const paths = path.split('/');
     return paths[paths.length - 1];
   }
 
@@ -194,7 +197,7 @@ export class PersistentVolumeComponent implements OnInit {
   }
 
   deletePv(pv: PersistentVolume) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除持久化存储确认',
       '你确认删除持久化存储 ' + pv.metadata.name + ' ？',
       pv.metadata.name,

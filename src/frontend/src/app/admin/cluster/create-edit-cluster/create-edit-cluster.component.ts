@@ -26,9 +26,9 @@ export class CreateEditClusterComponent {
   @ViewChild('kubeConfig')
   kubeConfig: AceEditorBoxComponent;
   cluster: Cluster = new Cluster();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
 
   title: string;
   actionType: ActionType;
@@ -78,7 +78,7 @@ export class CreateEditClusterComponent {
         });
     } else {
       this.actionType = ActionType.ADD_NEW;
-      this.title = '创建集群';
+      this.title = '关联集群';
       this.cluster = new Cluster();
       this.initJsonEditor();
 
@@ -153,9 +153,9 @@ export class CreateEditClusterComponent {
       !this.checkOnGoing;
   }
 
-  //Handle the form validation
+  // Handle the form validation
   handleValidation(): void {
-    let cont = this.currentForm.controls['app_name'];
+    const cont = this.currentForm.controls['app_name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }

@@ -13,8 +13,8 @@ import {
   SchedulerComparator
 } from './inventory';
 import { SortOrder } from '@clr/angular';
-import { Node } from '../../../shared/model/v1/kubernetes/node-list';
-import { StorageService } from '../../../shared/client/v1/storage.service';
+import { Node } from '../../../../shared/model/v1/kubernetes/node-list';
+import { StorageService } from '../../../../shared/client/v1/storage.service';
 
 @Component({
   selector: 'list-nodes',

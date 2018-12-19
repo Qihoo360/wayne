@@ -31,6 +31,12 @@
                  required
                  pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
                  maxlength="36">
+          <div class="table-search-right">
+            <div class="toggle-switch">
+              <input type="checkbox" id="toggle_1" [(ngModel)]="autoCreate" [ngModelOptions]="{standalone: true}">
+              <label for="toggle_1">自动创建</label>
+            </div>
+          </div>
         </div>
         <div *ngFor="let cluster of clusters;let i=index" class="form-group" style="padding-left: 135px;">
           <label *ngIf="i === 0" class="col-md-3 form-group-label-override required">可用机房</label>

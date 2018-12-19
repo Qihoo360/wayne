@@ -5,20 +5,22 @@ import (
 	"fmt"
 	"net/http"
 
+	"k8s.io/api/apps/v1beta1"
+	"k8s.io/apimachinery/pkg/labels"
+	"k8s.io/client-go/kubernetes"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/controllers/common"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/models/response"
+	"github.com/Qihoo360/wayne/src/backend/models/response/errors"
 	"github.com/Qihoo360/wayne/src/backend/resources/deployment"
 	"github.com/Qihoo360/wayne/src/backend/resources/namespace"
 	"github.com/Qihoo360/wayne/src/backend/util"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/Qihoo360/wayne/src/backend/workers/webhook"
-	"k8s.io/api/apps/v1beta1"
-	"k8s.io/apimachinery/pkg/labels"
-	"k8s.io/client-go/kubernetes"
 )
 
 type KubeDeploymentController struct {
@@ -218,7 +220,7 @@ func checkResourceAvailable(ns *models.Namespace, cli *kubernetes.Clientset, kub
 	// this namespace can't use current cluster.
 	clusterMetas, ok := ns.MetaDataObj.ClusterMetas[cluster]
 	if !ok {
-		return &base.ErrorResult{
+		return &errors.ErrorResult{
 			Code:    http.StatusForbidden,
 			SubCode: http.StatusForbidden,
 			Msg:     fmt.Sprintf("Current namespace (%s) can't use current cluster (%s).Please contact administrator. ", ns.Name, cluster),
@@ -240,7 +242,7 @@ func checkResourceAvailable(ns *models.Namespace, cli *kubernetes.Clientset, kub
 
 	if clusterMetas.ResourcesLimit.Memory != 0 &&
 		clusterMetas.ResourcesLimit.Memory-(namespaceResourceUsed.Memory+requestResourceList.Memory)/1024 < 0 {
-		return &base.ErrorResult{
+		return &errors.ErrorResult{
 			Code:    http.StatusForbidden,
 			SubCode: base.ErrorSubCodeInsufficientResource,
 			Msg:     fmt.Sprintf("request namespace resource (memory:%dGi) is not enough for this deploy", requestResourceList.Memory/1024),
@@ -249,7 +251,7 @@ func checkResourceAvailable(ns *models.Namespace, cli *kubernetes.Clientset, kub
 
 	if clusterMetas.ResourcesLimit.Cpu != 0 &&
 		clusterMetas.ResourcesLimit.Cpu-(namespaceResourceUsed.Cpu+requestResourceList.Cpu)/1000 < 0 {
-		return &base.ErrorResult{
+		return &errors.ErrorResult{
 			Code:    http.StatusForbidden,
 			SubCode: base.ErrorSubCodeInsufficientResource,
 			Msg:     fmt.Sprintf("request namespace resource (cpu:%d) is not enough for this deploy", requestResourceList.Cpu/1000),
