@@ -81,7 +81,6 @@ DBName = wayne
 # docker-compose) to get the contianer IP of mysql, then replace `wayne_mysql_1`
 # to the container IP. Its more flexible when you want to customize the environment
 # of wayne running. For example "DBTns = tcp(172.17.0.2:3306)"
-# Cannot be accessed directly through 127.0.0.1 under Mac OS.Please change to actual IP.
 DBTns = tcp(wayne_mysql_1:3306)
 DBUser = root
 DBPasswd = root

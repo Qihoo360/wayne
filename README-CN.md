@@ -80,7 +80,6 @@ DBName = wayne
 # 的默认网络，需要将“wayne_default”替换为实际使用的网络名称)来获得mysql容器IP，然后将
 # “wayne_mysql_1”替换为其容器IP。当你使用自定义运行环境时，使用容器IP会更加灵活。
 # 例如，"DBTns = tcp(172.17.0.2:3306)"
-# Mac OS 下无法直接通过127.0.0.1访问，请修改为实际IP 
 DBTns = tcp(wayne_mysql_1:3306)
 DBUser = root
 DBPasswd = root
