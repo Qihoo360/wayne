@@ -74,13 +74,13 @@ $ cd src/backend/conf && touch dev.conf
 
 ```bash
 DBName = wayne
-# MySQL连接配置，默认是wayne_mysql_1(MySQL容器名称).
-# 如果使用docker-compose启动MySQL，同时你没有改变mysql的容器名称，那么保留默认配置即可。
+# MySQL连接配置，默认是mysql(MySQL服务名称).
+# 如果使用docker-compose启动MySQL，同时你没有改变mysql的服务名称，那么保留默认配置即可。
 # 你也可以通过执行"docker network inspect wayne_default"(如果没有使用docker-compose
 # 的默认网络，需要将“wayne_default”替换为实际使用的网络名称)来获得mysql容器IP，然后将
-# “wayne_mysql_1”替换为其容器IP。当你使用自定义运行环境时，使用容器IP会更加灵活。
-# 例如，"DBTns = tcp(172.17.0.2:3306)"
-DBTns = tcp(wayne_mysql_1:3306)
+# “mysql”替换为其容器IP。当你使用自定义运行环境时，使用容器IP会更加灵活。例如：
+# "DBTns = tcp(172.17.0.2:3306)"
+DBTns = tcp(mysql:3306)
 DBUser = root
 DBPasswd = root
 ```

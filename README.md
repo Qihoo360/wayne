@@ -73,15 +73,15 @@ $ cd src/backend/conf && touch dev.conf
 
 ```bash
 DBName = wayne
-# MySQL connection config, its wayne_mysql_1(container name) by default.
+# MySQL connection config, its mysql(service name) by default.
 # Keep it default value, if you run MySQL via docker-compose and you didn't
-# change the mysql's container name.
+# change the mysql's service name.
 # You can also run "docker network inspect wayne_default"(replace wayne_default
 # to the real docker network name if you didn't use the default network of 
-# docker-compose) to get the contianer IP of mysql, then replace `wayne_mysql_1`
+# docker-compose) to get the contianer IP of mysql, then replace `mysql`
 # to the container IP. Its more flexible when you want to customize the environment
 # of wayne running. For example "DBTns = tcp(172.17.0.2:3306)"
-DBTns = tcp(wayne_mysql_1:3306)
+DBTns = tcp(mysql:3306)
 DBUser = root
 DBPasswd = root
 ```
