@@ -1,8 +1,8 @@
 import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
-import { ClusterService } from '../../shared/client/v1/cluster.service';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { ClusterService } from '../../../shared/client/v1/cluster.service';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Cluster } from '../../shared/model/v1/cluster';
+import { Cluster } from '../../../shared/model/v1/cluster';
 import { DomSanitizer, EventManager } from '@angular/platform-browser';
 
 @Pipe({name: 'safe'})
@@ -17,8 +17,8 @@ export class SafePipe implements PipeTransform {
 
 @Component({
   selector: 'wayne-kubernetes-dashboard',
-  templateUrl: './kubernetes-dashboard.component.html',
-  styleUrls: ['./kubernetes-dashboard.component.scss']
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
 })
 export class KubernetesDashboardComponent implements OnInit {
 
@@ -39,11 +39,11 @@ export class KubernetesDashboardComponent implements OnInit {
     this.cluster = this.route.snapshot.params['cluster'];
     this.clusterService.getNames().subscribe(
       resp => {
-        let data = resp.data;
+        const data = resp.data;
         if (data) {
           this.clusters = data.map(item => item.name);
           if (data.length > 0 && !this.cluster || this.clusters.indexOf(this.cluster) === -1) {
-            let cluster = data[0];
+            const cluster = data[0];
             this.jumpTo(cluster.name);
           } else {
             this.iframeJump(this.cluster);
@@ -59,8 +59,8 @@ export class KubernetesDashboardComponent implements OnInit {
   iframeJump(cluster: string) {
     this.clusterService.getByName(cluster).subscribe(
       resp => {
-        let data: Cluster = resp.data;
-        let metaData = JSON.parse(data.metaData);
+        const data: Cluster = resp.data;
+        const metaData = JSON.parse(data.metaData);
         if (metaData.kubernetesDashboard) {
           this.kubernetesDashboardUri = metaData.kubernetesDashboard;
         } else {
@@ -71,10 +71,6 @@ export class KubernetesDashboardComponent implements OnInit {
         this.messageHandlerService.handleError(error);
       }
     );
-  }
-
-  ngOnDestroy(): void {
-
   }
 
   jumpTo(cluster: string) {

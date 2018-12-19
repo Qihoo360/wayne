@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="table-search">
+      <div class="table-search-left">
+        <wayne-filter-box (confirm)="onConfirmEvent()" (cancel)="onCancelEvent()">
+          <wayne-checkbox-group [(ngModel)]="showList">
+            <wayne-checkbox value="name">名称</wayne-checkbox>
+            <wayne-checkbox value="status">状态</wayne-checkbox>
+            <wayne-checkbox value="createTime">创建时间</wayne-checkbox>
+          </wayne-checkbox-group>
+        </wayne-filter-box>
+      </div>
+    </div>
+
+    <wayne-list-namespace
+      [resources]="resources"
+      [showState]="showState"
+      (refresh)="refresh($event)"
+      (delete)="onDeleteResourceEvent($event)"
+      (detail)="onEditResourceEvent($event)"
+      (edit)="onEditResourceEvent($event)"
+    >
+    </wayne-list-namespace>
+  </div>
+</div>
+<wayne-ace-editor (outputObj)="onSaveResourceEvent($event)"></wayne-ace-editor>
+<wayne-float-window value="{{ cluster }}">
+  <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster"
+                           (click)="jumpToHref(cluster)"></wayne-float-window-item>
+</wayne-float-window>

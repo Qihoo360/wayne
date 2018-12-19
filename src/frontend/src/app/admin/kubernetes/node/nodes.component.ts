@@ -1,18 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { ClusterService } from '../../shared/client/v1/cluster.service';
-import { AuthService } from '../../shared/auth/auth.service';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ClusterService } from '../../../shared/client/v1/cluster.service';
+import { AuthService } from '../../../shared/auth/auth.service';
 import { ListNodesComponent } from './list-nodes/list-nodes.component';
-import { Node } from '../../shared/model/v1/kubernetes/node-list';
-import { NodeClient } from '../../shared/client/v1/kubernetes/node';
+import { Node } from '../../../shared/model/v1/kubernetes/node-list';
+import { NodeClient } from '../../../shared/client/v1/kubernetes/node';
 import { Inventory } from './list-nodes/inventory';
-import { KubeNode } from '../../shared/model/v1/kubernetes/node';
-import { AceEditorComponent } from '../../shared/ace-editor/ace-editor.component';
+import { KubeNode } from '../../../shared/model/v1/kubernetes/node';
+import { AceEditorComponent } from '../../../shared/ace-editor/ace-editor.component';
 
 const showState = {
   'name': {hidden: false},
@@ -37,7 +37,7 @@ const showState = {
   styleUrls: ['./nodes.component.scss']
 })
 
-export class NodesComponent implements OnInit {
+export class NodesComponent implements OnInit, OnDestroy {
   @ViewChild(ListNodesComponent)
   list: ListNodesComponent;
 
@@ -64,7 +64,7 @@ export class NodesComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.NODE) {
-        let name = message.data;
+        const name = message.data;
         this.nodeClient
           .deleteByName(name, this.cluster)
           .subscribe(
@@ -97,7 +97,9 @@ export class NodesComponent implements OnInit {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) this.showList.push(key);
+      if (!this.showState[key].hidden) {
+        this.showList.push(key);
+      }
     });
   }
 
@@ -106,7 +108,7 @@ export class NodesComponent implements OnInit {
     let cluster = this.route.snapshot.params['cluster'];
     this.clusterService.getNames().subscribe(
       resp => {
-        let data = resp.data;
+        const data = resp.data;
         if (data) {
           this.clusters = data.map(item => item.name);
           if (data.length > 0 && !this.cluster || this.clusters.indexOf(this.cluster) === -1) {
@@ -140,7 +142,7 @@ export class NodesComponent implements OnInit {
 
     this.nodeClient.list(this.cluster).subscribe(
       response => {
-        let nodes = response.data;
+        const nodes = response.data;
         this.inventory.size = nodes.length;
         this.inventory.reset(nodes);
         this.nodes = this.inventory.all;
@@ -155,8 +157,8 @@ export class NodesComponent implements OnInit {
   editNode(node: Node) {
     this.nodeClient.getByName(node.name, this.cluster).subscribe(
       resp => {
-        let node = resp.data;
-        this.editNodeModal.openModal(node, '编辑节点', true);
+        const data = resp.data;
+        this.editNodeModal.openModal(data, '编辑节点', true);
       },
       error => {
         this.messageHandlerService.handleError(error);
@@ -167,12 +169,12 @@ export class NodesComponent implements OnInit {
   saveNode(editedNode: KubeNode) {
     this.nodeClient.getByName(editedNode.metadata.name, this.cluster).subscribe(
       resp => {
-        let node: KubeNode = resp.data;
+        const node: KubeNode = resp.data;
         node.spec = editedNode.spec;
         node.metadata.labels = editedNode.metadata.labels;
         node.metadata.annotations = editedNode.metadata.annotations;
         this.nodeClient.update(node, this.cluster).subscribe(
-          resp => {
+          resp2 => {
             this.messageHandlerService.showSuccess('节点更新成功！');
             this.retrieve();
           },
@@ -189,7 +191,7 @@ export class NodesComponent implements OnInit {
   }
 
   deleteNode(node: Node) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除节点确认',
       '你确认删除节点 ' + node.name + ' ？',
       node.name,

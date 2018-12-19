@@ -7,6 +7,8 @@ import { ActionType } from '../../../shared/shared.const';
 import { ClusterMeta, Namespace } from '../../../shared/model/v1/namespace';
 import { NamespaceService } from '../../../shared/client/v1/namespace.service';
 import { Cluster } from '../../../shared/model/v1/cluster';
+import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
+import { KubeNamespace } from '../../../shared/model/v1/kubernetes/namespace';
 
 @Component({
   selector: 'create-edit-namespace',
@@ -27,9 +29,10 @@ export class CreateEditNamespaceComponent {
   @ViewChild('namespaceForm')
   currentForm: NgForm;
   ns: Namespace = new Namespace();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
+  autoCreate = false;
   nsTitle: string;
   actionType: ActionType;
 
@@ -38,6 +41,7 @@ export class CreateEditNamespaceComponent {
 
 
   constructor(
+    private namespaceClient: NamespaceClient,
     private namespaceService: NamespaceService,
     private messageHandlerService: MessageHandlerService) {
   }
@@ -48,7 +52,7 @@ export class CreateEditNamespaceComponent {
     this.clusterMetas = {};
     this.clusters = clusters;
     if (this.clusters && this.clusters.length > 0) {
-      for (let clu of this.clusters) {
+      for (const clu of this.clusters) {
         this.clusterMetas[clu.name] = {'checked': false, 'cpu': null, 'memory': null};
       }
     }
@@ -102,8 +106,8 @@ export class CreateEditNamespaceComponent {
   setClusterMetas() {
     if (this.ns && this.ns.metaDataObj && this.ns.metaDataObj.clusterMeta) {
       Object.getOwnPropertyNames(this.ns.metaDataObj.clusterMeta).map(cluster => {
-        let clusterMeta = this.clusterMetas[cluster];
-        let clusterMetaData = this.ns.metaDataObj.clusterMeta[cluster];
+        const clusterMeta = this.clusterMetas[cluster];
+        const clusterMetaData = this.ns.metaDataObj.clusterMeta[cluster];
         if (clusterMeta) {
           clusterMeta.checked = true;
           clusterMeta.cpu = clusterMetaData.resourcesLimit.cpu;
@@ -117,9 +121,9 @@ export class CreateEditNamespaceComponent {
   buildMetaDataObj() {
     if (this.clusterMetas) {
       Object.getOwnPropertyNames(this.clusterMetas).map(cluster => {
-        let clusterMeta = this.clusterMetas[cluster];
+        const clusterMeta = this.clusterMetas[cluster];
         if (clusterMeta && clusterMeta.checked) {
-          let clusterMetaData = new ClusterMeta();
+          const clusterMetaData = new ClusterMeta();
           clusterMetaData.resourcesLimit.cpu = clusterMeta.cpu;
           clusterMetaData.resourcesLimit.memory = clusterMeta.memory;
           this.ns.metaDataObj.clusterMeta[cluster] = clusterMetaData;
@@ -150,6 +154,25 @@ export class CreateEditNamespaceComponent {
             this.create.emit(true);
             this.opened = false;
             this.messageHandlerService.showSuccess('创建命名空间成功！');
+            if (this.autoCreate && this.clusterMetas) {
+              Object.getOwnPropertyNames(this.clusterMetas).map(cluster => {
+                const clusterMeta = this.clusterMetas[cluster];
+                if (clusterMeta && clusterMeta.checked) {
+                  this.namespaceClient.create(this.ns.metaDataObj.namespace, cluster).subscribe(
+                    next => {
+                      if (next.data === null) {
+                        this.messageHandlerService.showSuccess(`集群 ${cluster} 已存在对应的 kubernetes namespace！`);
+                      } else {
+                        this.messageHandlerService.showSuccess(`集群 ${cluster} 创建 kubernetes namespace 成功！`);
+                      }
+                    },
+                    error => {
+                      this.messageHandlerService.handleError(error);
+                    }
+                  );
+                }
+              });
+            }
           },
           error => {
             this.isSubmitOnGoing = false;
@@ -165,6 +188,25 @@ export class CreateEditNamespaceComponent {
             this.create.emit(true);
             this.opened = false;
             this.messageHandlerService.showSuccess('更新命名空间成功！');
+            if (this.autoCreate && this.clusterMetas) {
+              Object.getOwnPropertyNames(this.clusterMetas).map(cluster => {
+                const clusterMeta = this.clusterMetas[cluster];
+                if (clusterMeta && clusterMeta.checked) {
+                  this.namespaceClient.create(this.ns.metaDataObj.namespace, cluster).subscribe(
+                    next => {
+                      if (next.data === null) {
+                        this.messageHandlerService.showSuccess(`集群 ${cluster} 已存在对应的 kubernetes namespace！`);
+                      } else {
+                          this.messageHandlerService.showSuccess(`集群 ${cluster} 创建 kubernetes namespace 成功！`);
+                      }
+                    },
+                    error => {
+                      this.messageHandlerService.handleError(error);
+                    }
+                  );
+                }
+              });
+            }
           },
           error => {
             this.isSubmitOnGoing = false;
@@ -186,7 +228,7 @@ export class CreateEditNamespaceComponent {
 
   // Handle the form validation
   handleValidation(): void {
-    let cont = this.currentForm.controls['ns_name'];
+    const cont = this.currentForm.controls['ns_name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }

@@ -1,0 +1,27 @@
+<clr-datagrid>
+  <clr-dg-column [clrDgField]="'name'">
+    <ng-container *clrDgHideableColumn="showState['name']">
+      名称
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'status'">
+    <ng-container *clrDgHideableColumn="showState['status']">
+      状态
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'createTime'">
+    <ng-container *clrDgHideableColumn="showState['createTime']">
+      创建时间
+    </ng-container>
+  </clr-dg-column>
+
+
+  <clr-dg-row *ngFor="let namespace of resources" [clrDgItem]="namespace">
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="onDetailEvent(namespace)">编辑</button>
+    </clr-dg-action-overflow>
+    <clr-dg-cell> {{namespace.objectMeta.name}} </clr-dg-cell>
+    <clr-dg-cell> {{ namespace.status }} </clr-dg-cell>
+    <clr-dg-cell> {{namespace.objectMeta.creationTimestamp | relativeTime}} </clr-dg-cell>
+    </clr-dg-row>
+</clr-datagrid>

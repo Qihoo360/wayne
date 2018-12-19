@@ -1,34 +1,34 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output , OnDestroy } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
 import { NameComparator, NameFilter, PvcFilter, RbdImageNameFilter, TimeComparator } from './inventory';
 import { SortOrder } from '@clr/angular';
-import { PersistentVolume } from '../../../shared/model/v1/kubernetes/persistentvolume';
-import { isEmpty } from '../../../shared/utils';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
-import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { PersistentVolume } from '../../../../shared/model/v1/kubernetes/persistentvolume';
+import { isEmpty } from '../../../../shared/utils';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../../shared/shared.const';
+import { ConfirmationMessage } from '../../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationDialogService } from '../../../../shared/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
-import { PersistentVolumeClient } from '../../../shared/client/v1/kubernetes/persistentvolume';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { PersistentVolumeRobinClient } from '../../../shared/client/v1/kubernetes/persistentvolume-robin';
-import { StorageService } from '../../../shared/client/v1/storage.service';
+import { PersistentVolumeClient } from '../../../../shared/client/v1/kubernetes/persistentvolume';
+import { MessageHandlerService } from '../../../../shared/message-handler/message-handler.service';
+import { AuthService } from '../../../../shared/auth/auth.service';
+import { PersistentVolumeRobinClient } from '../../../../shared/client/v1/kubernetes/persistentvolume-robin';
+import { StorageService } from '../../../../shared/client/v1/storage.service';
 
 @Component({
   selector: 'list-persistentvolume',
   templateUrl: 'list-persistentvolume.component.html'
 })
 
-export class ListPersistentVolumeComponent implements OnInit {
+export class ListPersistentVolumeComponent implements OnInit, OnDestroy {
   @Input() persistentVolumes: PersistentVolume[];
   @Input() cluster: string;
   @Input() showState: object;
   sortOrder: SortOrder = SortOrder.Unsorted;
-  sorted: boolean = false;
-  currentPage: number = 1;
-  _pageSize: number = 10;
+  sorted = false;
+  currentPage = 1;
+  _pageSize = 10;
   timeComparator = new TimeComparator();
   nameComparator = new NameComparator();
   nameFilter = new NameFilter();
@@ -51,7 +51,7 @@ export class ListPersistentVolumeComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.PERSISTENT_VOLUME_RBD_IMAGES) {
-        let pv: PersistentVolume = message.data;
+        const pv: PersistentVolume = message.data;
         this.persistentVolumeClientRobin
           .createRbdImage(pv, this.cluster)
           .subscribe(
@@ -75,11 +75,13 @@ export class ListPersistentVolumeComponent implements OnInit {
     if (page && this.pageSizes.indexOf(page) > -1) {
       this.storage.save('pagesize', page);
     }
-    if (page !== this._pageSize) this._pageSize = page;
+    if (page !== this._pageSize) {
+      this._pageSize = page;
+    }
   }
 
   ngOnInit(): void {
-    this._pageSize = parseInt(this.storage.get('pagesize') || '10');
+    this._pageSize = parseInt(this.storage.get('pagesize') || '10',10);
   }
 
   retrieve() {
@@ -97,7 +99,7 @@ export class ListPersistentVolumeComponent implements OnInit {
   }
 
   createRbdImage(pv: PersistentVolume) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '创建镜像确认',
       '是否确认创建镜像？',
       pv,
@@ -111,14 +113,14 @@ export class ListPersistentVolumeComponent implements OnInit {
     if (isEmpty(pv.spec.rbd)) {
       return '';
     }
-    return pv.spec.rbd.created == true ? '是' : '否';
+    return pv.spec.rbd.created === true ? '是' : '否';
   }
 
   createdCephfsPath(pv: PersistentVolume) {
     if (isEmpty(pv.spec.cephfs)) {
       return '';
     }
-    return pv.spec.cephfs.created == true ? '是' : '否';
+    return pv.spec.cephfs.created === true ? '是' : '否';
   }
 
   editPv(pv: PersistentVolume) {
