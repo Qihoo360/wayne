@@ -105,7 +105,7 @@ func (c *KubeIngressController) Deploy() {
 		}
 	}()
 	// ingressDetail include endpoints
-	ingressDetail, err := ingress.CreateOrUpdateIngress(manager.Client, &kubeIngress)
+	_, err = ingress.CreateOrUpdateIngress(manager.Client, &kubeIngress)
 	if err != nil {
 		publishHistory.Status = models.ReleaseFailure
 		publishHistory.Message = err.Error()
@@ -140,12 +140,14 @@ func (c *KubeIngressController) Deploy() {
 	c.Success("ok")
 }
 
-// @Title Get
-// @Description find Deployment by cluster
+// @Title GetDetail
+// @Description find ingress detail in kubernetes
+// @Param ingress path string true "the ingress name"
 // @Param	cluster		path 	string	true		"the cluster name"
 // @Param	namespace		path 	string	true		"the namespace name"
-// @Success 200 {object} resources.ingress.Ingress success
+// @Success 200 {object} ingress.Ingress success
 // @router /:ingress/detail/namespaces/:namespace/clusters/:cluster [get]
+
 func (c *KubeIngressController) GetDetail() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
