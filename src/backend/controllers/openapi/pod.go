@@ -38,8 +38,8 @@ type PodInfoFromIPParam struct {
 	// A list of ip.
 	// in: query
 	// Required: true
-	IPS string          `json:"ips"`
-	ips map[string]bool `json:"-"`
+	IPS string `json:"ips"`
+	ips map[string]bool
 	// Required: true
 	Cluster string `json:"cluster"`
 }
