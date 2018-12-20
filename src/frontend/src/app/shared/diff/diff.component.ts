@@ -24,7 +24,6 @@ export class DiffComponent implements OnDestroy {
     return this._style;
   }
   set style(value: boolean) {
-    console.log('value', value);
     if (value !== undefined) {
       this._style = value;
       this.outStyle = value ? 'side-by-side' : 'line-by-line';
