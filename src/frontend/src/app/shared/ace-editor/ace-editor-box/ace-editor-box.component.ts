@@ -91,7 +91,6 @@ export class AceEditorBoxComponent implements OnInit, OnDestroy {
     this.editor.getSession().setMode(this.aceMode);
     if (this.editor.getValue().trim() !== '') {
       if (this.aceMode == 'ace/mode/json') {
-        console.log(this.editor.getValue());
         let obj = YAML.load(this.editor.getValue());
         this.editor.setValue(JSON.stringify(obj, null, 2));
       } else {
