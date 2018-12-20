@@ -36,7 +36,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let ingress of ingresses" [clrDgItem]="ingress">
     <clr-dg-action-overflow >
-      <button class="action-item" (click)="editIngress(ingress)" >{{'BUTTON.EDIT' | translate}]</button>
+      <button class="action-item" (click)="editIngress(ingress)" >{{'BUTTON.EDIT' | translate}}</button>
       <button class="action-item" (click)="deleteIngress(ingress)">删除</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{ingress.id}}</clr-dg-cell>
