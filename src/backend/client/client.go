@@ -222,7 +222,7 @@ func buildClient(master string, kubeconfig string) (*kubernetes.Clientset, *rest
 		logs.Error("json unmarshal kubeconfig error. %v ", err)
 		return nil, nil, err
 	}
-	configObject, err = clientcmdlatest.Scheme.ConvertToVersion(&configV1, clientcmdapi.SchemeGroupVersion)
+	configObject, err := clientcmdlatest.Scheme.ConvertToVersion(&configV1, clientcmdapi.SchemeGroupVersion)
 	configInternal := configObject.(*clientcmdapi.Config)
 
 	clientConfig, err := clientcmd.NewDefaultClientConfig(*configInternal, &clientcmd.ConfigOverrides{
