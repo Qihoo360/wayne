@@ -1,4 +1,4 @@
-<!--  Thanks for sending a pull request! 
+<!--  Thanks for sending a pull request! Your PR title will add to changelog. Summarize the problem of the current submission in one sentence, beginning with English capitalization
 -->
 
 **What type of PR is this?**
@@ -15,9 +15,3 @@
 **Which issue(s) this PR fixes** *(optional, in `fixes #<issue number>(, fixes #<issue_number>, ...)` format, will close the issue(s) when PR gets merged)*:
 Fixes #
 
-**Special notes for your reviewer**:
-
-
-```release-note
-
-```
