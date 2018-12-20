@@ -23,7 +23,7 @@ func CreateOrUpdateService(cli *kubernetes.Clientset, service *kapi.Service) (*k
 	return cli.CoreV1().Services(service.Namespace).Update(old)
 }
 
-func GetServiceDetail(cli *kubernetes.Clientset, name, namespace string) (*kapi.Service, error) {
+func GetService(cli *kubernetes.Clientset, name, namespace string) (*kapi.Service, error) {
 	service, err := cli.CoreV1().Services(namespace).Get(name, metaV1.GetOptions{})
 	if err != nil {
 		return nil, err

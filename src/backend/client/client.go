@@ -150,7 +150,7 @@ func buildCacheController(client *kubernetes.Clientset) *CacheIndexer {
 	go eventInformer.Run(stopCh)
 
 	// create the endpoint watcher
-	endpointsListWatcher := kcache.NewListWatchFromClient(client.CoreV1().RESTClient(), "endpoint", v1.NamespaceAll, fields.Everything())
+	endpointsListWatcher := kcache.NewListWatchFromClient(client.CoreV1().RESTClient(), "endpoints", v1.NamespaceAll, fields.Everything())
 	endpointsIndexer, endpointsinformer := kcache.NewIndexerInformer(endpointsListWatcher, &v1.Endpoints{}, defaultResyncPeriod, kcache.ResourceEventHandlerFuncs{}, kcache.Indexers{})
 	go endpointsinformer.Run(stopCh)
 	return &CacheIndexer{

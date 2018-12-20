@@ -58,7 +58,7 @@ func (c *KubeServiceController) GetDetail() {
 	if err != nil {
 		c.AbortBadRequestFormat("Cluster")
 	}
-	serviceDetail, err := service.GetServiceDetail(manager.Client, manager.Indexer, namespace, namespace)
+	serviceDetail, err := service.GetServiceDetail(manager.Client, manager.Indexer, namespace, name)
 	if err != nil {
 		logs.Error("get kubernetes(%s) namespace(%s) service(%s) detail error: %s", cluster, namespace, name, err.Error())
 		c.AbortInternalServerError("get kubernetes service detail error.")
@@ -173,7 +173,7 @@ func (c *KubeServiceController) Get() {
 	name := c.Ctx.Input.Param(":service")
 	cli, err := client.Client(cluster)
 	if err == nil {
-		result, err := service.GetServiceDetail(cli, name, namespace)
+		result, err := service.GetService(cli, name, namespace)
 		if err != nil {
 			logs.Error("get kubernetes service detail error.", cluster, namespace, name, err)
 			c.HandleError(err)
