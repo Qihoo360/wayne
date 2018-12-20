@@ -126,12 +126,6 @@
     "CREATE_TMP": "创建部署模板",
     "DELETE": "删除部署",
     "EDIT": "编辑部署",
-    "LIST": {
-      "MESSAGE": {
-        "DIFF_TMP_LESS": "请选择俩个模板",
-        "DIFF_TMP_MORE": "选择多个模板仅对比俩个"
-      }
-    },
     "NUM": "部署份数"
   },
   "DEPLOYMENT_ADMIN": {
@@ -348,7 +342,9 @@
   "SHARED": {
     "DIFF": {
       "CHECK_DATA": "请检查数据",
-      "TRANS_ERROR": "模板切换失败，请检查数据"
+      "TRANS_ERROR": "模板切换失败，请检查数据",
+      "TMP_LESS": "请选择俩个模板",
+      "TMP_MORE": "选择多个模板仅对比俩个"
     }
   },
   "STATEFULSET": {
