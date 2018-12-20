@@ -27,7 +27,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let daemonsetTpl of daemonsetTpls" [clrDgItem]="daemonsetTpl">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editDaemonsetTpl(daemonsetTpl)">{{'BUTTON.EDIT' | translate}]</button>
+      <button class="action-item" (click)="editDaemonsetTpl(daemonsetTpl)">{{'BUTTON.EDIT' | translate}}</button>
       <button class="action-item" (click)="deleteDaemonsetTpl(daemonsetTpl)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{daemonsetTpl.id}}</clr-dg-cell>

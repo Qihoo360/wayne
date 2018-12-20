@@ -6,16 +6,20 @@ import { DOCUMENT, EventManager } from '@angular/platform-browser';
 import { FormBuilder, NgForm } from '@angular/forms';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import {
+  ConfigMapEnvSource,
   ConfigMapKeySelector,
   Container,
   DaemonSetUpdateStrategy,
+  EnvFromSource,
   EnvVar,
   EnvVarSource,
   ExecAction,
   HTTPGetAction,
   KubeDaemonSet,
+  ObjectMeta,
   Probe,
   ResourceRequirements,
+  SecretEnvSource,
   SecretKeySelector,
   TCPSocketAction
 } from '../../../shared/model/v1/kubernetes/daemonset';
@@ -35,7 +39,6 @@ import { DaemonSetService } from '../../../shared/client/v1/daemonset.service';
 import { DaemonSetTplService } from '../../../shared/client/v1/daemonsettpl.service';
 import { defaultDaemonSet } from '../../../shared/default-models/daemonset.const';
 import { ResourceUnitConvertor } from '../../../shared/utils';
-import { ConfigMapEnvSource, EnvFromSource, SecretEnvSource } from '../../../shared/model/v1/kubernetes/deployment';
 import { TranslateService } from '@ngx-translate/core';
 
 const templateDom = [
@@ -82,7 +85,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
 
   actionType: ActionType;
   daemonSetTpl = new DaemonSetTemplate();
-  isSubmitOnGoing: boolean = false;
+  isSubmitOnGoing = false;
   app: App;
   daemonSet: DaemonSet;
   kubeDaemonSet = new KubeDaemonSet();
@@ -92,7 +95,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   top: number;
   box: HTMLElement;
   naviList: string = JSON.stringify(templateDom);
-  eventList: any = new Array();
+  eventList: any = Array();
 
   constructor(private daemonSetTplService: DaemonSetTplService,
               private fb: FormBuilder,
@@ -151,7 +154,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   }
 
   setContainDom(i) {
-    let dom = JSON.parse(JSON.stringify(containerDom));
+    const dom = JSON.parse(JSON.stringify(containerDom));
     dom.id += i ? i : '';
     dom.child.forEach(item => {
       item.id += i ? i : '';
@@ -161,7 +164,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
 
   initNavList() {
     this.naviList = null;
-    let naviList = JSON.parse(JSON.stringify(templateDom));
+    const naviList = JSON.parse(JSON.stringify(templateDom));
     for (let key = 0; key < this.containersLength; key++) {
       naviList[0].child.push(this.setContainDom(key));
     }
@@ -187,10 +190,10 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   get memoryLimit(): number {
     let memoryLimit = defaultResources.memoryLimit;
     if (this.daemonSet && this.daemonSet.metaData) {
-      let metaData = JSON.parse(this.daemonSet.metaData);
+      const metaData = JSON.parse(this.daemonSet.metaData);
       if (metaData.resources &&
         metaData.resources.memoryLimit) {
-        memoryLimit = parseInt(metaData.resources.memoryLimit);
+        memoryLimit = parseInt(metaData.resources.memoryLimit, 10);
       }
     }
     return memoryLimit;
@@ -199,10 +202,10 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   get cpuLimit(): number {
     let cpuLimit = defaultResources.cpuLimit;
     if (this.daemonSet && this.daemonSet.metaData) {
-      let metaData = JSON.parse(this.daemonSet.metaData);
+      const metaData = JSON.parse(this.daemonSet.metaData);
       if (metaData.resources &&
         metaData.resources.cpuLimit) {
-        cpuLimit = parseInt(metaData.resources.cpuLimit);
+        cpuLimit = parseInt(metaData.resources.cpuLimit, 10);
       }
     }
     return cpuLimit;
@@ -210,11 +213,11 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
 
   ngOnInit(): void {
     this.initDefault();
-    let appId = parseInt(this.route.parent.snapshot.params['id']);
-    let namespaceId = this.cacheService.namespaceId;
-    let daemonSetId = parseInt(this.route.snapshot.params['daemonSetId']);
-    let tplId = parseInt(this.route.snapshot.params['tplId']);
-    let observables = Array(
+    const appId = parseInt(this.route.parent.snapshot.params['id'], 10);
+    const namespaceId = this.cacheService.namespaceId;
+    const daemonSetId = parseInt(this.route.snapshot.params['daemonSetId'], 10);
+    const tplId = parseInt(this.route.snapshot.params['tplId'], 10);
+    const observables = Array(
       this.appService.getById(appId, namespaceId),
       this.daemonSetService.getById(daemonSetId, appId)
     );
@@ -228,7 +231,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
       response => {
         this.app = response[0].data;
         this.daemonSet = response[1].data;
-        let tpl = response[2];
+        const tpl = response[2];
         if (tpl) {
           this.daemonSetTpl = tpl.data;
 
@@ -254,13 +257,12 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   }
 
   buildSelectorLabels(labels: {}) {
-    if (!labels) {
-      labels = {};
+    if (Object.keys(labels).length > 0) {
+      return labels;
     }
-    labels[this.authService.config[appLabelKey]] = this.app.name;
-    labels['app'] = this.daemonSet.name;
-    delete labels[this.authService.config[namespaceLabelKey]];
-    return labels;
+    const result = {};
+    result['app'] = this.daemonSet.name;
+    return result;
   }
 
   fillLabel(kubeDaemonSet: KubeDaemonSet): KubeDaemonSet {
@@ -317,8 +319,8 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   }
 
   defaultEnvFrom(type: number): EnvFromSource {
-    let envFrom = new EnvFromSource();
-    switch (parseInt(type.toString())) {
+    const envFrom = new EnvFromSource();
+    switch (parseInt(type.toString(), 10)) {
       case 1:
         envFrom.configMapRef = new ConfigMapEnvSource();
         break;
@@ -359,7 +361,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   }
 
   probeTypeChange(probe: Probe, type: number) {
-    switch (parseInt(type.toString())) {
+    switch (parseInt(type.toString(), 10)) {
       case 0:
         probe.httpGet = new HTTPGetAction();
         probe.tcpSocket = undefined;
@@ -394,7 +396,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   }
 
   defaultContainer(): Container {
-    let container = new Container();
+    const container = new Container();
     container.resources = new ResourceRequirements();
     container.resources.limits = {'memory': '', 'cpu': ''};
     container.env = [];
@@ -403,8 +405,8 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   }
 
   defaultEnv(type: number): EnvVar {
-    let env = new EnvVar();
-    switch (parseInt(type.toString())) {
+    const env = new EnvVar();
+    switch (parseInt(type.toString(), 10)) {
       case 0:
         env.value = '';
         break;
@@ -454,7 +456,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
     let cpuRequestLimitPercent = 0.5;
     let memoryRequestLimitPercent = 1;
     if (this.daemonSet.metaData) {
-      let metaData = JSON.parse(this.daemonSet.metaData);
+      const metaData = JSON.parse(this.daemonSet.metaData);
       if (metaData.resources && metaData.resources.cpuRequestLimitPercent) {
         if (metaData.resources.cpuRequestLimitPercent.indexOf('%') > -1) {
           cpuRequestLimitPercent = parseFloat(metaData.resources.cpuRequestLimitPercent.replace('%', '')) / 100;
@@ -471,9 +473,9 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
       }
     }
 
-    for (let container of kubeDaemonSet.spec.template.spec.containers) {
-      let memoryLimit = container.resources.limits['memory'];
-      let cpuLimit = container.resources.limits['cpu'];
+    for (const container of kubeDaemonSet.spec.template.spec.containers) {
+      const memoryLimit = container.resources.limits['memory'];
+      const cpuLimit = container.resources.limits['cpu'];
       if (!container.resources.requests) {
         container.resources.requests = {};
       }
@@ -493,10 +495,10 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   get totalFee() {
     let fee = 0;
     if (this.kubeDaemonSet.spec.template.spec.containers) {
-      for (let container of this.kubeDaemonSet.spec.template.spec.containers) {
-        let limit = container.resources.limits;
-        let cpu = limit['cpu'];
-        let memory = limit['memory'];
+      for (const container of this.kubeDaemonSet.spec.template.spec.containers) {
+        const limit = container.resources.limits;
+        const cpu = limit['cpu'];
+        const memory = limit['memory'];
         if (cpu) {
           fee += parseFloat(cpu) * this.cpuUnitPrice;
         }
@@ -510,22 +512,36 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   }
 
   saveDaemonSet(kubeDaemonSet: KubeDaemonSet) {
+    this.removeUnused(kubeDaemonSet);
     this.fillDefault(kubeDaemonSet);
     this.convertProbeCommandToText(kubeDaemonSet);
     this.kubeDaemonSet = kubeDaemonSet;
     this.initNavList();
   }
 
+  // remove unused fields, deal with user advanced mode paste yaml/json manually
+  removeUnused(obj: KubeDaemonSet) {
+    const metaData = new ObjectMeta();
+    metaData.name = obj.metadata.name;
+    metaData.namespace = obj.metadata.namespace;
+    metaData.labels = obj.metadata.labels;
+    metaData.annotations = obj.metadata.annotations;
+    obj.metadata = metaData;
+    obj.status = undefined;
+  }
+
   convertProbeCommandToText(kubeDaemonSet: KubeDaemonSet) {
     if (kubeDaemonSet.spec.template.spec.containers && kubeDaemonSet.spec.template.spec.containers.length > 0) {
-      for (let container of kubeDaemonSet.spec.template.spec.containers) {
-        if (container.livenessProbe && container.livenessProbe.exec && container.livenessProbe.exec.command && container.livenessProbe.exec.command.length > 0) {
-          let commands = container.livenessProbe.exec.command;
+      for (const container of kubeDaemonSet.spec.template.spec.containers) {
+        if (container.livenessProbe && container.livenessProbe.exec &&
+          container.livenessProbe.exec.command && container.livenessProbe.exec.command.length > 0) {
+          const commands = container.livenessProbe.exec.command;
           container.livenessProbe.exec.command = Array();
           container.livenessProbe.exec.command.push(commands.join('\n'));
         }
-        if (container.readinessProbe && container.readinessProbe.exec && container.readinessProbe.exec.command && container.readinessProbe.exec.command.length > 0) {
-          let commands = container.readinessProbe.exec.command;
+        if (container.readinessProbe && container.readinessProbe.exec &&
+          container.readinessProbe.exec.command && container.readinessProbe.exec.command.length > 0) {
+          const commands = container.readinessProbe.exec.command;
           container.readinessProbe.exec.command = Array();
           container.readinessProbe.exec.command.push(commands.join('\n'));
         }
@@ -541,7 +557,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
       kubeDaemonSet.spec.updateStrategy.type = 'OnDelete';
     }
     if (kubeDaemonSet.spec.template.spec.containers && kubeDaemonSet.spec.template.spec.containers.length > 0) {
-      for (let container of kubeDaemonSet.spec.template.spec.containers) {
+      for (const container of kubeDaemonSet.spec.template.spec.containers) {
         if (!container.resources) {
           container.resources = ResourceRequirements.emptyObject();
         }
@@ -563,11 +579,13 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
 
   convertProbeCommandToArray(kubeDaemonSet: KubeDaemonSet): KubeDaemonSet {
     if (kubeDaemonSet.spec.template.spec.containers && kubeDaemonSet.spec.template.spec.containers.length > 0) {
-      for (let container of kubeDaemonSet.spec.template.spec.containers) {
-        if (container.livenessProbe && container.livenessProbe.exec && container.livenessProbe.exec.command && container.livenessProbe.exec.command.length > 0) {
+      for (const container of kubeDaemonSet.spec.template.spec.containers) {
+        if (container.livenessProbe && container.livenessProbe.exec &&
+          container.livenessProbe.exec.command && container.livenessProbe.exec.command.length > 0) {
           container.livenessProbe.exec.command = container.livenessProbe.exec.command[0].split('\n');
         }
-        if (container.readinessProbe && container.readinessProbe.exec && container.readinessProbe.exec.command && container.readinessProbe.exec.command.length > 0) {
+        if (container.readinessProbe && container.readinessProbe.exec &&
+          container.readinessProbe.exec.command && container.readinessProbe.exec.command.length > 0) {
           container.readinessProbe.exec.command = container.readinessProbe.exec.command[0].split('\n');
         }
       }
@@ -596,7 +614,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   }
 
   getImagePrefixReg() {
-    let imagePrefix = this.authService.config['system.image-prefix'];
+    const imagePrefix = this.authService.config['system.image-prefix'];
     return imagePrefix;
   }
 }
