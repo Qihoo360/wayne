@@ -2,18 +2,18 @@
 
 MAKEFLAGS += --warn-undefined-variables
 
-# Runtime/Dev variables (used in src/backend/conf/app.conf)
--include .env
-export
-
 # Build variables
 RELEASE_VERSION :=$(shell git describe --always --tags)
 UI_BUILD_VERSION :=v1.0.0
 SERVER_BUILD_VERSION :=v1.0.0
 
 
-release: build-release-image push-image
+release: update-version build-release-image push-image
 
+update-version:
+	@sed -i "s/__version__/${RELEASE_VERSION}/g" src/backend/main.go
+	@sed -i "s/__version__/${RELEASE_VERSION}/g" src/frontend/package.json
+	@sed -i "s/__version__/${RELEASE_VERSION}/g" src/backend/controllers/openapi/openapi.go
 
 # run module
 run-backend:
