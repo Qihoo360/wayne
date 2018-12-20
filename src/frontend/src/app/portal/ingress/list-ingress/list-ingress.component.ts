@@ -11,7 +11,7 @@ import { IngressStatusComponent } from '../status/status.component';
 import { ConfirmationTargets } from '../../../shared/shared.const';
 import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
 import { ListResource } from '../../../shared/base/resource/list-resource';
-
+import { DiffService } from '../../../shared/diff/diff.service';
 
 @Component({
   selector: 'list-ingress',
@@ -19,6 +19,7 @@ import { ListResource } from '../../../shared/base/resource/list-resource';
   styleUrls: ['list-ingress.scss']
 })
 export class ListIngressComponent extends ListResource implements OnInit, OnDestroy {
+  selected: any[] = [];
   @ViewChild(PublishIngressTplComponent)
   publishTemplateComponent: PublishIngressTplComponent;
   @ViewChild(IngressStatusComponent)
@@ -31,6 +32,7 @@ export class ListIngressComponent extends ListResource implements OnInit, OnDest
               public route: ActivatedRoute,
               public aceEditorService: AceEditorService,
               public router: Router,
+              private diffService: DiffService,
               public authService: AuthService,
               public deletionDialogService: ConfirmationDialogService) {
     super(
@@ -55,5 +57,9 @@ export class ListIngressComponent extends ListResource implements OnInit, OnDest
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  diffTmp() {
+    this.diffService.diff(this.selected);
   }
 }

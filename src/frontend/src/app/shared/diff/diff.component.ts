@@ -6,6 +6,25 @@ import { Subscription } from 'rxjs';
 import { DiffTmp } from './diff';
 import * as YAML from 'js-yaml';
 import { MessageHandlerService } from '../message-handler/message-handler.service';
+/**
+ * instructions
+ *
+ * html :
+ * <button class="wayne-button normal" (click)="diffTmp()">{{'BUTTON.DIFF_TMP' | translate}}</button>
+ * ts:
+ * diffTmp() {
+ *  this.listDeployment.diffTmp();
+ * }
+ * list-html:
+ * Datagrid add -> [(clrDgSelected)]="selected"
+ * list-ts:
+ * import { DiffService } from '../../../shared/diff/diff.service';
+ *  selected: DeploymentTpl[] = [];
+ *  private diffService: DiffService,
+ *  diffTmp() {
+ *    this.diffService.diff(this.selected);
+ *  }
+ */
 @Component({
   selector: 'diff',
   templateUrl: './diff.component.html',

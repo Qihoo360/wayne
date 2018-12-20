@@ -1,4 +1,4 @@
-<clr-datagrid (clrDgRefresh)="refresh($event)" class="wayne-clr-datagrid">
+<clr-datagrid (clrDgRefresh)="refresh($event)" [(clrDgSelected)]="selected" class="wayne-clr-datagrid">
   <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
   <clr-dg-column class="col-id">
     <ng-container>

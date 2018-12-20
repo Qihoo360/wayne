@@ -98,6 +98,10 @@ export class IngressComponent extends Resource implements OnInit, OnDestroy, Aft
     this.tabScription.unsubscribe();
   }
 
+  diffTmp() {
+    this.listResourceComponent.diffTmp();
+  }
+
   ngAfterContentInit() {
     this.initResource();
   }

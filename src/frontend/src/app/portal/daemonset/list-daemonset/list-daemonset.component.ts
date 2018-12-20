@@ -25,6 +25,7 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { DaemonSetTemplate } from '../../../shared/model/v1/daemonsettpl';
 import { DaemonSetService } from '../../../shared/client/v1/daemonset.service';
 import { DaemonSetTplService } from '../../../shared/client/v1/daemonsettpl.service';
+import { DiffService } from '../../../shared/diff/diff.service';
 
 @Component({
   selector: 'list-daemonset',
@@ -32,6 +33,7 @@ import { DaemonSetTplService } from '../../../shared/client/v1/daemonsettpl.serv
   styleUrls: ['list-daemonset.scss']
 })
 export class ListDaemonSetComponent implements OnInit, OnDestroy {
+  selected: DaemonSetTemplate[] = [];
   @Input() showState: object;
   @Input() daemonSetTpls: DaemonSetTemplate[];
   @Input() page: Page;
@@ -58,6 +60,7 @@ export class ListDaemonSetComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private aceEditorService: AceEditorService,
               private router: Router,
+              private diffService: DiffService,
               public authService: AuthService,
               private tplDetailService: TplDetailService,
               private messageHandlerService: MessageHandlerService) {
@@ -88,6 +91,11 @@ export class ListDaemonSetComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
+
+  diffTmp() {
+    this.diffService.diff(this.selected);
+  }
+
 
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;
