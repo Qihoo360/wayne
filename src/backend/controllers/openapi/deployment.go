@@ -8,6 +8,9 @@ import (
 	"strings"
 	"time"
 
+	"k8s.io/api/apps/v1beta1"
+	"k8s.io/api/core/v1"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/common"
 	"github.com/Qihoo360/wayne/src/backend/models"
@@ -16,8 +19,6 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/resources/pod"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	"k8s.io/api/apps/v1beta1"
-	"k8s.io/api/core/v1"
 )
 
 type DeploymentInfo struct {
@@ -58,8 +59,8 @@ type UpgradeDeploymentParam struct {
 	// Required: true
 	Namespace string `json:"namespace"`
 	// Required: true
-	Cluster  string   `json:"cluster"`
-	clusters []string `json:"-"`
+	Cluster  string `json:"cluster"`
+	clusters []string
 	// Required: false
 	TemplateId int `json:"template_id"`
 	// Required: false
@@ -67,8 +68,8 @@ type UpgradeDeploymentParam struct {
 	// Required: false
 	Description string `json:"description"`
 	// Required: false
-	Images   string            `json:"images"`
-	imageMap map[string]string `json:"-"`
+	Images   string `json:"images"`
+	imageMap map[string]string
 }
 
 // swagger:parameters ScaleDeploymentParam
