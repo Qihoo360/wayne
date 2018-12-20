@@ -106,7 +106,7 @@ func (c *KubePodController) List() {
 		} else if job != "" {
 			result, err = pod.GetPodsByJob(cli, namespace, job)
 		} else {
-			err = fmt.Errorf("unkown resource type. ")
+			err = fmt.Errorf("unknown resource type. ")
 		}
 		if err != nil {
 			logs.Error("get kubernetes pod error.", cluster, namespace, err)

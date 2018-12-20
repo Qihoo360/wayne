@@ -5,8 +5,6 @@ import (
 	"errors"
 	"time"
 
-	"github.com/Qihoo360/wayne/src/backend/models"
-	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/client-go/kubernetes"
@@ -16,6 +14,9 @@ import (
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 	clientcmdlatest "k8s.io/client-go/tools/clientcmd/api/latest"
 	clientcmdapiv1 "k8s.io/client-go/tools/clientcmd/api/v1"
+
+	"github.com/Qihoo360/wayne/src/backend/models"
+	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
 
 const (
@@ -221,7 +222,7 @@ func buildClient(master string, kubeconfig string) (*kubernetes.Clientset, *rest
 		logs.Error("json unmarshal kubeconfig error. %v ", err)
 		return nil, nil, err
 	}
-	configObject, err := clientcmdlatest.Scheme.ConvertToVersion(&configV1, clientcmdapi.SchemeGroupVersion)
+	configObject, err = clientcmdlatest.Scheme.ConvertToVersion(&configV1, clientcmdapi.SchemeGroupVersion)
 	configInternal := configObject.(*clientcmdapi.Config)
 
 	clientConfig, err := clientcmd.NewDefaultClientConfig(*configInternal, &clientcmd.ConfigOverrides{

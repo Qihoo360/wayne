@@ -14,7 +14,7 @@ type AppStarred struct {
 
 func (*AppStarred) TableUnique() [][]string {
 	return [][]string{
-		[]string{"App", "User"},
+		{"App", "User"},
 	}
 }
 

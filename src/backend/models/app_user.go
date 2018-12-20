@@ -34,7 +34,7 @@ func (*AppUser) TableName() string {
 
 func (*appUserModel) TableUnique() [][]string {
 	return [][]string{
-		[]string{"User", "App", "Group"},
+		{"User", "App", "Group"},
 	}
 }
 

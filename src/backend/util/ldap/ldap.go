@@ -66,7 +66,7 @@ func formatLdapURL(ldapURL string) (string, error) {
 		splitLdapURL := strings.Split(ldapURL, "://")
 		protocol, hostport = splitLdapURL[0], splitLdapURL[1]
 		if !((protocol == "ldap") || (protocol == "ldaps")) {
-			return "", fmt.Errorf("unknown ldap protocl")
+			return "", fmt.Errorf("unknown ldap protocol")
 		}
 	} else {
 		hostport = ldapURL
