@@ -14,6 +14,7 @@
       {{deployment.name}}
     </wayne-tab>
   </wayne-tabs>
+  <diff></diff>
   <div class="table-search">
     <div class="table-search-left">
       <button class="wayne-button normal" (click)="createDeploymentTpl()"
@@ -32,6 +33,7 @@
               *ngIf="authService.currentAppPermission.deployment.offline || authService.currentUser.admin">
         {{'DEPLOYMENT.DELETE' | translate}}
       </button>
+      <button class="wayne-button normal" (click)="diffTmp()">{{'BUTTON.DIFF_TMP' | translate}}</button>
       <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
         <wayne-checkbox-group [(ngModel)]="showList">
           <wayne-checkbox value="create_time">{{'TITLE.CREATE_TIME' | translate}}</wayne-checkbox>

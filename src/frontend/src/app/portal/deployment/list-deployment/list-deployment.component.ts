@@ -24,13 +24,15 @@ import { Page } from '../../../shared/page/page-state';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { TranslateService } from '@ngx-translate/core';
-
+import { DiffService } from '../../../shared/diff/diff.service';
+import { DiffTmp } from '../../../shared/diff/diff';
 @Component({
   selector: 'list-deployment',
   templateUrl: 'list-deployment.component.html',
   styleUrls: ['list-deployment.scss']
 })
 export class ListDeploymentComponent implements OnInit, OnDestroy {
+  selected: DeploymentTpl[] = [];
   @Input() showState: object;
   @Input() deploymentTpls: DeploymentTpl[];
   @Input() page: Page;
@@ -47,7 +49,7 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
   @ViewChild(PublishDeploymentTplComponent)
   publishDeploymentTpl: PublishDeploymentTplComponent;
   state: State;
-  currentPage: number = 1;
+  currentPage = 1;
 
   subscription: Subscription;
 
@@ -60,6 +62,7 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
               public authService: AuthService,
               private tplDetailService: TplDetailService,
               private translate: TranslateService,
+              private diffService: DiffService,
               private messageHandlerService: MessageHandlerService) {
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
@@ -88,6 +91,29 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
+
+  /**
+   * diff template
+  */
+  diffTmp() {
+    const length = this.selected.length;
+    if (length < 2) {
+      this.messageHandlerService.showError('DEPLOYMENT.LIST.MESSAGE.DIFF_TMP_LESS');
+      return;
+    } else {
+      const diffTmp: DiffTmp = {
+        oldStr: this.selected[1].template,
+        newStr: this.selected[0].template,
+        oldHeader: `${this.selected[1].id}`,
+        newHeader: `${this.selected[0].id}`
+      };
+      this.diffService.diff(diffTmp);
+      if (length > 2) {
+        this.messageHandlerService.showInfo('DEPLOYMENT.LIST.MESSAGE.DIFF_TMP_MORE');
+      }
+    }
+  }
+  // --------------------------------
 
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;
