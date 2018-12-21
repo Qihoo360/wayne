@@ -81,7 +81,7 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
 
   }
 
-  diffTmp() {
+  diffTpl() {
     this.pvcService.diff();
   }
 

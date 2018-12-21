@@ -1,4 +1,4 @@
-export interface DiffTmp {
+export interface DiffTpl {
   fileName?: string;
   oldStr: string;
   newStr: string;
