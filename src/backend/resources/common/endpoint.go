@@ -15,7 +15,7 @@
 package common
 
 import (
-	"bytes"
+	"fmt"
 
 	api "k8s.io/api/core/v1"
 )
@@ -54,10 +54,7 @@ func GetInternalEndpoint(serviceName, namespace string, ports []api.ServicePort)
 	name := serviceName
 
 	if namespace != api.NamespaceDefault && len(namespace) > 0 && len(serviceName) > 0 {
-		bufferName := bytes.NewBufferString(name)
-		bufferName.WriteString(".")
-		bufferName.WriteString(namespace)
-		name = bufferName.String()
+		name = fmt.Sprintf("%s.%s", name, namespace)
 	}
 
 	return Endpoint{
