@@ -32,7 +32,7 @@ const (
 	PermissionTypeDaemonSet             = "DAEMONSET"
 	PermissionBill                      = "BILL"
 	PermissionTypeAPIKey                = "APIKEY"
-	PerMissionTypeIngress               = "INGRESS"
+	PermissionTypeIngress               = "INGRESS"
 	PermissionBlank                     = "_"
 )
 
@@ -157,7 +157,7 @@ func (*permissionModel) GetPermissionTypeByPublishType(pType PublishType) (perTy
 	case PublishTypeCronJob:
 		perType = PermissionTypeCronjob
 	case PublishTypeIngress:
-		perType = PerMissionTypeIngress
+		perType = PermissionTypeIngress
 	}
 	return perType
 }

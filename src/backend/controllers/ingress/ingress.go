@@ -39,7 +39,7 @@ func (c *IngressController) Prepare() {
 		perAction = models.PermissionDelete
 	}
 	if perAction != "" {
-		c.CheckPermission(models.PerMissionTypeIngress, perAction)
+		c.CheckPermission(models.PermissionTypeIngress, perAction)
 	}
 }
 
@@ -74,7 +74,7 @@ func (c *IngressController) List() {
 		param.Query["App__Id"] = c.AppId
 	} else if !c.User.Admin {
 		param.Query["App__AppUsers__User__Id__exact"] = c.User.Id
-		perName := models.PermissionModel.MergeName(models.PerMissionTypeIngress, models.PermissionRead)
+		perName := models.PermissionModel.MergeName(models.PermissionTypeIngress, models.PermissionRead)
 		param.Query["App__AppUsers__Group__Permissions__Permission__Name__contains"] = perName
 		param.Groupby = []string{"Id"}
 	}
