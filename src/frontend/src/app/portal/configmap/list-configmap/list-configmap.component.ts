@@ -77,7 +77,7 @@ export class ListConfigMapComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-  diffTmp() {
+  diffTpl() {
     this.diffService.diff(this.selected);
   }
 

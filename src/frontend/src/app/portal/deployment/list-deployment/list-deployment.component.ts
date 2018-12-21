@@ -95,7 +95,7 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
   /**
    * diff template
   */
-  diffTmp() {
+  diffTpl() {
     this.diffService.diff(this.selected);
   }
   // --------------------------------

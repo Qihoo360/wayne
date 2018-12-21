@@ -94,7 +94,7 @@ export class ListStatefulsetComponent implements OnInit, OnDestroy {
     }
   }
 
-  diffTmp() {
+  diffTpl() {
     this.diffService.diff(this.selected);
   }
 
