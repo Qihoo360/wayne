@@ -1,15 +1,15 @@
 package service
 
 import (
+	"k8s.io/api/core/v1"
+	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/client-go/kubernetes"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/resources/common"
 	"github.com/Qihoo360/wayne/src/backend/resources/endpoint"
 	"github.com/Qihoo360/wayne/src/backend/resources/event"
 	"github.com/Qihoo360/wayne/src/backend/resources/pod"
-
-	"k8s.io/api/core/v1"
-	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/kubernetes"
 )
 
 type ServiceDetail struct {

@@ -1,12 +1,13 @@
 package service
 
 import (
-	backendCommon "github.com/Qihoo360/wayne/src/backend/common"
-	"github.com/Qihoo360/wayne/src/backend/resources/common"
-	"github.com/Qihoo360/wayne/src/backend/resources/dataselector"
 	"k8s.io/api/core/v1"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
+
+	backendCommon "github.com/Qihoo360/wayne/src/backend/common"
+	"github.com/Qihoo360/wayne/src/backend/resources/common"
+	"github.com/Qihoo360/wayne/src/backend/resources/dataselector"
 )
 
 type Service struct {
