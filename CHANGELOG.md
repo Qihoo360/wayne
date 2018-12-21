@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.2.1](https://github.com/Qihoo360/wayne/tree/v1.2.1) (2018-12-21)
+[Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.2.0...v1.2.1)
+
+**Fixed bugs:**
+
+- Fix some resources diff error [\#175](https://github.com/Qihoo360/wayne/pull/175) ([BennieMeng](https://github.com/BennieMeng))
+
 ## [v1.2.0](https://github.com/Qihoo360/wayne/tree/v1.2.0) (2018-12-21)
 [Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.1.0...v1.2.0)
 
