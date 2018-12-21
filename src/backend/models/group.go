@@ -45,7 +45,7 @@ func (g *Group) String() string {
 
 func (*groupModel) TableUnique() [][]string {
 	return [][]string{
-		[]string{"Name", "Type"},
+		{"Name", "Type"},
 	}
 }
 

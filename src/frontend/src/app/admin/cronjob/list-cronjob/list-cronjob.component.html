@@ -36,7 +36,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let cronjob of cronjobs" [clrDgItem]="cronjob">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editCronjob(cronjob)">{{'BUTTON.EDIT' | translate}]</button>
+      <button class="action-item" (click)="editCronjob(cronjob)">{{'BUTTON.EDIT' | translate}}</button>
       <button class="action-item" (click)="deleteCronjob(cronjob)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{cronjob.id}}</clr-dg-cell>

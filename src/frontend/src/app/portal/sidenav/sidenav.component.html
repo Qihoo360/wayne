@@ -29,21 +29,21 @@
   </a>
   <a
     clrVerticalNavLink
-    [title]="'MENU.DAEMONSET' | translate"
-    routerLink="daemonset"
-    routerLinkActive="active"
-    *ngIf="authService.currentAppPermission.daemonSet.read || authService.currentUser.admin">
-    <clr-icon clrVerticalNavIcon shape="layers"></clr-icon>
-    {{'MENU.DAEMONSET' | translate}}
-  </a>
-  <a
-    clrVerticalNavLink
     [title]="'MENU.CRONJOB' | translate"
     routerLink="cronjob"
     routerLinkActive="active"
     *ngIf="authService.currentAppPermission.cronjob.read || authService.currentUser.admin">
     <clr-icon clrVerticalNavIcon shape="clock"></clr-icon>
     {{'MENU.CRONJOB' | translate}}
+  </a>
+  <a
+    clrVerticalNavLink
+    [title]="'MENU.DAEMONSET' | translate"
+    routerLink="daemonset"
+    routerLinkActive="active"
+    *ngIf="authService.currentAppPermission.daemonSet.read || authService.currentUser.admin">
+    <clr-icon clrVerticalNavIcon shape="layers"></clr-icon>
+    {{'MENU.DAEMONSET' | translate}}
   </a>
   <div class="nav-divider" *ngIf="authService.currentAppPermission.deployment.read ||
                                   authService.currentAppPermission.statefulset.read ||

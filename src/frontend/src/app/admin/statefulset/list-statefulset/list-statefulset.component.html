@@ -36,7 +36,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let statefulset of statefulsets" [clrDgItem]="statefulset">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editStatefulset(statefulset)">{{'BUTTON.EDIT' | translate}]</button>
+      <button class="action-item" (click)="editStatefulset(statefulset)">{{'BUTTON.EDIT' | translate}}</button>
       <button class="action-item" (click)="deleteStatefulset(statefulset)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{statefulset.id}}</clr-dg-cell>

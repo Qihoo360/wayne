@@ -21,7 +21,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let group of groups" [clrDgItem]="group">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editGroup(group)">{{'BUTTON.EDIT' | translate}]</button>
+      <button class="action-item" (click)="editGroup(group)">{{'BUTTON.EDIT' | translate}}</button>
       <button class="action-item" (click)="deleteGroup(group)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-id">{{group.id}}</clr-dg-cell>

@@ -5,13 +5,15 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/dgrijalva/jwt-go"
+
 	rsakey "github.com/Qihoo360/wayne/src/backend/apikey"
 	"github.com/Qihoo360/wayne/src/backend/bus"
 	"github.com/Qihoo360/wayne/src/backend/bus/message"
 	"github.com/Qihoo360/wayne/src/backend/models"
+	"github.com/Qihoo360/wayne/src/backend/models/response/errors"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	"github.com/dgrijalva/jwt-go"
 )
 
 var (
@@ -45,7 +47,7 @@ func (c *LoggedInController) Prepare() {
 		return rsakey.RsaPublicKey, nil
 	})
 
-	errResult := ErrorResult{}
+	errResult := errors.ErrorResult{}
 	switch err.(type) {
 	case nil: // no error
 		if !token.Valid { // but may still be invalid

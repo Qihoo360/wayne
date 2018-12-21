@@ -3,16 +3,16 @@ import { Location } from '@angular/common';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ActionType } from '../../../shared/shared.const';
-import { CephFSVolumeSource, PersistentVolume, RBDVolumeSource } from '../../../shared/model/v1/kubernetes/persistentvolume';
-import { PersistentVolumeClient } from '../../../shared/client/v1/kubernetes/persistentvolume';
+import { MessageHandlerService } from '../../../../shared/message-handler/message-handler.service';
+import { ActionType } from '../../../../shared/shared.const';
+import { CephFSVolumeSource, PersistentVolume, RBDVolumeSource } from '../../../../shared/model/v1/kubernetes/persistentvolume';
+import { PersistentVolumeClient } from '../../../../shared/client/v1/kubernetes/persistentvolume';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClusterService } from '../../../shared/client/v1/cluster.service';
+import { ClusterService } from '../../../../shared/client/v1/cluster.service';
 import { Observable } from 'rxjs/Observable';
-import { Cluster } from '../../../shared/model/v1/cluster';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { Cluster } from '../../../../shared/model/v1/cluster';
+import { AceEditorMsg } from '../../../../shared/ace-editor/ace-editor';
+import { AceEditorService } from '../../../../shared/ace-editor/ace-editor.service';
 
 @Component({
   selector: 'create-edit-persistentvolume',
@@ -81,9 +81,9 @@ export class CreateEditPersistentVolumeComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    let cluster = this.route.snapshot.params['cluster'];
-    let name = this.route.snapshot.params['name'];
-    let observables = Array(
+    const cluster = this.route.snapshot.params['cluster'];
+    const name = this.route.snapshot.params['name'];
+    const observables = Array(
       this.clusterService.getByName(cluster)
     );
     if (name) {
@@ -143,15 +143,15 @@ export class CreateEditPersistentVolumeComponent implements OnInit {
 
   getPvByForm() {
     const formValue = this.currentForm.value;
-    let kubePv = this.pv ? this.pv : this.defaultPv();
+    const kubePv = this.pv ? this.pv : this.defaultPv();
     kubePv.metadata.name = formValue.name;
     if (formValue.labels && formValue.labels.length > 0) {
-      for (let label of formValue.labels) {
+      for (const label of formValue.labels) {
         kubePv.metadata.labels[label.key] = label.value;
       }
     }
     kubePv.spec.capacity['storage'] = formValue.storage + 'Gi';
-    let metaData = JSON.parse(this.cluster.metaData ? this.cluster.metaData : '{}');
+    const metaData = JSON.parse(this.cluster.metaData ? this.cluster.metaData : '{}');
     switch (formValue.type) {
       case 'rbd':
         kubePv.spec.rbd = kubePv.spec.rbd ? kubePv.spec.rbd : new RBDVolumeSource();
@@ -179,7 +179,7 @@ export class CreateEditPersistentVolumeComponent implements OnInit {
         break;
     }
 
-    let accessModes = Array<string>();
+    const accessModes = Array<string>();
     if (formValue.accessModes.ReadWriteOnce) {
       accessModes.push('ReadWriteOnce');
     }
@@ -219,7 +219,7 @@ export class CreateEditPersistentVolumeComponent implements OnInit {
           }
         });
       }
-      let labels = Array<FormGroup>();
+      const labels = Array<FormGroup>();
       if (pv.metadata.labels) {
         Object.getOwnPropertyNames(pv.metadata.labels).map(key => {
           labels.push(this.fb.group({
