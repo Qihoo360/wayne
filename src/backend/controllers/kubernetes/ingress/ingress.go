@@ -57,11 +57,11 @@ func (c *KubeIngressController) List() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 
-	manager, err := client.Manager(cluster)
+	k8sClient, err := client.Client(cluster)
 	if err != nil {
 		c.AbortBadRequestFormat("Cluster")
 	}
-	res, err := ingress.GetIngressPage(manager.Client, namespace, param)
+	res, err := ingress.GetIngressPage(k8sClient, namespace, param)
 	if err != nil {
 		logs.Error("list kubernetes(%s) namespace(%s) ingresses error %v", cluster, namespace, err)
 		c.HandleError(err)
@@ -86,7 +86,7 @@ func (c *KubeIngressController) Deploy() {
 		return
 	}
 	clusterName := c.Ctx.Input.Param(":cluster")
-	manager, err := client.Manager(clusterName)
+	k8sClient, err := client.Client(clusterName)
 	if err != nil {
 		c.AbortBadRequestFormat("Cluster")
 		return
@@ -105,7 +105,7 @@ func (c *KubeIngressController) Deploy() {
 		}
 	}()
 	// ingressDetail include endpoints
-	_, err = ingress.CreateOrUpdateIngress(manager.Client, &kubeIngress)
+	_, err = ingress.CreateOrUpdateIngress(k8sClient, &kubeIngress)
 	if err != nil {
 		publishHistory.Status = models.ReleaseFailure
 		publishHistory.Message = err.Error()
@@ -152,11 +152,11 @@ func (c *KubeIngressController) GetDetail() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":ingress")
-	manager, err := client.Manager(cluster)
+	k8sClient, err := client.Client(cluster)
 	if err != nil {
 		c.AbortBadRequest("Cluster")
 	}
-	res, err := ingress.GetIngressDetail(manager.Client, name, namespace)
+	res, err := ingress.GetIngressDetail(k8sClient, name, namespace)
 	if err != nil {
 		logs.Error("get kubernetes ingress detail err %v", err)
 		c.HandleError(err)
@@ -175,12 +175,12 @@ func (c *KubeIngressController) Get() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":ingress")
-	manager, err := client.Manager(cluster)
+	k8sClient, err := client.Client(cluster)
 	if err != nil {
 		c.AbortBadRequestFormat("Cluster")
 		return
 	}
-	res, err := ingress.GetIngress(manager.Client, name, namespace)
+	res, err := ingress.GetIngress(k8sClient, name, namespace)
 	if err != nil {
 		logs.Error("get ingress error cluster: %s, namespace: %s", cluster, namespace)
 		c.HandleError(err)
@@ -200,12 +200,12 @@ func (c *KubeIngressController) Offline() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":ingress")
-	manager, err := client.Manager(cluster)
+	k8sClient, err := client.Client(cluster)
 	if err != nil {
 		c.AbortBadRequestFormat("Cluster")
 		return
 	}
-	if err = ingress.DeleteIngress(manager.Client, name, namespace); err != nil {
+	if err = ingress.DeleteIngress(k8sClient, name, namespace); err != nil {
 		logs.Error("delete ingress: %s in namespace: %s, error: %s", name, namespace, err.Error())
 		c.HandleError(err)
 		return
