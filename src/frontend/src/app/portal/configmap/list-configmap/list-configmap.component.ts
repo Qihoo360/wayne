@@ -15,6 +15,7 @@ import { App } from '../../../shared/model/v1/app';
 import { Page } from '../../../shared/page/page-state';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { DiffService } from '../../../shared/diff/diff.service';
 
 @Component({
   selector: 'list-configmap',
@@ -22,6 +23,7 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
   styleUrls: ['list-configmap.scss']
 })
 export class ListConfigMapComponent implements OnInit, OnDestroy {
+  selected: ConfigMapTpl[] = [];
   @Input() showState: object;
   @ViewChild(PublishConfigMapTplComponent)
   publishTpl: PublishConfigMapTplComponent;
@@ -43,6 +45,7 @@ export class ListConfigMapComponent implements OnInit, OnDestroy {
   constructor(private configMapTplService: ConfigMapTplService,
               private tplDetailService: TplDetailService,
               private aceEditorService: AceEditorService,
+              private diffService: DiffService,
               private messageHandlerService: MessageHandlerService,
               public authService: AuthService,
               private deletionDialogService: ConfirmationDialogService) {
@@ -72,6 +75,10 @@ export class ListConfigMapComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+  }
+
+  diffTpl() {
+    this.diffService.diff(this.selected);
   }
 
   pageSizeChange(pageSize: number) {

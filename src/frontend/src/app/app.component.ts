@@ -21,9 +21,9 @@ export class AppComponent implements AfterViewInit {
     const langStorage = storage.get('lang');
     translate.setDefaultLang('zh-Hans');
     if (langStorage) {
-      translate.use(translate.getLangs().indexOf(langStorage) > -1 ? langStorage : 'en');
+      translate.use(translate.getLangs().indexOf(langStorage) > -1 ? langStorage : 'zh-Hans');
     } else {
-      translate.use('en');
+      translate.use('zh-Hans');
     }
   }
 

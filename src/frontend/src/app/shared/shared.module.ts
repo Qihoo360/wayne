@@ -47,6 +47,8 @@ import { DropDownComponent } from './dropdown/dropdown.component';
 import { DropdownItemComponent } from './dropdown/item/dropdown-item.component';
 import { RelativeTimeFilterPipe } from './pipe/relative-time.filter.pipe';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { DiffComponent } from './diff/diff.component';
+import { DiffService } from './diff/diff.service';
 
 @NgModule({
   imports: [
@@ -86,7 +88,8 @@ import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
     CheckboxGroupComponent,
     DropDownComponent,
     DropdownItemComponent,
-    RelativeTimeFilterPipe
+    RelativeTimeFilterPipe,
+    DiffComponent
   ],
   exports: [
     BrowserAnimationsModule,
@@ -122,7 +125,8 @@ import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
     DropDownComponent,
     DropdownItemComponent,
     RelativeTimeFilterPipe,
-    TranslateModule
+    TranslateModule,
+    DiffComponent
   ],
   providers: [
     TipService,
@@ -136,7 +140,8 @@ import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
     AceEditorService,
     CopyService,
     TabDragService,
-    SelectCopyService
+    SelectCopyService,
+    DiffService
   ]
 })
 export class SharedModule {

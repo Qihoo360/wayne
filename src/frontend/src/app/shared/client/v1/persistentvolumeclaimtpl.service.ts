@@ -13,6 +13,7 @@ import { isNotEmpty } from '../../utils';
 export class PersistentVolumeClaimTplService {
   headers = new HttpHeaders({'Content-type': 'application/json'});
   options = {'headers': this.headers};
+
   private isOnlineController = new Subject<boolean>();
 
   constructor(private http: HttpClient) {
@@ -23,6 +24,9 @@ export class PersistentVolumeClaimTplService {
   public isOnlineChange(isOnline: boolean) {
     this.isOnlineController.next(isOnline);
   }
+
+
+
 
   list(pageState: PageState, appId?: number, deleted?: string, pvcId?: string): Observable<any> {
     let params = new HttpParams();

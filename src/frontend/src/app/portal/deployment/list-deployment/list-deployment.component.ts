@@ -24,6 +24,7 @@ import { Page } from '../../../shared/page/page-state';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { TranslateService } from '@ngx-translate/core';
+import { DiffService } from '../../../shared/diff/diff.service';
 
 @Component({
   selector: 'list-deployment',
@@ -31,6 +32,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['list-deployment.scss']
 })
 export class ListDeploymentComponent implements OnInit, OnDestroy {
+  selected: DeploymentTpl[] = [];
   @Input() showState: object;
   @Input() deploymentTpls: DeploymentTpl[];
   @Input() page: Page;
@@ -47,7 +49,7 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
   @ViewChild(PublishDeploymentTplComponent)
   publishDeploymentTpl: PublishDeploymentTplComponent;
   state: State;
-  currentPage: number = 1;
+  currentPage = 1;
 
   subscription: Subscription;
 
@@ -60,6 +62,7 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
               public authService: AuthService,
               private tplDetailService: TplDetailService,
               private translate: TranslateService,
+              private diffService: DiffService,
               private messageHandlerService: MessageHandlerService) {
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
@@ -88,6 +91,14 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
+
+  /**
+   * diff template
+  */
+  diffTpl() {
+    this.diffService.diff(this.selected);
+  }
+  // --------------------------------
 
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;

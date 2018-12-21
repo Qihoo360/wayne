@@ -34,6 +34,7 @@ import { PersistentVolumeClaimFileSystemStatus } from '../../../shared/model/v1/
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { PersistentVolumeClaimRobinClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims-robin';
+import { DiffService } from '../../../shared/diff/diff.service';
 
 @Component({
   selector: 'list-persistentvolumeclaim',
@@ -41,6 +42,7 @@ import { PersistentVolumeClaimRobinClient } from '../../../shared/client/v1/kube
   styleUrls: ['list-persistentvolumeclaim.scss']
 })
 export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
+  selected: PersistentVolumeClaimTpl[] = [];
   @ViewChild(PublishPersistentVolumeClaimTplComponent)
   publishTpl: PublishPersistentVolumeClaimTplComponent;
   @ViewChild(UserInfoComponent)
@@ -58,6 +60,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
 
   timer: any = null;
   @Output() cloneTpl = new EventEmitter<PersistentVolumeClaimTpl>();
+  diffscription: Subscription;
   subscription: Subscription;
   isOnlineObservable: Subscription;
 
@@ -70,6 +73,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
               private router: Router,
               private publishService: PublishService,
               private appService: AppService,
+              private diffService: DiffService,
               private pvcService: PersistentVolumeClaimService,
               private pvcClient: PersistentVolumeClaimClient,
               private persistentVolumeClaimRobinClient: PersistentVolumeClaimRobinClient,
@@ -99,6 +103,9 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
       }
     });
     this.periodSyncStatus();
+    this.diffscription = pvcService.diffOb.subscribe(() => {
+      this.diffService.diff(this.selected);
+    })
   }
 
   get isEnableRobin(): boolean {
@@ -297,6 +304,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.diffscription.unsubscribe();
     this.isOnlineObservable.unsubscribe();
     clearInterval(this.timer);
     if (this.subscription) {

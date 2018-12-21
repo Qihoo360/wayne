@@ -118,6 +118,14 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
     this.initShow();
   }
 
+  /**
+   * diff
+   */
+  diffTpl() {
+    this.listStatefulset.diffTpl();
+  }
+  /************************************** */
+
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
