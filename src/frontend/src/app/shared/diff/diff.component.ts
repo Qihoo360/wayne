@@ -10,10 +10,10 @@ import { MessageHandlerService } from '../message-handler/message-handler.servic
  * instructions
  *
  * html :
- * <button class="wayne-button normal" (click)="diffTmp()">{{'BUTTON.DIFF_TMP' | translate}}</button>
+ * <button class="wayne-button normal" (click)="diffTpl()">{{'BUTTON.DIFF_TMP' | translate}}</button>
  * ts:
- * diffTmp() {
- *  this.listDeployment.diffTmp();
+ * diffTpl() {
+ *  this.listDeployment.diffTpl();
  * }
  * list-html:
  * Datagrid add -> [(clrDgSelected)]="selected"
@@ -21,7 +21,7 @@ import { MessageHandlerService } from '../message-handler/message-handler.servic
  * import { DiffService } from '../../../shared/diff/diff.service';
  *  selected: DeploymentTpl[] = [];
  *  private diffService: DiffService,
- *  diffTmp() {
+ *  diffTpl() {
  *    this.diffService.diff(this.selected);
  *  }
  */
@@ -38,7 +38,7 @@ export class DiffComponent implements OnDestroy {
   html = '';
   inputType = 'json';
   outStyle = 'side-by-side';
-  diffTmp: DiffTmp;
+  diffTpl: DiffTmp;
   get style() {
     return this._style;
   }
@@ -64,9 +64,9 @@ export class DiffComponent implements OnDestroy {
     private messageService: MessageHandlerService
   ) {
     this.diffSubscription = this.service.diffOb.subscribe(
-      (diffTmp) => {
+      (diffTpl) => {
         this.show = true;
-        this.diffTmp = diffTmp;
+        this.diffTpl = diffTpl;
         this.createHtml();
       }
     );
@@ -75,11 +75,11 @@ export class DiffComponent implements OnDestroy {
     let oldstr: string, newStr: string;
     try {
       if (this.inputType === 'json') {
-        oldstr = this.formatString(this.diffTmp.oldStr);
-        newStr = this.formatString(this.diffTmp.newStr);
+        oldstr = this.formatString(this.diffTpl.oldStr);
+        newStr = this.formatString(this.diffTpl.newStr);
       } else {
-        oldstr = YAML.dump(this.formatJson(this.diffTmp.oldStr));
-        newStr = YAML.dump(this.formatJson(this.diffTmp.newStr));
+        oldstr = YAML.dump(this.formatJson(this.diffTpl.oldStr));
+        newStr = YAML.dump(this.formatJson(this.diffTpl.newStr));
       }
     } catch {
       oldstr = '';
@@ -88,11 +88,11 @@ export class DiffComponent implements OnDestroy {
     }
     try {
       const dd = createPatch(
-        this.diffTmp.fileName,
+        this.diffTpl.fileName,
         oldstr,
         newStr,
-        this.diffTmp.newHeader,
-        this.diffTmp.oldHeader
+        this.diffTpl.newHeader,
+        this.diffTpl.oldHeader
       );
       const outStr = Diff2Html.getJsonFromDiff(
         dd,

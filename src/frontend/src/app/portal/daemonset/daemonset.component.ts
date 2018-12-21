@@ -118,8 +118,8 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
     this.initShow();
   }
 
-  diffTmp() {
-    this.listDaemonSet.diffTmp();
+  diffTpl() {
+    this.listDaemonSet.diffTpl();
   }
 
   initShow() {

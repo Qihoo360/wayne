@@ -132,8 +132,8 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
     this.initShow();
   }
 
-  diffTmp() {
-    this.listCronjob.diffTmp();
+  diffTpl() {
+    this.listCronjob.diffTpl();
   }
 
   initShow() {

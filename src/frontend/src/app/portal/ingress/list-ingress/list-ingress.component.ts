@@ -59,7 +59,7 @@ export class ListIngressComponent extends ListResource implements OnInit, OnDest
     }
   }
 
-  diffTmp() {
+  diffTpl() {
     this.diffService.diff(this.selected);
   }
 }

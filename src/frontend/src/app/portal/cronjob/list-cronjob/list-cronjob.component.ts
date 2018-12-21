@@ -82,7 +82,7 @@ export class ListCronjobComponent implements OnInit, OnDestroy {
     }
   }
 
-  diffTmp() {
+  diffTpl() {
     this.diffService.diff(this.selected);
   }
 

@@ -121,8 +121,8 @@ export class DeploymentComponent implements OnInit, OnDestroy {
   /**
    * diff
    */
-  diffTmp() {
-    this.listDeployment.diffTmp();
+  diffTpl() {
+    this.listDeployment.diffTpl();
   }
   /************************************** */
   initShow() {

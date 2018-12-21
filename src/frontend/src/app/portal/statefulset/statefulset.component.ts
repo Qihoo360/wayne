@@ -121,8 +121,8 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
   /**
    * diff
    */
-  diffTmp() {
-    this.listStatefulset.diffTmp();
+  diffTpl() {
+    this.listStatefulset.diffTpl();
   }
   /************************************** */
 
