@@ -12,9 +12,7 @@ SERVER_BUILD_VERSION :=v1.0.0
 release: update-version build-release-image push-image
 
 update-version:
-	@sed -i "s/__version__/${RELEASE_VERSION}/g" src/backend/main.go
-	@sed -i "s/__version__/${RELEASE_VERSION}/g" src/frontend/package.json
-	@sed -i "s/__version__/${RELEASE_VERSION}/g" src/backend/controllers/openapi/openapi.go
+	./hack/updateversion.sh
 
 # run module
 run-backend:
