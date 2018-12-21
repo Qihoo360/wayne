@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { DiffTmp } from './diff';
+import { DiffTpl } from './diff';
 import { MessageHandlerService } from '../message-handler/message-handler.service';
-const defaultTmp: DiffTmp = {
+const defaultTmp: DiffTpl = {
   fileName: '',
   oldStr: '',
   newStr: '',
@@ -19,18 +19,18 @@ export class DiffService {
 
   }
 
-  diffSub = new Subject<DiffTmp>();
+  diffSub = new Subject<DiffTpl>();
 
   diffOb = this.diffSub.asObservable();
 
   diff(selected: any[], tmpPropName = 'template', namePropName = 'id') {
     const length = selected.length;
-    let diffTmp;
+    let diffTpl;
     if (length < 2) {
       this.messageHandlerService.showError('SHARED.DIFF.TMP_LESS');
       return;
     } else {
-      diffTmp = {
+      diffTpl = {
         oldStr: selected[1][tmpPropName],
         newStr: selected[0][tmpPropName],
         oldHeader: `${selected[1][namePropName]}`,
@@ -40,8 +40,8 @@ export class DiffService {
         this.messageHandlerService.showInfo('SHARED.DIFF.TMP_MORE');
       }
     }
-    diffTmp = { ...defaultTmp, ...diffTmp };
-    this.diffSub.next(diffTmp);
+    diffTpl = { ...defaultTmp, ...diffTpl };
+    this.diffSub.next(diffTpl);
   }
 
 }

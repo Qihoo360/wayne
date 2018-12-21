@@ -3,7 +3,7 @@ import { createPatch } from 'diff';
 import { Diff2Html } from 'diff2html';
 import { DiffService } from './diff.service';
 import { Subscription } from 'rxjs';
-import { DiffTmp } from './diff';
+import { DiffTpl } from './diff';
 import * as YAML from 'js-yaml';
 import { MessageHandlerService } from '../message-handler/message-handler.service';
 /**
@@ -38,7 +38,7 @@ export class DiffComponent implements OnDestroy {
   html = '';
   inputType = 'json';
   outStyle = 'side-by-side';
-  diffTpl: DiffTmp;
+  diffTpl: DiffTpl;
   get style() {
     return this._style;
   }
