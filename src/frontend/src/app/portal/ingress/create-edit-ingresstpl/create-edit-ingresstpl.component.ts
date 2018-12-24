@@ -15,6 +15,7 @@ import { IngressService } from '../../../shared/client/v1/ingress.service';
 import { IngressTplService } from '../../../shared/client/v1/ingresstpl.service';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { CreateEditResourceTemplate } from '../../../shared/base/resource/create-edit-resource-template';
+import { KubeIngress, IngressRule, IngressPath } from '../../../shared/model/v1/kubernetes/ingress';
 
 
 @Component({
@@ -79,7 +80,7 @@ export class CreateEditIngressTplComponent extends CreateEditResourceTemplate im
         if (tpl) {
           this.template = tpl.data;
           this.template.description = null;
-          this.saveResourceTemplate();
+          this.saveResourceTemplate(JSON.parse(this.template.template));
         }
       },
       error => {
@@ -146,6 +147,19 @@ export class CreateEditIngressTplComponent extends CreateEditResourceTemplate im
 
       }
     );
+  }
+
+  onAddPath(idx: number) {
+    this.kubeResource.spec.rules[idx].http.paths.push({ backend: { serviceName: '', servicePort: 80}, path: '/'});
+  }
+  onDeletePath(i: number, j: number) {
+    this.kubeResource.spec.rules[i].http.paths.splice(j, 1);
+  }
+  onAddTLS() {
+    this.kubeResource.spec.tls.push({hosts: [''], secretName: ''});
+  }
+  onDeleteTLS(i: number) {
+    this.kubeResource.spec.tls.splice(i, 1);
   }
 }
 
