@@ -22,7 +22,7 @@
         <div class="form-group form-group-padding" >
           <label class="col-md-4 form-group-label-override required">域名</label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text" style="width: 217px"
+            <input type="text"
                    [ngModelOptions]="{standalone: true}"
             [(ngModel)]="kubeResource.spec.rules[i].host">
           </label>
@@ -33,12 +33,29 @@
                 <label class="col-md-3 form-group-label-override required">负载均衡名称</label>
                 <input type="text" class="col-md-2"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.rules[i].http.paths[j].backend.serviceName">
                 <label class="col-md-2 form-group-label-override required">端口</label>
-                <input type="number" class="col-md-2"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.rules[i].http.paths[j].backend.servicePort">
+                <input type="number" class="col-md-1"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.rules[i].http.paths[j].backend.servicePort">
                 <label class="col-md-2 form-group-label-override required">路由</label>
                 <input type="text" class="col-md-2"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.rules[i].http.paths[j].path">
+                <a href="javascript:void(0)" *ngIf="kubeResource.spec.rules[i].http.paths.length > 1"><clr-icon (click)="onDeletePath(i, j)" shape="trash" title="删除路由" class="is-solid clr-icon"></clr-icon></a>
+                <a href="javascript:void(0)" *ngIf="j === kubeResource.spec.rules[i].http.paths.length - 1"><clr-icon (click)="onAddPath(i)" shape="plus-circle" title="添加路由" class="is-solid clr-icon"></clr-icon></a>
               </div>
             </div>
-            <a href="javascript:void(0)"><clr-icon (click)="onAddPath(i)" shape="plus-circle" title="添加路由" class="is-solid clr-icon"></clr-icon></a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section  class="form-block wrap" style="overflow:hidden">
+      <div style="float: left;width: 60%">
+        <label class="label-level1">TLS 配置</label>
+        <button class="btn btn-sm btn-link" (click)="onAddTLS()" href="javascript:void(0)" *ngIf="kubeResource.spec.tls.length === 0"><clr-icon shape="add"></clr-icon>添加</button>
+        <div *ngFor="let tls of kubeResource.spec.tls; let i = index">
+          <div class="form-group form-group-padding" >
+            <label class="col-md-2 form-group-label-override">主机</label>
+            <input  class="col-md-3" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.tls[i].hosts[0]">
+            <label class="col-md-2 form-group-label-override">秘密名字</label>
+            <input class="col-md-3" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.tls[i].secretName">
+            <a href="javascript:void(0)" *ngIf="kubeResource.spec.tls.length > 0"><clr-icon (click)="onDeleteTLS(i)" shape="trash" title="删除 TLS" class="is-solid clr-icon"></clr-icon></a>
+            <a href="javascript:void(0)" *ngIf=" i === kubeResource.spec.tls.length - 1"><clr-icon (click)="onAddTLS()" shape="plus-circle" title="添加 TLS" class="is-solid clr-icon"></clr-icon></a>
           </div>
         </div>
       </div>
