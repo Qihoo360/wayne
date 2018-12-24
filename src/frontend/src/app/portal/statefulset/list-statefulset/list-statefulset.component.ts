@@ -26,6 +26,7 @@ import { TemplateStatus } from '../../../shared/model/v1/status';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { TranslateService } from '@ngx-translate/core';
+import { DiffService } from '../../../shared/diff/diff.service';
 
 @Component({
   selector: 'list-statefulset',
@@ -33,6 +34,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['list-statefulset.scss']
 })
 export class ListStatefulsetComponent implements OnInit, OnDestroy {
+  selected: StatefulsetTemplate[] = [];
   @Input() showState: object;
   @Input() statefulsetTpls: StatefulsetTemplate[];
   @Input() page: Page;
@@ -60,6 +62,7 @@ export class ListStatefulsetComponent implements OnInit, OnDestroy {
               private aceEditorService: AceEditorService,
               private router: Router,
               public authService: AuthService,
+              private diffService: DiffService,
               private tplDetailService: TplDetailService,
               public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
@@ -89,6 +92,10 @@ export class ListStatefulsetComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  diffTpl() {
+    this.diffService.diff(this.selected);
   }
 
   pageSizeChange(pageSize: number) {

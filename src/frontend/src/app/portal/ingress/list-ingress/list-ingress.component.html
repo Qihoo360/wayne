@@ -1,4 +1,4 @@
-<clr-datagrid (clrDgRefresh)="refresh($event)" class="wayne-clr-datagrid">
+<clr-datagrid (clrDgRefresh)="refresh($event)" [(clrDgSelected)]="selected" class="wayne-clr-datagrid">
   <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
   <clr-dg-column class="col-id" [clrDgSortBy]="'id'">
     <ng-container>

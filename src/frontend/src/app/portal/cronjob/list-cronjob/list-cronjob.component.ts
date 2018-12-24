@@ -16,6 +16,7 @@ import { Page } from '../../../shared/page/page-state';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DiffService } from '../../../shared/diff/diff.service';
 
 @Component({
   selector: 'list-cronjob',
@@ -23,6 +24,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['list-cronjob.scss']
 })
 export class ListCronjobComponent implements OnInit, OnDestroy {
+  selected: CronjobTpl[] = [];
   @Input() showState: object;
   @Input() cronjobTpls: CronjobTpl[];
   @Input() page: Page;
@@ -48,6 +50,7 @@ export class ListCronjobComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private aceEditorService: AceEditorService,
               private router: Router,
+              private diffService: DiffService,
               private tplDetailService: TplDetailService,
               public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
@@ -77,6 +80,10 @@ export class ListCronjobComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  diffTpl() {
+    this.diffService.diff(this.selected);
   }
 
   refresh(state?: State) {

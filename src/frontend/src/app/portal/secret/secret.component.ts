@@ -112,6 +112,10 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
     this.initShow();
   }
 
+  diffTpl() {
+    this.list.diffTpl();
+  }
+
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {

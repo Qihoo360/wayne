@@ -58,7 +58,7 @@ export class DeploymentComponent implements OnInit, OnDestroy {
 
   pageState: PageState = new PageState();
   changedDeploymentTpls: DeploymentTpl[];
-  isOnline: boolean = false;
+  isOnline = false;
   deploymentId: number;
   app: App;
   appId: number;
@@ -90,13 +90,15 @@ export class DeploymentComponent implements OnInit, OnDestroy {
               private el: ElementRef,
               private messageHandlerService: MessageHandlerService) {
     this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
-      if (over) this.tabChange();
+      if (over) {
+        this.tabChange();
+      }
     });
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.DEPLOYMENT) {
-        let deploymentId = message.data;
+        const deploymentId = message.data;
         this.deploymentService.deleteById(deploymentId, this.appId)
           .subscribe(
             response => {
@@ -116,7 +118,13 @@ export class DeploymentComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initShow();
   }
-
+  /**
+   * diff
+   */
+  diffTpl() {
+    this.listDeployment.diffTpl();
+  }
+  /************************************** */
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {

@@ -1,0 +1,11 @@
+.diff-header{
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  span{
+    cursor: pointer;
+  }
+  .toggle-switch{
+    margin-right: 0;
+  }
+}
