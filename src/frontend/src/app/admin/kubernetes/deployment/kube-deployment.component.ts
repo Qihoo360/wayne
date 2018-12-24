@@ -95,7 +95,7 @@ export class KubeDeploymentComponent implements OnInit {
         if (cluster) {
           this.namespaceClient.list(cluster).subscribe(
             resp => {
-              this.namespaces = resp.data;
+              this.namespaces = resp.data.list;
               this.jumpTo(cluster);
             },
             error => this.messageHandlerService.handleError(error)

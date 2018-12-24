@@ -5,12 +5,15 @@ import { AceEditorComponent } from '../../ace-editor/ace-editor.component';
 import { AuthService } from '../../auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClusterService } from '../../client/v1/cluster.service';
+import {PageState} from '../../page/page-state';
+import {State} from '@clr/angular';
 
 export class KubernetesResource {
   listResourceComponent: any;
   aceEditorModal: AceEditorComponent;
 
   showState: object;
+  pageState: PageState = new PageState();
 
   cluster: string;
   clusters: Array<any>;
@@ -67,12 +70,18 @@ export class KubernetesResource {
     }
   }
 
-  retrieveResource(): void {
+  retrieveResource(state?: State): void {
+    if (state) {
+      this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
+    }
     if (this.cluster) {
-      this.resourceClient.list(this.cluster)
+      this.resourceClient.listPage(this.pageState, this.cluster)
         .subscribe(
           response => {
-            this.resources = response.data;
+            const data = response.data;
+            this.resources = data.list;
+            this.pageState.page.totalPage = data.totalPage;
+            this.pageState.page.totalCount = data.totalCount;
           },
           error => this.messageHandlerService.handleError(error)
         );
