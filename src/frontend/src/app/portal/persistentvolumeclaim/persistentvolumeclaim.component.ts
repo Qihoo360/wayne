@@ -81,6 +81,10 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
 
   }
 
+  diffTpl() {
+    this.pvcService.diff();
+  }
+
   onlineChange(event) {
     this.pvcTplService.isOnlineChange(event.target.checked);
   }

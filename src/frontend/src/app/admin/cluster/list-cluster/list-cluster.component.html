@@ -46,7 +46,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let cluster of clusters" [clrDgItem]="cluster">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editCluster(cluster)">{{'BUTTON.EDIT' | translate}]</button>
+      <button class="action-item" (click)="editCluster(cluster)">{{'BUTTON.EDIT' | translate}}</button>
       <button class="action-item" (click)="deleteCluster(cluster)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-id">{{cluster.id}}</clr-dg-cell>

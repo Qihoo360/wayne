@@ -34,7 +34,7 @@ func (*NamespaceUser) TableName() string {
 
 func (*namespaceUserModel) TableUnique() [][]string {
 	return [][]string{
-		[]string{"User", "Namespace", "Group"},
+		{"User", "Namespace", "Group"},
 	}
 }
 

@@ -56,7 +56,6 @@ func (t TerminalSession) Next() *remotecommand.TerminalSize {
 	case size := <-t.sizeChan:
 		return &size
 	}
-	return nil
 }
 
 func (t TerminalSession) Read(p []byte) (int, error) {

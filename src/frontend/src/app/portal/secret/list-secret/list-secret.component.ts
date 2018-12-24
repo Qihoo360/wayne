@@ -15,6 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from '../../../shared/page/page-state';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { DiffService } from '../../../shared/diff/diff.service';
 
 @Component({
   selector: 'list-secret',
@@ -22,6 +23,7 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
   styleUrls: ['list-secret.scss']
 })
 export class ListSecretComponent implements OnInit, OnDestroy {
+  selected: SecretTpl[] = [];
   @Input() showState: object;
   @ViewChild(PublishSecretTplComponent)
   publishTpl: PublishSecretTplComponent;
@@ -44,6 +46,7 @@ export class ListSecretComponent implements OnInit, OnDestroy {
               private tplDetailService: TplDetailService,
               private messageHandlerService: MessageHandlerService,
               private route: ActivatedRoute,
+              private diffService: DiffService,
               private aceEditorService: AceEditorService,
               private router: Router,
               public authService: AuthService,
@@ -74,6 +77,10 @@ export class ListSecretComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  diffTpl() {
+    this.diffService.diff(this.selected);
   }
 
   pageSizeChange(pageSize: number) {

@@ -8,7 +8,7 @@ export const isEmpty = function (obj: any): boolean {
   if (obj === 0) {
     return false;
   }
-  return (obj == null || obj == '');
+  return (obj == null || obj === '');
 };
 // 判断某对象不为空..返回true 否则 false
 export const isNotEmpty = function (obj: any): boolean {
@@ -26,7 +26,7 @@ export const isArrayNotEmpty = function (obj: any): boolean {
 /**
  * Simple object check.
  * @param item
- * @returns {boolean}
+ * @returns  boolean
  */
 export function isObject(item) {
   return (item && typeof item === 'object' && !Array.isArray(item));
@@ -39,13 +39,17 @@ export function isObject(item) {
  * @param ...sources
  */
 export function mergeDeep(target, ...sources) {
-  if (!sources.length) return target;
+  if (!sources.length) {
+    return target;
+  }
   const source = sources.shift();
 
   if (isObject(target) && isObject(source)) {
     for (const key in source) {
       if (isObject(source[key])) {
-        if (!target[key]) Object.assign(target, {[key]: {}});
+        if (!target[key]) {
+          Object.assign(target, {[key]: {}});
+        }
         mergeDeep(target[key], source[key]);
       } else {
         Object.assign(target, {[key]: source[key]});
@@ -63,7 +67,7 @@ export class ApiNameGenerateRule {
     let apiNameGenerateRule = globalConfig ?
       globalConfig : defaultApiNameGenerateRule;
     if (appMetaData) {
-      let metaData = JSON.parse(appMetaData);
+      const metaData = JSON.parse(appMetaData);
       if (metaData[configKeyApiNameGenerateRule]) {
         apiNameGenerateRule = metaData[configKeyApiNameGenerateRule];
       }
@@ -73,7 +77,7 @@ export class ApiNameGenerateRule {
   }
 
   static generateName(config: string, apiName: string, appName: string): string {
-    if (config == defaultApiNameGenerateRule) {
+    if (config === defaultApiNameGenerateRule) {
       return appName + '-' + apiName;
     }
     return apiName;
@@ -103,6 +107,9 @@ export class ResourceUnitConvertor {
     }
     if (memory.toString().indexOf('Ki') > -1) {
       return parseFloat(memory) / (1024 * 1024);
+    }
+    if (memory.toString().indexOf('m') > -1) {
+      return parseFloat(memory) / (1024 * 1024 * 1024 * 1000);
     }
 
     return parseFloat(memory);

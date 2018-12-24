@@ -1,0 +1,22 @@
+<clr-modal [(clrModalOpen)]="show" [clrModalSize]="'xl'" #modal>
+  <h3 class="modal-title">Template Diff
+    <wayne-modal-operate [modal]="modal"></wayne-modal-operate>
+  </h3>
+  <div class="modal-body">
+    <div class="diff-header">
+      <span (click)="style = false" [style.color]="style ? '#000' : 'blue'">line-by-line</span>
+      <div class="toggle-switch">
+        <input type="checkbox" [(ngModel)]="style" id="toggle_1">
+        <label for="toggle_1"></label>
+      </div>
+      <span (click)="style = true" [style.color]="style ? 'blue' : '#000'">side-by-side</span>
+      <span (click)="type = false" [style.color]="type ? '#000' : 'blue'" style="margin-left: 15px;">YAML</span>
+      <div class="toggle-switch">
+        <input type="checkbox" [(ngModel)]="type" id="toggle_2">
+        <label for="toggle_2"></label>
+      </div>
+      <span (click)="type = true" [style.color]="type ? 'blue' : '#000'">JSON</span>
+    </div>
+    <div class="diff-body" [innerHtml]="html"></div>
+  </div>
+</clr-modal>

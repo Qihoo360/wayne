@@ -57,7 +57,6 @@ func (w *BaseMessageWorker) Run() error {
 		}
 	}
 
-	return nil
 }
 
 func processMessage(d *amqp.Delivery, w *BaseMessageWorker) {

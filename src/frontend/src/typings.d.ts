@@ -5,7 +5,5 @@ interface NodeModule {
   id: string;
 }
 
-
-
 declare var particlesJS: any;
 
