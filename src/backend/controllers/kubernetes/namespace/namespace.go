@@ -37,11 +37,12 @@ func (c *KubeNamespaceController) Prepare() {
 // @Success 200 {object} common.Page success
 // @router /clusters/:cluster [get]
 func (c *KubeNamespaceController) List() {
+	param := c.BuildQueryParam()
 	cluster := c.Ctx.Input.Param(":cluster")
 
 	cli, err := client.Client(cluster)
 	if err == nil {
-		result, err := namespace.GetNamespaceList(cli)
+		result, err := namespace.GetNamespacePage(cli, param)
 		if err != nil {
 			logs.Error("list kubernetes namespaces error.", cluster, err)
 			c.HandleError(err)
