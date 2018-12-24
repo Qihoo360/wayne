@@ -15,28 +15,23 @@
         <div *ngFor="let rule of kubeResource?.spec.rules">
           <div class="row group">
             <div class="col-sm-3">
-            代理域名
+            域名
           </div>
           <div class="col-sm-9">
             {{rule.host}}
           </div>
         </div>
-        <div class="row group">
+        <div *ngFor="let path of rule.http.paths" class="row group">
           <div class="col-sm-3">
-            代理负载均衡
+            代理
           </div>
-          <div class="col-sm-9">
-            {{rule.http.paths[0].backend.serviceName}}
+          <div class="col-sm-6">
+            {{path.backend.serviceName}}:{{path.backend.servicePort}}
+          </div>
+          <div class="col-sm-3">
+            {{path.path}}
           </div>
         </div>
-          <div class="row group">
-            <div class="col-sm-3">
-              负载均衡端口
-            </div>
-            <div class="col-sm-9">
-              {{rule.http.paths[0].backend.servicePort}}
-            </div>
-          </div>
         </div>
       </section>
     </form>
