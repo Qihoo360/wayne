@@ -2,21 +2,24 @@
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="table-search">
       <div class="table-search-left">
+        <button class="wayne-button normal" (click)="retrieve()">
+          刷新
+        </button>
         <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
           <wayne-checkbox-group [(ngModel)]="showList">
-            <wayne-checkbox>{{'TITLE.NAME' | translate}}</wayne-checkbox>
-            <wayne-checkbox>标签</wayne-checkbox>
-            <wayne-checkbox>Taints</wayne-checkbox>
-            <wayne-checkbox>Ready</wayne-checkbox>
-            <wayne-checkbox>可调度</wayne-checkbox>
-            <wayne-checkbox>CPU(Core)</wayne-checkbox>
-            <wayne-checkbox>Memory(G)</wayne-checkbox>
-            <wayne-checkbox>Kubelet版本</wayne-checkbox>
-            <wayne-checkbox>Age</wayne-checkbox>
-            <wayne-checkbox>kubeProxy版本</wayne-checkbox>
-            <wayne-checkbox>系统版本</wayne-checkbox>
-            <wayne-checkbox>内核版本</wayne-checkbox>
-            <wayne-checkbox>CRI版本</wayne-checkbox>
+            <wayne-checkbox value="name">{{'TITLE.NAME' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="label">标签</wayne-checkbox>
+            <wayne-checkbox value="taints">Taints</wayne-checkbox>
+            <wayne-checkbox value="ready">Ready</wayne-checkbox>
+            <wayne-checkbox value="schedulable">可调度</wayne-checkbox>
+            <wayne-checkbox value="cpu">CPU(Core)</wayne-checkbox>
+            <wayne-checkbox value="memory">Memory(G)</wayne-checkbox>
+            <wayne-checkbox value="kubeletVersion">Kubelet版本</wayne-checkbox>
+            <wayne-checkbox value="age">Age</wayne-checkbox>
+            <wayne-checkbox value="kubeProxyVersion">kubeProxy版本</wayne-checkbox>
+            <wayne-checkbox value="osImage">系统版本</wayne-checkbox>
+            <wayne-checkbox value="kernelVersion">内核版本</wayne-checkbox>
+            <wayne-checkbox value="containerRuntimeVersion">CRI版本</wayne-checkbox>
           </wayne-checkbox-group>
         </wayne-filter-box>
       </div>
