@@ -6,6 +6,12 @@ export const defaultIngress = `{
   },
   "spec": {
     "tls": [
+         {
+             "hosts": [
+                 ""
+                     ],
+             "secretName": ""
+         }
     ],
     "rules": [
       {

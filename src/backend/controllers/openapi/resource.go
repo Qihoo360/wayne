@@ -30,6 +30,7 @@ type respResourceInfo struct {
 // swagger:parameters ResourceInfoParam
 type getResourceInfoParam struct {
 	// in: query
+	// 资源类型，支持 Deployment,CronJob,StatefulSet,DaemonSet 等
 	// Required: true
 	ResourceType models.KubeApiType `json:"type"`
 	// Required: true
