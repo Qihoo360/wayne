@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.2.2](https://github.com/Qihoo360/wayne/tree/v1.2.2) (2018-12-25)
+[Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.2.1...v1.2.2)
+
+**Fixed bugs:**
+
+- Fix node list selector [\#180](https://github.com/Qihoo360/wayne/pull/180) ([wilhelmguo](https://github.com/wilhelmguo))
+
 ## [v1.2.1](https://github.com/Qihoo360/wayne/tree/v1.2.1) (2018-12-21)
 [Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.2.0...v1.2.1)
 
