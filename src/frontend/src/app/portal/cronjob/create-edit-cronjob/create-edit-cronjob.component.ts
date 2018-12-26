@@ -40,7 +40,7 @@ export class CreateEditCronjobComponent implements OnInit {
 
   constructor(
     private cronjobService: CronjobService,
-    private authService: AuthService,
+    public authService: AuthService,
     private messageHandlerService: MessageHandlerService
   ) {
   }

@@ -38,7 +38,7 @@ export class CreateEditDaemonSetComponent implements OnInit {
   clusters = Array<Cluster>();
 
   constructor(private daemonSetService: DaemonSetService,
-              private authService: AuthService,
+              public authService: AuthService,
               public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
   }

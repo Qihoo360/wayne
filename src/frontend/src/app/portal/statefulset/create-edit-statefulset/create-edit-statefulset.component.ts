@@ -40,7 +40,7 @@ export class CreateEditStatefulsetComponent implements OnInit {
 
   constructor(
     private statefulsetService: StatefulsetService,
-    private authService: AuthService,
+    public authService: AuthService,
     private messageHandlerService: MessageHandlerService
   ) {}
 
