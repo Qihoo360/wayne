@@ -335,6 +335,17 @@
       "TRANS_ERROR": "模板切换失败，请检查数据",
       "TMP_LESS": "请选择俩个模板",
       "TMP_MORE": "选择多个模板仅对比俩个"
+    },
+    "COMPONENT": {
+      "RESOURCE_LIMIT": {
+        "CPU_LIMIT": "CPU 限制",
+        "CPU_LIMIT_UNIT": "核",
+        "CPU_LIMIT_PERCENT": "CPU 限制百分比",
+        "MEMORY_LIMIT": "内存限制",
+        "MEMORY_LIMIT_PERCENT": "内存限制百分比",
+        "REPLICA_LIMIT": "副本数限制",
+        "REPLICA_LIMIT_UNIT": "份"
+      }
     }
   },
   "STATEFULSET": {
