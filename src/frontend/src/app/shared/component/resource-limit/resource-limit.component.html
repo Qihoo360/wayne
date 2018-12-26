@@ -1,0 +1,27 @@
+<div class="inline-flex-box">
+  <div class="form-group inline-item">
+    <label for="cpuLimit" class="col-md-4">CPU 限制</label>
+    <input type="text" id="cpuLimit" name="cpuLimit" type="number" [(ngModel)]="resources.cpuLimit" style="width: 110px;">
+    <span class="unit">核</span>
+  </div>
+  <div class="form-group inline-item">
+    <label for="cpuRequestLimitPercent" class="col-md-4">CPU 限制百分比</label>
+    <input type="text" id="cpuRequestLimitPercent" name="cpuRequestLimitPercent" type="number" [(ngModel)]="resources.cpuRequestLimitPercent" style="width: 110px;">
+    <span class="unit">%</span>
+  </div>
+  <div class="form-group inline-item">
+    <label for="memoryLimit" class="col-md-4">内存限制</label>
+    <input type="text" id="memoryLimit" type="number" name="memoryLimit"  [(ngModel)]="resources.memoryLimit" style="width: 110px;">
+    <span class="unit">G</span>
+  </div>
+  <div class="form-group inline-item">
+    <label for="memoryRequestLimitPercent" class="col-md-4">内存限制百分比</label>
+    <input type="text" id="memoryRequestLimitPercent" type="number" name="memoryRequestLimitPercent"  [(ngModel)]="resources.memoryRequestLimitPercent" style="width: 110px;">
+    <span class="unit">%</span>
+  </div>
+  <div class="form-group inline-item">
+    <label for="replicaLimit" class="col-md-4">副本数限制</label>
+    <input type="text" id="replicaLimit" type="number" name="replicaLimit"  [(ngModel)]="resources.replicaLimit" style="width: 110px;">
+    <span class="unit">份</span>
+  </div>
+</div>
