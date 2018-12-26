@@ -3,10 +3,12 @@
 
     <div class="table-search">
       <div class="table-search-left">
+        <button class="wayne-button normal" (click)="retrieve()">
+          刷新
+        </button>
         <button class="wayne-button normal" (click)="openModal()">
           创建持久化存储
         </button>
-
         <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
           <wayne-checkbox-group [(ngModel)]="showList">
             <wayne-checkbox>{{'TITLE.NAME' | translate}}</wayne-checkbox>
