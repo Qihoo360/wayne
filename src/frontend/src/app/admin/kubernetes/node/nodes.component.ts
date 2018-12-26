@@ -16,18 +16,18 @@ import { AceEditorComponent } from '../../../shared/ace-editor/ace-editor.compon
 
 const showState = {
   'name': {hidden: false},
-  '标签': {hidden: false},
-  'Taints': {hidden: true},
-  'Ready': {hidden: false},
-  '可调度': {hidden: false},
-  'CPU(Core)': {hidden: false},
-  'Memory(G)': {hidden: false},
-  'Kubelet版本': {hidden: true},
-  'Age': {hidden: false},
-  'kubeProxy版本': {hidden: true},
-  '系统版本': {hidden: true},
-  '内核版本': {hidden: true},
-  'CRI版本': {hidden: true}
+  'label': {hidden: false},
+  'taints': {hidden: true},
+  'ready': {hidden: false},
+  'schedulable': {hidden: false},
+  'cpu': {hidden: false},
+  'memory': {hidden: false},
+  'kubeletVersion': {hidden: false},
+  'age': {hidden: false},
+  'kubeProxyVersion': {hidden: true},
+  'osImage': {hidden: true},
+  'kernelVersion': {hidden: true},
+  'containerRuntimeVersion': {hidden: false}
 };
 
 @Component({
@@ -48,7 +48,7 @@ export class NodesComponent implements OnInit, OnDestroy {
   cluster: string;
   clusters: Array<any>;
   nodes: Node[];
-  showList: any[] = new Array();
+  showList: any[] = Array();
 
   subscription: Subscription;
 
