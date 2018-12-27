@@ -151,6 +151,15 @@
       "DEPLOYMENT_DELETE_LIST": "已删除部署列表"
     }
   },
+  "STATEFULSET_ADMIN": {
+    "CREATE": {
+      "APPLYMENT": "应用",
+      "RULE": "部署名称不符合规范，验证规则",
+      "METADATE": "元数据"
+    },
+    "STATEFULSET_LIST": "状态副本集列表",
+    "STATEFULSET_CREATE": "创建状态副本集"
+  },
   "EVENT": {
     "ERROR": "错误事件",
     "ERROR_MESSAGE": "错误信息",
@@ -256,7 +265,7 @@
   "OTHER": "其他",
   "PAGE": {
     "PAGE": "页",
-    "TOTAL": "共{{value}}条记录"
+    "TOTAL": "共 {{value}} 条记录"
   },
   "PLACEHOLDER": {
     "APP_NAME": "英文小写，中划线分隔",
