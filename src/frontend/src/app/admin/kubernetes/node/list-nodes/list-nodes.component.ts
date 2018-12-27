@@ -54,20 +54,18 @@ export class ListNodesComponent implements OnInit {
     if (page && this.pageSizes.indexOf(page) > -1) {
       this.storage.save('pagesize', page);
     }
-    if (page !== this._pageSize) this._pageSize = page;
+    if (page !== this._pageSize) {
+      this._pageSize = Number(page);
+    }
   }
 
   ngOnInit(): void {
-    this._pageSize = parseInt(this.storage.get('pagesize') || '10');
+    this._pageSize = parseInt(this.storage.get('pagesize'), 10) || 10;
   }
 
   retrieve() {
     this.refresh.emit(true);
   }
-
-  ngOnDestroy(): void {
-  }
-
 
   editNode(node: Node) {
     this.edit.emit(node);
