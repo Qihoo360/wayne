@@ -6,14 +6,19 @@ services:
       RABBITMQ_DEFAULT_USER: "guest"
       RABBITMQ_DEFAULT_PASS: "guest"
     image: rabbitmq:3.7.8-management
+	container_name: wayne_rabbitmq
     networks:
     - default
     ports:
     - "5672:5672"
   mysql:
     image: mysql:5.6.41
+    container_name: wayne_mysql
     environment:
       MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: wayne
+      MYSQL_USER: wayne
+      MYSQL_PASSWORD: wayne
     volumes:
       - ./_dev/mysql:/var/lib/mysql:z
     networks:
@@ -24,6 +29,7 @@ services:
       - "3306:3306"
   wayne:
     image: 360cloud/wayne:latest
+    container_name: wayne_app
     command: /opt/wayne/backend apiserver
     environment:
       GOPATH: "/go"
@@ -35,3 +41,5 @@ services:
       - "8080"
     ports:
       - "8080:8080"
+    links:
+      - mysql
