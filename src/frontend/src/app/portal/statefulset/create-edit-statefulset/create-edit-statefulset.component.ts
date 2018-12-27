@@ -11,6 +11,7 @@ import { App } from '../../../shared/model/v1/app';
 import { Statefulset } from '../../../shared/model/v1/statefulset';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { ApiNameGenerateRule } from '../../../shared/utils';
+import { ResourceLimitComponent } from '../../../shared/component/resource-limit/resource-limit.component';
 
 @Component({
   selector: 'create-edit-statefulset',
@@ -20,6 +21,8 @@ import { ApiNameGenerateRule } from '../../../shared/utils';
 
 export class CreateEditStatefulsetComponent implements OnInit {
   ngForm: NgForm;
+  @ViewChild(ResourceLimitComponent)
+  resouceLimitComponent: any;
   @ViewChild('ngForm')
   currentForm: NgForm;
   clusters: Cluster[];
@@ -35,10 +38,11 @@ export class CreateEditStatefulsetComponent implements OnInit {
 
   @Output() create = new EventEmitter<number>();
 
-  constructor(private statefulsetService: StatefulsetService,
-              private authService: AuthService,
-              private messageHandlerService: MessageHandlerService) {
-  }
+  constructor(
+    private statefulsetService: StatefulsetService,
+    public authService: AuthService,
+    private messageHandlerService: MessageHandlerService
+  ) {}
 
   newOrEdit(app: App, clusters: Cluster[], id?: number) {
     this.modalOpened = true;
@@ -69,6 +73,7 @@ export class CreateEditStatefulsetComponent implements OnInit {
               this.clusterMetas[clu.name] = culsterMeta;
             }
           }
+          this.resouceLimitComponent.setValue(JSON.parse(this.statefulset.metaData)['resources']);
         },
         error => {
           this.messageHandlerService.handleError(error);
@@ -78,6 +83,7 @@ export class CreateEditStatefulsetComponent implements OnInit {
       this.title = '创建状态副本集';
       this.statefulset = new Statefulset();
       this.statefulset.metaData = '{}';
+      this.resouceLimitComponent.setValue();
     }
   }
 
@@ -105,7 +111,6 @@ export class CreateEditStatefulsetComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
 
@@ -136,8 +141,9 @@ export class CreateEditStatefulsetComponent implements OnInit {
     if (!this.statefulset.metaData) {
       this.statefulset.metaData = '{}';
     }
-    let metaData = JSON.parse(this.statefulset.metaData);
+    const metaData = JSON.parse(this.statefulset.metaData);
     metaData.replicas = replicas;
+    metaData.resources = this.resouceLimitComponent.getValue();
     this.statefulset.metaData = JSON.stringify(metaData);
     switch (this.actionType) {
       case ActionType.ADD_NEW:

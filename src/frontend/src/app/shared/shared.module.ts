@@ -49,7 +49,7 @@ import { RelativeTimeFilterPipe } from './pipe/relative-time.filter.pipe';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { DiffComponent } from './diff/diff.component';
 import { DiffService } from './diff/diff.service';
-
+import { ResourceLimitModule } from './component/resource-limit/resource-limit.module';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -57,6 +57,7 @@ import { DiffService } from './diff/diff.service';
     TranslateModule,
     BrowserModule,
     FormsModule,
+    ResourceLimitModule,
     HttpClientModule,
     ClarityModule.forRoot(),
   ],
@@ -94,6 +95,7 @@ import { DiffService } from './diff/diff.service';
   exports: [
     BrowserAnimationsModule,
     BrowserModule,
+    ResourceLimitModule,
     FormsModule,
     ClarityModule,
     UnauthorizedComponent,
