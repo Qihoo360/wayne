@@ -3,6 +3,7 @@ package deployment
 import (
 	"fmt"
 	"net/http"
+	"sort"
 
 	"k8s.io/api/apps/v1beta1"
 	"k8s.io/apimachinery/pkg/api/errors"
@@ -23,13 +24,24 @@ type Deployment struct {
 	Containers []string          `json:"containers"`
 }
 
-func GetDeploymentList(cli *kubernetes.Clientset, namespace string, opts metaV1.ListOptions) ([]v1beta1.Deployment, error) {
-	deployments, err := cli.AppsV1beta1().Deployments(namespace).List(opts)
-	if err != nil {
-		return nil, err
+func GetDeploymentList(indexer *client.CacheIndexer, namespace string, opts metaV1.ListOptions) ([]v1beta1.Deployment, error) {
+	cacheDeployments := indexer.Deployment.List()
+	var deployments []v1beta1.Deployment
+	for _, e := range cacheDeployments {
+		cacheDeployment, ok := e.(*v1beta1.Deployment)
+		if !ok {
+			continue
+		}
+		if cacheDeployment.Namespace != namespace {
+			continue
+		}
+		deployments = append(deployments, *cacheDeployment)
 	}
 
-	return deployments.Items, nil
+	sort.Slice(deployments, func(i, j int) bool {
+		return deployments[i].Name > deployments[j].Name
+	})
+	return deployments, nil
 }
 
 func GetDeploymentResource(cli *kubernetes.Clientset, deployment *v1beta1.Deployment) (*common.ResourceList, error) {

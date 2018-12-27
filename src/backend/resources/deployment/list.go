@@ -5,11 +5,10 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/common"
 	"github.com/Qihoo360/wayne/src/backend/resources/dataselector"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/kubernetes"
 )
 
-func GetDeploymentPage(cli *kubernetes.Clientset, indexer *client.CacheIndexer, namespace string, q *common.QueryParam) (*common.Page, error) {
-	kubeDeployments, err := GetDeploymentList(cli, namespace, metaV1.ListOptions{})
+func GetDeploymentPage(indexer *client.CacheIndexer, namespace string, q *common.QueryParam) (*common.Page, error) {
+	kubeDeployments, err := GetDeploymentList(indexer, namespace, metaV1.ListOptions{})
 	if err != nil {
 		return nil, err
 	}
