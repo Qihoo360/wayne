@@ -2,20 +2,17 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { KubeNamespace } from '../../../model/v1/kubernetes/namespace';
-import {PageState} from '../../../page/page-state';
-import {BaseClient} from './base-client';
+import { PageState } from '../../../page/page-state';
+import { BaseClient } from './base-client';
 
 @Injectable()
 export class NamespaceClient {
   constructor(private http: HttpClient) {
   }
 
-  list(cluster: string): Observable<any> {
-    // for list all in one page
-    let params = new HttpParams();
-    params = params.set('pageSize', 102410241024 + '');
+  getNames(cluster: string): Observable<any> {
     return this.http
-      .get(`/api/v1/kubernetes/namespaces/clusters/${cluster}`, {params: params})
+      .get(`/api/v1/kubernetes/namespaces/clusters/${cluster}/names`)
       .catch(error => Observable.throw(error));
   }
 
