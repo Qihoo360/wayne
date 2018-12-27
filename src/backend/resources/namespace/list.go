@@ -22,6 +22,20 @@ func GetNamespacePage(cli *kubernetes.Clientset, q *common.QueryParam) (*common.
 	return dataselector.DataSelectPage(toCells(namespaces), q), nil
 }
 
+func GetAllNamespaceName(cli *kubernetes.Clientset) ([]string, error) {
+	kubeNamespaces, err := cli.CoreV1().Namespaces().List(metaV1.ListOptions{})
+	if err != nil {
+		return nil, err
+	}
+
+	namespaces := make([]string, 0)
+
+	for _, ns := range kubeNamespaces.Items {
+		namespaces = append(namespaces, ns.Name)
+	}
+	return namespaces, nil
+}
+
 func toCells(ns []Namespace) []dataselector.DataCell {
 	cells := make([]dataselector.DataCell, len(ns))
 	for i := range ns {
