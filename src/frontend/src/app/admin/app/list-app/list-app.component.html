@@ -36,7 +36,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let app of apps" [clrDgItem]="app">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editApp(app)">{{'BUTTON.EDIT' | translate}]</button>
+      <button class="action-item" (click)="editApp(app)">{{'BUTTON.EDIT' | translate}}</button>
       <button class="action-item" (click)="deleteApp(app)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-id">{{app.id}}</clr-dg-cell>

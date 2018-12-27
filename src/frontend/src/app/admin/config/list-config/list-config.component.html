@@ -16,7 +16,7 @@
   </clr-dg-column>
   <clr-dg-row *ngFor="let config of configs" [clrDgItem]="config">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editConfig(config)">{{'BUTTON.EDIT' | translate}]</button>
+      <button class="action-item" (click)="editConfig(config)">{{'BUTTON.EDIT' | translate}}</button>
       <button class="action-item" (click)="deleteConfig(config)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-id">{{config.id}}</clr-dg-cell>

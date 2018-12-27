@@ -32,8 +32,6 @@ export class KubeMigrationDeploymentComponent implements OnInit {
 
   deployment: KubeDeployment;
   isSubmitOnGoing = false;
-
-  warningMsg: string;
   cluster: string;
 
   apps: App[];
@@ -63,7 +61,6 @@ export class KubeMigrationDeploymentComponent implements OnInit {
   openModal(cluster: string, deployment: KubeDeployment) {
     this.modalOpened = true;
     this.isSubmitOnGoing = false;
-    this.warningMsg = '';
     this.cluster = cluster;
 
     this.deployment = JSON.parse(defaultDeployment);
@@ -71,22 +68,11 @@ export class KubeMigrationDeploymentComponent implements OnInit {
     this.deployment.metadata.labels = deployment.metadata.labels;
     this.deployment.metadata.annotations = deployment.metadata.annotations;
     this.deployment.spec = deployment.spec;
-    this.validLabel(deployment);
     this.initJsonEditor();
   }
 
   initJsonEditor(): void {
     this.aceEditorService.announceMessage(AceEditorMsg.Instance(this.deployment));
-  }
-
-  validLabel(deployment: KubeDeployment) {
-    const app = deployment.spec.selector.matchLabels['app'];
-    if (!app) {
-      this.warningMsg = '.spec.selector.matchLabels 没有app标签，直接发布可能会导致游离的rs！';
-    }
-    if (app !== deployment.metadata.name) {
-      this.warningMsg = '.spec.selector.matchLabels app标签和部署名称不一致，直接发布可能会导致游离的rs！';
-    }
   }
 
   onCancel() {

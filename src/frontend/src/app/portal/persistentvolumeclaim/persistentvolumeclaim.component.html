@@ -22,6 +22,7 @@
       <button (click)="deletePvc()" class="wayne-button normal" *ngIf="authService.currentAppPermission.pvc.offline || authService.currentUser.admin">
         {{'PVC.DELETE' | translate}}
       </button>
+      <button class="wayne-button normal" (click)="diffTpl()">{{'BUTTON.DIFF_TMP' | translate}}</button>
     </div>
     <div class="table-search-right">
       <div class="toggle-switch">

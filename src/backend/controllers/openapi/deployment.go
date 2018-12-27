@@ -8,6 +8,9 @@ import (
 	"strings"
 	"time"
 
+	"k8s.io/api/apps/v1beta1"
+	"k8s.io/api/core/v1"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/common"
 	"github.com/Qihoo360/wayne/src/backend/models"
@@ -16,8 +19,6 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/resources/pod"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	"k8s.io/api/apps/v1beta1"
-	"k8s.io/api/core/v1"
 )
 
 type DeploymentInfo struct {
@@ -35,6 +36,7 @@ type DeploymentStatusParam struct {
 	Deployment string `json:"deployment"`
 	// Required: true
 	Namespace string `json:"namespace"`
+	// 和升级部署存在差别，不允许同时填写多个 cluster
 	// Required: true
 	Cluster string `json:"cluster"`
 }
@@ -46,6 +48,7 @@ type RestartDeploymentParam struct {
 	Deployment string `json:"deployment"`
 	// Required: true
 	Namespace string `json:"namespace"`
+	// 和升级部署存在差别，不允许同时填写多个 cluster
 	// Required: true
 	Cluster string `json:"cluster"`
 }
@@ -57,18 +60,22 @@ type UpgradeDeploymentParam struct {
 	Deployment string `json:"deployment"`
 	// Required: true
 	Namespace string `json:"namespace"`
+	// 支持同时填写多个 Cluster，只需要在 cluster 之间使用英文半角的逗号分隔即可
 	// Required: true
-	Cluster  string   `json:"cluster"`
-	clusters []string `json:"-"`
+	Cluster  string `json:"cluster"`
+	clusters []string
 	// Required: false
 	TemplateId int `json:"template_id"`
+	// 该字段为 true 的时候，会自动使用新生成的配置模板上线，否则会只创建对应的模板，并且将模板 ID 返回（用于敏感的需要手动操作的上线环境）
 	// Required: false
 	Publish bool `json:"publish"`
+	// 升级的描述
 	// Required: false
 	Description string `json:"description"`
+	// 该字段为扁平化为字符串的 key-value 字典，填写格式为 容器名1=镜像名1,容器名2=镜像名2 (即:多个容器之间使用英文半角的逗号分隔）
 	// Required: false
-	Images   string            `json:"images"`
-	imageMap map[string]string `json:"-"`
+	Images   string `json:"images"`
+	imageMap map[string]string
 }
 
 // swagger:parameters ScaleDeploymentParam
@@ -78,8 +85,10 @@ type ScaleDeploymentParam struct {
 	Deployment string `json:"deployment"`
 	// Required: true
 	Namespace string `json:"namespace"`
+	// 和升级部署存在差别，不允许同时填写多个 cluster
 	// Required: true
 	Cluster string `json:"cluster"`
+	// 期望调度到的副本数量，范围：(0,32]
 	// Required: true
 	Replicas int `json:"replicas"`
 }

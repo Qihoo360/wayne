@@ -11,6 +11,7 @@ import { MessageHandlerService } from '../../message-handler/message-handler.ser
 import { CacheService } from '../../auth/cache.service';
 import { AceEditorMsg } from '../../ace-editor/ace-editor';
 import { mergeDeep } from '../../utils';
+import { ObjectMeta } from '../../model/v1/kubernetes/base';
 
 export class CreateEditResourceTemplate {
   ngForm: NgForm;
@@ -75,7 +76,7 @@ export class CreateEditResourceTemplate {
   // 处理资源（挂载系统 label 等）
   generateResource(kubeResource: any): any {
     kubeResource.metadata.name = this.resource.name;
-    kubeResource.metadata.labels =  this.generateLabels(this.kubeResource.metadata.labels);
+    kubeResource.metadata.labels = this.generateLabels(this.kubeResource.metadata.labels);
     return kubeResource;
   }
 
@@ -94,7 +95,19 @@ export class CreateEditResourceTemplate {
     if (!template) {
       template = this.template.template;
     }
+    this.removeUnused(template);
     this.kubeResource = mergeDeep(JSON.parse(this.defaultKubeResource), template);
+  }
+
+  // remove unused fields, deal with user advanced mode paste yaml/json manually
+  removeUnused(obj: any) {
+    const metaData = new ObjectMeta();
+    metaData.name = obj.metadata.name;
+    metaData.namespace = obj.metadata.namespace;
+    metaData.labels = obj.metadata.labels;
+    metaData.annotations = obj.metadata.annotations;
+    obj.metadata = metaData;
+    obj.status = undefined;
   }
 
   public get isValid(): boolean {

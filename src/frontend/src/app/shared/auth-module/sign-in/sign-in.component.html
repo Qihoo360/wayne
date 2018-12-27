@@ -3,7 +3,7 @@
     <div>
       <div style="padding-bottom:5px;text-align:center;">
         <img src="assets/images/wayne-logo.blue.svg" width="200px" alt=""><br>
-        <strong>{{getTitle()}} v{{version}}</strong>
+        <strong>{{getTitle()}} {{version}}</strong>
       </div>
     </div>
     <div *ngIf="authService.config?.enableDBLogin || authService.config?.ldapLogin"

@@ -25,8 +25,8 @@ type resppodlist struct {
 
 // swagger:parameters PodInfoParam
 type PodInfoParam struct {
-	// A label key of k8s pod.
 	// in: query
+	// Pod Label Key,只允许填写一个
 	// Required: true
 	LabelSelector string `json:"labelSelector"`
 	// Required: true
@@ -35,11 +35,11 @@ type PodInfoParam struct {
 
 // swagger:parameters PodInfoFromIPParam
 type PodInfoFromIPParam struct {
-	// A list of ip.
 	// in: query
+	// Pod IP 列表，使用逗号分隔
 	// Required: true
-	IPS string          `json:"ips"`
-	ips map[string]bool `json:"-"`
+	IPS string `json:"ips"`
+	ips map[string]bool
 	// Required: true
 	Cluster string `json:"cluster"`
 }

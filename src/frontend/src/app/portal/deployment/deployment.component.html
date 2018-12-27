@@ -32,6 +32,7 @@
               *ngIf="authService.currentAppPermission.deployment.offline || authService.currentUser.admin">
         {{'DEPLOYMENT.DELETE' | translate}}
       </button>
+      <button class="wayne-button normal" (click)="diffTpl()">{{'BUTTON.DIFF_TMP' | translate}}</button>
       <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
         <wayne-checkbox-group [(ngModel)]="showList">
           <wayne-checkbox value="create_time">{{'TITLE.CREATE_TIME' | translate}}</wayne-checkbox>

@@ -18,6 +18,7 @@ import {
   HTTPGetAction,
   KubeDeployment,
   Lifecycle,
+  ObjectMeta,
   Probe,
   ResourceRequirements,
   RollingUpdateDeployment,
@@ -179,7 +180,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
       const metaData = JSON.parse(this.deployment.metaData);
       if (metaData.resources &&
         metaData.resources.memoryLimit) {
-        memoryLimit = parseInt(metaData.resources.memoryLimit);
+        memoryLimit = parseInt(metaData.resources.memoryLimit, 10);
       }
     }
     return memoryLimit;
@@ -191,7 +192,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
       const metaData = JSON.parse(this.deployment.metaData);
       if (metaData.resources &&
         metaData.resources.cpuLimit) {
-        cpuLimit = parseInt(metaData.resources.cpuLimit);
+        cpuLimit = parseInt(metaData.resources.cpuLimit, 10);
       }
     }
     return cpuLimit;
@@ -241,10 +242,10 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
 
   ngOnInit(): void {
     this.initDefault();
-    const appId = parseInt(this.route.parent.snapshot.params['id']);
+    const appId = parseInt(this.route.parent.snapshot.params['id'], 10);
     const namespaceId = this.cacheService.namespaceId;
-    const deploymentId = parseInt(this.route.snapshot.params['deploymentId']);
-    const tplId = parseInt(this.route.snapshot.params['tplId']);
+    const deploymentId = parseInt(this.route.snapshot.params['deploymentId'], 10);
+    const tplId = parseInt(this.route.snapshot.params['tplId'], 10);
     const observables = Array(
       this.appService.getById(appId, namespaceId),
       this.deploymentService.getById(deploymentId, appId)
@@ -284,7 +285,10 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
     return labels;
   }
 
-  buildSelectorLabels() {
+  buildSelectorLabels(labels: {}) {
+    if (Object.keys(labels).length > 0) {
+      return labels;
+    }
     const result = {};
     result['app'] = this.deployment.name;
     return result;
@@ -293,7 +297,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
   fillDeploymentLabel(kubeDeployment: KubeDeployment): KubeDeployment {
     kubeDeployment.metadata.name = this.deployment.name;
     kubeDeployment.metadata.labels = this.buildLabels(this.kubeDeployment.metadata.labels);
-    kubeDeployment.spec.selector.matchLabels = this.buildSelectorLabels();
+    kubeDeployment.spec.selector.matchLabels = this.buildSelectorLabels(this.kubeDeployment.spec.selector.matchLabels);
     kubeDeployment.spec.template.metadata.labels = this.buildLabels(this.kubeDeployment.spec.template.metadata.labels);
     return kubeDeployment;
   }
@@ -381,7 +385,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
   }
 
   probeTypeChange(probe: Probe, type: number) {
-    switch (parseInt(type.toString())) {
+    switch (parseInt(type.toString(), 10)) {
       case 0:
         probe.httpGet = new HTTPGetAction();
         probe.tcpSocket = undefined;
@@ -404,18 +408,20 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
   }
 
   lifecyclePostStartProbeTypeChange(type: number, i: number) {
-    this.kubeDeployment.spec.template.spec.containers[i].lifecycle.postStart = this.lifecycleProbeTypeChange(this.kubeDeployment.spec.template.spec.containers[i].lifecycle.postStart, type);
+    this.kubeDeployment.spec.template.spec.containers[i].lifecycle.postStart = this.lifecycleProbeTypeChange(
+      this.kubeDeployment.spec.template.spec.containers[i].lifecycle.postStart, type);
   }
 
   lifecyclePreStopProbeTypeChange(type: number, i: number) {
-    this.kubeDeployment.spec.template.spec.containers[i].lifecycle.preStop = this.lifecycleProbeTypeChange(this.kubeDeployment.spec.template.spec.containers[i].lifecycle.preStop, type);
+    this.kubeDeployment.spec.template.spec.containers[i].lifecycle.preStop = this.lifecycleProbeTypeChange(
+      this.kubeDeployment.spec.template.spec.containers[i].lifecycle.preStop, type);
   }
 
   lifecycleProbeTypeChange(handler: Handler, type: number) {
     if (!handler) {
       handler = new Handler();
     }
-    switch (parseInt(type.toString())) {
+    switch (parseInt(type.toString(), 10)) {
       case -1:
         handler.httpGet = undefined;
         handler.tcpSocket = undefined;
@@ -462,14 +468,14 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
     const preStop = this.kubeDeployment.spec.template.spec.containers[i].lifecycle.preStop;
     return preStop && preStop.exec &&
       preStop.exec.command && preStop.exec.command.length > 0 &&
-      preStop.exec.command[0] != this.defaultSafeExecCommand;
+      preStop.exec.command[0] !== this.defaultSafeExecCommand;
   }
 
   safeExitSelected(i: number): boolean {
     const preStop = this.kubeDeployment.spec.template.spec.containers[i].lifecycle.preStop;
     return preStop && preStop.exec &&
       preStop.exec.command && preStop.exec.command.length > 0 &&
-      preStop.exec.command[0] == this.defaultSafeExecCommand;
+      preStop.exec.command[0] === this.defaultSafeExecCommand;
   }
 
   trackByFn(index, item) {
@@ -478,7 +484,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
 
   defaultEnv(type: number): EnvVar {
     const env = new EnvVar();
-    switch (parseInt(type.toString())) {
+    switch (parseInt(type.toString(), 10)) {
       case 0:
         env.value = '';
         break;
@@ -498,7 +504,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
 
   defaultEnvFrom(type: number): EnvFromSource {
     const envFrom = new EnvFromSource();
-    switch (parseInt(type.toString())) {
+    switch (parseInt(type.toString(), 10)) {
       case 1:
         envFrom.configMapRef = new ConfigMapEnvSource();
         break;
@@ -547,10 +553,12 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
     if (kubeDeployment.spec.strategy) {
       if (kubeDeployment.spec.strategy.type === 'RollingUpdate' && kubeDeployment.spec.strategy.rollingUpdate) {
         if (kubeDeployment.spec.strategy.rollingUpdate.maxSurge.toString().indexOf('%') < 0) {
-          kubeDeployment.spec.strategy.rollingUpdate.maxSurge = parseInt(kubeDeployment.spec.strategy.rollingUpdate.maxSurge.toString());
+          kubeDeployment.spec.strategy.rollingUpdate.maxSurge = parseInt(
+            kubeDeployment.spec.strategy.rollingUpdate.maxSurge.toString(), 10);
         }
         if (kubeDeployment.spec.strategy.rollingUpdate.maxUnavailable.toString().indexOf('%') < 0) {
-          kubeDeployment.spec.strategy.rollingUpdate.maxUnavailable = parseInt(kubeDeployment.spec.strategy.rollingUpdate.maxUnavailable.toString());
+          kubeDeployment.spec.strategy.rollingUpdate.maxUnavailable = parseInt(
+            kubeDeployment.spec.strategy.rollingUpdate.maxUnavailable.toString(), 10);
         }
       }
       if (kubeDeployment.spec.strategy.type === 'Recreate') {
@@ -575,10 +583,10 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
         if (container.lifecycle) {
           // 置空handler，避免出现 Deployment.apps 'infra-nginx' is invalid: spec.template.spec.containers[0].lifecycle.postStart:
           // Required value: must specify a handler type
-          if (container.lifecycle.postStart != undefined && Object.keys(container.lifecycle.postStart).length === 0) {
+          if (container.lifecycle.postStart !== undefined && Object.keys(container.lifecycle.postStart).length === 0) {
             container.lifecycle.postStart = undefined;
           }
-          if (container.lifecycle.preStop != undefined && Object.keys(container.lifecycle.preStop).length === 0) {
+          if (container.lifecycle.preStop !== undefined && Object.keys(container.lifecycle.preStop).length === 0) {
             container.lifecycle.preStop = undefined;
           }
           if (container.lifecycle.postStart &&
@@ -665,10 +673,22 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
 
   saveDeployment(kubeDeployment: KubeDeployment) {
     // this.removeResourceUnit(kubeStatefulSet);
+    this.removeUnused(kubeDeployment);
     this.fillDefault(kubeDeployment);
     this.convertProbeCommandToText(kubeDeployment);
     this.kubeDeployment = kubeDeployment;
     this.initNavList();
+  }
+
+  // remove unused fields, deal with user advanced mode paste yaml/json manually
+  removeUnused(obj: KubeDeployment) {
+    const metaData = new ObjectMeta();
+    metaData.name = obj.metadata.name;
+    metaData.namespace = obj.metadata.namespace;
+    metaData.labels = obj.metadata.labels;
+    metaData.annotations = obj.metadata.annotations;
+    obj.metadata = metaData;
+    obj.status = undefined;
   }
 
   convertProbeCommandToText(kubeDeployment: KubeDeployment) {
@@ -718,7 +738,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
       kubeDeployment.spec.strategy = new DeploymentStrategy();
       kubeDeployment.spec.strategy.type = 'RollingUpdate';
     }
-    if (kubeDeployment.spec.strategy.type == 'RollingUpdate' && !kubeDeployment.spec.strategy.rollingUpdate) {
+    if (kubeDeployment.spec.strategy.type === 'RollingUpdate' && !kubeDeployment.spec.strategy.rollingUpdate) {
       kubeDeployment.spec.strategy.rollingUpdate = new RollingUpdateDeployment();
       kubeDeployment.spec.strategy.rollingUpdate.maxSurge = '20%';
       kubeDeployment.spec.strategy.rollingUpdate.maxUnavailable = 1;

@@ -7,71 +7,71 @@
     <clr-dg-string-filter [clrDgStringFilter]="nameFilter"></clr-dg-string-filter>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['标签']">
+    <ng-container *clrDgHideableColumn="showState['label']">
       标签
     </ng-container>
     <clr-dg-string-filter [clrDgStringFilter]="labelFilter"></clr-dg-string-filter>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['Taints']">
+    <ng-container *clrDgHideableColumn="showState['taints']">
       Taints
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgSortBy]="readyComparator">
-    <ng-container *clrDgHideableColumn="showState['Ready']">
+    <ng-container *clrDgHideableColumn="showState['ready']">
       Ready
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgSortBy]="schedulerComparator">
-    <ng-container *clrDgHideableColumn="showState['可调度']">
+    <ng-container *clrDgHideableColumn="showState['schedulable']">
       可调度
     </ng-container>
   </clr-dg-column>
 
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['CPU(Core)']">
+    <ng-container *clrDgHideableColumn="showState['cpu']">
       CPU(Core)
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['Memory(G)']">
+    <ng-container *clrDgHideableColumn="showState['memory']">
       Memory(G)
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['Kubelet版本']">
+    <ng-container *clrDgHideableColumn="showState['kubeletVersion']">
       Kubelet版本
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['Age']">
+    <ng-container *clrDgHideableColumn="showState['age']">
       Age
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['kubeProxy版本']">
+    <ng-container *clrDgHideableColumn="showState['kubeProxyVersion']">
       kubeProxy版本
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgSortBy]="osImageComparator">
-    <ng-container *clrDgHideableColumn="showState['系统版本']">
+    <ng-container *clrDgHideableColumn="showState['osImage']">
       系统版本
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgSortBy]="kernelComparator">
-    <ng-container *clrDgHideableColumn="showState['内核版本']">
+    <ng-container *clrDgHideableColumn="showState['kernelVersion']">
       内核版本
     </ng-container>
   </clr-dg-column>
 
   <clr-dg-column [clrDgSortBy]="criComparator">
-    <ng-container *clrDgHideableColumn="showState['CRI版本']">
+    <ng-container *clrDgHideableColumn="showState['containerRuntimeVersion']">
       CRI版本
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *clrDgItems="let node of nodes">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editNode(node)">{{'BUTTON.EDIT' | translate}]</button>
+      <button class="action-item" (click)="editNode(node)">{{'BUTTON.EDIT' | translate}}</button>
       <button class="action-item" (click)="deleteNode(node)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="copy">{{node.name}}</clr-dg-cell>

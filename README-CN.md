@@ -3,6 +3,7 @@
 [![Build Statue](https://travis-ci.org/Qihoo360/wayne.svg?branch=master)](https://travis-ci.org/Qihoo360/wayne)
 [![Build Tag](https://img.shields.io/github/tag/Qihoo360/wayne.svg)](https://github.com/Qihoo360/wayne/releases)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/Qihoo360/wayne/blob/master/LICENSE)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Qihoo360/wayne)](https://goreportcard.com/report/github.com/Qihoo360/wayne)
 
 [English](https://github.com/Qihoo360/wayne/blob/master/README.md) | [中文](https://github.com/Qihoo360/wayne/blob/master/README-CN.md)
 
@@ -61,7 +62,7 @@ $ go get github.com/Qihoo360/wayne
 若您没有可用的 MySQL 服务，可以通过 docker-compose 快速创建：
 
 ```bash
-$ docker-compose up mysql
+$ docker-compose up -d mysql
 ```
 
 - 创建配置文件
@@ -74,8 +75,12 @@ $ cd src/backend/conf && touch dev.conf
 
 ```bash
 DBName = wayne
-# MySQL address，如果MySQL是通过docker-compose启动的，
-# 这里使用 docker-compose.yaml 定义的 MySQL 虚拟域名
+# MySQL连接配置，默认是mysql(MySQL服务名称).
+# 如果使用docker-compose启动MySQL，同时你没有改变mysql的服务名称，那么保留默认配置即可。
+# 你也可以通过执行"docker network inspect wayne_default"(如果没有使用docker-compose
+# 的默认网络，需要将“wayne_default”替换为实际使用的网络名称)来获得mysql容器IP，然后将
+# “mysql”替换为其容器IP。当你使用自定义运行环境时，使用容器IP会更加灵活。例如：
+# "DBTns = tcp(172.17.0.2:3306)"
 DBTns = tcp(mysql:3306)
 DBUser = root
 DBPasswd = root
@@ -86,7 +91,7 @@ DBPasswd = root
 进入Wayne根目录，执行
 
 ```bash
-$ docker-compose up wayne
+$ docker-compose up -d wayne
 ```
 
 通过上述命令，您可以从通过 http://127.0.0.1:8080/admin 访问本地 Wayne, 默认管理员账号 admin:admin。

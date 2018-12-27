@@ -31,17 +31,17 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
   currentForm: FormGroup;
 
   secretTpl: SecretTpl = new SecretTpl();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
   actionType: ActionType;
   app: App;
   secret: Secret;
   top: number;
   box: HTMLElement;
   kubeSecret: KubeSecret = new KubeSecret();
-  componentName = '配置集';
+  componentName = '加密字典';
   clusters: Cluster[];
-  eventList: any[] = new Array();
+  eventList: any[] = Array();
 
   constructor(private secretTplService: SecretTplService,
               private secretService: SecretService,
@@ -92,7 +92,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
 
   get datas(): FormArray {
     return this.currentForm.get('datas') as FormArray;
-  };
+  }
 
   initData() {
     return this.fb.group({
@@ -115,7 +115,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
 
   createForm() {
     let disabled = false;
-    if (this.actionType == ActionType.EDIT) {
+    if (this.actionType === ActionType.EDIT) {
       disabled = true;
     }
     this.currentForm = this.fb.group({
@@ -130,7 +130,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
   }
 
   initClusterGroups() {
-    let clusters = Array<FormGroup>();
+    const clusters = Array<FormGroup>();
     this.clusters.forEach(cluster => {
       clusters.push(this.fb.group({
         checked: cluster.checked,
@@ -144,11 +144,11 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
   }
 
   ngOnInit(): void {
-    let appId = parseInt(this.route.parent.snapshot.params['id']);
-    let namespaceId = this.cacheService.namespaceId;
-    let secretId = parseInt(this.route.snapshot.params['secretId']);
-    let tplId = parseInt(this.route.snapshot.params['tplId']);
-    let observables = Array(
+    const appId = parseInt(this.route.parent.snapshot.params['id'], 10);
+    const namespaceId = this.cacheService.namespaceId;
+    const secretId = parseInt(this.route.snapshot.params['secretId'], 10);
+    const tplId = parseInt(this.route.snapshot.params['tplId'], 10);
+    const observables = Array(
       this.clusterService.getNames(),
       this.appService.getById(appId, namespaceId),
       this.secretService.getById(secretId, appId)
@@ -162,7 +162,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
     this.createForm();
     Observable.combineLatest(observables).subscribe(
       response => {
-        let clusters = response[0].data;
+        const clusters = response[0].data;
         for (let i = 0; i < clusters.length; i++) {
           clusters[i].checked = false;
         }
@@ -170,15 +170,15 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
 
         this.app = response[1].data;
         this.secret = response[2].data;
-        let tpl = response[3];
+        const tpl = response[3];
         if (tpl) {
           this.secretTpl = tpl.data;
           this.saveSecretTpl(JSON.parse(this.secretTpl.template));
           if (this.secretTpl.metaData) {
-            let clusters = JSON.parse(this.secretTpl.metaData).clusters;
-            for (let cluster of clusters) {
+            const configedClusters = JSON.parse(this.secretTpl.metaData).clusters;
+            for (const cluster of configedClusters) {
               for (let i = 0; i < this.clusters.length; i++) {
-                if (cluster == this.clusters[i].name) {
+                if (cluster === this.clusters[i].name) {
                   this.clusters[i].checked = true;
                 }
               }
@@ -210,18 +210,18 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
       return;
     }
     this.isSubmitOnGoing = true;
-    let metaDataStr = this.secretTpl.metaData ? this.secretTpl.metaData : '{}';
-    let clusters = Array<string>();
+    const metaDataStr = this.secretTpl.metaData ? this.secretTpl.metaData : '{}';
+    const clusters = Array<string>();
     this.currentForm.controls.clusters.value.map((cluster: Cluster) => {
       if (cluster.checked) {
         clusters.push(cluster.name);
       }
     });
-    let metaData = JSON.parse(metaDataStr);
+    const metaData = JSON.parse(metaDataStr);
     metaData['clusters'] = clusters;
     this.secretTpl.metaData = JSON.stringify(metaData);
 
-    let kubeSecret = this.getKubeSecretByForm();
+    const kubeSecret = this.getKubeSecretByForm();
     this.secretTpl.template = JSON.stringify(kubeSecret);
     this.secretTpl.id = undefined;
     this.secretTplService.create(this.secretTpl, this.app.id).subscribe(
@@ -260,7 +260,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
     this.secretTpl.name = this.secret.name;
     this.secretTpl.secretId = this.secret.id;
 
-    let kubeSecret = this.kubeSecret;
+    const kubeSecret = this.kubeSecret;
     if (!kubeSecret.metadata) {
       kubeSecret.metadata = new ObjectMeta();
     }
@@ -271,7 +271,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
     kubeSecret.metadata.labels = this.buildLabels(kubeSecret.metadata.labels);
     if (formValue.datas && formValue.datas.length > 0) {
       kubeSecret.data = {};
-      for (let data of formValue.datas) {
+      for (const data of formValue.datas) {
         kubeSecret.data[data.dataName] = btoa(data.dataValue);
       }
     }
@@ -283,17 +283,29 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
   }
 
   saveSecretTpl(kubeSecret: KubeSecret) {
+    this.removeUnused(kubeSecret);
     if (kubeSecret && kubeSecret.data) {
       this.kubeSecret = kubeSecret;
-      let datas = Array<FormGroup>();
+      const datas = Array<FormGroup>();
       Object.getOwnPropertyNames(kubeSecret.data).map(key => {
         datas.push(this.fb.group({
           dataName: key,
           dataValue: atob(kubeSecret.data[key]),
-        }),);
+        }));
       });
       this.currentForm.setControl('datas', this.fb.array(datas));
     }
+  }
+
+  // remove unused fields, deal with user advanced mode paste yaml/json manually
+  removeUnused(obj: any) {
+    const metaData = new ObjectMeta();
+    metaData.name = obj.metadata.name;
+    metaData.namespace = obj.metadata.namespace;
+    metaData.labels = obj.metadata.labels;
+    metaData.annotations = obj.metadata.annotations;
+    obj.metadata = metaData;
+    obj.status = undefined;
   }
 }
 
