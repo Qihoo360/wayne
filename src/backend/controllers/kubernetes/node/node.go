@@ -6,7 +6,6 @@ import (
 
 	"k8s.io/api/core/v1"
 	utilerrors "k8s.io/apimachinery/pkg/util/errors"
-	"k8s.io/client-go/kubernetes"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
@@ -44,21 +43,21 @@ func (c *KubeNodeController) NodeStatistics() {
 	countSyncMap := sync.Map{}
 	countMap := make(map[string]int)
 	if cluster == "" {
-		clients := client.Clients()
+		managers := client.Managers()
 		var errs []error
 		wg := sync.WaitGroup{}
-		for clu, cli := range clients {
+		for clu, manager := range managers {
 			wg.Add(1)
-			go func(clu string, cli *kubernetes.Clientset) {
+			go func(clu string, mang *client.ClusterManager) {
 				defer wg.Done()
-				count, err := node.GetNodeCounts(cli)
+				count, err := node.GetNodeCounts(mang.Indexer)
 				if err != nil {
 					logs.Error("get k8s nodes count error. %v", err.Error())
 					errs = append(errs, err)
 				}
 				total += count
 				countSyncMap.Store(clu, count)
-			}(clu, cli)
+			}(clu, manager)
 
 		}
 		wg.Wait()
@@ -71,9 +70,9 @@ func (c *KubeNodeController) NodeStatistics() {
 			return true
 		})
 	} else {
-		cli, err := client.Client(cluster)
+		manager, err := client.Manager(cluster)
 		if err == nil {
-			count, err := node.GetNodeCounts(cli)
+			count, err := node.GetNodeCounts(manager.Indexer)
 			if err != nil {
 				logs.Error("get k8s nodes count error. %v", err.Error())
 				c.HandleError(err)

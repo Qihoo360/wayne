@@ -39,12 +39,9 @@ type NodeStatus struct {
 	NodeInfo v1.NodeSystemInfo          `json:"nodeInfo,omitempty"`
 }
 
-func GetNodeCounts(cli *kubernetes.Clientset) (int, error) {
-	nodes, err := cli.CoreV1().Nodes().List(metaV1.ListOptions{})
-	if err != nil {
-		return 0, err
-	}
-	return len(nodes.Items), nil
+func GetNodeCounts(indexer *client.CacheIndexer) (int, error) {
+	nodeList := indexer.Node.List()
+	return len(nodeList), nil
 }
 
 func ListNode(indexer *client.CacheIndexer) ([]Node, error) {
