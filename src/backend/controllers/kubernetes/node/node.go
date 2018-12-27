@@ -4,14 +4,14 @@ import (
 	"encoding/json"
 	"sync"
 
+	"k8s.io/api/core/v1"
+	utilerrors "k8s.io/apimachinery/pkg/util/errors"
+	"k8s.io/client-go/kubernetes"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/resources/node"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	"k8s.io/api/core/v1"
-	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	utilerrors "k8s.io/apimachinery/pkg/util/errors"
-	"k8s.io/client-go/kubernetes"
 )
 
 type KubeNodeController struct {
@@ -94,9 +94,9 @@ func (c *KubeNodeController) NodeStatistics() {
 // @router /clusters/:cluster [get]
 func (c *KubeNodeController) List() {
 	cluster := c.Ctx.Input.Param(":cluster")
-	cli, err := client.Client(cluster)
+	manager, err := client.Manager(cluster)
 	if err == nil {
-		result, err := node.ListNode(cli, metaV1.ListOptions{})
+		result, err := node.ListNode(manager.Indexer)
 		if err != nil {
 			logs.Error("list node by cluster (%s) error.%v", cluster, err)
 			c.HandleError(err)

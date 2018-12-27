@@ -24,7 +24,7 @@ type Deployment struct {
 	Containers []string          `json:"containers"`
 }
 
-func GetDeploymentList(indexer *client.CacheIndexer, namespace string, opts metaV1.ListOptions) ([]v1beta1.Deployment, error) {
+func GetDeploymentList(indexer *client.CacheIndexer, namespace string) ([]v1beta1.Deployment, error) {
 	cacheDeployments := indexer.Deployment.List()
 	var deployments []v1beta1.Deployment
 	for _, e := range cacheDeployments {
