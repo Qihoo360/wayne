@@ -1,4 +1,4 @@
-<clr-modal [(clrModalOpen)]="modalOpened">
+<clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'lg'">
   <h3 class="modal-title">{{title | translate}}</h3>
   <div class="modal-body">
     <form #ngForm="ngForm">
@@ -41,6 +41,7 @@
                     rows="3">
           </textarea>
         </div>
+        <resource-limit *ngIf="authService.currentUser.admin"></resource-limit>
       </section>
     </form>
   </div>

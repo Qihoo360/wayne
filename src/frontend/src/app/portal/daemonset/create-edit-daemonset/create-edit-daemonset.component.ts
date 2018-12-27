@@ -12,7 +12,7 @@ import { MessageHandlerService } from '../../../shared/message-handler/message-h
 import { AuthService } from '../../../shared/auth/auth.service';
 import { ApiNameGenerateRule } from '../../../shared/utils';
 import { TranslateService } from '@ngx-translate/core';
-
+import { ResourceLimitComponent } from '../../../shared/component/resource-limit/resource-limit.component';
 @Component({
   selector: 'create-edit-daemonset',
   templateUrl: 'create-edit-daemonset.component.html',
@@ -25,6 +25,8 @@ export class CreateEditDaemonSetComponent implements OnInit {
   ngForm: NgForm;
   @ViewChild('ngForm')
   currentForm: NgForm;
+  @ViewChild(ResourceLimitComponent)
+  resourceLimitComponent: ResourceLimitComponent;
 
   daemonSet = new DaemonSet();
   checkOnGoing: boolean = false;
@@ -36,7 +38,7 @@ export class CreateEditDaemonSetComponent implements OnInit {
   clusters = Array<Cluster>();
 
   constructor(private daemonSetService: DaemonSetService,
-              private authService: AuthService,
+              public authService: AuthService,
               public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
   }
@@ -75,6 +77,7 @@ export class CreateEditDaemonSetComponent implements OnInit {
               }
             }
           }
+          this.resourceLimitComponent.setValue(metaData.resources);
         },
         error => {
           this.messageHandlerService.handleError(error);
@@ -84,6 +87,7 @@ export class CreateEditDaemonSetComponent implements OnInit {
       this.actionType = ActionType.ADD_NEW;
       this.title = 'DAEMONSET.CREATE';
       this.daemonSet = new DaemonSet();
+      this.resourceLimitComponent.setValue();
     }
   }
 
@@ -106,14 +110,15 @@ export class CreateEditDaemonSetComponent implements OnInit {
     if (!this.daemonSet.metaData) {
       this.daemonSet.metaData = '{}';
     }
-    let metaData = JSON.parse(this.daemonSet.metaData);
-    let checkedCluster = Array<string>();
+    const metaData = JSON.parse(this.daemonSet.metaData);
+    const checkedCluster = Array<string>();
     this.clusters.map(cluster => {
       if (cluster.checked) {
         checkedCluster.push(cluster.name);
       }
     });
     metaData['clusters'] = checkedCluster;
+    metaData['resources'] = this.resourceLimitComponent.getValue();
     this.daemonSet.metaData = JSON.stringify(metaData);
     switch (this.actionType) {
       case ActionType.ADD_NEW:
