@@ -118,6 +118,18 @@
     "DELETE": "删除守护进程集",
     "EDIT": "编辑守护进程集"
   },
+  "DAEMONSET_ADMIN": {
+    "CREATE": {
+      "APPLYMENT": "应用",
+      "METADATA": "元数据",
+      "RULE": "部署名称不符合规范，验证规则"
+    },
+    "DAEMONSET_CREATE": "创建守护进程",
+    "DAEMONSET_LIST": "守护进程列表",
+    "TRASH": {
+      "DAEMONSET_DELETE_LIST": "已删除守护进程集列表"
+    }
+  },
   "DEPLOYMENT": {
     "CREATE": "创建部署",
     "CREATE_EDIT": {
@@ -149,30 +161,6 @@
     },
     "TRASH": {
       "DEPLOYMENT_DELETE_LIST": "已删除部署列表"
-    }
-  },
-  "STATEFULSET_ADMIN": {
-    "CREATE": {
-      "APPLYMENT": "应用",
-      "RULE": "部署名称不符合规范，验证规则",
-      "METADATE": "元数据"
-    },
-    "TRASH": {
-      "STATEFULSET_DELETE_LIST": "已删除状态副本集列表"
-    },
-    "STATEFULSET_LIST": "状态副本集列表",
-    "STATEFULSET_CREATE": "创建状态副本集"
-  },
-  "DAEMONSET_ADMIN": {
-    "DAEMONSET_LIST": "守护进程列表",
-    "DAEMONSET_CREATE": "创建守护进程",
-    "CREATE": {
-      "APPLYMENT": "应用",
-      "RULE": "部署名称不符合规范，验证规则",
-      "METADATA": "元数据"
-    },
-    "TRASH": {
-      "DAEMONSET_DELETE_LIST": "已删除守护进程集列表"
     }
   },
   "EVENT": {
@@ -366,9 +354,9 @@
   "SHARED": {
     "DIFF": {
       "CHECK_DATA": "请检查数据",
-      "TRANS_ERROR": "模板切换失败，请检查数据",
       "TMP_LESS": "请选择俩个模板",
-      "TMP_MORE": "选择多个模板仅对比俩个"
+      "TMP_MORE": "选择多个模板仅对比俩个",
+      "TRANS_ERROR": "模板切换失败，请检查数据"
     }
   },
   "STATEFULSET": {
@@ -380,6 +368,18 @@
     "DELETE": "删除状态副本集",
     "EDIT": "编辑状态副本集",
     "TITLE": "状态副本集"
+  },
+  "STATEFULSET_ADMIN": {
+    "CREATE": {
+      "APPLYMENT": "应用",
+      "METADATE": "元数据",
+      "RULE": "部署名称不符合规范，验证规则"
+    },
+    "STATEFULSET_CREATE": "创建状态副本集",
+    "STATEFULSET_LIST": "状态副本集列表",
+    "TRASH": {
+      "STATEFULSET_DELETE_LIST": "已删除状态副本集列表"
+    }
   },
   "TITLE": {
     "ACTION": "操作",
