@@ -19,6 +19,8 @@
       (delete)="onDeleteResourceEvent($event)"
       (detail)="onEditResourceEvent($event)"
       (edit)="onEditResourceEvent($event)"
+      [page]="pageState.page"
+      (paginate)="retrieveResource($event)"
     >
     </wayne-list-namespace>
   </div>
