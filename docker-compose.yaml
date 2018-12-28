@@ -16,9 +16,6 @@ services:
     container_name: wayne_mysql
     environment:
       MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_DATABASE: wayne
-      MYSQL_USER: wayne
-      MYSQL_PASSWORD: wayne
     volumes:
       - ./_dev/mysql:/var/lib/mysql:z
     networks:
