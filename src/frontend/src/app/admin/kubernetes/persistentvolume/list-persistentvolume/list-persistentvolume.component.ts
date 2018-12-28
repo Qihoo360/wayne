@@ -76,12 +76,12 @@ export class ListPersistentVolumeComponent implements OnInit, OnDestroy {
       this.storage.save('pagesize', page);
     }
     if (page !== this._pageSize) {
-      this._pageSize = page;
+      this._pageSize = Number(page);
     }
   }
 
   ngOnInit(): void {
-    this._pageSize = parseInt(this.storage.get('pagesize') || '10',10);
+    this._pageSize = parseInt(this.storage.get('pagesize') || '10', 10);
   }
 
   retrieve() {

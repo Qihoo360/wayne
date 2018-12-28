@@ -73,31 +73,35 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
   showList: any[] = new Array();
   showState: object = showState;
 
-  constructor(private statefulsetService: StatefulsetService,
-              private publishHistoryService: PublishHistoryService,
-              private statefulsetTplService: StatefulsetTplService,
-              private statefulsetClient: StatefulsetClient,
-              private route: ActivatedRoute,
-              private router: Router,
-              private publishService: PublishService,
-              public cacheService: CacheService,
-              public authService: AuthService,
-              private cdr: ChangeDetectorRef,
-              private appService: AppService,
-              private tabDragService: TabDragService,
-              private el: ElementRef,
-              public translate: TranslateService,
-              private deletionDialogService: ConfirmationDialogService,
-              private clusterService: ClusterService,
-              private messageHandlerService: MessageHandlerService) {
+  constructor(
+    private statefulsetService: StatefulsetService,
+    private publishHistoryService: PublishHistoryService,
+    private statefulsetTplService: StatefulsetTplService,
+    private statefulsetClient: StatefulsetClient,
+    private route: ActivatedRoute,
+    private router: Router,
+    private publishService: PublishService,
+    public cacheService: CacheService,
+    public authService: AuthService,
+    private cdr: ChangeDetectorRef,
+    private appService: AppService,
+    private tabDragService: TabDragService,
+    private el: ElementRef,
+    public translate: TranslateService,
+    private deletionDialogService: ConfirmationDialogService,
+    private clusterService: ClusterService,
+    private messageHandlerService: MessageHandlerService
+  ) {
     this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
-      if (over) this.tabChange();
+      if (over) {
+        this.tabChange();
+      }
     });
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.STATEFULSET) {
-        let statefulsetId = message.data;
+        const statefulsetId = message.data;
         this.statefulsetService.deleteById(statefulsetId, this.appId)
           .subscribe(
             response => {

@@ -53,15 +53,7 @@ export class KubeNamespaceComponent extends KubernetesResource implements OnInit
           this.jumpToHref(data[0].name);
           return;
         }
-        if (this.cluster) {
-          this.namespaceClient.list(this.cluster).subscribe(
-            resp => {
-              this.resources = resp.data;
-              this.jumpToHref(this.cluster);
-            },
-            error => this.messageHandlerService.handleError(error)
-          );
-        }
+        this.retrieveResource();
       },
       error => this.messageHandlerService.handleError(error)
     );

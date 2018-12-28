@@ -63,7 +63,9 @@ export class ListJobComponent implements OnInit, OnDestroy {
     if (page && this.pageSizes.indexOf(page) > -1) {
       this.storage.save('pagesize', page);
     }
-    if (page !== this._pageSize) this._pageSize = page;
+    if (page !== this._pageSize) {
+      this._pageSize = Number(page);
+    }
   }
 
   ngOnInit(): void {
