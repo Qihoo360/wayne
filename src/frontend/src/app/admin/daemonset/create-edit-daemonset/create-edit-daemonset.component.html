@@ -5,7 +5,7 @@
 
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="app_id" class="col-md-3 form-group-label-override required">应用</label>
+          <label for="app_id" class="col-md-3 form-group-label-override required">{{'DAEMONSET_ADMIN.CREATE.APPLYMENT' | translate}}</label>
           <div class="select form-control">
             <select id="app_id" [(ngModel)]="daemonset.appId" [disabled]="actionType==1" name="app_id">
               <option *ngFor="let app of apps" [ngValue]="app.id" [selected]="app.id == daemonset.appId">{{app.name}}
@@ -26,13 +26,13 @@
                    maxlength="64"
                    (keyup)='handleValidation()'>
             <span class="tooltip-content">
-              部署名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?
+              {{'DAEMONSET_ADMIN.CREATE.RULE' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
             </span>
           </label>
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="daemonset_metadata" class="col-md-3 form-group-label-override">元数据</label>
+          <label for="daemonset_metadata" class="col-md-3 form-group-label-override">{{'DAEMONSET_ADMIN.CREATE.METADATA' | translate}}</label>
           <wayne-ace-editor-box></wayne-ace-editor-box>
 
         </div>

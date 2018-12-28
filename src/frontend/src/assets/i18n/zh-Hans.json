@@ -157,8 +157,23 @@
       "RULE": "部署名称不符合规范，验证规则",
       "METADATE": "元数据"
     },
+    "TRASH": {
+      "STATEFULSET_DELETE_LIST": "已删除状态副本集列表"
+    },
     "STATEFULSET_LIST": "状态副本集列表",
     "STATEFULSET_CREATE": "创建状态副本集"
+  },
+  "DAEMONSET_ADMIN": {
+    "DAEMONSET_LIST": "守护进程列表",
+    "DAEMONSET_CREATE": "创建守护进程",
+    "CREATE": {
+      "APPLYMENT": "应用",
+      "RULE": "部署名称不符合规范，验证规则",
+      "METADATA": "元数据"
+    },
+    "TRASH": {
+      "DAEMONSET_DELETE_LIST": "已删除守护进程集列表"
+    }
   },
   "EVENT": {
     "ERROR": "错误事件",
