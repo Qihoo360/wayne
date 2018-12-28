@@ -1,11 +1,14 @@
 package node
 
 import (
+	"sort"
 	"strconv"
 
 	"k8s.io/api/core/v1"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
+
+	"github.com/Qihoo360/wayne/src/backend/client"
 )
 
 type NodeStatistics struct {
@@ -36,23 +39,26 @@ type NodeStatus struct {
 	NodeInfo v1.NodeSystemInfo          `json:"nodeInfo,omitempty"`
 }
 
-func GetNodeCounts(cli *kubernetes.Clientset) (int, error) {
-	nodes, err := cli.CoreV1().Nodes().List(metaV1.ListOptions{})
-	if err != nil {
-		return 0, err
-	}
-	return len(nodes.Items), nil
+func GetNodeCounts(indexer *client.CacheIndexer) (int, error) {
+	nodeList := indexer.Node.List()
+	return len(nodeList), nil
 }
 
-func ListNode(cli *kubernetes.Clientset, listOptions metaV1.ListOptions) ([]Node, error) {
-	nodeList, err := cli.CoreV1().Nodes().List(listOptions)
-	if err != nil {
-		return nil, err
-	}
+func ListNode(indexer *client.CacheIndexer) ([]Node, error) {
+	nodeList := indexer.Node.List()
 	nodes := make([]Node, 0)
-	for _, node := range nodeList.Items {
-		nodes = append(nodes, toNode(node))
+	for _, node := range nodeList {
+		cacheNode, ok := node.(*v1.Node)
+		if !ok {
+			continue
+		}
+		nodes = append(nodes, toNode(*cacheNode))
 	}
+
+	sort.Slice(nodes, func(i, j int) bool {
+		return nodes[i].Name < nodes[j].Name
+	})
+
 	return nodes, nil
 }
 

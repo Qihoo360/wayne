@@ -55,4 +55,12 @@ func init() {
 			MethodParams:     param.Make(),
 			Params:           nil})
 
+	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/namespace:KubeNamespaceController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/namespace:KubeNamespaceController"],
+		beego.ControllerComments{
+			Method:           "GetNames",
+			Router:           `/clusters/:cluster/names`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams:     param.Make(),
+			Params:           nil})
+
 }

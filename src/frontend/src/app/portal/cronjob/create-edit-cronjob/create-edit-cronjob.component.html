@@ -43,8 +43,8 @@
                     name="cronjob_description"
                     rows="3">
           </textarea>
-
         </div>
+        <resource-limit *ngIf="authService.currentUser.admin"></resource-limit>
       </section>
     </form>
   </div>

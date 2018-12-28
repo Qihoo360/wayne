@@ -191,12 +191,7 @@
     }
   },
   "LIMIT": {
-    "CPU": "CPU 限制",
-    "CPU_PERCENT": "CPU 限制百分比",
-    "DELOYMENT": "部署份数超过系统最大限制",
     "MEMORY": "内存限制",
-    "MEMORY_PERCENT": "内存限制百分比",
-    "REPLICA": "副本数限制",
     "STATEFULSET": "状态副本集份数超过系统最大限制"
   },
   "MENU": {
@@ -256,19 +251,14 @@
   },
   "MESSAGE": {
     "ANNOUNCEMENT": "公告",
-    "CPU": "请填写 CPU 限制",
-    "CPU_PERCENT": "请填写正确 CPU 限制百分比",
     "DATA_CONTENT": "数据内容",
     "ERROR": "错误信息",
     "FORCE_DROP": "确认资源已经不存在于 Kubernetes，可以打开此开关强制下线",
-    "MEMORY": "请填写内存限制份数",
-    "MEMORY_PERCENT": "请填写正确内存限制百分比",
     "NONE": "无通知",
     "NO_MESSAGE": "暂无数据！",
     "NO_USER": "用户不存在",
     "ONLY_ONLINE_TEMPLATE": "只显示上线模板",
     "READED": "已读",
-    "REPLICA": "请填写副本数限制",
     "SEND": "广播了",
     "UNREAD": "未读",
     "VIEW_TOKEN": "查看 token"
@@ -369,6 +359,17 @@
       "TRANS_ERROR": "模板切换失败，请检查数据",
       "TMP_LESS": "请选择俩个模板",
       "TMP_MORE": "选择多个模板仅对比俩个"
+    },
+    "COMPONENT": {
+      "RESOURCE_LIMIT": {
+        "CPU_LIMIT": "CPU 限制",
+        "CPU_LIMIT_UNIT": "核",
+        "CPU_LIMIT_PERCENT": "CPU 限制百分比",
+        "MEMORY_LIMIT": "内存限制",
+        "MEMORY_LIMIT_PERCENT": "内存限制百分比",
+        "REPLICA_LIMIT": "副本数限制",
+        "REPLICA_LIMIT_UNIT": "份"
+      }
     }
   },
   "STATEFULSET": {

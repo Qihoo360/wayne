@@ -64,3 +64,10 @@ func NewObjectMeta(k8SObjectMeta metaV1.ObjectMeta) ObjectMeta {
 		Annotations:       k8SObjectMeta.Annotations,
 	}
 }
+
+// NewTypeMeta creates new type mete for the resource kind.
+func NewTypeMeta(kind ResourceKind) TypeMeta {
+	return TypeMeta{
+		Kind: kind,
+	}
+}
