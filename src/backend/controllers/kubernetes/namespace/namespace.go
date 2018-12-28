@@ -24,6 +24,7 @@ type KubeNamespaceController struct {
 func (c *KubeNamespaceController) URLMapping() {
 	c.Mapping("Resources", c.Resources)
 	c.Mapping("List", c.List)
+	c.Mapping("GetNames", c.GetNames)
 }
 
 func (c *KubeNamespaceController) Prepare() {
@@ -32,16 +33,17 @@ func (c *KubeNamespaceController) Prepare() {
 }
 
 // @Title List namespace
-// @Description get all namespace
+// @Description get all namespace by page
 // @Param	cluster		path 	string	true		"the cluster name"
 // @Success 200 {object} common.Page success
 // @router /clusters/:cluster [get]
 func (c *KubeNamespaceController) List() {
+	param := c.BuildQueryParam()
 	cluster := c.Ctx.Input.Param(":cluster")
 
 	cli, err := client.Client(cluster)
 	if err == nil {
-		result, err := namespace.GetNamespaceList(cli)
+		result, err := namespace.GetNamespacePage(cli, param)
 		if err != nil {
 			logs.Error("list kubernetes namespaces error.", cluster, err)
 			c.HandleError(err)
@@ -51,6 +53,28 @@ func (c *KubeNamespaceController) List() {
 	} else {
 		c.AbortBadRequestFormat("Cluster")
 	}
+}
+
+// @Title List all namespace name
+// @Description get all namespace name
+// @Param	cluster		path 	string	true		"the cluster name"
+// @router /clusters/:cluster/names [get]
+func (c *KubeNamespaceController) GetNames() {
+	cluster := c.Ctx.Input.Param(":cluster")
+
+	cli, err := client.Client(cluster)
+	if err == nil {
+		result, err := namespace.GetAllNamespaceName(cli)
+		if err != nil {
+			logs.Error("list all kubernetes namespace names error.", cluster, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
+	}
+
 }
 
 // @Title Get namespace info
