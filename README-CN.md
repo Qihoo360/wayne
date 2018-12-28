@@ -54,7 +54,7 @@ Wayne已大规模服务于360搜索，承载了内部绝大部分业务，稳定
 - 克隆代码仓库
 
 ```bash
-$ go get github.com/Qihoo360/wayne
+$ git clone github.com/Qihoo360/wayne
 ```
 
 - 启动MySQL（可选）
@@ -64,6 +64,7 @@ $ go get github.com/Qihoo360/wayne
 ```bash
 $ docker-compose up -d mysql
 ```
+注意：一定要先启动mysql
 
 - 创建配置文件
 
