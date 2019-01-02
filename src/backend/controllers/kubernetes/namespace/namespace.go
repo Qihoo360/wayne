@@ -207,7 +207,7 @@ func (c *KubeNamespaceController) Resources() {
 			syncResourceMap.Store(m.Cluster.Name, common.Resource{
 				Usage: &common.ResourceList{
 					Cpu:    resourceUsage.Cpu / 1000,
-					Memory: resourceUsage.Memory / 1024,
+					Memory: resourceUsage.Memory / (1024 * 1024 * 1024),
 				},
 				Limit: &common.ResourceList{
 					Cpu:    clusterMetas.ResourcesLimit.Cpu,

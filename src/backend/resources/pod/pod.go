@@ -3,13 +3,14 @@ package pod
 import (
 	"time"
 
-	"github.com/Qihoo360/wayne/src/backend/client"
-	"github.com/Qihoo360/wayne/src/backend/models"
-	"github.com/Qihoo360/wayne/src/backend/resources/common"
 	"k8s.io/api/core/v1"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/kubernetes"
+
+	"github.com/Qihoo360/wayne/src/backend/client"
+	"github.com/Qihoo360/wayne/src/backend/models"
+	"github.com/Qihoo360/wayne/src/backend/resources/common"
 )
 
 type PodStatistics struct {

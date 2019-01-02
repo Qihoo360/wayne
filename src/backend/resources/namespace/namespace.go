@@ -1,12 +1,13 @@
 package namespace
 
 import (
-	"github.com/Qihoo360/wayne/src/backend/resources/common"
-	"github.com/Qihoo360/wayne/src/backend/util"
 	"k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
+
+	"github.com/Qihoo360/wayne/src/backend/resources/common"
+	"github.com/Qihoo360/wayne/src/backend/util"
 )
 
 func UpdateNamespace(cli *kubernetes.Clientset, ns *v1.Namespace) (*v1.Namespace, error) {
@@ -60,12 +61,12 @@ func ResourcesOfAppByNamespace(cli *kubernetes.Clientset, namespace, selector st
 		if result[pod.Labels[util.AppLabelKey]] == nil {
 			result[pod.Labels[util.AppLabelKey]] = &common.ResourceApp{
 				Cpu:    resourceList.Cpu / 1000,
-				Memory: resourceList.Memory / 1024,
+				Memory: resourceList.Memory / (1024 * 1024 * 1024),
 				PodNum: 1,
 			}
 		} else {
 			result[pod.Labels[util.AppLabelKey]].Cpu += resourceList.Cpu / 1000
-			result[pod.Labels[util.AppLabelKey]].Memory += resourceList.Memory / 1024
+			result[pod.Labels[util.AppLabelKey]].Memory += resourceList.Memory / (1024 * 1024 * 1024)
 			result[pod.Labels[util.AppLabelKey]].PodNum += 1
 		}
 	}
