@@ -181,7 +181,7 @@
   "LIMIT": {
     "CPU": "CPU 限制",
     "CPU_PERCENT": "CPU 限制百分比",
-    "DELOYMENT": "部署份数超过系统最大限制",
+    "DEPLOYMENT": "部署份数超过系统最大限制",
     "MEMORY": "内存限制",
     "MEMORY_PERCENT": "内存限制百分比",
     "REPLICA": "副本数限制",
