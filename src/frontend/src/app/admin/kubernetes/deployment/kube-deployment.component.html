@@ -20,8 +20,8 @@
                   [(ngModel)]="namespace"
                   name="namespace_name"
                   (change)="retrieve()">
-            <option *ngFor="let namespace of namespaces" [ngValue]="namespace.objectMeta.name"
-                    [selected]="namespace.objectMeta.name == 'default'">{{namespace.objectMeta.name}}
+            <option *ngFor="let namespace of namespaces" [ngValue]="namespace"
+                    [selected]="namespace == 'default'">{{namespace}}
             </option>
           </select>
         </div>

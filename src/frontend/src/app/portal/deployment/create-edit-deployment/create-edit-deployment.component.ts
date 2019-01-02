@@ -6,14 +6,13 @@ import { MessageHandlerService } from '../../../shared/message-handler/message-h
 import { ActionType, configKeyApiNameGenerateRule, defaultResources } from '../../../shared/shared.const';
 import 'rxjs/add/observable/combineLatest';
 import { Cluster } from '../../../shared/model/v1/cluster';
-import { Resources } from '../../../shared/model/v1/resources-limit';
 import { ClusterMeta, Deployment } from '../../../shared/model/v1/deployment';
 import { DeploymentService } from '../../../shared/client/v1/deployment.service';
 import { App } from '../../../shared/model/v1/app';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { ApiNameGenerateRule } from '../../../shared/utils';
 import { TranslateService } from '@ngx-translate/core';
-
+import { ResourceLimitComponent } from '../../../shared/component/resource-limit/resource-limit.component';
 @Component({
   selector: 'create-edit-deployment',
   templateUrl: 'create-edit-deployment.component.html',
@@ -23,9 +22,10 @@ import { TranslateService } from '@ngx-translate/core';
 export class CreateEditDeploymentComponent implements OnInit {
   @ViewChild('deploymentForm')
   currentForm: NgForm;
+  @ViewChild(ResourceLimitComponent)
+  resourceLimitComponent: ResourceLimitComponent;
   clusters: Cluster[];
   clusterMetas: {};
-  resourcesMetas = new Resources();
   title: string;
   deployment: Deployment = new Deployment();
   checkOnGoing = false;
@@ -73,13 +73,7 @@ export class CreateEditDeploymentComponent implements OnInit {
               this.clusterMetas[clu.name] = culsterMeta;
             }
           }
-          if ('resources' in metaData) {
-            for (const limit in metaData.resources) {
-              metaData.resources[limit] = /Percent$/.test(limit) ?
-                parseFloat(metaData.resources[limit].replace(/%$/, '')) : parseFloat(metaData.resources[limit]);
-            }
-            this.resourcesMetas = metaData.resources;
-          }
+          this.resourceLimitComponent.setValue(metaData['resources']);
         },
         error => {
           this.messageHandlerService.handleError(error);
@@ -88,7 +82,7 @@ export class CreateEditDeploymentComponent implements OnInit {
       this.actionType = ActionType.ADD_NEW;
       this.title = '创建部署';
       this.deployment = new Deployment();
-      this.resourcesMetas = Object.assign({}, defaultResources);
+      this.resourceLimitComponent.setValue();
       this.deployment.metaData = '{}';
     }
   }
@@ -99,11 +93,8 @@ export class CreateEditDeploymentComponent implements OnInit {
       const metaData = JSON.parse(this.deployment.metaData);
       if (metaData.resources &&
         metaData.resources.replicaLimit) {
-        replicaLimit = parseInt(metaData.resources.replicaLimit);
+        replicaLimit = parseInt(metaData.resources.replicaLimit, 10);
       }
-    }
-    if (this.resourcesMetas.replicaLimit !== null && this.resourcesMetas.replicaLimit !== undefined) {
-      replicaLimit = this.resourcesMetas.replicaLimit;
     }
     return replicaLimit;
   }
@@ -117,16 +108,6 @@ export class CreateEditDeploymentComponent implements OnInit {
       return parseInt(clusterMeta.value) <= this.replicaLimit;
     }
     return false;
-  }
-
-  resourcesValidation(resource: string): boolean {
-    const value = this.resourcesMetas[resource];
-    if (/Percent$/.test(resource) && value !== null) {
-      if (value <= 0 || value > 100) {
-        return false;
-      }
-    }
-    return true;
   }
 
   ngOnInit(): void {
@@ -145,24 +126,14 @@ export class CreateEditDeploymentComponent implements OnInit {
     }
     const metaData = JSON.parse(this.deployment.metaData);
     const replicas = {};
-    const resources = {};
     for (const clu of this.clusters) {
       const clusterMeta = this.clusterMetas[clu.name];
       if (clusterMeta && clusterMeta.checked && clusterMeta.value) {
         replicas[clu.name] = clusterMeta.value;
       }
     }
-    for (const resource in this.resourcesMetas) {
-      if (this.resourcesMetas[resource] !== null) {
-        resources[resource] = /Percent$/.test(resource) ? this.resourcesMetas[resource] + '%' : this.resourcesMetas[resource].toString();
-      }
-    }
     metaData.replicas = replicas;
-    if (Object.keys(resources).length) {
-      metaData.resources = resources;
-    } else {
-      delete metaData.resources;
-    }
+    metaData.resources = this.resourceLimitComponent.getValue();
     return JSON.stringify(metaData);
   }
 
@@ -218,20 +189,7 @@ export class CreateEditDeploymentComponent implements OnInit {
       this.isNameValid &&
       !this.checkOnGoing &&
       this.isClusterValid() &&
-      this.isClusterReplicaValid() &&
-      this.isResourcesValid();
-  }
-
-  isResourcesValid(): boolean {
-    for (const resource in this.resourcesMetas) {
-      const value = this.resourcesMetas[resource];
-      if (/Percent$/.test(resource) && value !== null) {
-        if (value <= 0 || value > 100) {
-          return false;
-        }
-      }
-    }
-    return true;
+      this.isClusterReplicaValid();
   }
 
   isClusterValid(): boolean {
@@ -259,7 +217,7 @@ export class CreateEditDeploymentComponent implements OnInit {
 
 
 
-//Handle the form validation
+// Handle the form validation
   handleValidation(): void {
     const cont = this.currentForm.controls['deployment_name'];
     if (cont) {

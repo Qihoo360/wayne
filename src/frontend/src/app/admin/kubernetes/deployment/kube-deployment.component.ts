@@ -46,7 +46,7 @@ export class KubeDeploymentComponent implements OnInit {
   showList: any[] = Array();
   showState: object = showState;
 
-  namespaces: any;
+  namespaces: string[];
 
   constructor(private breadcrumbService: BreadcrumbService,
               private deploymentClient: DeploymentClient,
@@ -93,7 +93,7 @@ export class KubeDeploymentComponent implements OnInit {
           return;
         }
         if (cluster) {
-          this.namespaceClient.list(cluster).subscribe(
+          this.namespaceClient.getNames(cluster).subscribe(
             resp => {
               this.namespaces = resp.data;
               this.jumpTo(cluster);
