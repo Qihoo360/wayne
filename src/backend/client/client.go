@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
+	"k8s.io/api/apps/v1beta1"
 	"k8s.io/api/core/v1"
-	"k8s.io/api/extensions/v1beta1"
 	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"

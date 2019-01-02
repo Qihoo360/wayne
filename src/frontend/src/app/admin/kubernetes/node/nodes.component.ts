@@ -142,7 +142,7 @@ export class NodesComponent implements OnInit, OnDestroy {
 
     this.nodeClient.list(this.cluster).subscribe(
       response => {
-        const nodes = response.data;
+        const nodes = response.data.nodes;
         this.inventory.size = nodes.length;
         this.inventory.reset(nodes);
         this.nodes = this.inventory.all;
