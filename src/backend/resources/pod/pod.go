@@ -169,7 +169,7 @@ func toPod(kpod *v1.Pod) *Pod {
 		Namespace: kpod.Namespace,
 		PodIp:     kpod.Status.PodIP,
 		NodeName:  kpod.Spec.NodeName,
-		State:     getPodStatusStatus(kpod),
+		State:     getPodStatus(kpod),
 	}
 
 	if kpod.Status.StartTime != nil {
@@ -193,7 +193,12 @@ func toPod(kpod *v1.Pod) *Pod {
 }
 
 // getPodStatus returns the pod state
-func getPodStatusStatus(pod *v1.Pod) string {
+func getPodStatus(pod *v1.Pod) string {
+	// Terminating
+	if pod.DeletionTimestamp != nil {
+		return "Terminating"
+	}
+
 	// not running
 	if pod.Status.Phase != v1.PodRunning {
 		return string(pod.Status.Phase)
