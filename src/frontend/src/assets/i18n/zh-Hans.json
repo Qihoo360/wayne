@@ -179,12 +179,6 @@
     }
   },
   "LIMIT": {
-<<<<<<< HEAD
-    "CPU": "CPU 限制",
-    "CPU_PERCENT": "CPU 限制百分比",
-    "DEPLOYMENT": "部署份数超过系统最大限制",
-=======
->>>>>>> 6a9d9dc76ebbe84a523daef28afcbb7a19e40f1f
     "MEMORY": "内存限制",
     "STATEFULSET": "状态副本集份数超过系统最大限制"
   },
@@ -351,11 +345,8 @@
     "DIFF": {
       "CHECK_DATA": "请检查数据",
       "TMP_LESS": "请选择俩个模板",
-<<<<<<< HEAD
       "TMP_MORE": "选择多个模板仅对比俩个",
       "TRANS_ERROR": "模板切换失败，请检查数据"
-=======
-      "TMP_MORE": "选择多个模板仅对比俩个"
     },
     "COMPONENT": {
       "RESOURCE_LIMIT": {
@@ -367,7 +358,6 @@
         "REPLICA_LIMIT": "副本数限制",
         "REPLICA_LIMIT_UNIT": "份"
       }
->>>>>>> 6a9d9dc76ebbe84a523daef28afcbb7a19e40f1f
     }
   },
   "STATEFULSET": {
