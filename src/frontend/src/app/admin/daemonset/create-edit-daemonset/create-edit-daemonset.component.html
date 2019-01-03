@@ -5,7 +5,7 @@
 
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="app_id" class="col-md-3 form-group-label-override required">{{'DAEMONSET_ADMIN.CREATE.APPLYMENT' | translate}}</label>
+          <label for="app_id" class="col-md-3 form-group-label-override required">{{'DAEMONSET_ADMIN.CREATE.APP' | translate}}</label>
           <div class="select form-control">
             <select id="app_id" [(ngModel)]="daemonset.appId" [disabled]="actionType==1" name="app_id">
               <option *ngFor="let app of apps" [ngValue]="app.id" [selected]="app.id == daemonset.appId">{{app.name}}

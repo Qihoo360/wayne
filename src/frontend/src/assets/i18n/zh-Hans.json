@@ -120,7 +120,7 @@
   },
   "DAEMONSET_ADMIN": {
     "CREATE": {
-      "APPLYMENT": "应用",
+      "APP": "应用",
       "METADATA": "元数据",
       "RULE": "部署名称不符合规范，验证规则"
     },
@@ -372,7 +372,7 @@
   },
   "STATEFULSET_ADMIN": {
     "CREATE": {
-      "APPLYMENT": "应用",
+      "APP": "应用",
       "METADATE": "元数据",
       "RULE": "部署名称不符合规范，验证规则"
     },
