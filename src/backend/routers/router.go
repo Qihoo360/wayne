@@ -20,6 +20,7 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/controllers/cronjob"
 	"github.com/Qihoo360/wayne/src/backend/controllers/daemonset"
 	"github.com/Qihoo360/wayne/src/backend/controllers/deployment"
+	"github.com/Qihoo360/wayne/src/backend/controllers/hpa"
 	"github.com/Qihoo360/wayne/src/backend/controllers/ingress"
 	kconfigmap "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/configmap"
 	kcronjob "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/cronjob"
@@ -49,6 +50,7 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/health"
 	_ "github.com/Qihoo360/wayne/src/backend/plugins"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
+
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 )
@@ -170,6 +172,16 @@ func init() {
 		beego.NSNamespace("/apps/:appid([0-9]+)/ingresses/tpls",
 			beego.NSInclude(
 				&ingress.IngressTplController{},
+			),
+		),
+		beego.NSNamespace("/apps/:appid([0-9]+)/hpas",
+			beego.NSInclude(
+				&hpa.HPAController{},
+			),
+		),
+		beego.NSNamespace("/apps/:appid([0-9]+)/hpas/tpls",
+			beego.NSInclude(
+				&hpa.HPATplController{},
 			),
 		),
 	)

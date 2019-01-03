@@ -33,6 +33,7 @@ const (
 	PermissionBill                      = "BILL"
 	PermissionTypeAPIKey                = "APIKEY"
 	PermissionTypeIngress               = "INGRESS"
+	PermissionTypeHPA                   = "HPA"
 	PermissionBlank                     = "_"
 )
 
