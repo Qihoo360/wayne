@@ -1,13 +1,13 @@
 package ingress
 
 import (
-	extensions "k8s.io/api/extensions/v1beta1"
+	"k8s.io/api/extensions/v1beta1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 )
 
-func CreateOrUpdateIngress(c *kubernetes.Clientset, ingress *extensions.Ingress) (*Ingress, error) {
+func CreateOrUpdateIngress(c *kubernetes.Clientset, ingress *v1beta1.Ingress) (*Ingress, error) {
 	old, err := c.ExtensionsV1beta1().Ingresses(ingress.Namespace).Get(ingress.Name, metaV1.GetOptions{})
 	if err != nil {
 		if errors.IsNotFound(err) {
@@ -35,7 +35,7 @@ func GetIngressDetail(c *kubernetes.Clientset, name, namespace string) (*Ingress
 	return toIngress(ingress), nil
 }
 
-func GetIngress(c *kubernetes.Clientset, name, namespace string) (ingress *extensions.Ingress, err error) {
+func GetIngress(c *kubernetes.Clientset, name, namespace string) (ingress *v1beta1.Ingress, err error) {
 	ingress, err = c.ExtensionsV1beta1().Ingresses(namespace).Get(name, metaV1.GetOptions{})
 	if err != nil {
 		return nil, err
