@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {AppUser} from '../../../shared/model/v1/app-user';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {Page} from '../../../shared/page/page-state';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { AppUser } from '../../../shared/model/v1/app-user';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { Page } from '../../../shared/page/page-state';
 
 @Component({
   selector: 'list-app-user',

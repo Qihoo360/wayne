@@ -1,58 +1,64 @@
-<button (click)="createStatefulset()" class="wayne-button primary" *ngIf="authService.currentAppPermission.statefulset?.create || authService.currentUser.admin">
-  创建状态副本集
+<button (click)="createStatefulset()" class="wayne-button primary"
+        *ngIf="authService.currentAppPermission.statefulset?.create || authService.currentUser.admin">
+  {{'STATEFULSET.CREATE' | translate}}
 </button>
 <create-edit-statefulset (create)="create($event)"></create-edit-statefulset>
 <div *ngIf="statefulsetId && statefulsets?.length>0">
   <wayne-tabs>
     <wayne-tab (click)="tabClick(statefulset.id)"
-                [id]="statefulset.id"
-                *ngFor="let statefulset of statefulsets"
-                [active]="statefulset.id==statefulsetId"
-                [description]="statefulset.description"
-                >
+               [id]="statefulset.id"
+               *ngFor="let statefulset of statefulsets"
+               [active]="statefulset.id==statefulsetId"
+               [description]="statefulset.description"
+    >
       {{statefulset.name}}
     </wayne-tab>
   </wayne-tabs>
   <div class="table-search">
     <div class="table-search-left">
-      <button (click)="createStatefulsetTpl()" class="wayne-button normal" *ngIf="authService.currentAppPermission.statefulset?.create || authService.currentUser.admin">
-        创建状态副本集模版
+      <button (click)="createStatefulsetTpl()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.statefulset?.create || authService.currentUser.admin">
+        {{'STATEFULSET.CREATE_TMP' | translate}}
       </button>
-      <button (click)="editStatefulset()" class="wayne-button normal" *ngIf="authService.currentAppPermission.statefulset?.update || authService.currentUser.admin">
-        编辑状态副本集
+      <button (click)="editStatefulset()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.statefulset?.update || authService.currentUser.admin">
+        {{'STATEFULSET.EDIT' | translate}}
       </button>
-      <button (click)="publishHistory()" class="wayne-button normal" *ngIf="authService.currentAppPermission.statefulset?.read || authService.currentUser.admin">
-        发布历史
+      <button (click)="publishHistory()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.statefulset?.read || authService.currentUser.admin">
+        {{'BUTTON.HISTORY' | translate}}
       </button>
-      <button (click)="deleteStatefulset()" class="wayne-button normal" *ngIf="authService.currentAppPermission.statefulset.offline || authService.currentUser.admin">
-        删除状态副本集
+      <button (click)="deleteStatefulset()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.statefulset.offline || authService.currentUser.admin">
+        {{'STATEFULSET.DELETE' | translate}}
       </button>
+      <button class="wayne-button normal" (click)="diffTpl()">{{'BUTTON.DIFF_TMP' | translate}}</button>
       <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
         <wayne-checkbox-group class=".filter-body-content" [(ngModel)]="showList">
-          <wayne-checkbox>创建时间</wayne-checkbox>
-          <wayne-checkbox>版本</wayne-checkbox>
-          <wayne-checkbox>上线机房</wayne-checkbox>
-          <wayne-checkbox>发布说明</wayne-checkbox>
-          <wayne-checkbox>创建者</wayne-checkbox>
-          <wayne-checkbox>操作</wayne-checkbox>
+          <wayne-checkbox value="create_time">{{'TITLE.CREATE_TIME' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="version">{{'TITLE.VERSION' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="online_cluster">{{'TITLE.ONLINE_CLUSTER' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="release_explain">{{'TITLE.RELEASE_EXPLAIN' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="create_user">{{'TITLE.CREATE_USER' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="action">{{'TITLE.ACTION' | translate}}</wayne-checkbox>
         </wayne-checkbox-group>
       </wayne-filter-box>
     </div>
     <div class="table-search-right">
       <div class="toggle-switch">
         <input type="checkbox" id="toggle_1" [(ngModel)]="isOnline" (change)="onlineChange()">
-        <label for="toggle_1">只显示上线模板</label>
+        <label for="toggle_1">{{'MESSAGE.ONLY_ONLINE_TEMPLATE' | translate}}</label>
       </div>
     </div>
   </div>
   <list-statefulset [statefulsetTpls]="changedStatefulsetTpls"
-                   (paginate)="retrieve($event)"
-                   (edit)="editStatefulset($event)"
-                   (createTpl)="createStatefulsetTpl($event)"
-                   (cloneTpl)="cloneStatefulsetTpl($event)"
-                   [appId]="appId"
-                   [page]="pageState.page"
-                   [showState]="showState">
+                    (paginate)="retrieve($event)"
+                    (edit)="editStatefulset($event)"
+                    (createTpl)="createStatefulsetTpl($event)"
+                    (cloneTpl)="cloneStatefulsetTpl($event)"
+                    [appId]="appId"
+                    [page]="pageState.page"
+                    [showState]="showState">
   </list-statefulset>
 </div>
 

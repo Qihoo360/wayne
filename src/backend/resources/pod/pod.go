@@ -3,12 +3,14 @@ package pod
 import (
 	"time"
 
-	"github.com/Qihoo360/wayne/src/backend/client"
-	"github.com/Qihoo360/wayne/src/backend/models"
 	"k8s.io/api/core/v1"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/kubernetes"
+
+	"github.com/Qihoo360/wayne/src/backend/client"
+	"github.com/Qihoo360/wayne/src/backend/models"
+	"github.com/Qihoo360/wayne/src/backend/resources/common"
 )
 
 type PodStatistics struct {
@@ -46,6 +48,28 @@ func GetPodCounts(indexer *client.CacheIndexer) int {
 		pods = append(pods, *cachePod)
 	}
 	return len(pods)
+}
+
+func GetPodsBySelectorFromCache(indexer *client.CacheIndexer, namespace string, labels map[string]string) []v1.Pod {
+	cachePods := indexer.Pod.List()
+	var pods []v1.Pod
+	for _, pod := range cachePods {
+		cachePod, ok := pod.(*v1.Pod)
+		if !ok {
+			continue
+		}
+		if namespace != "" && namespace != cachePod.Namespace {
+			continue
+		}
+
+		if labels != nil && !common.CompareLabels(labels, cachePod.Labels) {
+			continue
+		}
+
+		pods = append(pods, *cachePod)
+	}
+
+	return pods
 }
 
 func GetAllPodByLabelSelector(cli *kubernetes.Clientset, labelSelector string) ([]*Pod, error) {
@@ -146,7 +170,7 @@ func toPod(kpod *v1.Pod) *Pod {
 		Namespace: kpod.Namespace,
 		PodIp:     kpod.Status.PodIP,
 		NodeName:  kpod.Spec.NodeName,
-		State:     getPodStatusStatus(kpod),
+		State:     getPodStatus(kpod),
 	}
 
 	if kpod.Status.StartTime != nil {
@@ -170,7 +194,12 @@ func toPod(kpod *v1.Pod) *Pod {
 }
 
 // getPodStatus returns the pod state
-func getPodStatusStatus(pod *v1.Pod) string {
+func getPodStatus(pod *v1.Pod) string {
+	// Terminating
+	if pod.DeletionTimestamp != nil {
+		return "Terminating"
+	}
+
 	// not running
 	if pod.Status.Phase != v1.PodRunning {
 		return string(pod.Status.Phase)

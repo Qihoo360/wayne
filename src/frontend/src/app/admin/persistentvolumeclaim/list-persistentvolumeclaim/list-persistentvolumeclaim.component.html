@@ -11,33 +11,33 @@
   </clr-dg-column>
   <clr-dg-column class="col-namespace">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      所属项目
+      {{'TITLE.BELONG_APP' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-metadata">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      元数据
+      {{'TITLE.METADATA' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      描述
+      {{'TITLE.DESCRIPTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建者
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-time">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建时间
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let pvc of pvcs" [clrDgItem]="pvc">
-    <clr-dg-action-overflow >
-      <button class="action-item" (click)="editPvc(pvc)" >编辑</button>
-      <button class="action-item" (click)="deletePvc(pvc)">删除</button>
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="editPvc(pvc)">{{'BUTTON.EDIT' | translate}}</button>
+      <button class="action-item" (click)="deletePvc(pvc)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{pvc.id}}</clr-dg-cell>
     <clr-dg-cell class="col-app-name copy">{{pvc.name}}</clr-dg-cell>

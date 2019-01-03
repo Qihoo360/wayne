@@ -1,14 +1,14 @@
-import {AfterContentInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import {State} from '@clr/angular';
-import {App} from '../../shared/model/v1/app';
-import {Cluster} from '../../shared/model/v1/cluster';
-import {AppService} from '../../shared/client/v1/app.service';
-import {ClusterService} from '../../shared/client/v1/cluster.service';
-import {CacheService} from '../../shared/auth/cache.service';
-import {PublishHistoryService} from '../common/publish-history/publish-history.service';
+import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { State } from '@clr/angular';
+import { App } from '../../shared/model/v1/app';
+import { Cluster } from '../../shared/model/v1/cluster';
+import { AppService } from '../../shared/client/v1/app.service';
+import { ClusterService } from '../../shared/client/v1/cluster.service';
+import { CacheService } from '../../shared/auth/cache.service';
+import { PublishHistoryService } from '../common/publish-history/publish-history.service';
 import {
   ConfirmationButtons,
   ConfirmationState,
@@ -17,32 +17,33 @@ import {
   PublishType,
   TemplateState
 } from '../../shared/shared.const';
-import {AuthService} from '../../shared/auth/auth.service';
-import {PublishService} from '../../shared/client/v1/publish.service';
-import {PublishStatus} from '../../shared/model/v1/publish-status';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {PageState} from '../../shared/page/page-state';
-import {CreateEditStatefulsetComponent} from './create-edit-statefulset/create-edit-statefulset.component';
-import {ListStatefulsetComponent} from './list-statefulset/list-statefulset.component';
-import {StatefulsetTemplate} from '../../shared/model/v1/statefulsettpl';
-import {Statefulset} from '../../shared/model/v1/statefulset';
-import {StatefulsetService} from '../../shared/client/v1/statefulset.service';
-import {StatefulsetTplService} from '../../shared/client/v1/statefulsettpl.service';
-import {StatefulsetClient} from '../../shared/client/v1/kubernetes/statefulset';
-import {KubeStatefulSet} from '../../shared/model/v1/kubernetes/statefulset';
-import {TemplateStatus} from '../../shared/model/v1/status';
-import {TabDragService} from '../../shared/client/v1/tab-drag.service';
-import {OrderItem} from '../../shared/model/v1/order';
+import { AuthService } from '../../shared/auth/auth.service';
+import { PublishService } from '../../shared/client/v1/publish.service';
+import { PublishStatus } from '../../shared/model/v1/publish-status';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription } from 'rxjs/Subscription';
+import { PageState } from '../../shared/page/page-state';
+import { CreateEditStatefulsetComponent } from './create-edit-statefulset/create-edit-statefulset.component';
+import { ListStatefulsetComponent } from './list-statefulset/list-statefulset.component';
+import { StatefulsetTemplate } from '../../shared/model/v1/statefulsettpl';
+import { Statefulset } from '../../shared/model/v1/statefulset';
+import { StatefulsetService } from '../../shared/client/v1/statefulset.service';
+import { StatefulsetTplService } from '../../shared/client/v1/statefulsettpl.service';
+import { StatefulsetClient } from '../../shared/client/v1/kubernetes/statefulset';
+import { KubeStatefulSet } from '../../shared/model/v1/kubernetes/statefulset';
+import { TemplateStatus } from '../../shared/model/v1/status';
+import { TabDragService } from '../../shared/client/v1/tab-drag.service';
+import { OrderItem } from '../../shared/model/v1/order';
+import { TranslateService } from '@ngx-translate/core';
 
 const showState = {
-  '创建时间': {hidden: false},
-  '版本': {hidden: false},
-  '上线机房': {hidden: false},
-  '发布说明': {hidden: false},
-  '创建者': {hidden: false},
-  '操作': {hidden: false}
+  'create_time': {hidden: false},
+  'version': {hidden: false},
+  'online_cluster': {hidden: false},
+  'release_explain': {hidden: false},
+  'create_user': {hidden: false},
+  'action': {hidden: false}
 };
 
 @Component({
@@ -72,30 +73,35 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
   showList: any[] = new Array();
   showState: object = showState;
 
-  constructor(private statefulsetService: StatefulsetService,
-              private publishHistoryService: PublishHistoryService,
-              private statefulsetTplService: StatefulsetTplService,
-              private statefulsetClient: StatefulsetClient,
-              private route: ActivatedRoute,
-              private router: Router,
-              private publishService: PublishService,
-              public cacheService: CacheService,
-              public authService: AuthService,
-              private cdr: ChangeDetectorRef,
-              private appService: AppService,
-              private tabDragService: TabDragService,
-               private el: ElementRef,
-              private deletionDialogService: ConfirmationDialogService,
-              private clusterService: ClusterService,
-              private messageHandlerService: MessageHandlerService) {
+  constructor(
+    private statefulsetService: StatefulsetService,
+    private publishHistoryService: PublishHistoryService,
+    private statefulsetTplService: StatefulsetTplService,
+    private statefulsetClient: StatefulsetClient,
+    private route: ActivatedRoute,
+    private router: Router,
+    private publishService: PublishService,
+    public cacheService: CacheService,
+    public authService: AuthService,
+    private cdr: ChangeDetectorRef,
+    private appService: AppService,
+    private tabDragService: TabDragService,
+    private el: ElementRef,
+    public translate: TranslateService,
+    private deletionDialogService: ConfirmationDialogService,
+    private clusterService: ClusterService,
+    private messageHandlerService: MessageHandlerService
+  ) {
     this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
-      if (over) this.tabChange();
-    })
+      if (over) {
+        this.tabChange();
+      }
+    });
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.STATEFULSET) {
-        let statefulsetId = message.data;
+        const statefulsetId = message.data;
         this.statefulsetService.deleteById(statefulsetId, this.appId)
           .subscribe(
             response => {
@@ -116,11 +122,19 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
     this.initShow();
   }
 
+  /**
+   * diff
+   */
+  diffTpl() {
+    this.listStatefulset.diffTpl();
+  }
+  /************************************** */
+
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
       if (!this.showState[key].hidden) this.showList.push(key);
-    })
+    });
   }
 
   confirmEvent() {
@@ -130,7 +144,7 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
       } else {
         this.showState[key] = {hidden: true};
       }
-    })
+    });
   }
 
   cancelEvent() {
@@ -148,7 +162,7 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
       return {
         id: parseInt(item.id),
         order: index
-      }
+      };
     });
     if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) return;
     this.statefulsetService.updateOrder(this.appId, orderList).subscribe(
@@ -170,15 +184,15 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
         return {
           id: item.id,
           order: item.order
-        }
-      })
+        };
+      });
     } else {
       this.orderCache = [].slice.call(this.el.nativeElement.querySelectorAll('.tabs-item')).map((item, index) => {
         return {
           id: parseInt(item.id),
           order: index
-        }
-      })
+        };
+      });
     }
   }
 
@@ -199,7 +213,7 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
                 let code = response.statusCode | response.status;
                 if (code === httpStatusCode.NoContent) {
                   this.changedStatefulsetTpls[i].status[j].state = TemplateState.NOT_FOUND;
-                  return
+                  return;
                 }
 
                 let podInfo = response.data.pods;
@@ -223,13 +237,13 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
                   this.changedStatefulsetTpls[i] &&
                   this.changedStatefulsetTpls[i].status &&
                   this.changedStatefulsetTpls[i].status[j]) {
-                    this.changedStatefulsetTpls[i].status[j].errNum += 1;
-                    this.messageHandlerService.showError(`${status.cluster}请求错误次数 ${this.changedStatefulsetTpls[i].status[j].errNum} 次`);
-                    if (this.changedStatefulsetTpls[i].status[j].errNum === 3) {
-                      this.messageHandlerService.showError(`${status.cluster}的错误请求已经停止，请联系管理员解决`);
-                    }
+                  this.changedStatefulsetTpls[i].status[j].errNum += 1;
+                  this.messageHandlerService.showError(`${status.cluster}请求错误次数 ${this.changedStatefulsetTpls[i].status[j].errNum} 次`);
+                  if (this.changedStatefulsetTpls[i].status[j].errNum === 3) {
+                    this.messageHandlerService.showError(`${status.cluster}的错误请求已经停止，请联系管理员解决`);
                   }
-                console.log(error)
+                }
+                console.log(error);
               }
             );
           }
@@ -303,7 +317,7 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
       this.statefulsetId = this.statefulsets[0].id;
       return true;
     } else {
-      return false
+      return false;
     }
   }
 
@@ -320,7 +334,7 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
   filterCluster(): Cluster[] {
     return this.clusters.filter((clusterObj: Cluster) => {
       return this.cacheService.namespace.metaDataObj.clusterMeta &&
-        this.cacheService.namespace.metaDataObj.clusterMeta[clusterObj.name]
+        this.cacheService.namespace.metaDataObj.clusterMeta[clusterObj.name];
     });
   }
 
@@ -352,7 +366,7 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
 
   deleteStatefulset() {
     if (this.publishStatus && this.publishStatus.length > 0) {
-      this.messageHandlerService.warning('已上线状态副本集无法删除，请先下线状态副本集！')
+      this.messageHandlerService.warning('已上线状态副本集无法删除，请先下线状态副本集！');
     } else {
       let deletionMessage = new ConfirmationMessage(
         '删除状态副本集确认',
@@ -367,7 +381,7 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
 
   retrieve(state?: State): void {
     if (!this.statefulsetId) {
-      return
+      return;
     }
     if (state) {
       this.pageState = PageState.fromState(state, {
@@ -430,13 +444,18 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
           statefulsetTpl.status = publishStatus;
         }
       }
-      results.push(statefulsetTpl)
+      results.push(statefulsetTpl);
     }
     return results;
   }
 
   retrieveStatefulsets() {
-    this.statefulsetService.listPage(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), this.appId, 'false').subscribe(
+    this.statefulsetService.listPage(PageState.fromState({
+      sort: {
+        by: 'id',
+        reverse: false
+      }
+    }, {pageSize: 1000}), this.appId, 'false').subscribe(
       response => {
         this.statefulsets = response.data.list.sort((a, b) => a.order - b.order);
         this.initOrder(this.statefulsets);

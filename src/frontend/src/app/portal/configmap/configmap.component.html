@@ -1,57 +1,63 @@
-<button (click)="openModal()" class="wayne-button primary" *ngIf="authService.currentAppPermission.configmap.create || authService.currentUser.admin">
-  创建配置集
+<button (click)="openModal()" class="wayne-button primary"
+        *ngIf="authService.currentAppPermission.configmap.create || authService.currentUser.admin">
+  {{'CONFIGMAP.CREATE' | translate}}
 </button>
 <create-edit-configmap (create)="createConfigMap($event)"></create-edit-configmap>
 <div *ngIf="configMapId && configMaps?.length>0">
   <wayne-tabs>
     <wayne-tab (click)="tabClick(configMap.id)"
-                [id]="configMap.id"
-                *ngFor="let configMap of configMaps"
-                [active]="configMap.id==configMapId"
-                [description]="configMap.description"
-                >
+               [id]="configMap.id"
+               *ngFor="let configMap of configMaps"
+               [active]="configMap.id==configMapId"
+               [description]="configMap.description"
+    >
       {{configMap.name}}
     </wayne-tab>
   </wayne-tabs>
   <div class="table-search">
     <div class="table-search-left">
-      <button (click)="createConfigMapTpl()" class="wayne-button normal" *ngIf="authService.currentAppPermission.configmap.create || authService.currentUser.admin">
-        创建配置集模版
+      <button (click)="createConfigMapTpl()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.configmap.create || authService.currentUser.admin">
+        {{'CONFIGMAP.CREATE_TMP' | translate}}
       </button>
-      <button (click)="editConfigMap()" class="wayne-button normal" *ngIf="authService.currentAppPermission.configmap.update || authService.currentUser.admin">
-        编辑配置集
+      <button (click)="editConfigMap()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.configmap.update || authService.currentUser.admin">
+        {{'CONFIGMAP.EDIT' | translate}}
       </button>
-      <button (click)="publishHistory()" class="wayne-button normal" *ngIf="authService.currentAppPermission.configmap.read || authService.currentUser.admin">
-        发布历史
+      <button (click)="publishHistory()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.configmap.read || authService.currentUser.admin">
+        {{'BUTTON.HISTORY' | translate}}
       </button>
-      <button (click)="deleteConfigMap()" class="wayne-button normal" *ngIf="authService.currentAppPermission.configmap.offline || authService.currentUser.admin">
-        删除配置集
+      <button (click)="deleteConfigMap()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.configmap.offline || authService.currentUser.admin">
+        {{'CONFIGMAP.DELETE' | translate}}
       </button>
+      <button class="wayne-button normal" (click)="diffTpl()">{{'BUTTON.DIFF_TMP' | translate}}</button>
       <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
         <wayne-checkbox-group [(ngModel)]="showList">
-          <wayne-checkbox>创建时间</wayne-checkbox>
-          <wayne-checkbox>配置机房</wayne-checkbox>
-          <wayne-checkbox>已上线机房</wayne-checkbox>
-          <wayne-checkbox>发布说明</wayne-checkbox>
-          <wayne-checkbox>创建者</wayne-checkbox>
-          <wayne-checkbox>操作</wayne-checkbox>
+          <wayne-checkbox value="create_time">{{'TITLE.CREATE_TIME' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="config_cluster">{{'TITLE.CONFIG_CLUSTER' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="online_cluster">{{'TITLE.ONLINE_CLUSTER' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="release_explain">{{'TITLE.RELEASE_EXPLAIN' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="create_user">{{'TITLE.CREATE_USER' | translate}}</wayne-checkbox>
+          <wayne-checkbox value="action">{{'TITLE.ACTION' | translate}}</wayne-checkbox>
         </wayne-checkbox-group>
       </wayne-filter-box>
     </div>
     <div class="table-search-right">
       <div class="toggle-switch">
         <input type="checkbox" id="toggle_1" [(ngModel)]="isOnline" (change)="onlineChange()">
-        <label for="toggle_1">只显示上线模板</label>
+        <label for="toggle_1">{{'MESSAGE.ONLY_ONLINE_TEMPLATE' | translate}}</label>
       </div>
     </div>
   </div>
   <list-configmap [configMaps]="configMaps"
-                (cloneTpl)="cloneConfigMapTpl($event)"
-                [configMapTpls]="configMapTpls"
-                (edit)="editConfigMap($event)"
-                (paginate)="retrieve($event)"
-                [app]="app"
-                [showState]="showState"
-                [page]="pageState.page"></list-configmap>
+                  (cloneTpl)="cloneConfigMapTpl($event)"
+                  [configMapTpls]="configMapTpls"
+                  (edit)="editConfigMap($event)"
+                  (paginate)="retrieve($event)"
+                  [app]="app"
+                  [showState]="showState"
+                  [page]="pageState.page"></list-configmap>
 </div>
 

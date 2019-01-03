@@ -1,5 +1,5 @@
 <clr-modal [(clrModalOpen)]="createAppOpened" [clrModalSize]="'lg'">
-    <h3 class="modal-title">{{appTitle}}</h3>
+  <h3 class="modal-title">{{appTitle}}</h3>
   <div class="modal-body">
     <form #appForm="ngForm">
       <section class="form-block">
@@ -8,15 +8,17 @@
           <div class="select form-control">
             <select id="namespace_id" [(ngModel)]="app.namespace.id" [disabled]="actionType==1" name="namespace_id">
               <!--这是一个坑，如果使用value获取到的是string，使用ngValue获取到的是model本身类型-->
-              <option *ngFor="let namespace of namespaces" [ngValue]="namespace.id" [selected]="namespace.id == app.namespaceId">{{namespace.name}}
+              <option *ngFor="let namespace of namespaces" [ngValue]="namespace.id"
+                      [selected]="namespace.id == app.namespaceId">{{namespace.name}}
               </option>
             </select>
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="app_name" class="col-md-3 form-group-label-override required">名称</label>
-          <label for="app_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
-            <input class="form-control" type="text" id="app_name"  [(ngModel)]="app.name"
+          <label for="app_name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
+          <label for="app_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
+                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
+            <input class="form-control" type="text" id="app_name" [(ngModel)]="app.name"
                    name="app_name" size="32"
                    required
                    [readonly]="actionType==1"
@@ -34,7 +36,8 @@
           <wayne-ace-editor-box></wayne-ace-editor-box>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="app_description" class="col-md-3 form-group-label-override">描述</label>
+          <label for="app_description"
+                 class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="app_description" [(ngModel)]="app.description"
                     name="app_description"
                     rows="3">
@@ -43,8 +46,9 @@
         </div>
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
-          <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
+          <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+          <button type="button" class="btn btn-primary" [disabled]="!isValid"
+                  (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
         </div>
       </section>
     </form>

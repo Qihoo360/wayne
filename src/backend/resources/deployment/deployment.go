@@ -1,21 +1,47 @@
 package deployment
 
 import (
+	"fmt"
+	"net/http"
+	"sort"
+
+	"k8s.io/api/apps/v1beta1"
+	"k8s.io/apimachinery/pkg/api/errors"
+	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/client-go/kubernetes"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
+	erroresult "github.com/Qihoo360/wayne/src/backend/models/response/errors"
 	"github.com/Qihoo360/wayne/src/backend/resources/common"
 	"github.com/Qihoo360/wayne/src/backend/resources/event"
 	"github.com/Qihoo360/wayne/src/backend/resources/pod"
 	"github.com/Qihoo360/wayne/src/backend/util/maps"
-	"k8s.io/api/apps/v1beta1"
-	"k8s.io/apimachinery/pkg/api/errors"
-	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/labels"
-	"k8s.io/client-go/kubernetes"
 )
 
 type Deployment struct {
 	ObjectMeta common.ObjectMeta `json:"objectMeta"`
 	Pods       common.PodInfo    `json:"pods"`
+	Containers []string          `json:"containers"`
+}
+
+func GetDeploymentList(indexer *client.CacheIndexer, namespace string) ([]v1beta1.Deployment, error) {
+	cacheDeployments := indexer.Deployment.List()
+	var deployments []v1beta1.Deployment
+	for _, e := range cacheDeployments {
+		cacheDeployment, ok := e.(*v1beta1.Deployment)
+		if !ok {
+			continue
+		}
+		if cacheDeployment.Namespace != namespace {
+			continue
+		}
+		deployments = append(deployments, *cacheDeployment)
+	}
+
+	sort.Slice(deployments, func(i, j int) bool {
+		return deployments[i].Name > deployments[j].Name
+	})
+	return deployments, nil
 }
 
 func GetDeploymentResource(cli *kubernetes.Clientset, deployment *v1beta1.Deployment) (*common.ResourceList, error) {
@@ -43,14 +69,50 @@ func CreateOrUpdateDeployment(cli *kubernetes.Clientset, deployment *v1beta1.Dep
 		}
 		return nil, err
 	}
-	old.Labels = maps.MergeLabels(old.Labels, deployment.Labels)
-	oldTemplateLabels := old.Spec.Template.Labels
+	err = checkDeploymentLabelSelector(deployment, old)
+	if err != nil {
+		return nil, err
+	}
+
+	old.Labels = deployment.Labels
+	old.Annotations = deployment.Annotations
 	old.Spec = deployment.Spec
-	old.Spec.Template.Labels = maps.MergeLabels(oldTemplateLabels, deployment.Spec.Template.Labels)
+
 	return cli.AppsV1beta1().Deployments(deployment.Namespace).Update(old)
 }
+
 func UpdateDeployment(cli *kubernetes.Clientset, deployment *v1beta1.Deployment) (*v1beta1.Deployment, error) {
+	old, err := cli.AppsV1beta1().Deployments(deployment.Namespace).Get(deployment.Name, metaV1.GetOptions{})
+	if err != nil {
+		return nil, err
+	}
+
+	err = checkDeploymentLabelSelector(deployment, old)
+	if err != nil {
+		return nil, err
+	}
+
 	return cli.AppsV1beta1().Deployments(deployment.Namespace).Update(deployment)
+}
+
+// check Deployment .Spec.Selector.MatchLabels, prevent orphan ReplicaSet
+// old deployment .Spec.Selector.MatchLabels labels should contain all new deployment .Spec.Selector.MatchLabels labels
+// e.g. old Deployment .Spec.Selector.MatchLabels is app = infra-wayne,wayne-app = infra
+// new Deployment .Spec.Selector.MatchLabels valid labels is
+// app = infra-wayne or wayne-app = infra or app = infra-wayne,wayne-app = infra
+func checkDeploymentLabelSelector(new *v1beta1.Deployment, old *v1beta1.Deployment) error {
+	for key, value := range new.Spec.Selector.MatchLabels {
+		oldValue, ok := old.Spec.Selector.MatchLabels[key]
+		if !ok || oldValue != value {
+			return &erroresult.ErrorResult{
+				Code: http.StatusBadRequest,
+				Msg: fmt.Sprintf("New's Deployment MatchLabels(%s) not match old MatchLabels(%s), do not allow deploy to prevent the orphan ReplicaSet. ",
+					maps.LabelsToString(new.Spec.Selector.MatchLabels), maps.LabelsToString(old.Spec.Selector.MatchLabels)),
+			}
+		}
+	}
+
+	return nil
 }
 
 func GetDeployment(cli *kubernetes.Clientset, name, namespace string) (*v1beta1.Deployment, error) {
@@ -58,11 +120,15 @@ func GetDeployment(cli *kubernetes.Clientset, name, namespace string) (*v1beta1.
 }
 
 func GetDeploymentDetail(cli *kubernetes.Clientset, indexer *client.CacheIndexer, name, namespace string) (*Deployment, error) {
-	deployment, err := cli.ExtensionsV1beta1().Deployments(namespace).Get(name, metaV1.GetOptions{})
+	deployment, err := cli.AppsV1beta1().Deployments(namespace).Get(name, metaV1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
 
+	return toDeployment(deployment, indexer), nil
+}
+
+func toDeployment(deployment *v1beta1.Deployment, indexer *client.CacheIndexer) *Deployment {
 	result := &Deployment{
 		ObjectMeta: common.NewObjectMeta(deployment.ObjectMeta),
 	}
@@ -71,17 +137,20 @@ func GetDeploymentDetail(cli *kubernetes.Clientset, indexer *client.CacheIndexer
 	podInfo.Current = deployment.Status.AvailableReplicas
 	podInfo.Desired = *deployment.Spec.Replicas
 
-	podSelector := labels.SelectorFromSet(deployment.Spec.Template.Labels).String()
-	pods, err := pod.GetPodsBySelector(cli, namespace, podSelector)
-	if err != nil {
-		return nil, err
-	}
+	pods := pod.GetPodsBySelectorFromCache(indexer, deployment.Namespace, deployment.Spec.Template.Labels)
 
 	podInfo.Warnings = event.GetPodsWarningEvents(indexer, pods)
 
 	result.Pods = podInfo
 
-	return result, nil
+	containers := make([]string, 0)
+	for _, container := range deployment.Spec.Template.Spec.Containers {
+		containers = append(containers, container.Image)
+	}
+
+	result.Containers = containers
+
+	return result
 }
 
 func DeleteDeployment(cli *kubernetes.Clientset, name, namespace string) error {

@@ -1,24 +1,24 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType} from '../../../shared/shared.const';
-import {isUndefined} from 'util';
-import {ConfigMapTpl} from '../../../shared/model/v1/configmaptpl';
-import {ConfigMap} from '../../../shared/model/v1/configmap';
-import {ConfigMapTplService} from '../../../shared/client/v1/configmaptpl.service';
-import {ConfigMapService} from '../../../shared/client/v1/configmap.service';
-import {AceEditorBoxComponent} from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType } from '../../../shared/shared.const';
+import { isUndefined } from 'util';
+import { ConfigMapTpl } from '../../../shared/model/v1/configmaptpl';
+import { ConfigMap } from '../../../shared/model/v1/configmap';
+import { ConfigMapTplService } from '../../../shared/client/v1/configmaptpl.service';
+import { ConfigMapService } from '../../../shared/client/v1/configmap.service';
+import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'create-edit-configmaptpl',
   templateUrl: 'create-edit-configmaptpl.component.html',
   styleUrls: ['create-edit-configmaptpl.scss']
 })
-export class CreateEditConfigMapTplComponent implements OnInit{
+export class CreateEditConfigMapTplComponent implements OnInit {
   @Output() create = new EventEmitter<boolean>();
   modalOpened: boolean;
   ngForm: NgForm;
@@ -99,7 +99,7 @@ export class CreateEditConfigMapTplComponent implements OnInit{
     }
     for (let configMap of this.configMaps) {
       if (configMap.id == this.configMapTpl.configMapId) {
-        this.configMapTpl.name = configMap.name
+        this.configMapTpl.name = configMap.name;
       }
     }
     this.configMapTpl.template = this.aceBox.getValue();
@@ -143,7 +143,7 @@ export class CreateEditConfigMapTplComponent implements OnInit{
     return this.currentForm &&
       this.currentForm.valid &&
       !this.isSubmitOnGoing &&
-      !this.checkOnGoing&&
+      !this.checkOnGoing &&
       !isUndefined(this.configMapTpl.configMapId);
   }
 }

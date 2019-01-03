@@ -1,16 +1,41 @@
 package node
 
 import (
+	"sort"
 	"strconv"
 
 	"k8s.io/api/core/v1"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
+
+	"github.com/Qihoo360/wayne/src/backend/client"
+	"github.com/Qihoo360/wayne/src/backend/resources/common"
 )
 
 type NodeStatistics struct {
 	Total   int            `json:"total,omitempty"`
 	Details map[string]int `json:"details,omitempty"`
+}
+
+type NodeListResult struct {
+	NodeSummary   NodeListSummary `json:"nodeSummary"`
+	CpuSummary    ResourceSummary `json:"cpuSummary"`
+	MemorySummary ResourceSummary `json:"memorySummary"`
+	Nodes         []Node          `json:"nodes"`
+}
+
+type NodeListSummary struct {
+	// total nodes count
+	Total int64
+	// ready nodes count
+	Ready int64
+	// Schedulable nodes count
+	Schedulable int64
+}
+
+type ResourceSummary struct {
+	Total int64
+	Used  int64
 }
 
 type Node struct {
@@ -36,24 +61,103 @@ type NodeStatus struct {
 	NodeInfo v1.NodeSystemInfo          `json:"nodeInfo,omitempty"`
 }
 
-func GetNodeCounts(cli *kubernetes.Clientset) (int, error) {
-	nodes, err := cli.CoreV1().Nodes().List(metaV1.ListOptions{})
-	if err != nil {
-		return 0, err
-	}
-	return len(nodes.Items), nil
+func GetNodeCounts(indexer *client.CacheIndexer) (int, error) {
+	nodeList := indexer.Node.List()
+	return len(nodeList), nil
 }
 
-func ListNode(cli *kubernetes.Clientset, listOptions metaV1.ListOptions) ([]Node, error) {
-	nodeList, err := cli.CoreV1().Nodes().List(listOptions)
-	if err != nil {
-		return nil, err
-	}
+func ListNode(indexer *client.CacheIndexer) (NodeListResult, error) {
+	nodeList := indexer.Node.List()
 	nodes := make([]Node, 0)
-	for _, node := range nodeList.Items {
-		nodes = append(nodes, toNode(node))
+	ready := 0
+	schedulable := 0
+
+	// unit m  1 core = 1000m
+	var avaliableCpu int64 = 0
+	// unit Byte
+	var avaliableMemory int64 = 0
+
+	avaliableNodeMap := make(map[string]*v1.Node)
+
+	for _, node := range nodeList {
+		cacheNode, ok := node.(*v1.Node)
+		if !ok {
+			continue
+		}
+		isReady := false
+		isSchedulable := false
+		for _, condition := range cacheNode.Status.Conditions {
+			if condition.Type == v1.NodeReady && condition.Status == v1.ConditionTrue {
+				ready += 1
+				isReady = true
+			}
+
+		}
+		if !cacheNode.Spec.Unschedulable {
+			schedulable += 1
+			isSchedulable = true
+		}
+
+		if isReady && isSchedulable {
+			avaliableNodeMap[cacheNode.Name] = cacheNode
+
+			cpuQuantity := cacheNode.Status.Allocatable[v1.ResourceCPU]
+			memoryQuantity := cacheNode.Status.Allocatable[v1.ResourceMemory]
+			// unit m
+			avaliableCpu += cpuQuantity.MilliValue()
+			// unit Byte
+			avaliableMemory += memoryQuantity.Value()
+		}
+
+		nodes = append(nodes, toNode(*cacheNode))
 	}
-	return nodes, nil
+
+	sort.Slice(nodes, func(i, j int) bool {
+		return nodes[i].Name < nodes[j].Name
+	})
+
+	resourceList := podUsedResourcesOnAvaliableNode(indexer, avaliableNodeMap)
+
+	return NodeListResult{
+		NodeSummary: NodeListSummary{
+			Total:       int64(len(nodes)),
+			Ready:       int64(ready),
+			Schedulable: int64(schedulable),
+		},
+		CpuSummary: ResourceSummary{
+			Total: avaliableCpu / 1000,
+			Used:  resourceList.Cpu / 1000,
+		},
+		MemorySummary: ResourceSummary{
+			Total: avaliableMemory / (1024 * 1024 * 1024),
+			Used:  resourceList.Memory / (1024 * 1024 * 1024),
+		},
+		Nodes: nodes,
+	}, nil
+}
+
+func podUsedResourcesOnAvaliableNode(indexer *client.CacheIndexer, avaliableNodeMap map[string]*v1.Node) common.ResourceList {
+	result := common.ResourceList{}
+	cachePods := indexer.Pod.List()
+	for _, p := range cachePods {
+		cachePod, ok := p.(*v1.Pod)
+		if !ok {
+			continue
+		}
+
+		// Exclude Pod on Unavailable Node
+		_, ok = avaliableNodeMap[cachePod.Spec.NodeName]
+		if cachePod.Status.Phase == v1.PodFailed || cachePod.Status.Phase == v1.PodSucceeded || cachePod.DeletionTimestamp != nil || !ok {
+			continue
+		}
+
+		resourceList := common.ContainersResourceList(cachePod.Spec.Containers)
+
+		result.Cpu += resourceList.Cpu
+		result.Memory += resourceList.Memory
+	}
+
+	return result
 }
 
 func toNode(knode v1.Node) Node {

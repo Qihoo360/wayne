@@ -1,17 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {ActivatedRoute} from '@angular/router';
-import {State} from '@clr/angular';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {CreateEditPersistentVolumeClaimTplComponent} from './create-edit-persistentvolumeclaimtpl/create-edit-persistentvolumeclaimtpl.component';
-import {PersistentVolumeClaimTplService} from '../../shared/client/v1/persistentvolumeclaimtpl.service';
-import {ListPersistentVolumeClaimTplComponent} from './list-persistentvolumeclaimtpl/list-persistentvolumeclaimtpl.component';
-import {PersistentVolumeClaimTpl} from '../../shared/model/v1/persistentvolumeclaimtpl';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { State } from '@clr/angular';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { CreateEditPersistentVolumeClaimTplComponent } from './create-edit-persistentvolumeclaimtpl/create-edit-persistentvolumeclaimtpl.component';
+import { PersistentVolumeClaimTplService } from '../../shared/client/v1/persistentvolumeclaimtpl.service';
+import { ListPersistentVolumeClaimTplComponent } from './list-persistentvolumeclaimtpl/list-persistentvolumeclaimtpl.component';
+import { PersistentVolumeClaimTpl } from '../../shared/model/v1/persistentvolumeclaimtpl';
+import { PageState } from '../../shared/page/page-state';
 
 @Component({
   selector: 'wayne-persistentvolumeclaimtpl',
@@ -32,13 +31,10 @@ export class PersistentVolumeClaimTplComponent implements OnInit {
   subscription: Subscription;
 
   constructor(
-    private breadcrumbService: BreadcrumbService,
     private route: ActivatedRoute,
     private pvcTplService: PersistentVolumeClaimTplService,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/service/tpl', this.componentName + '列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/service/tpl/trash', '已删除' + this.componentName + '列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
@@ -61,10 +57,10 @@ export class PersistentVolumeClaimTplComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.pvcId = params['sid'];
-      if (typeof(this.pvcId) == 'undefined') {
-          this.pvcId = ''
+      if (typeof (this.pvcId) == 'undefined') {
+        this.pvcId = '';
       }
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -91,7 +87,7 @@ export class PersistentVolumeClaimTplComponent implements OnInit {
 
   createPvcTpl(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

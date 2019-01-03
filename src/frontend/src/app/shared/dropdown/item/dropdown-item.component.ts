@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'wayne-dropdown-item',
@@ -7,5 +7,5 @@ import {Component, Input} from '@angular/core';
 })
 
 export class DropdownItemComponent {
-  @Input('name') title: string; 
+  @Input('name') title: string;
 }

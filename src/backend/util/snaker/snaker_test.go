@@ -15,7 +15,7 @@ var _ = Describe("Snaker", func() {
 			Expect(CamelToSnake("One")).To(Equal("one"))
 		})
 
-		It("should return an uppercase string as seperate words", func() {
+		It("should return an uppercase string as separate words", func() {
 			Expect(CamelToSnake("ONE")).To(Equal("o_n_e"))
 		})
 
@@ -48,7 +48,7 @@ var _ = Describe("Snaker", func() {
 			Expect(CamelToSnake("HelloHTTPSConnectionID")).To(Equal("hello_https_connection_id"))
 		})
 
-		It("sould work with concat initialisms", func() {
+		It("should work with concat initialisms", func() {
 			Expect(CamelToSnake("HTTPSID")).To(Equal("https_id"))
 		})
 	})

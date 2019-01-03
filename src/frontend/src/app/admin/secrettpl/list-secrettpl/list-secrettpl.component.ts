@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {SecretTpl} from '../../../shared/model/v1/secrettpl';
-import {SecretTplService} from '../../../shared/client/v1/secrettpl.service';
-import {Page} from '../../../shared/page/page-state';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { SecretTpl } from '../../../shared/model/v1/secrettpl';
+import { SecretTplService } from '../../../shared/client/v1/secrettpl.service';
+import { Page } from '../../../shared/page/page-state';
 
 @Component({
   selector: 'list-secrettpl',
@@ -22,12 +22,12 @@ export class ListSecretTplComponent implements OnInit {
   @Output() delete = new EventEmitter<SecretTpl>();
   @Output() edit = new EventEmitter<SecretTpl>();
 
-    constructor(
-        private secrettplService: SecretTplService,
-        private messageHandlerService: MessageHandlerService,
-        private router: Router
-    ) {
-    }
+  constructor(
+    private secrettplService: SecretTplService,
+    private messageHandlerService: MessageHandlerService,
+    private router: Router
+  ) {
+  }
 
   ngOnInit(): void {
   }

@@ -3,7 +3,7 @@
     <ng-container *clrDgHideableColumn="{hidden: false}">ID</ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'name'">
-    <ng-container *clrDgHideableColumn="{hidden: false}">名称</ng-container>
+    <ng-container *clrDgHideableColumn="{hidden: false}">{{'TITLE.NAME' | translate}}</ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-type">
     <ng-container *clrDgHideableColumn="{hidden: false}">类型</ng-container>
@@ -18,32 +18,32 @@
     <ng-container *clrDgHideableColumn="{hidden: false}">资源ID</ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-time">
-    <ng-container *clrDgHideableColumn="{hidden: false}">创建时间</ng-container>
+    <ng-container *clrDgHideableColumn="{hidden: false}">{{'TITLE.CREATE_TIME' | translate}}</ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">过期时间(s)</ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-user">
-    <ng-container *clrDgHideableColumn="{hidden: false}">创建者</ng-container>
+    <ng-container *clrDgHideableColumn="{hidden: false}">{{'TITLE.CREATE_USER' | translate}}</ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">描述</ng-container>
+    <ng-container *clrDgHideableColumn="{hidden: false}">{{'TITLE.DESCRIPTION' | translate}}</ng-container>
   </clr-dg-column>
 
   <clr-dg-row *ngFor="let apiKey of apiKeys" [clrDgItem]="apiKey">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editApiKey(apiKey)">编辑</button>
-      <button class="action-item" (click)="tokenDetail(apiKey)">查看token</button>
+      <button class="action-item" (click)="editApiKey(apiKey)">{{'BUTTON.EDIT' | translate}}</button>
+      <button class="action-item" (click)="tokenDetail(apiKey)">{{'MESSAGE.VIEW_TOKEN' | translate}}</button>
       <button class="action-item" (click)="deleteApiKey(apiKey)">立即失效</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-id">{{apiKey.id}}</clr-dg-cell>
     <clr-dg-cell class="copy">{{apiKey.name}}</clr-dg-cell>
     <clr-dg-cell class="col-type">{{getApiKeyType(apiKey)}}</clr-dg-cell>
     <clr-dg-cell class="copy">{{apiKey.group?.name}}</clr-dg-cell>
-    <clr-dg-cell>{{apiKey.deleted ? "否": "是"}}</clr-dg-cell>
+    <clr-dg-cell>{{apiKey.deleted ? "否" : "是"}}</clr-dg-cell>
     <clr-dg-cell>{{apiKey.resourceId}}</clr-dg-cell>
     <clr-dg-cell class="col-time">{{apiKey.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
-    <clr-dg-cell>{{apiKey.expireIn==0 ? "永久有效": apiKey.expireIn}}</clr-dg-cell>
+    <clr-dg-cell>{{apiKey.expireIn == 0 ? "永久有效" : apiKey.expireIn}}</clr-dg-cell>
     <clr-dg-cell class="col-user">{{apiKey.user}}</clr-dg-cell>
     <clr-dg-cell>{{apiKey.description}}</clr-dg-cell>
   </clr-dg-row>

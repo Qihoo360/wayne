@@ -1,12 +1,13 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {Group} from '../../model/v1/group';
-import {PageState} from '../../page/page-state';
-import {isNotEmpty} from '../../utils';
+import { Group } from '../../model/v1/group';
+import { PageState } from '../../page/page-state';
+import { isNotEmpty } from '../../utils';
+
 @Injectable()
 export class GroupService {
   headers = new HttpHeaders({'Content-type': 'application/json'});
@@ -19,7 +20,7 @@ export class GroupService {
     let params = new HttpParams();
     params = params.set('pageNo', pageState.page.pageNo + '');
     params = params.set('pageSize', pageState.page.pageSize + '');
-    if (typeof(type) !== 'undefined') {
+    if (typeof (type) !== 'undefined') {
       params = params.set('type', type + '');
     }
     Object.getOwnPropertyNames(pageState.params).map(key => {
@@ -33,12 +34,12 @@ export class GroupService {
       let value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
-          filterList.push(`${key}=${value}`)
+          filterList.push(`${key}=${value}`);
         } else {
           filterList.push(`${key}__contains=${value}`);
         }
       }
-    })
+    });
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }
@@ -51,7 +52,7 @@ export class GroupService {
     return this.http
       .get('/api/v1/groups', {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   createGroup(group: Group): Observable<any> {
@@ -69,7 +70,7 @@ export class GroupService {
   }
 
   deleteGroup(groupId: number): Observable<any> {
-    let options : any = {};
+    let options: any = {};
     return this.http
       .delete(`/api/v1/groups/${groupId}`, options)
 

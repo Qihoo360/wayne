@@ -1,13 +1,16 @@
-:host{
+:host {
   display: inline-block;
   position: relative;
-  .filter-box{
+
+  .filter-box {
+    width: 197px;
     padding: 15px;
     position: absolute;
-    left: 85px;
+    right: -200px;
     top: -12px;
     z-index: 10;
-    &:before{
+
+    &:before {
       content: '';
       display: block;
       position: absolute;
@@ -20,7 +23,8 @@
       box-shadow: 0 2px 8px 1px #dee6f3;
       z-index: 1;
     }
-    &:after{
+
+    &:after {
       content: '';
       display: block;
       position: absolute;
@@ -32,18 +36,21 @@
       background: #fff;
       z-index: 2;
     }
-    .filter-header{
-      font-size:16px;
-      color:#222222;
-      letter-spacing:0.67px;
-      line-height:20px;
+
+    .filter-header {
+      font-size: 16px;
+      color: #222222;
+      letter-spacing: 0.67px;
+      line-height: 20px;
       height: 20px;
-      text-align:left;
+      text-align: left;
     }
-    .filter-body{
+
+    .filter-body {
       padding: 10px 0 10px 15px;
     }
-    .filter-footer{
+
+    .filter-footer {
       margin-left: 15px;
     }
   }

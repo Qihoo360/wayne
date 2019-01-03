@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {State} from '@clr/angular';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../../shared/shared.const';
-import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {ConfigMap} from '../../../shared/model/v1/configmap';
-import {ConfigMapService} from '../../../shared/client/v1/configmap.service';
-import {PageState} from '../../../shared/page/page-state';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { State } from '@clr/angular';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription } from 'rxjs/Subscription';
+import { ConfigMap } from '../../../shared/model/v1/configmap';
+import { ConfigMapService } from '../../../shared/client/v1/configmap.service';
+import { PageState } from '../../../shared/page/page-state';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'trash-configmap',
@@ -63,7 +63,7 @@ export class TrashConfigMapComponent implements OnInit, OnDestroy {
     this.currentPage = 1;
     this.refresh(this.state);
   }
-  
+
   refresh(state?: State) {
     if (state) {
       this.state = state;
@@ -103,7 +103,7 @@ export class TrashConfigMapComponent implements OnInit, OnDestroy {
         error => this.messageHandlerService.handleError(error)
       );
   }
-  
+
   detailMetaDataTpl(tpl: string) {
     this.aceEditorService.announceMessage(AceEditorMsg.Instance(tpl, false, '元数据查看'));
   }

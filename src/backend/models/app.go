@@ -5,6 +5,8 @@ import (
 	"time"
 
 	"github.com/Qihoo360/wayne/src/backend/common"
+	"github.com/astaxie/beego/orm"
+	"github.com/go-sql-driver/mysql"
 )
 
 const (
@@ -15,7 +17,7 @@ type appModel struct{}
 
 type App struct {
 	Id        int64      `orm:"auto" json:"id,omitempty"`
-	Name      string     `orm:"unique;index;size(128)" json:"name,omitempty"`
+	Name      string     `orm:"index;size(128)" json:"name,omitempty"`
 	Namespace *Namespace `orm:"index;column(namespace_id);rel(fk)" json:"namespace"`
 	/*
 		{
@@ -84,6 +86,10 @@ func (*appModel) List(q *common.QueryParam, starred bool, userId int64) (apps []
 	if err != nil {
 		return nil, err
 	}
+	for i := 0; i < len(apps); i++ {
+		apps[i].App.Namespace = &Namespace{Id: apps[i].NamespaceId}
+	}
+
 	return
 }
 
@@ -122,11 +128,20 @@ func (*appModel) GetNames(deleted bool) ([]App, error) {
 	return apps, nil
 }
 
-func (*appModel) Add(m *App) (id int64, err error) {
-	// 创建项目
-	id, err = Ormer().Insert(m)
+func (m *appModel) Add(a *App) (id int64, err error) {
+	// add app
+	err = Ormer().Read(a, "name", "namespace_id")
 	if err != nil {
-		return
+		// Apps with duplicate names are not allowed to appear under the same namespace
+		if err == orm.ErrNoRows {
+			id, err = Ormer().Insert(a)
+			return
+		}
+	}
+
+	err = &mysql.MySQLError{
+		Number:  1062,
+		Message: "Resources already exist!",
 	}
 	return
 }

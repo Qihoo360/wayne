@@ -1,44 +1,44 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)">
-  <clr-dg-column >
+  <clr-dg-column>
     <ng-container>
       ID
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'name'">
-    <ng-container *clrDgHideableColumn="showState['名称']">
-      名称 
+    <ng-container *clrDgHideableColumn="showState['name']">
+      {{'TITLE.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['URL']">
+    <ng-container *clrDgHideableColumn="showState['url']">
       URL
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['启用状态']">
-      启用状态
+    <ng-container *clrDgHideableColumn="showState['start_status']">
+      {{'TITLE.START_STATUS' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user'">
-    <ng-container *clrDgHideableColumn="showState['创建用户']">
-      创建用户 
+    <ng-container *clrDgHideableColumn="showState['create_user']">
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['创建时间']">
-      创建时间
+    <ng-container *clrDgHideableColumn="showState['create_time']">
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column
-      *ngIf="
+    *ngIf="
       authService.currentNamespacePermission.webHook.update ||
       authService.currentAppPermission.webHook.update ||
       authService.currentNamespacePermission.webHook.delete ||
       authService.currentAppPermission.webHook.delete ||
       authService.currentUser.admin"
   >
-    <ng-container *clrDgHideableColumn="showState['操作']">
-      操作
+    <ng-container *clrDgHideableColumn="showState['action']">
+      {{'TITLE.ACTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let webHook of webHooks; let i = index" [clrDgItem]="webHook">
@@ -46,16 +46,16 @@
     <clr-dg-cell class="copy">{{webHook.name}}</clr-dg-cell>
     <clr-dg-cell>{{webHook.url}}</clr-dg-cell>
     <clr-dg-cell>
-			<div class="toggle-switch">
-				<input 
-          type="checkbox"  
+      <div class="toggle-switch">
+        <input
+          type="checkbox"
           id="webhook-toggle-{{i}}"
           (change)="toggleWebhook(webHook)"
           [checked]="webHook.enabled"
         >
         <label for="webhook-toggle-{{i}}"></label>
-			</div> 
-		</clr-dg-cell>
+      </div>
+    </clr-dg-cell>
     <clr-dg-cell>{{webHook.user}}</clr-dg-cell>
     <clr-dg-cell>{{webHook.createTime | date:"yyyy-MM-dd HH:mm"}}</clr-dg-cell>
     <clr-dg-cell
@@ -67,17 +67,18 @@
       authService.currentUser.admin"
     >
       <button class="wayne-button text"
-      *ngIf="authService.currentNamespacePermission.webHook.update ||
+              *ngIf="authService.currentNamespacePermission.webHook.update ||
         authService.currentAppPermission.webHook.update ||
         authService.currentUser.admin"
-        (click)="editWebhook(webHook)">
-        编辑</button>
+              (click)="editWebhook(webHook)">
+        {{'BUTTON.EDIT' | translate}}
+      </button>
       <button class="wayne-button text"
-        *ngIf="authService.currentNamespacePermission.webHook.delete ||
+              *ngIf="authService.currentNamespacePermission.webHook.delete ||
           authService.currentAppPermission.webHook.delete ||
           authService.currentUser.admin"
-        (click)="deleteWebhook(webHook)">
-        删除</button>
+              (click)="deleteWebhook(webHook)">
+        {{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-cell>
   </clr-dg-row>
 

@@ -6,15 +6,17 @@ import (
 	"strings"
 	"time"
 
-	rsakey "github.com/Qihoo360/wayne/src/backend/apikey"
-	"github.com/Qihoo360/wayne/src/backend/controllers/base"
-	"github.com/Qihoo360/wayne/src/backend/models"
-	selfoauth "github.com/Qihoo360/wayne/src/backend/oauth2"
-	"github.com/Qihoo360/wayne/src/backend/util/hack"
-	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/astaxie/beego"
 	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/oauth2"
+
+	rsakey "github.com/Qihoo360/wayne/src/backend/apikey"
+	"github.com/Qihoo360/wayne/src/backend/controllers/base"
+	"github.com/Qihoo360/wayne/src/backend/models"
+	"github.com/Qihoo360/wayne/src/backend/models/response/errors"
+	selfoauth "github.com/Qihoo360/wayne/src/backend/oauth2"
+	"github.com/Qihoo360/wayne/src/backend/util/hack"
+	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
 
 // Authenticator provides interface to authenticate user credentials.
@@ -59,7 +61,7 @@ func (c *AuthController) Login() {
 	authType := c.Ctx.Input.Param(":type")
 	oauth2Name := c.Ctx.Input.Param(":name")
 	next := c.Ctx.Input.Query("next")
-	if authType == "" {
+	if authType == "" || username == "admin" {
 		authType = models.AuthTypeDB
 	}
 	logs.Info("auth type is", authType)
@@ -116,7 +118,7 @@ func (c *AuthController) Login() {
 	}
 
 	// default token exp time is 3600s.
-	expSecond := beego.AppConfig.DefaultInt64("TokenLifeTime", 3600)
+	expSecond := beego.AppConfig.DefaultInt64("TokenLifeTime", 86400)
 	token := jwt.NewWithClaims(jwt.SigningMethodRS256, jwt.MapClaims{
 		// 签发者
 		"iss": "wayne",
@@ -172,7 +174,7 @@ func (c *AuthController) CurrentUser() {
 		// we also only use its public counter part to verify
 		return rsakey.RsaPublicKey, nil
 	})
-	errResult := base.ErrorResult{}
+	errResult := errors.ErrorResult{}
 	switch err.(type) {
 	case nil: // no error
 		if !token.Valid { // but may still be invalid

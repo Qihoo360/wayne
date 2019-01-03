@@ -11,30 +11,30 @@
       </clr-dg-column>
       <clr-dg-column [clrDgField]="'name'" style="width: 220px;">
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          名称
+         {{'TITLE.NAME' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column>
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          描述
+          {{'TITLE.DESCRIPTION' | translate}}
         </ng-container>
       </clr-dg-column>
 
       <clr-dg-column [clrDgField]="'user'">
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          创建者
+          {{'TITLE.CREATE_USER' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-column [clrDgSortBy]="'createTime'">
         <ng-container *clrDgHideableColumn="{hidden: false}">
-          创建时间
+          {{'TITLE.CREATE_TIME' | translate}}
         </ng-container>
       </clr-dg-column>
       <clr-dg-row *ngFor="let statefulsetTpl of statefulsetTpls" [clrDgItem]="statefulsetTpl">
-        <clr-dg-action-overflow >
-          <button class="action-item" (click)="tplDetail(statefulsetTpl)" >模板详情</button>
-          <button class="action-item" (click)="recoverStatefulsetTpl(statefulsetTpl)" >恢复</button>
-          <button class="action-item" (click)="deleteStatefulsetTpl(statefulsetTpl)">彻底删除</button>
+        <clr-dg-action-overflow>
+          <button class="action-item" (click)="tplDetail(statefulsetTpl)">{{'BUTTON.TMP_DETAIL' | translate}}</button>
+          <button class="action-item" (click)="recoverStatefulsetTpl(statefulsetTpl)">{{'BUTTON.RESTORE' | translate}}</button>
+          <button class="action-item" (click)="deleteStatefulsetTpl(statefulsetTpl)">{{'BUTTON.DELETE_PERMANENTLY' | translate}}</button>
         </clr-dg-action-overflow>
         <clr-dg-cell>{{statefulsetTpl.id}}</clr-dg-cell>
         <clr-dg-cell class="copy">{{statefulsetTpl.name}}</clr-dg-cell>

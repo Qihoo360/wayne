@@ -1,5 +1,5 @@
-import {Event} from '../../../shared/model/v1/event';
-import {Comparator} from '@clr/angular';
+import { Event } from '../../../shared/model/v1/event';
+import { Comparator } from '@clr/angular';
 
 export class Inventory {
   public size = 10;

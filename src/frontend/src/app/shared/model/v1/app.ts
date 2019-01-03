@@ -1,4 +1,4 @@
-import {Namespace} from './namespace';
+import { Namespace } from './namespace';
 
 export class App {
   id: number;

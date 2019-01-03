@@ -5,14 +5,17 @@
     </div>
     <div class="row flex-items-xs-between" style="height:32px;">
       <div class="option-left">
-        <button class="btn btn-link" (click)="openModal()"><clr-icon shape="add"></clr-icon>创建状态副本集模版</button>
+        <button class="btn btn-link" (click)="openModal()">
+          <clr-icon shape="add"></clr-icon>
+          创建状态副本集模版
+        </button>
         <create-edit-statefulsettpl (create)="createStatefulset($event)"></create-edit-statefulsettpl>
       </div>
     </div>
     <list-statefulsettpl [statefulsetTpls]="changedStatefulsets"
-                        (delete)="deleteStatefulset($event)"
-                        (edit)="editStatefulset($event)"
-                        (paginate)="retrieve($event)"
-                        [page]="pageState.page"></list-statefulsettpl>
+                         (delete)="deleteStatefulset($event)"
+                         (edit)="editStatefulset($event)"
+                         (paginate)="retrieve($event)"
+                         [page]="pageState.page"></list-statefulsettpl>
   </div>
 </div>

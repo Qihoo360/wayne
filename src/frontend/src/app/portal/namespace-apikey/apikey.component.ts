@@ -1,31 +1,26 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {State} from '@clr/angular';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {
-  apiKeyTypeNamespace,
-  ConfirmationButtons,
-  ConfirmationState,
-  ConfirmationTargets
-} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {CacheService} from '../../shared/auth/cache.service';
-import {AuthService} from '../../shared/auth/auth.service';
-import {PageState} from '../../shared/page/page-state';
-import {ListApiKeyComponent} from './list-apikey/list-apikey.component';
-import {CreateEditApiKeyComponent} from './create-edit-apikey/create-edit-apikey.component';
-import {ApiKey} from '../../shared/model/v1/apikey';
-import {ApiKeyService} from '../../shared/client/v1/apikey.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { State } from '@clr/angular';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { apiKeyTypeNamespace, ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { CacheService } from '../../shared/auth/cache.service';
+import { AuthService } from '../../shared/auth/auth.service';
+import { PageState } from '../../shared/page/page-state';
+import { ListApiKeyComponent } from './list-apikey/list-apikey.component';
+import { CreateEditApiKeyComponent } from './create-edit-apikey/create-edit-apikey.component';
+import { ApiKey } from '../../shared/model/v1/apikey';
+import { ApiKeyService } from '../../shared/client/v1/apikey.service';
 
 const showState = {
-  '名称': {hidden: false},
-  '角色': {hidden: false},
-  '创建时间': {hidden: false},
-  '过期时间': {hidden: false},
-  '创建者': {hidden: false},
-  '描述': {hidden: false},
-  '操作': {hidden: false}
+  'name': {hidden: false},
+  'role': {hidden: false},
+  'create_time': {hidden: false},
+  'expire_time': {hidden: false},
+  'create_user': {hidden: false},
+  'description': {hidden: false},
+  'action': {hidden: false}
 };
 
 @Component({
@@ -77,7 +72,7 @@ export class NamespaceApiKeyComponent implements OnInit {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
       if (!this.showState[key].hidden) this.showList.push(key);
-    })
+    });
   }
 
   confirmEvent() {
@@ -87,7 +82,7 @@ export class NamespaceApiKeyComponent implements OnInit {
       } else {
         this.showState[key] = {hidden: true};
       }
-    })
+    });
   }
 
   cancelEvent() {
@@ -126,7 +121,7 @@ export class NamespaceApiKeyComponent implements OnInit {
 
   createApiKey(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

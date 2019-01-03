@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class AuthoriseService {
@@ -11,9 +11,10 @@ export class AuthoriseService {
   }
 
   Login(username: string, password: string, type: string): Observable<any> {
+    const encodedName = encodeURIComponent(username);
+    const encodedPassword = encodeURIComponent(password);
     return this.http
-      .post(`/login/${type}?username=${username}&password=${password}`, null, this.options)
-
+      .post(`/login/${type}?username=${encodedName}&password=${encodedPassword}`, null, this.options)
       .catch(error => Observable.throw(error));
   }
 }

@@ -28,11 +28,24 @@ func ContainersResourceList(containers []v1.Container) *ResourceList {
 	for _, container := range containers {
 		// unit m
 		cpuUsage += container.Resources.Limits.Cpu().MilliValue()
-		// unit Mi
-		memoryUsage += container.Resources.Limits.Memory().Value() / (1024 * 1024)
+		// unit Byte
+		memoryUsage += container.Resources.Limits.Memory().Value()
 	}
 	return &ResourceList{
 		Cpu:    cpuUsage,
 		Memory: memoryUsage,
 	}
+}
+
+func CompareLabels(source map[string]string, target map[string]string) bool {
+	if len(source) != len(target) {
+		return false
+	}
+	for key, value := range source {
+		targetValue, ok := target[key]
+		if !ok || value != targetValue {
+			return false
+		}
+	}
+	return true
 }

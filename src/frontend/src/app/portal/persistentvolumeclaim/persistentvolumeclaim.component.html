@@ -1,57 +1,35 @@
 <button (click)="openModal()" class="wayne-button primary" *ngIf="authService.currentAppPermission.pvc.create || authService.currentUser.admin">
-  创建PVC
+  {{'PVC.CREATE' | translate}}
 </button>
 <create-edit-persistentvolumeclaim (create)="createPvc($event)"></create-edit-persistentvolumeclaim>
 <div *ngIf="pvcId && pvcs?.length>0">
   <wayne-tabs>
-    <wayne-tab (click)="tabClick(pvc.id)"
-                [id]="pvc.id"
-                *ngFor="let pvc of pvcs"
-                [active]="pvc.id==pvcId"
-                [description]="pvc.description"
-                >
+    <wayne-tab (click)="tabClick(pvc.id)" [id]="pvc.id" *ngFor="let pvc of pvcs" [active]="pvc.id==pvcId" [description]="pvc.description">
       {{pvc.name}}
     </wayne-tab>
   </wayne-tabs>
   <div class="table-search">
     <div class="table-search-left">
-      <button (click)="createPvcTpl()"
-              class="wayne-button normal"
-              *ngIf="authService.currentAppPermission.pvc.create || authService.currentUser.admin">
-        创建PVC模版
+      <button (click)="createPvcTpl()" class="wayne-button normal" *ngIf="authService.currentAppPermission.pvc.create || authService.currentUser.admin">
+        {{'PVC.CREATE_TMP' | translate}}
       </button>
-      <button (click)="editPvc()"
-              class="wayne-button normal"
-              *ngIf="authService.currentAppPermission.pvc.update || authService.currentUser.admin">
-        编辑PVC
+      <button (click)="editPvc()" class="wayne-button normal" *ngIf="authService.currentAppPermission.pvc.update || authService.currentUser.admin">
+        {{'PVC.EDIT' | translate}}
       </button>
-      <button (click)="publishHistory()"
-              class="wayne-button normal"
-              *ngIf="authService.currentAppPermission.pvc.read || authService.currentUser.admin">
-        发布历史
+      <button (click)="publishHistory()" class="wayne-button normal" *ngIf="authService.currentAppPermission.pvc.read || authService.currentUser.admin">
+        {{'BUTTON.HISTORY' | translate}}
       </button>
       <button (click)="deletePvc()" class="wayne-button normal" *ngIf="authService.currentAppPermission.pvc.offline || authService.currentUser.admin">
-        删除PVC
+        {{'PVC.DELETE' | translate}}
       </button>
+      <button class="wayne-button normal" (click)="diffTpl()">{{'BUTTON.DIFF_TMP' | translate}}</button>
     </div>
     <div class="table-search-right">
       <div class="toggle-switch">
         <input type="checkbox" id="toggle_1" [(ngModel)]="isOnline" (change)="onlineChange()">
-        <label for="toggle_1">只显示上线模板</label>
+        <label for="toggle_1">{{'MESSAGE.ONLY_ONLINE_TEMPLATE' | translate}}</label>
       </div>
     </div>
   </div>
   <router-outlet></router-outlet>
-  <!--
-  <list-persistentvolumeclaim
-    [pvcs]="pvcs"
-    (cloneTpl)="clonePvcTpl($event)"
-    [pvcTpls]="pvcTpls"
-    (edit)="editPvc($event)"
-    [publishStatus]="publishStatus"
-    (paginate)="retrieve($event)"
-    [totalPage]="totalPage"
-    [totalCount]="totalCount"
-    [pageSize]="pageSize"></list-persistentvolumeclaim>-->
 </div>
-

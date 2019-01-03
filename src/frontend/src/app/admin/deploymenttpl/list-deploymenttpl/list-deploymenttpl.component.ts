@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {State} from '@clr/angular';
-import {DeploymentTpl} from '../../../shared/model/v1/deploymenttpl';
-import {Page} from '../../../shared/page/page-state';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { State } from '@clr/angular';
+import { DeploymentTpl } from '../../../shared/model/v1/deploymenttpl';
+import { Page } from '../../../shared/page/page-state';
 
 @Component({
   selector: 'list-deploymenttpl',
@@ -43,7 +43,7 @@ export class ListDeploymentTplComponent implements OnInit {
     this.delete.emit(deploymentTpl);
   }
 
-  editDeploymentTpl(deploymentTpl: DeploymentTpl){
+  editDeploymentTpl(deploymentTpl: DeploymentTpl) {
     this.edit.emit(deploymentTpl);
   }
 }

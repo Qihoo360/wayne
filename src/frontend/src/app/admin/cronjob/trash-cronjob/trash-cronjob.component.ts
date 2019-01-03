@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {State} from '@clr/angular';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../../shared/shared.const';
-import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {Cronjob} from '../../../shared/model/v1/cronjob';
-import {CronjobService} from '../../../shared/client/v1/cronjob.service';
-import {PageState} from '../../../shared/page/page-state';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { State } from '@clr/angular';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription } from 'rxjs/Subscription';
+import { Cronjob } from '../../../shared/model/v1/cronjob';
+import { CronjobService } from '../../../shared/client/v1/cronjob.service';
+import { PageState } from '../../../shared/page/page-state';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 @Component({
   selector: 'trash-cronjob',
@@ -87,7 +87,7 @@ export class TrashCronjobComponent implements OnInit, OnDestroy {
   deleteCronjob(cronjob: Cronjob) {
     let deletionMessage = new ConfirmationMessage(
       '删除' + this.componentName + '确认',
-      '你确认永久删除' + this.componentName +  cronjob.name + ' ？删除后将不可恢复！',
+      '你确认永久删除' + this.componentName + cronjob.name + ' ？删除后将不可恢复！',
       cronjob.id,
       ConfirmationTargets.TRASH_CRONJOB,
       ConfirmationButtons.DELETE_CANCEL

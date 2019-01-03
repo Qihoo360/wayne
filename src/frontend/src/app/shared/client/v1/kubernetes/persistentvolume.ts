@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {HttpClient} from '@angular/common/http';
-import {PersistentVolume} from '../../../model/v1/kubernetes/persistentvolume';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+import { PersistentVolume } from '../../../model/v1/kubernetes/persistentvolume';
 
 @Injectable()
 export class PersistentVolumeClient {
@@ -11,7 +11,7 @@ export class PersistentVolumeClient {
   list(cluster: string): Observable<any> {
     return this.http
       .get(`/api/v1/kubernetes/persistentvolumes/clusters/${cluster}`)
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   create(pv: PersistentVolume, cluster: string): Observable<any> {

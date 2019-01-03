@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'wayne-box',
@@ -7,5 +7,5 @@ import {Component} from '@angular/core';
 })
 
 export class BoxComponent {
-  
+
 }

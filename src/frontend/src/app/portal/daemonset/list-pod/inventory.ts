@@ -1,5 +1,5 @@
-import {Comparator} from '@clr/angular';
-import {Pod} from '../../../shared/model/v1/kubernetes/pod';
+import { Comparator } from '@clr/angular';
+import { Pod } from '../../../shared/model/v1/kubernetes/pod';
 
 export class Inventory {
   public size = 10;

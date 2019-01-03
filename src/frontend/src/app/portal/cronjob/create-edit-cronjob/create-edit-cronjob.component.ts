@@ -1,17 +1,17 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType, configKeyApiNameGenerateRule, defaultResources} from '../../../shared/shared.const';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType, configKeyApiNameGenerateRule } from '../../../shared/shared.const';
 import 'rxjs/add/observable/combineLatest';
-import {Cluster} from '../../../shared/model/v1/cluster';
-import {ClusterMeta, Cronjob} from '../../../shared/model/v1/cronjob';
-import {CronjobService} from '../../../shared/client/v1/cronjob.service';
-import {App} from '../../../shared/model/v1/app';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {ApiNameGenerateRule} from '../../../shared/utils';
-
+import { Cluster } from '../../../shared/model/v1/cluster';
+import { ClusterMeta, Cronjob } from '../../../shared/model/v1/cronjob';
+import { CronjobService } from '../../../shared/client/v1/cronjob.service';
+import { App } from '../../../shared/model/v1/app';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { ApiNameGenerateRule } from '../../../shared/utils';
+import { ResourceLimitComponent } from '../../../shared/component/resource-limit/resource-limit.component';
 @Component({
   selector: 'create-edit-cronjob',
   templateUrl: 'create-edit-cronjob.component.html',
@@ -22,6 +22,8 @@ export class CreateEditCronjobComponent implements OnInit {
   cronjobForm: NgForm;
   @ViewChild('cronjobForm')
   currentForm: NgForm;
+  @ViewChild(ResourceLimitComponent)
+  resourceLimitComponent: ResourceLimitComponent;
   clusters: Cluster[];
   clusterMetas: {};
   title: string;
@@ -38,7 +40,7 @@ export class CreateEditCronjobComponent implements OnInit {
 
   constructor(
     private cronjobService: CronjobService,
-    private authService: AuthService,
+    public authService: AuthService,
     private messageHandlerService: MessageHandlerService
   ) {
   }
@@ -61,9 +63,9 @@ export class CreateEditCronjobComponent implements OnInit {
         status => {
           this.cronjob = status.data;
           if (this.clusters && this.clusters.length > 0) {
-            let replicas = JSON.parse(this.cronjob.metaData)['replicas'];
-            for (let clu of this.clusters) {
-              let culsterMeta = new ClusterMeta(false);
+            const replicas = JSON.parse(this.cronjob.metaData)['replicas'];
+            for (const clu of this.clusters) {
+              const culsterMeta = new ClusterMeta(false);
               if (replicas && replicas[clu.name]) {
                 culsterMeta.checked = true;
                 // culsterMeta.value = replicas[clu.name];
@@ -75,6 +77,7 @@ export class CreateEditCronjobComponent implements OnInit {
               this.clusterMetas[clu.name] = culsterMeta;
             }
           }
+          this.resourceLimitComponent.setValue(JSON.parse(this.cronjob.metaData)['resources']);
         },
         error => {
           this.messageHandlerService.handleError(error);
@@ -83,14 +86,15 @@ export class CreateEditCronjobComponent implements OnInit {
       this.actionType = ActionType.ADD_NEW;
       this.title = '创建' + this.componentName;
       this.cronjob = new Cronjob();
-      for (let clu of this.clusters) {
-        let culsterMeta = new ClusterMeta(false);
+      for (const clu of this.clusters) {
+        const culsterMeta = new ClusterMeta(false);
         culsterMeta.checked = false;
         // 目前限制数量为1
         culsterMeta.value = 1;
         this.clusterMetas[clu.name] = culsterMeta;
       }
       this.cronjob.metaData = '{}';
+      this.resourceLimitComponent.setValue();
     }
   }
 
@@ -103,9 +107,9 @@ export class CreateEditCronjobComponent implements OnInit {
     this.currentForm.reset();
   }
 
-  get nameGenerateRuleConfig():string{
+  get nameGenerateRuleConfig(): string {
     return ApiNameGenerateRule.config(
-      this.authService.config[configKeyApiNameGenerateRule], this.app.metaData)
+      this.authService.config[configKeyApiNameGenerateRule], this.app.metaData);
   }
 
   onSubmit() {
@@ -130,6 +134,7 @@ export class CreateEditCronjobComponent implements OnInit {
     let metaData = JSON.parse(this.cronjob.metaData);
     metaData.replicas = replicas;
     metaData.suspends = suspends;
+    metaData.resources = this.resourceLimitComponent.getValue();
     if (!metaData.successfulJobsHistoryLimit) {
       metaData.successfulJobsHistoryLimit = 3;
     }
@@ -194,7 +199,7 @@ export class CreateEditCronjobComponent implements OnInit {
   handleValidation(): void {
     let cont = this.currentForm.controls['cronjob_name'];
     if (cont) {
-      this.isNameValid = cont.valid
+      this.isNameValid = cont.valid;
     }
   }
 }

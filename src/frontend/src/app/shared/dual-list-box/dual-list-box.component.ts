@@ -1,8 +1,9 @@
-import {Component, EventEmitter, forwardRef, Input, OnInit, Output} from '@angular/core';
-import {ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR} from '@angular/forms';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import 'rxjs/Rx';
 import * as _ from 'lodash';
-import {IItemsMovedEvent, IListBoxItem} from './models';
+import { IItemsMovedEvent, IListBoxItem } from './models';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ng2-dual-list-box',
@@ -81,7 +82,7 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
   _onTouched = () => {
   };
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, public translate: TranslateService) {
     this.listBoxForm = this.fb.group({
       availableListBox: this.availableListBoxControl,
       selectedListBox: this.selectedListBoxControl,
@@ -101,7 +102,9 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
       .valueChanges
       .debounceTime(this.debounceTime)
       .distinctUntilChanged()
-      .subscribe((search: string) => {this.searchTermAvailable = search});
+      .subscribe((search: string) => {
+        this.searchTermAvailable = search;
+      });
     this.selectedSearchInputControl
       .valueChanges
       .debounceTime(this.debounceTime)
@@ -125,7 +128,7 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
       } else {
         leftItems.push(item);
       }
-    })
+    });
     this.selectedItems = [...this.selectedItems, ...selectedItems];
     this.availableItems = [...leftItems];
     this.onItemsMoved.emit({
@@ -153,7 +156,7 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
       } else {
         leftItems.push(item);
       }
-    })
+    });
     this.availableItems = [...this.availableItems, ...selectedItems];
     this.selectedItems = [...leftItems];
     this.onItemsMoved.emit({

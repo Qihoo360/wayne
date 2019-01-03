@@ -1,17 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {Router, ActivatedRoute, Params} from '@angular/router';
-import {State} from '@clr/angular';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {CreateEditConfigMapTplComponent} from './create-edit-configmaptpl/create-edit-configmaptpl.component';
-import {ListConfigMapTplComponent} from './list-configmaptpl/list-configmaptpl.component';
-import {ConfigMapTpl} from '../../shared/model/v1/configmaptpl';
-import {ConfigMapTplService} from '../../shared/client/v1/configmaptpl.service';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { State } from '@clr/angular';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { CreateEditConfigMapTplComponent } from './create-edit-configmaptpl/create-edit-configmaptpl.component';
+import { ListConfigMapTplComponent } from './list-configmaptpl/list-configmaptpl.component';
+import { ConfigMapTpl } from '../../shared/model/v1/configmaptpl';
+import { ConfigMapTplService } from '../../shared/client/v1/configmaptpl.service';
+import { PageState } from '../../shared/page/page-state';
 
 @Component({
   selector: 'wayne-configmaptpl',
@@ -31,13 +30,10 @@ export class ConfigMapTplComponent implements OnInit {
   subscription: Subscription;
 
   constructor(
-    private breadcrumbService: BreadcrumbService,
     private configMapTplService: ConfigMapTplService,
     private route: ActivatedRoute,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/configmap/tpl', '配置集模板列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/configmap/tpl/trash', '已删除配置集模板列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
@@ -60,10 +56,10 @@ export class ConfigMapTplComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.configmapId = params['cid'];
-      if (typeof(this.configmapId) == 'undefined') {
-          this.configmapId = ''
+      if (typeof (this.configmapId) == 'undefined') {
+        this.configmapId = '';
       }
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -91,7 +87,7 @@ export class ConfigMapTplComponent implements OnInit {
 
   createConfigMapTpl(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

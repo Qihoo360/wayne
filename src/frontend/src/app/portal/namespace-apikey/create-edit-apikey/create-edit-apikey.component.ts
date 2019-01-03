@@ -1,15 +1,15 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType, apiKeyTypeNamespace} from '../../../shared/shared.const';
-import {ApiKey} from 'app/shared/model/v1/apikey';
-import {ApiKeyService} from '../../../shared/client/v1/apikey.service';
-import {GroupService} from '../../../shared/client/v1/group.service';
-import {Group} from '../../../shared/model/v1/group';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {PageState} from '../../../shared/page/page-state';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType, apiKeyTypeNamespace } from '../../../shared/shared.const';
+import { ApiKey } from 'app/shared/model/v1/apikey';
+import { ApiKeyService } from '../../../shared/client/v1/apikey.service';
+import { GroupService } from '../../../shared/client/v1/group.service';
+import { Group } from '../../../shared/model/v1/group';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { PageState } from '../../../shared/page/page-state';
 
 @Component({
   selector: 'create-edit-apikey',
@@ -56,7 +56,7 @@ export class CreateEditApiKeyComponent implements OnInit {
       this.title = '编辑APIKey';
       this.apiKeyService.getById(id, this.cacheService.namespaceId).subscribe(
         status => {
-          this.apiKey = status.data
+          this.apiKey = status.data;
         },
         error => {
           this.messageHandlerService.handleError(error);

@@ -1,0 +1,115 @@
+<clr-datagrid class="wayne-clr-datagrid">
+  <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
+  <clr-dg-column [clrDgSortBy]="nameComparator">
+    <ng-container *clrDgHideableColumn="showState['name']">
+     {{'TITLE.NAME' | translate}}
+    </ng-container>
+    <clr-dg-string-filter [clrDgStringFilter]="nameFilter"></clr-dg-string-filter>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['label']">
+      标签
+    </ng-container>
+    <clr-dg-string-filter [clrDgStringFilter]="labelFilter"></clr-dg-string-filter>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['taints']">
+      Taints
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgSortBy]="readyComparator">
+    <ng-container *clrDgHideableColumn="showState['ready']">
+      Ready
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgSortBy]="schedulerComparator">
+    <ng-container *clrDgHideableColumn="showState['schedulable']">
+      可调度
+    </ng-container>
+  </clr-dg-column>
+
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['cpu']">
+      CPU(Core)
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['memory']">
+      Memory(G)
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['kubeletVersion']">
+      Kubelet版本
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['age']">
+      Age
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['kubeProxyVersion']">
+      kubeProxy版本
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgSortBy]="osImageComparator">
+    <ng-container *clrDgHideableColumn="showState['osImage']">
+      系统版本
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgSortBy]="kernelComparator">
+    <ng-container *clrDgHideableColumn="showState['kernelVersion']">
+      内核版本
+    </ng-container>
+  </clr-dg-column>
+
+  <clr-dg-column [clrDgSortBy]="criComparator">
+    <ng-container *clrDgHideableColumn="showState['containerRuntimeVersion']">
+      CRI版本
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-row *clrDgItems="let node of nodes">
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="editNode(node)">{{'BUTTON.EDIT' | translate}}</button>
+      <button class="action-item" (click)="deleteNode(node)">{{'BUTTON.DELETE' | translate}}</button>
+    </clr-dg-action-overflow>
+    <clr-dg-cell class="copy">{{node.name}}</clr-dg-cell>
+    <clr-dg-cell>
+      <div *ngFor="let label of node.labels | keyvalue" class="form-group" style="padding-bottom: 2px">
+        <span class="label label-light-blue" title="{{label.key}}:{{label.value}}">{{label.key}}:{{label.value}}</span>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell>
+      <div *ngFor="let taint of node.spec.taints" class="form-group" style="padding-bottom: 2px">
+        <span style="height: auto" class="label label-light-blue">
+          <div *ngFor="let taintObj of taint | keyvalue">
+          {{taintObj.key}}:{{taintObj.value}}
+          </div>
+        </span>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell>{{node.spec.ready}}</clr-dg-cell>
+    <clr-dg-cell>{{node.spec.unschedulable ? '否' : '是'}}</clr-dg-cell>
+    <clr-dg-cell>{{node.status.capacity.cpu}}</clr-dg-cell>
+    <clr-dg-cell>{{node.status.capacity.memory}}</clr-dg-cell>
+    <clr-dg-cell>{{node.status.nodeInfo.kubeletVersion}}</clr-dg-cell>
+    <clr-dg-cell>{{node.creationTimestamp | relativeTime}}</clr-dg-cell>
+    <clr-dg-cell>{{node.status.nodeInfo.kubeProxyVersion}}</clr-dg-cell>
+    <clr-dg-cell>{{node.status.nodeInfo.osImage}}</clr-dg-cell>
+    <clr-dg-cell>{{node.status.nodeInfo.kernelVersion}}</clr-dg-cell>
+    <clr-dg-cell>{{node.status.nodeInfo.containerRuntimeVersion}}</clr-dg-cell>
+
+  </clr-dg-row>
+
+  <clr-dg-footer>
+    <ng-container *ngIf="pagination.totalItems">
+      <wayne-select [(ngModel)]="pageSize" style="width: 50px; height: 24px;margin-left: 12px;" inputable>
+        <wayne-option *ngFor="let pagesize of pageSizes" [value]="pagesize">{{pagesize}}</wayne-option>
+      </wayne-select>
+    </ng-container>
+    {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+    共{{pagination.totalItems}}条记录
+    <clr-dg-pagination #pagination [clrDgPageSize]="pageSize"></clr-dg-pagination>
+  </clr-dg-footer>
+</clr-datagrid>

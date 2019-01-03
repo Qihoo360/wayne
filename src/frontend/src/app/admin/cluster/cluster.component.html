@@ -5,10 +5,14 @@
     </div>
     <div class="row flex-items-xs-between" style="height:32px;">
       <div class="option-left">
-        <button class="btn btn-link" (click)="openModal()"><clr-icon shape="add"></clr-icon>创建集群</button>
+        <button class="btn btn-link" (click)="openModal()">
+          <clr-icon shape="add"></clr-icon>
+          关联集群
+        </button>
         <create-edit-cluster (create)="createCluster($event)"></create-edit-cluster>
       </div>
     </div>
-    <list-cluster [clusters]="clusters" (delete)="deleteCluster($event)" (edit)="editCluster($event)" (paginate)="retrieve($event)" [page]="pageState.page"></list-cluster>
+    <list-cluster [clusters]="clusters" (delete)="deleteCluster($event)" (edit)="editCluster($event)"
+                  (paginate)="retrieve($event)" [page]="pageState.page"></list-cluster>
   </div>
 </div>

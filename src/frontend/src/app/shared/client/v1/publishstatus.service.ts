@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
@@ -15,12 +15,12 @@ export class PublishStatusService {
 
   listStatus(type?: number, resourceId?: number): Observable<any> {
     let params = new HttpParams();
-    params = params.set('type', type+ '');
-    params = params.set('resourceId', resourceId+ '');
+    params = params.set('type', type + '');
+    params = params.set('resourceId', resourceId + '');
     return this.http
       .get('/api/v1/publishstatus', {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   deleteById(id: number): Observable<any> {

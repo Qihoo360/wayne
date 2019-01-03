@@ -1,13 +1,13 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ActionType} from '../../../shared/shared.const';
-import {Cluster} from '../../../shared/model/v1/cluster';
-import {ClusterService} from '../../../shared/client/v1/cluster.service';
-import {AceEditorBoxComponent} from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType } from '../../../shared/shared.const';
+import { Cluster } from '../../../shared/model/v1/cluster';
+import { ClusterService } from '../../../shared/client/v1/cluster.service';
+import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
 
 @Component({
   selector: 'create-edit-cluster',
@@ -26,9 +26,9 @@ export class CreateEditClusterComponent {
   @ViewChild('kubeConfig')
   kubeConfig: AceEditorBoxComponent;
   cluster: Cluster = new Cluster();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
 
   title: string;
   actionType: ActionType;
@@ -78,7 +78,7 @@ export class CreateEditClusterComponent {
         });
     } else {
       this.actionType = ActionType.ADD_NEW;
-      this.title = '创建集群';
+      this.title = '关联集群';
       this.cluster = new Cluster();
       this.initJsonEditor();
 
@@ -153,11 +153,11 @@ export class CreateEditClusterComponent {
       !this.checkOnGoing;
   }
 
-  //Handle the form validation
+  // Handle the form validation
   handleValidation(): void {
-    let cont = this.currentForm.controls['app_name'];
+    const cont = this.currentForm.controls['app_name'];
     if (cont) {
-      this.isNameValid = cont.valid
+      this.isNameValid = cont.valid;
     }
 
   }

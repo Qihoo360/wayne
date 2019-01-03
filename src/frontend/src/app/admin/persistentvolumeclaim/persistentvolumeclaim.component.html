@@ -7,7 +7,7 @@
       <div class="option-left">
         <button class="btn btn-link" (click)="openModal()">
           <clr-icon shape="add"></clr-icon>
-          创建PVC
+          {{'PVC.CREATE' | translate}}
         </button>
         <create-edit-persistentvolumeclaim (create)="createPvc($event)"></create-edit-persistentvolumeclaim>
       </div>

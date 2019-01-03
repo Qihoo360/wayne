@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy, ElementRef, Renderer2, Inject } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import {DOCUMENT} from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { Message } from './message';
 import { MessageService } from './message.service';
-import { trigger, state, style, animate, transition, animation, group } from '@angular/animations';
+import { animate, group, state, style, transition, trigger } from '@angular/animations';
 import { ScrollBarService } from '../client/v1/scrollBar.service';
 
 @Component({
@@ -49,24 +49,28 @@ export class MessageComponent implements OnInit, OnDestroy {
   posiRight: number = 18;
 
   delayTime: number = 5000;
+
   constructor(
     private element: ElementRef,
     private messageService: MessageService,
     private scrollBar: ScrollBarService,
     private render: Renderer2,
     @Inject(DOCUMENT) private document: HTMLElement
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.msgSub = this.messageService.messageAnnounced$.subscribe(
       message => {
         const index = this.infoList.length;
         message.state = 'show';
-        this.posiChange();
+        setTimeout(() => {
+          this.posiChange();
+        }, 0);
         this.infoList.push(message);
         this.timer[index] = setTimeout(() => {
           this.close(index);
-        }, this.delayTime)
+        }, this.delayTime);
       }
     );
 
@@ -78,7 +82,7 @@ export class MessageComponent implements OnInit, OnDestroy {
   posiChange() {
     try {
       const box = this.document.querySelector('.content-area');
-      this.posiRight = box.scrollHeight - box.clientHeight > 0 ? 18 + this.scrollBar.scrollBarWidth : 18 ;
+      this.posiRight = box.scrollHeight - box.clientHeight > 0 ? 18 + this.scrollBar.scrollBarWidth : 18;
     } catch (error) {
       this.posiRight = 18;
     }
@@ -129,7 +133,7 @@ export class MessageComponent implements OnInit, OnDestroy {
             this.infoList = [];
             this.timer = {};
           }
-        }, this.delayTime)
+        }, this.delayTime);
       }
     }
   }
@@ -138,7 +142,7 @@ export class MessageComponent implements OnInit, OnDestroy {
     this.infoList = [];
     Object.keys(this.timer).forEach(item => {
       clearTimeout(this.timer[item]);
-    })
+    });
     this.timer = {};
   }
 }

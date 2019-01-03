@@ -1,18 +1,18 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NgForm} from '@angular/forms';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {SecretTpl} from '../../../shared/model/v1/secrettpl';
-import {Cluster} from '../../../shared/model/v1/cluster';
-import {KubeSecret} from '../../../shared/model/v1/kubernetes/secret';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {ResourcesActionType} from '../../../shared/shared.const';
-import {PublishStatus} from '../../../shared/model/v1/publish-status';
-import {SecretClient} from '../../../shared/client/v1/kubernetes/secret';
-import {PublishStatusService} from '../../../shared/client/v1/publishstatus.service';
-import {ActivatedRoute} from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { SecretTpl } from '../../../shared/model/v1/secrettpl';
+import { Cluster } from '../../../shared/model/v1/cluster';
+import { KubeSecret } from '../../../shared/model/v1/kubernetes/secret';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { ResourcesActionType } from '../../../shared/shared.const';
+import { PublishStatus } from '../../../shared/model/v1/publish-status';
+import { SecretClient } from '../../../shared/client/v1/kubernetes/secret';
+import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'publish-tpl',
@@ -53,7 +53,7 @@ export class PublishSecretTplComponent {
       this.title = '发布加密字典[' + secretTpl.name + ']';
       if (!secretTpl.metaData) {
         this.messageHandlerService.warning('请先选择可发布集群');
-        return
+        return;
       }
       this.modalOpened = true;
       let metaData = JSON.parse(secretTpl.metaData);
@@ -61,7 +61,7 @@ export class PublishSecretTplComponent {
         if (this.cacheService.namespace.metaDataObj && this.cacheService.namespace.metaDataObj.clusterMeta[cluster]) {
           let c = new Cluster();
           c.name = cluster;
-          this.clusters.push(c)
+          this.clusters.push(c);
         }
       }
     } else if (actionType == ResourcesActionType.OFFLINE) {
@@ -70,7 +70,7 @@ export class PublishSecretTplComponent {
       for (let state of secretTpl.status) {
         let c = new Cluster();
         c.name = state.cluster;
-        this.clusters.push(c)
+        this.clusters.push(c);
       }
     }
   }
@@ -79,11 +79,11 @@ export class PublishSecretTplComponent {
     if (status && status.length > 0) {
       for (let state of status) {
         if (state.cluster == cluster) {
-          return state
+          return state;
         }
       }
     }
-    return null
+    return null;
   }
 
   onCancel() {
@@ -118,7 +118,7 @@ export class PublishSecretTplComponent {
     let state = this.getStatusByCluster(this.secretTpl.status, cluster.name);
     this.secretClient.deleteByName(this.appId, cluster.name, this.cacheService.kubeNamespace, this.secretTpl.name).subscribe(
       response => {
-        this.deletePublishStatus(state.id)
+        this.deletePublishStatus(state.id);
       },
       error => {
         if (this.forceOffline) {

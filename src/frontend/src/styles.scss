@@ -1,18 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 
-.flex{
+.flex {
   display: flex;
   flex-wrap: nowrap;
 }
-.flex-wrap{
+
+.flex-wrap {
   flex-wrap: wrap;
 }
-.flex-center{
+
+.flex-center {
   justify-content: center;
   align-items: center;
 }
-textarea{
+
+textarea {
   resize: auto !important;
+}
+
+.warning-text{
+  color: red;
 }
 
 /* 设置滚动条的样式 */
@@ -20,34 +27,45 @@ textarea{
   width: 8px;
   height: 8px;
 }
+
 /* 滚动槽 */
 ::-webkit-scrollbar-track {
-	-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);
-	border-radius: 8px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
 }
+
 /* 滚动条滑块 */
 ::-webkit-scrollbar-thumb {
-	border-radius: 8px;
-	background: rgba(127, 127, 127, 1);
-	/*-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.5);*/
+  border-radius: 8px;
+  background: rgba(127, 127, 127, 1);
+  /*-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.5);*/
 }
+
 ::-webkit-scrollbar-thumb:window-inactive {
-	background: rgba(127, 127, 127, 1);
+  background: rgba(127, 127, 127, 1);
 }
 
 /* copy-svg */
-.copy-svg{
+.copy-svg {
   opacity: .5;
-  &:hover{
+
+  &:hover {
     opacity: .7;
   }
 }
+
 /* create-tpl bottom */
-.tpl-bottom{
-  position: absolute; padding-left: 60px;left: 0px;width: 100%;background: #F4F7FB;z-index: 99;
+.tpl-bottom {
+  position: absolute;
+  padding-left: 60px;
+  left: 0px;
+  width: 100%;
+  background: #F4F7FB;
+  z-index: 99;
 }
+
 /*tip css*/
-.tip-box{
+.tip-box {
   border-radius: 4px;
   background: #000;
   color: #fff;
@@ -60,7 +78,8 @@ textarea{
   white-space: pre-wrap;
   word-wrap: normal;
 }
-.tip-box span{
+
+.tip-box span {
   position: absolute;
   top: 0;
   left: 0;
@@ -68,7 +87,8 @@ textarea{
   width: 100%;
   height: 100%;
 }
-.tip-box span:before{
+
+.tip-box span:before {
   content: '';
   position: absolute;
   bottom: -12px;
@@ -81,9 +101,10 @@ textarea{
   border-top: 6px solid;
 }
 
-.red-dot{
+.red-dot {
   position: relative;
-  &:after{
+
+  &:after {
     content: '';
     position: absolute;
     left: 0;
@@ -139,11 +160,11 @@ textarea{
   height: auto !important;
 }
 
-.jsoneditor-mode-code .ace-jsoneditor span{
+.jsoneditor-mode-code .ace-jsoneditor span {
   margin-top: 0;
 }
 
-.aceeditor .ace_line span{
+.aceeditor .ace_line span {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
@@ -161,7 +182,7 @@ textarea{
   width: auto !important;
 }
 
-span.label.label-light-blue{
+span.label.label-light-blue {
   display: inline-block;
   line-height: .875rem;
   max-width: 262px;
@@ -171,39 +192,48 @@ span.label.label-light-blue{
   user-select: all;
 }
 
-.copy{
+.copy {
   user-select: all;
 }
-a{
+
+a {
   outline: none;
 }
 
-.datagrid-foot .pagination-list{
+.datagrid-foot .pagination-list {
   margin-left: 20px !important;
 }
-.datagrid-table-wrapper .datagrid-body{
+
+.datagrid-table-wrapper .datagrid-body {
   overflow-y: inherit;
 }
-.datagrid .datagrid-foot{
+
+.datagrid .datagrid-foot {
   border-top-width: 1px;
 }
 
-.fullPage{
+.fullPage {
   width: 100% !important;
   height: 100% !important;
   overflow-y: auto;
 }
 
-.modal-content .modal-body{
+.modal-content .modal-body {
   max-height: 80vh;
 }
+
 .modal-content-wrapper {
   height: 100%;
 }
-.fullPageBox{
-  float: right; margin-right: 5px;padding-right: 13px;position: relative;
+
+.fullPageBox {
+  float: right;
+  margin-right: 5px;
+  padding-right: 13px;
+  position: relative;
 }
-.fullPageBox:after{
+
+.fullPageBox:after {
   content: '';
   display: block;
   width: 2px;
@@ -214,13 +244,15 @@ a{
   transform: translateY(-50%);
   background: #ccc;
 }
-.text-overflow{
+
+.text-overflow {
   text-overflow: ellipsis;
   line-height: normal;
   overflow: hidden;
-  white-space:nowrap;
+  white-space: nowrap;
 }
-.text-overflow > a{
+
+.text-overflow > a {
   display: block;
   width: 100%;
   overflow: hidden;
@@ -228,7 +260,7 @@ a{
 }
 
 @media screen and (min-width: 1500px) {
-  .col-description{
+  .col-description {
     max-width: 280px !important;
   }
 }
@@ -237,3 +269,4 @@ a{
 @import "./component/table";
 @import "./component/pagination";
 @import "./component/dropdown";
+@import "./component/hack";

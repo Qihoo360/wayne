@@ -13,6 +13,7 @@ export class TypePermission {
   deployment: ActionPermission = new ActionPermission();
   secret: ActionPermission = new ActionPermission();
   service: ActionPermission = new ActionPermission();
+  ingress: ActionPermission = new ActionPermission();
   pvc: ActionPermission = new ActionPermission();
   configmap: ActionPermission = new ActionPermission();
   cronjob: ActionPermission = new ActionPermission();
@@ -29,6 +30,7 @@ export class TypePermission {
     this.deployment = input.deployment ? input.deployment : this.deployment;
     this.secret = input.secret ? input.secret : this.secret;
     this.service = input.service ? input.service : this.service;
+    this.ingress = input.ingress ? input.ingress : this.ingress;
     this.pvc = input.pvc ? input.pvc : this.pvc;
     this.configmap = input.configmap ? input.configmap : this.configmap;
     this.cronjob = input.cronjob ? input.cronjob : this.cronjob;

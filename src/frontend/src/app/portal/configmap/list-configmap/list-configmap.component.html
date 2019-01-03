@@ -1,38 +1,38 @@
-<clr-datagrid (clrDgRefresh)="refresh($event)" class="wayne-clr-datagrid">
-  <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
+<clr-datagrid (clrDgRefresh)="refresh($event)" [(clrDgSelected)]="selected" class="wayne-clr-datagrid">
+  <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
   <clr-dg-column class="col-id">
     <ng-container>
       #
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-time">
-    <ng-container *clrDgHideableColumn="showState['创建时间']">
-      创建时间
+    <ng-container *clrDgHideableColumn="showState['create_time']">
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-cluster">
-    <ng-container *clrDgHideableColumn="showState['配置机房']">
-      配置机房
+    <ng-container *clrDgHideableColumn="showState['config_cluster']">
+      {{'TITLE.CONFIG_CLUSTER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-cluster">
-    <ng-container *clrDgHideableColumn="showState['已上线机房']">
-      已上线机房
+    <ng-container *clrDgHideableColumn="showState['online_cluster']">
+      {{'TITLE.ONLINE_CLUSTER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-description">
-    <ng-container *clrDgHideableColumn="showState['发布说明']">
-      发布说明
+    <ng-container *clrDgHideableColumn="showState['release_explain']">
+      {{'TITLE.RELEASE_EXPLAIN' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['创建者']">
-      创建者
+    <ng-container *clrDgHideableColumn="showState['create_user']">
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-operate">
-    <ng-container *clrDgHideableColumn="showState['操作']">
-      操作
+    <ng-container *clrDgHideableColumn="showState['action']">
+      {{'TITLE.ACTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let configMapTpl of configMapTpls" [clrDgItem]="configMapTpl">
@@ -46,8 +46,9 @@
     </clr-dg-cell>
     <clr-dg-cell class="col-cluster">
       <div class="form-group" style="padding-bottom: 2px" *ngFor="let status of configMapTpl.status">
-          {{status.cluster}}&nbsp;<clr-icon style="color: #FF3434" shape="exclamation-triangle" *ngIf="status.state == 1" class="is-solid"></clr-icon>
-          <clr-icon style="color: green" shape="success-standard" *ngIf="status.state == 0" class="is-solid"></clr-icon>
+        {{status.cluster}}&nbsp;<clr-icon style="color: #FF3434" shape="exclamation-triangle" *ngIf="status.state == 1"
+                                          class="is-solid"></clr-icon>
+        <clr-icon style="color: green" shape="success-standard" *ngIf="status.state == 0" class="is-solid"></clr-icon>
       </div>
     </clr-dg-cell>
     <clr-dg-cell class="col-description">
@@ -58,25 +59,25 @@
     <clr-dg-cell>{{configMapTpl.user}}</clr-dg-cell>
     <clr-dg-cell class="col-operate">
       <button class="wayne-button text"
-        (click)="publishConfigMapTpl(configMapTpl)"
-        *ngIf="authService.currentAppPermission.configmap.deploy || authService.currentUser.admin">
-        发布</button>
+              (click)="publishConfigMapTpl(configMapTpl)"
+              *ngIf="authService.currentAppPermission.configmap.deploy || authService.currentUser.admin">
+        {{'BUTTON.RELEASE' | translate}}</button>
       <button class="wayne-button text"
-        (click)="detailConfigMapTpl(configMapTpl)"
-        *ngIf="authService.currentAppPermission.configmap.read || authService.currentUser.admin">
-        详情</button>
+              (click)="detailConfigMapTpl(configMapTpl)"
+              *ngIf="authService.currentAppPermission.configmap.read || authService.currentUser.admin">
+        {{'BUTTON.DETAIL' | translate}}</button>
       <button class="wayne-button text"
-        (click)="cloneConfigMapTpl(configMapTpl)"
-        *ngIf="authService.currentAppPermission.configmap.create || authService.currentUser.admin">
-        克隆</button>
+              (click)="cloneConfigMapTpl(configMapTpl)"
+              *ngIf="authService.currentAppPermission.configmap.create || authService.currentUser.admin">
+        {{'BUTTON.CLONE' | translate}}</button>
       <button class="wayne-button text"
-        *ngIf="!configMapTpl.status && (authService.currentAppPermission.configmap.delete || authService.currentUser.admin)"
-        (click)="deleteConfigMapTpl(configMapTpl)">
-        删除</button>
+              *ngIf="!configMapTpl.status && (authService.currentAppPermission.configmap.delete || authService.currentUser.admin)"
+              (click)="deleteConfigMapTpl(configMapTpl)">
+        {{'BUTTON.DELETE' | translate}}</button>
       <button class="wayne-button text"
-         (click)="offlineConfigMapTpl(configMapTpl)"
-         *ngIf="configMapTpl.status && (authService.currentAppPermission.configmap.offline || authService.currentUser.admin)">
-         下线</button>
+              (click)="offlineConfigMapTpl(configMapTpl)"
+              *ngIf="configMapTpl.status && (authService.currentAppPermission.configmap.offline || authService.currentUser.admin)">
+        {{'BUTTON.DROP' | translate}}</button>
     </clr-dg-cell>
   </clr-dg-row>
 

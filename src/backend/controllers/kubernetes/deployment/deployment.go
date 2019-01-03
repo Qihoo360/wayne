@@ -5,20 +5,22 @@ import (
 	"fmt"
 	"net/http"
 
+	"k8s.io/api/apps/v1beta1"
+	"k8s.io/apimachinery/pkg/labels"
+	"k8s.io/client-go/kubernetes"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/controllers/common"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/models/response"
+	"github.com/Qihoo360/wayne/src/backend/models/response/errors"
 	"github.com/Qihoo360/wayne/src/backend/resources/deployment"
 	"github.com/Qihoo360/wayne/src/backend/resources/namespace"
 	"github.com/Qihoo360/wayne/src/backend/util"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/Qihoo360/wayne/src/backend/workers/webhook"
-	"k8s.io/api/apps/v1beta1"
-	"k8s.io/apimachinery/pkg/labels"
-	"k8s.io/client-go/kubernetes"
 )
 
 type KubeDeploymentController struct {
@@ -26,7 +28,10 @@ type KubeDeploymentController struct {
 }
 
 func (c *KubeDeploymentController) URLMapping() {
+	c.Mapping("List", c.List)
 	c.Mapping("Get", c.Get)
+	c.Mapping("Update", c.Update)
+	c.Mapping("GetDetail", c.GetDetail)
 	c.Mapping("Offline", c.Offline)
 	c.Mapping("Deploy", c.Deploy)
 }
@@ -47,6 +52,65 @@ func (c *KubeDeploymentController) Prepare() {
 	}
 	if perAction != "" {
 		c.CheckPermission(models.PermissionTypeDeployment, perAction)
+	}
+}
+
+// @Title List deployment
+// @Description get all deployment
+// @Param	pageNo		query 	int	false		"the page current no"
+// @Param	pageSize		query 	int	false		"the page size"
+// @Param	filter		query 	string	false		"column filter, ex. filter=name=test"
+// @Param	sortby		query 	string	false		"column sorted by, ex. sortby=-id, '-' representation desc, and sortby=id representation asc"
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace		path 	string	true		"the namespace name"
+// @Success 200 {object} common.Page success
+// @router /namespaces/:namespace/clusters/:cluster [get]
+func (c *KubeDeploymentController) List() {
+	param := c.BuildQueryParam()
+	cluster := c.Ctx.Input.Param(":cluster")
+	namespace := c.Ctx.Input.Param(":namespace")
+
+	manager, err := client.Manager(cluster)
+	if err == nil {
+		result, err := deployment.GetDeploymentPage(manager.Indexer, namespace, param)
+		if err != nil {
+			logs.Error("list kubernetes deployments error.", cluster, namespace, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
+	}
+}
+
+// @Title Update
+// @Description update the Deployment
+// @Param	id		path 	int	true		"The id you want to update"
+// @Param	body		body 	models.App	true		"The body"
+// @Success 200 models.Namespace success
+// @router /:deployment/namespaces/:namespace/clusters/:cluster [put]
+func (c *KubeDeploymentController) Update() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	namespace := c.Ctx.Input.Param(":namespace")
+	name := c.Ctx.Input.Param(":deployment")
+	var obj v1beta1.Deployment
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &obj)
+	if err != nil {
+		logs.Error("Invalid param body.%v", err)
+		c.AbortBadRequestFormat("Deployment")
+	}
+	cli, err := client.Client(cluster)
+	if err == nil {
+		result, err := deployment.UpdateDeployment(cli, &obj)
+		if err != nil {
+			logs.Error("update kubernetes deployment error.", cluster, namespace, name, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
 	}
 }
 
@@ -144,6 +208,7 @@ func (c *KubeDeploymentController) Deploy() {
 			Cluster:      publishHistory.Cluster,
 			Status:       publishHistory.Status,
 			Message:      publishHistory.Message,
+			Object:       kubeDeployment,
 		})
 		c.Success("ok")
 	} else {
@@ -155,7 +220,7 @@ func checkResourceAvailable(ns *models.Namespace, cli *kubernetes.Clientset, kub
 	// this namespace can't use current cluster.
 	clusterMetas, ok := ns.MetaDataObj.ClusterMetas[cluster]
 	if !ok {
-		return &base.ErrorResult{
+		return &errors.ErrorResult{
 			Code:    http.StatusForbidden,
 			SubCode: http.StatusForbidden,
 			Msg:     fmt.Sprintf("Current namespace (%s) can't use current cluster (%s).Please contact administrator. ", ns.Name, cluster),
@@ -176,17 +241,17 @@ func checkResourceAvailable(ns *models.Namespace, cli *kubernetes.Clientset, kub
 	}
 
 	if clusterMetas.ResourcesLimit.Memory != 0 &&
-		clusterMetas.ResourcesLimit.Memory-(namespaceResourceUsed.Memory+requestResourceList.Memory)/1024 < 0 {
-		return &base.ErrorResult{
+		clusterMetas.ResourcesLimit.Memory-(namespaceResourceUsed.Memory+requestResourceList.Memory)/(1024*1024*1024) < 0 {
+		return &errors.ErrorResult{
 			Code:    http.StatusForbidden,
 			SubCode: base.ErrorSubCodeInsufficientResource,
-			Msg:     fmt.Sprintf("request namespace resource (memory:%dGi) is not enough for this deploy", requestResourceList.Memory/1024),
+			Msg:     fmt.Sprintf("request namespace resource (memory:%dGi) is not enough for this deploy", requestResourceList.Memory/(1024*1024*1024)),
 		}
 	}
 
 	if clusterMetas.ResourcesLimit.Cpu != 0 &&
 		clusterMetas.ResourcesLimit.Cpu-(namespaceResourceUsed.Cpu+requestResourceList.Cpu)/1000 < 0 {
-		return &base.ErrorResult{
+		return &errors.ErrorResult{
 			Code:    http.StatusForbidden,
 			SubCode: base.ErrorSubCodeInsufficientResource,
 			Msg:     fmt.Sprintf("request namespace resource (cpu:%d) is not enough for this deploy", requestResourceList.Cpu/1000),
@@ -220,9 +285,11 @@ func getNamespace(appId int64) (*models.Namespace, error) {
 
 // @Title Get
 // @Description find Deployment by cluster
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace		path 	string	true		"the namespace name"
 // @Success 200 {object} models.Deployment success
-// @router /:deployment/namespaces/:namespace/clusters/:cluster [get]
-func (c *KubeDeploymentController) Get() {
+// @router /:deployment/detail/namespaces/:namespace/clusters/:cluster [get]
+func (c *KubeDeploymentController) GetDetail() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":deployment")
@@ -231,6 +298,30 @@ func (c *KubeDeploymentController) Get() {
 		result, err := deployment.GetDeploymentDetail(manager.Client, manager.Indexer, name, namespace)
 		if err != nil {
 			logs.Error("get kubernetes deployment detail error.", cluster, namespace, name, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
+	}
+}
+
+// @Title Get
+// @Description find Deployment by cluster
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace		path 	string	true		"the namespace name"
+// @Success 200 {object} models.Deployment success
+// @router /:deployment/namespaces/:namespace/clusters/:cluster [get]
+func (c *KubeDeploymentController) Get() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	namespace := c.Ctx.Input.Param(":namespace")
+	name := c.Ctx.Input.Param(":deployment")
+	manager, err := client.Manager(cluster)
+	if err == nil {
+		result, err := deployment.GetDeployment(manager.Client, name, namespace)
+		if err != nil {
+			logs.Error("get kubernetes deployment error.", cluster, namespace, name, err)
 			c.HandleError(err)
 			return
 		}

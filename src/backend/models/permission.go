@@ -32,6 +32,7 @@ const (
 	PermissionTypeDaemonSet             = "DAEMONSET"
 	PermissionBill                      = "BILL"
 	PermissionTypeAPIKey                = "APIKEY"
+	PermissionTypeIngress               = "INGRESS"
 	PermissionBlank                     = "_"
 )
 
@@ -64,6 +65,7 @@ type TypePermission struct {
 	PermissionTypeStatefulset           ActionPermission `json:"statefulset" mapstructure:"STATEFULSET"`
 	PermissionTypeDaemonSet             ActionPermission `json:"daemonSet" mapstructure:"DAEMONSET"`
 	PermissionTypeBILL                  ActionPermission `json:"bill" mapstructure:"BILL"`
+	PermissionIngress                   ActionPermission `json:"ingress" mapstructure:"INGRESS"`
 }
 
 type ActionPermission struct {
@@ -154,6 +156,8 @@ func (*permissionModel) GetPermissionTypeByPublishType(pType PublishType) (perTy
 		perType = PermissionTypePersistentVolumeClaim
 	case PublishTypeCronJob:
 		perType = PermissionTypeCronjob
+	case PublishTypeIngress:
+		perType = PermissionTypeIngress
 	}
 	return perType
 }

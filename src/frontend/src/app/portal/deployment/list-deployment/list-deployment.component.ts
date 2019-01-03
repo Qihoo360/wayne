@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {State} from '@clr/angular';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {ConfirmationMessage} from '../../../shared/confirmation-dialog/confirmation-message';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { State } from '@clr/angular';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import {
   ConfirmationButtons,
   ConfirmationState,
@@ -9,20 +9,22 @@ import {
   ResourcesActionType,
   TemplateState
 } from '../../../shared/shared.const';
-import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {PublishDeploymentTplComponent} from '../publish-tpl/publish-tpl.component';
-import {ListEventComponent} from '../list-event/list-event.component';
-import {ListPodComponent} from '../list-pod/list-pod.component';
-import {DeploymentStatus, DeploymentTpl, Event} from '../../../shared/model/v1/deploymenttpl';
-import {DeploymentService} from '../../../shared/client/v1/deployment.service';
-import {DeploymentTplService} from '../../../shared/client/v1/deploymenttpl.service';
-import {TplDetailService} from '../../common/tpl-detail/tpl-detail.service';
-import {AuthService} from '../../../shared/auth/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Page} from '../../../shared/page/page-state';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription } from 'rxjs/Subscription';
+import { PublishDeploymentTplComponent } from '../publish-tpl/publish-tpl.component';
+import { ListEventComponent } from '../list-event/list-event.component';
+import { ListPodComponent } from '../list-pod/list-pod.component';
+import { DeploymentStatus, DeploymentTpl, Event } from '../../../shared/model/v1/deploymenttpl';
+import { DeploymentService } from '../../../shared/client/v1/deployment.service';
+import { DeploymentTplService } from '../../../shared/client/v1/deploymenttpl.service';
+import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Page } from '../../../shared/page/page-state';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { TranslateService } from '@ngx-translate/core';
+import { DiffService } from '../../../shared/diff/diff.service';
 
 @Component({
   selector: 'list-deployment',
@@ -30,6 +32,7 @@ import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
   styleUrls: ['list-deployment.scss']
 })
 export class ListDeploymentComponent implements OnInit, OnDestroy {
+  selected: DeploymentTpl[] = [];
   @Input() showState: object;
   @Input() deploymentTpls: DeploymentTpl[];
   @Input() page: Page;
@@ -46,7 +49,7 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
   @ViewChild(PublishDeploymentTplComponent)
   publishDeploymentTpl: PublishDeploymentTplComponent;
   state: State;
-  currentPage: number = 1;
+  currentPage = 1;
 
   subscription: Subscription;
 
@@ -58,6 +61,8 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
               private router: Router,
               public authService: AuthService,
               private tplDetailService: TplDetailService,
+              private translate: TranslateService,
+              private diffService: DiffService,
               private messageHandlerService: MessageHandlerService) {
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
@@ -87,6 +92,14 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * diff template
+  */
+  diffTpl() {
+    this.diffService.diff(this.selected);
+  }
+  // --------------------------------
+
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;
     this.state.page.size = pageSize;
@@ -115,7 +128,7 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
   }
 
   deploymentTplDetail(tpl: DeploymentTpl): void {
-    this.aceEditorService.announceMessage(AceEditorMsg.Instance(JSON.parse(tpl.template),false));
+    this.aceEditorService.announceMessage(AceEditorMsg.Instance(JSON.parse(tpl.template), false));
   }
 
   tplDetail(tpl: DeploymentTpl) {

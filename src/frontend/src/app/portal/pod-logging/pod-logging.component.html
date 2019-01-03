@@ -31,7 +31,7 @@
           <clr-icon shape="caret down"></clr-icon>
         </button>
         <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-          <h4 class="dropdown-header">容器</h4>
+          <h4 class="dropdown-header">{{'TITLE.CONTAINER' | translate}}</h4>
           <a *ngFor="let c of containers" href="javascript:void(0)"
              clrDropdownItem (click)="selectedContainer=c.name;containerChange();">
             {{c.name}}
@@ -44,7 +44,7 @@
           <clr-icon shape="caret down"></clr-icon>
         </button>
         <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-          <h4 class="dropdown-header">日志显示行数</h4>
+          <h4 class="dropdown-header">{{'POD.LOG_SHOW_ROWS' | translate}}</h4>
           <a href="javascript:void(0)" clrDropdownItem (click)="logTails=10;refreshLog()"> 10 </a>
           <a href="javascript:void(0)" clrDropdownItem (click)="logTails=20;refreshLog()"> 20 </a>
           <a href="javascript:void(0)" clrDropdownItem (click)="logTails=50;refreshLog()"> 50 </a>
@@ -52,10 +52,10 @@
         </clr-dropdown-menu>
       </clr-dropdown>
       <a href="javascript:void(0)" (click)="refreshLog()" class="nav-link nav-text">
-        刷新
+        {{'ACTION.REFRESH' | translate}}
       </a>
-      <a href="javascript:void(0)" *ngIf="logSource"  class="nav-link nav-text" (click)="copyLogCommand()">
-        {{isCopied ? '复制成功' : '复制查询命令'}}</a>
+      <a href="javascript:void(0)" *ngIf="logSource" class="nav-link nav-text" (click)="copyLogCommand()" >
+        {{(isCopied ? 'COPY.SUCCESS' : 'COPY.SUCCESS_MESSAGE') | translate}}</a>
 
     </div>
   </header>

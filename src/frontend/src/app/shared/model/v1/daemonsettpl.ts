@@ -1,5 +1,5 @@
-import {DaemonSet} from './daemonset';
-import {TemplateStatus} from './status';
+import { DaemonSet } from './daemonset';
+import { TemplateStatus } from './status';
 
 
 export class DaemonSetTemplate {
@@ -17,7 +17,7 @@ export class DaemonSetTemplate {
   containerVersions: string[];
 
   constructor(init?: DaemonSetTemplate) {
-    if (!init) return ;
+    if (!init) return;
     if (init.id) this.id = init.id;
     if (init.name) this.name = init.name;
     if (init.template) this.template = init.template;

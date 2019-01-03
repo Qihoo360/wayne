@@ -1,17 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {Router, ActivatedRoute, Params} from '@angular/router';
-import {State} from '@clr/angular';
-import {ListSecretTplComponent} from './list-secrettpl/list-secrettpl.component';
-import {CreateEditSecretTplComponent} from './create-edit-secrettpl/create-edit-secrettpl.component';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {SecretTpl} from '../../shared/model/v1/secrettpl';
-import {SecretTplService} from '../../shared/client/v1/secrettpl.service';
-import {PageState} from '../../shared/page/page-state';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { State } from '@clr/angular';
+import { ListSecretTplComponent } from './list-secrettpl/list-secrettpl.component';
+import { CreateEditSecretTplComponent } from './create-edit-secrettpl/create-edit-secrettpl.component';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { SecretTpl } from '../../shared/model/v1/secrettpl';
+import { SecretTplService } from '../../shared/client/v1/secrettpl.service';
+import { PageState } from '../../shared/page/page-state';
 
 @Component({
   selector: 'wayne-secrettpl',
@@ -33,12 +32,9 @@ export class SecretTplComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private breadcrumbService: BreadcrumbService,
     private secrettplService: SecretTplService,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/secret/tpl', this.componentName + '列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/secret/tpl/trash', '已删除' + this.componentName + '列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
@@ -61,10 +57,10 @@ export class SecretTplComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.secretId = params['sid'];
-      if (typeof(this.secretId) == 'undefined') {
-          this.secretId = ''
+      if (typeof (this.secretId) == 'undefined') {
+        this.secretId = '';
       }
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -92,7 +88,7 @@ export class SecretTplComponent implements OnInit {
 
   createSecrettpl(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 
@@ -108,7 +104,7 @@ export class SecretTplComponent implements OnInit {
   }
 
   openModal(): void {
-      this.createEditSecrettpl.newOrEditSecrettpl();
+    this.createEditSecrettpl.newOrEditSecrettpl();
   }
 
   editSecrettpl(secrettpl: SecretTpl): void {

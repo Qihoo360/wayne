@@ -1,7 +1,7 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {Notification} from '../../../shared/model/v1/notification';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {NotificationService} from '../../../shared/client/v1/notification.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Notification } from '../../../shared/model/v1/notification';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { NotificationService } from '../../../shared/client/v1/notification.service';
 
 @Component({
   selector: 'wayne-create-notification',
@@ -16,7 +16,8 @@ export class CreateNotificationComponent implements OnInit {
   constructor(
     private notificationService: NotificationService,
     private messageHandlerService: MessageHandlerService,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
   }

@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="table-search">
+      <div class="table-search-left">
+        <button class="wayne-button normal" (click)="retrieve()">
+          刷新
+        </button>
+        <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
+          <wayne-checkbox-group [(ngModel)]="showList">
+            <wayne-checkbox value="name">{{'TITLE.NAME' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="label">标签</wayne-checkbox>
+            <wayne-checkbox value="taints">Taints</wayne-checkbox>
+            <wayne-checkbox value="ready">Ready</wayne-checkbox>
+            <wayne-checkbox value="schedulable">可调度</wayne-checkbox>
+            <wayne-checkbox value="cpu">CPU(Core)</wayne-checkbox>
+            <wayne-checkbox value="memory">Memory(G)</wayne-checkbox>
+            <wayne-checkbox value="kubeletVersion">Kubelet版本</wayne-checkbox>
+            <wayne-checkbox value="age">Age</wayne-checkbox>
+            <wayne-checkbox value="kubeProxyVersion">kubeProxy版本</wayne-checkbox>
+            <wayne-checkbox value="osImage">系统版本</wayne-checkbox>
+            <wayne-checkbox value="kernelVersion">内核版本</wayne-checkbox>
+            <wayne-checkbox value="containerRuntimeVersion">CRI版本</wayne-checkbox>
+          </wayne-checkbox-group>
+        </wayne-filter-box>
+      </div>
+    </div>
+
+    <list-nodes
+      [nodes]="nodes"
+      [cluster]="cluster"
+      (refresh)="refresh($event)"
+      (delete)="deleteNode($event)"
+      (edit)="editNode($event)"
+      [showState]="showState">
+    </list-nodes>
+  </div>
+</div>
+<wayne-ace-editor (outputObj)="saveNode($event)"></wayne-ace-editor>
+<wayne-float-window value="{{cluster}}">
+  <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster"
+                           (click)="jumpTo(cluster)"></wayne-float-window-item>
+</wayne-float-window>

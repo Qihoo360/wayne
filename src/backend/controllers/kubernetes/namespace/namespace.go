@@ -12,6 +12,7 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/util"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
+	"k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	utilerrors "k8s.io/apimachinery/pkg/util/errors"
 )
@@ -22,11 +23,135 @@ type KubeNamespaceController struct {
 
 func (c *KubeNamespaceController) URLMapping() {
 	c.Mapping("Resources", c.Resources)
+	c.Mapping("List", c.List)
+	c.Mapping("GetNames", c.GetNames)
 }
 
 func (c *KubeNamespaceController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
+}
+
+// @Title List namespace
+// @Description get all namespace by page
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Success 200 {object} common.Page success
+// @router /clusters/:cluster [get]
+func (c *KubeNamespaceController) List() {
+	param := c.BuildQueryParam()
+	cluster := c.Ctx.Input.Param(":cluster")
+
+	cli, err := client.Client(cluster)
+	if err == nil {
+		result, err := namespace.GetNamespacePage(cli, param)
+		if err != nil {
+			logs.Error("list kubernetes namespaces error.", cluster, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
+	}
+}
+
+// @Title List all namespace name
+// @Description get all namespace name
+// @Param	cluster		path 	string	true		"the cluster name"
+// @router /clusters/:cluster/names [get]
+func (c *KubeNamespaceController) GetNames() {
+	cluster := c.Ctx.Input.Param(":cluster")
+
+	cli, err := client.Client(cluster)
+	if err == nil {
+		result, err := namespace.GetAllNamespaceName(cli)
+		if err != nil {
+			logs.Error("list all kubernetes namespace names error.", cluster, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
+	}
+
+}
+
+// @Title Get namespace info
+// @Description get one namespace detail
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace	path 	string	true		"the namespace name"
+// @Success 200 {object} common.Page success
+// @router /:name/clusters/:cluster [get]
+func (c *KubeNamespaceController) Get() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	ns := c.Ctx.Input.Param(":name")
+
+	cli, err := client.Client(cluster)
+	if err == nil {
+		result, err := namespace.GetNamespace(cli, ns)
+		if err != nil {
+			logs.Error("get kubernetes namespaces error.", cluster, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
+	}
+}
+
+// @Title Update
+// @Description update the Namespace
+// @router /:name/clusters/:cluster [put]
+func (c *KubeNamespaceController) Update() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	name := c.Ctx.Input.Param(":name")
+	var tpl v1.Namespace
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &tpl)
+	if err != nil {
+		c.AbortBadRequestFormat("Namespace")
+	}
+	if name != tpl.Name {
+		c.AbortBadRequestFormat("Name")
+	}
+
+	cli, err := client.Client(cluster)
+	if err == nil {
+		result, err := namespace.UpdateNamespace(cli, &tpl)
+		if err != nil {
+			logs.Error("update namespace (%v) by cluster (%s) error.%v", tpl, cluster, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
+	}
+}
+
+// @Title Create
+// @Description create the namespace
+// @router /:name/clusters/:cluster [post]
+func (c *KubeNamespaceController) Create() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	name := c.Ctx.Input.Param(":name")
+	tpl := new(v1.Namespace)
+	tpl.Name = name
+
+	cli, err := client.Client(cluster)
+	if err == nil {
+		// If the namespace does not exist, the value of result is nil.
+		result, err := namespace.CreateNotExitNamespace(cli, tpl)
+		if err != nil {
+			logs.Error("create namespace (%v) by cluster (%s) error.%v", tpl, cluster, err)
+			c.HandleError(err)
+			return
+		}
+		c.Success(result)
+	} else {
+		c.AbortBadRequestFormat("Cluster")
+	}
 }
 
 // @Title Get namespace resource statistics
@@ -82,7 +207,7 @@ func (c *KubeNamespaceController) Resources() {
 			syncResourceMap.Store(m.Cluster.Name, common.Resource{
 				Usage: &common.ResourceList{
 					Cpu:    resourceUsage.Cpu / 1000,
-					Memory: resourceUsage.Memory / 1024,
+					Memory: resourceUsage.Memory / (1024 * 1024 * 1024),
 				},
 				Limit: &common.ResourceList{
 					Cpu:    clusterMetas.ResourcesLimit.Cpu,
@@ -92,7 +217,7 @@ func (c *KubeNamespaceController) Resources() {
 		}(manager)
 	}
 	wg.Wait()
-	if len(errs) == len(managers) {
+	if len(errs) == len(managers) && len(errs) > 0 {
 		c.HandleError(utilerrors.NewAggregate(errs))
 		return
 	}
@@ -152,7 +277,7 @@ func (c *KubeNamespaceController) Statistics() {
 		}(manager)
 	}
 	wg.Wait()
-	if len(errs) == len(managers) {
+	if len(errs) == len(managers) && len(errs) > 0 {
 		c.HandleError(utilerrors.NewAggregate(errs))
 		return
 	}

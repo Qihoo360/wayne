@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {PublishHistory} from '../../../shared/model/v1/publish-history';
-import {PublishType} from '../../../shared/shared.const';
-import {PublishService} from '../../../shared/client/v1/publish.service';
-import {State} from '@clr/angular';
-import {PublishHistoryService} from './publish-history.service';
-import {Subscription} from 'rxjs/Subscription';
-import {PageState} from '../../../shared/page/page-state';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { PublishHistory } from '../../../shared/model/v1/publish-history';
+import { PublishType } from '../../../shared/shared.const';
+import { PublishService } from '../../../shared/client/v1/publish.service';
+import { State } from '@clr/angular';
+import { PublishHistoryService } from './publish-history.service';
+import { Subscription } from 'rxjs/Subscription';
+import { PageState } from '../../../shared/page/page-state';
 
 @Component({
   selector: 'publish-history',
@@ -25,7 +25,7 @@ export class PublishHistoryComponent implements OnInit, OnDestroy {
   historySub: Subscription;
   publishHistories: PublishHistory[];
   pageState: PageState = new PageState();
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
 
   constructor(private publishService: PublishService,
@@ -47,7 +47,7 @@ export class PublishHistoryComponent implements OnInit, OnDestroy {
         this.resourceId = history.resourceId;
         this.refresh();
       }
-    )
+    );
   }
 
   ngOnDestroy() {
@@ -56,7 +56,16 @@ export class PublishHistoryComponent implements OnInit, OnDestroy {
     }
   }
 
+  initState() {
+    this.state = {
+      page: {}
+    };
+  }
+
   pageSizeChange(pageSize: number) {
+    if (!this.state) {
+      this.initState();
+    }
     this.state.page.to = pageSize - 1;
     this.state.page.size = pageSize;
     this.currentPage = 1;
@@ -65,7 +74,7 @@ export class PublishHistoryComponent implements OnInit, OnDestroy {
 
   refresh(state?: State): void {
     if (this.type == null || this.resourceId == null) {
-      return
+      return;
     }
     this.resourceName = null;
     if (state) {
@@ -77,7 +86,7 @@ export class PublishHistoryComponent implements OnInit, OnDestroy {
     }
     this.publishService.listHistories(this.pageState, this.type, this.resourceId).subscribe(
       response => {
-        let data = response.data;
+        const data = response.data;
         this.pageState.page.totalPage = data.totalPage;
         this.pageState.page.totalCount = data.totalCount;
         this.publishHistories = data.list;

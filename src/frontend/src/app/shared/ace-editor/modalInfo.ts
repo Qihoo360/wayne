@@ -1,8 +1,7 @@
-
-export class ModalInfo{
-	title?: string;
-	modalOpened?: boolean;
-	hiddenFooter?: boolean;
+export class ModalInfo {
+  title?: string;
+  modalOpened?: boolean;
+  hiddenFooter?: boolean;
 
   static emptyObject(): ModalInfo {
     let result = new ModalInfo();

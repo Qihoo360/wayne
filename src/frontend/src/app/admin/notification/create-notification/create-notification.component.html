@@ -12,7 +12,7 @@
         <div class="form-group">
           <label class="col-md-3 form-group-label-override required">类型</label>
           <div class="select">
-            <select [(ngModel)]="notify.type"  [ngModelOptions]="{standalone: true}" type="string">
+            <select [(ngModel)]="notify.type" [ngModelOptions]="{standalone: true}" type="string">
               <option [ngValue]="'公告'">公告</option>
               <option [ngValue]="'警告'">警告</option>
             </select>
@@ -26,7 +26,8 @@
     <markdown [data]="notify.message"></markdown>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-outline" type="button" (click)="cancelCreateNotification()">取消</button>
+    <button class="btn btn-outline" type="button"
+            (click)="cancelCreateNotification()">{{'BUTTON.CANCEL' | translate}}</button>
     <button type="button" class="btn btn-primary" [disabled]="!isValid()" (click)="doCreateNotifycation()">
       创建
     </button>

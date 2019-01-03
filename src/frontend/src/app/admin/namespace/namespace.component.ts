@@ -1,18 +1,17 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BreadcrumbService} from '../../shared/client/v1/breadcrumb.service';
-import {State} from '@clr/angular';
-import {ListNamespaceComponent} from './list-namespace/list-namespace.component';
-import {CreateEditNamespaceComponent} from './create-edit-namespace/create-edit-namespace.component';
-import {ConfirmationDialogService} from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import {ConfirmationMessage} from '../../shared/confirmation-dialog/confirmation-message';
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
-import {Subscription} from 'rxjs/Subscription';
-import {MessageHandlerService} from '../../shared/message-handler/message-handler.service';
-import {Namespace} from '../../shared/model/v1/namespace';
-import {NamespaceService} from '../../shared/client/v1/namespace.service';
-import {PageState} from '../../shared/page/page-state';
-import {ClusterService} from '../../shared/client/v1/cluster.service';
-import {Cluster} from '../../shared/model/v1/cluster';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { State } from '@clr/angular';
+import { ListNamespaceComponent } from './list-namespace/list-namespace.component';
+import { CreateEditNamespaceComponent } from './create-edit-namespace/create-edit-namespace.component';
+import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { Namespace } from '../../shared/model/v1/namespace';
+import { NamespaceService } from '../../shared/client/v1/namespace.service';
+import { PageState } from '../../shared/page/page-state';
+import { ClusterService } from '../../shared/client/v1/cluster.service';
+import { Cluster } from '../../shared/model/v1/cluster';
 
 @Component({
   selector: 'wayne-namespace',
@@ -34,12 +33,9 @@ export class NamespaceComponent implements OnInit {
 
   constructor(
     private namespaceService: NamespaceService,
-    private breadcrumbService: BreadcrumbService,
     private clusterService: ClusterService,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/namespace', '命名空间列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/namespace/trash', '已删除命名空间列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
@@ -105,7 +101,7 @@ export class NamespaceComponent implements OnInit {
 
   createNamespace(created: boolean) {
     if (created) {
-      this.retrieve()
+      this.retrieve();
     }
   }
 

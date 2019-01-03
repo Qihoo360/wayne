@@ -3,11 +3,14 @@ export const KubeApiTypeCronJob                = 'CronJob';
 export const KubeApiTypeStatefulSet            = 'StatefulSet';
 export const KubeApiTypeDaemonSet              = 'DaemonSet';
 export const KubeApiTypeService                = 'Service';
+export const KubeApiTypeIngress                = 'Ingress';
 export const KubeApiTypeConfigMap              = 'ConfigMap';
 export const KubeApiTypeSecret                 = 'Secret';
 export const KubeApiTypePersistentVolumeClaim  = 'PersistentVolumeClaim';
 
 export const LoginTokenKey = 'wayne_token';
+
+export const AdminDefaultApiId = 0;
 
 export const enum AlertType {
   DANGER, WARNING, INFO, SUCCESS
@@ -75,7 +78,7 @@ export const ApiKeyType = [
 ];
 
 export const enum PublishType {
-  DEPLOYMENT, SERVICE, CONFIGMAP, SECRET, PERSISTENT_VOLUME_CLAIM, CRONJOB, STATEFULSET, DAEMONSET
+  DEPLOYMENT, SERVICE, CONFIGMAP, SECRET, PERSISTENT_VOLUME_CLAIM, CRONJOB, STATEFULSET, DAEMONSET, INGRESS,
 }
 
 export const enum ConfirmationState {
@@ -111,6 +114,10 @@ export const enum ConfirmationTargets {
   SERVICE_EDGE_NODE,
   SERVICE_AVAILABLE_PORT,
   SERVICE_USED_PORT,
+  INGRESS,
+  INGRESS_TPL,
+  TRASH_INGRESS,
+  TRASH_INGRESS_TPL,
   CONFIGMAP,
   TRASH_CONFIGMAP,
   CONFIGMAP_TPL,

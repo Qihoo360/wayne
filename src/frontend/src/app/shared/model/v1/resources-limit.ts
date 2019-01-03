@@ -1,7 +1,7 @@
-export class Resources{
-	cpuLimit: number;
-	cpuRequestLimitPercent: number;
-	memoryLimit: number;
-	memoryRequestLimitPercent: number;
-	replicaLimit: number;
+export class Resources {
+  cpuLimit: number;
+  cpuRequestLimitPercent: number;
+  memoryLimit: number;
+  memoryRequestLimitPercent: number;
+  replicaLimit: number;
 }

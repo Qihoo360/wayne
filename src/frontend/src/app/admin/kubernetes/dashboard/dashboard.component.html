@@ -1,0 +1,6 @@
+<iframe *ngIf="kubernetesDashboardUri" style="width: 100%;height: 100%;border: none"
+        [src]="kubernetesDashboardUri | safe"></iframe>
+<wayne-float-window value="{{cluster}}">
+  <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster"
+                           (click)="jumpTo(cluster)"></wayne-float-window-item>
+</wayne-float-window>

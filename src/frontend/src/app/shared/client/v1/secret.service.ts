@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {Secret} from '../../model/v1/secret';
-import {PageState} from '../../page/page-state';
-import {isNotEmpty} from '../../utils';
-import {OrderItem} from '../../model/v1/order';
+import { Secret } from '../../model/v1/secret';
+import { PageState } from '../../page/page-state';
+import { isNotEmpty } from '../../utils';
+import { OrderItem } from '../../model/v1/order';
 
 @Injectable()
 export class SecretService {
@@ -19,13 +19,13 @@ export class SecretService {
 
   getNames(appId?: number): Observable<any> {
     let params = new HttpParams();
-    if (typeof(appId) === 'undefined') {
+    if (typeof (appId) === 'undefined') {
       appId = 0;
     }
     return this.http
       .get(`/api/v1/apps/${appId}/secrets/names`, {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   list(pageState: PageState, deleted?: string, appId?: string): Observable<any> {
@@ -47,12 +47,12 @@ export class SecretService {
       let value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
-          filterList.push(`${key}=${value}`)
+          filterList.push(`${key}=${value}`);
         } else {
           filterList.push(`${key}__contains=${value}`);
         }
       }
-    })
+    });
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }
@@ -61,13 +61,13 @@ export class SecretService {
       let sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
       params = params.set('sortby', sortType);
     }
-    if ((typeof(appId) === 'undefined') || (!appId)) {
-        appId = '0';
+    if ((typeof (appId) === 'undefined') || (!appId)) {
+      appId = '0';
     }
     return this.http
       .get(`/api/v1/apps/${appId}/secrets`, {params: params})
 
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error));
   }
 
   create(secret: Secret): Observable<any> {
@@ -93,11 +93,11 @@ export class SecretService {
 
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
-    let options : any = {};
+    let options: any = {};
     if (logical != null) {
       let params = new HttpParams();
       params = params.set('logical', logical + '');
-      options.params = params
+      options.params = params;
     }
 
     return this.http

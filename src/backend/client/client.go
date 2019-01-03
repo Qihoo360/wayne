@@ -5,8 +5,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/Qihoo360/wayne/src/backend/models"
-	"github.com/Qihoo360/wayne/src/backend/util/logs"
+	"k8s.io/api/apps/v1beta1"
 	"k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/client-go/kubernetes"
@@ -16,6 +15,9 @@ import (
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 	clientcmdlatest "k8s.io/client-go/tools/clientcmd/api/latest"
 	clientcmdapiv1 "k8s.io/client-go/tools/clientcmd/api/v1"
+
+	"github.com/Qihoo360/wayne/src/backend/models"
+	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
 
 const (
@@ -44,9 +46,12 @@ type ClusterManager struct {
 }
 
 type CacheIndexer struct {
-	stopChans chan struct{}
-	Pod       kcache.Indexer
-	Event     kcache.Indexer
+	stopChans  chan struct{}
+	Pod        kcache.Indexer
+	Event      kcache.Indexer
+	Node       kcache.Indexer
+	Deployment kcache.Indexer
+	Endpoints  kcache.Indexer
 }
 
 func (c ClusterManager) Close() {
@@ -147,10 +152,27 @@ func buildCacheController(client *kubernetes.Clientset) *CacheIndexer {
 	eventIndexer, eventInformer := kcache.NewIndexerInformer(eventListWatcher, &v1.Event{}, defaultResyncPeriod, kcache.ResourceEventHandlerFuncs{}, kcache.Indexers{})
 	go eventInformer.Run(stopCh)
 
+	// create the deployment watcher
+	deploymentListWatcher := kcache.NewListWatchFromClient(client.AppsV1beta1().RESTClient(), "deployments", v1.NamespaceAll, fields.Everything())
+	deploymentIndexer, deploymentInformer := kcache.NewIndexerInformer(deploymentListWatcher, &v1beta1.Deployment{}, defaultResyncPeriod, kcache.ResourceEventHandlerFuncs{}, kcache.Indexers{})
+	go deploymentInformer.Run(stopCh)
+
+	// create the node watcher
+	nodeListWatcher := kcache.NewListWatchFromClient(client.CoreV1().RESTClient(), "nodes", v1.NamespaceAll, fields.Everything())
+	nodeIndexer, nodeInformer := kcache.NewIndexerInformer(nodeListWatcher, &v1.Node{}, defaultResyncPeriod, kcache.ResourceEventHandlerFuncs{}, kcache.Indexers{})
+	go nodeInformer.Run(stopCh)
+
+	// create the endpoint watcher
+	endpointsListWatcher := kcache.NewListWatchFromClient(client.CoreV1().RESTClient(), "endpoints", v1.NamespaceAll, fields.Everything())
+	endpointsIndexer, endpointsinformer := kcache.NewIndexerInformer(endpointsListWatcher, &v1.Endpoints{}, defaultResyncPeriod, kcache.ResourceEventHandlerFuncs{}, kcache.Indexers{})
+	go endpointsinformer.Run(stopCh)
 	return &CacheIndexer{
-		Pod:       podIndexer,
-		Event:     eventIndexer,
-		stopChans: stopCh,
+		Pod:        podIndexer,
+		Event:      eventIndexer,
+		Deployment: deploymentIndexer,
+		Node:       nodeIndexer,
+		Endpoints:  endpointsIndexer,
+		stopChans:  stopCh,
 	}
 }
 

@@ -1,6 +1,6 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {AceEditorBoxComponent} from './ace-editor-box/ace-editor-box.component';
-import {ModalInfo} from './modalInfo';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AceEditorBoxComponent } from './ace-editor-box/ace-editor-box.component';
+import { ModalInfo } from './modalInfo';
 import * as YAML from 'js-yaml';
 
 @Component({
@@ -15,6 +15,7 @@ export class AceEditorComponent implements OnInit {
   hiddenFooter: boolean;
   @ViewChild(AceEditorBoxComponent) box: AceEditorBoxComponent;
 
+  @Input() warningMsg = '';
   @Output() outputObj = new EventEmitter<any>();
 
   constructor() {
@@ -31,7 +32,7 @@ export class AceEditorComponent implements OnInit {
     this.hiddenFooter = !edit;
     this.title = title;
     this.modalOpened = true;
-    this.box.setValue(typeof value === 'string' ? JSON.stringify(JSON.parse(value), null, 2) : JSON.stringify(value, null, 2))
+    this.box.setValue(typeof value === 'string' ? JSON.stringify(JSON.parse(value), null, 2) : JSON.stringify(value, null, 2));
   }
 
   modalInfo(info: ModalInfo) {
@@ -42,9 +43,9 @@ export class AceEditorComponent implements OnInit {
 
   onSubmit() {
     if (this.box.aceMode == 'ace/mode/json') {
-      this.outputObj.emit(JSON.parse(this.box.editor.getValue()))
+      this.outputObj.emit(JSON.parse(this.box.editor.getValue()));
     } else {
-      this.outputObj.emit(YAML.load(this.box.editor.getValue()))
+      this.outputObj.emit(YAML.load(this.box.editor.getValue()));
     }
     this.modalOpened = false;
   }
@@ -52,9 +53,9 @@ export class AceEditorComponent implements OnInit {
   get isValid(): boolean {
     try {
       if (this.box.aceMode == 'ace/mode/json') {
-        JSON.parse(this.box.editor.getValue())
+        JSON.parse(this.box.editor.getValue());
       } else {
-        YAML.load(this.box.editor.getValue())
+        YAML.load(this.box.editor.getValue());
       }
     } catch (e) {
       return false;

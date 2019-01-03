@@ -1,0 +1,45 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: mysql-wayne
+  namespace: default
+  labels:
+    app: mysql-wayne
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-wayne
+  template:
+    metadata:
+      labels:
+        app: mysql-wayne
+    spec:
+      containers:
+      - name: mysql
+        image: 'mysql:5.6.41'
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        resources:
+          limits:
+            cpu: '1'
+            memory: 2Gi
+          requests:
+            cpu: '1'
+            memory: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mysql-wayne
+  name: mysql-wayne
+  namespace: default
+spec:
+  ports:
+  - port: 3306
+    protocol: TCP
+    targetPort: 3306
+  selector:
+    app: mysql-wayne

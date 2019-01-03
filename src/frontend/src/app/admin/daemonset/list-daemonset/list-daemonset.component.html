@@ -6,38 +6,38 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'name'" class="col-app-name">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      名称
+     {{'TITLE.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'app.name'" class="col-namespace">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      所属项目
+      {{'TITLE.BELONG_APP' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-metadata">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      元数据
+      {{'TITLE.METADATA' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      描述
+      {{'TITLE.DESCRIPTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'user'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建者
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgSortBy]="'createTime'" class="col-time">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      创建时间
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let daemonset of daemonsets" [clrDgItem]="daemonset">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="editDaemonset(daemonset)">编辑</button>
-      <button class="action-item" (click)="deleteDaemonset(daemonset)">删除</button>
+      <button class="action-item" (click)="editDaemonset(daemonset)">{{'BUTTON.EDIT' | translate}}</button>
+      <button class="action-item" (click)="deleteDaemonset(daemonset)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{daemonset.id}}</clr-dg-cell>
     <clr-dg-cell class="col-app-name copy">{{daemonset.name}}</clr-dg-cell>
@@ -52,6 +52,7 @@
     <clr-dg-cell class="col-time">{{daemonset.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
   </clr-dg-row>
 
-  <wayne-paginate [(currentPage)]="currentPage" [total]="page.totalCount" [pageSizes]="[10, 20, 50]" (sizeChange)="pageSizeChange($event)">
+  <wayne-paginate [(currentPage)]="currentPage" [total]="page.totalCount" [pageSizes]="[10, 20, 50]"
+                  (sizeChange)="pageSizeChange($event)">
   </wayne-paginate>
 </clr-datagrid>

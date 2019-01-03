@@ -4,7 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 	"strings"
+	"time"
+
+	"k8s.io/api/apps/v1beta1"
+	"k8s.io/api/core/v1"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/common"
@@ -14,8 +19,6 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/resources/pod"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	"k8s.io/api/apps/v1beta1"
-	"k8s.io/api/core/v1"
 )
 
 type DeploymentInfo struct {
@@ -33,6 +36,19 @@ type DeploymentStatusParam struct {
 	Deployment string `json:"deployment"`
 	// Required: true
 	Namespace string `json:"namespace"`
+	// 和升级部署存在差别，不允许同时填写多个 cluster
+	// Required: true
+	Cluster string `json:"cluster"`
+}
+
+// swagger:parameters RestartDeploymentParam
+type RestartDeploymentParam struct {
+	// in: query
+	// Required: true
+	Deployment string `json:"deployment"`
+	// Required: true
+	Namespace string `json:"namespace"`
+	// 和升级部署存在差别，不允许同时填写多个 cluster
 	// Required: true
 	Cluster string `json:"cluster"`
 }
@@ -44,18 +60,22 @@ type UpgradeDeploymentParam struct {
 	Deployment string `json:"deployment"`
 	// Required: true
 	Namespace string `json:"namespace"`
+	// 支持同时填写多个 Cluster，只需要在 cluster 之间使用英文半角的逗号分隔即可
 	// Required: true
-	Cluster  string   `json:"cluster"`
-	clusters []string `json:"-"`
+	Cluster  string `json:"cluster"`
+	clusters []string
 	// Required: false
 	TemplateId int `json:"template_id"`
+	// 该字段为 true 的时候，会自动使用新生成的配置模板上线，否则会只创建对应的模板，并且将模板 ID 返回（用于敏感的需要手动操作的上线环境）
 	// Required: false
 	Publish bool `json:"publish"`
+	// 升级的描述
 	// Required: false
 	Description string `json:"description"`
+	// 该字段为扁平化为字符串的 key-value 字典，填写格式为 容器名1=镜像名1,容器名2=镜像名2 (即:多个容器之间使用英文半角的逗号分隔）
 	// Required: false
-	Images   string            `json:"images"`
-	imageMap map[string]string `json:"-"`
+	Images   string `json:"images"`
+	imageMap map[string]string
 }
 
 // swagger:parameters ScaleDeploymentParam
@@ -65,8 +85,10 @@ type ScaleDeploymentParam struct {
 	Deployment string `json:"deployment"`
 	// Required: true
 	Namespace string `json:"namespace"`
+	// 和升级部署存在差别，不允许同时填写多个 cluster
 	// Required: true
 	Cluster string `json:"cluster"`
+	// 期望调度到的副本数量，范围：(0,32]
 	// Required: true
 	Replicas int `json:"replicas"`
 }
@@ -109,7 +131,7 @@ func (c *OpenAPIController) GetDeploymentStatus() {
 	param := DeploymentStatusParam{
 		c.GetString("deployment"),
 		c.GetString("namespace"),
-		strings.ToUpper(c.GetString("cluster")),
+		c.GetString("cluster"),
 	}
 	if !c.CheckoutRoutePermission(GetDeploymentStatusAction) {
 		return
@@ -201,6 +223,75 @@ func (c *OpenAPIController) GetDeploymentStatus() {
 	}
 }
 
+// swagger:route GET /restart_deployment deploy RestartDeploymentParam
+//
+// 用于用户调用以实现强制重启部署
+//
+// 该接口只能使用 app 级别的 apikey，这样做的目的主要是防止 apikey 的滥用
+//
+//     Responses:
+//       200: responseSuccess
+//       400: responseState
+//       401: responseState
+//       500: responseState
+// @router /restart_deployment [get]
+func (c *OpenAPIController) RestartDeployment() {
+	param := RestartDeploymentParam{
+		Deployment: c.GetString("deployment"),
+		Namespace:  c.GetString("namespace"),
+		Cluster:    c.GetString("cluster"),
+	}
+	if !c.CheckoutRoutePermission(RestartDeploymentAction) || !c.CheckDeploymentPermission(param.Deployment) || !c.CheckNamespacePermission(param.Namespace) {
+		return
+	}
+	if len(param.Namespace) == 0 {
+		c.AddErrorAndResponse(fmt.Sprintf("Invalid namespace parameter"), http.StatusBadRequest)
+		return
+	}
+	if len(param.Deployment) == 0 {
+		c.AddErrorAndResponse(fmt.Sprintf("Invalid deployment parameter"), http.StatusBadRequest)
+		return
+	}
+	ns, err := models.NamespaceModel.GetByName(param.Namespace)
+	if err != nil {
+		c.AddErrorAndResponse(fmt.Sprintf("Failed get namespace by name(%s)", param.Namespace), http.StatusBadRequest)
+		return
+	}
+	err = json.Unmarshal([]byte(ns.MetaData), &ns.MetaDataObj)
+	if err != nil {
+		logs.Error(fmt.Sprintf("Failed to parse metadata: %s", err.Error()))
+		c.AddErrorAndResponse("", http.StatusInternalServerError)
+		return
+	}
+	deployResource, err := models.DeploymentModel.GetByName(param.Deployment)
+	if err != nil {
+		c.AddErrorAndResponse(fmt.Sprintf("Failed get deployment by name(%s)", param.Deployment), http.StatusBadRequest)
+		return
+	}
+
+	cli, err := client.Client(param.Cluster)
+	if err != nil {
+		logs.Error("Failed to connect to k8s client", err)
+		c.AddErrorAndResponse(fmt.Sprintf("Failed to connect to k8s client on %s!", param.Cluster), http.StatusInternalServerError)
+		return
+	}
+
+	deployObj, err := resdeployment.GetDeployment(cli, param.Deployment, ns.MetaDataObj.Namespace)
+	if err != nil {
+		logs.Error("Failed to get deployment from k8s client", err.Error())
+		c.AddErrorAndResponse(fmt.Sprintf("Failed to get deployment from k8s client on %s!", param.Cluster), http.StatusInternalServerError)
+		return
+	}
+	deployObj.Spec.Template.ObjectMeta.Labels["timestamp"] = strconv.FormatInt(time.Now().Unix(), 10)
+
+	if err := updateDeployment(deployObj, param.Cluster, c.APIKey.String(), "Restart Deployment", deployResource.Id); err != nil {
+		logs.Error("Failed to restart from k8s client", err.Error())
+		c.AddErrorAndResponse(fmt.Sprintf("Failed to restart from k8s client on %s!", param.Cluster), http.StatusInternalServerError)
+		return
+	}
+	c.HandleResponse(nil)
+}
+
 // swagger:route GET /upgrade_deployment deploy UpgradeDeploymentParam
 //
 // 用于 CI/CD 中的集成升级部署
@@ -221,17 +312,11 @@ func (c *OpenAPIController) UpgradeDeployment() {
 	param := UpgradeDeploymentParam{
 		Deployment:  c.GetString("deployment"),
 		Namespace:   c.GetString("namespace"),
-		Cluster:     strings.ToUpper(c.GetString("cluster")),
+		Cluster:     c.GetString("cluster"),
 		Description: c.GetString("description"),
 		Images:      c.GetString("images"),
 	}
-	if !c.CheckoutRoutePermission(UpgradeDeploymentAction) {
-		return
-	}
-	if !c.CheckDeploymentPermission(param.Deployment) {
-		return
-	}
-	if !c.CheckNamespacePermission(param.Namespace) {
+	if !c.CheckoutRoutePermission(UpgradeDeploymentAction) || !c.CheckDeploymentPermission(param.Deployment) || !c.CheckNamespacePermission(param.Namespace) {
 		return
 	}
 	param.clusters = strings.Split(param.Cluster, ",")
@@ -383,15 +468,9 @@ func (c *OpenAPIController) ScaleDeployment() {
 	param := ScaleDeploymentParam{
 		Deployment: c.GetString("deployment"),
 		Namespace:  c.GetString("namespace"),
-		Cluster:    strings.ToUpper(c.GetString("cluster")),
+		Cluster:    c.GetString("cluster"),
 	}
-	if !c.CheckoutRoutePermission(ScaleDeploymentAction) {
-		return
-	}
-	if !c.CheckDeploymentPermission(param.Deployment) {
-		return
-	}
-	if !c.CheckNamespacePermission(param.Namespace) {
+	if !c.CheckoutRoutePermission(ScaleDeploymentAction) || !c.CheckDeploymentPermission(param.Deployment) || !c.CheckNamespacePermission(param.Namespace) {
 		return
 	}
 	var err error
@@ -404,7 +483,6 @@ func (c *OpenAPIController) ScaleDeployment() {
 		c.AddErrorAndResponse(fmt.Sprintf("Invalid replicas parameter: %d not in range (0,32]", param.Replicas), http.StatusBadRequest)
 		return
 	}
-
 	if len(param.Namespace) == 0 {
 		c.AddErrorAndResponse(fmt.Sprintf("Invalid namespace parameter"), http.StatusBadRequest)
 		return
@@ -413,6 +491,7 @@ func (c *OpenAPIController) ScaleDeployment() {
 		c.AddErrorAndResponse(fmt.Sprintf("Invalid deployment parameter"), http.StatusBadRequest)
 		return
 	}
+
 	ns, err := models.NamespaceModel.GetByName(param.Namespace)
 	if err != nil {
 		c.AddErrorAndResponse(fmt.Sprintf("Failed get namespace by name(%s)", param.Namespace), http.StatusBadRequest)
@@ -449,32 +528,19 @@ func (c *OpenAPIController) ScaleDeployment() {
 		c.AddErrorAndResponse(fmt.Sprintf("Failed to get deployment from k8s client on %s!", param.Cluster), http.StatusInternalServerError)
 		return
 	}
-
-	msg := fmt.Sprintf("[APIKey][Original Copies: %d][Target Copies: %d] %s", *deployObj.Spec.Replicas, param.Replicas, c.GetString("description"))
-
-	publishHistory := &models.PublishHistory{
-		Type:         models.PublishTypeDeployment,
-		ResourceId:   deployResource.Id,
-		ResourceName: deployObj.Name,
-		TemplateId:   0,
-		Cluster:      param.Cluster,
-		User:         c.APIKey.String(),
-		Message:      msg,
-	}
-	defer models.PublishHistoryModel.Add(publishHistory)
-
 	replicas32 := int32(param.Replicas)
 	deployObj.Spec.Replicas = &replicas32
-
-	_, err = resdeployment.UpdateDeployment(cli, deployObj)
-	if err != nil {
+	if err := updateDeployment(deployObj, param.Cluster, c.APIKey.String(), "Scale Deployment", deployResource.Id); err != nil {
 		logs.Error("Failed to upgrade from k8s client", err.Error())
 		c.AddErrorAndResponse(fmt.Sprintf("Failed to upgrade from k8s client on %s!", param.Cluster), http.StatusInternalServerError)
 		return
 	}
-	models.DeploymentModel.Update(replicas32, deployResource, param.Cluster)
+	err = models.DeploymentModel.Update(replicas32, deployResource, param.Cluster)
+	if err != nil {
+		// 非敏感错误，无须暴露给用户
+		logs.Error("Failed to update deployment in db!", err.Error())
+	}
 	c.HandleResponse(nil)
-	return
 }
 
 // 主要用于从数据库中查找、拼凑出用于更新的模板资源，资源主要用于 k8s 数据更新和 数据库存储更新记录等
@@ -583,5 +649,39 @@ func publishDeployment(deployInfo *DeploymentInfo, username string) error {
 		}
 	} else {
 		return fmt.Errorf("Failed to get k8s client(cluster: %s): %v", deployInfo.Cluster.Name, err)
+	}
+}
+
+func updateDeployment(deployObj *v1beta1.Deployment, cluster string, name string, msg string, resourceId int64) error {
+	status, err := models.PublishStatusModel.GetByCluster(models.PublishTypeDeployment, resourceId, cluster)
+	if err != nil {
+		return fmt.Errorf("Failed to get publish status by cluster: %s", err.Error())
+	}
+	publishHistory := &models.PublishHistory{
+		Type:         models.PublishTypeDeployment,
+		ResourceId:   resourceId,
+		ResourceName: deployObj.Name,
+		TemplateId:   status.TemplateId,
+		Cluster:      cluster,
+		User:         name,
+		Message:      msg,
+	}
+	defer models.PublishHistoryModel.Add(publishHistory)
+	cli, err := client.Client(cluster)
+	if err != nil {
+		return err
+	}
+	_, err = resdeployment.UpdateDeployment(cli, deployObj)
+	if err != nil {
+		publishHistory.Status = models.ReleaseFailure
+		publishHistory.Message = err.Error()
+		return fmt.Errorf("Failed to update deployment by k8s client: %s", err.Error())
+	} else {
+		publishHistory.Status = models.ReleaseSuccess
+		err := models.PublishStatusModel.Add(resourceId, status.TemplateId, cluster, models.PublishTypeDeployment)
+		if err != nil {
+			return err
+		}
+		return nil
 	}
 }
