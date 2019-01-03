@@ -11,7 +11,7 @@ import { ListNodesComponent } from './list-nodes/list-nodes.component';
 import { Node } from '../../../shared/model/v1/kubernetes/node-list';
 import { NodeClient } from '../../../shared/client/v1/kubernetes/node';
 import { Inventory } from './list-nodes/inventory';
-import { KubeNode } from '../../../shared/model/v1/kubernetes/node';
+import { KubeNode, NodeSummary } from '../../../shared/model/v1/kubernetes/node';
 import { AceEditorComponent } from '../../../shared/ace-editor/ace-editor.component';
 
 const showState = {
@@ -49,6 +49,7 @@ export class NodesComponent implements OnInit, OnDestroy {
   clusters: Array<any>;
   nodes: Node[];
   showList: any[] = Array();
+  resourceData: NodeSummary;
 
   subscription: Subscription;
 
@@ -142,7 +143,8 @@ export class NodesComponent implements OnInit, OnDestroy {
 
     this.nodeClient.list(this.cluster).subscribe(
       response => {
-        const nodes = response.data;
+        this.resourceData = response.data;
+        const nodes = response.data.nodes;
         this.inventory.size = nodes.length;
         this.inventory.reset(nodes);
         this.nodes = this.inventory.all;
