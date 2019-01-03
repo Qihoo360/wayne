@@ -28,8 +28,8 @@ func ContainersResourceList(containers []v1.Container) *ResourceList {
 	for _, container := range containers {
 		// unit m
 		cpuUsage += container.Resources.Limits.Cpu().MilliValue()
-		// unit Mi
-		memoryUsage += container.Resources.Limits.Memory().Value() / (1024 * 1024)
+		// unit Byte
+		memoryUsage += container.Resources.Limits.Memory().Value()
 	}
 	return &ResourceList{
 		Cpu:    cpuUsage,

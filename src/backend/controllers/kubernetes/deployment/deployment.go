@@ -241,11 +241,11 @@ func checkResourceAvailable(ns *models.Namespace, cli *kubernetes.Clientset, kub
 	}
 
 	if clusterMetas.ResourcesLimit.Memory != 0 &&
-		clusterMetas.ResourcesLimit.Memory-(namespaceResourceUsed.Memory+requestResourceList.Memory)/1024 < 0 {
+		clusterMetas.ResourcesLimit.Memory-(namespaceResourceUsed.Memory+requestResourceList.Memory)/(1024*1024*1024) < 0 {
 		return &errors.ErrorResult{
 			Code:    http.StatusForbidden,
 			SubCode: base.ErrorSubCodeInsufficientResource,
-			Msg:     fmt.Sprintf("request namespace resource (memory:%dGi) is not enough for this deploy", requestResourceList.Memory/1024),
+			Msg:     fmt.Sprintf("request namespace resource (memory:%dGi) is not enough for this deploy", requestResourceList.Memory/(1024*1024*1024)),
 		}
 	}
 

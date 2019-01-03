@@ -5,7 +5,7 @@
 
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="app_id" class="col-md-3 form-group-label-override required">应用</label>
+          <label for="app_id" class="col-md-3 form-group-label-override required">{{'STATEFULSET_ADMIN.CREATE.APP' | translate}}</label>
           <div class="select form-control">
             <select id="app_id" [(ngModel)]="statefulset.appId" [disabled]="actionType==1" name="app_id">
               <!--这是一个坑，如果使用value获取到的是string，使用ngValue获取到的是model本身类型-->
@@ -27,13 +27,13 @@
                    maxlength="64"
                    (keyup)='handleValidation()'>
             <span class="tooltip-content">
-              部署名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?
+              {{'STATEFULSET_ADMIN.CREATE.RULE' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
             </span>
           </label>
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="statefulset_metadata" class="col-md-3 form-group-label-override">元数据</label>
+          <label for="statefulset_metadata" class="col-md-3 form-group-label-override">{{'STATEFULSET_ADMIN.CREATE.METADATE' | translate}}</label>
           <wayne-ace-editor-box></wayne-ace-editor-box>
 
         </div>
