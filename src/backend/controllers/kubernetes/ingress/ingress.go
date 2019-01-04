@@ -21,6 +21,8 @@ func (c *KubeIngressController) URLMapping() {
 	c.Mapping("Get", c.Get)
 	c.Mapping("Offline", c.Offline)
 	c.Mapping("Deploy", c.Deploy)
+	c.Mapping("List", c.List)
+	c.Mapping("GetDetail", c.GetDetail)
 }
 
 func (c *KubeIngressController) Prepare() {
@@ -40,6 +42,39 @@ func (c *KubeIngressController) Prepare() {
 	}
 }
 
+// @Title List ingress
+// @Description get all ingress in a kubernetes cluster
+// @Param	pageNo		query 	int	false		"the page current no"
+// @Param	pageSize		query 	int	false		"the page size"
+// @Param	filter		query 	string	false		"column filter, ex. filter=name=test"
+// @Param	sortby		query 	string	false		"column sorted by, ex. sortby=-id, '-' representation desc, and sortby=id representation asc"
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace		path 	string	true		"the namespace name"
+// @Success 200 {object} common.Page success
+// @router /namespaces/:namespace/clusters/:cluster [get]
+func (c *KubeIngressController) List() {
+	param := c.BuildQueryParam()
+	cluster := c.Ctx.Input.Param(":cluster")
+	namespace := c.Ctx.Input.Param(":namespace")
+
+	k8sClient, err := client.Client(cluster)
+	if err != nil {
+		c.AbortBadRequestFormat("Cluster")
+	}
+	res, err := ingress.GetIngressPage(k8sClient, namespace, param)
+	if err != nil {
+		logs.Error("list kubernetes(%s) namespace(%s) ingresses error %v", cluster, namespace, err)
+		c.HandleError(err)
+		return
+	}
+	c.Success(res)
+}
+
+// @Title deploy
+// @Description deploy tpl
+// @Param	body	body 	string	true	"The tpl content"
+// @Success 200 return ok success
+// @router /:ingressId([0-9]+)/tpls/:tplId([0-9]+)/clusters/:cluster [post]
 func (c *KubeIngressController) Deploy() {
 	ingressId := c.GetIntParamFromURL(":ingressId")
 	tplId := c.GetIntParamFromURL(":tplId")
@@ -69,6 +104,7 @@ func (c *KubeIngressController) Deploy() {
 			logs.Critical("insert log into database failed: %s", err)
 		}
 	}()
+	// ingressDetail include endpoints
 	_, err = ingress.CreateOrUpdateIngress(k8sClient, &kubeIngress)
 	if err != nil {
 		publishHistory.Status = models.ReleaseFailure
@@ -77,6 +113,7 @@ func (c *KubeIngressController) Deploy() {
 		c.HandleError(err)
 		return
 	}
+
 	publishHistory.Status = models.ReleaseSuccess
 	publishStatus := models.PublishStatus{
 		ResourceId: int64(ingressId),
@@ -103,16 +140,47 @@ func (c *KubeIngressController) Deploy() {
 	c.Success("ok")
 }
 
+// @Title GetDetail
+// @Description find ingress detail in kubernetes
+// @Param ingress path string true "the ingress name"
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace		path 	string	true		"the namespace name"
+// @Success 200 {object} ingress.Ingress success
+// @router /:ingress/detail/namespaces/:namespace/clusters/:cluster [get]
+
+func (c *KubeIngressController) GetDetail() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	namespace := c.Ctx.Input.Param(":namespace")
+	name := c.Ctx.Input.Param(":ingress")
+	k8sClient, err := client.Client(cluster)
+	if err != nil {
+		c.AbortBadRequest("Cluster")
+	}
+	res, err := ingress.GetIngressDetail(k8sClient, name, namespace)
+	if err != nil {
+		logs.Error("get kubernetes ingress detail err %v", err)
+		c.HandleError(err)
+		return
+	}
+	c.Success(res)
+}
+
+// @Title Get
+// @Description find Deployment by cluster
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace		path 	string	true		"the namespace name"
+// @Success 200 {object} models.Deployment success
+// @router /:ingress/namespaces/:namespace/clusters/:cluster [get]
 func (c *KubeIngressController) Get() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":ingress")
-	k8sClinet, err := client.Client(cluster)
+	k8sClient, err := client.Client(cluster)
 	if err != nil {
 		c.AbortBadRequestFormat("Cluster")
 		return
 	}
-	res, err := ingress.GetIngressDetail(k8sClinet, name, namespace)
+	res, err := ingress.GetIngress(k8sClient, name, namespace)
 	if err != nil {
 		logs.Error("get ingress error cluster: %s, namespace: %s", cluster, namespace)
 		c.HandleError(err)
@@ -121,6 +189,13 @@ func (c *KubeIngressController) Get() {
 	c.Success(res)
 }
 
+// @Title Delete
+// @Description delete the Ingress
+// @Param	cluster		path 	string	true		"the cluster want to delete"
+// @Param	namespace		path 	string	true		"the namespace want to delete"
+// @Param	deployment		path 	string	true		"the deployment name want to delete"
+// @Success 200 {string} delete success!
+// @router /:ingress/namespaces/:namespace/clusters/:cluster [delete]
 func (c *KubeIngressController) Offline() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
