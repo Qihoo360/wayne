@@ -41,31 +41,40 @@ type ServiceDetail struct {
 	EventList []common.Event `json:"eventList"`
 
 	// PodInfos represents list of pods status targeted by same label selector as this service.
-	PodList []v1.Pod `json:"podList"`
+	PodList []*v1.Pod `json:"podList"`
 
 	// Show the value of the SessionAffinity of the Service.
 	SessionAffinity v1.ServiceAffinity `json:"sessionAffinity"`
 }
 
-func GetServiceDetail(cli *kubernetes.Clientset, indexer *client.CacheIndexer, namespace, name string) (*ServiceDetail, error) {
+func GetServiceDetail(cli *kubernetes.Clientset, indexer *client.CacheFactory, namespace, name string) (*ServiceDetail, error) {
 
 	serviceDate, err := cli.CoreV1().Services(namespace).Get(name, metaV1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
 
-	endpointsList := endpoint.GetServiceEndpointsFromCache(indexer, namespace, name)
+	endpoint, err := endpoint.GetServiceEndpointsFromCache(indexer, namespace, name)
+	if err != nil {
+		return nil, err
+	}
 
-	podList := pod.GetPodsBySelectorFromCache(indexer, namespace, serviceDate.Spec.Selector)
+	podList, err := pod.ListKubePod(indexer, namespace, serviceDate.Spec.Selector)
+	if err != nil {
+		return nil, err
+	}
 
-	eventList := event.GetPodsWarningEvents(indexer, podList)
+	eventList, err := event.GetPodsWarningEvents(indexer, podList)
+	if err != nil {
+		return nil, err
+	}
 
-	detail := toServiceDetail(serviceDate, eventList, podList, endpointsList)
+	detail := toServiceDetail(serviceDate, eventList, podList, endpoint)
 
 	return &detail, nil
 }
 
-func toServiceDetail(service *v1.Service, events []common.Event, pods []v1.Pod, endpoints []endpoint.Endpoint) ServiceDetail {
+func toServiceDetail(service *v1.Service, events []common.Event, pods []*v1.Pod, endpoints []endpoint.Endpoint) ServiceDetail {
 	return ServiceDetail{
 		ObjectMeta:        common.NewObjectMeta(service.ObjectMeta),
 		TypeMeta:          common.NewTypeMeta(common.ResourceKind("service")),

@@ -3,6 +3,8 @@ package service
 import (
 	"encoding/json"
 
+	"k8s.io/api/core/v1"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
@@ -10,7 +12,6 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/resources/service"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/Qihoo360/wayne/src/backend/workers/webhook"
-	"k8s.io/api/core/v1"
 )
 
 type KubeServiceController struct {
@@ -58,7 +59,7 @@ func (c *KubeServiceController) GetDetail() {
 	if err != nil {
 		c.AbortBadRequestFormat("Cluster")
 	}
-	serviceDetail, err := service.GetServiceDetail(manager.Client, manager.Indexer, namespace, name)
+	serviceDetail, err := service.GetServiceDetail(manager.Client, manager.CacheFactory, namespace, name)
 	if err != nil {
 		logs.Error("get kubernetes(%s) namespace(%s) service(%s) detail error: %s", cluster, namespace, name, err.Error())
 		c.AbortInternalServerError("get kubernetes service detail error.")

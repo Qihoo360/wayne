@@ -50,15 +50,23 @@ func (c *KubePodController) PodStatistics() {
 	if cluster == "" {
 		managers := client.Managers()
 		wg := sync.WaitGroup{}
-		for _, manager := range managers {
+
+		managers.Range(func(key, value interface{}) bool {
+			manager := value.(*client.ClusterManager)
 			wg.Add(1)
 			go func(manager *client.ClusterManager) {
 				defer wg.Done()
-				count := pod.GetPodCounts(manager.Indexer)
+				count, err := pod.GetPodCounts(manager.CacheFactory)
+				if err != nil {
+					logs.Error("get pod counts error.", key, err)
+					return
+				}
 				total += count
 				countSyncMap.Store(manager.Cluster.Name, count)
 			}(manager)
-		}
+			return true
+		})
+
 		wg.Wait()
 		countSyncMap.Range(func(key, value interface{}) bool {
 			countMap[key.(string)] = value.(int)
@@ -68,7 +76,11 @@ func (c *KubePodController) PodStatistics() {
 	} else {
 		manager, err := client.Manager(cluster)
 		if err == nil {
-			count := pod.GetPodCounts(manager.Indexer)
+			count, err := pod.GetPodCounts(manager.CacheFactory)
+			if err != nil {
+				c.HandleError(err)
+				return
+			}
 			total += count
 		} else {
 			c.HandleError(err)
@@ -93,18 +105,18 @@ func (c *KubePodController) List() {
 	statefulset := c.Input().Get("statefulset")
 	daemonSet := c.Input().Get("daemonSet")
 	job := c.Input().Get("job")
-	cli, err := client.Client(cluster)
+	manager, err := client.Manager(cluster)
 	if err == nil {
 		var result interface{}
 		var err error
 		if deployment != "" {
-			result, err = pod.GetPodsByDeployment(cli, namespace, deployment)
+			result, err = pod.GetPodsByDeployment(manager.CacheFactory, namespace, deployment)
 		} else if statefulset != "" {
-			result, err = pod.GetPodsByStatefulset(cli, namespace, statefulset)
+			result, err = pod.GetPodsByStatefulset(manager.CacheFactory, namespace, statefulset)
 		} else if daemonSet != "" {
-			result, err = pod.GetPodsByDaemonSet(cli, namespace, daemonSet)
+			result, err = pod.GetPodsByDaemonSet(manager.CacheFactory, namespace, daemonSet)
 		} else if job != "" {
-			result, err = pod.GetPodsByJob(cli, namespace, job)
+			result, err = pod.GetPodsByJob(manager.CacheFactory, namespace, job)
 		} else {
 			err = fmt.Errorf("unknown resource type. ")
 		}

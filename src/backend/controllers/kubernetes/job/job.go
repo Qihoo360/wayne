@@ -1,13 +1,14 @@
 package job
 
 import (
+	batchv1 "k8s.io/api/batch/v1"
+	"k8s.io/apimachinery/pkg/api/errors"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/resources/job"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	batchv1 "k8s.io/api/batch/v1"
-	"k8s.io/apimachinery/pkg/api/errors"
 )
 
 type KubeJobController struct {
@@ -103,7 +104,7 @@ func (c *KubeJobController) GetPodsEvent() {
 	cronjobName := c.Ctx.Input.Param(":cronjob")
 	manager, err := client.Manager(cluster)
 	if err == nil {
-		result, err := job.GetPodsEvent(manager.Client, manager.Indexer, namespace, name, cronjobName)
+		result, err := job.GetPodsEvent(manager.Client, manager.CacheFactory, namespace, name, cronjobName)
 		if err != nil {
 			logs.Error("get kubernetes job pods event error.", cluster, namespace, name, err)
 			c.HandleError(err)

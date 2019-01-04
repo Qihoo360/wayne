@@ -6,10 +6,11 @@ import (
 	"os"
 	"sync/atomic"
 
+	"github.com/streadway/amqp"
+
 	"github.com/Qihoo360/wayne/src/backend/bus"
 	"github.com/Qihoo360/wayne/src/backend/bus/message"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	"github.com/streadway/amqp"
 )
 
 var (

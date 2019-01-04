@@ -3,13 +3,14 @@ package daemonset
 import (
 	"encoding/json"
 
+	"k8s.io/api/extensions/v1beta1"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/resources/daemonset"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	"k8s.io/api/extensions/v1beta1"
 )
 
 type KubeDaemonSetController struct {
@@ -161,7 +162,7 @@ func (c *KubeDaemonSetController) Get() {
 	name := c.Ctx.Input.Param(":daemonSet")
 	manager, err := client.Manager(cluster)
 	if err == nil {
-		result, err := daemonset.GetDaemonSetDetail(manager.Client, manager.Indexer, name, namespace)
+		result, err := daemonset.GetDaemonSetDetail(manager.Client, manager.CacheFactory, name, namespace)
 		if err != nil {
 			logs.Error("get kubernetes daemonSet detail error.", cluster, namespace, name, err)
 			c.HandleError(err)

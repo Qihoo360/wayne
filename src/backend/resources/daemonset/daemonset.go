@@ -1,16 +1,16 @@
 package daemonset
 
 import (
+	"k8s.io/api/extensions/v1beta1"
+	"k8s.io/apimachinery/pkg/api/errors"
+	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/client-go/kubernetes"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/resources/common"
 	"github.com/Qihoo360/wayne/src/backend/resources/event"
 	"github.com/Qihoo360/wayne/src/backend/resources/pod"
 	"github.com/Qihoo360/wayne/src/backend/util/maps"
-	"k8s.io/api/extensions/v1beta1"
-	"k8s.io/apimachinery/pkg/api/errors"
-	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/labels"
-	"k8s.io/client-go/kubernetes"
 )
 
 type DaemonSet struct {
@@ -34,7 +34,7 @@ func CreateOrUpdateDaemonSet(cli *kubernetes.Clientset, daemonSet *v1beta1.Daemo
 	return cli.ExtensionsV1beta1().DaemonSets(daemonSet.Namespace).Update(old)
 }
 
-func GetDaemonSetDetail(cli *kubernetes.Clientset, indexer *client.CacheIndexer, name, namespace string) (*DaemonSet, error) {
+func GetDaemonSetDetail(cli *kubernetes.Clientset, indexer *client.CacheFactory, name, namespace string) (*DaemonSet, error) {
 	daemonSet, err := cli.ExtensionsV1beta1().DaemonSets(namespace).Get(name, metaV1.GetOptions{})
 	if err != nil {
 		return nil, err
@@ -48,13 +48,15 @@ func GetDaemonSetDetail(cli *kubernetes.Clientset, indexer *client.CacheIndexer,
 	podInfo.Current = daemonSet.Status.NumberAvailable
 	podInfo.Desired = daemonSet.Status.DesiredNumberScheduled
 
-	podSelector := labels.SelectorFromSet(daemonSet.Spec.Template.Labels).String()
-	pods, err := pod.GetPodsBySelector(cli, namespace, podSelector)
+	pods, err := pod.ListKubePod(indexer, namespace, daemonSet.Spec.Template.Labels)
 	if err != nil {
 		return nil, err
 	}
 
-	podInfo.Warnings = event.GetPodsWarningEvents(indexer, pods)
+	podInfo.Warnings, err = event.GetPodsWarningEvents(indexer, pods)
+	if err != nil {
+		return nil, err
+	}
 
 	result.Pods = podInfo
 

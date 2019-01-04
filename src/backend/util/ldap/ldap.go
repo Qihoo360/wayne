@@ -8,9 +8,10 @@ import (
 	"strings"
 	"time"
 
+	goldap "gopkg.in/ldap.v2"
+
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	goldap "gopkg.in/ldap.v2"
 )
 
 // ValidateLdapConf ...

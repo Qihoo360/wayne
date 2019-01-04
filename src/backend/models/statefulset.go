@@ -8,9 +8,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/astaxie/beego/logs"
 	kapi "k8s.io/api/core/v1"
+
+	"github.com/Qihoo360/wayne/src/backend/util/hack"
 )
 
 const (

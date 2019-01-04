@@ -3,13 +3,14 @@ package cronjob
 import (
 	"encoding/json"
 
+	"k8s.io/api/batch/v1beta1"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/resources/cronjob"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	"k8s.io/api/batch/v1beta1"
 )
 
 type KubeCronjobController struct {

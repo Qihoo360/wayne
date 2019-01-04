@@ -3,6 +3,8 @@ package ingress
 import (
 	"encoding/json"
 
+	kapiv1beta1 "k8s.io/api/extensions/v1beta1"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
@@ -10,7 +12,6 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/resources/ingress"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/Qihoo360/wayne/src/backend/workers/webhook"
-	kapiv1beta1 "k8s.io/api/extensions/v1beta1"
 )
 
 type KubeIngressController struct {
