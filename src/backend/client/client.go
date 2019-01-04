@@ -3,14 +3,11 @@ package client
 import (
 	"encoding/json"
 	"errors"
+	"sync"
 	"time"
 
-	"k8s.io/api/apps/v1beta1"
-	"k8s.io/api/core/v1"
-	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
-	kcache "k8s.io/client-go/tools/cache"
 	"k8s.io/client-go/tools/clientcmd"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 	clientcmdlatest "k8s.io/client-go/tools/clientcmd/api/latest"
@@ -18,6 +15,7 @@ import (
 
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
+	"github.com/Qihoo360/wayne/src/backend/util/maps"
 )
 
 const (
@@ -35,30 +33,21 @@ var (
 )
 
 var (
-	clusterManagerSets = make(map[string]*ClusterManager)
+	//make(map[string]*ClusterManager)
+	clusterManagerSets = &sync.Map{}
 )
 
 type ClusterManager struct {
-	Cluster *models.Cluster
-	Client  *kubernetes.Clientset
-	Config  *rest.Config
-	Indexer *CacheIndexer
-}
-
-type CacheIndexer struct {
-	stopChans  chan struct{}
-	Pod        kcache.Indexer
-	Event      kcache.Indexer
-	Node       kcache.Indexer
-	Deployment kcache.Indexer
-	Endpoints  kcache.Indexer
-}
-
-func (c ClusterManager) Close() {
-	c.Indexer.stopChans <- struct{}{}
+	Cluster      *models.Cluster
+	Client       *kubernetes.Clientset
+	Config       *rest.Config
+	CacheFactory *CacheFactory
 }
 
 func BuildApiserverClient() {
+	clusterManagerSets.Range(func(key, value interface{}) bool {
+		return true
+	})
 	newClusters, err := models.ClusterModel.GetAllNormal()
 	if err != nil {
 		logs.Error("build apiserver client get all cluster error.", err)
@@ -68,11 +57,12 @@ func BuildApiserverClient() {
 	changed := clusterChanged(newClusters)
 	if changed {
 		logs.Info("cluster changed, so resync info...")
+
+		shouldRemoveClusters(newClusters)
 		// build new clientManager
-		newClusterManagerSets := make(map[string]*ClusterManager)
 		for i := 0; i < len(newClusters); i++ {
 			cluster := newClusters[i]
-
+			// deal with deleted cluster
 			if cluster.Master == "" {
 				logs.Warning("cluster's master is null:%s", cluster.Name)
 				continue
@@ -83,44 +73,56 @@ func BuildApiserverClient() {
 				continue
 			}
 
-			cacheIndexer := buildCacheController(clientSet)
+			cacheFactory := buildCacheController(clientSet)
 			clusterManager := &ClusterManager{
-				Client:  clientSet,
-				Config:  config,
-				Cluster: &cluster,
-				Indexer: cacheIndexer,
+				Client:       clientSet,
+				Config:       config,
+				Cluster:      &cluster,
+				CacheFactory: cacheFactory,
 			}
-			newClusterManagerSets[cluster.Name] = clusterManager
+			managerInterface, ok := clusterManagerSets.Load(cluster.Name)
+			if ok {
+				manager := managerInterface.(*ClusterManager)
+				manager.Close()
+			}
 
+			clusterManagerSets.Store(cluster.Name, clusterManager)
 		}
-		// stop all old cacheController
-		stopAllCacheController()
-		clusterManagerSets = newClusterManagerSets
 	}
 
 }
 
-func stopAllCacheController() {
-	// TODO 停止之后，controller 仍然会定期list维护中的集群资源，需要解决
-	for _, manager := range clusterManagerSets {
-		manager.Close()
+// deal with deleted cluster
+func shouldRemoveClusters(changedClusters []models.Cluster) {
+	changedClusterMap := make(map[string]struct{})
+	for _, cluster := range changedClusters {
+		changedClusterMap[cluster.Name] = struct{}{}
 	}
+
+	clusterManagerSets.Range(func(key, value interface{}) bool {
+		if _, ok := changedClusterMap[key.(string)]; !ok {
+			managerInterface, _ := clusterManagerSets.Load(key)
+			manager := managerInterface.(*ClusterManager)
+			manager.Close()
+			clusterManagerSets.Delete(key)
+		}
+		return true
+	})
 }
 
 func clusterChanged(clusters []models.Cluster) bool {
-	if len(clusterManagerSets) == 0 {
-		return true
-	}
-	if len(clusterManagerSets) != len(clusters) {
+	if maps.SyncMapLen(clusterManagerSets) != len(clusters) {
+		logs.Info("cluster length (%s) changed to (%s).", maps.SyncMapLen(clusterManagerSets), len(clusters))
 		return true
 	}
 
 	for _, cluster := range clusters {
-		manager, ok := clusterManagerSets[cluster.Name]
+		managerInterface, ok := clusterManagerSets.Load(cluster.Name)
 		if !ok {
 			// maybe add new cluster
 			return true
 		}
+		manager := managerInterface.(*ClusterManager)
 		// master changed, the cluster is changed, ignore others
 		if manager.Cluster.Master != cluster.Master {
 			logs.Info("cluster master (%s) changed to (%s).", manager.Cluster.Master, cluster.Master)
@@ -140,80 +142,29 @@ func clusterChanged(clusters []models.Cluster) bool {
 	return false
 }
 
-func buildCacheController(client *kubernetes.Clientset) *CacheIndexer {
-	stopCh := make(chan struct{})
-	// create the pod watcher
-	podListWatcher := kcache.NewListWatchFromClient(client.CoreV1().RESTClient(), "pods", v1.NamespaceAll, fields.Everything())
-	podIndexer, podInformer := kcache.NewIndexerInformer(podListWatcher, &v1.Pod{}, defaultResyncPeriod, kcache.ResourceEventHandlerFuncs{}, kcache.Indexers{})
-	go podInformer.Run(stopCh)
-
-	// create the event watcher
-	eventListWatcher := kcache.NewListWatchFromClient(client.CoreV1().RESTClient(), "events", v1.NamespaceAll, fields.Everything())
-	eventIndexer, eventInformer := kcache.NewIndexerInformer(eventListWatcher, &v1.Event{}, defaultResyncPeriod, kcache.ResourceEventHandlerFuncs{}, kcache.Indexers{})
-	go eventInformer.Run(stopCh)
-
-	// create the deployment watcher
-	deploymentListWatcher := kcache.NewListWatchFromClient(client.AppsV1beta1().RESTClient(), "deployments", v1.NamespaceAll, fields.Everything())
-	deploymentIndexer, deploymentInformer := kcache.NewIndexerInformer(deploymentListWatcher, &v1beta1.Deployment{}, defaultResyncPeriod, kcache.ResourceEventHandlerFuncs{}, kcache.Indexers{})
-	go deploymentInformer.Run(stopCh)
-
-	// create the node watcher
-	nodeListWatcher := kcache.NewListWatchFromClient(client.CoreV1().RESTClient(), "nodes", v1.NamespaceAll, fields.Everything())
-	nodeIndexer, nodeInformer := kcache.NewIndexerInformer(nodeListWatcher, &v1.Node{}, defaultResyncPeriod, kcache.ResourceEventHandlerFuncs{}, kcache.Indexers{})
-	go nodeInformer.Run(stopCh)
-
-	// create the endpoint watcher
-	endpointsListWatcher := kcache.NewListWatchFromClient(client.CoreV1().RESTClient(), "endpoints", v1.NamespaceAll, fields.Everything())
-	endpointsIndexer, endpointsinformer := kcache.NewIndexerInformer(endpointsListWatcher, &v1.Endpoints{}, defaultResyncPeriod, kcache.ResourceEventHandlerFuncs{}, kcache.Indexers{})
-	go endpointsinformer.Run(stopCh)
-	return &CacheIndexer{
-		Pod:        podIndexer,
-		Event:      eventIndexer,
-		Deployment: deploymentIndexer,
-		Node:       nodeIndexer,
-		Endpoints:  endpointsIndexer,
-		stopChans:  stopCh,
-	}
-}
-
 func Cluster(cluster string) (*models.Cluster, error) {
-	manager, exist := clusterManagerSets[cluster]
-	// 如果不存在，则重新获取一次集群信息
-	if !exist {
-		BuildApiserverClient()
-		manager, exist = clusterManagerSets[cluster]
-		if !exist {
-			return nil, ErrNotExist
-		}
-	}
-	if manager.Cluster.Status == models.ClusterStatusMaintaining {
-		return nil, ErrMaintaining
+	manager, err := Manager(cluster)
+	if err != nil {
+		return nil, err
 	}
 	return manager.Cluster, nil
 }
 
 func Client(cluster string) (*kubernetes.Clientset, error) {
-	manager, exist := clusterManagerSets[cluster]
-	// 如果不存在，则重新获取一次集群信息
-	if !exist {
-		BuildApiserverClient()
-		manager, exist = clusterManagerSets[cluster]
-		if !exist {
-			return nil, ErrNotExist
-		}
-	}
-	if manager.Cluster.Status == models.ClusterStatusMaintaining {
-		return nil, ErrMaintaining
+	manager, err := Manager(cluster)
+	if err != nil {
+		return nil, err
 	}
 	return manager.Client, nil
 }
 
 func Manager(cluster string) (*ClusterManager, error) {
-	manager, exist := clusterManagerSets[cluster]
+	managerInterface, exist := clusterManagerSets.Load(cluster)
+	manager := managerInterface.(*ClusterManager)
 	// 如果不存在，则重新获取一次集群信息
 	if !exist {
 		BuildApiserverClient()
-		manager, exist = clusterManagerSets[cluster]
+		_, exist = clusterManagerSets.Load(cluster)
 		if !exist {
 			return nil, ErrNotExist
 		}
@@ -224,15 +175,7 @@ func Manager(cluster string) (*ClusterManager, error) {
 	return manager, nil
 }
 
-func Clients() map[string]*kubernetes.Clientset {
-	clientSets := map[string]*kubernetes.Clientset{}
-	for cluster, cManager := range clusterManagerSets {
-		clientSets[cluster] = cManager.Client
-	}
-	return clientSets
-}
-
-func Managers() map[string]*ClusterManager {
+func Managers() *sync.Map {
 	return clusterManagerSets
 }
 
