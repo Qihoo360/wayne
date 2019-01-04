@@ -3,9 +3,10 @@ package main
 import (
 	"fmt"
 
-	_ "github.com/Qihoo360/wayne/src/backend/plugins"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+
+	_ "github.com/Qihoo360/wayne/src/backend/plugins"
 )
 
 func init() {

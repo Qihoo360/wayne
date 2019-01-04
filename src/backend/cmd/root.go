@@ -3,9 +3,10 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/spf13/cobra"
+
 	"github.com/Qihoo360/wayne/src/backend/cmd/apiserver"
 	"github.com/Qihoo360/wayne/src/backend/cmd/worker"
-	"github.com/spf13/cobra"
 )
 
 var Version string

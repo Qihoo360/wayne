@@ -1,9 +1,10 @@
 package namespace
 
 import (
+	"k8s.io/api/core/v1"
+
 	"github.com/Qihoo360/wayne/src/backend/resources/common"
 	"github.com/Qihoo360/wayne/src/backend/resources/dataselector"
-	"k8s.io/api/core/v1"
 )
 
 type Namespace struct {

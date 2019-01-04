@@ -4,11 +4,12 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/Qihoo360/wayne/src/backend/resources/pv"
 	kapi "k8s.io/api/core/v1"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
+
+	"github.com/Qihoo360/wayne/src/backend/resources/pv"
 )
 
 var (

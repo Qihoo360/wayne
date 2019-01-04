@@ -3,10 +3,11 @@ package models
 import (
 	"time"
 
-	"github.com/Qihoo360/wayne/src/backend/util/encode"
-	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+
+	"github.com/Qihoo360/wayne/src/backend/util/encode"
+	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
 
 type UserType int
