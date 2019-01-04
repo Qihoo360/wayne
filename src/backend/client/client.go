@@ -108,7 +108,7 @@ func shouldRemoveClusters(changedClusters []models.Cluster) {
 
 func clusterChanged(clusters []models.Cluster) bool {
 	if maps.SyncMapLen(clusterManagerSets) != len(clusters) {
-		logs.Info("cluster length (%s) changed to (%s).", maps.SyncMapLen(clusterManagerSets), len(clusters))
+		logs.Info("cluster length (%d) changed to (%d).", maps.SyncMapLen(clusterManagerSets), len(clusters))
 		return true
 	}
 
