@@ -61,13 +61,13 @@ export class AutoscaleService {
       appId = '0';
     }
     return this.http
-      .get(`/api/v1/apps/${appId}/ingresses`, {params: params})
+      .get(`/api/v1/apps/${appId}/hpas`, {params: params})
       .catch(error => Observable.throw(error));
   }
 
   create(hpa: Autoscale): Observable<any> {
     return this.http
-      .post(`/api/v1/apps/${hpa.appId}/ingresses`, hpa, this.options)
+      .post(`/api/v1/apps/${hpa.appId}/hpas`, hpa, this.options)
       .catch(error => Observable.throw(error));
   }
 

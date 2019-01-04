@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Resource } from '../../shared/base/resource/resource';
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,7 +21,7 @@ import { ConfirmationTargets, PublishType } from '../../shared/shared.const';
   templateUrl: './autoscale.component.html',
   styleUrls: ['./autoscale.component.scss']
 })
-export class AutoscaleComponent extends Resource implements OnInit {
+export class AutoscaleComponent extends Resource implements OnInit, AfterContentInit {
   @ViewChild(CreateEditAutoscaleComponent)
   createEditResourceComponent: CreateEditAutoscaleComponent;
 
@@ -73,6 +73,10 @@ export class AutoscaleComponent extends Resource implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterContentInit() {
+    this.initResource();
   }
 
 }

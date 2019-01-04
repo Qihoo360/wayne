@@ -61,7 +61,7 @@ func (c *HPATplController) List() {
 	}
 
 	var hpaTpls []models.HPATemplate
-	total, err := models.ListTemplate(&hpaTpls, param, models.TableNameHPA, models.PublishTypeHPA, isOnline)
+	total, err := models.ListTemplate(&hpaTpls, param, models.TableNameHPATemplate, models.PublishTypeHPA, isOnline)
 	if err != nil {
 		logs.Error("list by param (%v) error. %v", param, err)
 		c.HandleError(err)

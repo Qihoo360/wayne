@@ -301,7 +301,7 @@ export class Resource {
 
   // 更新路由
   setNavigateURI() {
-    this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/ingress/${this.resourceId}`]);
+    this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/${this.resourceType}/${this.resourceId}`]);
   }
 
   // 初始化默认资源 ID 号
