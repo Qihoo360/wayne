@@ -60,6 +60,7 @@
     "DEPARTMENT": "Department",
     "DEPLOYMENT": "Deployment",
     "DEPLOYMENT_LIST": "Deployment List",
+    "AUTO_POD_SCALE": "HPA",
     "K8S": "Kubernetes",
     "LIST": "List",
     "MEMBER": "Member",

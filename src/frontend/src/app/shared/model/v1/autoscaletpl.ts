@@ -1,16 +1,16 @@
-import { Ingress } from './ingress';
 import { PublishStatus } from './publish-status';
+import { Autoscale } from './autoscale';
 
-export class IngressTpl {
+export class AutoscaleTpl {
   id: number;
   name: string;
-  ingressId: number;
+  hpaId: number;
   template: string;
   description: string;
   deleted: boolean;
   user: string;
   createTime: Date;
-  ingress: Ingress;
+  hpa: Autoscale;
 
   ports: string;
   status: PublishStatus[];

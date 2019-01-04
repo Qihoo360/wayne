@@ -1,0 +1,4 @@
+<button (click)="createResource()" class="wayne-button primary" *ngIf="authService.currentAppPermission.autoscale.create || authService.currentUser.admin">
+  创建 HPA
+</button>
+<wayne-create-edit-autoscale (create)="onResourceCreatedEvent($event)"></wayne-create-edit-autoscale>
