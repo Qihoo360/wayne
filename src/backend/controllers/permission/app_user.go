@@ -3,12 +3,13 @@ package permission
 import (
 	"encoding/json"
 
+	"github.com/astaxie/beego/orm"
+	"github.com/mitchellh/mapstructure"
+
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/Qihoo360/wayne/src/backend/workers/webhook"
-	"github.com/astaxie/beego/orm"
-	"github.com/mitchellh/mapstructure"
 )
 
 // 操作AppUser相关资源

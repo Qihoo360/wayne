@@ -1,10 +1,11 @@
 package apiserver
 
 import (
-	"github.com/Qihoo360/wayne/src/backend/initial"
-	_ "github.com/Qihoo360/wayne/src/backend/routers"
 	"github.com/astaxie/beego"
 	"github.com/spf13/cobra"
+
+	"github.com/Qihoo360/wayne/src/backend/initial"
+	_ "github.com/Qihoo360/wayne/src/backend/routers"
 )
 
 var (

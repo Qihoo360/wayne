@@ -8,9 +8,10 @@ import (
 	"strings"
 	"time"
 
+	kapi "k8s.io/api/core/v1"
+
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	kapi "k8s.io/api/core/v1"
 )
 
 const (

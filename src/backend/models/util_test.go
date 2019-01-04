@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"testing"
 
+	_ "github.com/go-sql-driver/mysql"
+
 	"github.com/Qihoo360/wayne/src/backend/common"
 	"github.com/Qihoo360/wayne/src/backend/models"
-	_ "github.com/go-sql-driver/mysql"
 )
 
 func TestGetAll(t *testing.T) {

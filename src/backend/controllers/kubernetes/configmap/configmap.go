@@ -3,12 +3,13 @@ package configmap
 import (
 	"encoding/json"
 
+	kapi "k8s.io/api/core/v1"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/resources/configmap"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	kapi "k8s.io/api/core/v1"
 )
 
 type KubeConfigMapController struct {

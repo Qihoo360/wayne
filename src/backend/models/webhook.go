@@ -4,8 +4,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Qihoo360/wayne/src/backend/models/hookevent"
 	"github.com/astaxie/beego/orm"
+
+	"github.com/Qihoo360/wayne/src/backend/models/hookevent"
 )
 
 type WebHookScope int64

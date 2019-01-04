@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"time"
 
+	"github.com/astaxie/beego"
+	"github.com/dgrijalva/jwt-go"
+
 	rsakey "github.com/Qihoo360/wayne/src/backend/apikey"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	"github.com/astaxie/beego"
-	"github.com/dgrijalva/jwt-go"
 )
 
 type ApiKeyController struct {
