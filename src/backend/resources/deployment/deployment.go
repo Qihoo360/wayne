@@ -8,6 +8,7 @@ import (
 	"k8s.io/api/apps/v1beta1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/kubernetes"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
@@ -24,18 +25,10 @@ type Deployment struct {
 	Containers []string          `json:"containers"`
 }
 
-func GetDeploymentList(indexer *client.CacheIndexer, namespace string) ([]v1beta1.Deployment, error) {
-	cacheDeployments := indexer.Deployment.List()
-	var deployments []v1beta1.Deployment
-	for _, e := range cacheDeployments {
-		cacheDeployment, ok := e.(*v1beta1.Deployment)
-		if !ok {
-			continue
-		}
-		if cacheDeployment.Namespace != namespace {
-			continue
-		}
-		deployments = append(deployments, *cacheDeployment)
+func GetDeploymentList(indexer *client.CacheFactory, namespace string) ([]*v1beta1.Deployment, error) {
+	deployments, err := indexer.DeploymentLister().Deployments(namespace).List(labels.Everything())
+	if err != nil {
+		return nil, err
 	}
 
 	sort.Slice(deployments, func(i, j int) bool {
@@ -119,16 +112,16 @@ func GetDeployment(cli *kubernetes.Clientset, name, namespace string) (*v1beta1.
 	return cli.AppsV1beta1().Deployments(namespace).Get(name, metaV1.GetOptions{})
 }
 
-func GetDeploymentDetail(cli *kubernetes.Clientset, indexer *client.CacheIndexer, name, namespace string) (*Deployment, error) {
+func GetDeploymentDetail(cli *kubernetes.Clientset, indexer *client.CacheFactory, name, namespace string) (*Deployment, error) {
 	deployment, err := cli.AppsV1beta1().Deployments(namespace).Get(name, metaV1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
 
-	return toDeployment(deployment, indexer), nil
+	return toDeployment(deployment, indexer)
 }
 
-func toDeployment(deployment *v1beta1.Deployment, indexer *client.CacheIndexer) *Deployment {
+func toDeployment(deployment *v1beta1.Deployment, indexer *client.CacheFactory) (*Deployment, error) {
 	result := &Deployment{
 		ObjectMeta: common.NewObjectMeta(deployment.ObjectMeta),
 	}
@@ -136,10 +129,17 @@ func toDeployment(deployment *v1beta1.Deployment, indexer *client.CacheIndexer) 
 	podInfo := common.PodInfo{}
 	podInfo.Current = deployment.Status.AvailableReplicas
 	podInfo.Desired = *deployment.Spec.Replicas
+	var err error
 
-	pods := pod.GetPodsBySelectorFromCache(indexer, deployment.Namespace, deployment.Spec.Template.Labels)
+	pods, err := pod.ListKubePod(indexer, deployment.Namespace, deployment.Spec.Template.Labels)
+	if err != nil {
+		return nil, err
+	}
 
-	podInfo.Warnings = event.GetPodsWarningEvents(indexer, pods)
+	podInfo.Warnings, err = event.GetPodsWarningEvents(indexer, pods)
+	if err != nil {
+		return nil, err
+	}
 
 	result.Pods = podInfo
 
@@ -150,7 +150,7 @@ func toDeployment(deployment *v1beta1.Deployment, indexer *client.CacheIndexer) 
 
 	result.Containers = containers
 
-	return result
+	return result, nil
 }
 
 func DeleteDeployment(cli *kubernetes.Clientset, name, namespace string) error {

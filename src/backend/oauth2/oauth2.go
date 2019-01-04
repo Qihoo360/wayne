@@ -6,10 +6,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/astaxie/beego"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
+
+	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
 
 func init() {
@@ -105,7 +106,6 @@ func NewOAuth2Service() {
 				ApiUrl:     info.ApiUrl,
 				ApiMapping: info.ApiMapping,
 			}
-			fmt.Println(info.ApiMapping)
 		}
 
 	}

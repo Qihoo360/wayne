@@ -72,7 +72,7 @@ func (c *KubeDeploymentController) List() {
 
 	manager, err := client.Manager(cluster)
 	if err == nil {
-		result, err := deployment.GetDeploymentPage(manager.Indexer, namespace, param)
+		result, err := deployment.GetDeploymentPage(manager.CacheFactory, namespace, param)
 		if err != nil {
 			logs.Error("list kubernetes deployments error.", cluster, namespace, err)
 			c.HandleError(err)
@@ -295,7 +295,7 @@ func (c *KubeDeploymentController) GetDetail() {
 	name := c.Ctx.Input.Param(":deployment")
 	manager, err := client.Manager(cluster)
 	if err == nil {
-		result, err := deployment.GetDeploymentDetail(manager.Client, manager.Indexer, name, namespace)
+		result, err := deployment.GetDeploymentDetail(manager.Client, manager.CacheFactory, name, namespace)
 		if err != nil {
 			logs.Error("get kubernetes deployment detail error.", cluster, namespace, name, err)
 			c.HandleError(err)

@@ -24,42 +24,25 @@ type Endpoint struct {
 	Ports []v1.EndpointPort `json:"ports"`
 }
 
-func GetServiceEndpointsFromCache(cache *client.CacheIndexer, namespace, name string) (list []Endpoint) {
-	return toEndpointList(GetEndpointsFromCache(cache, namespace, name))
-}
-
 // GetEndpoints gets endpoints associated to resource with given name.
-func GetEndpointsFromCache(cache *client.CacheIndexer, namespace, name string) (endpointsList []v1.Endpoints) {
-	allEndpoints := cache.Endpoints.List()
-
-	for _, v := range allEndpoints {
-		endpoints, ok := v.(*v1.Endpoints)
-		if !ok {
-			continue
-		}
-		if endpoints.Namespace != namespace {
-			continue
-		}
-		if endpoints.Name != name {
-			continue
-		}
-		endpointsList = append(endpointsList, *endpoints)
+func GetServiceEndpointsFromCache(cache *client.CacheFactory, namespace, name string) ([]Endpoint, error) {
+	endpoint, err := cache.EndpointLister().Endpoints(namespace).Get(name)
+	if err != nil {
+		return nil, err
 	}
-
-	return
+	return toEndpointList(endpoint), nil
 }
 
-func toEndpointList(endpoints []v1.Endpoints) (list []Endpoint) {
-	for _, endpoint := range endpoints {
-		for _, subSets := range endpoint.Subsets {
-			for _, address := range subSets.Addresses {
-				list = append(list, *toEndpoint(address, subSets.Ports, true))
-			}
-			for _, notReadyAddress := range subSets.NotReadyAddresses {
-				list = append(list, *toEndpoint(notReadyAddress, subSets.Ports, false))
-			}
+func toEndpointList(endpoint *v1.Endpoints) (list []Endpoint) {
+	for _, subSets := range endpoint.Subsets {
+		for _, address := range subSets.Addresses {
+			list = append(list, *toEndpoint(address, subSets.Ports, true))
+		}
+		for _, notReadyAddress := range subSets.NotReadyAddresses {
+			list = append(list, *toEndpoint(notReadyAddress, subSets.Ports, false))
 		}
 	}
+
 	return
 }
 
