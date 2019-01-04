@@ -33,7 +33,6 @@ var (
 )
 
 var (
-	//make(map[string]*ClusterManager)
 	clusterManagerSets = &sync.Map{}
 )
 
@@ -45,9 +44,6 @@ type ClusterManager struct {
 }
 
 func BuildApiserverClient() {
-	clusterManagerSets.Range(func(key, value interface{}) bool {
-		return true
-	})
 	newClusters, err := models.ClusterModel.GetAllNormal()
 	if err != nil {
 		logs.Error("build apiserver client get all cluster error.", err)

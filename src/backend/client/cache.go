@@ -20,6 +20,7 @@ func buildCacheController(client *kubernetes.Clientset) *CacheFactory {
 	stop := make(chan struct{})
 	sharedInformerFactory := informers.NewSharedInformerFactory(client, defaultResyncPeriod)
 
+	// Resources that need to be cached are started here
 	go sharedInformerFactory.Core().V1().Events().Informer().Run(stop)
 	go sharedInformerFactory.Core().V1().Pods().Informer().Run(stop)
 	go sharedInformerFactory.Apps().V1beta1().Deployments().Informer().Run(stop)
@@ -27,7 +28,6 @@ func buildCacheController(client *kubernetes.Clientset) *CacheFactory {
 	go sharedInformerFactory.Core().V1().Endpoints().Informer().Run(stop)
 
 	sharedInformerFactory.Start(stop)
-	//sharedInformerFactory.WaitForCacheSync(stop)
 
 	return &CacheFactory{
 		stopChan:              stop,
