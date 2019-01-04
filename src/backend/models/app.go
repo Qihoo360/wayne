@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Qihoo360/wayne/src/backend/common"
 	"github.com/astaxie/beego/orm"
 	"github.com/go-sql-driver/mysql"
+
+	"github.com/Qihoo360/wayne/src/backend/common"
 )
 
 const (

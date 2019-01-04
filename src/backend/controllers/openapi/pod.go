@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"strings"
 
+	"k8s.io/apimachinery/pkg/labels"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/models/response"
@@ -64,8 +66,6 @@ func (c *OpenAPIController) GetPodInfo() {
 		c.AddErrorAndResponse("You can only use global APIKey in this action!", http.StatusUnauthorized)
 		return
 	}
-
-	clis := client.Clients()
 	podList := resppodlist{}
 	podList.Body.Code = http.StatusOK
 	params := PodInfoParam{c.GetString("labelSelector"), c.GetString("cluster")}
@@ -73,12 +73,19 @@ func (c *OpenAPIController) GetPodInfo() {
 		c.AddErrorAndResponse("Invalid cluster parameter:must required!", http.StatusBadRequest)
 		return
 	}
-	if clis[params.Cluster] == nil {
+	manager, err := client.Manager(params.Cluster)
+	if err != nil {
 		c.AddErrorAndResponse("Invalid cluster parameter:not exist!", http.StatusBadRequest)
 		return
 	}
-	cli := clis[params.Cluster]
-	pods, err := pod.GetAllPodByLabelSelector(cli, params.LabelSelector)
+
+	label, err := labels.ConvertSelectorToLabelsMap(params.LabelSelector)
+	if err != nil {
+		c.AddErrorAndResponse(fmt.Sprintf("Invalid LabelSelector parameter: %v!", err), http.StatusBadRequest)
+		return
+	}
+
+	pods, err := pod.ListPod(manager.CacheFactory, "", label)
 	if err != nil {
 		logs.Error(fmt.Sprintf("Failed to parse metadata: %s", err.Error()))
 		c.AddErrorAndResponse(fmt.Sprintf("Maybe a problematic k8s cluster(%s)!", params.Cluster), http.StatusInternalServerError)
@@ -124,7 +131,7 @@ func (c *OpenAPIController) GetPodInfoFromIP() {
 		c.AddErrorAndResponse("Invalid cluster parameter:not exist!", http.StatusBadRequest)
 		return
 	}
-	pods := pod.GetPodsBySelectorFromCache(manager.Indexer, "", nil)
+	pods, err := pod.ListKubePod(manager.CacheFactory, "", nil)
 	if err != nil {
 		logs.Error(fmt.Sprintf("Failed to parse metadata: %s", err.Error()))
 		c.AddErrorAndResponse(fmt.Sprintf("Maybe a problematic k8s cluster(%s)!", params.Cluster), http.StatusInternalServerError)

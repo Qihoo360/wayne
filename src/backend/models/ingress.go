@@ -18,7 +18,7 @@ type Ingress struct {
 	Name        string `orm:"unique;index;size(128)" json:"name,omitempty"`
 	MetaData    string `orm:"type(text)" json:"metaData,omitempty"`
 	App         *App   `orm:"index;rel(fk)" json:"app,omitempty"`
-	Description string `orm:"nill,size(512)" json:"description,omitempty"`
+	Description string `orm:"null,size(512)" json:"description,omitempty"`
 	OrderId     int64  `orm:"index;default(0)" json:"order"`
 
 	CreateTime *time.Time `orm:"auto_now_add;type(datetime)" json:"createTime,omitempty"`

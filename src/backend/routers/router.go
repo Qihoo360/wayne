@@ -7,6 +7,9 @@ import (
 	"net/http"
 	"path"
 
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/context"
+
 	"github.com/Qihoo360/wayne/src/backend/controllers"
 	"github.com/Qihoo360/wayne/src/backend/controllers/apikey"
 	"github.com/Qihoo360/wayne/src/backend/controllers/app"
@@ -50,9 +53,6 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/health"
 	_ "github.com/Qihoo360/wayne/src/backend/plugins"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
-
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/context"
 )
 
 func init() {

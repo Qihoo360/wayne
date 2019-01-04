@@ -1,8 +1,9 @@
 package initial
 
 import (
-	"github.com/Qihoo360/wayne/src/backend/bus"
 	"github.com/astaxie/beego"
+
+	"github.com/Qihoo360/wayne/src/backend/bus"
 )
 
 func InitBus() {

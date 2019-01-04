@@ -3,9 +3,10 @@ package appstarred
 import (
 	"encoding/json"
 
+	"github.com/astaxie/beego/logs"
+
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
-	"github.com/astaxie/beego/logs"
 )
 
 type AppStarredController struct {

@@ -5,14 +5,15 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
+	"github.com/astaxie/beego/orm"
+
 	"github.com/Qihoo360/wayne/src/backend/bus"
 	"github.com/Qihoo360/wayne/src/backend/bus/message"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/models/response"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/logs"
-	"github.com/astaxie/beego/orm"
 )
 
 type APIKeyController struct {

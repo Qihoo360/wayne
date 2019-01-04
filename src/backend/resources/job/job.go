@@ -1,13 +1,15 @@
 package job
 
 import (
-	"github.com/Qihoo360/wayne/src/backend/client"
-	"github.com/Qihoo360/wayne/src/backend/resources/common"
-	"github.com/Qihoo360/wayne/src/backend/resources/event"
 	batchv1 "k8s.io/api/batch/v1"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/kubernetes"
+
+	"github.com/Qihoo360/wayne/src/backend/client"
+	"github.com/Qihoo360/wayne/src/backend/resources/common"
+	"github.com/Qihoo360/wayne/src/backend/resources/event"
+	"github.com/Qihoo360/wayne/src/backend/resources/pod"
 )
 
 func GetJobsByCronjobName(cli *kubernetes.Clientset, namespace, cronjobName string) ([]batchv1.Job, error) {
@@ -24,7 +26,7 @@ func GetJobsByCronjobName(cli *kubernetes.Clientset, namespace, cronjobName stri
 	return jobList.Items, nil
 }
 
-func GetPodsEvent(cli *kubernetes.Clientset, indexer *client.CacheIndexer, namespace, jobName, cronjobName string) (common.PodInfo, error) {
+func GetPodsEvent(cli *kubernetes.Clientset, indexer *client.CacheFactory, namespace, jobName, cronjobName string) (common.PodInfo, error) {
 	podInfo := common.PodInfo{}
 	cronjob, err := cli.BatchV2alpha1().CronJobs(namespace).Get(cronjobName, metaV1.GetOptions{})
 	if err != nil {
@@ -33,16 +35,20 @@ func GetPodsEvent(cli *kubernetes.Clientset, indexer *client.CacheIndexer, names
 
 	labelDetail := cronjob.ObjectMeta.Labels
 	labelDetail["job-name"] = jobName
-	podSelector := labels.SelectorFromSet(labelDetail).String()
-	podList, err := cli.CoreV1().Pods(namespace).List(metaV1.ListOptions{LabelSelector: podSelector})
+
+	pods, err := pod.ListKubePod(indexer, namespace, labelDetail)
 	if err != nil {
 		return podInfo, err
 	}
-	pods := podList.Items
+
 	podInfo.Current = int32(len(pods))
 	// 目前写死为1
 	podInfo.Desired = 1
-	podInfo.Warnings = event.GetPodsWarningEvents(indexer, pods)
+
+	podInfo.Warnings, err = event.GetPodsWarningEvents(indexer, pods)
+	if err != nil {
+		return common.PodInfo{}, err
+	}
 
 	return podInfo, nil
 }

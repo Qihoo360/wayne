@@ -3,12 +3,12 @@ package event
 import (
 	"strings"
 
+	apiv1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/labels"
+	"k8s.io/apimachinery/pkg/types"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/resources/common"
-	apiv1 "k8s.io/api/core/v1"
-	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/types"
-	"k8s.io/client-go/kubernetes"
 )
 
 // FailedReasonPartials  is an array of partial strings to correctly filter warning events.
@@ -20,22 +20,17 @@ import (
 var FailedReasonPartials = []string{"failed", "err", "exceeded", "invalid", "unhealthy",
 	"mismatch", "insufficient", "conflict", "outof", "nil", "backoff"}
 
-func GetPodsWarningEvents(indexer *client.CacheIndexer, pods []apiv1.Pod) []common.Event {
-	cacheEvents := indexer.Event.List()
-	var events []apiv1.Event
-	for _, e := range cacheEvents {
-		cacheEvent, ok := e.(*apiv1.Event)
-		if !ok {
-			continue
-		}
-		events = append(events, *cacheEvent)
+func GetPodsWarningEvents(indexer *client.CacheFactory, pods []*apiv1.Pod) ([]common.Event, error) {
+	events, err := indexer.EventLister().List(labels.Everything())
+	if err != nil {
+		return nil, err
 	}
 
 	result := make([]common.Event, 0)
 
 	// Filter out only warning events
 	events = getWarningEvents(events)
-	failedPods := make([]apiv1.Pod, 0)
+	failedPods := make([]*apiv1.Pod, 0)
 
 	// Filter out ready and successful pods
 	for _, pod := range pods {
@@ -61,21 +56,12 @@ func GetPodsWarningEvents(indexer *client.CacheIndexer, pods []apiv1.Pod) []comm
 		})
 	}
 
-	return result
-}
-
-func ListEvents(cli *kubernetes.Clientset, namespace string) ([]apiv1.Event, error) {
-	eventList, err := cli.CoreV1().Events(namespace).List(metaV1.ListOptions{})
-	if err != nil {
-		return nil, err
-	}
-
-	return eventList.Items, nil
+	return result, nil
 }
 
 // Returns filtered list of event objects.
 // Event list object is filtered to get only warning events.
-func getWarningEvents(events []apiv1.Event) []apiv1.Event {
+func getWarningEvents(events []*apiv1.Event) []*apiv1.Event {
 	if !IsTypeFilled(events) {
 		events = FillEventsType(events)
 	}
@@ -85,7 +71,7 @@ func getWarningEvents(events []apiv1.Event) []apiv1.Event {
 
 // IsTypeFilled returns true if all given events type is filled, false otherwise.
 // This is needed as some older versions of kubernetes do not have Type property filled.
-func IsTypeFilled(events []apiv1.Event) bool {
+func IsTypeFilled(events []*apiv1.Event) bool {
 	if len(events) == 0 {
 		return false
 	}
@@ -100,7 +86,7 @@ func IsTypeFilled(events []apiv1.Event) bool {
 }
 
 // Based on event Reason fills event Type in order to allow correct filtering by Type.
-func FillEventsType(events []apiv1.Event) []apiv1.Event {
+func FillEventsType(events []*apiv1.Event) []*apiv1.Event {
 	for i := range events {
 		if isFailedReason(events[i].Reason, FailedReasonPartials...) {
 			events[i].Type = apiv1.EventTypeWarning
@@ -126,12 +112,12 @@ func isFailedReason(reason string, partials ...string) bool {
 
 // Filters kubernetes API event objects based on event type.
 // Empty string will return all events.
-func filterEventsByType(events []apiv1.Event, eventType string) []apiv1.Event {
+func filterEventsByType(events []*apiv1.Event, eventType string) []*apiv1.Event {
 	if len(eventType) == 0 || len(events) == 0 {
 		return events
 	}
 
-	result := make([]apiv1.Event, 0)
+	result := make([]*apiv1.Event, 0)
 	for _, event := range events {
 		if event.Type == eventType {
 			result = append(result, event)
@@ -142,7 +128,7 @@ func filterEventsByType(events []apiv1.Event, eventType string) []apiv1.Event {
 }
 
 // Returns true if given pod is in state ready or succeeded, false otherwise
-func isReadyOrSucceeded(pod apiv1.Pod) bool {
+func isReadyOrSucceeded(pod *apiv1.Pod) bool {
 	if pod.Status.Phase == apiv1.PodSucceeded {
 		return true
 	}
@@ -163,8 +149,8 @@ func isReadyOrSucceeded(pod apiv1.Pod) bool {
 
 // Returns filtered list of event objects. Events list is filtered to get only events targeting
 // pods on the list.
-func filterEventsByPodsUID(events []apiv1.Event, pods []apiv1.Pod) []apiv1.Event {
-	result := make([]apiv1.Event, 0)
+func filterEventsByPodsUID(events []*apiv1.Event, pods []*apiv1.Pod) []*apiv1.Event {
+	result := make([]*apiv1.Event, 0)
 	podEventMap := make(map[types.UID]bool, 0)
 
 	if len(pods) == 0 || len(events) == 0 {
@@ -185,9 +171,9 @@ func filterEventsByPodsUID(events []apiv1.Event, pods []apiv1.Pod) []apiv1.Event
 }
 
 // Removes duplicate strings from the slice
-func removeDuplicates(slice []apiv1.Event) []apiv1.Event {
+func removeDuplicates(slice []*apiv1.Event) []*apiv1.Event {
 	visited := make(map[string]bool, 0)
-	result := make([]apiv1.Event, 0)
+	result := make([]*apiv1.Event, 0)
 
 	for _, elem := range slice {
 		if !visited[elem.Reason] {
