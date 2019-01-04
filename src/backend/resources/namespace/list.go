@@ -1,11 +1,12 @@
 package namespace
 
 import (
-	"github.com/Qihoo360/wayne/src/backend/common"
-	"github.com/Qihoo360/wayne/src/backend/resources/dataselector"
 	"k8s.io/api/core/v1"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
+
+	"github.com/Qihoo360/wayne/src/backend/common"
+	"github.com/Qihoo360/wayne/src/backend/resources/dataselector"
 )
 
 func GetNamespacePage(cli *kubernetes.Clientset, q *common.QueryParam) (*common.Page, error) {

@@ -6,12 +6,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Qihoo360/wayne/src/backend/database/initial"
-	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"github.com/go-sql-driver/mysql"
 	_ "github.com/go-sql-driver/mysql"
+
+	"github.com/Qihoo360/wayne/src/backend/database/initial"
+	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
 
 const DbDriverName = "mysql"

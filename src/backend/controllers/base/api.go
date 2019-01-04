@@ -5,9 +5,10 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/astaxie/beego/orm"
+
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	"github.com/astaxie/beego/orm"
 )
 
 type APIController struct {

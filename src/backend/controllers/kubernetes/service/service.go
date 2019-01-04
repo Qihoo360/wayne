@@ -3,6 +3,8 @@ package service
 import (
 	"encoding/json"
 
+	"k8s.io/api/core/v1"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
@@ -10,7 +12,6 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/resources/service"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/Qihoo360/wayne/src/backend/workers/webhook"
-	"k8s.io/api/core/v1"
 )
 
 type KubeServiceController struct {

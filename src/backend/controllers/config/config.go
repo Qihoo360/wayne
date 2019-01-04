@@ -3,10 +3,11 @@ package config
 import (
 	"encoding/json"
 
+	"github.com/astaxie/beego"
+
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	"github.com/astaxie/beego"
 )
 
 type ConfigController struct {
