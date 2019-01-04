@@ -46,11 +46,14 @@ func (c *KubeNodeController) NodeStatistics() {
 		managers := client.Managers()
 		var errs []error
 		wg := sync.WaitGroup{}
-		for clu, manager := range managers {
+
+		managers.Range(func(key, value interface{}) bool {
+			manager := value.(*client.ClusterManager)
+			clu := key.(string)
 			wg.Add(1)
 			go func(clu string, mang *client.ClusterManager) {
 				defer wg.Done()
-				count, err := node.GetNodeCounts(mang.Indexer)
+				count, err := node.GetNodeCounts(mang.CacheFactory)
 				if err != nil {
 					logs.Error("get k8s nodes count error. %v", err.Error())
 					errs = append(errs, err)
@@ -58,8 +61,9 @@ func (c *KubeNodeController) NodeStatistics() {
 				total += count
 				countSyncMap.Store(clu, count)
 			}(clu, manager)
+			return true
+		})
 
-		}
 		wg.Wait()
 		if len(errs) > 0 {
 			c.HandleError(utilerrors.NewAggregate(errs))
@@ -72,7 +76,7 @@ func (c *KubeNodeController) NodeStatistics() {
 	} else {
 		manager, err := client.Manager(cluster)
 		if err == nil {
-			count, err := node.GetNodeCounts(manager.Indexer)
+			count, err := node.GetNodeCounts(manager.CacheFactory)
 			if err != nil {
 				logs.Error("get k8s nodes count error. %v", err.Error())
 				c.HandleError(err)
@@ -95,7 +99,7 @@ func (c *KubeNodeController) List() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	manager, err := client.Manager(cluster)
 	if err == nil {
-		result, err := node.ListNode(manager.Indexer)
+		result, err := node.ListNode(manager.CacheFactory)
 		if err != nil {
 			logs.Error("list node by cluster (%s) error.%v", cluster, err)
 			c.HandleError(err)

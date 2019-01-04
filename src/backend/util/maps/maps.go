@@ -3,6 +3,7 @@ package maps
 import (
 	"fmt"
 	"strings"
+	"sync"
 )
 
 // merge label
@@ -31,4 +32,13 @@ func LabelsToString(labels map[string]string) string {
 	}
 
 	return strings.Join(result, ",")
+}
+
+func SyncMapLen(m *sync.Map) int {
+	length := 0
+	m.Range(func(key, value interface{}) bool {
+		length++
+		return true
+	})
+	return length
 }
