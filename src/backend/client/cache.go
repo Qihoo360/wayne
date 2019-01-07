@@ -5,6 +5,8 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/listers/apps/v1beta1"
 	"k8s.io/client-go/listers/core/v1"
+
+	"github.com/Qihoo360/wayne/src/backend/client/api"
 )
 
 type CacheFactory struct {
@@ -16,23 +18,25 @@ func (c ClusterManager) Close() {
 	close(c.CacheFactory.stopChan)
 }
 
-func buildCacheController(client *kubernetes.Clientset) *CacheFactory {
+func buildCacheController(client *kubernetes.Clientset) (*CacheFactory, error) {
 	stop := make(chan struct{})
 	sharedInformerFactory := informers.NewSharedInformerFactory(client, defaultResyncPeriod)
 
-	// Resources that need to be cached are started here
-	go sharedInformerFactory.Core().V1().Events().Informer().Run(stop)
-	go sharedInformerFactory.Core().V1().Pods().Informer().Run(stop)
-	go sharedInformerFactory.Apps().V1beta1().Deployments().Informer().Run(stop)
-	go sharedInformerFactory.Core().V1().Nodes().Informer().Run(stop)
-	go sharedInformerFactory.Core().V1().Endpoints().Informer().Run(stop)
+	// Start all Resources defined in KindToResourceMap
+	for _, value := range api.KindToResourceMap {
+		genericInformer, err := sharedInformerFactory.ForResource(value.GroupVersionResource)
+		if err != nil {
+			return nil, err
+		}
+		go genericInformer.Informer().Run(stop)
+	}
 
 	sharedInformerFactory.Start(stop)
 
 	return &CacheFactory{
 		stopChan:              stop,
 		sharedInformerFactory: sharedInformerFactory,
-	}
+	}, nil
 }
 
 func (c *CacheFactory) PodLister() v1.PodLister {
