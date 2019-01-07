@@ -7,6 +7,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
+	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
 
@@ -25,6 +26,20 @@ func (c *KubeProxyController) URLMapping() {
 func (c *KubeProxyController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
+
+	perAction := ""
+	_, method := c.GetControllerAndAction()
+	switch method {
+	case "Get", "List":
+		perAction = models.PermissionRead
+	case "Create", "Update":
+		perAction = models.PermissionDeploy
+	case "Delete":
+		perAction = models.PermissionOffline
+	}
+	if perAction != "" {
+		c.CheckPermission(models.PermissionTypeDeployment, perAction)
+	}
 
 }
 
