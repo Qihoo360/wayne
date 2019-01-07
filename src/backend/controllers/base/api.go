@@ -6,7 +6,9 @@ import (
 	"strconv"
 
 	"github.com/astaxie/beego/orm"
+	"k8s.io/client-go/kubernetes"
 
+	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
@@ -76,6 +78,30 @@ func (c *APIController) CheckPermission(perType string, perAction string) {
 	}
 
 	c.AbortForbidden("Permission error")
+}
+
+func (c *APIController) Client(cluster string) *kubernetes.Clientset {
+	kubeClient, err := client.Client(cluster)
+	if err != nil {
+		c.AbortBadRequestFormat(fmt.Sprintf("Get cluster (%s) client error. %v", cluster, err))
+	}
+	return kubeClient
+}
+
+func (c *APIController) Manager(cluster string) *client.ClusterManager {
+	kubeManager, err := client.Manager(cluster)
+	if err != nil {
+		c.AbortBadRequestFormat(fmt.Sprintf("Get cluster (%s) manager error. %v", cluster, err))
+	}
+	return kubeManager
+}
+
+func (c *APIController) KubeClient(cluster string) client.ResourceHandler {
+	kubeManager, err := client.Manager(cluster)
+	if err != nil {
+		c.AbortBadRequestFormat(fmt.Sprintf("Get cluster (%s) manager error. %v", cluster, err))
+	}
+	return kubeManager.KubeClient
 }
 
 func (c *APIController) Success(data interface{}) {
