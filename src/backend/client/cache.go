@@ -4,6 +4,7 @@ import (
 	"k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/listers/apps/v1beta1"
+	autoscalingv1 "k8s.io/client-go/listers/autoscaling/v1"
 	"k8s.io/client-go/listers/core/v1"
 )
 
@@ -26,6 +27,7 @@ func buildCacheController(client *kubernetes.Clientset) *CacheFactory {
 	go sharedInformerFactory.Apps().V1beta1().Deployments().Informer().Run(stop)
 	go sharedInformerFactory.Core().V1().Nodes().Informer().Run(stop)
 	go sharedInformerFactory.Core().V1().Endpoints().Informer().Run(stop)
+	go sharedInformerFactory.Autoscaling().V1().HorizontalPodAutoscalers().Informer().Run(stop)
 
 	sharedInformerFactory.Start(stop)
 
@@ -53,4 +55,8 @@ func (c *CacheFactory) NodeLister() v1.NodeLister {
 
 func (c *CacheFactory) EndpointLister() v1.EndpointsLister {
 	return c.sharedInformerFactory.Core().V1().Endpoints().Lister()
+}
+
+func (c *CacheFactory) HPALister() autoscalingv1.HorizontalPodAutoscalerLister {
+	return c.sharedInformerFactory.Autoscaling().V1().HorizontalPodAutoscalers().Lister()
 }
