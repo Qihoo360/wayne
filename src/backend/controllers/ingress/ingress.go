@@ -43,6 +43,7 @@ func (c *IngressController) Prepare() {
 	}
 }
 
+// @router /names [get]
 func (c *IngressController) GetNames() {
 	filters := make(map[string]interface{})
 	deleted := c.GetDeleteFromQuery()
@@ -52,16 +53,17 @@ func (c *IngressController) GetNames() {
 		filters["App__Id"] = c.AppId
 	}
 
-	services, err := models.IngressModel.GetNames(filters)
+	ingresses, err := models.IngressModel.GetNames(filters)
 	if err != nil {
 		logs.Error("get names error. %v, delete-status %v", err, deleted)
 		c.HandleError(err)
 		return
 	}
 
-	c.Success(services)
+	c.Success(ingresses)
 }
 
+// @router / [get]
 func (c *IngressController) List() {
 	param := c.BuildQueryParam()
 	name := c.Input().Get("name")
@@ -99,12 +101,13 @@ func (c *IngressController) List() {
 	c.Success(param.NewPage(total, ingrs))
 }
 
+// @router / [post]
 func (c *IngressController) Create() {
 	var ingr models.Ingress
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &ingr)
 	if err != nil {
 		logs.Error("get body error. %v", err)
-		c.AbortBadRequestFormat("Service")
+		c.AbortBadRequestFormat("Ingress")
 	}
 
 	ingr.User = c.User.Name
@@ -118,6 +121,7 @@ func (c *IngressController) Create() {
 	c.Success(ingr)
 }
 
+// @router /:id([0-9]+) [get]
 func (c *IngressController) Get() {
 	id := c.GetIDFromURL()
 
@@ -132,13 +136,14 @@ func (c *IngressController) Get() {
 	return
 }
 
+// @router /:id([0-9]+) [put]
 func (c *IngressController) Update() {
 	id := c.GetIDFromURL()
 	var ingr models.Ingress
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &ingr)
 	if err != nil {
 		logs.Error("Invalid param body.%v", err)
-		c.AbortBadRequestFormat("Service")
+		c.AbortBadRequestFormat("Ingress")
 	}
 
 	ingr.Id = int64(id)
@@ -151,12 +156,13 @@ func (c *IngressController) Update() {
 	c.Success(ingr)
 }
 
+// @router /updateorders [put]
 func (c *IngressController) UpdateOrders() {
 	var ingr []*models.Ingress
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &ingr)
 	if err != nil {
 		logs.Error("Invalid param body.%v", err)
-		c.AbortBadRequestFormat("ingr")
+		c.AbortBadRequestFormat("Ingress")
 	}
 
 	err = models.IngressModel.UpdateOrders(ingr)
@@ -168,6 +174,7 @@ func (c *IngressController) UpdateOrders() {
 	c.Success("ok!")
 }
 
+// @router /:id([0-9]+) [delete]
 func (c *IngressController) Delete() {
 	id := c.GetIDFromURL()
 
