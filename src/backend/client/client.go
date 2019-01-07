@@ -37,10 +37,13 @@ var (
 )
 
 type ClusterManager struct {
-	Cluster      *models.Cluster
-	Client       *kubernetes.Clientset
-	Config       *rest.Config
+	Cluster *models.Cluster
+	// Deprecated: use KubeClient instead
+	Client *kubernetes.Clientset
+	// Deprecated: use KubeClient instead
 	CacheFactory *CacheFactory
+	Config       *rest.Config
+	KubeClient   ResourceHandler
 }
 
 func BuildApiserverClient() {
@@ -75,6 +78,7 @@ func BuildApiserverClient() {
 				Config:       config,
 				Cluster:      &cluster,
 				CacheFactory: cacheFactory,
+				KubeClient:   NewResourceHandler(clientSet, cacheFactory),
 			}
 			managerInterface, ok := clusterManagerSets.Load(cluster.Name)
 			if ok {
