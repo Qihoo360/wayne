@@ -8,7 +8,7 @@ type QueryParam struct {
 	Groupby  []string               `json:"groupby"`
 	Relate   string                 `json:"relate"`
 	// only for kubernetes resource
-	LabelSelector string `json:"labelSelector"`
+	LabelSelector string `json:"-"`
 }
 
 func (q *QueryParam) Offset() int64 {

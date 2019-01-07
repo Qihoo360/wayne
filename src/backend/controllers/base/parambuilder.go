@@ -78,7 +78,7 @@ func (c *ParamBuilderController) BuildQueryParam() *common.QueryParam {
 		Query:         qmap,
 		Sortby:        snaker.CamelToSnake(c.Input().Get("sortby")),
 		Relate:        relate,
-		LabelSelector: c.Input().Get("labelSelector")}
+		LabelSelector: c.Input().Get("filter")}
 }
 
 func (c *ParamBuilderController) GetIDFromURL() int64 {

@@ -91,12 +91,12 @@ func (c *KubeProxyController) GetNames() {
 // @Description List Objects
 // @Param	pageNo		query 	int	false		"the page current no"
 // @Param	pageSize		query 	int	false		"the page size"
+// @Param	filter		query 	string	false		"the labelSelector for list e.g. filter=app=infra-wayne,wayne-app=infra"
 // @Param	labelSelector		query 	string	false		"labelSelector, ex. labelSelector=name=test"
 // @Param	sortby		query 	string	false		"column sorted by, ex. sortby=-id, '-' representation desc, and sortby=id representation asc"
 // @Param	cluster		path 	string	true		"the cluster name"
 // @Param	namespace		path 	string	true		"the namespace name"
 // @Param	kind		path 	string	true		"the resource kind"
-// @Param	labelSelector		query 	string	false		"the labelSelector for list e.g. labelSelector=app=infra-wayne,wayne-app=infra"
 // @Success 200 {object}  success
 // @router / [get]
 func (c *KubeProxyController) List() {
