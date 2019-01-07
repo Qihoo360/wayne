@@ -21,6 +21,7 @@ import { CacheService } from '../../../shared/auth/cache.service';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { AuthService } from '../../../shared/auth/auth.service';
+import { Base64 } from 'js-base64';
 
 @Component({
   selector: 'create-edit-secrettpl',
@@ -272,7 +273,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
     if (formValue.datas && formValue.datas.length > 0) {
       kubeSecret.data = {};
       for (const data of formValue.datas) {
-        kubeSecret.data[data.dataName] = btoa(data.dataValue);
+        kubeSecret.data[data.dataName] = Base64.encode(data.dataValue);
       }
     }
     return kubeSecret;
@@ -290,7 +291,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
       Object.getOwnPropertyNames(kubeSecret.data).map(key => {
         datas.push(this.fb.group({
           dataName: key,
-          dataValue: atob(kubeSecret.data[key]),
+          dataValue: Base64.decode(kubeSecret.data[key]),
         }));
       });
       this.currentForm.setControl('datas', this.fb.array(datas));
