@@ -33,6 +33,8 @@ import { IngressComponent } from './ingress/ingress.component';
 import { CreateEditIngressTplComponent } from './ingress/create-edit-ingresstpl/create-edit-ingresstpl.component';
 import { PORTALROUTES } from '../../../lib/portal/library-routing-portal';
 import {AutoscaleComponent} from './autoscale/autoscale.component';
+import {CreateEditAutoscaleComponent} from './autoscale/create-edit-autoscale/create-edit-autoscale.component';
+import {CreateEditAutoscaletplComponent} from './autoscale/create-edit-autoscaletpl/create-edit-autoscaletpl.component';
 
 const routes: Routes = [
   {
@@ -92,8 +94,8 @@ const routes: Routes = [
           {path: 'ingress/:resourceId/tpl/:tplId', component: CreateEditIngressTplComponent},
           {path: 'autoscale', component: AutoscaleComponent},
           {path: 'autoscale/:resourceId', component: AutoscaleComponent},
-          {path: 'autoscale/:resourceId/tpl', component: AutoscaleComponent},
-          {path: 'autoscale/:resourceId/tpl/:tplId', component: AutoscaleComponent},
+          {path: 'autoscale/:resourceId/tpl', component: CreateEditAutoscaletplComponent},
+          {path: 'autoscale/:resourceId/tpl/:tplId', component: CreateEditAutoscaletplComponent},
           ...PORTALROUTES
         ]
       },

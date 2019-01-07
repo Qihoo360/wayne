@@ -49,5 +49,15 @@
       </div>
     </div>
   </div>
+  <wayne-list-autoscale
+    [resources]="resources"
+    [templates]="templates"
+    [appId]="appId"
+    [resourceId] = "resourceId"
+    [showState]="showState"
+    [page]="pageState.page"
+    (paginate)="retrieveTemplates($event)"
+    (cloneTemplate)="cloneTemplate($event)"
+  ></wayne-list-autoscale>
 
 </div>

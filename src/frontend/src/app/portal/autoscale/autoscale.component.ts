@@ -15,6 +15,8 @@ import { AutoscaleTplService } from '../../shared/client/v1/autoscaletpl.service
 import { AutoscaleClient } from '../../shared/client/v1/kubernetes/autoscale';
 import { CreateEditAutoscaleComponent } from './create-edit-autoscale/create-edit-autoscale.component';
 import { ConfirmationTargets, PublishType } from '../../shared/shared.const';
+import { HorizontalPodAutoscaler } from '../../shared/model/v1/kubernetes/autoscale';
+import { PublishStatus } from '../../shared/model/v1/publish-status';
 
 @Component({
   selector: 'wayne-autoscale',
@@ -77,6 +79,29 @@ export class AutoscaleComponent extends Resource implements OnInit, AfterContent
 
   ngAfterContentInit() {
     this.initResource();
+  }
+
+  generateTemplateList(templatedata: any[], publishdata: any[]): void {
+    const tplStatusMap = {};
+    if (publishdata && publishdata.length > 0) {
+      for (const state of publishdata) {
+        if (!tplStatusMap[state.templateId]) {
+          tplStatusMap[state.templateId] = Array<PublishStatus>();
+        }
+        state.errNum = 0;
+        tplStatusMap[state.templateId].push(state);
+      }
+    }
+    if (templatedata && templatedata.length > 0) {
+      for (let i = 0; i < templatedata.length; i++) {
+        const hpa: HorizontalPodAutoscaler = JSON.parse(templatedata[i].template);
+          const publishStatus = tplStatusMap[templatedata[i].id];
+          if (publishStatus && publishStatus.length > 0) {
+            templatedata[i].status = publishStatus;
+          }
+        }
+    }
+    this.templates = templatedata;
   }
 
 }

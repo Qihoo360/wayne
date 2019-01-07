@@ -9,6 +9,8 @@ import { ListAutoscaleComponent } from './list-autoscale/list-autoscale.componen
 import { AutoscaleService } from '../../shared/client/v1/autoscale.service';
 import { AutoscaleTplService } from '../../shared/client/v1/autoscaletpl.service';
 import { AutoscaleClient } from '../../shared/client/v1/kubernetes/autoscale';
+import { PublishTplComponent } from './publish-tpl/publish-tpl.component';
+import { StatusComponent } from './status/status.component';
 
 @NgModule({
   imports: [
@@ -28,7 +30,9 @@ import { AutoscaleClient } from '../../shared/client/v1/kubernetes/autoscale';
     AutoscaleComponent,
     CreateEditAutoscaleComponent,
     CreateEditAutoscaletplComponent,
-    ListAutoscaleComponent
+    ListAutoscaleComponent,
+    PublishTplComponent,
+    StatusComponent
   ]
 })
 
