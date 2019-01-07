@@ -15,7 +15,8 @@ import (
 )
 
 type ResourceHandler interface {
-	Put(kind string, namespace string, name string, object *runtime.Unknown) error
+	Create(kind string, namespace string, object *runtime.Unknown) (*runtime.Unknown, error)
+	Update(kind string, namespace string, name string, object *runtime.Unknown) (*runtime.Unknown, error)
 	Get(kind string, namespace string, name string) (runtime.Object, error)
 	List(kind string, namespace string, labelSelector string) ([]runtime.Object, error)
 	Delete(kind string, namespace string, name string, options *meta_v1.DeleteOptions) error
@@ -33,19 +34,45 @@ func NewResourceHandler(kubeClient *kubernetes.Clientset, cacheFactory *CacheFac
 	}
 }
 
-func (h *resourceHandler) Put(kind string, namespace string, name string, object *runtime.Unknown) error {
+func (h *resourceHandler) Create(kind string, namespace string, object *runtime.Unknown) (*runtime.Unknown, error) {
 	resource, ok := api.KindToResourceMap[kind]
 	if !ok {
-		return fmt.Errorf("Resource kind (%s) not support yet . ", kind)
+		return nil, fmt.Errorf("Resource kind (%s) not support yet . ", kind)
 	}
-	req := h.client.RESTClient().Put().
+	kubeClient := h.getClientByGroupVersion(resource.GroupVersionResource)
+	req := kubeClient.Post().
 		Resource(kind).
 		SetHeader("Content-Type", "application/json").
 		Body([]byte(object.Raw))
 	if resource.Namespaced {
 		req.Namespace(namespace)
 	}
-	return req.Do().Error()
+	var result runtime.Unknown
+	err := req.Do().Into(&result)
+
+	return &result, err
+}
+
+func (h *resourceHandler) Update(kind string, namespace string, name string, object *runtime.Unknown) (*runtime.Unknown, error) {
+	resource, ok := api.KindToResourceMap[kind]
+	if !ok {
+		return nil, fmt.Errorf("Resource kind (%s) not support yet . ", kind)
+	}
+
+	kubeClient := h.getClientByGroupVersion(resource.GroupVersionResource)
+	req := kubeClient.Put().
+		Resource(kind).
+		Name(name).
+		SetHeader("Content-Type", "application/json").
+		Body([]byte(object.Raw))
+	if resource.Namespaced {
+		req.Namespace(namespace)
+	}
+
+	var result runtime.Unknown
+	err := req.Do().Into(&result)
+
+	return &result, err
 }
 
 func (h *resourceHandler) Delete(kind string, namespace string, name string, options *meta_v1.DeleteOptions) error {
@@ -53,8 +80,8 @@ func (h *resourceHandler) Delete(kind string, namespace string, name string, opt
 	if !ok {
 		return fmt.Errorf("Resource kind (%s) not support yet . ", kind)
 	}
-
-	req := h.client.RESTClient().Put().
+	kubeClient := h.getClientByGroupVersion(resource.GroupVersionResource)
+	req := kubeClient.Delete().
 		Resource(kind).
 		Name(name).
 		Body(options)
@@ -77,7 +104,7 @@ func (h *resourceHandler) Get(kind string, namespace string, name string) (runti
 	}
 	lister := genericInformer.Lister()
 	if resource.Namespaced {
-		lister.ByNamespace(namespace)
+		return lister.ByNamespace(namespace).Get(name)
 	}
 
 	return lister.Get(name)
@@ -93,15 +120,15 @@ func (h *resourceHandler) List(kind string, namespace string, labelSelector stri
 	if err != nil {
 		return nil, err
 	}
-	lister := genericInformer.Lister()
-	if resource.Namespaced {
-		lister.ByNamespace(namespace)
-	}
-
 	selectors, err := labels.Parse(labelSelector)
 	if err != nil {
 		logs.Error("Build label selector error.", err)
 		return nil, err
+	}
+
+	lister := genericInformer.Lister()
+	if resource.Namespaced {
+		return lister.ByNamespace(namespace).List(selectors)
 	}
 
 	return lister.List(selectors)

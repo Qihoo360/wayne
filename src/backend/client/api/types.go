@@ -5,7 +5,7 @@ import (
 	autoscalingv1 "k8s.io/api/autoscaling/v1"
 	batchv1 "k8s.io/api/batch/v1"
 	batchv1beta1 "k8s.io/api/batch/v1beta1"
-	"k8s.io/api/core/v1"
+	corev1 "k8s.io/api/core/v1"
 	extensionsv1beta1 "k8s.io/api/extensions/v1beta1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
@@ -41,8 +41,8 @@ type ResourceMap struct {
 var KindToResourceMap = map[string]ResourceMap{
 	ResourceNameConfigMap: {
 		GroupVersionResource: schema.GroupVersionResource{
-			Group:    v1.GroupName,
-			Version:  v1.SchemeGroupVersion.Version,
+			Group:    corev1.GroupName,
+			Version:  corev1.SchemeGroupVersion.Version,
 			Resource: ResourceNameConfigMap,
 		},
 		Namespaced: true,
@@ -65,8 +65,8 @@ var KindToResourceMap = map[string]ResourceMap{
 	},
 	ResourceNameEvent: {
 		GroupVersionResource: schema.GroupVersionResource{
-			Group:    v1.GroupName,
-			Version:  v1.SchemeGroupVersion.Version,
+			Group:    corev1.GroupName,
+			Version:  corev1.SchemeGroupVersion.Version,
 			Resource: ResourceNameEvent,
 		},
 		Namespaced: true,
@@ -106,40 +106,40 @@ var KindToResourceMap = map[string]ResourceMap{
 	},
 	ResourceNameNamespace: {
 		GroupVersionResource: schema.GroupVersionResource{
-			Group:    v1.GroupName,
-			Version:  v1.SchemeGroupVersion.Version,
+			Group:    corev1.GroupName,
+			Version:  corev1.SchemeGroupVersion.Version,
 			Resource: ResourceNameNamespace,
 		},
 		Namespaced: false,
 	},
 	ResourceNameNode: {
 		GroupVersionResource: schema.GroupVersionResource{
-			Group:    v1.GroupName,
-			Version:  v1.SchemeGroupVersion.Version,
+			Group:    corev1.GroupName,
+			Version:  corev1.SchemeGroupVersion.Version,
 			Resource: ResourceNameNode,
 		},
 		Namespaced: false,
 	},
 	ResourceNamePersistentVolumeClaim: {
 		GroupVersionResource: schema.GroupVersionResource{
-			Group:    v1.GroupName,
-			Version:  v1.SchemeGroupVersion.Version,
+			Group:    corev1.GroupName,
+			Version:  corev1.SchemeGroupVersion.Version,
 			Resource: ResourceNamePersistentVolumeClaim,
 		},
 		Namespaced: true,
 	},
 	ResourceNamePersistentVolume: {
 		GroupVersionResource: schema.GroupVersionResource{
-			Group:    v1.GroupName,
-			Version:  v1.SchemeGroupVersion.Version,
+			Group:    corev1.GroupName,
+			Version:  corev1.SchemeGroupVersion.Version,
 			Resource: ResourceNamePersistentVolume,
 		},
 		Namespaced: false,
 	},
 	ResourceNamePod: {
 		GroupVersionResource: schema.GroupVersionResource{
-			Group:    v1.GroupName,
-			Version:  v1.SchemeGroupVersion.Version,
+			Group:    corev1.GroupName,
+			Version:  corev1.SchemeGroupVersion.Version,
 			Resource: ResourceNamePod,
 		},
 		Namespaced: true,
@@ -154,16 +154,16 @@ var KindToResourceMap = map[string]ResourceMap{
 	},
 	ResourceNameSecret: {
 		GroupVersionResource: schema.GroupVersionResource{
-			Group:    v1.GroupName,
-			Version:  v1.SchemeGroupVersion.Version,
+			Group:    corev1.GroupName,
+			Version:  corev1.SchemeGroupVersion.Version,
 			Resource: ResourceNameSecret,
 		},
 		Namespaced: true,
 	},
 	ResourceNameService: {
 		GroupVersionResource: schema.GroupVersionResource{
-			Group:    v1.GroupName,
-			Version:  v1.SchemeGroupVersion.Version,
+			Group:    corev1.GroupName,
+			Version:  corev1.SchemeGroupVersion.Version,
 			Resource: ResourceNameService,
 		},
 		Namespaced: true,
@@ -178,8 +178,8 @@ var KindToResourceMap = map[string]ResourceMap{
 	},
 	ResourceNameEndpoint: {
 		GroupVersionResource: schema.GroupVersionResource{
-			Group:    v1.GroupName,
-			Version:  v1.SchemeGroupVersion.Version,
+			Group:    corev1.GroupName,
+			Version:  corev1.SchemeGroupVersion.Version,
 			Resource: ResourceNameEndpoint,
 		},
 		Namespaced: true,
