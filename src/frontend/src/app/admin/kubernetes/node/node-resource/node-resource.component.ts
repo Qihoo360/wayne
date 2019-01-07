@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { GlobalState } from '../../../../shared/global.state';
 
 interface Summary {
   Total: number;
@@ -25,6 +26,7 @@ export class NodeResourceComponent implements OnInit {
       this.setNode(value.nodeSummary);
     }
   }
+  showView = GlobalState.node.showResource;
   cpu = {
     title: 'CPU 使用概况',
     name: '使用量',
@@ -54,6 +56,10 @@ export class NodeResourceComponent implements OnInit {
     this.node.total = nodeSummary.Total;
     this.node.ready = nodeSummary.Ready;
     this.node.schedulable = nodeSummary.Schedulable;
+  }
+  changeShow() {
+    this.showView = !this.showView;
+    GlobalState.node.showResource = this.showView;
   }
   constructor() { }
 

@@ -107,7 +107,12 @@ export class EcharsGaugeComponent implements AfterViewInit {
           type: 'gauge',
           min: this._min,
           max: this._max,
-          splitNumber: 7,
+          splitNumber: 4,
+          title: {
+            textStyle: {
+              fontSize: 12
+            }
+          },
           detail: {
             formatter: this.type === 'percent' ? '{value}%' : '{value}',
             textStyle: {

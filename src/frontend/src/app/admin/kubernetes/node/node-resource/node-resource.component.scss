@@ -1,7 +1,21 @@
 .box {
+  padding-top: 5px;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+}
+:host{
+  display: block;
+  position: relative;
+}
+.show-control{
+  display: inline-block;
+  position: absolute;
+  right: 3px;
+  top: 5px;
+  .rotate{
+    transform:  rotateZ(90deg);
+  }
 }
 .nodeSummary{
   display: inline-block;
