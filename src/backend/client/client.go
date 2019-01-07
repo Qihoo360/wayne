@@ -72,7 +72,12 @@ func BuildApiserverClient() {
 				continue
 			}
 
-			cacheFactory := buildCacheController(clientSet)
+			cacheFactory, err := buildCacheController(clientSet)
+			if err != nil {
+				logs.Warning("build cluster (%s) cache controller error :%v", cluster.Name, err)
+				continue
+			}
+
 			clusterManager := &ClusterManager{
 				Client:       clientSet,
 				Config:       config,
@@ -88,6 +93,7 @@ func BuildApiserverClient() {
 
 			clusterManagerSets.Store(cluster.Name, clusterManager)
 		}
+		logs.Info("resync cluster finished! ")
 	}
 
 }
