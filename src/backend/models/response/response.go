@@ -6,6 +6,12 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/models"
 )
 
+// for getnames api
+type NamesObject struct {
+	Id   int64  `json:"id,omitempty"`
+	Name string `json:"name,omitempty"`
+}
+
 type User struct {
 	Name    string   `json:"name,omitempty"`
 	Email   string   `json:"email,omitempty"`

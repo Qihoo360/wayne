@@ -8,6 +8,7 @@ import (
 
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
+	"github.com/Qihoo360/wayne/src/backend/resources/proxy"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
 
@@ -17,6 +18,7 @@ type KubeProxyController struct {
 
 func (c *KubeProxyController) URLMapping() {
 	c.Mapping("Create", c.Create)
+	c.Mapping("GetNames", c.GetNames)
 	c.Mapping("Get", c.Get)
 	c.Mapping("Delete", c.Delete)
 	c.Mapping("Update", c.Update)
@@ -30,7 +32,7 @@ func (c *KubeProxyController) Prepare() {
 	perAction := ""
 	_, method := c.GetControllerAndAction()
 	switch method {
-	case "Get", "List":
+	case "Get", "List", "GetNames":
 		perAction = models.PermissionRead
 	case "Create", "Update":
 		perAction = models.PermissionDeploy
@@ -67,8 +69,30 @@ func (c *KubeProxyController) Get() {
 
 }
 
+// @Title Get all resource names
+// @Description get all names
+// @Success 200 {object} []response.NamesObject success
+// @router /names [get]
+func (c *KubeProxyController) GetNames() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	namespace := c.Ctx.Input.Param(":namespace")
+	kind := c.Ctx.Input.Param(":kind")
+	kubeClient := c.KubeClient(cluster)
+	result, err := proxy.GetNames(kubeClient, kind, namespace)
+	if err != nil {
+		logs.Error("Get kubernetes resource names (%s:%s) from cluster (%s) error. %v", kind, namespace, cluster, err)
+		c.HandleError(err)
+		return
+	}
+	c.Success(result)
+}
+
 // @Title List
 // @Description List Objects
+// @Param	pageNo		query 	int	false		"the page current no"
+// @Param	pageSize		query 	int	false		"the page size"
+// @Param	labelSelector		query 	string	false		"labelSelector, ex. labelSelector=name=test"
+// @Param	sortby		query 	string	false		"column sorted by, ex. sortby=-id, '-' representation desc, and sortby=id representation asc"
 // @Param	cluster		path 	string	true		"the cluster name"
 // @Param	namespace		path 	string	true		"the namespace name"
 // @Param	kind		path 	string	true		"the resource kind"
@@ -76,13 +100,12 @@ func (c *KubeProxyController) Get() {
 // @Success 200 {object}  success
 // @router / [get]
 func (c *KubeProxyController) List() {
+	param := c.BuildQueryParam()
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	kind := c.Ctx.Input.Param(":kind")
-	labelSelector := c.GetString("labelSelector")
 	kubeClient := c.KubeClient(cluster)
-	logs.Error(kind, namespace, cluster, labelSelector)
-	result, err := kubeClient.List(kind, namespace, labelSelector)
+	result, err := proxy.GetPage(kubeClient, kind, namespace, param)
 	if err != nil {
 		logs.Error("List kubernetes resource (%s:%s) from cluster (%s) error. %v", kind, namespace, cluster, err)
 		c.HandleError(err)
