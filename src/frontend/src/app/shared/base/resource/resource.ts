@@ -398,6 +398,10 @@ export class Resource {
     }
   }
 
+  onShowDiffEvent() {
+    this.listResourceComponent.onShowDiffEvent();
+  }
+
   // 用于对获取的资源列表排序的工作
   initOrder(resources?: any[]) {
     if (resources) {

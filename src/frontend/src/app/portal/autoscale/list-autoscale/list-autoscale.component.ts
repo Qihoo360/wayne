@@ -19,7 +19,6 @@ import { StatusComponent } from '../status/status.component';
   styleUrls: ['./list-autoscale.component.scss']
 })
 export class ListAutoscaleComponent extends ListResource implements OnInit, OnDestroy {
-  selected: any[] = [];
   @ViewChild(PublishTplComponent)
   publishTemplateComponent: PublishTplComponent;
   @ViewChild(StatusComponent)
@@ -32,7 +31,7 @@ export class ListAutoscaleComponent extends ListResource implements OnInit, OnDe
               public route: ActivatedRoute,
               public aceEditorService: AceEditorService,
               public router: Router,
-              private diffService: DiffService,
+              public diffService: DiffService,
               public authService: AuthService,
               public deletionDialogService: ConfirmationDialogService) {
     super(
@@ -43,6 +42,7 @@ export class ListAutoscaleComponent extends ListResource implements OnInit, OnDe
       route,
       aceEditorService,
       router,
+      diffService,
       authService,
       deletionDialogService
     )
@@ -57,10 +57,6 @@ export class ListAutoscaleComponent extends ListResource implements OnInit, OnDe
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
-  }
-
-  diffTpl() {
-    this.diffService.diff(this.selected);
   }
 
 }

@@ -30,7 +30,7 @@
       <button (click)="deleteResource('删除 HPA','是否确定删除 HPA','已上线 HPA 禁止直接删除！')" class="wayne-button normal" *ngIf="authService.currentAppPermission.autoscale.offline || authService.currentUser.admin">
         删除 HPA
       </button>
-      <button class="wayne-button normal" (click)="diffTpl()">{{'BUTTON.DIFF_TMP' | translate}}</button>
+      <button class="wayne-button normal" (click)="onShowDiffEvent()">{{'BUTTON.DIFF_TMP' | translate}}</button>
 
       <wayne-filter-box (confirm)="onConfirmClick()" (cancel)="onCancelClick()">
         <wayne-checkbox-group [(ngModel)]="showList">

@@ -18,6 +18,7 @@ import {
 import { ConfirmationMessage } from '../../confirmation-dialog/confirmation-message';
 import { AceEditorMsg } from '../../ace-editor/ace-editor';
 import { PublishStatus } from '../../model/v1/publish-status';
+import { DiffService } from '../../diff/diff.service';
 
 export class ListResource {
   publishTemplateComponent: any;
@@ -39,6 +40,8 @@ export class ListResource {
   currentPage = 1;
   confirmationTarget: ConfirmationTargets;
 
+  selectedTemplate: any[] = [];
+
   constructor(public templateService: any,
               public resourceService: any,
               public tplDetailService: TplDetailService,
@@ -46,6 +49,7 @@ export class ListResource {
               public route: ActivatedRoute,
               public aceEditorService: AceEditorService,
               public router: Router,
+              public diffService: DiffService,
               public authService: AuthService,
               public deletionDialogService: ConfirmationDialogService) {
   }
@@ -147,6 +151,11 @@ export class ListResource {
     if (success) {
       this.refresh();
     }
+  }
+
+  // 监听对比模板的事件
+  public onShowDiffEvent() {
+    this.diffService.diff(this.selectedTemplate);
   }
 
   refresh(state?: State) {

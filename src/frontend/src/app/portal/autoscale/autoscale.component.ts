@@ -17,6 +17,7 @@ import { CreateEditAutoscaleComponent } from './create-edit-autoscale/create-edi
 import { ConfirmationTargets, PublishType } from '../../shared/shared.const';
 import { HorizontalPodAutoscaler } from '../../shared/model/v1/kubernetes/autoscale';
 import { PublishStatus } from '../../shared/model/v1/publish-status';
+import { ListAutoscaleComponent } from './list-autoscale/list-autoscale.component';
 
 @Component({
   selector: 'wayne-autoscale',
@@ -26,6 +27,8 @@ import { PublishStatus } from '../../shared/model/v1/publish-status';
 export class AutoscaleComponent extends Resource implements OnInit, AfterContentInit {
   @ViewChild(CreateEditAutoscaleComponent)
   createEditResourceComponent: CreateEditAutoscaleComponent;
+  @ViewChild(ListAutoscaleComponent)
+  listResourceComponent: ListAutoscaleComponent;
 
   constructor(public autoscaleService: AutoscaleService,
               public autoscaleTplService: AutoscaleTplService,
