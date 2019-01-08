@@ -39,7 +39,7 @@ export class TypePermission {
     this.statefulset = input.statefulset ? input.statefulset : this.statefulset;
     this.apiKey = input.apiKey ? input.apiKey : this.apiKey;
     this.daemonSet = input.daemonSet ? input.daemonSet : this.daemonSet;
-    this.autoscale = input.autoscale ? input.autoscale : this.autoscale;
+    this.autoscale = input.hpa ? input.hpa : this.autoscale;
   }
 }
 
