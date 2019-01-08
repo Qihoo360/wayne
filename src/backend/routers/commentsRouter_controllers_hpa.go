@@ -71,4 +71,28 @@ func init() {
 			MethodParams:     param.Make(),
 			Params:           nil})
 
+	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/hpa:HPATplController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/hpa:HPATplController"],
+		beego.ControllerComments{
+			Method:           "Get",
+			Router:           `/:id([0-9]+)`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams:     param.Make(),
+			Params:           nil})
+
+	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/hpa:HPATplController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/hpa:HPATplController"],
+		beego.ControllerComments{
+			Method:           "Update",
+			Router:           `/:id([0-9]+)`,
+			AllowHTTPMethods: []string{"put"},
+			MethodParams:     param.Make(),
+			Params:           nil})
+
+	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/hpa:HPATplController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/hpa:HPATplController"],
+		beego.ControllerComments{
+			Method:           "Delete",
+			Router:           `/:id([0-9]+)`,
+			AllowHTTPMethods: []string{"delete"},
+			MethodParams:     param.Make(),
+			Params:           nil})
+
 }

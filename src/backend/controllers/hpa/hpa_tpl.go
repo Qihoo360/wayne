@@ -6,8 +6,8 @@ import (
 
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
+	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	"qihoo.net/infra/wayne/src/backend/util/hack"
 
 	"k8s.io/api/autoscaling/v1"
 )
@@ -108,54 +108,54 @@ func validHPATemplate(hpaTplStr string) error {
 	return nil
 }
 
-//// @router /:id([0-9]+) [get]
-//func (c *HPATplController) Get() {
-//	id := c.GetIDFromURL()
-//
-//	tpl, err := models.HPATemplateModel.GetById(id)
-//	if err != nil {
-//		logs.Error("get template error %v", err)
-//		c.HandleError(err)
-//		return
-//	}
-//
-//	c.Success(tpl)
-//}
-//
-//// @router /:id([0-9]+) [put]
-//func (c *HPATplController) Update() {
-//	id := c.GetIDFromURL()
-//	var tpl models.HPATemplate
-//	err := json.Unmarshal(c.Ctx.Input.RequestBody, &tpl)
-//	if err != nil {
-//		logs.Error("Invalid param body.%v", err)
-//		c.AbortBadRequestFormat("HPATemplate")
-//	}
-//	if err = validHPATemplate(tpl.Template); err != nil {
-//		logs.Error("valid template err %v", err)
-//		c.AbortBadRequestFormat("KubeHPA")
-//	}
-//
-//	tpl.Id = int64(id)
-//	err = models.HPATemplateModel.UpdateById(&tpl)
-//	if err != nil {
-//		logs.Error("update error.%v", err)
-//		c.HandleError(err)
-//		return
-//	}
-//	c.Success(tpl)
-//}
-//
-//// @router /:id([0-9]+) [delete]
-//func (c *HPATplController) Delete() {
-//	id := c.GetIDFromURL()
-//	logical := c.GetLogicalFromQuery()
-//
-//	err := models.HPATemplateModel.DeleteById(int64(id), logical)
-//	if err != nil {
-//		logs.Error("delete %d error.%v", id, err)
-//		c.HandleError(err)
-//		return
-//	}
-//	c.Success(nil)
-//}
+// @router /:id([0-9]+) [get]
+func (c *HPATplController) Get() {
+	id := c.GetIDFromURL()
+
+	tpl, err := models.HPATemplateModel.GetById(id)
+	if err != nil {
+		logs.Error("get template error %v", err)
+		c.HandleError(err)
+		return
+	}
+
+	c.Success(tpl)
+}
+
+// @router /:id([0-9]+) [put]
+func (c *HPATplController) Update() {
+	id := c.GetIDFromURL()
+	var tpl models.HPATemplate
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &tpl)
+	if err != nil {
+		logs.Error("Invalid param body.%v", err)
+		c.AbortBadRequestFormat("HPATemplate")
+	}
+	if err = validHPATemplate(tpl.Template); err != nil {
+		logs.Error("valid template err %v", err)
+		c.AbortBadRequestFormat("KubeHPA")
+	}
+
+	tpl.Id = int64(id)
+	err = models.HPATemplateModel.UpdateById(&tpl)
+	if err != nil {
+		logs.Error("update error.%v", err)
+		c.HandleError(err)
+		return
+	}
+	c.Success(tpl)
+}
+
+// @router /:id([0-9]+) [delete]
+func (c *HPATplController) Delete() {
+	id := c.GetIDFromURL()
+	logical := c.GetLogicalFromQuery()
+
+	err := models.HPATemplateModel.DeleteById(int64(id), logical)
+	if err != nil {
+		logs.Error("delete %d error.%v", id, err)
+		c.HandleError(err)
+		return
+	}
+	c.Success(nil)
+}
