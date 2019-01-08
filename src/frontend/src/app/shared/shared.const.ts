@@ -1,13 +1,33 @@
-export const KubeApiTypeDeployment             = 'Deployment';
-export const KubeApiTypeCronJob                = 'CronJob';
-export const KubeApiTypeStatefulSet            = 'StatefulSet';
-export const KubeApiTypeDaemonSet              = 'DaemonSet';
-export const KubeApiTypeService                = 'Service';
-export const KubeApiTypeIngress                = 'Ingress';
-export const KubeApiTypeConfigMap              = 'ConfigMap';
-export const KubeApiTypeSecret                 = 'Secret';
-export const KubeApiTypePersistentVolumeClaim  = 'PersistentVolumeClaim';
-export const KubeApiTypeAutoscale              = 'Autoscale';
+export const KubeApiTypeDeployment = 'Deployment';
+export const KubeApiTypeCronJob = 'CronJob';
+export const KubeApiTypeStatefulSet = 'StatefulSet';
+export const KubeApiTypeDaemonSet = 'DaemonSet';
+export const KubeApiTypeService = 'Service';
+export const KubeApiTypeIngress = 'Ingress';
+export const KubeApiTypeConfigMap = 'ConfigMap';
+export const KubeApiTypeSecret = 'Secret';
+export const KubeApiTypePersistentVolumeClaim = 'PersistentVolumeClaim';
+export const KubeApiTypeAutoscale = 'Autoscale';
+
+export type KubeResourcesName = string;
+export const KubeResourceConfigMap: KubeResourcesName = 'configmaps';
+export const KubeResourceDaemonSet: KubeResourcesName = 'daemonsets';
+export const KubeResourceDeployment: KubeResourcesName = 'deployments';
+export const KubeResourceEvent: KubeResourcesName = 'events';
+export const KubeResourceHorizontalPodAutoscaler: KubeResourcesName = 'horizontalpodautoscalers';
+export const KubeResourceIngress: KubeResourcesName = 'ingresses';
+export const KubeResourceJob: KubeResourcesName = 'jobs';
+export const KubeResourceCronJob: KubeResourcesName = 'cronjobs';
+export const KubeResourceNamespace: KubeResourcesName = 'namespaces';
+export const KubeResourceNode: KubeResourcesName = 'nodes';
+export const KubeResourcePersistentVolumeClaim: KubeResourcesName = 'persistentvolumeclaims';
+export const KubeResourcePersistentVolume: KubeResourcesName = 'persistentvolumes';
+export const KubeResourcePod: KubeResourcesName = 'pods';
+export const KubeResourceReplicaSet: KubeResourcesName = 'replicasets';
+export const KubeResourceSecret: KubeResourcesName = 'secrets';
+export const KubeResourceService: KubeResourcesName = 'services';
+export const KubeResourceStatefulSet: KubeResourcesName = 'statefulsets';
+export const KubeResourceEndpoint: KubeResourcesName = 'endpoints';
 
 export const LoginTokenKey = 'wayne_token';
 

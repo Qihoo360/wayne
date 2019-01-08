@@ -36,6 +36,7 @@ import (
 	knamespace "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/namespace"
 	knode "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/node"
 	kpod "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pod"
+	"github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/proxy"
 	kpv "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pv"
 	kpvc "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pvc"
 	ksecret "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/secret"
@@ -384,6 +385,21 @@ func init() {
 		),
 	)
 
+	// For Kubernetes resource router
+	// appid used to check permission
+	nsWithKubernetesProxy := beego.NewNamespace("/api/v1",
+		beego.NSNamespace("/apps/:appid([0-9]+)/_proxy/clusters/:cluster/namespaces/:namespace/:kind",
+			beego.NSInclude(
+				&proxy.KubeProxyController{},
+			),
+		),
+		beego.NSNamespace("/apps/:appid([0-9]+)/_proxy/clusters/:cluster/:kind",
+			beego.NSInclude(
+				&proxy.KubeProxyController{},
+			),
+		),
+	)
+
 	beego.AddNamespace(nsWithKubernetes)
 
 	beego.AddNamespace(nsWithKubernetesApp)
@@ -395,6 +411,8 @@ func init() {
 	beego.AddNamespace(nsWithNamespace)
 
 	beego.AddNamespace(nsWithOpenAPI)
+
+	beego.AddNamespace(nsWithKubernetesProxy)
 
 	beego.Router("/*", &controllers.IndexController{})
 
