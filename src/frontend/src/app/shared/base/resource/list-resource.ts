@@ -114,7 +114,7 @@ export class ListResource {
   onPublishResourceTemplate(template: any) {
     this.resourceService.getById(this.resourceId, this.appId).subscribe(
       response => {
-        this.publishTemplateComponent.newPublishTpl(response.data, template, ResourcesActionType.PUBLISH);
+        this.publishTemplateComponent.newPublishTemplate(response.data, template, ResourcesActionType.PUBLISH);
       },
       error => {
         this.messageHandlerService.handleError(error);
@@ -126,7 +126,7 @@ export class ListResource {
   onOfflineResourceTemplate(template: any) {
     this.resourceService.getById(this.resourceId, this.appId).subscribe(
       response => {
-        this.publishTemplateComponent.newPublishTpl(response.data, template, ResourcesActionType.OFFLINE);
+        this.publishTemplateComponent.newPublishTemplate(response.data, template, ResourcesActionType.OFFLINE);
       },
       error => {
         this.messageHandlerService.handleError(error);
