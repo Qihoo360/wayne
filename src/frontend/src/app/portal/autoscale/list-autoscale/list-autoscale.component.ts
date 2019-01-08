@@ -10,6 +10,8 @@ import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service'
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AutoscaleTplService } from '../../../shared/client/v1/autoscaletpl.service';
 import { AutoscaleService } from '../../../shared/client/v1/autoscale.service';
+import { PublishTplComponent } from '../publish-tpl/publish-tpl.component';
+import { StatusComponent } from '../status/status.component';
 
 @Component({
   selector: 'wayne-list-autoscale',
@@ -18,10 +20,10 @@ import { AutoscaleService } from '../../../shared/client/v1/autoscale.service';
 })
 export class ListAutoscaleComponent extends ListResource implements OnInit, OnDestroy {
   selected: any[] = [];
-  // @ViewChild(PublishAutoscaleTplComponent)
-  // publishTemplateComponent: PublishIngressTplComponent;
-  // @ViewChild(IngressStatusComponent)
-  // resourceStatusComponent: IngressStatusComponent;
+  @ViewChild(PublishTplComponent)
+  publishTemplateComponent: PublishTplComponent;
+  @ViewChild(StatusComponent)
+  resourceStatusComponent: StatusComponent;
 
   constructor(public autoscaleTplService: AutoscaleTplService,
               public autoscaleService: AutoscaleService,

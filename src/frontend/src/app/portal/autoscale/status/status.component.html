@@ -1,3 +1,45 @@
-<p>
-  status works!
-</p>
+<clr-modal [clrModalSize]="'md'" [(clrModalOpen)]="statusOpened">
+  <h3 class="modal-title">HPA 详情</h3>
+  <div class="modal-body">
+    <hr>
+    <form>
+      <section class="form-block form-box">
+        <div class="row group">
+          <div class="col-sm-3">
+            Ingress 名称
+          </div>
+          <div class="col-sm-9">
+            {{kubeResource?.metadata.name}}
+          </div>
+        </div>
+
+        <div class="row group">
+          <div class="col-sm-3">
+            REFERENCE
+          </div>
+          <div class="col-sm-9">
+            {{kubeResource?.spec.scaleTargetRef.kind}}/{{kubeResource?.spec.scaleTargetRef.name}}
+          </div>
+        </div>
+
+        <div class="row group">
+          <div class="col-sm-3">
+            副本区间
+          </div>
+          <div class="col-sm-9">
+            {{kubeResource?.spec.minReplicas}} ~ {{kubeResource?.spec.maxReplicas}}
+          </div>
+        </div>
+
+        <div class="row group">
+          <div class="col-sm-3">
+            CPU 负载阈值
+          </div>
+          <div class="col-sm-9">
+            {{kubeResource?.spec.targetCPUUtilizationPercentage}} %
+          </div>
+        </div>
+      </section>
+    </form>
+  </div>
+
