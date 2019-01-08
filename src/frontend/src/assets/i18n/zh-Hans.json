@@ -37,7 +37,7 @@
     "DELETE_ALL": "删除所有",
     "DELETE_PERMANENTLY": "彻底删除",
     "DETAIL": "详情",
-    "DIFF_TMP": "对比模板",
+    "COMPARE_TEMPLATES": "对比模板",
     "DROP": "下线",
     "EDIT": "编辑",
     "HISTORY": "发布历史",
@@ -77,6 +77,12 @@
     "CREATE_TMP": "创建配置集模板",
     "DELETE": "删除配置集",
     "EDIT": "编辑配置集"
+  },
+  "HPA": {
+    "CREATE": "创建 HPA",
+    "CREATE_TEMPLATE": "创建 HPA 模板",
+    "DELETE": "删除 HPA",
+    "EDIT": "编辑 HPA"
   },
   "COPY": {
     "SEARCH_COMMAND": "复制查询命令",
@@ -202,7 +208,7 @@
     "DEPARTMENT": "部门概览",
     "DEPLOYMENT": "部署",
     "DEPLOYMENT_LIST": "部署列表",
-    "AUTO_POD_SCALE": "自动调度",
+    "AUTO_POD_SCALE": "自动水平调度",
     "K8S": "Kubernetes",
     "LIST": "列表",
     "MEMBER": "成员列表",

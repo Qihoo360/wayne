@@ -34,12 +34,20 @@
     "SAVE": "SAVE",
     "SEND": "SEND",
     "SIGN_UP": "SIGN UP",
+    "HISTORY": "Show Publish Log",
+    "COMPARE_TEMPLATES":"Compare Templates",
     "SIGN_UP_LINK": "Sign up for an account",
     "SWITCH": "SWITCH",
     "TEST_LDAP": "TEST LDAP SERVER",
     "TEST_MAIL": "TEST MAIL SERVER",
     "UPLOAD": "Upload",
     "YES": "YES"
+  },
+  "HPA": {
+    "CREATE": "Create HPA",
+    "CREATE_TEMPLATE": "Create HPA Template",
+    "DELETE": "Delete HPA",
+    "EDIT": "Edit HPA"
   },
   "MENU": {
     "API_KEYS": "API Keys",
@@ -101,7 +109,8 @@
     "NONE": "no message",
     "READED": "Readed",
     "SEND": "broadcast",
-    "UNREAD": "Unread"
+    "UNREAD": "Unread",
+    "ONLY_ONLINE_TEMPLATE": "Only Show Online Template"
   },
   "NAV": {
     "LANG": "Language"
