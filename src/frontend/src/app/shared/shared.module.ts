@@ -50,6 +50,8 @@ import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { DiffComponent } from './diff/diff.component';
 import { DiffService } from './diff/diff.service';
 import { ResourceLimitModule } from './component/resource-limit/resource-limit.module';
+import { EchartsModule } from './echarts/echars.module';
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -59,6 +61,7 @@ import { ResourceLimitModule } from './component/resource-limit/resource-limit.m
     FormsModule,
     ResourceLimitModule,
     HttpClientModule,
+    EchartsModule,
     ClarityModule.forRoot(),
   ],
   declarations: [
@@ -97,6 +100,7 @@ import { ResourceLimitModule } from './component/resource-limit/resource-limit.m
     BrowserModule,
     ResourceLimitModule,
     FormsModule,
+    EchartsModule,
     ClarityModule,
     UnauthorizedComponent,
     PageNotFoundComponent,
