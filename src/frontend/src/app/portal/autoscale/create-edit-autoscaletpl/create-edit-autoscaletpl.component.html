@@ -39,7 +39,7 @@
           <div class="form-group form-group-padding" >
             <label class="col-md-4 form-group-label-override required">最小副本数</label>
             <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="text"
+              <input type="number"
                      [ngModelOptions]="{standalone: true}"
                      [(ngModel)]="kubeResource.spec.minReplicas">
             </label>
@@ -47,7 +47,7 @@
         <div class="form-group form-group-padding" >
           <label class="col-md-4 form-group-label-override required">最大副本数</label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text"
+            <input type="number"
                    [ngModelOptions]="{standalone: true}"
                    [(ngModel)]="kubeResource.spec.maxReplicas">
           </label>
@@ -55,7 +55,7 @@
         <div class="form-group form-group-padding" >
           <label class="col-md-4 form-group-label-override required">CPU 负载阈值</label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text"
+            <input type="number"
                    [ngModelOptions]="{standalone: true}"
                    [(ngModel)]="kubeResource.spec.targetCPUUtilizationPercentage">
           </label>
