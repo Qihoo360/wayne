@@ -23,6 +23,6 @@
       <span>{{node.total}}</span>
     </p>
   </div>
-  <echarts-gauge style="height: 250px; width: 250px;" [title]="cpu.title" [data]="cpu.data" [name]="cpu.name" [max]="cpu.max"></echarts-gauge>
-  <echarts-gauge style="height: 250px; width: 250px;" [title]="memory.title" [data]="memory.data" [name]="cpu.name" [max]="memory.max"></echarts-gauge>
+  <echarts-gauge style="height: 250px; width: 250px;" [title]="cpu.title" [data]="cpu.data" [name]="cpu.name" type="percent" [tooltip]="cpu.tooltip"></echarts-gauge>
+  <echarts-gauge style="height: 250px; width: 250px;" [title]="memory.title" [data]="memory.data" [name]="cpu.name" type="percent" [tooltip]="memory.tooltip"></echarts-gauge>
 </div>

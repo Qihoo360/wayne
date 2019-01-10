@@ -30,13 +30,13 @@ export class NodeResourceComponent implements OnInit {
   cpu = {
     title: 'CPU 使用概况',
     name: '使用量',
-    max: 0,
+    tooltip: '',
     data: []
   };
   memory = {
     title: 'Memory 使用概况',
     name: '使用量',
-    max: 0,
+    tooltip: '',
     data: []
   };
   node = {
@@ -45,12 +45,12 @@ export class NodeResourceComponent implements OnInit {
     schedulable: 0
   };
   setCpu(cpuSummary: Summary) {
-    this.cpu.max = cpuSummary.Total;
-    this.cpu.data = [cpuSummary.Used];
+    this.cpu.tooltip = `usage/total: ${cpuSummary.Used}/${cpuSummary.Total}`;
+    this.cpu.data = [parseInt((cpuSummary.Used / cpuSummary.Total) * 100 + '', 10)];
   }
   setMemory(memorySummary: Summary) {
-    this.memory.max = memorySummary.Total;
-    this.memory.data = [memorySummary.Used];
+    this.memory.tooltip = `usage/total: ${memorySummary.Used}/${memorySummary.Total}`;
+    this.memory.data = [parseInt((memorySummary.Used / memorySummary.Total) * 100 + '', 10)];
   }
   setNode(nodeSummary: NodeSummary) {
     this.node.total = nodeSummary.Total;
