@@ -86,8 +86,6 @@
     "CREATE_EDIT": {
       "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建 HPA"
     },
-    "CREATE_TEMPLATE": "创建 HPA 模板",
-
     "TIP": {
       "VIEW_STATUS": "查看 HPA 状态"
     }
