@@ -46,39 +46,7 @@ export class EchartsPieComponent implements AfterViewInit {
         }
       },
       calculable: false,
-      series: [
-        {
-          center: ['50%', '60%'],
-          name: '访问来源',
-          type: 'pie',
-          selectedMode: 'single',
-          radius: [0, 55],
-          itemStyle: {
-            normal: {
-              label: {
-                position: 'inner'
-              },
-              labelLine: {
-                show: false
-              }
-            }
-          },
-          data: [
-            { value: 4, name: 'Ready' },
-            { value: 1, name: '其他' }
-          ]
-        },
-        {
-          center: ['50%', '60%'],
-          name: '访问来源',
-          type: 'pie',
-          radius: [70, 90],
-          data: [
-            { value: 3, name: '可调度' },
-            { value: 2, name: '其他' }
-          ]
-        }
-      ]
+      series: []
     };
     option.series = this._data.map((item, index) => {
       return {
