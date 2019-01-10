@@ -27,27 +27,27 @@ export class NodeResourceComponent implements OnInit {
     }
   }
   showView = GlobalState.node.showResource;
-  cpu = {
-    title: 'CPU 使用概况',
-    name: '使用量',
-    tooltip: '',
-    data: []
-  };
-  memory = {
-    title: 'Memory 使用概况',
-    name: '使用量',
-    tooltip: '',
-    data: []
-  };
   ready = {
-    title: 'Ready 使用概况',
+    title: 'Node 就绪',
     name: '使用量',
     tooltip: '',
     data: []
   };
   schedulable = {
-    title: 'Node 可调度概况',
+    title: 'Node 可调度',
     name: '可调度',
+    tooltip: '',
+    data: []
+  };
+  cpu = {
+    title: 'CPU 使用',
+    name: '使用量',
+    tooltip: '',
+    data: []
+  };
+  memory = {
+    title: 'Memory 使用',
+    name: '使用量',
     tooltip: '',
     data: []
   };
