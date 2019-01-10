@@ -40,9 +40,8 @@ export class NodeResourceComponent implements OnInit {
     data: []
   };
   node = {
-    total: 0,
-    ready: 0,
-    schedulable: 0
+    title: 'Node 使用概况',
+    data: []
   };
   setCpu(cpuSummary: Summary) {
     this.cpu.tooltip = `usage/total: ${cpuSummary.Used}/${cpuSummary.Total}`;
@@ -53,9 +52,34 @@ export class NodeResourceComponent implements OnInit {
     this.memory.data = [parseInt((memorySummary.Used / memorySummary.Total) * 100 + '', 10)];
   }
   setNode(nodeSummary: NodeSummary) {
-    this.node.total = nodeSummary.Total;
-    this.node.ready = nodeSummary.Ready;
-    this.node.schedulable = nodeSummary.Schedulable;
+    this.node.data = [
+      {
+        title: 'Ready',
+        data: [
+          {
+            name: 'Ready',
+            value: nodeSummary.Ready
+          },
+          {
+            name: '其他',
+            value: nodeSummary.Total - nodeSummary.Ready
+          }
+        ]
+      },
+      {
+        title: '可调度',
+        data: [
+          {
+            name: '可调度',
+            value: nodeSummary.Schedulable
+          },
+          {
+            name: '其他',
+            value: nodeSummary.Total - nodeSummary.Schedulable
+          }
+        ]
+      }
+    ];
   }
   changeShow() {
     this.showView = !this.showView;

@@ -8,21 +8,7 @@
   </svg>
 </div>
 <div class="box" *ngIf="showView">
-  <div class="nodeSummary">
-    <h3>Node 使用概况</h3>
-    <p>
-      <span>Ready：</span>
-      <span>{{node.ready}}</span>
-    </p>
-    <p>
-      <span>可调度：</span>
-      <span>{{node.schedulable}}</span>
-    </p>
-    <p>
-      <span>总量：</span>
-      <span>{{node.total}}</span>
-    </p>
-  </div>
+  <echarts-pie style="height: 250px; width: 250px;" [title]="node.title" [data]="node.data"></echarts-pie>
   <echarts-gauge style="height: 250px; width: 250px;" [title]="cpu.title" [data]="cpu.data" [name]="cpu.name" type="percent" [tooltip]="cpu.tooltip"></echarts-gauge>
   <echarts-gauge style="height: 250px; width: 250px;" [title]="memory.title" [data]="memory.data" [name]="cpu.name" type="percent" [tooltip]="memory.tooltip"></echarts-gauge>
 </div>

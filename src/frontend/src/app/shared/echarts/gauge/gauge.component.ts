@@ -10,7 +10,7 @@ import EChartOption = echarts.EChartOption;
   styleUrls: ['./gauge.component.scss']
 })
 
-export class EcharsGaugeComponent implements AfterViewInit {
+export class EchartsGaugeComponent implements AfterViewInit {
   /**
    * 可传参数：
    *  save: saveAsImage, 默认不打开
