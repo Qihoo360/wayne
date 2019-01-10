@@ -301,7 +301,7 @@ export class Resource {
 
   // 更新路由
   setNavigateURI() {
-    this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/ingress/${this.resourceId}`]);
+    this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/${this.resourceType}/${this.resourceId}`]);
   }
 
   // 初始化默认资源 ID 号
@@ -396,6 +396,10 @@ export class Resource {
       );
       this.retrieveTemplates();
     }
+  }
+
+  onShowDiffEvent() {
+    this.listResourceComponent.onShowDiffEvent();
   }
 
   // 用于对获取的资源列表排序的工作

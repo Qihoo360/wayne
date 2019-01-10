@@ -36,7 +36,7 @@ export class KubeDeploymentComponent implements OnInit {
   @ViewChild(AceEditorComponent)
   editModal: AceEditorComponent;
 
-  namespace = 'default';
+  namespace: string;
   cluster: string;
   clusters: Array<any>;
   changedDeployments: DeploymentList[];
@@ -93,13 +93,7 @@ export class KubeDeploymentComponent implements OnInit {
           return;
         }
         if (cluster) {
-          this.namespaceClient.getNames(cluster).subscribe(
-            resp => {
-              this.namespaces = resp.data;
-              this.jumpTo(cluster);
-            },
-            error => this.messageHandlerService.handleError(error)
-          );
+          this.jumpTo(cluster);
         }
       },
       error => this.messageHandlerService.handleError(error)
@@ -109,7 +103,14 @@ export class KubeDeploymentComponent implements OnInit {
   jumpTo(cluster: string) {
     this.cluster = cluster;
     this.router.navigateByUrl(`admin/kubernetes/deployment/${cluster}`);
-    this.retrieve();
+    this.namespaceClient.getNames(cluster).subscribe(
+      resp => {
+        this.namespaces = resp.data;
+        this.namespace = this.namespaces && this.namespaces.length > 0 ? this.namespaces[0] : 'default';
+        this.retrieve();
+      },
+      error => this.messageHandlerService.handleError(error)
+    );
   }
 
   detail(deploymentList: DeploymentList) {

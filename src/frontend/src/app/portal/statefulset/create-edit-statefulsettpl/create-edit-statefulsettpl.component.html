@@ -11,10 +11,10 @@
     <section class="form-block wrap">
       <div>
         <label class="label-level1" id="发布信息">
-          {{'TMP.RELEASE_MESSAGE' | translate}}
+          {{'TEMPLATE.RELEASE_MESSAGE' | translate}}
         </label>
         <div class="form-group form-group-padding">
-          <label class="col-md-3 form-group-label-override required">{{'TMP.RELEASE_EXPLAIN' | translate}}</label>
+          <label class="col-md-3 form-group-label-override required">{{'TEMPLATE.RELEASE_EXPLAIN' | translate}}</label>
           <textarea name="statefulset_description" [(ngModel)]="statefulsetTpl.description" rows="3" style="width: 65%"
                     required>
           </textarea>
@@ -23,18 +23,18 @@
     </section>
     <section class="form-block wrap">
       <div>
-        <label class="label-level1" id="更新策略">{{'TMP.UPDATE_STRATEGY' | translate}}</label>
+        <label class="label-level1" id="更新策略">{{'TEMPLATE.UPDATE_STRATEGY' | translate}}</label>
         <div class="form-group form-group-padding">
-          <label class="col-md-3 form-group-label-override required">{{'TMP.UPDATE_WAY' | translate}}</label>
+          <label class="col-md-3 form-group-label-override required">{{'TEMPLATE.UPDATE_WAY' | translate}}</label>
           <div class="radio-inline">
             <input type="radio" name="statefulSetStrategyType" id="statefulSetStrategyType1" value="OnDelete"
                    [(ngModel)]="kubeStatefulSet.spec.updateStrategy.type" checked>
-            <label for="statefulSetStrategyType1">{{'TMP.DELETE_UPDATE' | translate}}</label>
+            <label for="statefulSetStrategyType1">{{'TEMPLATE.DELETE_UPDATE' | translate}}</label>
           </div>
           <div class="radio-inline">
             <input type="radio" name="statefulSetStrategyType" id="statefulSetStrategyType2" value="RollingUpdate"
                    [(ngModel)]="kubeStatefulSet.spec.updateStrategy.type">
-            <label for="statefulSetStrategyType2">{{'TMP.SCROLL_UPDATE' | translate}}</label>
+            <label for="statefulSetStrategyType2">{{'TEMPLATE.SCROLL_UPDATE' | translate}}</label>
           </div>
         </div>
       </div>
@@ -43,14 +43,14 @@
     <section *ngFor="let container of kubeStatefulSet.spec.template.spec.containers; let i = index"
              class="form-block wrap">
       <div>
-        <label class="label-level1" [id]="i ? '容器配置' + i : '容器配置'">{{'TMP.CONTAINER_CONFIG' | translate}}
-          <clr-icon (click)="onDeleteContainer(i)" shape="trash" [title]="'TMP.DELETE_CONTAINER' | translate"
+        <label class="label-level1" [id]="i ? '容器配置' + i : '容器配置'">{{'TEMPLATE.CONTAINER_CONFIG' | translate}}
+          <clr-icon (click)="onDeleteContainer(i)" shape="trash" [title]="'TEMPLATE.DELETE_CONTAINER' | translate"
                     class="is-solid"></clr-icon>
         </label>
         <div class="container-box">
-          <label class="label-level2" [id]="i ? '镜像配置' + i : '镜像配置'">{{'TMP.IMAGE_CONFIG' | translate}}</label>
+          <label class="label-level2" [id]="i ? '镜像配置' + i : '镜像配置'">{{'TEMPLATE.IMAGE_CONFIG' | translate}}</label>
           <div class="form-group form-group-padding">
-            <label class="col-md-3 form-group-label-override required">{{'TMP.CONTAINER_NAME' | translate}}</label>
+            <label class="col-md-3 form-group-label-override required">{{'TEMPLATE.CONTAINER_NAME' | translate}}</label>
             <label aria-haspopup="true" role="tooltip" [class.invalid]="checkIfInvalid(i,'container.name_')"
                    class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
               <input type="text" size="90" class="col-sm-12" required name="container.name_{{i}}"
@@ -62,19 +62,19 @@
             </label>
           </div>
           <div class="form-group form-group-padding">
-            <label class="col-md-3 form-group-label-override required">{{'TMP.IMAGE_ADDRESS' | translate}}</label>
+            <label class="col-md-3 form-group-label-override required">{{'TEMPLATE.IMAGE_ADDRESS' | translate}}</label>
             <label aria-haspopup="true" role="tooltip" [class.invalid]="checkIfInvalid(i,'container.image_')"
                    class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
               <input type="text" size="90" class="col-sm-12" name="container.image_{{i}}" required
                      pattern="{{getImagePrefixReg()}}" [(ngModel)]="container.image"
-                     [placeholder]="'TMP.IMAGE_ADDRESS' | translate">
+                     [placeholder]="'TEMPLATE.IMAGE_ADDRESS' | translate">
               <span class="tooltip-content">
                 {{'RULE.REGEXT' | translate}}{{getImagePrefixReg()}}
               </span>
             </label>
           </div>
           <div class="form-group form-group-padding">
-            <label class="col-md-3 form-group-label-override required">{{'TMP.MEMORY_NUM' | translate}}</label>
+            <label class="col-md-3 form-group-label-override required">{{'TEMPLATE.MEMORY_NUM' | translate}}</label>
             <label aria-haspopup="true" [class.invalid]="!checkMemory(container.resources.limits.memory)"
                    style="padding-right: 0;margin-right: 0;padding-left: 0"
                    role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
@@ -90,7 +90,7 @@
             </label>
           </div>
           <div class="form-group form-group-padding">
-            <label class="col-md-3 form-group-label-override required">{{'TMP.CORE_NUM' | translate}}</label>
+            <label class="col-md-3 form-group-label-override required">{{'TEMPLATE.CORE_NUM' | translate}}</label>
             <label aria-haspopup="true" [class.invalid]="!checkCpu(container.resources.limits.cpu)"
                    style="padding-right: 0;margin-right: 0;padding-left: 0"
                    role="tooltip" class="col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
@@ -109,36 +109,36 @@
         </div>
 
         <div class="container-box">
-          <label class="label-level2" [id]="i ? '环境变量配置' + i : '环境变量配置'">{{'TMP.ENVIRONMENT_VAR' | translate}}
+          <label class="label-level2" [id]="i ? '环境变量配置' + i : '环境变量配置'">{{'TEMPLATE.ENVIRONMENT_VAR' | translate}}
             <button (click)="onAddEnvFrom(i)" style="margin-left: 10px;" class="wayne-button primary">
               <clr-icon shape="add-text"></clr-icon>
-              {{'TMP.ADD_GROUP' | translate}}</button>
+              {{'TEMPLATE.ADD_GROUP' | translate}}</button>
             <button (click)="onAddEnv(i)" style="margin-left: 10px;" class="wayne-button primary">
               <clr-icon shape="add"></clr-icon>
-              {{'TMP.ADD_ONE' | translate}}</button>
+              {{'TEMPLATE.ADD_ONE' | translate}}</button>
           </label>
 
           <div *ngFor="let envFrom of container.envFrom; let j = index">
             <div class="form-group form-group-padding">
               <label for="envFromType-{{i}}-{{j}}"
-                     class="col-md-3 form-group-label-override required">{{'TMP.ADD_GROUP' | translate}}
+                     class="col-md-3 form-group-label-override required">{{'TEMPLATE.ADD_GROUP' | translate}}
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
-                  <span class="tooltip-content">{{'TMP.LOAD_GROUP_MESSAGE' | translate}}</span>
+                  <span class="tooltip-content">{{'TEMPLATE.LOAD_GROUP_MESSAGE' | translate}}</span>
                 </a>
               </label>
               <div class="select">
                 <select id="envFromType-{{i}}-{{j}}" name="envFrom.type_{{i}}_{{j}}"
                         (change)="envFromChange($event.target.value,i,j)">
-                  <option value="1" [selected]="envFrom.configMapRef">{{'TMP.LOAD_CONFIGMAP' | translate}}</option>
-                  <option value="2" [selected]="envFrom.secretRef">{{'TMP.LOAD_SECRET' | translate}}</option>
+                  <option value="1" [selected]="envFrom.configMapRef">{{'TEMPLATE.LOAD_CONFIGMAP' | translate}}</option>
+                  <option value="2" [selected]="envFrom.secretRef">{{'TEMPLATE.LOAD_SECRET' | translate}}</option>
                 </select>
               </div>
 
               <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnvFrom(i)" shape="plus-circle"
-                        [title]="'TMP.ADD_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
+                        [title]="'TEMPLATE.ADD_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
               <clr-icon style="margin-top: 10px" (click)="onDeleteEnvFrom(i,j)" shape="trash"
-                        [title]="'TMP.DELETE_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
+                        [title]="'TEMPLATE.DELETE_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
             </div>
             <div *ngIf="envFrom" class="form-group form-group-padding">
               <input type="text" size="40" name="envFrom.prefix_{{i}}_{{j}}" [(ngModel)]="envFrom.prefix"
@@ -147,11 +147,11 @@
             <div *ngIf="envFrom && envFrom.configMapRef" class="form-group form-group-padding">
               <input type="text" size="40" required name="envFrom.configMapRef.name_{{i}}_{{j}}"
                      [(ngModel)]="envFrom.configMapRef.name"
-                     [placeholder]="'TMP.CONFIGMAP_NAME' | translate">
+                     [placeholder]="'TEMPLATE.CONFIGMAP_NAME' | translate">
             </div>
             <div *ngIf="envFrom && envFrom.secretRef" class="form-group form-group-padding">
               <input type="text" size="40" required name="envFrom.secretRef.name_{{i}}_{{j}}"
-                     [(ngModel)]="envFrom.secretRef.name" [placeholder]="'TMP.SECRET_NAME' | translate">
+                     [(ngModel)]="envFrom.secretRef.name" [placeholder]="'TEMPLATE.SECRET_NAME' | translate">
             </div>
 
           </div>
@@ -159,50 +159,50 @@
           <div *ngFor="let env of container.env; let j = index">
             <div class="form-group form-group-padding">
               <label for="envType-{{i}}-{{j}}"
-                     class="col-md-3 form-group-label-override required">{{'TMP.ADD_ONE' | translate}}
+                     class="col-md-3 form-group-label-override required">{{'TEMPLATE.ADD_ONE' | translate}}
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltipd-md">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
-                  <span class="tooltip-content">{{'TMP.SUPPORT_ENVIRONMENT_MESSAGE' | translate}}</span>
+                  <span class="tooltip-content">{{'TEMPLATE.SUPPORT_ENVIRONMENT_MESSAGE' | translate}}</span>
                 </a>
               </label>
               <div class="select">
                 <select id="envType-{{i}}-{{j}}" name="env.type_{{i}}_{{j}}"
                         (change)="envChange($event.target.value,i,j)">
-                  <option value="0" [selected]="env.value!=null">{{'TMP.LOAD_ENVIRONMENT' | translate}}</option>
+                  <option value="0" [selected]="env.value!=null">{{'TEMPLATE.LOAD_ENVIRONMENT' | translate}}</option>
                   <option value="1"
-                          [selected]="env.valueFrom?.configMapKeyRef">{{'TMP.LOAD_CONFIGMAP' | translate}}</option>
-                  <option value="2" [selected]="env.valueFrom?.secretKeyRef">{{'TMP.LOAD_SECRET' | translate}}</option>
+                          [selected]="env.valueFrom?.configMapKeyRef">{{'TEMPLATE.LOAD_CONFIGMAP' | translate}}</option>
+                  <option value="2" [selected]="env.valueFrom?.secretKeyRef">{{'TEMPLATE.LOAD_SECRET' | translate}}</option>
                   <option value="3" selected>{{'OTHER' | translate}}</option>
                 </select>
               </div>
               <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnv(i)" shape="plus-circle"
-                        [title]="'TMP.ADD_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
+                        [title]="'TEMPLATE.ADD_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
               <clr-icon style="margin-top: 10px" (click)="onDeleteEnv(i,j)" shape="trash"
-                        [title]="'TMP.DELETE_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
+                        [title]="'TEMPLATE.DELETE_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
             </div>
             <div class="form-group form-group-padding">
               <input [(ngModel)]="env.name" required name="env.name_{{i}}_{{j}}" type="text" size="45"
-                     [placeholder]="'TMP.ENVIRONMENT_NAME' | translate">
+                     [placeholder]="'TEMPLATE.ENVIRONMENT_NAME' | translate">
             </div>
             <div *ngIf="env.value != null" class="form-group form-group-padding">
               <input [(ngModel)]="env.value" required name="env.value_{{i}}_{{j}}" type="text" size="45"
-                     [placeholder]="'TMP.ENVIRONMENT_NUM' | translate">
+                     [placeholder]="'TEMPLATE.ENVIRONMENT_NUM' | translate">
             </div>
             <div *ngIf="env.valueFrom && env.valueFrom.configMapKeyRef" class="form-group form-group-padding">
               <input type="text" size="40" required name="env.valueFrom.configMapKeyRef.name_{{i}}_{{j}}"
                      [(ngModel)]="env.valueFrom.configMapKeyRef.name"
-                     [placeholder]="'TMP.CONFIGMAP_NAME' | translate">
+                     [placeholder]="'TEMPLATE.CONFIGMAP_NAME' | translate">
               <input type="text" size="40" required name="env.valueFrom.configMapKeyRef.key_{{i}}_{{j}}"
                      [(ngModel)]="env.valueFrom.configMapKeyRef.key"
-                     [placeholder]="'TMP.CONFIGMAP_KEY' | translate">
+                     [placeholder]="'TEMPLATE.CONFIGMAP_KEY' | translate">
             </div>
             <div *ngIf="env.valueFrom && env.valueFrom.secretKeyRef" class="form-group form-group-padding">
               <input type="text" size="40" required name="env.valueFrom.secretKeyRef.name_{{i}}_{{j}}"
                      [(ngModel)]="env.valueFrom.secretKeyRef.name"
-                     [placeholder]="'TMP.SECRET_NAME' | translate">
+                     [placeholder]="'TEMPLATE.SECRET_NAME' | translate">
               <input type="text" size="40" required name="env.valueFrom.secretKeyRef.key_{{i}}_{{j}}"
                      [(ngModel)]="env.valueFrom.secretKeyRef.key"
-                     [placeholder]="'TMP.SECRET_KEY' | translate">
+                     [placeholder]="'TEMPLATE.SECRET_KEY' | translate">
             </div>
           </div>
         </div>
@@ -212,29 +212,29 @@
             <input type="checkbox" [checked]="container.readinessProbe" (change)="readinessProbeChange(i)"
                    id="readinessProbe{{i}}">
             <label class="label-level2" [id]="i ? '可用性检查' + i : '可用性检查'"
-                   for="readinessProbe{{i}}">{{'TMP.USABLE_CHECK' | translate}}
+                   for="readinessProbe{{i}}">{{'TEMPLATE.USABLE_CHECK' | translate}}
               <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
                 <clr-icon shape="info-circle" size="24"></clr-icon>
-                <span class="tooltip-content">{{'TMP.USABLE_MESSAGE' | translate}}</span>
+                <span class="tooltip-content">{{'TEMPLATE.USABLE_MESSAGE' | translate}}</span>
               </a>
             </label>
           </div>
 
           <div *ngIf="container.readinessProbe" style="color:#000">
             <div class="form-group form-group-padding">
-              <label class="col-md-3 form-group-label-override">{{'TMP.EXTEND_TIME' | translate}}
+              <label class="col-md-3 form-group-label-override">{{'TEMPLATE.EXTEND_TIME' | translate}}
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
-                  <span class="tooltip-content">{{'TMP.EXTEND_TIME_MESSAGE' | translate}}</span>
+                  <span class="tooltip-content">{{'TEMPLATE.EXTEND_TIME_MESSAGE' | translate}}</span>
                 </a>
               </label>
               <input type="number" required name="container.readinessProbe.timeoutSeconds_{{i}}"
                      [(ngModel)]="container.readinessProbe.timeoutSeconds"
                      [placeholder]="'PLACEHOLDER.SECOND' | translate">
-              <label class="col-md-3 form-group-label-override">{{'TMP.CHECK_CYCLE' | translate}}
+              <label class="col-md-3 form-group-label-override">{{'TEMPLATE.CHECK_CYCLE' | translate}}
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
-                  <span class="tooltip-content">{{'TMP.CHECK_CYCLE_MESSAGE'}}</span>
+                  <span class="tooltip-content">{{'TEMPLATE.CHECK_CYCLE_MESSAGE'}}</span>
                 </a>
               </label>
               <input type="number" required name="container.readinessProbe.periodSeconds{{i}}"
@@ -242,37 +242,37 @@
                      [placeholder]="'PLACEHOLDER.SECOND' | translate">
             </div>
             <div class="form-group form-group-padding">
-              <label class="col-md-3 form-group-label-override">{{'TMP.FAIL_NUM' | translate}}</label>
+              <label class="col-md-3 form-group-label-override">{{'TEMPLATE.FAIL_NUM' | translate}}</label>
               <input type="number" required name="container.readinessProbe.failureThreshold{{i}}"
                      [(ngModel)]="container.readinessProbe.failureThreshold">
             </div>
 
             <div class="form-group form-group-padding">
               <label for="readinessProbeType_{{i}}"
-                     class="col-md-3 form-group-label-override required">{{'TMP.USABLE_CHECK_WAY' | translate}}</label>
+                     class="col-md-3 form-group-label-override required">{{'TEMPLATE.USABLE_CHECK_WAY' | translate}}</label>
               <div class="select">
                 <select name="readinessProbeType_{{i}}" (change)="readinessProbeTypeChange($event.target.value,i)">
                   <option value="0"
-                          [selected]="container.readinessProbe.httpGet">{{'TMP.HTTP_REQUEST' | translate}}</option>
+                          [selected]="container.readinessProbe.httpGet">{{'TEMPLATE.HTTP_REQUEST' | translate}}</option>
                   <option value="1"
-                          [selected]="container.readinessProbe.tcpSocket">{{'TMP.TCP_PORT' | translate}}</option>
+                          [selected]="container.readinessProbe.tcpSocket">{{'TEMPLATE.TCP_PORT' | translate}}</option>
                   <option value="2"
-                          [selected]="container.readinessProbe.exec">{{'TMP.EXECUTE_COMMAND' | translate}}</option>
+                          [selected]="container.readinessProbe.exec">{{'TEMPLATE.EXECUTE_COMMAND' | translate}}</option>
                 </select>
               </div>
             </div>
             <div *ngIf="container.readinessProbe.httpGet" class="form-group form-group-padding">
               <input type="number" size="30" required name="container.readinessProbe.httpGet.port_{{i}}"
                      [(ngModel)]="container.readinessProbe.httpGet.port"
-                     [placeholder]="'TMP.REQUEST_HTTP_PORT' | translate">
+                     [placeholder]="'TEMPLATE.REQUEST_HTTP_PORT' | translate">
               <input type="text" size="70" required name="container.readinessProbe.httpGet.path_{{i}}"
                      [(ngModel)]="container.readinessProbe.httpGet.path"
-                     [placeholder]="'TMP.TCP_PORT' | translate">
+                     [placeholder]="'TEMPLATE.TCP_PORT' | translate">
             </div>
             <div *ngIf="container.readinessProbe.tcpSocket" class="form-group form-group-padding">
               <input type="number" size="30" required name="container.readinessProbe.tcpSocket.port_{{i}}"
                      [(ngModel)]="container.readinessProbe.tcpSocket.port"
-                     [placeholder]="'TMP.REQUEST_TCP_PORT' | translate">
+                     [placeholder]="'TEMPLATE.REQUEST_TCP_PORT' | translate">
             </div>
             <div *ngIf="container.readinessProbe.exec">
               <div class="form-group form-group-padding">
@@ -291,29 +291,29 @@
             <input type="checkbox" [checked]="container.livenessProbe" (change)="livenessProbeChange(i)"
                    id="livenessProbe{{i}}">
             <label class="label-level2" [id]="i ? '存活检查' + i : '存活检查'"
-                   for="livenessProbe{{i}}">{{'TMP.LIVE_CHECK' | translate}}
+                   for="livenessProbe{{i}}">{{'TEMPLATE.LIVE_CHECK' | translate}}
               <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
                 <clr-icon shape="info-circle" size="24"></clr-icon>
-                <span class="tooltip-content">{{'TMP.LIVE_CHECK_MESSAGE' | translate}}</span>
+                <span class="tooltip-content">{{'TEMPLATE.LIVE_CHECK_MESSAGE' | translate}}</span>
               </a>
             </label>
           </div>
 
           <div *ngIf="container.livenessProbe" style="color:#000">
             <div class="form-group form-group-padding">
-              <label class="col-md-3 form-group-label-override">{{'TMP.EXTEND_TIME' | translate}}
+              <label class="col-md-3 form-group-label-override">{{'TEMPLATE.EXTEND_TIME' | translate}}
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
-                  <span class="tooltip-content">{{'TMP.EXTEND_TIME_MESSAGE' | translate}}</span>
+                  <span class="tooltip-content">{{'TEMPLATE.EXTEND_TIME_MESSAGE' | translate}}</span>
                 </a>
               </label>
               <input type="number" required name="container.livenessProbe.timeoutSeconds_{{i}}"
                      [(ngModel)]="container.livenessProbe.timeoutSeconds"
                      [placeholder]="'PLACEHOLDER.SECOND' | translate">
-              <label class="col-md-3 form-group-label-override">{{'TMP.CHECK_CYCLE' | translate}}
+              <label class="col-md-3 form-group-label-override">{{'TEMPLATE.CHECK_CYCLE' | translate}}
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
-                  <span class="tooltip-content">{{'TMP.CHECK_CYCLE_MESSAGE'}}</span>
+                  <span class="tooltip-content">{{'TEMPLATE.CHECK_CYCLE_MESSAGE'}}</span>
                 </a>
               </label>
               <input type="number" required name="container.livenessProbe.periodSeconds{{i}}"
@@ -321,13 +321,13 @@
                      [placeholder]="'PLACEHOLDER.SECOND' | translate">
             </div>
             <div class="form-group form-group-padding">
-              <label class="col-md-3 form-group-label-override">{{'TMP.FAIL_NUM' | translate}}</label>
+              <label class="col-md-3 form-group-label-override">{{'TEMPLATE.FAIL_NUM' | translate}}</label>
               <input type="number" required name="container.livenessProbe.failureThreshold{{i}}"
                      [(ngModel)]="container.livenessProbe.failureThreshold">
-              <label class="col-md-3 form-group-label-override">{{'TMP.CHECK_DELAY' | translate}}
+              <label class="col-md-3 form-group-label-override">{{'TEMPLATE.CHECK_DELAY' | translate}}
                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
                   <clr-icon shape="info-circle" size="24"></clr-icon>
-                  <span class="tooltip-content">{{'TMP.CHECK_DELAY_MESSAGE' | translate}}</span>
+                  <span class="tooltip-content">{{'TEMPLATE.CHECK_DELAY_MESSAGE' | translate}}</span>
                 </a>
               </label>
               <input type="number" required name="container.livenessProbe.initialDelaySeconds{{i}}"
@@ -337,30 +337,30 @@
 
             <div class="form-group form-group-padding">
               <label for="livenessProbeType_{{i}}"
-                     class="col-md-3 form-group-label-override required">{{'TMP.USABLE_CHECK_WAY' | translate}}</label>
+                     class="col-md-3 form-group-label-override required">{{'TEMPLATE.USABLE_CHECK_WAY' | translate}}</label>
               <div class="select">
                 <select name="livenessProbeType_{{i}}" (change)="livenessProbeTypeChange($event.target.value,i)">
                   <option value="0"
-                          [selected]="container.livenessProbe.httpGet">{{'TMP.HTTP_REQUEST' | translate}}</option>
+                          [selected]="container.livenessProbe.httpGet">{{'TEMPLATE.HTTP_REQUEST' | translate}}</option>
                   <option value="1"
-                          [selected]="container.livenessProbe.tcpSocket">{{'TMP.TCP_PORT' | translate}}</option>
+                          [selected]="container.livenessProbe.tcpSocket">{{'TEMPLATE.TCP_PORT' | translate}}</option>
                   <option value="2"
-                          [selected]="container.livenessProbe.exec">{{'TMP.EXECTE_COMMAND' | translate}}</option>
+                          [selected]="container.livenessProbe.exec">{{'TEMPLATE.EXECTE_COMMAND' | translate}}</option>
                 </select>
               </div>
             </div>
             <div *ngIf="container.livenessProbe.httpGet" class="form-group form-group-padding">
               <input type="number" size="30" required name="container.livenessProbe.httpGet.port_{{i}}"
                      [(ngModel)]="container.livenessProbe.httpGet.port"
-                     [placeholder]="'TMP.REQUEST_HTTP_PORT' | translate">
+                     [placeholder]="'TEMPLATE.REQUEST_HTTP_PORT' | translate">
               <input type="text" size="70" required name="container.livenessProbe.httpGet.path_{{i}}"
                      [(ngModel)]="container.livenessProbe.httpGet.path"
-                     [placeholder]="'TMP.TCP_PORT' | translate">
+                     [placeholder]="'TEMPLATE.TCP_PORT' | translate">
             </div>
             <div *ngIf="container.livenessProbe.tcpSocket" class="form-group form-group-padding">
               <input type="number" size="30" required name="container.livenessProbe.tcpSocket.port_{{i}}"
                      [(ngModel)]="container.livenessProbe.tcpSocket.port"
-                     [placeholder]="'TMP.REQUEST_TCP_PORT' | translate">
+                     [placeholder]="'TEMPLATE.REQUEST_TCP_PORT' | translate">
             </div>
             <div *ngIf="container.livenessProbe.exec">
               <div class="form-group form-group-padding">
@@ -383,6 +383,6 @@
   <button type="button" class="btn btn-primary" [disabled]="!isValid"
           (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
   <span
-    style="color: red">{{'TMP.PRICE_TOTAL' | translate}}{{totalFee | number:'1.2-2' }}{{'UNIT.PRICE' | translate}}</span>
+    style="color: red">{{'TEMPLATE.PRICE_TOTAL' | translate}}{{totalFee | number:'1.2-2' }}{{'UNIT.PRICE' | translate}}</span>
 </div>
 <wayne-ace-editor (outputObj)="saveStatefulset($event)"></wayne-ace-editor>
