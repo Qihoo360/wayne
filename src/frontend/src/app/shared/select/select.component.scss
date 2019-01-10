@@ -9,7 +9,7 @@
   .select-box {
     overflow: hidden;
     position: absolute;
-    max-height: 135px;
+    max-height: 200px;
     font-size: 12px;
     left: 0;
     // bottom: calc(100% + 5px);
@@ -21,7 +21,7 @@
     z-index: 999;
     .option-box {
       // margin-right: -17px;
-      max-height: 125px;
+      max-height: 190px;
       overflow-y: scroll;
     }
 

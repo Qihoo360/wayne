@@ -8,12 +8,11 @@
         <div class="form-group" style="padding-left: 135px;">
           <label for="deployment_app" class="col-md-3 form-group-label-override required">应用</label>
           <div class="select form-control">
-            <select [(ngModel)]="selectedApp"
-                    id="deployment_app"
-                    name="deployment_app">
-              <option *ngFor="let app of apps" [ngValue]="app">{{app.name}}
-              </option>
-            </select>
+            <wayne-select name="deployment_app" [(ngModel)]="selectedApp"
+                          searchable
+                          [placeholder]="'PLACEHOLDER.CHOOSE' | translate">
+              <wayne-option *ngFor="let app of apps" [value]="app">{{app.name}}</wayne-option>
+            </wayne-select>
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
