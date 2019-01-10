@@ -11,7 +11,5 @@ export class AutoscaleTpl {
   user: string;
   createTime: Date;
   hpa: Autoscale;
-
-  ports: string;
   status: PublishStatus[];
 }

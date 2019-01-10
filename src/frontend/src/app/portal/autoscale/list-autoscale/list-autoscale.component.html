@@ -1,33 +1,33 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)" [(clrDgSelected)]="selectedTemplate" class="wayne-clr-datagrid">
   <clr-dg-placeholder>暂无数据！</clr-dg-placeholder>
   <clr-dg-column class="col-id" [clrDgSortBy]="'id'">
-    <ng-container>
+    <ng-container *clrDgHideableColumn="showState['id']">
       #
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-time" [clrDgSortBy]="'createTime'">
-    <ng-container *clrDgHideableColumn="showState['创建时间']">
-      创建时间
+    <ng-container *clrDgHideableColumn="showState['createTime']">
+      {{'TITLE.CREATE_TIME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-cluster">
-    <ng-container *clrDgHideableColumn="showState['上线机房']">
-      上线机房
+    <ng-container *clrDgHideableColumn="showState['cluster']">
+      {{'TITLE.ONLINE_CLUSTER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-description">
-    <ng-container *clrDgHideableColumn="showState['发布说明']">
-      发布说明
+    <ng-container *clrDgHideableColumn="showState['description']">
+      {{'TITLE.RELEASE_EXPLAIN' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['创建者']">
-      创建者
+    <ng-container *clrDgHideableColumn="showState['user']">
+      {{'TITLE.CREATE_USER' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-operate">
-    <ng-container *clrDgHideableColumn="showState['操作']">
-      操作
+    <ng-container *clrDgHideableColumn="showState['action']">
+      {{'TITLE.ACTION' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-row *ngFor="let template of templates" [clrDgItem]="template">
@@ -36,7 +36,7 @@
     <clr-dg-cell class="col-cluster" >
       <div class="form-group" style="padding-bottom: 2px"
            *ngFor="let status of template.status">
-        <a href="javascript:void(0)" (click)="showResourceState(status,template)" title="查看 HPA 状态" class="label"
+        <a href="javascript:void(0)" (click)="showResourceState(status,template)" title="{{'HPA.TIP.VIEW_STATUS' | translate}}" class="label"
            [class.clickable]="status.state!=2"
            [class.label-success]="status.state==0"
            [class.label-warning]="status.state==1">
@@ -50,23 +50,23 @@
       <button class="wayne-button text"
               (click)="onPublishResourceTemplate(template)"
               *ngIf="authService.currentAppPermission.autoscale.deploy || authService.currentUser.admin">
-        发布</button>
+        {{'BUTTON.RELEASE' | translate}}</button>
       <button class="wayne-button text"
               (click)="onViewTemplate(template)"
               *ngIf="authService.currentAppPermission.autoscale.read || authService.currentUser.admin">
-        详情</button>
+        {{'BUTTON.DETAIL' | translate}}</button>
       <button class="wayne-button text"
               (click)="oncloneTemplate(template)"
               *ngIf="authService.currentAppPermission.autoscale.create || authService.currentUser.admin">
-        克隆</button>
+        {{'BUTTON.CLONE' | translate}}</button>
       <button class="wayne-button text"
               *ngIf="!template.status && (authService.currentAppPermission.autoscale.delete || authService.currentUser.admin)"
               (click)="onDeleteTemplate('删除 HPA 模版确认', '你确认删除 HPA 模版', template)">
-        删除</button>
+        {{'BUTTON.DELETE' | translate}}</button>
       <button class="wayne-button text"
               (click)="onOfflineResourceTemplate(template)"
               *ngIf="template.status && (authService.currentAppPermission.autoscale.offline || authService.currentUser.admin)">
-        下线</button>
+        {{'BUTTON.DROP' | translate}}</button>
 
     </clr-dg-cell>
   </clr-dg-row>

@@ -32,9 +32,8 @@ import { NamespaceReportComponent } from './namespace-report/namespace-report.co
 import { IngressComponent } from './ingress/ingress.component';
 import { CreateEditIngressTplComponent } from './ingress/create-edit-ingresstpl/create-edit-ingresstpl.component';
 import { PORTALROUTES } from '../../../lib/portal/library-routing-portal';
-import {AutoscaleComponent} from './autoscale/autoscale.component';
-import {CreateEditAutoscaleComponent} from './autoscale/create-edit-autoscale/create-edit-autoscale.component';
-import {CreateEditAutoscaletplComponent} from './autoscale/create-edit-autoscaletpl/create-edit-autoscaletpl.component';
+import { AutoscaleComponent } from './autoscale/autoscale.component';
+import { CreateEditAutoscaletplComponent } from './autoscale/create-edit-autoscaletpl/create-edit-autoscaletpl.component';
 
 const routes: Routes = [
   {

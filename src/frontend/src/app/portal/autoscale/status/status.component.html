@@ -6,7 +6,7 @@
       <section class="form-block form-box">
         <div class="row group">
           <div class="col-sm-3">
-            Ingress 名称
+            {{'TITLE.NAME' | translate}}
           </div>
           <div class="col-sm-9">
             {{kubeResource?.metadata.name}}
@@ -15,7 +15,7 @@
 
         <div class="row group">
           <div class="col-sm-3">
-            REFERENCE
+            Reference
           </div>
           <div class="col-sm-9">
             {{kubeResource?.spec.scaleTargetRef.kind}}/{{kubeResource?.spec.scaleTargetRef.name}}
@@ -24,7 +24,7 @@
 
         <div class="row group">
           <div class="col-sm-3">
-            副本区间
+            {{'TITLE.COPY_INTERVAL' | translate}}
           </div>
           <div class="col-sm-9">
             {{kubeResource?.spec.minReplicas}} ~ {{kubeResource?.spec.maxReplicas}}
@@ -33,7 +33,7 @@
 
         <div class="row group">
           <div class="col-sm-3">
-            CPU 负载阈值
+            {{'TEMPLATE.CPU_THRESHOLD' | translate}}
           </div>
           <div class="col-sm-9">
             {{kubeResource?.spec.targetCPUUtilizationPercentage}} %

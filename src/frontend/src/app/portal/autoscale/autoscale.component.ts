@@ -69,15 +69,17 @@ export class AutoscaleComponent extends Resource implements OnInit, AfterContent
     super.registConfirmationTarget(ConfirmationTargets.AUTOSCALE);
     super.registSubscription( 'autoscale 删除成功！');
     super.registShowState({
-      '创建时间': {hidden: false},
-      '上线机房': {hidden: false},
-      '发布说明': {hidden: false},
-      '创建者': {hidden: false},
-      '操作': {hidden: false}
+      'id': {hidden: false},
+      'createTime': {hidden: false},
+      'cluster': {hidden: false},
+      'description': {hidden: false},
+      'user': {hidden: false},
+      'action': {hidden: false}
     });
   }
 
   ngOnInit() {
+    this.initShow();
   }
 
   ngAfterContentInit() {

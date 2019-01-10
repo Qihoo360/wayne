@@ -53,37 +53,36 @@ export class CreateEditAutoscaletplComponent extends CreateEditResourceTemplate 
 
   ngOnInit(): void {
     this.kubeResource = JSON.parse(this.defaultKubeResource);
-
-  const appId = parseInt(this.route.parent.snapshot.params['id'], 10);
-  const namespaceId = this.cacheService.namespaceId;
-  const hpaId = parseInt(this.route.snapshot.params['resourceId'], 10);
-  const tplId = parseInt(this.route.snapshot.params['tplId'], 10);
-  const observables = Array(
-    this.appService.getById(appId, namespaceId),
-    this.autoscaleService.getById(hpaId, appId),
-  );
-  if (tplId) {
-    this.actionType = ActionType.EDIT;
-    observables.push(this.autoscaleTplService.getById(tplId, appId));
-  } else {
-    this.actionType = ActionType.ADD_NEW;
-  }
-  Observable.combineLatest(observables).subscribe(
-    response => {
-      this.app = response[0].data;
-      this.resource = response[1].data;
-      const tpl = response[2];
-      if (tpl) {
-        this.template = tpl.data;
-        this.template.description = null;
-        this.saveResourceTemplate(JSON.parse(this.template.template));
-      }
-    },
-    error => {
-      this.messageHandlerService.handleError(error);
+    const appId = parseInt(this.route.parent.snapshot.params['id'], 10);
+    const namespaceId = this.cacheService.namespaceId;
+    const hpaId = parseInt(this.route.snapshot.params['resourceId'], 10);
+    const tplId = parseInt(this.route.snapshot.params['tplId'], 10);
+    const observables = Array(
+      this.appService.getById(appId, namespaceId),
+      this.autoscaleService.getById(hpaId, appId),
+    );
+    if (tplId) {
+      this.actionType = ActionType.EDIT;
+      observables.push(this.autoscaleTplService.getById(tplId, appId));
+    } else {
+      this.actionType = ActionType.ADD_NEW;
     }
-  );
-}
+    Observable.combineLatest(observables).subscribe(
+      response => {
+        this.app = response[0].data;
+        this.resource = response[1].data;
+        const tpl = response[2];
+        if (tpl) {
+          this.template = tpl.data;
+          this.template.description = null;
+          this.saveResourceTemplate(JSON.parse(this.template.template));
+        }
+      },
+    error => {
+        this.messageHandlerService.handleError(error);
+      }
+    );
+  }
 
   isValidResource(): boolean {
     if (super.isValidResource() === false) {
