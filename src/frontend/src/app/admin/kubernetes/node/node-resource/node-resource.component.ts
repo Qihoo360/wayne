@@ -39,8 +39,16 @@ export class NodeResourceComponent implements OnInit {
     tooltip: '',
     data: []
   };
-  node = {
-    title: 'Node 使用概况',
+  ready = {
+    title: 'Ready 使用概况',
+    name: '使用量',
+    tooltip: '',
+    data: []
+  };
+  schedulable = {
+    title: 'Node 可调度概况',
+    name: '可调度',
+    tooltip: '',
     data: []
   };
   setCpu(cpuSummary: Summary) {
@@ -52,34 +60,10 @@ export class NodeResourceComponent implements OnInit {
     this.memory.data = [parseInt((memorySummary.Used / memorySummary.Total) * 100 + '', 10)];
   }
   setNode(nodeSummary: NodeSummary) {
-    this.node.data = [
-      {
-        title: 'Ready',
-        data: [
-          {
-            name: 'Ready',
-            value: nodeSummary.Ready
-          },
-          {
-            name: '其他',
-            value: nodeSummary.Total - nodeSummary.Ready
-          }
-        ]
-      },
-      {
-        title: '可调度',
-        data: [
-          {
-            name: '可调度',
-            value: nodeSummary.Schedulable
-          },
-          {
-            name: '其他',
-            value: nodeSummary.Total - nodeSummary.Schedulable
-          }
-        ]
-      }
-    ];
+    this.ready.tooltip = `Ready/total: ${nodeSummary.Ready}/${nodeSummary.Total}`;
+    this.ready.data = [parseInt((nodeSummary.Ready / nodeSummary.Total) * 100 + '', 10)];
+    this.schedulable.tooltip = `可调度/total: ${nodeSummary.Schedulable}/${nodeSummary.Total}`;
+    this.schedulable.data = [parseInt((nodeSummary.Schedulable / nodeSummary.Total) * 100 + '', 10)];
   }
   changeShow() {
     this.showView = !this.showView;

@@ -3,6 +3,11 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  height: 200px;
+  align-items: center;
+  & > * {
+    transform: scale(.8);
+  }
 }
 :host{
   display: block;
