@@ -33,6 +33,7 @@ const (
 	PermissionBill                      = "BILL"
 	PermissionTypeAPIKey                = "APIKEY"
 	PermissionTypeIngress               = "INGRESS"
+	PermissionTypeHPA                   = "HPA"
 	PermissionBlank                     = "_"
 )
 
@@ -66,6 +67,7 @@ type TypePermission struct {
 	PermissionTypeDaemonSet             ActionPermission `json:"daemonSet" mapstructure:"DAEMONSET"`
 	PermissionTypeBILL                  ActionPermission `json:"bill" mapstructure:"BILL"`
 	PermissionIngress                   ActionPermission `json:"ingress" mapstructure:"INGRESS"`
+	PermissionHPA                       ActionPermission `json:"hpa" mapstructure:"HPA"`
 }
 
 type ActionPermission struct {
