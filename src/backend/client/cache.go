@@ -4,6 +4,7 @@ import (
 	"k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/listers/apps/v1beta1"
+	autoscalingv1 "k8s.io/client-go/listers/autoscaling/v1"
 	"k8s.io/client-go/listers/core/v1"
 
 	"github.com/Qihoo360/wayne/src/backend/client/api"
@@ -57,4 +58,8 @@ func (c *CacheFactory) NodeLister() v1.NodeLister {
 
 func (c *CacheFactory) EndpointLister() v1.EndpointsLister {
 	return c.sharedInformerFactory.Core().V1().Endpoints().Lister()
+}
+
+func (c *CacheFactory) HPALister() autoscalingv1.HorizontalPodAutoscalerLister {
+	return c.sharedInformerFactory.Autoscaling().V1().HorizontalPodAutoscalers().Lister()
 }

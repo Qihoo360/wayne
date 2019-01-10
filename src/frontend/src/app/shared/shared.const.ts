@@ -7,6 +7,7 @@ export const KubeApiTypeIngress = 'Ingress';
 export const KubeApiTypeConfigMap = 'ConfigMap';
 export const KubeApiTypeSecret = 'Secret';
 export const KubeApiTypePersistentVolumeClaim = 'PersistentVolumeClaim';
+export const KubeApiTypeAutoscale = 'Autoscale';
 
 export type KubeResourcesName = string;
 export const KubeResourceConfigMap: KubeResourcesName = 'configmaps';
@@ -98,7 +99,7 @@ export const ApiKeyType = [
 ];
 
 export const enum PublishType {
-  DEPLOYMENT, SERVICE, CONFIGMAP, SECRET, PERSISTENT_VOLUME_CLAIM, CRONJOB, STATEFULSET, DAEMONSET, INGRESS,
+  DEPLOYMENT, SERVICE, CONFIGMAP, SECRET, PERSISTENT_VOLUME_CLAIM, CRONJOB, STATEFULSET, DAEMONSET, INGRESS, AUTOSCALE,
 }
 
 export const enum ConfirmationState {
@@ -138,6 +139,10 @@ export const enum ConfirmationTargets {
   INGRESS_TPL,
   TRASH_INGRESS,
   TRASH_INGRESS_TPL,
+  AUTOSCALE,
+  AUTOSCALE_TPL,
+  TRASH_AUTOSCALE,
+  TRASH_AUTOSCALE_TPL,
   CONFIGMAP,
   TRASH_CONFIGMAP,
   CONFIGMAP_TPL,

@@ -1,5 +1,5 @@
-import {Ingress} from './ingress';
-import {PublishStatus} from './publish-status';
+import { Ingress } from './ingress';
+import { PublishStatus } from './publish-status';
 
 export class IngressTpl {
   id: number;
