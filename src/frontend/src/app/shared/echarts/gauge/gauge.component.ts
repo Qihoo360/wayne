@@ -24,6 +24,7 @@ export class EchartsGaugeComponent implements AfterViewInit {
    *  min: number 起点，默认为0
    *  max: number 当 type 不是 percent 时候，传入max
    *  tooltip 定制化的tip显示
+   *  reverse 颜色是否呈反向显示
    */
   _title: string;
   _save: boolean;
@@ -31,6 +32,7 @@ export class EchartsGaugeComponent implements AfterViewInit {
   _type: string;
   _data: number[];
   _tooltip: string;
+  _reverse = false;
   _min = 0;
   _max = 100;
   @ViewChild('view') view;
@@ -55,6 +57,12 @@ export class EchartsGaugeComponent implements AfterViewInit {
   set type(value: string) {
     this._type = value;
     this.initOption();
+  }
+  @Input('reverse')
+  set reverse(value: any) {
+    if (value !== undefined) {
+      this._reverse = true;
+    }
   }
   @Input('data')
   set data(value: number[]) {
@@ -139,6 +147,8 @@ export class EchartsGaugeComponent implements AfterViewInit {
           data: this.chartData,
           axisLine: {
             lineStyle: {
+              color: this._reverse ? [[0.2, '#c23531'], [0.8, '#63869e'], [1, '#91c7ae']]
+                : [[0.2, '#91c7ae'], [0.8, '#63869e'], [1, '#c23531']],
               width: 8
             }
           },
