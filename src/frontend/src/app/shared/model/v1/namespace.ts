@@ -1,24 +1,4 @@
 export class Namespace {
-  constructor() {
-    this.metaDataObj = new NamespaceMetaData();
-  }
-
-  static ParseNamespaceMetaData(obj: any) {
-    let namespaceMetaData = new NamespaceMetaData();
-    const metaDataObj = JSON.parse(obj);
-    Object.getOwnPropertyNames(metaDataObj).forEach(name => {
-      namespaceMetaData[name] = metaDataObj[name];
-    });
-    return namespaceMetaData;
-  }
-
-  static emptyObject(): Namespace {
-    let result = new Namespace();
-    result.createTime = null;
-    result.updateTime = null;
-    return result;
-  }
-
   id: number;
   name: string;
   deleted: boolean;
@@ -27,19 +7,36 @@ export class Namespace {
   user: string;
   createTime: Date;
   updateTime: Date;
+
+  constructor() {
+    this.metaDataObj = new NamespaceMetaData();
+  }
+
+  static ParseNamespaceMetaData(obj: any) {
+    const namespaceMetaData = new NamespaceMetaData();
+    const metaDataObj = JSON.parse(obj);
+    Object.getOwnPropertyNames(metaDataObj).forEach(name => {
+      namespaceMetaData[name] = metaDataObj[name];
+    });
+    return namespaceMetaData;
+  }
+
+  static emptyObject(): Namespace {
+    const result = new Namespace();
+    result.createTime = null;
+    result.updateTime = null;
+    return result;
+  }
 }
 
 export class ResourcesLimit {
   cpu: number;
   memory: number;
 
-  //[NamespaceMetaDataResources:]
   constructor() {
     this.cpu = 0;
     this.memory = 0;
   }
-
-  //[end]
 }
 
 export class ClusterMeta {
@@ -61,11 +58,6 @@ export class NamespaceMetaData {
     this.env = [];
     this.clusterMeta = {};
   }
-
-  //[NamespaceMetaData:]
-
-
-  //[end]
 }
 
 export class EnvVar {

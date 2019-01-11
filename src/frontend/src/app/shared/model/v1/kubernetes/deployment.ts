@@ -318,13 +318,13 @@ export class ResourceRequirements {
   //[ResourceRequirements:]
 
   constructor(init?: ResourceRequirements) {
-    if (!init) return;
-    if (init.limits) this.limits = init.limits;
-    if (init.requests) this.requests = init.requests;
+    if (!init) {  return; }
+    if (init.limits) {  this.limits = init.limits; }
+    if (init.requests) { this.requests = init.requests; }
   }
 
   static emptyObject(): ResourceRequirements {
-    let result = new ResourceRequirements();
+    const result = new ResourceRequirements();
     result.limits = null;
     result.requests = null;
     return result;

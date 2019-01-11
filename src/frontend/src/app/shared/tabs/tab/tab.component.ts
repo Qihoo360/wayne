@@ -5,14 +5,12 @@ import { TabDragService } from '../../client/v1/tab-drag.service';
   selector: 'wayne-tab',
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.scss'],
-  host: {
-    'draggable': 'true'
-  }
 })
 export class TabComponent implements OnInit {
   descInfo: string;
 
   constructor(private el: ElementRef, private dragService: TabDragService) {
+    el.nativeElement.setAttribute('draggable', 'true');
   }
 
   @Input() active: boolean;
@@ -23,10 +21,12 @@ export class TabComponent implements OnInit {
     if (value) {
       this.descInfo = value;
     }
-  };
+  }
 
   @Input() id: number;
   @Output() orderChange = new EventEmitter();
+
+
 
   @HostListener('dragstart', ['$event'])
   startEvent(event) {

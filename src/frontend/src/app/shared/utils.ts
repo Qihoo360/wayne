@@ -15,12 +15,12 @@ export const isNotEmpty = function (obj: any): boolean {
   return !isEmpty(obj);
 };
 
-export const isArrayEmpty = function (obj: any): boolean {
-  return !isArrayNotEmpty(obj);
-};
-
 export const isArrayNotEmpty = function (obj: any): boolean {
   return obj != null && obj.length > 0;
+};
+
+export const isArrayEmpty = function (obj: any): boolean {
+  return !isArrayNotEmpty(obj);
 };
 
 /**

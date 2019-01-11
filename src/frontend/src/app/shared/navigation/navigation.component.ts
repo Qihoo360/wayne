@@ -12,11 +12,11 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 
   nodeTree: Array<any>;
   private box: any;
-  boxHeight: number = 0;
+  boxHeight = 0;
   boxOffset: number;
   allNodeOffset: Array<NodeOffset>;
   // 判断是否在点击跳转中，避开scrollEvent 事件
-  jumpTo: number = 0;
+  jumpTo = 0;
   scrollEventManage: any;
 
   /**
@@ -35,7 +35,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input()
   set container(value: string) {
     if (value) {
-      if (this.scrollEventManage) this.scrollEventManage();
+      if (this.scrollEventManage) { this.scrollEventManage(); }
       if (this.document.querySelector(value)) {
         this.box = this.document.querySelector(value);
         this.scrollEventManage = this.eventMessage.addEventListener(this.box, 'scroll', this.scrollEvent.bind(this));
@@ -57,14 +57,14 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.scrollEventManage) this.scrollEventManage();
+    if (this.scrollEventManage) { this.scrollEventManage(); }
   }
 
   boxInit() {
     if (this.box) {
       this.boxHeight = this.getBoxHeight(this.box);
       this.boxOffset = this.getOffset(this.box);
-      if (this.nodeTree) this.allNodeOffset = this.getBoxOffset();
+      if (this.nodeTree) { this.allNodeOffset = this.getBoxOffset(); }
     }
   }
 
@@ -99,7 +99,8 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 
   jumpEvent(nodeId: string, event: any) {
     event.preventDefault();
-    this.jumpTo = this.getOffset(this.getElement(nodeId)) - this.boxOffset > this.box.scrollHeight - this.box.offsetHeight ? this.box.scrollHeight - this.box.offsetHeight : this.getOffset(this.getElement(nodeId)) - this.boxOffset;
+    this.jumpTo = this.getOffset(this.getElement(nodeId)) - this.boxOffset > this.box.scrollHeight - this.box.offsetHeight ?
+      this.box.scrollHeight - this.box.offsetHeight : this.getOffset(this.getElement(nodeId)) - this.boxOffset;
     this.box.scrollTo({
       top: this.jumpTo,
       behavior: 'smooth'
@@ -148,7 +149,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   removeActive() {
-    if (this.document.querySelector('li.active')) this.document.querySelector('li.active').classList.remove('active');
+    if (this.document.querySelector('li.active')) { this.document.querySelector('li.active').classList.remove('active'); }
   }
 
   addActive(nodeId: string) {
@@ -161,9 +162,9 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setActive(top: number): void {
     if (this.allNodeOffset) {
-      for (var key = 0; key < this.allNodeOffset.length; key++) {
+      for (let key = 0; key < this.allNodeOffset.length; key++) {
         if (this.allNodeOffset[key].offset >= top + this.boxOffset) {
-          let nodeId = this.allNodeOffset[key ? key - 1 : 0].id;
+          const nodeId = this.allNodeOffset[key ? key - 1 : 0].id;
           if (!this.isActive(nodeId)) {
             this.removeActive();
             this.addActive(nodeId);
@@ -175,15 +176,15 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getAllNode(array: Array<any>) {
-    let nodeArray: Array<string> = new Array();
-    let arr = JSON.parse(JSON.stringify(array));
+    const nodeArray: Array<string> = new Array();
+    const arr = JSON.parse(JSON.stringify(array));
 
-    function resolveChild(arr: Array<any>) {
-      arr.forEach(node => {
+    function resolveChild(children: Array<any>) {
+      children.forEach(node => {
         if (node.id) {
           nodeArray.push(node.id);
         }
-        if (node.child) resolveChild(node.child);
+        if (node.child) { resolveChild(node.child); }
       });
     }
 
@@ -192,15 +193,15 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   * @param {array} 输入一个node，tree，不包含text参数
-   * @returns {arrar} 返回一个node数组，补全text参数
+   * 输入一个node，tree，不包含text参数
+   * 返回一个node数组，补全text参数
    */
 
   resolveTree(array: Array<any> | undefined): Array<any> {
     if (array) {
       array.forEach(item => {
         if (item.id === undefined) {
-          console.trace('数据缺少id');
+          console.log('数据缺少id');
         }
         if (item.text === undefined) {
           item.text = item.id;
@@ -221,7 +222,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   * @param{elment} 获取element相对于body的偏移量
+   * @param 获取element相对于body的偏移量
    */
 
   getOffset(element: any | null): number {
