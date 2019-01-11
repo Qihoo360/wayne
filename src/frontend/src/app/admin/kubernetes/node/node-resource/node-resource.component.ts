@@ -27,35 +27,43 @@ export class NodeResourceComponent implements OnInit {
     }
   }
   showView = GlobalState.node.showResource;
-  cpu = {
-    title: 'CPU 使用概况',
+  ready = {
+    title: 'Node 就绪',
     name: '使用量',
-    max: 0,
+    tooltip: '',
+    data: []
+  };
+  schedulable = {
+    title: 'Node 可调度',
+    name: '可调度',
+    tooltip: '',
+    data: []
+  };
+  cpu = {
+    title: 'CPU 使用',
+    name: '使用量',
+    tooltip: '',
     data: []
   };
   memory = {
-    title: 'Memory 使用概况',
+    title: 'Memory 使用',
     name: '使用量',
-    max: 0,
+    tooltip: '',
     data: []
   };
-  node = {
-    total: 0,
-    ready: 0,
-    schedulable: 0
-  };
   setCpu(cpuSummary: Summary) {
-    this.cpu.max = cpuSummary.Total;
-    this.cpu.data = [cpuSummary.Used];
+    this.cpu.tooltip = `usage/total: ${cpuSummary.Used}/${cpuSummary.Total}`;
+    this.cpu.data = [parseInt((cpuSummary.Used / cpuSummary.Total) * 100 + '', 10)];
   }
   setMemory(memorySummary: Summary) {
-    this.memory.max = memorySummary.Total;
-    this.memory.data = [memorySummary.Used];
+    this.memory.tooltip = `usage/total: ${memorySummary.Used}/${memorySummary.Total}`;
+    this.memory.data = [parseInt((memorySummary.Used / memorySummary.Total) * 100 + '', 10)];
   }
   setNode(nodeSummary: NodeSummary) {
-    this.node.total = nodeSummary.Total;
-    this.node.ready = nodeSummary.Ready;
-    this.node.schedulable = nodeSummary.Schedulable;
+    this.ready.tooltip = `Ready/total: ${nodeSummary.Ready}/${nodeSummary.Total}`;
+    this.ready.data = [parseInt((nodeSummary.Ready / nodeSummary.Total) * 100 + '', 10)];
+    this.schedulable.tooltip = `可调度/total: ${nodeSummary.Schedulable}/${nodeSummary.Total}`;
+    this.schedulable.data = [parseInt((nodeSummary.Schedulable / nodeSummary.Total) * 100 + '', 10)];
   }
   changeShow() {
     this.showView = !this.showView;

@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
-import { EcharsGaugeComponent } from './gauge/gauge.component';
+import { EchartsGaugeComponent } from './gauge/gauge.component';
+import { EchartsPieComponent } from './pie/pie.component';
 @NgModule({
   imports: [],
   exports: [
-    EcharsGaugeComponent
+    EchartsGaugeComponent,
+    EchartsPieComponent
   ],
   declarations: [
-    EcharsGaugeComponent
+    EchartsGaugeComponent,
+    EchartsPieComponent
   ]
 })
 export class EchartsModule { }
