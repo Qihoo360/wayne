@@ -1,5 +1,13 @@
 # Change Log
 
+## [v1.3.1](https://github.com/Qihoo360/wayne/tree/HEAD)
+
+[Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.3.0...v1.3.1)
+
+**Fixed bugs:**
+
+- Fix Node resource statistics: limit to request [\#219](https://github.com/Qihoo360/wayne/pull/219) ([wilhelmguo](https://github.com/wilhelmguo))
+
 ## [v1.3.0](https://github.com/Qihoo360/wayne/tree/v1.3.0) (2019-01-11)
 [Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.2.2...v1.3.0)
 
