@@ -53,7 +53,7 @@ export class SnapshotPersistentVolumeClaimComponent implements OnInit, OnDestroy
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.PERSISTENT_VOLUME_CLAIM_SNAPSHOT) {
         let state = message.data.state;
-        let name = message.data.name;
+        const name = message.data.name;
         this.persistentVolumeClaimRobinClient.deleteSnapshot(this.appId, state.cluster, state.pvc.metadata.namespace, state.pvc.metadata.name, name).subscribe(
           response => {
             this.snapshotRefresh();
@@ -68,7 +68,7 @@ export class SnapshotPersistentVolumeClaimComponent implements OnInit, OnDestroy
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.PERSISTENT_VOLUME_CLAIM_SNAPSHOT_ROLLBACK) {
         let state = message.data.state;
-        let name = message.data.name;
+        const name = message.data.name;
         this.persistentVolumeClaimRobinClient.rollBackSnapshot(this.appId, state.cluster, state.pvc.metadata.namespace, state.pvc.metadata.name, name).subscribe(
           response => {
             this.messageHandlerService.showSuccess('回滚快照成功！');
@@ -100,7 +100,7 @@ export class SnapshotPersistentVolumeClaimComponent implements OnInit, OnDestroy
   }
 
   snapshotRefresh() {
-    if (this.state.state == TemplateState.SUCCESS) {
+    if (this.state.state === TemplateState.SUCCESS) {
       this.persistentVolumeClaimRobinClient.listSnapshot(this.appId, this.state.cluster, this.state.pvc.metadata.namespace, this.state.pvc.metadata.name).subscribe(
         response => {
           this.state.snaps = response.data.snaps;
@@ -113,7 +113,7 @@ export class SnapshotPersistentVolumeClaimComponent implements OnInit, OnDestroy
   }
 
   deleteSnap(name: string) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除快照确认',
       `是否确认删除快照${name}?`,
       {'name': name, 'state': this.state},
@@ -124,7 +124,7 @@ export class SnapshotPersistentVolumeClaimComponent implements OnInit, OnDestroy
   }
 
   deleteAllSnap() {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除快照确认',
       '是否确认删除所有快照，删除之后将无法恢复?',
       this.state,
@@ -135,7 +135,7 @@ export class SnapshotPersistentVolumeClaimComponent implements OnInit, OnDestroy
   }
 
   rollbackSnap(name: string) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '回滚快照确认',
       `是否确认到${name}版本`,
       {'name': name, 'state': this.state},

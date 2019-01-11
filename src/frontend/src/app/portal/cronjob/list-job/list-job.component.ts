@@ -24,7 +24,7 @@ export class ListJobComponent implements OnInit, OnDestroy {
   @Input() page: Page;
   @Input() currentCronjobName: string;
   @Output() paginate = new EventEmitter<State>();
-  _pageSize: number = 10;
+  _pageSize = 10;
   @ViewChild(ListPodComponent)
   listPodComponent: ListPodComponent;
   @ViewChild(ListEventComponent)

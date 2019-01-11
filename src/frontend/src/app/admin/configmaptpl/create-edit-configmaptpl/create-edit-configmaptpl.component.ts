@@ -26,8 +26,8 @@ export class CreateEditConfigMapTplComponent implements OnInit {
   currentForm: NgForm;
 
   configMapTpl: ConfigMapTpl = new ConfigMapTpl();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
 
   title: string;
   actionType: ActionType;
@@ -97,8 +97,8 @@ export class CreateEditConfigMapTplComponent implements OnInit {
       this.isSubmitOnGoing = false;
       return;
     }
-    for (let configMap of this.configMaps) {
-      if (configMap.id == this.configMapTpl.configMapId) {
+    for (const configMap of this.configMaps) {
+      if (configMap.id === this.configMapTpl.configMapId) {
         this.configMapTpl.name = configMap.name;
       }
     }

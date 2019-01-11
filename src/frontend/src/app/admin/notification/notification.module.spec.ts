@@ -1,7 +1,7 @@
 import { NotificationModule } from './notification.module';
 
 describe('NotificationModule', () => {
-  let notificationModule: NotificationModule;
+  const notificationModule: NotificationModule;
 
   beforeEach(() => {
     notificationModule = new NotificationModule();

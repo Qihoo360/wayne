@@ -44,10 +44,10 @@ export class FloatWindowItemComponent implements OnInit {
   }
 
   itemEnter(e) {
-    let item = e.target;
-    let itemInfo = item.getBoundingClientRect();
+    const item = e.target;
+    const itemInfo = item.getBoundingClientRect();
     if (this.tip !== undefined) {
-      let info = {
+      const info = {
         top: itemInfo.top,
         left: itemInfo.left + 13,
         text: this.tip

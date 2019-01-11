@@ -37,7 +37,7 @@ export class ConfigMapComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.CONFIGMAP) {
-        let id = message.data;
+        const id = message.data;
         this.configMapService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -68,7 +68,7 @@ export class ConfigMapComponent implements OnInit {
     this.configMapService.list(this.pageState, 'false', '0')
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.configMaps = data.list;
@@ -88,7 +88,7 @@ export class ConfigMapComponent implements OnInit {
   }
 
   deleteConfigMap(configMap: ConfigMap) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除配置集确认',
       '你确认删除配置集 ' + configMap.name + ' ？',
       configMap.id,

@@ -22,7 +22,7 @@ import { KubeDaemonSet } from '../../../shared/model/v1/kubernetes/daemonset';
 })
 export class PublishDaemonSetTplComponent {
   @Output() published = new EventEmitter<boolean>();
-  modalOpened: boolean = false;
+  modalOpened = false;
   publishForm: NgForm;
   @ViewChild('publishForm')
   currentForm: NgForm;
@@ -30,7 +30,7 @@ export class PublishDaemonSetTplComponent {
   daemonSet: DaemonSet;
   daemonSetTpl: DaemonSetTemplate;
   clusters = Array<Cluster>();
-  isSubmitOnGoing: boolean = false;
+  isSubmitOnGoing = false;
   title: string;
   forceOffline: boolean;
   actionType: ResourcesActionType;
@@ -53,21 +53,21 @@ export class PublishDaemonSetTplComponent {
     this.clusters = Array<Cluster>();
     this.daemonSetTpl = daemonSetTpl;
     this.daemonSet = daemonSet;
-    if (actionType == ResourcesActionType.PUBLISH) {
+    if (actionType === ResourcesActionType.PUBLISH) {
       this.title = '发布守护进程集[' + this.daemonSet.name + ']';
       if (!daemonSet.metaData) {
         this.messageHandlerService.warning('请先配置可发布集群');
         return;
       }
-      let metaData = JSON.parse(daemonSet.metaData);
-      for (let cluster of metaData.clusters) {
+      const metaData = JSON.parse(daemonSet.metaData);
+      for (const cluster of metaData.clusters) {
         if (this.cacheService.namespace.metaDataObj && this.cacheService.namespace.metaDataObj.clusterMeta[cluster]) {
           this.clusters.push(new Cluster(cluster, false));
         }
       }
-    } else if (actionType == ResourcesActionType.OFFLINE) {
+    } else if (actionType === ResourcesActionType.OFFLINE) {
       this.title = '下线守护进程集[' + this.daemonSet.name + ']';
-      for (let state of daemonSetTpl.status) {
+      for (const state of daemonSetTpl.status) {
         this.clusters.push(new Cluster(state.cluster, false));
       }
     }
@@ -75,8 +75,8 @@ export class PublishDaemonSetTplComponent {
 
   getStatusByCluster(status: TemplateStatus[], cluster: string): TemplateStatus {
     if (status && status.length > 0) {
-      for (let state of status) {
-        if (state.cluster == cluster) {
+      for (const state of status) {
+        if (state.cluster === cluster) {
           return state;
         }
       }
@@ -140,7 +140,7 @@ export class PublishDaemonSetTplComponent {
   }
 
   deploy() {
-    let observables = Array();
+    const observables = Array();
     this.clusters.map(cluster => {
       if (cluster.checked) {
         let kubeDaemonSet: KubeDaemonSet = JSON.parse(this.daemonSetTpl.template);

@@ -26,9 +26,9 @@ export class ListNodesComponent implements OnInit {
   @Input() cluster: string;
   @Input() showState: object;
   sortOrder: SortOrder = SortOrder.Unsorted;
-  sorted: boolean = false;
-  currentPage: number = 1;
-  _pageSize: number = 10;
+  sorted = false;
+  currentPage = 1;
+  _pageSize = 10;
   nameComparator = new NameComparator();
   readyComparator = new ReadyComparator();
   osImageComparator = new OsImageComparator();

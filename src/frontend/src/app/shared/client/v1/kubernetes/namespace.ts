@@ -17,7 +17,7 @@ export class NamespaceClient {
   }
 
   listPage(pageState: PageState, cluster: string): Observable<any> {
-    const params = BaseClient.buildParam(pageState);
+    let params = BaseClient.buildParam(pageState);
     return this.http
       .get(`/api/v1/kubernetes/namespaces/clusters/${cluster}`, {params: params})
       .catch(error => Observable.throw(error));

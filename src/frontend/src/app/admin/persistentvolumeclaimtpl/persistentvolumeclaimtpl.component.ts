@@ -39,7 +39,7 @@ export class PersistentVolumeClaimTplComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.PERSISTENT_VOLUME_CLAIM_TPL) {
-        let id = message.data;
+        const id = message.data;
         this.pvcTplService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -57,7 +57,7 @@ export class PersistentVolumeClaimTplComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.pvcId = params['sid'];
-      if (typeof (this.pvcId) == 'undefined') {
+      if (typeof (this.pvcId) === 'undefined') {
         this.pvcId = '';
       }
     });
@@ -76,7 +76,7 @@ export class PersistentVolumeClaimTplComponent implements OnInit {
     this.pvcTplService.list(this.pageState, 0, 'false', this.pvcId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.pvcTpls = data.list;
@@ -96,7 +96,7 @@ export class PersistentVolumeClaimTplComponent implements OnInit {
   }
 
   deletePvcTpl(tpl: PersistentVolumeClaimTpl) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除PVC模版确认',
       '你确认删除PVC模版 ' + tpl.name + ' ？',
       tpl.id,

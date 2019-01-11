@@ -12,7 +12,7 @@ import { MessageHandlerService } from '../../shared/message-handler/message-hand
 export class AuditLogComponent implements OnInit {
   pageState: PageState = new PageState();
   auditLogs: AuditLog[];
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
 
   constructor(private auditLogService: AuditLogService,
@@ -50,7 +50,7 @@ export class AuditLogComponent implements OnInit {
     this.auditLogService.listPage(this.pageState)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.auditLogs = data.list;

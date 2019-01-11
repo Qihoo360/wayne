@@ -48,7 +48,7 @@ export class NamespaceApiKeyComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.API_KEY) {
-        let id = message.data;
+        const id = message.data;
         this.apiKeyService
           .deleteById(id, true, this.cacheService.namespaceId)
           .subscribe(
@@ -71,7 +71,7 @@ export class NamespaceApiKeyComponent implements OnInit {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) this.showList.push(key);
+      if (!this.showState[key].hidden) { this.showList.push(key); }
     });
   }
 
@@ -110,7 +110,7 @@ export class NamespaceApiKeyComponent implements OnInit {
     this.apiKeyService.listPage(this.pageState, this.cacheService.namespaceId, null)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedApiKeys = data.list;
@@ -130,7 +130,7 @@ export class NamespaceApiKeyComponent implements OnInit {
   }
 
   deleteApiKey(apiKey: ApiKey) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除APIKey确认',
       '你确认删除APIKey ' + apiKey.name + ' ？',
       apiKey.id,

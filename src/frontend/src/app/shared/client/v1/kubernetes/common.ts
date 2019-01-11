@@ -31,7 +31,7 @@ export class KubernetesClient {
   }
 
   ListPage(pageState: PageState, cluster: string, kind: KubeResourcesName, namespace: string, appId?: string): Observable<any> {
-    const params = BaseClient.buildParam(pageState);
+    let params = BaseClient.buildParam(pageState);
 
     if ((typeof (appId) === 'undefined') || (!appId)) {
       appId = '0';

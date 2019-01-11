@@ -41,7 +41,7 @@ export class CronjobComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.CRONJOB) {
-        let id = message.data;
+        const id = message.data;
         this.cronjobService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -59,7 +59,7 @@ export class CronjobComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.appId = params['aid'];
-      if (typeof (this.appId) == 'undefined') {
+      if (typeof (this.appId) === 'undefined') {
         this.appId = '';
       }
     });
@@ -78,7 +78,7 @@ export class CronjobComponent implements OnInit {
     this.cronjobService.list(this.pageState, 'false', this.appId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.cronjobs = data.list;
@@ -98,7 +98,7 @@ export class CronjobComponent implements OnInit {
   }
 
   deleteCronjob(cronjob: Cronjob) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除' + this.componentName + '确认',
       '你确认删除' + this.componentName + cronjob.name + ' ？',
       cronjob.id,

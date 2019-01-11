@@ -56,11 +56,11 @@ export class FloatWindowComponent {
 
   @HostListener('mousedown', ['$event'])
   downEvent(evt) {
-    let pos = {
+    const pos = {
       left: evt.offsetX,
       top: evt.offsetY
     };
-    let target = this.getBox(evt.target);
+    const target = this.getBox(evt.target);
     const shadow = this.document.createElement('div');
     shadow.style.cssText = 'position: fixed;width: 100%; height:100vh; z-index: 2; top: 0;';
     this.document.body.appendChild(shadow);

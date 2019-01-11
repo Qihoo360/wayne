@@ -98,7 +98,7 @@ export class CreateEditIngressTplComponent implements OnInit{
       return;
     }
     this.ingressTpl.template = this.aceBox.getValue();
-    for (let ingress of this.ingresses) {
+    for (const ingress of this.ingresses) {
       if (ingress.id === this.ingressTpl.ingressId) {
         this.ingressTpl.name = ingress.name;
       }

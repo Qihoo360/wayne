@@ -18,7 +18,7 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 export class TrashAppComponent implements OnInit, OnDestroy {
 
   apps: App[];
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
 
   pageState: PageState = new PageState();
@@ -33,7 +33,7 @@ export class TrashAppComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_APP) {
-        let appId = message.data;
+        const appId = message.data;
         this.appService.deleteById(appId, 0, false)
           .subscribe(
             response => {
@@ -74,7 +74,7 @@ export class TrashAppComponent implements OnInit, OnDestroy {
       .listPage(this.pageState)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.apps = data.list;
@@ -84,7 +84,7 @@ export class TrashAppComponent implements OnInit, OnDestroy {
   }
 
   deleteApp(app: App) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除项目确认',
       '你确认永久删除项目 ' + app.name + ' ？删除后将不可恢复！',
       app.id,

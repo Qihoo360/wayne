@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AutoscaleComponent } from './autoscale.component';
 
 describe('AutoscaleComponent', () => {
-  let component: AutoscaleComponent;
-  let fixture: ComponentFixture<AutoscaleComponent>;
+  const component: AutoscaleComponent;
+  const fixture: ComponentFixture<AutoscaleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

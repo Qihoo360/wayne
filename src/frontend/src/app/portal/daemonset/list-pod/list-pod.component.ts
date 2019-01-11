@@ -26,19 +26,19 @@ import { Cluster } from '../../../shared/model/v1/cluster';
 })
 
 export class ListPodComponent implements OnInit, OnDestroy {
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
   modalOpened: boolean;
   pods: Pod[];
   sortOrder: SortOrder = SortOrder.Unsorted;
-  sorted: boolean = false;
+  sorted = false;
   timeComparator = new TimeComparator();
   stateComparator = new StateComparator();
   currentCluster: string;
   daemonSet: string;
   logSource: string;
   timer: any;
-  whetherHotReflash: boolean = true;
+  whetherHotReflash = true;
 
   subscription: Subscription;
 
@@ -60,7 +60,7 @@ export class ListPodComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.POD) {
-        let pod: Pod = message.data;
+        const pod: Pod = message.data;
         this.podClient
           .deleteByName(this.appId, this.currentCluster, pod.namespace, pod.name)
           .subscribe(
@@ -89,9 +89,9 @@ export class ListPodComponent implements OnInit, OnDestroy {
     this.whetherHotReflash = true;
     this.clusterService.getByName(this.currentCluster).subscribe(
       response => {
-        let cluster: Cluster = response.data;
+        const cluster: Cluster = response.data;
         if (cluster.metaData) {
-          let metaData = JSON.parse(cluster.metaData);
+          const metaData = JSON.parse(cluster.metaData);
           if (metaData.logSource) {
             this.logSource = metaData.logSource;
           }
@@ -129,7 +129,7 @@ export class ListPodComponent implements OnInit, OnDestroy {
   refresh() {
     this.podClient.listByResouce(this.appId, this.currentCluster, this.cacheService.kubeNamespace, 'daemonSet', this.daemonSet).subscribe(
       response => {
-        let pods = response.data;
+        const pods = response.data;
         this.inventory.size = pods.length;
         this.inventory.reset(pods);
         this.pods = this.inventory.all;
@@ -142,7 +142,7 @@ export class ListPodComponent implements OnInit, OnDestroy {
   }
 
   deletePod(pod: Pod) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除实例确认',
       `是否确认删除实例 ${pod.name}`,
       pod,
@@ -154,16 +154,16 @@ export class ListPodComponent implements OnInit, OnDestroy {
 
 
   enterContainer(pod: Pod): void {
-    let appId = this.route.parent.snapshot.params['id'];
-    let url = `portal/namespace/${this.cacheService.namespaceId}/app/${appId}/daemonSet/${this.daemonSet}/pod/${pod.name}/terminal/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
+    const appId = this.route.parent.snapshot.params['id'];
+    const url = `portal/namespace/${this.cacheService.namespaceId}/app/${appId}/daemonSet/${this.daemonSet}/pod/${pod.name}/terminal/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 
 
   podLog(pod: Pod): void {
 
-    let appId = this.route.parent.snapshot.params['id'];
-    let url = `portal/logging/namespace/${this.cacheService.namespaceId}/app/${appId}/daemonSet/${this.daemonSet}/pod/${pod.name}/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
+    const appId = this.route.parent.snapshot.params['id'];
+    const url = `portal/logging/namespace/${this.cacheService.namespaceId}/app/${appId}/daemonSet/${this.daemonSet}/pod/${pod.name}/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 }

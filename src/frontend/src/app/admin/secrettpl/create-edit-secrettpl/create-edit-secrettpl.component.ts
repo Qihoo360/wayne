@@ -27,9 +27,9 @@ export class CreateEditSecretTplComponent {
   currentForm: NgForm;
 
   secrettpl: SecretTpl = new SecretTpl();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
 
   secrettplTitle: string;
   actionType: ActionType;
@@ -100,7 +100,7 @@ export class CreateEditSecretTplComponent {
       return;
     }
     this.secrettpl.template = this.aceBox.getValue();
-    for (let secret of this.secrets) {
+    for (const secret of this.secrets) {
       if (secret.id === this.secrettpl.secretId) {
         this.secrettpl.name = secret.name;
       }
@@ -149,7 +149,7 @@ export class CreateEditSecretTplComponent {
 
   // Handle the form validation
   handleValidation(): void {
-    let cont = this.currentForm.controls['secrettpl_name'];
+    const cont = this.currentForm.controls['secrettpl_name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }

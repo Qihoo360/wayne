@@ -38,7 +38,7 @@ export class ListCronjobComponent implements OnInit, OnDestroy {
   publishCronjobTpl: PublishCronjobTplComponent;
 
   state: State;
-  currentPage: number = 1;
+  currentPage = 1;
 
   subscription: Subscription;
   componentName = '计划任务';
@@ -58,7 +58,7 @@ export class ListCronjobComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.CRONJOB_TPL) {
-        let tplId = message.data;
+        const tplId = message.data;
         this.cronjobTplService.deleteById(tplId, this.appId)
           .subscribe(
             response => {
@@ -150,7 +150,7 @@ export class ListCronjobComponent implements OnInit, OnDestroy {
   restartCronjob(tpl: CronjobTpl) {
     this.cronjobService.getById(tpl.cronjobId, this.appId).subscribe(
       status => {
-        let cronjob = status.data;
+        const cronjob = status.data;
         this.publishCronjobTpl.newPublishTpl(cronjob, tpl, ResourcesActionType.RESTART);
       },
       error => {
@@ -161,7 +161,7 @@ export class ListCronjobComponent implements OnInit, OnDestroy {
   offlineCronjobTpl(tpl: CronjobTpl) {
     this.cronjobService.getById(tpl.cronjobId, this.appId).subscribe(
       status => {
-        let cronjob = status.data;
+        const cronjob = status.data;
         this.publishCronjobTpl.newPublishTpl(cronjob, tpl, ResourcesActionType.OFFLINE);
       },
       error => {

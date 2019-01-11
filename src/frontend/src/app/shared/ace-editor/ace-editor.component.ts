@@ -42,7 +42,7 @@ export class AceEditorComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.box.aceMode == 'ace/mode/json') {
+    if (this.box.aceMode === 'ace/mode/json') {
       this.outputObj.emit(JSON.parse(this.box.editor.getValue()));
     } else {
       this.outputObj.emit(YAML.load(this.box.editor.getValue()));
@@ -52,7 +52,7 @@ export class AceEditorComponent implements OnInit {
 
   get isValid(): boolean {
     try {
-      if (this.box.aceMode == 'ace/mode/json') {
+      if (this.box.aceMode === 'ace/mode/json') {
         JSON.parse(this.box.editor.getValue());
       } else {
         YAML.load(this.box.editor.getValue());

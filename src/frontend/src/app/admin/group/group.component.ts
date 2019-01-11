@@ -67,7 +67,7 @@ export class GroupComponent implements OnInit {
     this.groupService.listGroup(this.pageState)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedGroups = data.list;

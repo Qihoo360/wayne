@@ -43,7 +43,7 @@ export class IngressTplComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.SERVICE_TPL) {
-        let id = message.data;
+        const id = message.data;
         this.ingressTplService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -81,7 +81,7 @@ export class IngressTplComponent implements OnInit, OnDestroy {
     this.ingressTplService.listPage(this.pageState, 0, this.serviceId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.ingressTpls = data.list;

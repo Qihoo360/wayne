@@ -4,7 +4,7 @@ export class ModalInfo {
   hiddenFooter?: boolean;
 
   static emptyObject(): ModalInfo {
-    let result = new ModalInfo();
+    const result = new ModalInfo();
     result.title = '编辑模版';
     result.modalOpened = true;
     result.hiddenFooter = false;

@@ -24,7 +24,7 @@ import { ClusterMeta } from '../../../shared/model/v1/cluster';
 })
 export class PublishStatefulsetTplComponent {
   @Output() published = new EventEmitter<boolean>();
-  modalOpened: boolean = false;
+  modalOpened = false;
   publishForm: NgForm;
   @ViewChild('publishForm')
   currentForm: NgForm;
@@ -33,7 +33,7 @@ export class PublishStatefulsetTplComponent {
   statefulsetTpl: StatefulsetTemplate;
   clusterMetas = {};
   clusters = Array<string>();
-  isSubmitOnGoing: boolean = false;
+  isSubmitOnGoing = false;
   title: string;
   forceOffline: boolean;
   actionType: ResourcesActionType;
@@ -46,16 +46,16 @@ export class PublishStatefulsetTplComponent {
   }
 
   get appId(): number {
-    return parseInt(this.route.parent.snapshot.params['id']);
+    return parseInt(this.route.parent.snapshot.params['id'], 10);
   }
 
   replicaValidation(cluster: string): boolean {
-    let clusterMeta = this.clusterMetas[cluster];
+    const clusterMeta = this.clusterMetas[cluster];
     if (this.statefulset && this.statefulset.metaData && clusterMeta) {
       if (!clusterMeta.checked) {
         return true;
       }
-      return parseInt(clusterMeta.value) <= this.replicaLimit;
+      return parseInt(clusterMeta.value, 10) <= this.replicaLimit;
     }
     return false;
   }
@@ -63,17 +63,17 @@ export class PublishStatefulsetTplComponent {
   get replicaLimit(): number {
     let replicaLimit = defaultResources.replicaLimit;
     if (this.statefulset && this.statefulset.metaData) {
-      let metaData = JSON.parse(this.statefulset.metaData);
+      const metaData = JSON.parse(this.statefulset.metaData);
       if (metaData.resources &&
         metaData.resources.replicaLimit) {
-        replicaLimit = parseInt(metaData.resources.replicaLimit);
+        replicaLimit = parseInt(metaData.resources.replicaLimit, 10);
       }
     }
     return replicaLimit;
   }
 
   newPublishTpl(statefulset: Statefulset, statefulsetTpl: StatefulsetTemplate, actionType: ResourcesActionType) {
-    let replicas = this.getReplicas(statefulset);
+    const replicas = this.getReplicas(statefulset);
     this.actionType = actionType;
     this.forceOffline = false;
     if (replicas != null) {
@@ -83,16 +83,16 @@ export class PublishStatefulsetTplComponent {
       this.statefulsetTpl = statefulsetTpl;
       this.clusters = Array<string>();
       this.clusterMetas = {};
-      if (actionType == ResourcesActionType.OFFLINE) {
+      if (actionType === ResourcesActionType.OFFLINE) {
         statefulsetTpl.status.map(state => {
           this.clusters.push(state.cluster);
           this.clusterMetas[state.cluster] = new ClusterMeta(false);
         });
       } else {
         Object.getOwnPropertyNames(replicas).map(key => {
-          if ((actionType == ResourcesActionType.PUBLISH || this.getStatusByCluster(statefulsetTpl.status, key) != null)
+          if ((actionType === ResourcesActionType.PUBLISH || this.getStatusByCluster(statefulsetTpl.status, key) != null)
             && this.cacheService.namespace.metaDataObj && this.cacheService.namespace.metaDataObj.clusterMeta[key]) {
-            let clusterMeta = new ClusterMeta(false);
+            const clusterMeta = new ClusterMeta(false);
             clusterMeta.value = replicas[key];
             this.clusterMetas[key] = clusterMeta;
             this.clusters.push(key);
@@ -118,8 +118,8 @@ export class PublishStatefulsetTplComponent {
 
   getStatusByCluster(status: TemplateStatus[], cluster: string): TemplateStatus {
     if (status && status.length > 0) {
-      for (let state of status) {
-        if (state.cluster == cluster) {
+      for (const state of status) {
+        if (state.cluster === cluster) {
           return state;
         }
       }
@@ -132,7 +132,7 @@ export class PublishStatefulsetTplComponent {
       this.messageHandlerService.showWarning('状态副本集实例数未配置，请先到编辑状态副本集配置实例数！');
       return null;
     }
-    let replicas = JSON.parse(statefulset.metaData)['replicas'];
+    const replicas = JSON.parse(statefulset.metaData)['replicas'];
     if (!replicas) {
       this.messageHandlerService.showWarning('状态副本集实例数未配置，请先到编辑状态副本集配置实例数！');
       return null;
@@ -200,11 +200,11 @@ export class PublishStatefulsetTplComponent {
   }
 
   deploy() {
-    let observables = Array();
+    const observables = Array();
     Object.getOwnPropertyNames(this.clusterMetas).forEach(cluster => {
       if (this.clusterMetas[cluster].checked) {
-        let kubeStatefulSet: KubeStatefulSet = JSON.parse(this.statefulsetTpl.template);
-        if (this.actionType == ResourcesActionType.RESTART) {
+        const kubeStatefulSet: KubeStatefulSet = JSON.parse(this.statefulsetTpl.template);
+        if (this.actionType === ResourcesActionType.RESTART) {
           kubeStatefulSet.spec.template.metadata.labels['timestamp'] = new Date().getTime().toString();
         }
         kubeStatefulSet.metadata.namespace = this.cacheService.kubeNamespace;
@@ -232,7 +232,7 @@ export class PublishStatefulsetTplComponent {
 
   isClusterReplicaValid(): boolean {
     if (this.clusters) {
-      for (let clu of this.clusters) {
+      for (const clu of this.clusters) {
         if (!this.replicaValidation(clu)) {
           return false;
         }

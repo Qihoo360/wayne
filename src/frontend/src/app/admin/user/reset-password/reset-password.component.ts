@@ -18,9 +18,9 @@ export class ResetPasswordComponent {
   currentForm: NgForm;
 
   user: User = new User();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
 
   userTitle: string;
 
@@ -54,7 +54,7 @@ export class ResetPasswordComponent {
       this.isSubmitOnGoing = false;
       return;
     }
-    if (this.user.password == '') {
+    if (this.user.password === '') {
       this.alertMsg = '密码不能为空！';
       this.isSubmitOnGoing = false;
       return;

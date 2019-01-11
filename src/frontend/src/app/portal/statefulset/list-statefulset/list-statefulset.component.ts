@@ -51,7 +51,7 @@ export class ListStatefulsetComponent implements OnInit, OnDestroy {
   @ViewChild(PublishStatefulsetTplComponent)
   publishStatefulsetTpl: PublishStatefulsetTplComponent;
   state: State;
-  currentPage: number = 1;
+  currentPage = 1;
 
   subscription: Subscription;
 
@@ -70,7 +70,7 @@ export class ListStatefulsetComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.STATEFULSET_TPL) {
-        let tplId = message.data;
+        const tplId = message.data;
         this.statefulsetTplService.deleteById(tplId, this.appId)
           .subscribe(
             response => {
@@ -115,7 +115,7 @@ export class ListStatefulsetComponent implements OnInit, OnDestroy {
   }
 
   deleteStatefulsetTpl(tpl: StatefulsetTemplate): void {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除状态副本集模版确认',
       `你确认删除状态副本集模版${tpl.name}？`,
       tpl.id,
@@ -140,7 +140,7 @@ export class ListStatefulsetComponent implements OnInit, OnDestroy {
   publishTpl(tpl: StatefulsetTemplate) {
     this.statefulsetService.getById(tpl.statefulsetId, this.appId).subscribe(
       status => {
-        let statefulset = status.data;
+        const statefulset = status.data;
         this.publishStatefulsetTpl.newPublishTpl(statefulset, tpl, ResourcesActionType.PUBLISH);
       },
       error => {
@@ -151,7 +151,7 @@ export class ListStatefulsetComponent implements OnInit, OnDestroy {
   offlineStatefulset(tpl: StatefulsetTemplate) {
     this.statefulsetService.getById(tpl.statefulsetId, this.appId).subscribe(
       status => {
-        let statefulset = status.data;
+        const statefulset = status.data;
         this.publishStatefulsetTpl.newPublishTpl(statefulset, tpl, ResourcesActionType.OFFLINE);
       },
       error => {

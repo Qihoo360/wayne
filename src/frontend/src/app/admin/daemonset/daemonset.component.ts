@@ -40,7 +40,7 @@ export class DaemonsetComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.DAEMONSET) {
-        let id = message.data;
+        const id = message.data;
         this.daemonsetService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -83,7 +83,7 @@ export class DaemonsetComponent implements OnInit {
     this.daemonsetService.listPage(this.pageState, this.appId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedDaemonsets = data.list;
@@ -103,7 +103,7 @@ export class DaemonsetComponent implements OnInit {
   }
 
   deleteDaemonset(daemonset: DaemonSet) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除守护进程集确认',
       '你确认删除守护进程集 ' + daemonset.name + ' ？',
       daemonset.id,

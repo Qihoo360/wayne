@@ -14,12 +14,12 @@ import { SortOrder } from '@clr/angular';
 })
 
 export class ListEventComponent implements OnInit {
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
   modalOpened: boolean;
   warnings: Event[];
   sortOrder: SortOrder = SortOrder.Unsorted;
-  sorted: boolean = false;
+  sorted = false;
 
   timeComparator = new TimeComparator();
 

@@ -22,11 +22,11 @@ export class BaseComponent {
               private router: Router,
               private route: ActivatedRoute) {
     this.appId = this.route.snapshot.params['id'];
-    let namespaceId = this.cacheService.namespaceId;
+    const namespaceId = this.cacheService.namespaceId;
     this.appService.getById(this.appId, namespaceId).subscribe(
       response => {
-        let wayneBetaUrl = this.authService.config['betaUrl'];
-        let app: App = response.data;
+        const wayneBetaUrl = this.authService.config['betaUrl'];
+        const app: App = response.data;
         // 缓存app信息到 appService 中
         this.appService.app = response.data;
         if (this.appBetaMode(app.metaData) && wayneBetaUrl && window.location.origin != wayneBetaUrl) {
@@ -34,7 +34,7 @@ export class BaseComponent {
           return;
         }
         // 为了防止本地开发时跳转，项目不是beta模式并且在beta域名下，跳转到正式环境
-        if (!this.appBetaMode(app.metaData) && window.location.origin == wayneBetaUrl) {
+        if (!this.appBetaMode(app.metaData) && window.location.origin === wayneBetaUrl) {
           window.location.href = `${this.authService.config['appUrl']}${this.router.url}`;
           return;
         }
@@ -56,8 +56,8 @@ export class BaseComponent {
 
   appBetaMode(metaData: string) {
     if (metaData) {
-      let meta = JSON.parse(metaData);
-      if (meta.mode == 'beta') {
+      const meta = JSON.parse(metaData);
+      if (meta.mode === 'beta') {
         return true;
       }
     }

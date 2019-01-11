@@ -16,7 +16,7 @@ export class ListNotificationComponent implements OnInit {
 
   @Input() notifications: Notification[];
   @Input() page: Page;
-  currentPage: number = 1;
+  currentPage = 1;
   state: ClrDatagridStateInterface;
 
   notification: Notification = new Notification();

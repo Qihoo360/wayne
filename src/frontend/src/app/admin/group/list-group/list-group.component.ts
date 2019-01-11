@@ -16,7 +16,7 @@ export class ListGroupComponent implements OnInit {
   @Input() groups: Group[];
 
   @Input() page: Page;
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
 
   @Output() paginate = new EventEmitter<State>();

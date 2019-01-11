@@ -40,7 +40,7 @@ export class NamespaceComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.NAMESPACE) {
-        let namespaceId = message.data;
+        const namespaceId = message.data;
         this.namespaceService.deleteNamespace(namespaceId)
           .subscribe(
             response => {
@@ -82,12 +82,12 @@ export class NamespaceComponent implements OnInit {
     this.namespaceService.listNamespace(this.pageState, 'false')
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedNamespaces = data.list;
           if (this.changedNamespaces && this.changedNamespaces.length > 0) {
-            for (let ns of this.changedNamespaces) {
+            for (const ns of this.changedNamespaces) {
               if (!ns.metaData) {
                 ns.metaData = '{}';
               }

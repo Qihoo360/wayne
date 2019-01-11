@@ -21,14 +21,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PublishSecretTplComponent {
   @Output() published = new EventEmitter<boolean>();
-  modalOpened: boolean = false;
+  modalOpened = false;
   publishForm: NgForm;
   @ViewChild('publishForm')
   currentForm: NgForm;
 
   secretTpl: SecretTpl;
   clusters = Array<Cluster>();
-  isSubmitOnGoing: boolean = false;
+  isSubmitOnGoing = false;
   title: string;
   forceOffline: boolean;
   actionType: ResourcesActionType;
@@ -49,26 +49,26 @@ export class PublishSecretTplComponent {
     this.clusters = Array<Cluster>();
     this.secretTpl = secretTpl;
     this.forceOffline = false;
-    if (actionType == ResourcesActionType.PUBLISH) {
+    if (actionType === ResourcesActionType.PUBLISH) {
       this.title = '发布加密字典[' + secretTpl.name + ']';
       if (!secretTpl.metaData) {
         this.messageHandlerService.warning('请先选择可发布集群');
         return;
       }
       this.modalOpened = true;
-      let metaData = JSON.parse(secretTpl.metaData);
-      for (let cluster of metaData.clusters) {
+      const metaData = JSON.parse(secretTpl.metaData);
+      for (const cluster of metaData.clusters) {
         if (this.cacheService.namespace.metaDataObj && this.cacheService.namespace.metaDataObj.clusterMeta[cluster]) {
-          let c = new Cluster();
+          const c = new Cluster();
           c.name = cluster;
           this.clusters.push(c);
         }
       }
-    } else if (actionType == ResourcesActionType.OFFLINE) {
+    } else if (actionType === ResourcesActionType.OFFLINE) {
       this.modalOpened = true;
       this.title = '下线加密字典[' + secretTpl.name + ']';
-      for (let state of secretTpl.status) {
-        let c = new Cluster();
+      for (const state of secretTpl.status) {
+        const c = new Cluster();
         c.name = state.cluster;
         this.clusters.push(c);
       }
@@ -77,8 +77,8 @@ export class PublishSecretTplComponent {
 
   getStatusByCluster(status: PublishStatus[], cluster: string): PublishStatus {
     if (status && status.length > 0) {
-      for (let state of status) {
-        if (state.cluster == cluster) {
+      for (const state of status) {
+        if (state.cluster === cluster) {
           return state;
         }
       }
@@ -143,7 +143,7 @@ export class PublishSecretTplComponent {
   }
 
   deploy(cluster: Cluster) {
-    let kubeSecret: KubeSecret = JSON.parse(this.secretTpl.template);
+    const kubeSecret: KubeSecret = JSON.parse(this.secretTpl.template);
     kubeSecret.metadata.namespace = this.cacheService.kubeNamespace;
     this.secretClient.deploy(
       this.appId,

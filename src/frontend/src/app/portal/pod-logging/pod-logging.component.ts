@@ -22,12 +22,12 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
   selectedContainer: string;
   containers: ContainerStatus[];
   log: string;
-  logTails: number = 10;
+  logTails = 10;
   resourceName: string;
   resourceType: string;
   pods: Pod[];
   logSource: string;
-  isCopied: boolean = false;
+  isCopied = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -46,16 +46,16 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
     this.appId = parseInt(this.route.snapshot.params['id']);
     this.cluster = this.route.snapshot.params['cluster'];
     this.namespace = this.route.snapshot.params['namespace'];
-    let podName = this.route.snapshot.params['podName'];
-    let container = this.route.snapshot.params['container'];
+    const podName = this.route.snapshot.params['podName'];
+    const container = this.route.snapshot.params['container'];
     this.nid = this.route.snapshot.params['nid'];
     this.resourceName = this.route.snapshot.params['resourceName'];
     this.resourceType = this.route.snapshot.params['resourceType'];
     this.clusterService.getByName(this.cluster).subscribe(
       response => {
-        let cluster: Cluster = response.data;
+        const cluster: Cluster = response.data;
         if (cluster.metaData) {
-          let metaData = JSON.parse(cluster.metaData);
+          const metaData = JSON.parse(cluster.metaData);
           if (metaData.logSource) {
             this.logSource = metaData.logSource;
           }
@@ -69,9 +69,9 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
       response => {
         this.pods = response.data;
         if (this.pods && this.pods.length > 0) {
-          let pod = this.getPodByName(podName);
+          const pod = this.getPodByName(podName);
           if (!pod) {
-            let url = `portal/logging/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/${this.resourceName}/pod/${this.pods[0].name}/${this.cluster}/${this.namespace}`;
+            const url = `portal/logging/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/${this.resourceName}/pod/${this.pods[0].name}/${this.cluster}/${this.namespace}`;
             this.router.navigateByUrl(url);
           }
           this.selectedPod = pod;
@@ -102,8 +102,8 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
 
   initContainer(container: string) {
     this.containers = this.selectedPod.containerStatus;
-    for (let con of this.containers) {
-      if (container == con.name) {
+    for (const con of this.containers) {
+      if (container === con.name) {
         this.selectedContainer = container;
         this.containerChange();
         return;
@@ -120,7 +120,7 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
   }
 
   containerChange() {
-    let url = `portal/logging/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/${this.cluster}/${this.namespace}`;
+    const url = `portal/logging/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/${this.cluster}/${this.namespace}`;
     this.router.navigateByUrl(url);
     this.refreshLog();
   }
@@ -139,8 +139,8 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
 
   getPodByName(podName: string) {
     if (podName) {
-      for (let pod of this.pods) {
-        if (pod.name == podName) {
+      for (const pod of this.pods) {
+        if (pod.name === podName) {
           return pod;
         }
       }
@@ -153,7 +153,7 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
     this.containers = this.selectedPod.containerStatus;
     if (this.containers && this.containers.length > 0) {
       this.selectedContainer = this.containers[0].name;
-      let url = `portal/logging/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/${this.cluster}/${this.namespace}`;
+      const url = `portal/logging/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/${this.cluster}/${this.namespace}`;
       this.router.navigateByUrl(url);
     }
   }

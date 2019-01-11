@@ -53,7 +53,7 @@ export class NotificationComponent implements OnInit {
     this.notificationService.query(this.pageState)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.notifications = data.list;

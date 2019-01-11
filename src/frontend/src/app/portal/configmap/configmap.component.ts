@@ -55,7 +55,7 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
   createEdit: CreateEditConfigMapComponent;
   configMapId: number;
   pageState: PageState = new PageState();
-  isOnline: boolean = false;
+  isOnline = false;
   configMaps: ConfigMap[];
   configMapTpls: ConfigMapTpl[];
   app: App;
@@ -84,13 +84,13 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
               public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
     this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
-      if (over) this.tabChange();
+      if (over) { this.tabChange(); }
     });
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.CONFIGMAP) {
-        let configMapId = message.data;
+        const configMapId = message.data;
         this.configMapService.deleteById(configMapId, this.app.id)
           .subscribe(
             response => {
@@ -118,7 +118,7 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) this.showList.push(key);
+      if (!this.showState[key].hidden) { this.showList.push(key); }
     });
   }
 
@@ -139,11 +139,11 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
   tabChange() {
     const orderList = [].slice.call(this.el.nativeElement.querySelectorAll('.tabs-item')).map((item, index) => {
       return {
-        id: parseInt(item.id),
+        id: parseInt(item.id, 10),
         order: index
       };
     });
-    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) return;
+    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) { return; }
     this.configMapService.updateOrder(this.app.id, orderList).subscribe(
       response => {
         if (response.data === 'ok!') {
@@ -168,7 +168,7 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
     } else {
       this.orderCache = [].slice.call(this.el.nativeElement.querySelectorAll('.tabs-item')).map((item, index) => {
         return {
-          id: parseInt(item.id),
+          id: parseInt(item.id, 10),
           order: index
         };
       });
@@ -184,14 +184,14 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
   syncStatus(): void {
     if (this.configMapTpls && this.configMapTpls.length > 0) {
       for (let i = 0; i < this.configMapTpls.length; i++) {
-        let tpl = this.configMapTpls[i];
+        const tpl = this.configMapTpls[i];
         if (tpl.status && tpl.status.length > 0) {
           for (let j = 0; j < tpl.status.length; j++) {
-            let status = tpl.status[j];
-            if (status.errNum > 2) continue;
+            const status = tpl.status[j];
+            if (status.errNum > 2)  { continue; }
             this.configMapClient.get(this.app.id, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
               response => {
-                let code = response.statusCode | response.status;
+                const code = response.statusCode | response.status;
                 if (code === httpStatusCode.NoContent) {
                   this.configMapTpls[i].status[j].state = TemplateState.NOT_FOUND;
                   return;
@@ -235,8 +235,8 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
   }
 
   initConfigMap(refreshTpl?: boolean) {
-    let appId = parseInt(this.route.parent.snapshot.params['id']);
-    let namespaceId = this.cacheService.namespaceId;
+    const appId = parseInt(this.route.parent.snapshot.params['id']);
+    const namespaceId = this.cacheService.namespaceId;
     this.configMapId = parseInt(this.route.snapshot.params['configMapId']);
     Observable.combineLatest(
       this.configMapService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', appId + ''),
@@ -262,8 +262,8 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
       if (!configMapId) {
         return this.configMaps[0].id;
       }
-      for (let c of this.configMaps) {
-        if (configMapId == c.id) {
+      for (const c of this.configMaps) {
+        if (configMapId === c.id) {
           return configMapId;
         }
       }
@@ -314,11 +314,11 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
       this.publishService.listStatus(PublishType.CONFIGMAP, this.configMapId)
     ).subscribe(
       response => {
-        let status = response[1].data;
+        const status = response[1].data;
         this.publishStatus = status;
-        let tplStatusMap = {};
+        const tplStatusMap = {};
         if (status && status.length > 0) {
-          for (let state of status) {
+          for (const state of status) {
             if (!tplStatusMap[state.templateId]) {
               tplStatusMap[state.templateId] = Array<PublishStatus>();
             }
@@ -328,7 +328,7 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
         }
         this.tplStatusMap = tplStatusMap;
 
-        let tpls = response[0].data;
+        const tpls = response[0].data;
         this.pageState.page.totalPage = tpls.totalPage;
         this.pageState.page.totalCount = tpls.totalCount;
         this.buildTplList(tpls.list);
@@ -341,11 +341,11 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
 
   buildTplList(configMapTpls: ConfigMapTpl[]) {
     if (configMapTpls) {
-      for (let configMapTpl of configMapTpls) {
-        let metaData = configMapTpl.metaData ? configMapTpl.metaData : '{}';
+      for (const configMapTpl of configMapTpls) {
+        const metaData = configMapTpl.metaData ? configMapTpl.metaData : '{}';
         configMapTpl.clusters = JSON.parse(metaData).clusters;
 
-        let publishStatus = this.tplStatusMap[configMapTpl.id];
+        const publishStatus = this.tplStatusMap[configMapTpl.id];
         if (publishStatus && publishStatus.length > 0) {
           configMapTpl.status = publishStatus;
         }
@@ -374,7 +374,7 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
     if (this.publishStatus && this.publishStatus.length > 0) {
       this.messageHandlerService.warning('已上线配置集无法删除，请先下线配置集！');
     } else {
-      let deletionMessage = new ConfirmationMessage(
+      const deletionMessage = new ConfirmationMessage(
         '删除配置集确认',
         '是否确认删除配置集?',
         this.configMapId,

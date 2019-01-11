@@ -35,7 +35,7 @@
             <label for="statefulSetStrategyType2">{{'TEMPLATE.REBUILD' | translate}}</label>
           </div>
         </div>
-        <div *ngIf="kubeDeployment.spec.strategy.type == 'RollingUpdate'" class="form-group form-group-padding">
+        <div *ngIf="kubeDeployment.spec.strategy.type === 'RollingUpdate'" class="form-group form-group-padding">
           <label class="col-md-3 form-group-label-override">{{'TEMPLATE.SCROLL_NUM' | translate}}
             <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
               <clr-icon shape="info-circle" size="24"></clr-icon>

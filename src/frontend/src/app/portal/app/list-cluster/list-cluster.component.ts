@@ -14,7 +14,7 @@ export class ListClusterComponent {
   constructor() {
   }
 
-  modalOpened: boolean = false;
+  modalOpened = false;
 
   open() {
     this.modalOpened = true;

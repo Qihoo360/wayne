@@ -15,7 +15,7 @@ export class AutoscaleService {
   }
 
   // getNames(appId?: number): Observable<any> {
-  //   const params = new HttpParams();
+  //   let params = new HttpParams();
   //   if (typeof(appId) === 'undefined') {
   //     appId = 0;
   //   }

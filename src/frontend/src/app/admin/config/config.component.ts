@@ -68,7 +68,7 @@ export class ConfigComponent implements OnInit {
     this.configService.list(this.pageState)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.configs = data.list;
@@ -88,7 +88,7 @@ export class ConfigComponent implements OnInit {
   }
 
   deleteConfig(config: Config) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除配置确认',
       '你确认删除配置 ' + config.name + ' ？',
       config.id,

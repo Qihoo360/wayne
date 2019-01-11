@@ -39,7 +39,7 @@ export class SecretTplComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.SECRET_TPL) {
-        let secrettplId = message.data;
+        const secrettplId = message.data;
         this.secrettplService.deleteById(secrettplId, 0)
           .subscribe(
             response => {
@@ -57,7 +57,7 @@ export class SecretTplComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.secretId = params['sid'];
-      if (typeof (this.secretId) == 'undefined') {
+      if (typeof (this.secretId) === 'undefined') {
         this.secretId = '';
       }
     });
@@ -77,7 +77,7 @@ export class SecretTplComponent implements OnInit {
     this.secrettplService.listPage(this.pageState, 0, this.secretId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedSecrettpls = data.list;

@@ -59,13 +59,13 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
               public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
     this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
-      if (over) this.tabChange();
+      if (over) { this.tabChange(); }
     });
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.PERSISTENT_VOLUME_CLAIM) {
-        let pvcId = message.data;
+        const pvcId = message.data;
         this.pvcService.deleteById(pvcId, this.app.id)
           .subscribe(
             response => {
@@ -90,9 +90,9 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.appId = parseInt(this.route.parent.snapshot.params['id']);
-    let namespaceId = this.cacheService.namespaceId;
-    let pvcId = parseInt(this.route.snapshot.params['pvcId']);
+    this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
+    const namespaceId = this.cacheService.namespaceId;
+    let pvcId = parseInt(this.route.snapshot.params['pvcId'], 10);
 
     Observable.combineLatest(
       this.pvcService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
@@ -105,13 +105,13 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
         pvcId = this.getPvcId(pvcId);
         if (pvcId) {
           this.pvcId = pvcId;
-          if (this.router.url.indexOf('status') == -1) {
+          if (this.router.url.indexOf('status') === -1) {
             this.navigateToList(this.app.id, pvcId);
           }
 
           this.publishService.listStatus(PublishType.PERSISTENT_VOLUME_CLAIM, this.pvcId).subscribe(
-            response => {
-              this.publishStatus = response.data;
+            next => {
+              this.publishStatus = next.data;
             },
             error => {
               this.messageHandlerService.handleError(error);
@@ -134,11 +134,11 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
   tabChange() {
     const orderList = [].slice.call(this.el.nativeElement.querySelectorAll('.tabs-item')).map((item, index) => {
       return {
-        id: parseInt(item.id),
+        id: parseInt(item.id, 10),
         order: index
       };
     });
-    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) return;
+    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) { return; }
     this.pvcService.updateOrder(this.app.id, orderList).subscribe(
       response => {
         if (response.data === 'ok!') {
@@ -163,7 +163,7 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
     } else {
       this.orderCache = [].slice.call(this.el.nativeElement.querySelectorAll('.tabs-item')).map((item, index) => {
         return {
-          id: parseInt(item.id),
+          id: parseInt(item.id, 10),
           order: index
         };
       });
@@ -189,8 +189,8 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
       if (!pvcId) {
         return this.pvcs[0].id;
       }
-      for (let pvc of this.pvcs) {
-        if (pvcId == pvc.id) {
+      for (const pvc of this.pvcs) {
+        if (pvcId === pvc.id) {
           return pvcId;
         }
       }
@@ -232,7 +232,7 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
     if (this.publishStatus && this.publishStatus.length > 0) {
       this.messageHandlerService.warning('已上线PVC无法删除，请先下线PVC！');
     } else {
-      let deletionMessage = new ConfirmationMessage(
+      const deletionMessage = new ConfirmationMessage(
         '删除PVC确认',
         '是否确认删除PVC?',
         this.pvcId,

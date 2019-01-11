@@ -133,7 +133,7 @@ export class CreateEditNamespaceWebHookComponent {
   }
 
   validateName(): boolean {
-    let ctl = this.currentForm.controls['webhook-name'];
+    const ctl = this.currentForm.controls['webhook-name'];
     if (ctl) {
       return ctl.valid;
     }
@@ -141,7 +141,7 @@ export class CreateEditNamespaceWebHookComponent {
   }
 
   validateUrl(): boolean {
-    let ctl = this.currentForm.controls['webhook-url'];
+    const ctl = this.currentForm.controls['webhook-url'];
     if (ctl) {
       return ctl.valid;
     }

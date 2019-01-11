@@ -29,12 +29,12 @@ import { EventManager } from '@angular/platform-browser';
 
 export class DropDownComponent implements OnInit {
 
-  showContent: boolean = false;
+  showContent = false;
   right: number | string = 0;
   width: number | string = 0;
-  maxHeight: number = 400;
-  marginRight: number = 0;
-  barState: string = 'hide';
+  maxHeight = 400;
+  marginRight = 0;
+  barState = 'hide';
   barStyle = {
     height: 0,
     top: 0
@@ -45,7 +45,7 @@ export class DropDownComponent implements OnInit {
   barTopCache: number;
   eventList: any[] = new Array();
   // size 默认为空。如果传入small，则是最小自适应，传入middle，为50%宽度。
-  @Input('size') size: string = '';
+  @Input('size') size = '';
   // 这里是处理当item是最接近右边栏时候。采用right定位，防止出现滚动条。
   @Input('last') last;
 
@@ -65,7 +65,12 @@ export class DropDownComponent implements OnInit {
   @HostListener('mouseenter')
   enterEvent() {
     const content = this.document.querySelector('.content-area');
-    this.right = this.size === 'small' || this.size === 'middle' ? 0 : -(this.document.body.clientWidth - this.getElementLeft(this.el.nativeElement) - this.el.nativeElement.offsetWidth - (content.scrollHeight > content.clientHeight ? 30 : 15));
+    if (this.size === 'small' || this.size === 'middle') {
+      this.right = 0;
+    } else {
+      this.right = -(this.document.body.clientWidth - this.getElementLeft(this.el.nativeElement)
+        - this.el.nativeElement.offsetWidth - (content.scrollHeight > content.clientHeight ? 30 : 15));
+    }
     this.width = this.size === 'small' ?
       'auto' :
       this.size === 'middle' ?
@@ -99,7 +104,9 @@ export class DropDownComponent implements OnInit {
   }
 
   scrollEvent(evt) {
-    if (Object.prototype.toString.call(this.clickStart) !== '[object Null]') return;
+    if (Object.prototype.toString.call(this.clickStart) !== '[object Null]') {
+      return;
+    }
     evt.stopPropagation();
     const target = evt.target;
     this.barStyle.top = Number((target.scrollTop / target.clientHeight * 100).toFixed(2));

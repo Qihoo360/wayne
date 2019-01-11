@@ -140,7 +140,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
                   this.pvcTpls[i] &&
                   this.pvcTpls[i].status &&
                   this.pvcTpls[i].status[j] &&
-                  pvc.status.phase == 'Bound') {
+                  pvc.status.phase === 'Bound') {
                   this.pvcTpls[i].status[j].state = TemplateState.SUCCESS;
                 } else {
                   this.pvcTpls[i].status[j].state = TemplateState.FAILD;

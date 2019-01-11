@@ -33,7 +33,7 @@ export class ListConfigMapComponent implements OnInit, OnDestroy {
   @Input() configMapTpls: ConfigMapTpl[];
   @Input() page: Page;
   state: State;
-  currentPage: number = 1;
+  currentPage = 1;
 
   @Output() paginate = new EventEmitter<State>();
   @Output() configmapTab = new EventEmitter<number>();
@@ -53,7 +53,7 @@ export class ListConfigMapComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.CONFIGMAP_TPL) {
-        let tpl = message.data;
+        const tpl = message.data;
         this.configMapTplService.deleteById(tpl.id, this.app.id)
           .subscribe(
             response => {
@@ -109,7 +109,7 @@ export class ListConfigMapComponent implements OnInit, OnDestroy {
   }
 
   deleteConfigMapTpl(tpl: ConfigMapTpl): void {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除' + this.componentName + '模版确认',
       `你确认删除` + this.componentName + `${tpl.name}？`,
       tpl,

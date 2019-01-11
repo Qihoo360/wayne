@@ -28,9 +28,9 @@ export class CreateEditAppUserComponent {
   currentForm: NgForm;
 
   appUser: AppUser;
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
 
   allGroups: Array<any>;
   mapGroups: Map<string, Group> = new Map<string, Group>();
@@ -63,7 +63,7 @@ export class CreateEditAppUserComponent {
     this.groupService.listGroup(new PageState({pageSize: 500}), groupType[0].id).subscribe(
       response => {
         this.allGroups = response.data.list;
-        for (let x in this.allGroups) {
+        for (const x in this.allGroups) {
           this.mapGroups.set(this.allGroups[x].id.toString(), this.allGroups[x]);
         }
       },
@@ -82,7 +82,7 @@ export class CreateEditAppUserComponent {
           this.appUser = status.data;
           // 编辑用户时，需要调整allGroup与selectGroup内容
           for (let key in this.allGroups) {
-            for (let index in this.appUser.groups) {
+            for (const index in this.appUser.groups) {
               const source = this.allGroups[key];
               const detail = this.appUser.groups[index];
               if (JSON.stringify(source) === JSON.stringify(detail)) {
@@ -135,7 +135,7 @@ export class CreateEditAppUserComponent {
     }
     this.appUser.groups = new Array<Group>();
     this.isSubmitOnGoing = true;
-    for (let k in this.selectGroups) {
+    for (const k in this.selectGroups) {
       this.appUser.groups.push(this.mapGroups.get(this.selectGroups[k]));
     }
     switch (this.actionType) {

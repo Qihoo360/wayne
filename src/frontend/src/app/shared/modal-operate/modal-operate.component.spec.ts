@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ModalOperateComponent } from './modal-operate.component';
 
 describe('ModalOperateComponent', () => {
-  let component: ModalOperateComponent;
-  let fixture: ComponentFixture<ModalOperateComponent>;
+  const component: ModalOperateComponent;
+  const fixture: ComponentFixture<ModalOperateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

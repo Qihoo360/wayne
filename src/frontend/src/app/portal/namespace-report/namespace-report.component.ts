@@ -28,6 +28,6 @@ export class NamespaceReportComponent implements OnInit {
   }
 
   ngOnInit() {
-    let namespaceId = this.cacheService.namespaceId;
+    const namespaceId = this.cacheService.namespaceId;
   }
 }

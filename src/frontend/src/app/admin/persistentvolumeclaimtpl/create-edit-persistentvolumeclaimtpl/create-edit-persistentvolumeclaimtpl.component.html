@@ -14,7 +14,7 @@
               <!--这是一个坑，如果使用value获取到的是string，使用ngValue获取到的是model本身类型-->
               <option *ngFor="let pvc of pvcs"
                       [ngValue]="pvc.id"
-                      [selected]="pvc.id == pvcTpl.persistentVolumeClaimId">{{pvc.name}}
+                      [selected]="pvc.id === pvcTpl.persistentVolumeClaimId">{{pvc.name}}
               </option>
             </select>
           </div>

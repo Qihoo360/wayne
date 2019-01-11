@@ -24,7 +24,7 @@ export function initUser(authService: AuthService, injector: Injector) {
   return () => authService.retrieveUser().then(() => {
   }).catch(error => {
     const router = injector.get(Router);
-    if (error.status == httpStatusCode.Unauthorized) {
+    if (error.status === httpStatusCode.Unauthorized) {
       router.navigate(['sign-in']);
     }
     console.log('init current user error.', error);

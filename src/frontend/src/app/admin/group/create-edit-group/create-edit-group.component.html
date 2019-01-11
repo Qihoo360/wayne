@@ -9,7 +9,7 @@
             <select id="group_type" [(ngModel)]="group.type" [disabled]="actionType==1" name="group_type">
               <!--这是一个坑，如果使用value获取到的是string，使用ngValue获取到的是model本身类型-->
               <option *ngFor="let type of groupType" [ngValue]="type.id"
-                      [selected]="type.id == group.type">{{type.name}}
+                      [selected]="type.id === group.type">{{type.name}}
               </option>
             </select>
           </div>

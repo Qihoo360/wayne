@@ -17,9 +17,9 @@ export class InputComponent implements ControlValueAccessor {
   updateEmit = (_: any) => {
   };
   value: string;
-  readOnly: boolean = false;
-  showSearch: boolean = false;
-  focusState: boolean = false;
+  readOnly = false;
+  showSearch = false;
+  focusState = false;
   @ViewChild('input') inputElement;
   @Input('placeholder') placeholder = '';
   @Input('type') type = 'text';

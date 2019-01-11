@@ -85,7 +85,7 @@ export class DaemonEndpoint {
 
   constructor(init?: DaemonEndpoint) {
     if (!init) {  return; }
-    if (init.port) { this.port = init.port; }
+    if (init.Port) { this.Port = init.Port; }
   }
 
 
@@ -486,7 +486,9 @@ export class Time {
 
   constructor(init?: Time) {
     if (!init) {  return; }
-    if (init.Time) this.Time = new Date(init.Time as any);
+    if (init.Time) {
+      this.Time = new Date(init.Time as any);
+    }
   }
 
 

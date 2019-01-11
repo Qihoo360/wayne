@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // HttpHeader object immutable - copy values
     const headerSettings: { [name: string]: string | string[]; } = {};
 
-    for (const key of request.headers.keys()) {
+    for (let key of request.headers.keys()) {
       headerSettings[key] = request.headers.getAll(key);
     }
     if (token) {
@@ -28,7 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
     headerSettings['Content-Type'] = 'application/json';
     const newHeader = new HttpHeaders(headerSettings);
 
-    let changedRequest = request.clone({
+    const changedRequest = request.clone({
       headers: newHeader
     });
     return next.handle(changedRequest).toPromise();

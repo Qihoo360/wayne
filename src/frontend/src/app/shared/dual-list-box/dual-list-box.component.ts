@@ -116,9 +116,9 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
    * Move all items from available to selected
    */
   moveAllItemsToSelected(): void {
-    let selectedItems = [];
-    let leftItems = [];
-    let reg = new RegExp(this.searchTermAvailable, 'gi');
+    const selectedItems = [];
+    const leftItems = [];
+    const reg = new RegExp(this.searchTermAvailable, 'gi');
     if (!this.availableItems.length) {
       return;
     }
@@ -148,8 +148,8 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
     if (!this.selectedItems.length) {
       return;
     }
-    let selectedItems = [];
-    let leftItems = [];
+    const selectedItems = [];
+    const leftItems = [];
     this.selectedItems.forEach(item => {
       if (item.text.indexOf(this.searchTermSelected.toLocaleUpperCase()) > -1) {
         selectedItems.push(item);

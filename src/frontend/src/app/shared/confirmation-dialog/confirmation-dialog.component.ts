@@ -13,7 +13,7 @@ import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../
 })
 
 export class ConfirmationDialogComponent implements OnDestroy {
-  opened: boolean = false;
+  opened = false;
   dialogTitle: string = '';
   dialogContent: string = '';
   message: ConfirmationMessage;
@@ -52,8 +52,8 @@ export class ConfirmationDialogComponent implements OnDestroy {
       return;
     }
 
-    let data: any = this.message.data ? this.message.data : {};
-    let target = this.message.targetId ? this.message.targetId : ConfirmationTargets.EMPTY;
+    const data: any = this.message.data ? this.message.data : {};
+    const target = this.message.targetId ? this.message.targetId : ConfirmationTargets.EMPTY;
     this.confirmationService.cancel(new ConfirmationAcknowledgement(
       ConfirmationState.CANCEL,
       data,
@@ -68,8 +68,8 @@ export class ConfirmationDialogComponent implements OnDestroy {
       return;
     }
 
-    let data: any = this.message.data ? this.message.data : {};
-    let target = this.message.targetId ? this.message.targetId : ConfirmationTargets.EMPTY;
+    const data: any = this.message.data ? this.message.data : {};
+    const target = this.message.targetId ? this.message.targetId : ConfirmationTargets.EMPTY;
     this.confirmationService.confirm(new ConfirmationAcknowledgement(
       ConfirmationState.CONFIRMED,
       data,

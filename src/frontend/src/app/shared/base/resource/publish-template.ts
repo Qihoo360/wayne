@@ -107,7 +107,7 @@ export class PublishTemplate {
   }
 
   offline(cluster: Cluster) {
-    const state = this.getStatusByCluster(this.template.status, cluster.name);
+    let state = this.getStatusByCluster(this.template.status, cluster.name);
     this.resourceClient.deleteByName(this.appId, cluster.name, this.cacheService.kubeNamespace, this.template.name).subscribe(
       response => {
         this.deletePublishStatus(state.id);

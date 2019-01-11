@@ -15,7 +15,7 @@ export class ListPermissionComponent implements OnInit {
   @Input() permissions: Permission[];
 
   @Input() page: Page;
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
 
   @Output() paginate = new EventEmitter<State>();

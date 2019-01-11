@@ -17,7 +17,7 @@ export class ListConfigMapComponent implements OnInit {
 
   @Input() page: Page;
   state: State;
-  currentPage: number = 1;
+  currentPage = 1;
 
   @Output() paginate = new EventEmitter<State>();
   @Output() delete = new EventEmitter<ConfigMap>();

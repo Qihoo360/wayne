@@ -40,7 +40,7 @@ export class StatefulsetComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.STATEFULSET) {
-        let id = message.data;
+        const id = message.data;
         this.statefulsetService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -83,7 +83,7 @@ export class StatefulsetComponent implements OnInit {
     this.statefulsetService.listPage(this.pageState, this.appId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedStatefulsets = data.list;
@@ -103,7 +103,7 @@ export class StatefulsetComponent implements OnInit {
   }
 
   deleteStatefulset(statefulset: Statefulset) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除状态副本集确认',
       '你确认删除状态副本集 ' + statefulset.name + ' ？',
       statefulset.id,

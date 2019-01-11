@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DeploymentComponent } from './deployment.component';
 
 describe('KubeDeploymentComponent', () => {
-  let component: DeploymentComponent;
-  let fixture: ComponentFixture<DeploymentComponent>;
+  const component: DeploymentComponent;
+  const fixture: ComponentFixture<DeploymentComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

@@ -26,7 +26,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
   cpuName: string;
   memName: string;
   seriesName: string;
-  dataDone: boolean = false;
+  dataDone = false;
   private cpuOption: EChartOption;
   private memOption: EChartOption;
   private cpuChart: ECharts;
@@ -45,12 +45,14 @@ export class ResourceComponent implements OnInit, AfterViewInit {
       this.cpuName = res['TITLE.CPU_USAGE'];
       this.memName = res['TITLE.MEMORY_USAGE'];
       this.seriesName = res['MENU.PRODUCT'];
-      if (this.dataDone) this.initOptions();
+      if (this.dataDone) {
+        this.initOptions();
+      }
     });
   }
 
   ngAfterViewInit(): void {
-    let namespaceId = this.cacheService.namespaceId;
+    const namespaceId = this.cacheService.namespaceId;
     this.cpuChart = echarts.init(this.elementCpuView.nativeElement, 'macarons');
     this.memChart = echarts.init(this.elementMemView.nativeElement, 'macarons');
     this.namespaceClient.getResource(namespaceId).subscribe(
@@ -58,7 +60,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
         this.dataDone = true;
         this.resources = response.data;
         this.ResourceList.push(...Object.keys(this.resources).map(app => {
-          let rs = new AppResource();
+          const rs = new AppResource();
           rs.app = app;
           rs.cpu = this.resources[app].cpu;
           rs.memory = this.resources[app].memory;
@@ -78,7 +80,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
     });
 
     let app = [];
-    let cpu = [];
+    const cpu = [];
     let cnt = 0;
     for (let i = 0; i < 5 && i < this.ResourceList.length; i++) {
       app.push(this.ResourceList[i].app);
@@ -125,7 +127,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
       return b.memory - a.memory;
     });
     app = [];
-    let mem = [];
+    const mem = [];
     cnt = 0;
     for (let i = 0; i < 5 && i < this.ResourceList.length; i++) {
       app.push(this.ResourceList[i].app);
@@ -170,5 +172,5 @@ export class ResourceComponent implements OnInit, AfterViewInit {
     };
     this.cpuChart.setOption(this.cpuOption);
     this.memChart.setOption(this.memOption);
-  };
+  }
 }

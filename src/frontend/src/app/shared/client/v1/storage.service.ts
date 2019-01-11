@@ -52,7 +52,7 @@ export class StorageService {
     if (day === undefined) {
       day = 100;
     }
-    let exp = new Date();
+    const exp = new Date();
     exp.setTime(exp.getTime() + day * 24 * 60 * 60 * 1000);
     document.cookie = `${key}=${value};expires=${exp.toUTCString()}`;
   }

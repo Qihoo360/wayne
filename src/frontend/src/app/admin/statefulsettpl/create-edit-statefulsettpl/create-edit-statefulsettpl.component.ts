@@ -28,7 +28,7 @@ export class CreateEditStatefulsettplComponent implements OnInit {
   currentForm: NgForm;
 
   statefulsetTpl: StatefulsetTemplate = new StatefulsetTemplate();
-  isSubmitOnGoing: boolean = false;
+  isSubmitOnGoing = false;
 
   title: string;
   actionType: ActionType;
@@ -100,8 +100,8 @@ export class CreateEditStatefulsettplComponent implements OnInit {
       return;
     }
     this.statefulsetTpl.template = this.aceBox.getValue();
-    for (let statefulset of this.statefulsets) {
-      if (statefulset.id == this.statefulsetTpl.statefulsetId) {
+    for (const statefulset of this.statefulsets) {
+      if (statefulset.id === this.statefulsetTpl.statefulsetId) {
         this.statefulsetTpl.name = statefulset.name;
       }
     }

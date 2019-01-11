@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.APP) {
-        let appId = message.data;
+        const appId = message.data;
         this.appService.deleteById(appId, 0)
           .subscribe(
             response => {
@@ -83,7 +83,7 @@ export class AppComponent implements OnInit {
     this.appService.listPage(this.pageState, this.namespaceId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedApps = data.list;
@@ -103,7 +103,7 @@ export class AppComponent implements OnInit {
   }
 
   deleteApp(app: App) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除项目确认',
       '你确认删除项目 ' + app.name + ' ？',
       app.id,

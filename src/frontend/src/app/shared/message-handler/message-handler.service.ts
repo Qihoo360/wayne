@@ -16,10 +16,10 @@ export class MessageHandlerService {
     if (!error) {
       return;
     }
-    let code = error.statusCode | error.status;
+    const code = error.statusCode | error.status;
     console.log(error);
     if (code === httpStatusCode.Unauthorized) {
-      let currentUrl = document.location.origin;
+      const currentUrl = document.location.origin;
       if (document.location.pathname != '/sign-in') {
         this.injector.get(Router).navigateByUrl(`sign-in?ref=${document.location.pathname}`);
       }

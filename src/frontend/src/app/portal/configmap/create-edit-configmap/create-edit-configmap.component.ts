@@ -26,9 +26,9 @@ export class CreateEditConfigMapComponent implements OnInit {
 
   componentName = '配置集';
   configMap: ConfigMap = new ConfigMap();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
 
   title: string;
   actionType: ActionType;
@@ -126,7 +126,7 @@ export class CreateEditConfigMapComponent implements OnInit {
 
   //Handle the form validation
   handleValidation(): void {
-    let cont = this.currentForm.controls['name'];
+    const cont = this.currentForm.controls['name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }

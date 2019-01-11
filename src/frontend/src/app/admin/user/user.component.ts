@@ -71,7 +71,7 @@ export class UserComponent implements OnInit {
     this.userService.listUser(this.pageState)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedUsers = data.list;

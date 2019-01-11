@@ -295,8 +295,12 @@ export class PodAntiAffinity {
 
   constructor(init?: PodAntiAffinity) {
     if (!init) {  return; }
-    if (init.requiredDuringSchedulingIgnoredDuringExecution) { this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution; }
-    if (init.preferredDuringSchedulingIgnoredDuringExecution) { this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution; }
+    if (init.requiredDuringSchedulingIgnoredDuringExecution) {
+      this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
+    }
+    if (init.preferredDuringSchedulingIgnoredDuringExecution) {
+      this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
+    }
   }
 
 
@@ -356,8 +360,12 @@ export class PodAffinity {
 
   constructor(init?: PodAffinity) {
     if (!init) {  return; }
-    if (init.requiredDuringSchedulingIgnoredDuringExecution) { this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution; }
-    if (init.preferredDuringSchedulingIgnoredDuringExecution) { this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution; }
+    if (init.requiredDuringSchedulingIgnoredDuringExecution) {
+      this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
+    }
+    if (init.preferredDuringSchedulingIgnoredDuringExecution) {
+      this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
+    }
   }
 
 
@@ -450,8 +458,12 @@ export class NodeAffinity {
 
   constructor(init?: NodeAffinity) {
     if (!init) {  return; }
-    if (init.requiredDuringSchedulingIgnoredDuringExecution) { this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution; }
-    if (init.preferredDuringSchedulingIgnoredDuringExecution) { this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution; }
+    if (init.requiredDuringSchedulingIgnoredDuringExecution) {
+      this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
+    }
+    if (init.preferredDuringSchedulingIgnoredDuringExecution) {
+      this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
+    }
   }
 
 
@@ -681,7 +693,7 @@ export class IntOrString {
 
   constructor(init?: IntOrString) {
     if (!init) {  return; }
-    if (init.type) { this.type = init.type; }
+    if (init.Type) { this.Type = init.Type; }
     if (init.IntVal) { this.IntVal = init.IntVal; }
     if (init.StrVal) { this.StrVal = init.StrVal; }
   }

@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PublishTplComponent } from './publish-tpl.component';
 
 describe('PublishTplComponent', () => {
-  let component: PublishTplComponent;
-  let fixture: ComponentFixture<PublishTplComponent>;
+  const component: PublishTplComponent;
+  const fixture: ComponentFixture<PublishTplComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

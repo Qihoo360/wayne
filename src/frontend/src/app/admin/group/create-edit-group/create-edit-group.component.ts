@@ -25,9 +25,9 @@ export class CreateEditGroupComponent {
   currentForm: NgForm;
 
   group: Group = new Group();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
 
   groupTitle: string;
   actionType: ActionType;
@@ -51,7 +51,7 @@ export class CreateEditGroupComponent {
     this.permissionService.listPermission(new PageState({pageSize: 500})).subscribe(
       response => {
         this.basePermissions = response.data.list;
-        for (let x in this.basePermissions) {
+        for (const x in this.basePermissions) {
           this.mapPermissions.set(this.basePermissions[x].id.toString(), this.basePermissions[x]);
         }
       },
@@ -70,7 +70,7 @@ export class CreateEditGroupComponent {
         status => {
           this.group = status.data;
           for (let key in this.allPermissions) {
-            for (let index in this.group.permissions) {
+            for (const index in this.group.permissions) {
               const source = this.allPermissions[key];
               const detail = this.group.permissions[index];
               if (JSON.stringify(source) === JSON.stringify(detail)) {
@@ -102,7 +102,7 @@ export class CreateEditGroupComponent {
     }
     this.group.permissions = new Array<Permission>();
     this.isSubmitOnGoing = true;
-    for (let k in this.selectPermissions) {
+    for (const k in this.selectPermissions) {
       this.group.permissions.push(this.mapPermissions.get(this.selectPermissions[k]));
     }
 
@@ -150,7 +150,7 @@ export class CreateEditGroupComponent {
 
   // Handle the form validation
   handleValidation(): void {
-    let cont = this.currentForm.controls['group_name'];
+    const cont = this.currentForm.controls['group_name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }
