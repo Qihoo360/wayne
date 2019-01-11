@@ -24,7 +24,6 @@ import { AceEditorComponent } from './ace-editor/ace-editor.component';
 import { AceEditorBoxComponent } from './ace-editor/ace-editor-box/ace-editor-box.component';
 import { AceEditorService } from './ace-editor/ace-editor.service';
 import { ModalOperateComponent } from './modal-operate/modal-operate.component';
-import { SwitchComponent } from './switch/switch.component';
 import { ProgressComponent } from './progress/progress.component';
 import { FloatWindowComponent } from './float-window/float-window.component';
 import { FloatWindowItemComponent } from './float-window/float-window-item/float-window-item.component';
@@ -71,7 +70,6 @@ import { ResourceLimitModule } from './component/resource-limit/resource-limit.m
     PaginateComponent,
     BreadcrumbComponent,
     AceEditorComponent,
-    SwitchComponent,
     AceEditorBoxComponent,
     ModalOperateComponent,
     ProgressComponent,
@@ -103,7 +101,6 @@ import { ResourceLimitModule } from './component/resource-limit/resource-limit.m
     MessageComponent,
     TabsComponent,
     TabComponent,
-    SwitchComponent,
     BreadcrumbComponent,
     PaginateComponent,
     DualListBoxModule,
