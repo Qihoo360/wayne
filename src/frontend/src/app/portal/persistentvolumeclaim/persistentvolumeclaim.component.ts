@@ -70,7 +70,7 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
           .subscribe(
             response => {
               this.messageHandlerService.showSuccess('PVC删除成功！');
-              this.router.navigate(['portal', 'app', this.app.id, 'persistentvolumeclaim']);
+              this.router.navigate(['portal', 'namespace', this.cacheService.namespaceId, 'app',  this.app.id, 'persistentvolumeclaim']);
             },
             error => {
               this.messageHandlerService.handleError(error);
