@@ -1,4 +1,12 @@
 /* Do not change, this code is generated from Golang structs */
+import { Node } from './node-list';
+
+export interface NodeSummary {
+  cpuSummary: Object;
+  memorySummary: Object;
+  nodeSummary: Object;
+  node: Node[];
+}
 
 
 export class AttachedVolume {
