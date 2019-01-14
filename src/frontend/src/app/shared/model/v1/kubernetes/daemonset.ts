@@ -1,5 +1,405 @@
 /* Do not change, this code is generated from Golang structs */
 
+export class Time {
+  Time: Date;
+
+  constructor(init?: Time) {
+    if (!init) {  return; }
+    if (init.Time) { this.Time = new Date(init.Time as any); }
+  }
+
+
+  static emptyObject(): Time {
+    const result = new Time();
+    result.Time = null;
+    return result;
+  }
+}
+
+export class IntOrString {
+  Type: number;
+  IntVal: number;
+  StrVal: string;
+
+  constructor(init?: IntOrString) {
+    if (!init) {  return; }
+    if (init.Type) { this.Type = init.Type; }
+    if (init.IntVal) { this.IntVal = init.IntVal; }
+    if (init.StrVal) { this.StrVal = init.StrVal; }
+  }
+
+
+  static emptyObject(): IntOrString {
+    const result = new IntOrString();
+    return result;
+  }
+}
+
+export class LabelSelectorRequirement {
+  key: string;
+  operator: string;
+  values: string[];
+
+  constructor(init?: LabelSelectorRequirement) {
+    if (!init) {  return; }
+    if (init.key) { this.key = init.key; }
+    if (init.operator) { this.operator = init.operator; }
+    if (init.values) { this.values = init.values; }
+  }
+
+
+  static emptyObject(): LabelSelectorRequirement {
+    const result = new LabelSelectorRequirement();
+    result.values = [];
+    return result;
+  }
+}
+
+export class LabelSelector {
+  matchLabels?: { [key: string]: string };
+  matchExpressions: LabelSelectorRequirement[];
+
+  constructor(init?: LabelSelector) {
+    if (!init) {  return; }
+    if (init.matchLabels) { this.matchLabels = init.matchLabels; }
+    if (init.matchExpressions) { this.matchExpressions = init.matchExpressions; }
+  }
+
+
+  static emptyObject(): LabelSelector {
+    const result = new LabelSelector();
+    result.matchLabels = null;
+    result.matchExpressions = [];
+    return result;
+  }
+}
+
+export class NodeSelectorRequirement {
+  key: string;
+  operator: string;
+  values: string[];
+
+  constructor(init?: NodeSelectorRequirement) {
+    if (!init) {  return; }
+    if (init.key) { this.key = init.key; }
+    if (init.operator) { this.operator = init.operator; }
+    if (init.values) { this.values = init.values; }
+  }
+
+
+  static emptyObject(): NodeSelectorRequirement {
+    const result = new NodeSelectorRequirement();
+    result.values = [];
+    return result;
+  }
+}
+
+export class NodeSelectorTerm {
+  matchExpressions: NodeSelectorRequirement[];
+
+  constructor(init?: NodeSelectorTerm) {
+    if (!init) {  return; }
+    if (init.matchExpressions) { this.matchExpressions = init.matchExpressions; }
+  }
+
+
+  static emptyObject(): NodeSelectorTerm {
+    const result = new NodeSelectorTerm();
+    result.matchExpressions = [];
+    return result;
+  }
+}
+
+export class NodeSelector {
+  nodeSelectorTerms: NodeSelectorTerm[];
+
+  constructor(init?: NodeSelector) {
+    if (!init) {  return; }
+    if (init.nodeSelectorTerms) { this.nodeSelectorTerms = init.nodeSelectorTerms; }
+  }
+
+
+  static emptyObject(): NodeSelector {
+    const result = new NodeSelector();
+    result.nodeSelectorTerms = [];
+    return result;
+  }
+}
+
+export class PodAffinityTerm {
+  labelSelector?: LabelSelector;
+  namespaces: string[];
+  topologyKey: string;
+
+  constructor(init?: PodAffinityTerm) {
+    if (!init) {  return; }
+    if (init.labelSelector) { this.labelSelector = init.labelSelector; }
+    if (init.namespaces) { this.namespaces = init.namespaces; }
+    if (init.topologyKey) { this.topologyKey = init.topologyKey; }
+  }
+
+
+  static emptyObject(): PodAffinityTerm {
+    const result = new PodAffinityTerm();
+    result.labelSelector = LabelSelector.emptyObject();
+    result.namespaces = [];
+    return result;
+  }
+}
+
+export class ObjectFieldSelector {
+  apiVersion: string;
+  fieldPath: string;
+
+  constructor(init?: ObjectFieldSelector) {
+    if (!init) {  return; }
+    if (init.apiVersion) { this.apiVersion = init.apiVersion; }
+    if (init.fieldPath) { this.fieldPath = init.fieldPath; }
+  }
+
+
+  static emptyObject(): ObjectFieldSelector {
+    const result = new ObjectFieldSelector();
+    return result;
+  }
+}
+
+export class Quantity {
+  Format: string;
+
+  constructor(init?: Quantity) {
+    if (!init) {  return; }
+    if (init.Format) { this.Format = init.Format; }
+  }
+
+
+  static emptyObject(): Quantity {
+    const result = new Quantity();
+    return result;
+  }
+}
+
+export class ResourceFieldSelector {
+  containerName: string;
+  resource: string;
+  divisor: Quantity;
+
+  constructor(init?: ResourceFieldSelector) {
+    if (!init) {  return; }
+    if (init.containerName) { this.containerName = init.containerName; }
+    if (init.resource) { this.resource = init.resource; }
+    if (init.divisor) { this.divisor = init.divisor; }
+  }
+
+
+  static emptyObject(): ResourceFieldSelector {
+    const result = new ResourceFieldSelector();
+    result.divisor = Quantity.emptyObject();
+    return result;
+  }
+}
+
+export class LocalObjectReference {
+  name: string;
+
+  constructor(init?: LocalObjectReference) {
+    if (!init) {  return; }
+    if (init.name) { this.name = init.name; }
+  }
+
+
+  static emptyObject(): LocalObjectReference {
+    const result = new LocalObjectReference();
+    return result;
+  }
+}
+
+export class ListMeta {
+  selfLink: string;
+  resourceVersion: string;
+  continue: string;
+
+  constructor(init?: ListMeta) {
+    if (!init) {  return; }
+    if (init.selfLink) { this.selfLink = init.selfLink; }
+    if (init.resourceVersion) { this.resourceVersion = init.resourceVersion; }
+    if (init.continue) { this.continue = init.continue; }
+  }
+
+
+  static emptyObject(): ListMeta {
+    const result = new ListMeta();
+    return result;
+  }
+}
+
+export class StatusDetails {
+  name: string;
+  group: string;
+  kind: string;
+  uid: string;
+  causes: StatusCause[];
+  retryAfterSeconds: number;
+
+  constructor(init?: StatusDetails) {
+    if (!init) {  return; }
+    if (init.name) { this.name = init.name; }
+    if (init.group) { this.group = init.group; }
+    if (init.kind) { this.kind = init.kind; }
+    if (init.uid) { this.uid = init.uid; }
+    if (init.causes) { this.causes = init.causes; }
+    if (init.retryAfterSeconds) { this.retryAfterSeconds = init.retryAfterSeconds; }
+  }
+
+
+  static emptyObject(): StatusDetails {
+    const result = new StatusDetails();
+    result.causes = [];
+    return result;
+  }
+}
+
+export class Status {
+  kind: string;
+  apiVersion: string;
+  metadata: ListMeta;
+  status: string;
+  message: string;
+  reason: string;
+  details?: StatusDetails;
+  code: number;
+
+  constructor(init?: Status) {
+    if (!init) {  return; }
+    if (init.kind) { this.kind = init.kind; }
+    if (init.apiVersion) { this.apiVersion = init.apiVersion; }
+    if (init.metadata) { this.metadata = init.metadata; }
+    if (init.status) { this.status = init.status; }
+    if (init.message) { this.message = init.message; }
+    if (init.reason) { this.reason = init.reason; }
+    if (init.details) { this.details = init.details; }
+    if (init.code) { this.code = init.code; }
+  }
+
+
+  static emptyObject(): Status {
+    const result = new Status();
+    result.metadata = ListMeta.emptyObject();
+    result.details = StatusDetails.emptyObject();
+    return result;
+  }
+}
+
+export class Initializer {
+  name: string;
+
+  constructor(init?: Initializer) {
+    if (!init) {  return; }
+    if (init.name) { this.name = init.name; }
+  }
+
+
+  static emptyObject(): Initializer {
+    const result = new Initializer();
+    return result;
+  }
+}
+
+export class Initializers {
+  pending: Initializer[];
+  result?: Status;
+
+  constructor(init?: Initializers) {
+    if (!init) {  return; }
+    if (init.pending) { this.pending = init.pending; }
+    if (init.result) { this.result = init.result; }
+  }
+
+
+  static emptyObject(): Initializers {
+    const result = new Initializers();
+    result.pending = [];
+    result.result = Status.emptyObject();
+    return result;
+  }
+}
+
+export class OwnerReference {
+  apiVersion: string;
+  kind: string;
+  name: string;
+  uid: string;
+  controller?: boolean;
+  blockOwnerDeletion?: boolean;
+
+  constructor(init?: OwnerReference) {
+    if (!init) {  return; }
+    if (init.apiVersion) { this.apiVersion = init.apiVersion; }
+    if (init.kind) { this.kind = init.kind; }
+    if (init.name) { this.name = init.name; }
+    if (init.uid) { this.uid = init.uid; }
+    if (init.controller) { this.controller = init.controller; }
+    if (init.blockOwnerDeletion) { this.blockOwnerDeletion = init.blockOwnerDeletion; }
+  }
+
+
+  static emptyObject(): OwnerReference {
+    const result = new OwnerReference();
+    return result;
+  }
+}
+
+export class ObjectMeta {
+  name: string;
+  generateName: string;
+  namespace: string;
+  selfLink: string;
+  uid: string;
+  resourceVersion: string;
+  generation: number;
+  creationTimestamp: Time;
+  deletionTimestamp?: Time;
+  deletionGracePeriodSeconds?: number;
+  labels?: { [key: string]: string };
+  annotations?: { [key: string]: string };
+  ownerReferences: OwnerReference[];
+  initializers?: Initializers;
+  finalizers: string[];
+  clusterName: string;
+
+  constructor(init?: ObjectMeta) {
+    if (!init) {  return; }
+    if (init.name) { this.name = init.name; }
+    if (init.generateName) { this.generateName = init.generateName; }
+    if (init.namespace) { this.namespace = init.namespace; }
+    if (init.selfLink) { this.selfLink = init.selfLink; }
+    if (init.uid) { this.uid = init.uid; }
+    if (init.resourceVersion) { this.resourceVersion = init.resourceVersion; }
+    if (init.generation) { this.generation = init.generation; }
+    if (init.creationTimestamp) { this.creationTimestamp = init.creationTimestamp; }
+    if (init.deletionTimestamp) { this.deletionTimestamp = init.deletionTimestamp; }
+    if (init.deletionGracePeriodSeconds) { this.deletionGracePeriodSeconds = init.deletionGracePeriodSeconds; }
+    if (init.labels) { this.labels = init.labels; }
+    if (init.annotations) { this.annotations = init.annotations; }
+    if (init.ownerReferences) { this.ownerReferences = init.ownerReferences; }
+    if (init.initializers) { this.initializers = init.initializers; }
+    if (init.finalizers) { this.finalizers = init.finalizers; }
+    if (init.clusterName) { this.clusterName = init.clusterName; }
+  }
+
+
+  static emptyObject(): ObjectMeta {
+    const result = new ObjectMeta();
+    result.creationTimestamp = Time.emptyObject();
+    result.deletionTimestamp = Time.emptyObject();
+    result.labels = null;
+    result.annotations = null;
+    result.ownerReferences = [];
+    result.initializers = Initializers.emptyObject();
+    result.finalizers = [];
+    return result;
+  }
+}
 
 export class DaemonSetCondition {
   type: string;
@@ -23,7 +423,6 @@ export class DaemonSetCondition {
     result.lastTransitionTime = Time.emptyObject();
     return result;
   }
-
 }
 
 export class DaemonSetStatus {
@@ -58,7 +457,6 @@ export class DaemonSetStatus {
     result.conditions = [];
     return result;
   }
-
 }
 
 export class RollingUpdateDaemonSet {
@@ -75,7 +473,6 @@ export class RollingUpdateDaemonSet {
     result.maxUnavailable = IntOrString.emptyObject();
     return result;
   }
-
 }
 
 export class DaemonSetUpdateStrategy {
@@ -94,7 +491,6 @@ export class DaemonSetUpdateStrategy {
     result.rollingUpdate = RollingUpdateDaemonSet.emptyObject();
     return result;
   }
-
 }
 
 export class PodDNSConfigOption {
@@ -112,7 +508,6 @@ export class PodDNSConfigOption {
     const result = new PodDNSConfigOption();
     return result;
   }
-
 }
 
 export class PodDNSConfig {
@@ -135,7 +530,6 @@ export class PodDNSConfig {
     result.options = [];
     return result;
   }
-
 }
 
 export class HostAlias {
@@ -154,7 +548,6 @@ export class HostAlias {
     result.hostnames = [];
     return result;
   }
-
 }
 
 export class Toleration {
@@ -178,7 +571,6 @@ export class Toleration {
     const result = new Toleration();
     return result;
   }
-
 }
 
 
@@ -203,7 +595,6 @@ export class PodAntiAffinity {
     result.preferredDuringSchedulingIgnoredDuringExecution = [];
     return result;
   }
-
 }
 
 export class WeightedPodAffinityTerm {
@@ -222,29 +613,6 @@ export class WeightedPodAffinityTerm {
     result.podAffinityTerm = PodAffinityTerm.emptyObject();
     return result;
   }
-
-}
-
-export class PodAffinityTerm {
-  labelSelector?: LabelSelector;
-  namespaces: string[];
-  topologyKey: string;
-
-  constructor(init?: PodAffinityTerm) {
-    if (!init) {  return; }
-    if (init.labelSelector) { this.labelSelector = init.labelSelector; }
-    if (init.namespaces) { this.namespaces = init.namespaces; }
-    if (init.topologyKey) { this.topologyKey = init.topologyKey; }
-  }
-
-
-  static emptyObject(): PodAffinityTerm {
-    const result = new PodAffinityTerm();
-    result.labelSelector = LabelSelector.emptyObject();
-    result.namespaces = [];
-    return result;
-  }
-
 }
 
 export class PodAffinity {
@@ -268,7 +636,6 @@ export class PodAffinity {
     result.preferredDuringSchedulingIgnoredDuringExecution = [];
     return result;
   }
-
 }
 
 export class PreferredSchedulingTerm {
@@ -287,62 +654,6 @@ export class PreferredSchedulingTerm {
     result.preference = NodeSelectorTerm.emptyObject();
     return result;
   }
-
-}
-
-export class NodeSelectorRequirement {
-  key: string;
-  operator: string;
-  values: string[];
-
-  constructor(init?: NodeSelectorRequirement) {
-    if (!init) {  return; }
-    if (init.key) { this.key = init.key; }
-    if (init.operator) { this.operator = init.operator; }
-    if (init.values) { this.values = init.values; }
-  }
-
-
-  static emptyObject(): NodeSelectorRequirement {
-    const result = new NodeSelectorRequirement();
-    result.values = [];
-    return result;
-  }
-
-}
-
-export class NodeSelectorTerm {
-  matchExpressions: NodeSelectorRequirement[];
-
-  constructor(init?: NodeSelectorTerm) {
-    if (!init) {  return; }
-    if (init.matchExpressions) { this.matchExpressions = init.matchExpressions; }
-  }
-
-
-  static emptyObject(): NodeSelectorTerm {
-    const result = new NodeSelectorTerm();
-    result.matchExpressions = [];
-    return result;
-  }
-
-}
-
-export class NodeSelector {
-  nodeSelectorTerms: NodeSelectorTerm[];
-
-  constructor(init?: NodeSelector) {
-    if (!init) {  return; }
-    if (init.nodeSelectorTerms) { this.nodeSelectorTerms = init.nodeSelectorTerms; }
-  }
-
-
-  static emptyObject(): NodeSelector {
-    const result = new NodeSelector();
-    result.nodeSelectorTerms = [];
-    return result;
-  }
-
 }
 
 export class NodeAffinity {
@@ -366,7 +677,6 @@ export class NodeAffinity {
     result.preferredDuringSchedulingIgnoredDuringExecution = [];
     return result;
   }
-
 }
 
 export class Affinity {
@@ -389,9 +699,28 @@ export class Affinity {
     result.podAntiAffinity = PodAntiAffinity.emptyObject();
     return result;
   }
-
 }
 
+export class SELinuxOptions {
+  user: string;
+  role: string;
+  type: string;
+  level: string;
+
+  constructor(init?: SELinuxOptions) {
+    if (!init) {  return; }
+    if (init.user) { this.user = init.user; }
+    if (init.role) { this.role = init.role; }
+    if (init.type) { this.type = init.type; }
+    if (init.level) { this.level = init.level; }
+  }
+
+
+  static emptyObject(): SELinuxOptions {
+    const result = new SELinuxOptions();
+    return result;
+  }
+}
 
 export class PodSecurityContext {
   seLinuxOptions?: SELinuxOptions;
@@ -418,29 +747,6 @@ export class PodSecurityContext {
     result.supplementalGroups = [];
     return result;
   }
-
-}
-
-export class SELinuxOptions {
-  user: string;
-  role: string;
-  type: string;
-  level: string;
-
-  constructor(init?: SELinuxOptions) {
-    if (!init) {  return; }
-    if (init.user) { this.user = init.user; }
-    if (init.role) { this.role = init.role; }
-    if (init.type) { this.type = init.type; }
-    if (init.level) { this.level = init.level; }
-  }
-
-
-  static emptyObject(): SELinuxOptions {
-    const result = new SELinuxOptions();
-    return result;
-  }
-
 }
 
 export class Capabilities {
@@ -460,7 +766,6 @@ export class Capabilities {
     result.drop = [];
     return result;
   }
-
 }
 
 export class SecurityContext {
@@ -492,55 +797,7 @@ export class SecurityContext {
     result.seLinuxOptions = SELinuxOptions.emptyObject();
     return result;
   }
-
 }
-
-
-
-
-export class Handler {
-  exec?: ExecAction;
-  httpGet?: HTTPGetAction;
-  tcpSocket?: TCPSocketAction;
-
-  constructor(init?: Handler) {
-    if (!init) {  return; }
-    if (init.exec) { this.exec = init.exec; }
-    if (init.httpGet) { this.httpGet = init.httpGet; }
-    if (init.tcpSocket) { this.tcpSocket = init.tcpSocket; }
-  }
-
-
-  static emptyObject(): Handler {
-    const result = new Handler();
-    result.exec = ExecAction.emptyObject();
-    result.httpGet = HTTPGetAction.emptyObject();
-    result.tcpSocket = TCPSocketAction.emptyObject();
-    return result;
-  }
-
-}
-
-export class Lifecycle {
-  postStart?: Handler;
-  preStop?: Handler;
-
-  constructor(init?: Lifecycle) {
-    if (!init) {  return; }
-    if (init.postStart) { this.postStart = init.postStart; }
-    if (init.preStop) { this.preStop = init.preStop; }
-  }
-
-
-  static emptyObject(): Lifecycle {
-    const result = new Lifecycle();
-    result.postStart = Handler.emptyObject();
-    result.preStop = Handler.emptyObject();
-    return result;
-  }
-
-}
-
 
 export class TCPSocketAction {
   port: IntOrString;
@@ -558,7 +815,6 @@ export class TCPSocketAction {
     result.port = IntOrString.emptyObject();
     return result;
   }
-
 }
 
 export class HTTPHeader {
@@ -576,27 +832,6 @@ export class HTTPHeader {
     const result = new HTTPHeader();
     return result;
   }
-
-}
-
-export class IntOrString {
-  Type: number;
-  IntVal: number;
-  StrVal: string;
-
-  constructor(init?: IntOrString) {
-    if (!init) {  return; }
-    if (init.Type) { this.Type = init.Type; }
-    if (init.IntVal) { this.IntVal = init.IntVal; }
-    if (init.StrVal) { this.StrVal = init.StrVal; }
-  }
-
-
-  static emptyObject(): IntOrString {
-    const result = new IntOrString();
-    return result;
-  }
-
 }
 
 export class HTTPGetAction {
@@ -622,7 +857,6 @@ export class HTTPGetAction {
     result.httpHeaders = [];
     return result;
   }
-
 }
 
 export class ExecAction {
@@ -639,7 +873,47 @@ export class ExecAction {
     result.command = [];
     return result;
   }
+}
 
+export class Handler {
+  exec?: ExecAction;
+  httpGet?: HTTPGetAction;
+  tcpSocket?: TCPSocketAction;
+
+  constructor(init?: Handler) {
+    if (!init) {  return; }
+    if (init.exec) { this.exec = init.exec; }
+    if (init.httpGet) { this.httpGet = init.httpGet; }
+    if (init.tcpSocket) { this.tcpSocket = init.tcpSocket; }
+  }
+
+
+  static emptyObject(): Handler {
+    const result = new Handler();
+    result.exec = ExecAction.emptyObject();
+    result.httpGet = HTTPGetAction.emptyObject();
+    result.tcpSocket = TCPSocketAction.emptyObject();
+    return result;
+  }
+}
+
+export class Lifecycle {
+  postStart?: Handler;
+  preStop?: Handler;
+
+  constructor(init?: Lifecycle) {
+    if (!init) {  return; }
+    if (init.postStart) { this.postStart = init.postStart; }
+    if (init.preStop) { this.preStop = init.preStop; }
+  }
+
+
+  static emptyObject(): Lifecycle {
+    const result = new Lifecycle();
+    result.postStart = Handler.emptyObject();
+    result.preStop = Handler.emptyObject();
+    return result;
+  }
 }
 
 export class Probe {
@@ -672,7 +946,6 @@ export class Probe {
     result.tcpSocket = TCPSocketAction.emptyObject();
     return result;
   }
-
 }
 
 export class VolumeDevice {
@@ -690,7 +963,6 @@ export class VolumeDevice {
     const result = new VolumeDevice();
     return result;
   }
-
 }
 
 export class VolumeMount {
@@ -714,7 +986,6 @@ export class VolumeMount {
     const result = new VolumeMount();
     return result;
   }
-
 }
 
 export class ResourceRequirements {
@@ -734,7 +1005,6 @@ export class ResourceRequirements {
     result.requests = null;
     return result;
   }
-
 }
 
 export class SecretKeySelector {
@@ -754,7 +1024,6 @@ export class SecretKeySelector {
     const result = new SecretKeySelector();
     return result;
   }
-
 }
 
 export class ConfigMapKeySelector {
@@ -774,7 +1043,6 @@ export class ConfigMapKeySelector {
     const result = new ConfigMapKeySelector();
     return result;
   }
-
 }
 
 
@@ -801,7 +1069,6 @@ export class EnvVarSource {
     result.secretKeyRef = SecretKeySelector.emptyObject();
     return result;
   }
-
 }
 
 export class EnvVar {
@@ -822,7 +1089,6 @@ export class EnvVar {
     result.valueFrom = EnvVarSource.emptyObject();
     return result;
   }
-
 }
 
 export class SecretEnvSource {
@@ -840,7 +1106,6 @@ export class SecretEnvSource {
     const result = new SecretEnvSource();
     return result;
   }
-
 }
 
 export class ConfigMapEnvSource {
@@ -858,7 +1123,6 @@ export class ConfigMapEnvSource {
     const result = new ConfigMapEnvSource();
     return result;
   }
-
 }
 
 export class EnvFromSource {
@@ -880,7 +1144,6 @@ export class EnvFromSource {
     result.secretRef = SecretEnvSource.emptyObject();
     return result;
   }
-
 }
 
 export class ContainerPort {
@@ -904,7 +1167,6 @@ export class ContainerPort {
     const result = new ContainerPort();
     return result;
   }
-
 }
 
 export class Container {
@@ -972,7 +1234,6 @@ export class Container {
     result.securityContext = SecurityContext.emptyObject();
     return result;
   }
-
 }
 
 export class StorageOSVolumeSource {
@@ -997,7 +1258,6 @@ export class StorageOSVolumeSource {
     result.secretRef = LocalObjectReference.emptyObject();
     return result;
   }
-
 }
 
 export class ScaleIOVolumeSource {
@@ -1032,7 +1292,6 @@ export class ScaleIOVolumeSource {
     result.secretRef = LocalObjectReference.emptyObject();
     return result;
   }
-
 }
 
 export class PortworxVolumeSource {
@@ -1052,7 +1311,6 @@ export class PortworxVolumeSource {
     const result = new PortworxVolumeSource();
     return result;
   }
-
 }
 
 export class ConfigMapProjection {
@@ -1073,7 +1331,6 @@ export class ConfigMapProjection {
     result.items = [];
     return result;
   }
-
 }
 
 export class DownwardAPIProjection {
@@ -1090,7 +1347,6 @@ export class DownwardAPIProjection {
     result.items = [];
     return result;
   }
-
 }
 
 export class SecretProjection {
@@ -1111,7 +1367,6 @@ export class SecretProjection {
     result.items = [];
     return result;
   }
-
 }
 
 export class VolumeProjection {
@@ -1134,7 +1389,6 @@ export class VolumeProjection {
     result.configMap = ConfigMapProjection.emptyObject();
     return result;
   }
-
 }
 
 export class ProjectedVolumeSource {
@@ -1153,7 +1407,6 @@ export class ProjectedVolumeSource {
     result.sources = [];
     return result;
   }
-
 }
 
 export class PhotonPersistentDiskVolumeSource {
@@ -1171,7 +1424,6 @@ export class PhotonPersistentDiskVolumeSource {
     const result = new PhotonPersistentDiskVolumeSource();
     return result;
   }
-
 }
 
 export class AzureDiskVolumeSource {
@@ -1197,7 +1449,6 @@ export class AzureDiskVolumeSource {
     const result = new AzureDiskVolumeSource();
     return result;
   }
-
 }
 
 export class QuobyteVolumeSource {
@@ -1221,7 +1472,6 @@ export class QuobyteVolumeSource {
     const result = new QuobyteVolumeSource();
     return result;
   }
-
 }
 
 export class VsphereVirtualDiskVolumeSource {
@@ -1243,7 +1493,6 @@ export class VsphereVirtualDiskVolumeSource {
     const result = new VsphereVirtualDiskVolumeSource();
     return result;
   }
-
 }
 
 export class ConfigMapVolumeSource {
@@ -1266,7 +1515,6 @@ export class ConfigMapVolumeSource {
     result.items = [];
     return result;
   }
-
 }
 
 export class AzureFileVolumeSource {
@@ -1286,7 +1534,6 @@ export class AzureFileVolumeSource {
     const result = new AzureFileVolumeSource();
     return result;
   }
-
 }
 
 export class FCVolumeSource {
@@ -1312,46 +1559,6 @@ export class FCVolumeSource {
     result.wwids = [];
     return result;
   }
-
-}
-
-export class ResourceFieldSelector {
-  containerName: string;
-  resource: string;
-  divisor: Quantity;
-
-  constructor(init?: ResourceFieldSelector) {
-    if (!init) {  return; }
-    if (init.containerName) { this.containerName = init.containerName; }
-    if (init.resource) { this.resource = init.resource; }
-    if (init.divisor) { this.divisor = init.divisor; }
-  }
-
-
-  static emptyObject(): ResourceFieldSelector {
-    const result = new ResourceFieldSelector();
-    result.divisor = Quantity.emptyObject();
-    return result;
-  }
-
-}
-
-export class ObjectFieldSelector {
-  apiVersion: string;
-  fieldPath: string;
-
-  constructor(init?: ObjectFieldSelector) {
-    if (!init) {  return; }
-    if (init.apiVersion) { this.apiVersion = init.apiVersion; }
-    if (init.fieldPath) { this.fieldPath = init.fieldPath; }
-  }
-
-
-  static emptyObject(): ObjectFieldSelector {
-    const result = new ObjectFieldSelector();
-    return result;
-  }
-
 }
 
 export class DownwardAPIVolumeFile {
@@ -1375,7 +1582,6 @@ export class DownwardAPIVolumeFile {
     result.resourceFieldRef = ResourceFieldSelector.emptyObject();
     return result;
   }
-
 }
 
 export class DownwardAPIVolumeSource {
@@ -1394,7 +1600,6 @@ export class DownwardAPIVolumeSource {
     result.items = [];
     return result;
   }
-
 }
 
 export class FlockerVolumeSource {
@@ -1412,7 +1617,6 @@ export class FlockerVolumeSource {
     const result = new FlockerVolumeSource();
     return result;
   }
-
 }
 
 export class CephFSVolumeSource {
@@ -1440,7 +1644,6 @@ export class CephFSVolumeSource {
     result.secretRef = LocalObjectReference.emptyObject();
     return result;
   }
-
 }
 
 export class CinderVolumeSource {
@@ -1460,7 +1663,6 @@ export class CinderVolumeSource {
     const result = new CinderVolumeSource();
     return result;
   }
-
 }
 
 export class FlexVolumeSource {
@@ -1486,7 +1688,6 @@ export class FlexVolumeSource {
     result.options = null;
     return result;
   }
-
 }
 
 export class RBDVolumeSource {
@@ -1518,7 +1719,6 @@ export class RBDVolumeSource {
     result.secretRef = LocalObjectReference.emptyObject();
     return result;
   }
-
 }
 
 export class PersistentVolumeClaimVolumeSource {
@@ -1536,7 +1736,6 @@ export class PersistentVolumeClaimVolumeSource {
     const result = new PersistentVolumeClaimVolumeSource();
     return result;
   }
-
 }
 
 export class GlusterfsVolumeSource {
@@ -1556,23 +1755,6 @@ export class GlusterfsVolumeSource {
     const result = new GlusterfsVolumeSource();
     return result;
   }
-
-}
-
-export class LocalObjectReference {
-  name: string;
-
-  constructor(init?: LocalObjectReference) {
-    if (!init) {  return; }
-    if (init.name) { this.name = init.name; }
-  }
-
-
-  static emptyObject(): LocalObjectReference {
-    const result = new LocalObjectReference();
-    return result;
-  }
-
 }
 
 export class ISCSIVolumeSource {
@@ -1610,7 +1792,6 @@ export class ISCSIVolumeSource {
     result.secretRef = LocalObjectReference.emptyObject();
     return result;
   }
-
 }
 
 export class NFSVolumeSource {
@@ -1630,7 +1811,6 @@ export class NFSVolumeSource {
     const result = new NFSVolumeSource();
     return result;
   }
-
 }
 
 export class KeyToPath {
@@ -1650,7 +1830,6 @@ export class KeyToPath {
     const result = new KeyToPath();
     return result;
   }
-
 }
 
 export class SecretVolumeSource {
@@ -1673,7 +1852,6 @@ export class SecretVolumeSource {
     result.items = [];
     return result;
   }
-
 }
 
 export class GitRepoVolumeSource {
@@ -1693,7 +1871,6 @@ export class GitRepoVolumeSource {
     const result = new GitRepoVolumeSource();
     return result;
   }
-
 }
 
 export class AWSElasticBlockStoreVolumeSource {
@@ -1715,7 +1892,6 @@ export class AWSElasticBlockStoreVolumeSource {
     const result = new AWSElasticBlockStoreVolumeSource();
     return result;
   }
-
 }
 
 export class GCEPersistentDiskVolumeSource {
@@ -1737,23 +1913,6 @@ export class GCEPersistentDiskVolumeSource {
     const result = new GCEPersistentDiskVolumeSource();
     return result;
   }
-
-}
-
-export class Quantity {
-  Format: string;
-
-  constructor(init?: Quantity) {
-    if (!init) {  return; }
-    if (init.Format) { this.Format = init.Format; }
-  }
-
-
-  static emptyObject(): Quantity {
-    const result = new Quantity();
-    return result;
-  }
-
 }
 
 export class EmptyDirVolumeSource {
@@ -1772,7 +1931,6 @@ export class EmptyDirVolumeSource {
     result.sizeLimit = Quantity.emptyObject();
     return result;
   }
-
 }
 
 export class HostPathVolumeSource {
@@ -1790,7 +1948,6 @@ export class HostPathVolumeSource {
     const result = new HostPathVolumeSource();
     return result;
   }
-
 }
 
 export class Volume {
@@ -1887,7 +2044,6 @@ export class Volume {
     result.storageos = StorageOSVolumeSource.emptyObject();
     return result;
   }
-
 }
 
 export class PodSpec {
@@ -1965,7 +2121,6 @@ export class PodSpec {
     result.dnsConfig = PodDNSConfig.emptyObject();
     return result;
   }
-
 }
 
 export class PodTemplateSpec {
@@ -1985,48 +2140,6 @@ export class PodTemplateSpec {
     result.spec = PodSpec.emptyObject();
     return result;
   }
-
-}
-
-export class LabelSelectorRequirement {
-  key: string;
-  operator: string;
-  values: string[];
-
-  constructor(init?: LabelSelectorRequirement) {
-    if (!init) {  return; }
-    if (init.key) { this.key = init.key; }
-    if (init.operator) { this.operator = init.operator; }
-    if (init.values) { this.values = init.values; }
-  }
-
-
-  static emptyObject(): LabelSelectorRequirement {
-    const result = new LabelSelectorRequirement();
-    result.values = [];
-    return result;
-  }
-
-}
-
-export class LabelSelector {
-  matchLabels?: { [key: string]: string };
-  matchExpressions: LabelSelectorRequirement[];
-
-  constructor(init?: LabelSelector) {
-    if (!init) {  return; }
-    if (init.matchLabels) { this.matchLabels = init.matchLabels; }
-    if (init.matchExpressions) { this.matchExpressions = init.matchExpressions; }
-  }
-
-
-  static emptyObject(): LabelSelector {
-    const result = new LabelSelector();
-    result.matchLabels = null;
-    result.matchExpressions = [];
-    return result;
-  }
-
 }
 
 export class DaemonSetSpec {
@@ -2055,7 +2168,6 @@ export class DaemonSetSpec {
     result.updateStrategy = DaemonSetUpdateStrategy.emptyObject();
     return result;
   }
-
 }
 
 export class StatusCause {
@@ -2075,219 +2187,6 @@ export class StatusCause {
     const result = new StatusCause();
     return result;
   }
-
-}
-
-export class StatusDetails {
-  name: string;
-  group: string;
-  kind: string;
-  uid: string;
-  causes: StatusCause[];
-  retryAfterSeconds: number;
-
-  constructor(init?: StatusDetails) {
-    if (!init) {  return; }
-    if (init.name) { this.name = init.name; }
-    if (init.group) { this.group = init.group; }
-    if (init.kind) { this.kind = init.kind; }
-    if (init.uid) { this.uid = init.uid; }
-    if (init.causes) { this.causes = init.causes; }
-    if (init.retryAfterSeconds) { this.retryAfterSeconds = init.retryAfterSeconds; }
-  }
-
-
-  static emptyObject(): StatusDetails {
-    const result = new StatusDetails();
-    result.causes = [];
-    return result;
-  }
-
-}
-
-export class ListMeta {
-  selfLink: string;
-  resourceVersion: string;
-  continue: string;
-
-  constructor(init?: ListMeta) {
-    if (!init) {  return; }
-    if (init.selfLink) { this.selfLink = init.selfLink; }
-    if (init.resourceVersion) { this.resourceVersion = init.resourceVersion; }
-    if (init.continue) { this.continue = init.continue; }
-  }
-
-
-  static emptyObject(): ListMeta {
-    const result = new ListMeta();
-    return result;
-  }
-
-}
-
-export class Status {
-  kind: string;
-  apiVersion: string;
-  metadata: ListMeta;
-  status: string;
-  message: string;
-  reason: string;
-  details?: StatusDetails;
-  code: number;
-
-  constructor(init?: Status) {
-    if (!init) {  return; }
-    if (init.kind) { this.kind = init.kind; }
-    if (init.apiVersion) { this.apiVersion = init.apiVersion; }
-    if (init.metadata) { this.metadata = init.metadata; }
-    if (init.status) { this.status = init.status; }
-    if (init.message) { this.message = init.message; }
-    if (init.reason) { this.reason = init.reason; }
-    if (init.details) { this.details = init.details; }
-    if (init.code) { this.code = init.code; }
-  }
-
-
-  static emptyObject(): Status {
-    const result = new Status();
-    result.metadata = ListMeta.emptyObject();
-    result.details = StatusDetails.emptyObject();
-    return result;
-  }
-
-}
-
-export class Initializer {
-  name: string;
-
-  constructor(init?: Initializer) {
-    if (!init) {  return; }
-    if (init.name) { this.name = init.name; }
-  }
-
-
-  static emptyObject(): Initializer {
-    const result = new Initializer();
-    return result;
-  }
-
-}
-
-export class Initializers {
-  pending: Initializer[];
-  result?: Status;
-
-  constructor(init?: Initializers) {
-    if (!init) {  return; }
-    if (init.pending) { this.pending = init.pending; }
-    if (init.result) { this.result = init.result; }
-  }
-
-
-  static emptyObject(): Initializers {
-    const result = new Initializers();
-    result.pending = [];
-    result.result = Status.emptyObject();
-    return result;
-  }
-
-}
-
-export class OwnerReference {
-  apiVersion: string;
-  kind: string;
-  name: string;
-  uid: string;
-  controller?: boolean;
-  blockOwnerDeletion?: boolean;
-
-  constructor(init?: OwnerReference) {
-    if (!init) {  return; }
-    if (init.apiVersion) { this.apiVersion = init.apiVersion; }
-    if (init.kind) { this.kind = init.kind; }
-    if (init.name) { this.name = init.name; }
-    if (init.uid) { this.uid = init.uid; }
-    if (init.controller) { this.controller = init.controller; }
-    if (init.blockOwnerDeletion) { this.blockOwnerDeletion = init.blockOwnerDeletion; }
-  }
-
-
-  static emptyObject(): OwnerReference {
-    const result = new OwnerReference();
-    return result;
-  }
-
-}
-
-
-export class Time {
-  Time: Date;
-
-  constructor(init?: Time) {
-    if (!init) {  return; }
-    if (init.Time) { this.Time = new Date(init.Time as any); }
-  }
-
-
-  static emptyObject(): Time {
-    const result = new Time();
-    result.Time = null;
-    return result;
-  }
-
-}
-
-export class ObjectMeta {
-  name: string;
-  generateName: string;
-  namespace: string;
-  selfLink: string;
-  uid: string;
-  resourceVersion: string;
-  generation: number;
-  creationTimestamp: Time;
-  deletionTimestamp?: Time;
-  deletionGracePeriodSeconds?: number;
-  labels?: { [key: string]: string };
-  annotations?: { [key: string]: string };
-  ownerReferences: OwnerReference[];
-  initializers?: Initializers;
-  finalizers: string[];
-  clusterName: string;
-
-  constructor(init?: ObjectMeta) {
-    if (!init) {  return; }
-    if (init.name) { this.name = init.name; }
-    if (init.generateName) { this.generateName = init.generateName; }
-    if (init.namespace) { this.namespace = init.namespace; }
-    if (init.selfLink) { this.selfLink = init.selfLink; }
-    if (init.uid) { this.uid = init.uid; }
-    if (init.resourceVersion) { this.resourceVersion = init.resourceVersion; }
-    if (init.generation) { this.generation = init.generation; }
-    if (init.creationTimestamp) { this.creationTimestamp = init.creationTimestamp; }
-    if (init.deletionTimestamp) { this.deletionTimestamp = init.deletionTimestamp; }
-    if (init.deletionGracePeriodSeconds) { this.deletionGracePeriodSeconds = init.deletionGracePeriodSeconds; }
-    if (init.labels) { this.labels = init.labels; }
-    if (init.annotations) { this.annotations = init.annotations; }
-    if (init.ownerReferences) { this.ownerReferences = init.ownerReferences; }
-    if (init.initializers) { this.initializers = init.initializers; }
-    if (init.finalizers) { this.finalizers = init.finalizers; }
-    if (init.clusterName) { this.clusterName = init.clusterName; }
-  }
-
-
-  static emptyObject(): ObjectMeta {
-    const result = new ObjectMeta();
-    result.creationTimestamp = Time.emptyObject();
-    result.deletionTimestamp = Time.emptyObject();
-    result.labels = null;
-    result.annotations = null;
-    result.ownerReferences = [];
-    result.initializers = Initializers.emptyObject();
-    result.finalizers = [];
-    return result;
-  }
-
 }
 
 export class KubeDaemonSet {
@@ -2314,5 +2213,4 @@ export class KubeDaemonSet {
     result.status = DaemonSetStatus.emptyObject();
     return result;
   }
-
 }

@@ -76,7 +76,9 @@ export class Time {
 
   constructor(init?: Time) {
     if (!init) {  return; }
-    if (init.Time) this.Time = new Date(init.Time as any);
+    if (init.Time) {
+      this.Time = new Date(init.Time as any);
+    }
   }
 
 

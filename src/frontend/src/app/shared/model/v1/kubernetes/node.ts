@@ -1,6 +1,25 @@
 /* Do not change, this code is generated from Golang structs */
 import { Node } from './node-list';
 
+export class Time {
+  Time: Date;
+
+  constructor(init?: Time) {
+    if (!init) {  return; }
+    if (init.Time) {
+      this.Time = new Date(init.Time as any);
+    }
+  }
+
+
+  static emptyObject(): Time {
+    const result = new Time();
+    result.Time = null;
+    return result;
+  }
+
+}
+
 export interface NodeSummary {
   cpuSummary: Object;
   memorySummary: Object;
@@ -475,26 +494,6 @@ export class OwnerReference {
 
   static emptyObject(): OwnerReference {
     const result = new OwnerReference();
-    return result;
-  }
-
-}
-
-
-export class Time {
-  Time: Date;
-
-  constructor(init?: Time) {
-    if (!init) {  return; }
-    if (init.Time) {
-      this.Time = new Date(init.Time as any);
-    }
-  }
-
-
-  static emptyObject(): Time {
-    const result = new Time();
-    result.Time = null;
     return result;
   }
 
