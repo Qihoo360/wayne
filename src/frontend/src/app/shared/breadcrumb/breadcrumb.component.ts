@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class BreadcrumbComponent implements OnInit, OnDestroy {
 
-  @Input() prefix: string = '';
+  @Input() prefix = '';
   urls: string[] = new Array();
   private routerSubscription: Subscription;
 

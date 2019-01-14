@@ -65,8 +65,8 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
   @Output() onItemsMoved: EventEmitter<IItemsMovedEvent> = new EventEmitter<IItemsMovedEvent>();
 
   // private variables to manage class
-  searchTermAvailable: string = '';
-  searchTermSelected: string = '';
+  searchTermAvailable = '';
+  searchTermSelected = '';
   availableItems: Array<IListBoxItem> = [];
   backupItems: Array<IListBoxItem> = [];
   selectedItems: Array<IListBoxItem> = [];

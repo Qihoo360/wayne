@@ -14,8 +14,8 @@ import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../
 
 export class ConfirmationDialogComponent implements OnDestroy {
   opened = false;
-  dialogTitle: string = '';
-  dialogContent: string = '';
+  dialogTitle = '';
+  dialogContent = '';
   message: ConfirmationMessage;
   annouceSubscription: Subscription;
   buttons: ConfirmationButtons;

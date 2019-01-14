@@ -23,7 +23,7 @@ export class TrashCronjobComponent implements OnInit, OnDestroy {
   state: State;
 
   subscription: Subscription;
-  componentName: string = '计划任务';
+  componentName = '计划任务';
 
   constructor(
     private cronjobService: CronjobService,

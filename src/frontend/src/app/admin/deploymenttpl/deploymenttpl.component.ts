@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -17,7 +17,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './deploymenttpl.component.html',
   styleUrls: ['./deploymenttpl.component.scss']
 })
-export class DeploymentTplComponent implements OnInit {
+export class DeploymentTplComponent implements OnInit, OnDestroy {
 
   @ViewChild(ListDeploymentTplComponent)
   listDeployment: ListDeploymentTplComponent;

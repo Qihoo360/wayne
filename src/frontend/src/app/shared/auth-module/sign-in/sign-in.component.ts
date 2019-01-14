@@ -12,7 +12,7 @@ import * as particlesJS from 'particlesjs/dist/particles';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-  version: String = require('../../../../../package.json').version;
+  version = require('../../../../../package.json').version;
   errMsg: string;
   username: string;
   password: string;

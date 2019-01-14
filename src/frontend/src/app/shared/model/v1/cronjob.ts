@@ -31,8 +31,12 @@ export class PodAntiAffinity {
 
   constructor(init?: PodAntiAffinity) {
     if (!init) {  return; }
-    if (init.requiredDuringSchedulingIgnoredDuringExecution) { this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution; }
-    if (init.preferredDuringSchedulingIgnoredDuringExecution) { this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution; }
+    if (init.requiredDuringSchedulingIgnoredDuringExecution) {
+      this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
+    }
+    if (init.preferredDuringSchedulingIgnoredDuringExecution) {
+      this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
+    }
   }
 
 
@@ -133,8 +137,12 @@ export class PodAffinity {
 
   constructor(init?: PodAffinity) {
     if (!init) {  return; }
-    if (init.requiredDuringSchedulingIgnoredDuringExecution) { this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution; }
-    if (init.preferredDuringSchedulingIgnoredDuringExecution) { this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution; }
+    if (init.requiredDuringSchedulingIgnoredDuringExecution) {
+      this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
+    }
+    if (init.preferredDuringSchedulingIgnoredDuringExecution) {
+      this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
+    }
   }
 
 
@@ -142,6 +150,23 @@ export class PodAffinity {
     const result = new PodAffinity();
     result.requiredDuringSchedulingIgnoredDuringExecution = [];
     result.preferredDuringSchedulingIgnoredDuringExecution = [];
+    return result;
+  }
+
+}
+
+export class NodeSelectorTerm {
+  matchExpressions: NodeSelectorRequirement[];
+
+  constructor(init?: NodeSelectorTerm) {
+    if (!init) {  return; }
+    if (init.matchExpressions) { this.matchExpressions = init.matchExpressions; }
+  }
+
+
+  static emptyObject(): NodeSelectorTerm {
+    const result = new NodeSelectorTerm();
+    result.matchExpressions = [];
     return result;
   }
 
@@ -187,23 +212,6 @@ export class NodeSelectorRequirement {
 
 }
 
-export class NodeSelectorTerm {
-  matchExpressions: NodeSelectorRequirement[];
-
-  constructor(init?: NodeSelectorTerm) {
-    if (!init) {  return; }
-    if (init.matchExpressions) { this.matchExpressions = init.matchExpressions; }
-  }
-
-
-  static emptyObject(): NodeSelectorTerm {
-    const result = new NodeSelectorTerm();
-    result.matchExpressions = [];
-    return result;
-  }
-
-}
-
 export class NodeSelector {
   nodeSelectorTerms: NodeSelectorTerm[];
 
@@ -227,8 +235,12 @@ export class NodeAffinity {
 
   constructor(init?: NodeAffinity) {
     if (!init) {  return; }
-    if (init.requiredDuringSchedulingIgnoredDuringExecution) { this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution; }
-    if (init.preferredDuringSchedulingIgnoredDuringExecution) { this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution; }
+    if (init.requiredDuringSchedulingIgnoredDuringExecution) {
+      this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
+    }
+    if (init.preferredDuringSchedulingIgnoredDuringExecution) {
+      this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
+    }
   }
 
 

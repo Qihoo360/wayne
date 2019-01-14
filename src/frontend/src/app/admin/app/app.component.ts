@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
   createEditApp: CreateEditAppComponent;
 
   namespaceId: string;
-  idFilterInit: string = '';
+  idFilterInit = '';
   changedApps: App[];
   pageState: PageState = new PageState();
   subscription: Subscription;

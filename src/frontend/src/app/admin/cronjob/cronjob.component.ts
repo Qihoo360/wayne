@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -18,7 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './cronjob.component.html',
   styleUrls: ['./cronjob.component.scss']
 })
-export class CronjobComponent implements OnInit {
+export class CronjobComponent implements OnInit, OnDestroy {
   @ViewChild(ListCronjobComponent)
   list: ListCronjobComponent;
   @ViewChild(CreateEditCronjobComponent)

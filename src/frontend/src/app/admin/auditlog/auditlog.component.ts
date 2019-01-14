@@ -23,10 +23,6 @@ export class AuditLogComponent implements OnInit {
 
   }
 
-  ngOnDestroy(): void {
-
-  }
-
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;
     this.state.page.size = pageSize;

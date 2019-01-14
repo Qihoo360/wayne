@@ -100,7 +100,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
   memoryUnitPrice = 10;
   top: number;
   box: HTMLElement;
-  naviList: string = JSON.stringify(templateDom);
+  naviList = JSON.stringify(templateDom);
   eventList: any[] = Array();
   defaultSafeExecCommand = 'sleep\n30';
 

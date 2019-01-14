@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -17,7 +17,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './configmaptpl.component.html',
   styleUrls: ['./configmaptpl.component.scss']
 })
-export class ConfigMapTplComponent implements OnInit {
+export class ConfigMapTplComponent implements OnInit, OnDestroy {
   @ViewChild(ListConfigMapTplComponent)
   list: ListConfigMapTplComponent;
   @ViewChild(CreateEditConfigMapTplComponent)

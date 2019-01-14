@@ -40,7 +40,7 @@ export class ListConfigMapComponent implements OnInit, OnDestroy {
   @Output() cloneTpl = new EventEmitter<ConfigMapTpl>();
   subscription: Subscription;
 
-  componentName: string = '配置集';
+  componentName = '配置集';
 
   constructor(private configMapTplService: ConfigMapTplService,
               private tplDetailService: TplDetailService,

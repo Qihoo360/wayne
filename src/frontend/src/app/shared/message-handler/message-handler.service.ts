@@ -30,25 +30,25 @@ export class MessageHandlerService {
 
 
   public showError(message: string): void {
-    if (message && message.trim() != '') {
+    if (message && message.trim() !== '') {
       this.msgService.announceMessage(500, message, AlertType.DANGER);
     }
   }
 
   public showSuccess(message: string): void {
-    if (message && message.trim() != '') {
+    if (message && message.trim() !== '') {
       this.msgService.announceMessage(200, message, AlertType.SUCCESS);
     }
   }
 
   public showInfo(message: string): void {
-    if (message && message.trim() != '') {
+    if (message && message.trim() !== '') {
       this.msgService.announceMessage(200, message, AlertType.INFO);
     }
   }
 
   public showWarning(message: string): void {
-    if (message && message.trim() != '') {
+    if (message && message.trim() !== '') {
       this.msgService.announceMessage(400, message, AlertType.WARNING);
     }
   }

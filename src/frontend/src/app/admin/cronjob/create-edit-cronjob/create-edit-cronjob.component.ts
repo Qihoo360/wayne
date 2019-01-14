@@ -34,7 +34,7 @@ export class CreateEditCronjobComponent implements OnInit {
   isSubmitOnGoing = false;
   isNameValid = true;
 
-  componentName: string = '计划任务';
+  componentName = '计划任务';
   title: string;
   actionType: ActionType;
 

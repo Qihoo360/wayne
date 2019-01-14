@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { State } from '@clr/angular';
 import { ListNamespaceComponent } from './list-namespace/list-namespace.component';
 import { CreateEditNamespaceComponent } from './create-edit-namespace/create-edit-namespace.component';
@@ -18,7 +18,7 @@ import { Cluster } from '../../shared/model/v1/cluster';
   templateUrl: './namespace.component.html',
   styleUrls: ['./namespace.component.scss']
 })
-export class NamespaceComponent implements OnInit {
+export class NamespaceComponent implements OnInit, OnDestroy {
   @ViewChild(ListNamespaceComponent)
   listNamespace: ListNamespaceComponent;
   @ViewChild(CreateEditNamespaceComponent)

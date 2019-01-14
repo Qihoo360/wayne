@@ -1,3 +1,16 @@
+export class NamespaceMetaData {
+  namespace: string;
+  clusterMeta: { [key: string]: ClusterMeta };
+  imagePullSecrets: LocalObjectReference[];
+  env: EnvVar[];
+
+  constructor() {
+    this.imagePullSecrets = [];
+    this.env = [];
+    this.clusterMeta = {};
+  }
+}
+
 export class Namespace {
   id: number;
   name: string;
@@ -44,19 +57,6 @@ export class ClusterMeta {
 
   constructor() {
     this.resourcesLimit = new ResourcesLimit();
-  }
-}
-
-export class NamespaceMetaData {
-  namespace: string;
-  clusterMeta: { [key: string]: ClusterMeta };
-  imagePullSecrets: LocalObjectReference[];
-  env: EnvVar[];
-
-  constructor() {
-    this.imagePullSecrets = [];
-    this.env = [];
-    this.clusterMeta = {};
   }
 }
 

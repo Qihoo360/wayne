@@ -3,6 +3,41 @@
 
 import { TemplateStatus } from './status';
 
+export class Namespace {
+  id: number;
+  name: string;
+  metaData: string;
+  createTime?: Date;
+  updateTime?: Date;
+  user: string;
+  deleted: boolean;
+
+  constructor(init?: Namespace) {
+    if (!init) { return; }
+    if (init.id) { this.id = init.id; }
+    if (init.name) { this.name = init.name; }
+    if (init.metaData) { this.metaData = init.metaData; }
+    if (init.createTime) { this.createTime = new Date(init.createTime as any); }
+    if (init.updateTime) { this.updateTime = new Date(init.updateTime as any); }
+    if (init.user) { this.user = init.user; }
+    if (init.deleted) { this.deleted = init.deleted; }
+  }
+
+
+  static emptyObject(): Namespace {
+    const result = new Namespace();
+    result.id = 0;
+    result.name = '';
+    result.metaData = '';
+    result.createTime = null;
+    result.updateTime = null;
+    result.user = '';
+    result.deleted = false;
+    return result;
+  }
+
+}
+
 export class User {
   id: number;
   name: string;
@@ -122,45 +157,6 @@ export class AppStarred {
   }
 
 }
-
-
-
-
-export class Namespace {
-  id: number;
-  name: string;
-  metaData: string;
-  createTime?: Date;
-  updateTime?: Date;
-  user: string;
-  deleted: boolean;
-
-  constructor(init?: Namespace) {
-    if (!init) { return; }
-    if (init.id) { this.id = init.id; }
-    if (init.name) { this.name = init.name; }
-    if (init.metaData) { this.metaData = init.metaData; }
-    if (init.createTime) { this.createTime = new Date(init.createTime as any); }
-    if (init.updateTime) { this.updateTime = new Date(init.updateTime as any); }
-    if (init.user) { this.user = init.user; }
-    if (init.deleted) { this.deleted = init.deleted; }
-  }
-
-
-  static emptyObject(): Namespace {
-    const result = new Namespace();
-    result.id = 0;
-    result.name = '';
-    result.metaData = '';
-    result.createTime = null;
-    result.updateTime = null;
-    result.user = '';
-    result.deleted = false;
-    return result;
-  }
-
-}
-
 
 export class Statefulset {
   id: number;

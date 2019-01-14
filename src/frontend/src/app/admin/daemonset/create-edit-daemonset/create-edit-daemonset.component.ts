@@ -142,7 +142,7 @@ export class CreateEditDaemonsetComponent implements OnInit {
       !isUndefined(this.daemonset.appId);
   }
 
-  //Handle the form validation
+  // Handle the form validation
   handleValidation(): void {
     const cont = this.currentForm.controls['daemonset_name'];
     if (cont) {

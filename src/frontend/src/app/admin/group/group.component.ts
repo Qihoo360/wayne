@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { State } from '@clr/angular';
 import { ListGroupComponent } from './list-group/list-group.component';
 import { CreateEditGroupComponent } from './create-edit-group/create-edit-group.component';
@@ -16,7 +16,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.scss']
 })
-export class GroupComponent implements OnInit {
+export class GroupComponent implements OnInit, OnDestroy {
   @ViewChild(ListGroupComponent)
   listGroup: ListGroupComponent;
   @ViewChild(CreateEditGroupComponent)

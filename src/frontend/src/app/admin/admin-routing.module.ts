@@ -63,7 +63,7 @@ import { TrashIngressComponent } from './ingress/trash-ingress/trash-ingress.com
 import { IngressTplComponent } from './ingresstpl/ingresstpl.component';
 import { TrashIngressTplComponent } from './ingresstpl/trash-ingresstpl/trash-ingresstpl.component';
 import { KubeDeploymentComponent } from './kubernetes/deployment/kube-deployment.component';
-import {KubeNamespaceComponent} from './kubernetes/namespace/kube-namespace.component';
+import { KubeNamespaceComponent } from './kubernetes/namespace/kube-namespace.component';
 
 
 const routes: Routes = [

@@ -75,7 +75,8 @@ export class IngressTplComponent implements OnInit, OnDestroy {
 
   retrieve(state?: State): void {
     if (state) {
-      this.pageState = PageState.fromState(state, {pageSize: 10, totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
+      this.pageState =
+        PageState.fromState(state, {pageSize: 10, totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.pageState.params['deleted'] = false;
     this.ingressTplService.listPage(this.pageState, 0, this.serviceId)

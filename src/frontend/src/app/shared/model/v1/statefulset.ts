@@ -1,5 +1,55 @@
 /* Do not change, this code is generated from Golang structs */
 
+export class LabelSelectorRequirement {
+  key: string;
+  operator: string;
+  values: string[];
+
+  constructor(init?: LabelSelectorRequirement) {
+    if (!init) {  return; }
+    if (init.key) {
+      this.key = init.key;
+    }
+    if (init.operator) {
+      this.operator = init.operator;
+    }
+    if (init.values) {
+      this.values = init.values;
+    }
+  }
+
+
+  static emptyObject(): LabelSelectorRequirement {
+    const result = new LabelSelectorRequirement();
+    result.values = [];
+    return result;
+  }
+
+}
+
+export class LabelSelector {
+  matchLabels?: { [key: string]: string };
+  matchExpressions: LabelSelectorRequirement[];
+
+  constructor(init?: LabelSelector) {
+    if (!init) {  return; }
+    if (init.matchLabels) {
+      this.matchLabels = init.matchLabels;
+    }
+    if (init.matchExpressions) {
+      this.matchExpressions = init.matchExpressions;
+    }
+  }
+
+
+  static emptyObject(): LabelSelector {
+    const result = new LabelSelector();
+    result.matchLabels = null;
+    result.matchExpressions = [];
+    return result;
+  }
+
+}
 export class Namespace {
   id: number;
   name: string;
@@ -276,57 +326,6 @@ export class WeightedPodAffinityTerm {
 
 }
 
-export class LabelSelectorRequirement {
-  key: string;
-  operator: string;
-  values: string[];
-
-  constructor(init?: LabelSelectorRequirement) {
-    if (!init) {  return; }
-    if (init.key) {
-      this.key = init.key;
-    }
-    if (init.operator) {
-      this.operator = init.operator;
-    }
-    if (init.values) {
-      this.values = init.values;
-    }
-  }
-
-
-  static emptyObject(): LabelSelectorRequirement {
-    const result = new LabelSelectorRequirement();
-    result.values = [];
-    return result;
-  }
-
-}
-
-export class LabelSelector {
-  matchLabels?: { [key: string]: string };
-  matchExpressions: LabelSelectorRequirement[];
-
-  constructor(init?: LabelSelector) {
-    if (!init) {  return; }
-    if (init.matchLabels) {
-      this.matchLabels = init.matchLabels;
-    }
-    if (init.matchExpressions) {
-      this.matchExpressions = init.matchExpressions;
-    }
-  }
-
-
-  static emptyObject(): LabelSelector {
-    const result = new LabelSelector();
-    result.matchLabels = null;
-    result.matchExpressions = [];
-    return result;
-  }
-
-}
-
 export class PodAffinity {
   requiredDuringSchedulingIgnoredDuringExecution: PodAffinityTerm[];
   preferredDuringSchedulingIgnoredDuringExecution: WeightedPodAffinityTerm[];
@@ -346,6 +345,25 @@ export class PodAffinity {
     const result = new PodAffinity();
     result.requiredDuringSchedulingIgnoredDuringExecution = [];
     result.preferredDuringSchedulingIgnoredDuringExecution = [];
+    return result;
+  }
+
+}
+
+export class NodeSelectorTerm {
+  matchExpressions: NodeSelectorRequirement[];
+
+  constructor(init?: NodeSelectorTerm) {
+    if (!init) {  return; }
+    if (init.matchExpressions) {
+      this.matchExpressions = init.matchExpressions;
+    }
+  }
+
+
+  static emptyObject(): NodeSelectorTerm {
+    const result = new NodeSelectorTerm();
+    result.matchExpressions = [];
     return result;
   }
 
@@ -396,25 +414,6 @@ export class NodeSelectorRequirement {
   static emptyObject(): NodeSelectorRequirement {
     const result = new NodeSelectorRequirement();
     result.values = [];
-    return result;
-  }
-
-}
-
-export class NodeSelectorTerm {
-  matchExpressions: NodeSelectorRequirement[];
-
-  constructor(init?: NodeSelectorTerm) {
-    if (!init) {  return; }
-    if (init.matchExpressions) {
-      this.matchExpressions = init.matchExpressions;
-    }
-  }
-
-
-  static emptyObject(): NodeSelectorTerm {
-    const result = new NodeSelectorTerm();
-    result.matchExpressions = [];
     return result;
   }
 

@@ -62,7 +62,7 @@ export class CreateEditIngressComponent implements OnInit{
       this.title = '编辑 Ingress';
       this.ingressService.getById(id, 0).subscribe(
         status => {
-          this.ingress = status.data
+          this.ingress = status.data;
           this.ingress.metaDataObj = JSON.parse(this.ingress.metaData ? this.ingress.metaData : '{}');
           this.initJsonEditor();
         },

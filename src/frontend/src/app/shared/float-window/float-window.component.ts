@@ -42,7 +42,7 @@ export class FloatWindowComponent {
   }
 
   @Input() value: string;
-  boxState: string = 'leave';
+  boxState = 'leave';
   childs: QueryList<any>;
   eventList: any[] = new Array();
 

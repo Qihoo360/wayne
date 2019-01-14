@@ -32,8 +32,8 @@ export class FloatWindowItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  boxState: string = 'leave';
-  itemState: string = '';
+  boxState = 'leave';
+  itemState = '';
 
   get getStyle() {
     return {

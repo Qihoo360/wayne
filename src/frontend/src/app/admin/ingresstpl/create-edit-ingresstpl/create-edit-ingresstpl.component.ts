@@ -19,7 +19,7 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
   templateUrl: 'create-edit-ingresstpl.component.html',
   styleUrls: ['create-edit-ingresstpl.scss']
 })
-export class CreateEditIngressTplComponent implements OnInit{
+export class CreateEditIngressTplComponent implements OnInit {
   @Output() create = new EventEmitter<boolean>();
   modalOpened: boolean;
 

@@ -57,7 +57,7 @@ export class ListUserComponent implements OnInit {
     if (!user) {
       return '用户不存在';
     }
-    const show: string = user.admin ? '取消管理员' : '设置为管理员';
+    const show = user.admin ? '取消管理员' : '设置为管理员';
     return show;
   }
 
