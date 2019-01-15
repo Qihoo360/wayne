@@ -1,70 +1,5 @@
 import { App } from './app';
 
-export class Deployment {
-  id: number;
-  name: string;
-  metaData: string;
-  deleted: boolean;
-  appId: number;
-  user: string;
-  metaDataObj: DeploymentMetaData;
-  createTime: Date;
-  updateTime: Date;
-  app: App;
-  order: number;
-  description: string;
-}
-
-export class ClusterMeta {
-  constructor(checked?: boolean) {
-    this.checked = checked;
-    this.value = 0;
-  }
-
-  checked: boolean;
-  value: number;
-}
-
-
-export class PodAntiAffinity {
-  requiredDuringSchedulingIgnoredDuringExecution: PodAffinityTerm[];
-  preferredDuringSchedulingIgnoredDuringExecution: WeightedPodAffinityTerm[];
-
-  constructor(init?: PodAntiAffinity) {
-    if (!init) {  return; }
-    if (init.requiredDuringSchedulingIgnoredDuringExecution) { this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution; }
-    if (init.preferredDuringSchedulingIgnoredDuringExecution) { this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution; }
-  }
-
-
-  static emptyObject(): PodAntiAffinity {
-    const result = new PodAntiAffinity();
-    result.requiredDuringSchedulingIgnoredDuringExecution = [];
-    result.preferredDuringSchedulingIgnoredDuringExecution = [];
-    return result;
-  }
-
-}
-
-export class WeightedPodAffinityTerm {
-  weight: number;
-  podAffinityTerm: PodAffinityTerm;
-
-  constructor(init?: WeightedPodAffinityTerm) {
-    if (!init) {  return; }
-    if (init.weight) { this.weight = init.weight; }
-    if (init.podAffinityTerm) { this.podAffinityTerm = init.podAffinityTerm; }
-  }
-
-
-  static emptyObject(): WeightedPodAffinityTerm {
-    const result = new WeightedPodAffinityTerm();
-    result.podAffinityTerm = PodAffinityTerm.emptyObject();
-    return result;
-  }
-
-}
-
 export class LabelSelectorRequirement {
   key: string;
   operator: string;
@@ -128,14 +63,86 @@ export class PodAffinityTerm {
 
 }
 
+export class PodAntiAffinity {
+  requiredDuringSchedulingIgnoredDuringExecution: PodAffinityTerm[];
+  preferredDuringSchedulingIgnoredDuringExecution: WeightedPodAffinityTerm[];
+
+  constructor(init?: PodAntiAffinity) {
+    if (!init) {  return; }
+    if (init.requiredDuringSchedulingIgnoredDuringExecution) {
+      this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
+    }
+    if (init.preferredDuringSchedulingIgnoredDuringExecution) {
+      this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
+    }
+  }
+
+
+  static emptyObject(): PodAntiAffinity {
+    const result = new PodAntiAffinity();
+    result.requiredDuringSchedulingIgnoredDuringExecution = [];
+    result.preferredDuringSchedulingIgnoredDuringExecution = [];
+    return result;
+  }
+
+}
+
+export class Deployment {
+  id: number;
+  name: string;
+  metaData: string;
+  deleted: boolean;
+  appId: number;
+  user: string;
+  metaDataObj: DeploymentMetaData;
+  createTime: Date;
+  updateTime: Date;
+  app: App;
+  order: number;
+  description: string;
+}
+
+export class ClusterMeta {
+  constructor(checked?: boolean) {
+    this.checked = checked;
+    this.value = 0;
+  }
+
+  checked: boolean;
+  value: number;
+}
+
+export class WeightedPodAffinityTerm {
+  weight: number;
+  podAffinityTerm: PodAffinityTerm;
+
+  constructor(init?: WeightedPodAffinityTerm) {
+    if (!init) {  return; }
+    if (init.weight) { this.weight = init.weight; }
+    if (init.podAffinityTerm) { this.podAffinityTerm = init.podAffinityTerm; }
+  }
+
+
+  static emptyObject(): WeightedPodAffinityTerm {
+    const result = new WeightedPodAffinityTerm();
+    result.podAffinityTerm = PodAffinityTerm.emptyObject();
+    return result;
+  }
+
+}
+
 export class PodAffinity {
   requiredDuringSchedulingIgnoredDuringExecution: PodAffinityTerm[];
   preferredDuringSchedulingIgnoredDuringExecution: WeightedPodAffinityTerm[];
 
   constructor(init?: PodAffinity) {
     if (!init) {  return; }
-    if (init.requiredDuringSchedulingIgnoredDuringExecution) { this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution; }
-    if (init.preferredDuringSchedulingIgnoredDuringExecution) { this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution; }
+    if (init.requiredDuringSchedulingIgnoredDuringExecution) {
+      this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
+    }
+    if (init.preferredDuringSchedulingIgnoredDuringExecution) {
+      this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
+    }
   }
 
 
@@ -143,6 +150,23 @@ export class PodAffinity {
     const result = new PodAffinity();
     result.requiredDuringSchedulingIgnoredDuringExecution = [];
     result.preferredDuringSchedulingIgnoredDuringExecution = [];
+    return result;
+  }
+
+}
+
+export class NodeSelectorTerm {
+  matchExpressions: NodeSelectorRequirement[];
+
+  constructor(init?: NodeSelectorTerm) {
+    if (!init) {  return; }
+    if (init.matchExpressions) { this.matchExpressions = init.matchExpressions; }
+  }
+
+
+  static emptyObject(): NodeSelectorTerm {
+    const result = new NodeSelectorTerm();
+    result.matchExpressions = [];
     return result;
   }
 
@@ -188,23 +212,6 @@ export class NodeSelectorRequirement {
 
 }
 
-export class NodeSelectorTerm {
-  matchExpressions: NodeSelectorRequirement[];
-
-  constructor(init?: NodeSelectorTerm) {
-    if (!init) {  return; }
-    if (init.matchExpressions) { this.matchExpressions = init.matchExpressions; }
-  }
-
-
-  static emptyObject(): NodeSelectorTerm {
-    const result = new NodeSelectorTerm();
-    result.matchExpressions = [];
-    return result;
-  }
-
-}
-
 export class NodeSelector {
   nodeSelectorTerms: NodeSelectorTerm[];
 
@@ -228,8 +235,12 @@ export class NodeAffinity {
 
   constructor(init?: NodeAffinity) {
     if (!init) {  return; }
-    if (init.requiredDuringSchedulingIgnoredDuringExecution) { this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution; }
-    if (init.preferredDuringSchedulingIgnoredDuringExecution) { this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution; }
+    if (init.requiredDuringSchedulingIgnoredDuringExecution) {
+      this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
+    }
+    if (init.preferredDuringSchedulingIgnoredDuringExecution) {
+      this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
+    }
   }
 
 

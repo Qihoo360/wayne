@@ -23,8 +23,12 @@ export class DaemonSetTemplate {
     if (init.template) { this.template = init.template; }
     if (init.daemonSet) { this.daemonSet = init.daemonSet; }
     if (init.description) { this.description = init.description; }
-    if (init.createTime) this.createTime = new Date(init.createTime as any);
-    if (init.updateTime) this.updateTime = new Date(init.updateTime as any);
+    if (init.createTime) {
+      this.createTime = new Date(init.createTime as any);
+    }
+    if (init.updateTime) {
+      this.updateTime = new Date(init.updateTime as any);
+    }
     if (init.user) { this.user = init.user; }
     if (init.deleted) { this.deleted = init.deleted; }
     if (init.daemonSetId) { this.daemonSetId = init.daemonSetId; }

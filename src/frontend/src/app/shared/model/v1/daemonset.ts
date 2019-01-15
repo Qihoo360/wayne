@@ -1,54 +1,18 @@
 /* Do not change, this code is generated from Golang structs */
 import { App } from './app';
 
-export class DaemonSet {
-  id: number;
-  name: string;
-  metaData: string;
-  app?: App;
-  description: string;
-  metaDataObj: DaemonSetMetaData;
-  createTime: Date;
-  updateTime: Date;
-  user: string;
-  deleted: boolean;
-  appId: number;
-  order: number;
-
-  constructor(init?: DaemonSet) {
-    if (!init) {  return; }
-    if (init.id) { this.id = init.id; }
-    if (init.name) { this.name = init.name; }
-    if (init.metaData) { this.metaData = init.metaData; }
-    if (init.app) { this.app = init.app; }
-    if (init.description) { this.description = init.description; }
-    if (init.createTime) this.createTime = new Date(init.createTime as any);
-    if (init.updateTime) this.updateTime = new Date(init.updateTime as any);
-    if (init.user) { this.user = init.user; }
-    if (init.deleted) { this.deleted = init.deleted; }
-    if (init.appId) { this.appId = init.appId; }
-  }
-
-
-  static emptyObject(): DaemonSet {
-    const result = new DaemonSet();
-    result.app = App.emptyObject();
-    result.createTime = null;
-    result.updateTime = null;
-    return result;
-  }
-
-}
-
-
 export class PodAntiAffinity {
   requiredDuringSchedulingIgnoredDuringExecution: PodAffinityTerm[];
   preferredDuringSchedulingIgnoredDuringExecution: WeightedPodAffinityTerm[];
 
   constructor(init?: PodAntiAffinity) {
     if (!init) {  return; }
-    if (init.requiredDuringSchedulingIgnoredDuringExecution) { this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution; }
-    if (init.preferredDuringSchedulingIgnoredDuringExecution) { this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution; }
+    if (init.requiredDuringSchedulingIgnoredDuringExecution) {
+      this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
+    }
+    if (init.preferredDuringSchedulingIgnoredDuringExecution) {
+      this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
+    }
   }
 
 
@@ -56,25 +20,6 @@ export class PodAntiAffinity {
     const result = new PodAntiAffinity();
     result.requiredDuringSchedulingIgnoredDuringExecution = [];
     result.preferredDuringSchedulingIgnoredDuringExecution = [];
-    return result;
-  }
-
-}
-
-export class WeightedPodAffinityTerm {
-  weight: number;
-  podAffinityTerm: PodAffinityTerm;
-
-  constructor(init?: WeightedPodAffinityTerm) {
-    if (!init) {  return; }
-    if (init.weight) { this.weight = init.weight; }
-    if (init.podAffinityTerm) { this.podAffinityTerm = init.podAffinityTerm; }
-  }
-
-
-  static emptyObject(): WeightedPodAffinityTerm {
-    const result = new WeightedPodAffinityTerm();
-    result.podAffinityTerm = PodAffinityTerm.emptyObject();
     return result;
   }
 
@@ -143,14 +88,37 @@ export class PodAffinityTerm {
 
 }
 
+export class WeightedPodAffinityTerm {
+  weight: number;
+  podAffinityTerm: PodAffinityTerm;
+
+  constructor(init?: WeightedPodAffinityTerm) {
+    if (!init) {  return; }
+    if (init.weight) { this.weight = init.weight; }
+    if (init.podAffinityTerm) { this.podAffinityTerm = init.podAffinityTerm; }
+  }
+
+
+  static emptyObject(): WeightedPodAffinityTerm {
+    const result = new WeightedPodAffinityTerm();
+    result.podAffinityTerm = PodAffinityTerm.emptyObject();
+    return result;
+  }
+
+}
+
 export class PodAffinity {
   requiredDuringSchedulingIgnoredDuringExecution: PodAffinityTerm[];
   preferredDuringSchedulingIgnoredDuringExecution: WeightedPodAffinityTerm[];
 
   constructor(init?: PodAffinity) {
     if (!init) {  return; }
-    if (init.requiredDuringSchedulingIgnoredDuringExecution) { this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution; }
-    if (init.preferredDuringSchedulingIgnoredDuringExecution) { this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution; }
+    if (init.requiredDuringSchedulingIgnoredDuringExecution) {
+      this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
+    }
+    if (init.preferredDuringSchedulingIgnoredDuringExecution) {
+      this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
+    }
   }
 
 
@@ -158,25 +126,6 @@ export class PodAffinity {
     const result = new PodAffinity();
     result.requiredDuringSchedulingIgnoredDuringExecution = [];
     result.preferredDuringSchedulingIgnoredDuringExecution = [];
-    return result;
-  }
-
-}
-
-export class PreferredSchedulingTerm {
-  weight: number;
-  preference: NodeSelectorTerm;
-
-  constructor(init?: PreferredSchedulingTerm) {
-    if (!init) {  return; }
-    if (init.weight) { this.weight = init.weight; }
-    if (init.preference) { this.preference = init.preference; }
-  }
-
-
-  static emptyObject(): PreferredSchedulingTerm {
-    const result = new PreferredSchedulingTerm();
-    result.preference = NodeSelectorTerm.emptyObject();
     return result;
   }
 
@@ -220,6 +169,25 @@ export class NodeSelectorTerm {
 
 }
 
+export class PreferredSchedulingTerm {
+  weight: number;
+  preference: NodeSelectorTerm;
+
+  constructor(init?: PreferredSchedulingTerm) {
+    if (!init) {  return; }
+    if (init.weight) { this.weight = init.weight; }
+    if (init.preference) { this.preference = init.preference; }
+  }
+
+
+  static emptyObject(): PreferredSchedulingTerm {
+    const result = new PreferredSchedulingTerm();
+    result.preference = NodeSelectorTerm.emptyObject();
+    return result;
+  }
+
+}
+
 export class NodeSelector {
   nodeSelectorTerms: NodeSelectorTerm[];
 
@@ -243,8 +211,12 @@ export class NodeAffinity {
 
   constructor(init?: NodeAffinity) {
     if (!init) {  return; }
-    if (init.requiredDuringSchedulingIgnoredDuringExecution) { this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution; }
-    if (init.preferredDuringSchedulingIgnoredDuringExecution) { this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution; }
+    if (init.requiredDuringSchedulingIgnoredDuringExecution) {
+      this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
+    }
+    if (init.preferredDuringSchedulingIgnoredDuringExecution) {
+      this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
+    }
   }
 
 
@@ -298,6 +270,49 @@ export class DaemonSetMetaData {
     result.resources = null;
     result.affinity = Affinity.emptyObject();
     result.privileged = null;
+    return result;
+  }
+
+}
+
+export class DaemonSet {
+  id: number;
+  name: string;
+  metaData: string;
+  app?: App;
+  description: string;
+  metaDataObj: DaemonSetMetaData;
+  createTime: Date;
+  updateTime: Date;
+  user: string;
+  deleted: boolean;
+  appId: number;
+  order: number;
+
+  constructor(init?: DaemonSet) {
+    if (!init) {  return; }
+    if (init.id) { this.id = init.id; }
+    if (init.name) { this.name = init.name; }
+    if (init.metaData) { this.metaData = init.metaData; }
+    if (init.app) { this.app = init.app; }
+    if (init.description) { this.description = init.description; }
+    if (init.createTime) {
+      this.createTime = new Date(init.createTime as any);
+    }
+    if (init.updateTime) {
+      this.updateTime = new Date(init.updateTime as any);
+    }
+    if (init.user) { this.user = init.user; }
+    if (init.deleted) { this.deleted = init.deleted; }
+    if (init.appId) { this.appId = init.appId; }
+  }
+
+
+  static emptyObject(): DaemonSet {
+    const result = new DaemonSet();
+    result.app = App.emptyObject();
+    result.createTime = null;
+    result.updateTime = null;
     return result;
   }
 

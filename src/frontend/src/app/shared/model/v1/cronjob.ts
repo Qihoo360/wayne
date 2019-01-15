@@ -24,50 +24,6 @@ export class ClusterMeta {
   }
 }
 
-
-export class PodAntiAffinity {
-  requiredDuringSchedulingIgnoredDuringExecution: PodAffinityTerm[];
-  preferredDuringSchedulingIgnoredDuringExecution: WeightedPodAffinityTerm[];
-
-  constructor(init?: PodAntiAffinity) {
-    if (!init) {  return; }
-    if (init.requiredDuringSchedulingIgnoredDuringExecution) {
-      this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
-    }
-    if (init.preferredDuringSchedulingIgnoredDuringExecution) {
-      this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
-    }
-  }
-
-
-  static emptyObject(): PodAntiAffinity {
-    const result = new PodAntiAffinity();
-    result.requiredDuringSchedulingIgnoredDuringExecution = [];
-    result.preferredDuringSchedulingIgnoredDuringExecution = [];
-    return result;
-  }
-
-}
-
-export class WeightedPodAffinityTerm {
-  weight: number;
-  podAffinityTerm: PodAffinityTerm;
-
-  constructor(init?: WeightedPodAffinityTerm) {
-    if (!init) {  return; }
-    if (init.weight) { this.weight = init.weight; }
-    if (init.podAffinityTerm) { this.podAffinityTerm = init.podAffinityTerm; }
-  }
-
-
-  static emptyObject(): WeightedPodAffinityTerm {
-    const result = new WeightedPodAffinityTerm();
-    result.podAffinityTerm = PodAffinityTerm.emptyObject();
-    return result;
-  }
-
-}
-
 export class LabelSelectorRequirement {
   key: string;
   operator: string;
@@ -126,6 +82,49 @@ export class PodAffinityTerm {
     const result = new PodAffinityTerm();
     result.labelSelector = LabelSelector.emptyObject();
     result.namespaces = [];
+    return result;
+  }
+
+}
+
+export class PodAntiAffinity {
+  requiredDuringSchedulingIgnoredDuringExecution: PodAffinityTerm[];
+  preferredDuringSchedulingIgnoredDuringExecution: WeightedPodAffinityTerm[];
+
+  constructor(init?: PodAntiAffinity) {
+    if (!init) {  return; }
+    if (init.requiredDuringSchedulingIgnoredDuringExecution) {
+      this.requiredDuringSchedulingIgnoredDuringExecution = init.requiredDuringSchedulingIgnoredDuringExecution;
+    }
+    if (init.preferredDuringSchedulingIgnoredDuringExecution) {
+      this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
+    }
+  }
+
+
+  static emptyObject(): PodAntiAffinity {
+    const result = new PodAntiAffinity();
+    result.requiredDuringSchedulingIgnoredDuringExecution = [];
+    result.preferredDuringSchedulingIgnoredDuringExecution = [];
+    return result;
+  }
+
+}
+
+export class WeightedPodAffinityTerm {
+  weight: number;
+  podAffinityTerm: PodAffinityTerm;
+
+  constructor(init?: WeightedPodAffinityTerm) {
+    if (!init) {  return; }
+    if (init.weight) { this.weight = init.weight; }
+    if (init.podAffinityTerm) { this.podAffinityTerm = init.podAffinityTerm; }
+  }
+
+
+  static emptyObject(): WeightedPodAffinityTerm {
+    const result = new WeightedPodAffinityTerm();
+    result.podAffinityTerm = PodAffinityTerm.emptyObject();
     return result;
   }
 
