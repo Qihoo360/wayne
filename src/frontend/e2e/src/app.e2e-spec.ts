@@ -1,7 +1,7 @@
 import { FrontendPage } from './app.po';
 
 describe('frontend App', () => {
-  let page: FrontendPage;
+  const page: FrontendPage;
 
   beforeEach(() => {
     page = new FrontendPage();

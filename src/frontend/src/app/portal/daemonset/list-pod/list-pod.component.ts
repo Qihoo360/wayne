@@ -43,7 +43,7 @@ export class ListPodComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   get appId(): number {
-    return parseInt(this.route.parent.snapshot.params['id']);
+    return parseInt(this.route.parent.snapshot.params['id'], 10);
   }
 
   constructor(private inventory: Inventory,
@@ -89,9 +89,9 @@ export class ListPodComponent implements OnInit, OnDestroy {
     this.whetherHotReflash = true;
     this.clusterService.getByName(this.currentCluster).subscribe(
       response => {
-        const cluster: Cluster = response.data;
-        if (cluster.metaData) {
-          const metaData = JSON.parse(cluster.metaData);
+        const data: Cluster = response.data;
+        if (data.metaData) {
+          const metaData = JSON.parse(data.metaData);
           if (metaData.logSource) {
             this.logSource = metaData.logSource;
           }
@@ -122,7 +122,7 @@ export class ListPodComponent implements OnInit, OnDestroy {
         clearInterval(this.timer);
         return;
       }
-      if (this.whetherHotReflash) this.refresh();
+      if (this.whetherHotReflash) { this.refresh(); }
     }, 5000);
   }
 
@@ -155,7 +155,8 @@ export class ListPodComponent implements OnInit, OnDestroy {
 
   enterContainer(pod: Pod): void {
     const appId = this.route.parent.snapshot.params['id'];
-    const url = `portal/namespace/${this.cacheService.namespaceId}/app/${appId}/daemonSet/${this.daemonSet}/pod/${pod.name}/terminal/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
+    const url = `portal/namespace/${this.cacheService.namespaceId}/app
+    /${appId}/daemonSet/${this.daemonSet}/pod/${pod.name}/terminal/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 
@@ -163,7 +164,8 @@ export class ListPodComponent implements OnInit, OnDestroy {
   podLog(pod: Pod): void {
 
     const appId = this.route.parent.snapshot.params['id'];
-    const url = `portal/logging/namespace/${this.cacheService.namespaceId}/app/${appId}/daemonSet/${this.daemonSet}/pod/${pod.name}/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
+    const url = `portal/logging/namespace/${this.cacheService.namespaceId}/app
+    /${appId}/daemonSet/${this.daemonSet}/pod/${pod.name}/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 }

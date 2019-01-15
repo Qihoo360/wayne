@@ -19,11 +19,10 @@ export class ClusterService {
   getNames(): Observable<any> {
     return this.http
       .get('/api/v1/clusters/names')
-
       .catch(error => Observable.throw(error));
   }
 
-  list(pageState: PageState, deleted?: string,): Observable<any> {
+  list(pageState: PageState, deleted?: string): Observable<any> {
     let params = new HttpParams();
     params = params.set('pageNo', pageState.page.pageNo + '');
     params = params.set('pageSize', pageState.page.pageSize + '');

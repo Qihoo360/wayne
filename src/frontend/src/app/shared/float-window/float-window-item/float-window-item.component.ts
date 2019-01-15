@@ -23,6 +23,9 @@ export class FloatWindowItemComponent implements OnInit {
 
   index: number;
   length: number;
+  boxState = 'leave';
+  itemState = '';
+
   @Input() tip: string;
   @Input() value: string;
 
@@ -31,9 +34,6 @@ export class FloatWindowItemComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  boxState = 'leave';
-  itemState = '';
 
   get getStyle() {
     return {

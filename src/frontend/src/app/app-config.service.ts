@@ -5,14 +5,10 @@ import { AppConfig } from './app-config';
 
 /**
  * Declare service to handle the bootstrap options
- *
- *
- * @export
- * @class GlobalSearchService
  */
 @Injectable()
 export class AppConfigService {
-  //Store the application configuration
+  // Store the application configuration
   private configurations: AppConfig = new AppConfig();
 
   constructor() {

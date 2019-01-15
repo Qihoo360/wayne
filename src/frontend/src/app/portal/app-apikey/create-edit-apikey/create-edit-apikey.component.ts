@@ -42,7 +42,7 @@ export class CreateEditApiKeyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.appId = parseInt(this.route.parent.snapshot.params['id']);
+    this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
 
     this.groupService.listGroup(new PageState({pageSize: 1000}), 2).subscribe(
       response => {

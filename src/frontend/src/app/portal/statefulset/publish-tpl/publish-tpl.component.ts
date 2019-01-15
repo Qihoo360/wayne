@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
-
+import { forkJoin } from 'rxjs';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
@@ -170,7 +170,7 @@ export class PublishStatefulsetTplComponent {
   offline() {
     Object.getOwnPropertyNames(this.clusterMetas).map(cluster => {
       if (this.clusterMetas[cluster].checked) {
-        let state = this.getStatusByCluster(this.statefulsetTpl.status, cluster);
+        const state = this.getStatusByCluster(this.statefulsetTpl.status, cluster);
         this.statefulsetClient.deleteByName(this.appId, cluster, this.cacheService.kubeNamespace, this.statefulset.name).subscribe(
           response => {
             this.deletePublishStatus(state.id);
@@ -217,7 +217,7 @@ export class PublishStatefulsetTplComponent {
           kubeStatefulSet));
       }
     });
-    Observable.forkJoin(observables).subscribe(
+    forkJoin(observables).subscribe(
       response => {
         this.published.emit(true);
         this.messageHandlerService.showSuccess('发布成功！');

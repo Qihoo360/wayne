@@ -17,7 +17,7 @@ import { MessageHandlerService } from '../../../shared/message-handler/message-h
   templateUrl: 'create-edit-ingress.component.html',
   styleUrls: ['create-edit-ingress.component.scss']
 })
-export class CreateEditIngressComponent implements OnInit{
+export class CreateEditIngressComponent implements OnInit {
   @Output() create = new EventEmitter<boolean>();
   modalOpened: boolean;
 

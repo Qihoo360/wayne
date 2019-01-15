@@ -37,9 +37,6 @@ export class CreateEditUserComponent {
   ) {
   }
 
-  ngOnInit(): void {
-  }
-
   log() {
   }
 

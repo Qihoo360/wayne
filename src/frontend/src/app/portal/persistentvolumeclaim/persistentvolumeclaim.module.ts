@@ -8,11 +8,13 @@ import { PersistentVolumeClaimComponent } from './persistentvolumeclaim.componen
 import { ListPersistentVolumeClaimComponent } from './list-persistentvolumeclaim/list-persistentvolumeclaim.component';
 import { CreateEditPersistentVolumeClaimComponent } from './create-edit-persistentvolumeclaim/create-edit-persistentvolumeclaim.component';
 import { PublishPersistentVolumeClaimTplComponent } from './publish-tpl/publish-tpl.component';
-import { CreateEditPersistentVolumeClaimTplComponent } from './create-edit-persistentvolumeclaimtpl/create-edit-persistentvolumeclaimtpl.component';
+import {
+  CreateEditPersistentVolumeClaimTplComponent
+} from './create-edit-persistentvolumeclaimtpl/create-edit-persistentvolumeclaimtpl.component';
 import { RouterModule } from '@angular/router';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { SnapshotPersistentVolumeClaimComponent } from './snapshot-persistentvolumeclaim/snapshot-persistentvolumeclaim.component';
-import { CreateSnapshot } from './create-snapshot/create-snapshot.component';
+import { CreateSnapshotComponent } from './create-snapshot/create-snapshot.component';
 import { PersistentVolumeClaimRobinClient } from '../../shared/client/v1/kubernetes/persistentvolumeclaims-robin';
 
 @NgModule({
@@ -38,7 +40,7 @@ import { PersistentVolumeClaimRobinClient } from '../../shared/client/v1/kuberne
     PublishPersistentVolumeClaimTplComponent,
     UserInfoComponent,
     SnapshotPersistentVolumeClaimComponent,
-    CreateSnapshot
+    CreateSnapshotComponent
   ]
 })
 

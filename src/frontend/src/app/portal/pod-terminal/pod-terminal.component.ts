@@ -41,7 +41,7 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.appId = parseInt(this.route.snapshot.params['id']);
+    this.appId = parseInt(this.route.snapshot.params['id'], 10);
     this.cluster = this.route.snapshot.params['cluster'];
     this.namespace = this.route.snapshot.params['namespace'];
     const podName = this.route.snapshot.params['podName'];
@@ -55,7 +55,8 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
         if (this.pods && this.pods.length > 0) {
           const pod = this.getPodByName(podName);
           if (!pod) {
-            const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/${this.resourceName}/pod/${this.pods[0].name}/terminal/${this.cluster}/${this.namespace}`;
+            const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}
+            /${this.resourceName}/pod/${this.pods[0].name}/terminal/${this.cluster}/${this.namespace}`;
             this.router.navigateByUrl(url);
           }
           this.selectedPod = pod;
@@ -82,7 +83,8 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
   }
 
   containerChange() {
-    const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/terminal/${this.cluster}/${this.namespace}`;
+    const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}
+    /${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/terminal/${this.cluster}/${this.namespace}`;
     this.router.navigateByUrl(url);
   }
 
@@ -102,7 +104,8 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
   podChange() {
     this.containers = this.selectedPod.containerStatus;
     this.selectedContainer = this.containers[0].name;
-    const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/terminal/${this.cluster}/${this.namespace}`;
+    const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/${this.resourceName}
+    /pod/${this.selectedPod.name}/container/${this.selectedContainer}/terminal/${this.cluster}/${this.namespace}`;
     this.router.navigateByUrl(url);
   }
 
@@ -157,7 +160,7 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
     const xterm = Terminal.apply(this.xterm);
     const cols = (width - xterm.viewport.scrollBarWidth - 15) / xterm.renderer.dimensions.actualCellWidth;
     const rows = height / xterm.renderer.dimensions.actualCellHeight;
-    this.xterm.resize(parseInt(cols.toString()), parseInt(rows.toString()));
+    this.xterm.resize(parseInt(cols.toString(), 10), parseInt(rows.toString(), 10));
 
   }
 
@@ -167,7 +170,8 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
       const msg = JSON.parse(evt.data);
       switch (msg['Op']) {
         case 'stdout':
-          if (msg['Data'].toString().indexOf(`starting container process caused 'exec: \\'bash\\': executable file not found in $PATH'`) === -1) {
+          if (msg['Data'].toString().indexOf(`starting container process caused 'exec: \\'bash\\': executable file not found in $PATH'`)
+            === -1) {
             if (msg['Data'].indexOf('wayne-init') > -1) {
               console.log('server ready.');
               clearInterval(this.timer);

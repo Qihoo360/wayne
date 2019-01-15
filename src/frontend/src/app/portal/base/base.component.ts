@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,11 +10,12 @@ import { CacheService } from '../../shared/auth/cache.service';
 @Component({
   selector: 'base',
   templateUrl: 'base.component.html',
-  host: {'class': 'content-container'},
   styleUrls: ['base.scss']
 })
-export class BaseComponent {
+export class BaseComponent implements OnInit {
   appId: number;
+
+  @HostBinding('class.content-container') field = true;
 
   constructor(public authService: AuthService,
               private appService: AppService,
@@ -29,7 +30,7 @@ export class BaseComponent {
         const app: App = response.data;
         // 缓存app信息到 appService 中
         this.appService.app = response.data;
-        if (this.appBetaMode(app.metaData) && wayneBetaUrl && window.location.origin != wayneBetaUrl) {
+        if (this.appBetaMode(app.metaData) && wayneBetaUrl && window.location.origin !== wayneBetaUrl) {
           window.location.href = `${wayneBetaUrl}${this.router.url}`;
           return;
         }
@@ -38,7 +39,7 @@ export class BaseComponent {
           window.location.href = `${this.authService.config['appUrl']}${this.router.url}`;
           return;
         }
-        if (app.namespace.id != this.cacheService.namespaceId) {
+        if (app.namespace.id !== this.cacheService.namespaceId) {
           console.log('app namespace not equal the current namespace. will redirect to index.',
             app.namespace.id, this.cacheService.namespaceId);
           window.location.href = '/portal/app';

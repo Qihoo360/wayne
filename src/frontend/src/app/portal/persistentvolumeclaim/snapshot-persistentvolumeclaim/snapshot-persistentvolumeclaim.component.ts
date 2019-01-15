@@ -3,7 +3,7 @@ import { PublishStatus } from '../../../shared/model/v1/publish-status';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets, TemplateState } from '../../../shared/shared.const';
 import { PersistentVolumeClaimClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { CreateSnapshot } from '../create-snapshot/create-snapshot.component';
+import { CreateSnapshotComponent } from '../create-snapshot/create-snapshot.component';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -21,8 +21,8 @@ export class SnapshotPersistentVolumeClaimComponent implements OnInit, OnDestroy
   @Input() state: PublishStatus;
   @Input() appId: number;
 
-  @ViewChild(CreateSnapshot)
-  createSnapshot: CreateSnapshot;
+  @ViewChild(CreateSnapshotComponent)
+  createSnapshot: CreateSnapshotComponent;
   subscription: Subscription;
 
 
@@ -36,7 +36,7 @@ export class SnapshotPersistentVolumeClaimComponent implements OnInit, OnDestroy
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.PERSISTENT_VOLUME_CLAIM_SNAPSHOT_ALL) {
-        let state = message.data;
+        const state = message.data;
         this.persistentVolumeClaimRobinClient
           .deleteAllSnapshot(this.appId, state.cluster, state.pvc.metadata.namespace, state.pvc.metadata.name)
           .subscribe(
@@ -52,9 +52,10 @@ export class SnapshotPersistentVolumeClaimComponent implements OnInit, OnDestroy
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.PERSISTENT_VOLUME_CLAIM_SNAPSHOT) {
-        let state = message.data.state;
+        const state = message.data.state;
         const name = message.data.name;
-        this.persistentVolumeClaimRobinClient.deleteSnapshot(this.appId, state.cluster, state.pvc.metadata.namespace, state.pvc.metadata.name, name).subscribe(
+        this.persistentVolumeClaimRobinClient.deleteSnapshot(this.appId, state.cluster,
+          state.pvc.metadata.namespace, state.pvc.metadata.name, name).subscribe(
           response => {
             this.snapshotRefresh();
             this.messageHandlerService.showSuccess('删除快照成功！');
@@ -67,9 +68,10 @@ export class SnapshotPersistentVolumeClaimComponent implements OnInit, OnDestroy
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.PERSISTENT_VOLUME_CLAIM_SNAPSHOT_ROLLBACK) {
-        let state = message.data.state;
+        const state = message.data.state;
         const name = message.data.name;
-        this.persistentVolumeClaimRobinClient.rollBackSnapshot(this.appId, state.cluster, state.pvc.metadata.namespace, state.pvc.metadata.name, name).subscribe(
+        this.persistentVolumeClaimRobinClient.rollBackSnapshot(this.appId,
+          state.cluster, state.pvc.metadata.namespace, state.pvc.metadata.name, name).subscribe(
           response => {
             this.messageHandlerService.showSuccess('回滚快照成功！');
           },
@@ -101,7 +103,8 @@ export class SnapshotPersistentVolumeClaimComponent implements OnInit, OnDestroy
 
   snapshotRefresh() {
     if (this.state.state === TemplateState.SUCCESS) {
-      this.persistentVolumeClaimRobinClient.listSnapshot(this.appId, this.state.cluster, this.state.pvc.metadata.namespace, this.state.pvc.metadata.name).subscribe(
+      this.persistentVolumeClaimRobinClient.listSnapshot(this.appId,
+        this.state.cluster, this.state.pvc.metadata.namespace, this.state.pvc.metadata.name).subscribe(
         response => {
           this.state.snaps = response.data.snaps;
         },

@@ -38,7 +38,9 @@ export class HistoryComponent implements OnInit, AfterViewInit {
       res => {
         this.text = res['TITLE.DEPLOY_FREQ'];
         this.subText = res['TITLE.LATE_DAY'];
-        if (this.dataDone) this.initHistoryOptions();
+        if (this.dataDone) {
+          this.initHistoryOptions();
+        }
       }
     );
   }
@@ -58,9 +60,11 @@ export class HistoryComponent implements OnInit, AfterViewInit {
 
   initHistoryOptions() {
     const _this = this;
-    let data = [];
-    for(const key in this.historys) {
-      data.push({value: [this.historys[key].date, this.historys[key].count]});
+    const data = [];
+    for (const key in this.historys) {
+      if (this.historys.hasOwnProperty(key)) {
+        data.push({value: [this.historys[key].date, this.historys[key].count]});
+      }
     }
     this.basicOption = <EChartOption>{
       title: {

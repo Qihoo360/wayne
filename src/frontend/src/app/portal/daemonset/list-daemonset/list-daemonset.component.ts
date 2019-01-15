@@ -171,7 +171,7 @@ export class ListDaemonSetComponent implements OnInit, OnDestroy {
   }
 
   listPod(status: TemplateStatus, tpl: DaemonSetTemplate) {
-    if (status.cluster && status.state != TemplateState.NOT_FOUND) {
+    if (status.cluster && status.state !== TemplateState.NOT_FOUND) {
       this.listPodComponent.openModal(status.cluster, tpl.name);
     }
   }

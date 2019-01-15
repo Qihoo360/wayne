@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { ActivatedRoute } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
@@ -29,7 +29,7 @@ const showState = {
   templateUrl: './app-webhook.component.html',
   styleUrls: ['./app-webhook.component.scss']
 })
-export class AppWebHookComponent implements OnInit {
+export class AppWebHookComponent implements OnInit, OnDestroy {
   showList: any[] = new Array();
   showState: object = showState;
   @ViewChild(ListAppWebHookComponent)

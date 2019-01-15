@@ -191,7 +191,7 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
             if (status.errNum > 2)  { continue; }
             this.configMapClient.get(this.app.id, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
               response => {
-                const code = response.statusCode | response.status;
+                const code = response.statusCode || response.status;
                 if (code === httpStatusCode.NoContent) {
                   this.configMapTpls[i].status[j].state = TemplateState.NOT_FOUND;
                   return;
@@ -235,9 +235,9 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
   }
 
   initConfigMap(refreshTpl?: boolean) {
-    const appId = parseInt(this.route.parent.snapshot.params['id']);
+    const appId = parseInt(this.route.parent.snapshot.params['id'], 10);
     const namespaceId = this.cacheService.namespaceId;
-    this.configMapId = parseInt(this.route.snapshot.params['configMapId']);
+    this.configMapId = parseInt(this.route.snapshot.params['configMapId'], 10);
     Observable.combineLatest(
       this.configMapService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', appId + ''),
       this.appService.getById(appId, namespaceId)
@@ -286,12 +286,14 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
 
   cloneConfigMapTpl(tpl: ConfigMapTpl) {
     if (tpl) {
-      this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/configmap/${this.configMapId}/tpl/${tpl.id}`]);
+      this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app
+      /${this.app.id}/configmap/${this.configMapId}/tpl/${tpl.id}`]);
     }
   }
 
   createConfigMapTpl() {
-    this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/configmap/${this.configMapId}/tpl`]);
+    this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app
+    /${this.app.id}/configmap/${this.configMapId}/tpl`]);
   }
 
   ngOnDestroy(): void {
@@ -318,12 +320,12 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
         this.publishStatus = status;
         const tplStatusMap = {};
         if (status && status.length > 0) {
-          for (const state of status) {
-            if (!tplStatusMap[state.templateId]) {
-              tplStatusMap[state.templateId] = Array<PublishStatus>();
+          for (const statu of status) {
+            if (!tplStatusMap[statu.templateId]) {
+              tplStatusMap[statu.templateId] = Array<PublishStatus>();
             }
-            state.errNum = 0;
-            tplStatusMap[state.templateId].push(state);
+            statu.errNum = 0;
+            tplStatusMap[statu.templateId].push(state);
           }
         }
         this.tplStatusMap = tplStatusMap;

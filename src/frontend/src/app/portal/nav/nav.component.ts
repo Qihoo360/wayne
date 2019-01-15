@@ -48,7 +48,7 @@ export class NavComponent implements OnInit, OnDestroy {
     });
     this.namespace = this.cacheService.currentNamespace;
     const nid = this.route.snapshot.params['nid'];
-    if (this.cacheService.currentNamespace && nid != this.cacheService.namespaceId) {
+    if (this.cacheService.currentNamespace && parseInt(nid, 10) !== this.cacheService.namespaceId) {
       this.hackNavigateReload(`/portal/namespace/${this.cacheService.namespaceId}/app`);
     } else {
       this.authService.setNamespacePermissionById(nid);
@@ -73,7 +73,9 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   goBack() {
-    if (window) window.location.href = '/admin/reportform/overview';
+    if (window) {
+      window.location.href = '/admin/reportform/overview';
+    }
   }
 
   showLang(lang: string): string {

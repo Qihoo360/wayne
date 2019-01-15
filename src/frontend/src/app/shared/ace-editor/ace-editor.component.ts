@@ -37,7 +37,9 @@ export class AceEditorComponent implements OnInit {
 
   modalInfo(info: ModalInfo) {
     Object.getOwnPropertyNames(info).map(key => {
-      if (info[key]) this[key] = info[key];
+      if (info[key]) {
+        this[key] = info[key];
+      }
     });
   }
 

@@ -18,7 +18,7 @@ export class ConfigMapService {
   }
 
   getNames(appId?: number): Observable<any> {
-    let params = new HttpParams();
+    const params = new HttpParams();
     if (typeof (appId) === 'undefined') {
       appId = 0;
     }

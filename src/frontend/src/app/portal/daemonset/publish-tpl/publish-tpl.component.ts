@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import { forkJoin } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { CacheService } from '../../../shared/auth/cache.service';
@@ -8,7 +9,7 @@ import { ResourcesActionType } from '../../../shared/shared.const';
 import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
 import { DaemonSetClient } from '../../../shared/client/v1/kubernetes/daemonset';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { DaemonSet } from '../../../shared/model/v1/daemonset';
 import { TemplateStatus } from '../../../shared/model/v1/status';
 import { Cluster } from '../../../shared/model/v1/cluster';
@@ -43,7 +44,7 @@ export class PublishDaemonSetTplComponent {
   }
 
   get appId(): number {
-    return parseInt(this.route.parent.snapshot.params['id']);
+    return parseInt(this.route.parent.snapshot.params['id'], 10);
   }
 
   newPublishTpl(daemonSet: DaemonSet, daemonSetTpl: DaemonSetTemplate, actionType: ResourcesActionType) {
@@ -110,7 +111,7 @@ export class PublishDaemonSetTplComponent {
   offline() {
     this.clusters.map(cluster => {
       if (cluster.checked) {
-        let state = this.getStatusByCluster(this.daemonSetTpl.status, cluster.name);
+        const state = this.getStatusByCluster(this.daemonSetTpl.status, cluster.name);
         this.daemonSetClient.deleteByName(this.appId, cluster.name, this.cacheService.kubeNamespace, this.daemonSet.name).subscribe(
           response => {
             this.deletePublishStatus(state.id);
@@ -143,7 +144,7 @@ export class PublishDaemonSetTplComponent {
     const observables = Array();
     this.clusters.map(cluster => {
       if (cluster.checked) {
-        let kubeDaemonSet: KubeDaemonSet = JSON.parse(this.daemonSetTpl.template);
+        const kubeDaemonSet: KubeDaemonSet = JSON.parse(this.daemonSetTpl.template);
         kubeDaemonSet.metadata.namespace = this.cacheService.kubeNamespace;
         observables.push(this.daemonSetClient.deploy(
           this.appId,
@@ -153,7 +154,8 @@ export class PublishDaemonSetTplComponent {
           kubeDaemonSet));
       }
     });
-    Observable.forkJoin(observables).subscribe(
+
+    forkJoin(observables).subscribe(
       response => {
         this.published.emit(true);
         this.messageHandlerService.showSuccess('发布成功！');

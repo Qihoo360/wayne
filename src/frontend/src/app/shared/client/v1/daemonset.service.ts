@@ -18,7 +18,7 @@ export class DaemonSetService {
   }
 
   getNames(appId?: number): Observable<any> {
-    let params = new HttpParams();
+    const params = new HttpParams();
     if (typeof (appId) === 'undefined') {
       appId = 0;
     }
@@ -33,7 +33,9 @@ export class DaemonSetService {
     params = params.set('pageNo', pageState.page.pageNo + '');
     params = params.set('pageSize', pageState.page.pageSize + '');
     params = params.set('sortby', '-id');
-    if (deleted) params = params.set('deleted', deleted);
+    if (deleted) {
+      params = params.set('deleted', deleted);
+    }
     // query param
     Object.getOwnPropertyNames(pageState.params).map(key => {
       const value = pageState.params[key];

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -18,7 +18,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './daemonset.component.html',
   styleUrls: ['./daemonset.component.scss']
 })
-export class DaemonsetComponent implements OnInit {
+export class DaemonsetComponent implements OnInit, OnDestroy {
 
   @ViewChild(ListDaemonsetComponent)
   listDaemonset: ListDaemonsetComponent;

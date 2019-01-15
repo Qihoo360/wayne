@@ -139,7 +139,7 @@ export class CreateEditPersistentVolumeClaimComponent implements OnInit {
       !this.checkOnGoing;
   }
 
-  //Handle the form validation
+  // Handle the form validation
   handleValidation(): void {
     const cont = this.currentForm.controls['name'];
     if (cont) {

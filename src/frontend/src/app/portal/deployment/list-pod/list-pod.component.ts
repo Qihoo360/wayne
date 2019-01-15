@@ -46,7 +46,7 @@ export class ListPodComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   get appId(): number {
-    return parseInt(this.route.parent.snapshot.params['id']);
+    return parseInt(this.route.parent.snapshot.params['id'], 10);
   }
 
   constructor(private inventory: Inventory,
@@ -95,9 +95,9 @@ export class ListPodComponent implements OnInit, OnDestroy {
     this.whetherHotReflash = true;
     this.clusterService.getByName(this.currentCluster).subscribe(
       response => {
-        const cluster: Cluster = response.data;
-        if (cluster.metaData) {
-          const metaData = JSON.parse(cluster.metaData);
+        const data: Cluster = response.data;
+        if (data.metaData) {
+          const metaData = JSON.parse(data.metaData);
           if (metaData.logSource) {
             this.logSource = metaData.logSource;
           }
@@ -127,7 +127,7 @@ export class ListPodComponent implements OnInit, OnDestroy {
       if (!this.modalOpened) {
         clearInterval(this.timer);
       }
-      if (this.whetherHotReflash) this.refresh();
+      if (this.whetherHotReflash) { this.refresh(); }
     }, 5000);
   }
 
@@ -160,7 +160,8 @@ export class ListPodComponent implements OnInit, OnDestroy {
 
   enterContainer(pod: Pod): void {
     const appId = this.route.parent.snapshot.params['id'];
-    const url = `portal/namespace/${this.cacheService.namespaceId}/app/${appId}/deployment/${this.deployment}/pod/${pod.name}/terminal/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
+    const url = `portal/namespace/${this.cacheService.namespaceId}/app/${appId}/deployment
+    /${this.deployment}/pod/${pod.name}/terminal/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 
@@ -175,7 +176,8 @@ export class ListPodComponent implements OnInit, OnDestroy {
     if (this.logSource === undefined) {
       this.messageHandlerService.showInfo('缺少机房信息，请联系管理员');
     }
-    const kubeToolCmd = `kubetool log --source ${this.logSource === undefined ? '' : this.logSource}  --deployment ${this.deployment} --pod=${pod.name} --layout=log`;
+    const kubeToolCmd = `kubetool log --source ${this.logSource === undefined ? '' : this.logSource}  --deployment ${this.deployment} ` +
+      `--pod=${pod.name} --layout=log`;
     this.copyService.copy(kubeToolCmd);
     this.switchCopyButton();
   }
@@ -183,7 +185,8 @@ export class ListPodComponent implements OnInit, OnDestroy {
 
   podLog(pod: Pod): void {
     const appId = this.route.parent.snapshot.params['id'];
-    const url = `portal/logging/namespace/${this.cacheService.namespaceId}/app/${appId}/deployment/${this.deployment}/pod/${pod.name}/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
+    const url = `portal/logging/namespace/${this.cacheService.namespaceId}/app/${appId}/deployment/${this.deployment}
+    /pod/${pod.name}/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 }

@@ -18,7 +18,7 @@ export class StatefulsetService {
   }
 
   getNames(appId?: number): Observable<any> {
-    let params = new HttpParams();
+    const params = new HttpParams();
     if (typeof (appId) === 'undefined') {
       appId = 0;
     }
@@ -28,11 +28,13 @@ export class StatefulsetService {
       .catch(error => Observable.throw(error));
   }
 
-  listPage(pageState: PageState, appId: number, deleted?: string,): Observable<any> {
+  listPage(pageState: PageState, appId: number, deleted?: string): Observable<any> {
     let params = new HttpParams();
     params = params.set('pageNo', pageState.page.pageNo + '');
     params = params.set('pageSize', pageState.page.pageSize + '');
-    if (deleted) params = params.set('deleted', deleted);
+    if (deleted) {
+      params = params.set('deleted', deleted);
+    }
     params = params.set('sortby', '-id');
     // query param
     Object.getOwnPropertyNames(pageState.params).map(key => {

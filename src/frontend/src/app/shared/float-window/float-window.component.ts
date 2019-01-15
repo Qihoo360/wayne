@@ -18,10 +18,7 @@ import { DOCUMENT, EventManager } from '@angular/platform-browser';
       transition('* => enter', animate('0s')),
       transition('* => leave', animate('4ms 1s'))
     ])
-  ],
-  host: {
-    'draggable': 'false'
-  }
+  ]
 })
 /**
  * @Input name: 作为主按钮的文案
@@ -39,6 +36,7 @@ export class FloatWindowComponent {
     private eventManager: EventManager,
     @Inject(DOCUMENT) private document: any
   ) {
+    el.nativeElement.setAttribute('draggable', 'false');
   }
 
   @Input() value: string;
@@ -52,7 +50,7 @@ export class FloatWindowComponent {
       item.index = index;
       item.length = 4;
     });
-  };
+  }
 
   @HostListener('mousedown', ['$event'])
   downEvent(evt) {
@@ -94,7 +92,7 @@ export class FloatWindowComponent {
   getBox(element: any): HTMLElement {
     while (element.tagName.toLocaleLowerCase() !== 'body') {
       element = element.parentElement;
-      if (element.tagName.toLocaleLowerCase() === 'wayne-float-window') break;
+      if (element.tagName.toLocaleLowerCase() === 'wayne-float-window') { break; }
     }
     return element;
   }

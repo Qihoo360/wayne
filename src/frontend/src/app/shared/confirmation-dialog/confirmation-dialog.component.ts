@@ -26,7 +26,7 @@ export class ConfirmationDialogComponent implements OnDestroy {
       this.dialogTitle = msg.title;
       this.dialogContent = msg.message;
       this.message = msg;
-      //Open dialog
+      // Open dialog
       this.buttons = msg.buttons;
       this.open();
     });
@@ -47,7 +47,7 @@ export class ConfirmationDialogComponent implements OnDestroy {
   }
 
   cancel(): void {
-    if (!this.message) {//Inproper condition
+    if (!this.message) {// Inproper condition
       this.close();
       return;
     }
@@ -63,7 +63,7 @@ export class ConfirmationDialogComponent implements OnDestroy {
   }
 
   confirm(): void {
-    if (!this.message) {//Inproper condition
+    if (!this.message) {// Inproper condition
       this.close();
       return;
     }

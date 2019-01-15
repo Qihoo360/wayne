@@ -8,9 +8,6 @@ import { EventManager } from '@angular/platform-browser';
   selector: 'wayne-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
-  host: {
-    'class': 'wanye-dropdown'
-  },
   animations: [
     trigger('contentState', [
       state('show', style({height: '*'})),
@@ -60,6 +57,7 @@ export class DropDownComponent implements OnInit {
     private scrollBar: ScrollBarService,
     private eventManager: EventManager
   ) {
+    el.nativeElement.setAttribute('class', 'wanye-dropdown');
   }
 
   @HostListener('mouseenter')

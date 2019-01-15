@@ -143,7 +143,7 @@ export class CreateEditStatefulsetComponent implements OnInit {
       !isUndefined(this.statefulset.appId);
   }
 
-  //Handle the form validation
+  // Handle the form validation
   handleValidation(): void {
     const cont = this.currentForm.controls['statefulset_name'];
     if (cont) {

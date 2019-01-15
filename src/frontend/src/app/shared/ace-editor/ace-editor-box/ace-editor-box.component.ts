@@ -32,7 +32,7 @@ export class AceEditorBoxComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.aceEditorMsgSub = this.aceEditorService.aceMessageAnnouncedSource$.subscribe(
       message => {
-        const modalOpened = true
+        const modalOpened = true;
         let title: string, hiddenFooter: boolean;
         this.aceMode = 'ace/mode/json';
         // 这里分为三种情况，不传edit时候是嵌套在其他模板中，true为编辑模板，false为查看模板。

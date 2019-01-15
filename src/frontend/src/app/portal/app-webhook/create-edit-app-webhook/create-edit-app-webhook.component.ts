@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
@@ -14,7 +14,7 @@ import { CacheService } from '../../../shared/auth/cache.service';
   templateUrl: 'create-edit-app-webhook.component.html',
   styleUrls: ['create-edit-app-webhook.scss']
 })
-export class CreateEditAppWebHookComponent {
+export class CreateEditAppWebHookComponent implements OnInit {
   @Output() create = new EventEmitter<boolean>();
   @Output() update = new EventEmitter<boolean>();
 

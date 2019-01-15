@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -6,7 +6,9 @@ import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmati
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
 import { Subscription } from 'rxjs/Subscription';
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { CreateEditPersistentVolumeClaimTplComponent } from './create-edit-persistentvolumeclaimtpl/create-edit-persistentvolumeclaimtpl.component';
+import {
+  CreateEditPersistentVolumeClaimTplComponent
+} from './create-edit-persistentvolumeclaimtpl/create-edit-persistentvolumeclaimtpl.component';
 import { PersistentVolumeClaimTplService } from '../../shared/client/v1/persistentvolumeclaimtpl.service';
 import { ListPersistentVolumeClaimTplComponent } from './list-persistentvolumeclaimtpl/list-persistentvolumeclaimtpl.component';
 import { PersistentVolumeClaimTpl } from '../../shared/model/v1/persistentvolumeclaimtpl';
@@ -17,7 +19,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './persistentvolumeclaimtpl.component.html',
   styleUrls: ['./persistentvolumeclaimtpl.component.scss']
 })
-export class PersistentVolumeClaimTplComponent implements OnInit {
+export class PersistentVolumeClaimTplComponent implements OnInit, OnDestroy {
   @ViewChild(ListPersistentVolumeClaimTplComponent)
   list: ListPersistentVolumeClaimTplComponent;
   @ViewChild(CreateEditPersistentVolumeClaimTplComponent)

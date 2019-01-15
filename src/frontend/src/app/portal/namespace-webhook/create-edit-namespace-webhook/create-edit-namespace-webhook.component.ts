@@ -1,6 +1,6 @@
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ActionType } from '../../../shared/shared.const';
@@ -14,7 +14,7 @@ import { CacheService } from '../../../shared/auth/cache.service';
   templateUrl: 'create-edit-namespace-webhook.component.html',
   styleUrls: ['create-edit-namespace-webhook.scss']
 })
-export class CreateEditNamespaceWebHookComponent {
+export class CreateEditNamespaceWebHookComponent implements OnInit {
   @Output() create = new EventEmitter<boolean>();
   @Output() update = new EventEmitter<boolean>();
 

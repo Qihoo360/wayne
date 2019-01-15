@@ -15,8 +15,12 @@ import { CreateEditSecretTplComponent } from './secret/create-edit-secrettpl/cre
 import { AppUserComponent } from './app-user/app-user.component';
 import { NamespaceUserComponent } from './namespace-user/namespace-user.component';
 import { PersistentVolumeClaimComponent } from './persistentvolumeclaim/persistentvolumeclaim.component';
-import { CreateEditPersistentVolumeClaimTplComponent } from './persistentvolumeclaim/create-edit-persistentvolumeclaimtpl/create-edit-persistentvolumeclaimtpl.component';
-import { ListPersistentVolumeClaimComponent } from './persistentvolumeclaim/list-persistentvolumeclaim/list-persistentvolumeclaim.component';
+import {
+  CreateEditPersistentVolumeClaimTplComponent
+} from './persistentvolumeclaim/create-edit-persistentvolumeclaimtpl/create-edit-persistentvolumeclaimtpl.component';
+import {
+  ListPersistentVolumeClaimComponent
+} from './persistentvolumeclaim/list-persistentvolumeclaim/list-persistentvolumeclaim.component';
 import { CronjobComponent } from './cronjob/cronjob.component';
 import { CreateEditCronjobTplComponent } from './cronjob/create-edit-cronjobtpl/create-edit-cronjobtpl.component';
 import { NamespaceApiKeyComponent } from './namespace-apikey/apikey.component';

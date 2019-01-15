@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // HttpHeader object immutable - copy values
     const headerSettings: { [name: string]: string | string[]; } = {};
 
-    for (let key of request.headers.keys()) {
+    for (const key of request.headers.keys()) {
       headerSettings[key] = request.headers.getAll(key);
     }
     if (token) {

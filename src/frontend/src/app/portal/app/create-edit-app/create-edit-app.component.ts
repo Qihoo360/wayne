@@ -116,7 +116,7 @@ export class CreateEditAppComponent {
       !this.checkOnGoing;
   }
 
-  //Handle the form validation
+  // Handle the form validation
   handleValidation(): void {
     const cont = this.currentForm.controls['app_name'];
     if (cont) {

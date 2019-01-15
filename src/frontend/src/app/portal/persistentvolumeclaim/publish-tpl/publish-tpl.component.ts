@@ -39,7 +39,7 @@ export class PublishPersistentVolumeClaimTplComponent {
   }
 
   get appId(): number {
-    return parseInt(this.route.parent.parent.snapshot.params['id']);
+    return parseInt(this.route.parent.parent.snapshot.params['id'], 10);
   }
 
   newPublishTpl(pvcTpl: PersistentVolumeClaimTpl, actionType: ResourcesActionType) {
@@ -113,7 +113,7 @@ export class PublishPersistentVolumeClaimTplComponent {
   }
 
   offline(cluster: Cluster) {
-    let state = this.getStatusByCluster(this.pvcTpl.status, cluster.name);
+    const state = this.getStatusByCluster(this.pvcTpl.status, cluster.name);
     this.persistentVolumeClaimClient.deleteByName(this.appId, cluster.name, this.cacheService.kubeNamespace, this.pvcTpl.name).subscribe(
       response => {
         this.deletePublishStatus(state.id);

@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
 import { Subscription } from 'rxjs/Subscription';
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
 import { ListIngressTplComponent } from './list-ingresstpl/list-ingresstpl.component';

@@ -31,9 +31,6 @@ export class ResetPasswordComponent {
     private messageHandlerService: MessageHandlerService) {
   }
 
-  ngOnInit(): void {
-  }
-
   resetPassword(user: User) {
     this.opened = true;
     this.user = user;
@@ -49,7 +46,7 @@ export class ResetPasswordComponent {
       return;
     }
     this.isSubmitOnGoing = true;
-    if (this.user.password != this.user.rePassword) {
+    if (this.user.password !== this.user.rePassword) {
       this.alertMsg = '两次输入密码不一致，请检查！';
       this.isSubmitOnGoing = false;
       return;

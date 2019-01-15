@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
@@ -30,7 +30,7 @@ const showState = {
   templateUrl: './namespace-user.component.html',
   styleUrls: ['./namespace-user.component.scss']
 })
-export class NamespaceUserComponent implements OnInit {
+export class NamespaceUserComponent implements OnInit, OnDestroy {
   @ViewChild(ListNamespaceUserComponent)
   listNamespaceUser: ListNamespaceUserComponent;
   @ViewChild(CreateEditNamespaceUserComponent)

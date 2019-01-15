@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -18,7 +18,7 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
   templateUrl: 'create-edit-secrettpl.component.html',
   styleUrls: ['create-edit-secrettpl.scss']
 })
-export class CreateEditSecretTplComponent {
+export class CreateEditSecretTplComponent implements OnInit {
   @Output() create = new EventEmitter<boolean>();
   createSecrettplOpened: boolean;
 

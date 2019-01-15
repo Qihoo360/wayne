@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { State } from '@clr/angular';
 import { ListPermissionComponent } from './list-permission/list-permission.component';
 import { CreateEditPermissionComponent } from './create-edit-permission/create-edit-permission.component';
@@ -17,7 +17,7 @@ import { PageState } from '../../shared/page/page-state';
   styleUrls: ['./permission.component.scss']
 })
 
-export class PermissionComponent implements OnInit {
+export class PermissionComponent implements OnInit, OnDestroy {
   @ViewChild(ListPermissionComponent)
   listPermission: ListPermissionComponent;
   @ViewChild(CreateEditPermissionComponent)

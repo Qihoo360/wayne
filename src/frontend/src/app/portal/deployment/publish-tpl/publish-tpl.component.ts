@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
-
+import { forkJoin } from 'rxjs';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
@@ -218,7 +218,7 @@ export class PublishDeploymentTplComponent {
           kubeDeployment));
       }
     });
-    Observable.forkJoin(observables).subscribe(
+    forkJoin(observables).subscribe(
       response => {
         this.published.emit(true);
         this.messageHandlerService.showSuccess('发布成功！');

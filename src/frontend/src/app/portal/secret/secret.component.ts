@@ -196,7 +196,7 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
             if (status.errNum > 2)  { continue; }
             this.secretClient.get(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
               response => {
-                const code = response.statusCode | response.status;
+                const code = response.statusCode || response.status;
                 if (code === httpStatusCode.NoContent) {
                   this.secretTpls[i].status[j].state = TemplateState.NOT_FOUND;
                   return;
@@ -236,8 +236,8 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
   }
 
   initSecret(refreshTpl?: boolean) {
-    this.appId = parseInt(this.route.parent.snapshot.params['id']);
-    this.secretId = parseInt(this.route.snapshot.params['secretId']);
+    this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
+    this.secretId = parseInt(this.route.snapshot.params['secretId'], 10);
     const namespaceId = this.cacheService.namespaceId;
     Observable.combineLatest(
       this.secretService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
@@ -306,7 +306,8 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
       return;
     }
     if (state) {
-      this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
+      this.pageState = PageState.fromState(state,
+        {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.pageState.params['deleted'] = false;
     this.pageState.params['isOnline'] = this.isOnline;
@@ -319,12 +320,12 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
         this.publishStatus = status;
         const tplStatusMap = {};
         if (status && status.length > 0) {
-          for (const state of status) {
-            if (!tplStatusMap[state.templateId]) {
-              tplStatusMap[state.templateId] = Array<PublishStatus>();
+          for (const stat of status) {
+            if (!tplStatusMap[stat.templateId]) {
+              tplStatusMap[stat.templateId] = Array<PublishStatus>();
             }
-            state.errNum = 0;
-            tplStatusMap[state.templateId].push(state);
+            stat.errNum = 0;
+            tplStatusMap[stat.templateId].push(stat);
           }
         }
         this.tplStatusMap = tplStatusMap;

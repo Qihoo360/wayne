@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ListSecretTplComponent } from './list-secrettpl/list-secrettpl.component';
@@ -17,7 +17,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './secrettpl.component.html',
   styleUrls: ['./secrettpl.component.scss']
 })
-export class SecretTplComponent implements OnInit {
+export class SecretTplComponent implements OnInit, OnDestroy {
   @ViewChild(ListSecretTplComponent)
   listSecrettpl: ListSecretTplComponent;
   @ViewChild(CreateEditSecretTplComponent)

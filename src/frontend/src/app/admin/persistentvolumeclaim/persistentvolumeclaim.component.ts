@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
@@ -18,7 +18,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './persistentvolumeclaim.component.html',
   styleUrls: ['./persistentvolumeclaim.component.scss']
 })
-export class PersistentVolumeClaimComponent implements OnInit {
+export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
   @ViewChild(ListPersistentVolumeClaimComponent)
   list: ListPersistentVolumeClaimComponent;
   @ViewChild(CreateEditPersistentVolumeClaimComponent)

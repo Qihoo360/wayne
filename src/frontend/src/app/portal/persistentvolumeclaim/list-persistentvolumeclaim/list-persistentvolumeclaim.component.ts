@@ -105,7 +105,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
     this.periodSyncStatus();
     this.diffscription = pvcService.diffOb.subscribe(() => {
       this.diffService.diff(this.selected);
-    })
+    });
   }
 
   get isEnableRobin(): boolean {
@@ -127,7 +127,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
             const status = tpl.status[j];
             this.pvcClient.get(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
               response => {
-                const code = response.statusCode | response.status;
+                const code = response.statusCode || response.status;
                 if (code === httpStatusCode.NoContent) {
                   this.pvcTpls[i].status[j].state = TemplateState.NOT_FOUND;
                   return;
@@ -162,7 +162,8 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
 
   pvcFileSystemStatus(publishStatus: PublishStatus) {
     if (publishStatus.state === TemplateState.SUCCESS) {
-      this.persistentVolumeClaimRobinClient.getStatus(this.appId, publishStatus.cluster, publishStatus.pvc.metadata.namespace, publishStatus.pvc.metadata.name).subscribe(
+      this.persistentVolumeClaimRobinClient.getStatus(this.appId,
+        publishStatus.cluster, publishStatus.pvc.metadata.namespace, publishStatus.pvc.metadata.name).subscribe(
         response => {
           publishStatus.fileSystemStatus = response.data;
           publishStatus.rbdImage = response.data.rbdImage;
@@ -313,8 +314,8 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.appId = parseInt(this.route.parent.parent.snapshot.params['id']);
-    this.pvcId = parseInt(this.route.parent.snapshot.params['pvcId']);
+    this.appId = parseInt(this.route.parent.parent.snapshot.params['id'], 10);
+    this.pvcId = parseInt(this.route.parent.snapshot.params['pvcId'], 10);
     this.isOnlineObservable = this.pvcTplService.isOnlineObservable$.subscribe(
       isOnline => {
         this.isOnline = isOnline;
@@ -381,11 +382,11 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
         this.publishStatus = status;
         const tplStatusMap = {};
         if (status && status.length > 0) {
-          for (const state of status) {
-            if (!tplStatusMap[state.templateId]) {
-              tplStatusMap[state.templateId] = Array<PublishStatus>();
+          for (const stat of status) {
+            if (!tplStatusMap[stat.templateId]) {
+              tplStatusMap[stat.templateId] = Array<PublishStatus>();
             }
-            tplStatusMap[state.templateId].push(state);
+            tplStatusMap[stat.templateId].push(state);
           }
         }
         this.tplStatusMap = tplStatusMap;

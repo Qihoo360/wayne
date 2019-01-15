@@ -218,7 +218,7 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
             if (status.errNum > 2)  { continue; }
             this.cronjobClient.get(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
               response => {
-                const code = response.statusCode | response.status;
+                const code = response.statusCode || response.status;
                 if (code === httpStatusCode.NoContent) {
                   this.changedCronjobTpls[i].status[j].state = TemplateState.NOT_FOUND;
                   return;
@@ -274,9 +274,9 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
   }
 
   initCronjob(refreshTpl?: boolean) {
-    this.appId = parseInt(this.route.parent.snapshot.params['id']);
+    this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
     const namespaceId = this.cacheService.namespaceId;
-    this.cronjobId = parseInt(this.route.snapshot.params['cronjobId']);
+    this.cronjobId = parseInt(this.route.snapshot.params['cronjobId'], 10);
     Observable.combineLatest(
       this.clusterService.getNames(),
       this.cronjobService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
@@ -295,8 +295,8 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
         }
         if (this.cronjobId) {
           this.cronjobService.getById(this.cronjobId, this.appId).subscribe(
-            response => {
-              this.currentCronjob = response.data;
+            next => {
+              this.currentCronjob = next.data;
             },
             error => {
               this.messageHandlerService.handleError(error);
@@ -380,7 +380,8 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
   // 点击克隆模版
   cloneCronjobTpl(tpl: CronjobTpl) {
     if (tpl) {
-      this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/cronjob/${this.cronjobId}/tpl/${tpl.id}`]);
+      this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app
+      /${this.app.id}/cronjob/${this.cronjobId}/tpl/${tpl.id}`]);
     }
   }
 

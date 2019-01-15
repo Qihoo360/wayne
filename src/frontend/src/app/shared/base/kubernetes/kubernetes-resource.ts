@@ -5,8 +5,8 @@ import { AceEditorComponent } from '../../ace-editor/ace-editor.component';
 import { AuthService } from '../../auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClusterService } from '../../client/v1/cluster.service';
-import {PageState} from '../../page/page-state';
-import {State} from '@clr/angular';
+import { PageState } from '../../page/page-state';
+import { State } from '@clr/angular';
 
 export class KubernetesResource {
   listResourceComponent: any;

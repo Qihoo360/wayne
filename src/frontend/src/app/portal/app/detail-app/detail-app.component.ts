@@ -75,8 +75,8 @@ export class DetailAppComponent implements OnInit, OnDestroy {
     this.appService.getById(this.appId, namespaceId).subscribe(response => {
         this.app = response.data;
         this.namespaceClient.getResourceUsage(namespaceId, response.data.name).subscribe(
-          response => {
-            this.resources = response.data;
+          next => {
+            this.resources = next.data;
             this.clusterList = Object.keys(this.resources).map(item => {
               const a = new Cluster();
               a['cluster'] = item;

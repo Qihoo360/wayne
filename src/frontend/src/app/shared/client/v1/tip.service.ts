@@ -23,8 +23,8 @@ export class TipService {
      * @description 获取可是窗口信息可以使用getBoundingClientRect方法
      * 在样式中显示了显示长度是60，高度为260.宽度为250.
      */
-    if (this.dragEvent) return;
-    if (!message.background) message.background = '#000';
+    if (this.dragEvent) { return; }
+    if (!message.background) { message.background = '#000'; }
     const tipDiv = this.render.createElement('div');
     const bodyHeight = this.document.querySelector('body').getBoundingClientRect().height;
     const span = this.render.createElement('span');
@@ -57,8 +57,8 @@ export class TipService {
   }
 
   close(text: string) {
-    if (this._enter) return;
-    if (this.dragEvent) return;
+    if (this._enter) { return; }
+    if (this.dragEvent) { return; }
     if (this.eventList.length !== 0) {
       this.eventList.forEach(item => {
         item();

@@ -43,7 +43,7 @@ export class PublishCronjobTplComponent {
   }
 
   get appId(): number {
-    return parseInt(this.route.parent.snapshot.params['id']);
+    return parseInt(this.route.parent.snapshot.params['id'], 10);
   }
 
 
@@ -153,14 +153,14 @@ export class PublishCronjobTplComponent {
   offline() {
     Object.getOwnPropertyNames(this.clusterMetas).map(cluster => {
       if (this.clusterMetas[cluster].checked) {
-        let state = this.getStatusByCluster(this.cronjobTpl.status, cluster);
+        const data = this.getStatusByCluster(this.cronjobTpl.status, cluster);
         this.cronjobClient.deleteByName(this.appId, cluster, this.cacheService.kubeNamespace, this.cronjob.name).subscribe(
           response => {
-            this.deletePublishStatus(state.id);
+            this.deletePublishStatus(data.id);
           },
           error => {
             if (this.forceOffline) {
-              this.deletePublishStatus(state.id);
+              this.deletePublishStatus(data.id);
             } else {
               this.messageHandlerService.handleError(error);
             }
@@ -209,7 +209,7 @@ export class PublishCronjobTplComponent {
     });
     Object.getOwnPropertyNames(this.clusterMetas).map(cluster => {
       if (this.clusterMetas[cluster].checked) {
-        let kubeCronjob: KubeCronJob = JSON.parse(this.cronjobTpl.template);
+        const kubeCronjob: KubeCronJob = JSON.parse(this.cronjobTpl.template);
         if (metaData['successfulJobsHistoryLimit']) {
           kubeCronjob.spec.successfulJobsHistoryLimit = metaData['successfulJobsHistoryLimit'];
         }

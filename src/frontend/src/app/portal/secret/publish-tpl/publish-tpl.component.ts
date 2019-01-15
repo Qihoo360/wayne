@@ -41,7 +41,7 @@ export class PublishSecretTplComponent {
   }
 
   get appId(): number {
-    return parseInt(this.route.parent.snapshot.params['id']);
+    return parseInt(this.route.parent.snapshot.params['id'], 10);
   }
 
   newPublishTpl(secretTpl: SecretTpl, actionType: ResourcesActionType) {
@@ -115,7 +115,7 @@ export class PublishSecretTplComponent {
   }
 
   offline(cluster: Cluster) {
-    let state = this.getStatusByCluster(this.secretTpl.status, cluster.name);
+    const state = this.getStatusByCluster(this.secretTpl.status, cluster.name);
     this.secretClient.deleteByName(this.appId, cluster.name, this.cacheService.kubeNamespace, this.secretTpl.name).subscribe(
       response => {
         this.deletePublishStatus(state.id);

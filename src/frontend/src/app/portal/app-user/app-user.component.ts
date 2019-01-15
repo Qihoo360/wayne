@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
@@ -27,7 +27,7 @@ const showState = {
   templateUrl: './app-user.component.html',
   styleUrls: ['./app-user.component.scss']
 })
-export class AppUserComponent implements OnInit {
+export class AppUserComponent implements OnInit, OnDestroy {
   @ViewChild(ListAppUserComponent)
   listAppUser: ListAppUserComponent;
   @ViewChild(CreateEditAppUserComponent)

@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';

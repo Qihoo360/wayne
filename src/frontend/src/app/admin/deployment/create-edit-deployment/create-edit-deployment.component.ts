@@ -142,7 +142,7 @@ export class CreateEditDeploymentComponent implements OnInit {
       !isUndefined(this.deployment.appId);
   }
 
-  //Handle the form validation
+  // Handle the form validation
   handleValidation(): void {
     const cont = this.currentForm.controls['deployment_name'];
     if (cont) {

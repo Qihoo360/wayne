@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -17,7 +17,7 @@ import { StatefulsetTemplate } from '../../shared/model/v1/statefulsettpl';
   templateUrl: './statefulsettpl.component.html',
   styleUrls: ['./statefulsettpl.component.scss']
 })
-export class StatefulsettplComponent implements OnInit {
+export class StatefulsettplComponent implements OnInit, OnDestroy {
 
   @ViewChild(ListStatefulsettplComponent)
   listStatefulset: ListStatefulsettplComponent;

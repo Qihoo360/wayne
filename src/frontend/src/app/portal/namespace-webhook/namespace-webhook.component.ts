@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { Subscription } from 'rxjs/Subscription';
@@ -31,7 +31,7 @@ const showState = {
   templateUrl: './namespace-webhook.component.html',
   styleUrls: ['./namespace-webhook.component.scss']
 })
-export class NamespaceWebHookComponent implements OnInit {
+export class NamespaceWebHookComponent implements OnInit, OnDestroy {
   @ViewChild(ListNamespaceWebHookComponent)
   listWebHook: ListNamespaceWebHookComponent;
   @ViewChild(CreateEditNamespaceWebHookComponent)

@@ -11,8 +11,7 @@ export class DeploymentClient {
   }
 
   listPage(pageState: PageState, cluster: string, namespace: string, appId?: string): Observable<any> {
-    let params = BaseClient.buildParam(pageState);
-
+    const params = BaseClient.buildParam(pageState);
     if ((typeof (appId) === 'undefined') || (!appId)) {
       appId = '0';
     }

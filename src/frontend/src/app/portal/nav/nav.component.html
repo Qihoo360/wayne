@@ -36,7 +36,7 @@
       <clr-icon shape="organization" style="margin-right: 5px"></clr-icon>
       {{cacheService.currentNamespace?.name}}
       <clr-icon shape="caret down" size="12" style="margin-left: 5px;"></clr-icon>
-      <wayne-dropdown-item [name]="authService.currentUser?.namespaces.length > 10 ? '部门' : ''">
+      <wayne-dropdown-item [title]="authService.currentUser?.namespaces.length > 10 ? '部门' : ''">
         <span style="white-space: nowrap;" *ngFor="let n of authService.currentUser?.namespaces"
               (click)='switchNamespace(n)'>{{n.name}}</span>
       </wayne-dropdown-item>

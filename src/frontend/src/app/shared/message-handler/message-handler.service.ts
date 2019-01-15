@@ -12,19 +12,19 @@ export class MessageHandlerService {
               @Inject(DOCUMENT) private document: any) {
   }
 
-  public handleError(error: any | string): void {
-    if (!error) {
+  public handleError(err: any | string): void {
+    if (!err) {
       return;
     }
-    const code = error.statusCode | error.status;
-    console.log(error);
+    const code = err.statusCode || err.status;
+    console.log(err);
     if (code === httpStatusCode.Unauthorized) {
       const currentUrl = document.location.origin;
-      if (document.location.pathname != '/sign-in') {
+      if (document.location.pathname !== '/sign-in') {
         this.injector.get(Router).navigateByUrl(`sign-in?ref=${document.location.pathname}`);
       }
     } else {
-      this.msgService.announceMessage(code, error.error ? error.error.msg : error.error, AlertType.DANGER);
+      this.msgService.announceMessage(code, err.error ? err.error.msg : err.error, AlertType.DANGER);
     }
   }
 

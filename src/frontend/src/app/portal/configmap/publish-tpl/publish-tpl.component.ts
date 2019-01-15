@@ -41,7 +41,7 @@ export class PublishConfigMapTplComponent {
   }
 
   get appId(): number {
-    return parseInt(this.route.parent.snapshot.params['id']);
+    return parseInt(this.route.parent.snapshot.params['id'], 10);
   }
 
   newPublishTpl(configMapTpl: ConfigMapTpl, actionType: ResourcesActionType) {
@@ -116,7 +116,7 @@ export class PublishConfigMapTplComponent {
 
 
   offline(cluster: Cluster) {
-    let state = this.getStatusByCluster(this.configMapTpl.status, cluster.name);
+    const state = this.getStatusByCluster(this.configMapTpl.status, cluster.name);
     this.configMapClient.deleteByName(this.appId, cluster.name, this.cacheService.kubeNamespace, this.configMapTpl.name).subscribe(
       response => {
         this.deletePublishStatus(state.id);

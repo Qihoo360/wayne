@@ -202,7 +202,7 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
             if (status.errNum > 2)  { continue; }
             this.daemonSetClient.get(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
               response => {
-                const code = response.statusCode | response.status;
+                const code = response.statusCode || response.status;
                 if (code === httpStatusCode.NoContent) {
                   this.changedDaemonSetTpls[i].status[j].state = TemplateState.NOT_FOUND;
                   return;
@@ -263,9 +263,9 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
   }
 
   initDaemonSet(refreshTpl?: boolean) {
-    this.appId = parseInt(this.route.parent.snapshot.params['id']);
+    this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
     const namespaceId = this.cacheService.namespaceId;
-    this.daemonSetId = parseInt(this.route.snapshot.params['daemonSetId']);
+    this.daemonSetId = parseInt(this.route.snapshot.params['daemonSetId'], 10);
     Observable.combineLatest(
       this.clusterService.getNames(),
       this.daemonSetService.listPage(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), this.appId, 'false'),
@@ -352,7 +352,9 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
   // 点击克隆守护进程集模版
   cloneDaemonSetTpl(tpl: DaemonSetTemplate) {
     if (tpl) {
-      this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/daemonset/${this.daemonSetId}/tpl/${tpl.id}`]);
+      this.router.navigate(
+        [`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/daemonset
+        /${this.daemonSetId}/tpl/${tpl.id}`]);
     }
   }
 
