@@ -1,12 +1,61 @@
 # Change Log
 
-## [v1.2.2](https://github.com/Qihoo360/wayne/tree/v1.2.2) (2018-12-25)
-[Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.2.1...v1.2.2)
+## [v1.3.1](https://github.com/Qihoo360/wayne/tree/HEAD)
+
+[Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.3.0...v1.3.1)
 
 **Fixed bugs:**
 
-- Fix node list selector [\#180](https://github.com/Qihoo360/wayne/pull/180) ([wilhelmguo](https://github.com/wilhelmguo))
+- Fix Node resource statistics: limit to request [\#219](https://github.com/Qihoo360/wayne/pull/219) ([wilhelmguo](https://github.com/wilhelmguo))
 
+## [v1.3.0](https://github.com/Qihoo360/wayne/tree/v1.3.0) (2019-01-11)
+[Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.2.2...v1.3.0)
+
+**Implemented enhancements:**
+
+- ingress支持多个path转发 [\#145](https://github.com/Qihoo360/wayne/issues/145)
+- Display cluster resource usage on node list [\#140](https://github.com/Qihoo360/wayne/issues/140)
+- Support Kubernetes Namespace resource management [\#139](https://github.com/Qihoo360/wayne/issues/139)
+- Have no history and status of triggered  webhook [\#125](https://github.com/Qihoo360/wayne/issues/125)
+- StatefulSet   DaemonSet   CronJob  add resource Request Limit Percent.  [\#113](https://github.com/Qihoo360/wayne/issues/113)
+- Feature: Support Basic HPA In Frontend [\#207](https://github.com/Qihoo360/wayne/pull/207) ([chengyumeng](https://github.com/chengyumeng))
+- Client cache optimization [\#196](https://github.com/Qihoo360/wayne/pull/196) ([wilhelmguo](https://github.com/wilhelmguo))
+- Display cluster resource usage on node list [\#194](https://github.com/Qihoo360/wayne/pull/194) ([BennieMeng](https://github.com/BennieMeng))
+- Add Node resource statistics [\#192](https://github.com/Qihoo360/wayne/pull/192) ([wilhelmguo](https://github.com/wilhelmguo))
+- backend statefulset daemonset i18n [\#191](https://github.com/Qihoo360/wayne/pull/191) ([BennieMeng](https://github.com/BennieMeng))
+- Feature: Add resource watcher for node and deployment [\#186](https://github.com/Qihoo360/wayne/pull/186) ([chengyumeng](https://github.com/chengyumeng))
+- Resource request limit add [\#182](https://github.com/Qihoo360/wayne/pull/182) ([BennieMeng](https://github.com/BennieMeng))
+- Feature: add fetch service list and get service detail from k8s cluster api to backend [\#170](https://github.com/Qihoo360/wayne/pull/170) ([HZ89](https://github.com/HZ89))
+- Feature: add fetch ingress list and ingress detail from k8s cluster api to backend [\#169](https://github.com/Qihoo360/wayne/pull/169) ([HZ89](https://github.com/HZ89))
+
+**Fixed bugs:**
+
+- 无法创建新的部署，报错信息为：Cannot read property 'setValue' of undefined [\#211](https://github.com/Qihoo360/wayne/issues/211)
+- 前台删除 PVC 时，如果没有勾选 PVC 模板，就会跳转404页面，并把该项目下的所有 PVC 模板全部删除 [\#206](https://github.com/Qihoo360/wayne/issues/206)
+- When click wayne ingress,there is some error. [\#200](https://github.com/Qihoo360/wayne/issues/200)
+- 多个集群切换，namespace 没有同时切换 [\#197](https://github.com/Qihoo360/wayne/issues/197)
+- There is a js error when secret contains  chinese character [\#193](https://github.com/Qihoo360/wayne/issues/193)
+- Fix normal user create deployment error [\#215](https://github.com/Qihoo360/wayne/pull/215) ([BennieMeng](https://github.com/BennieMeng))
+- Fix pvc delete redirect error [\#213](https://github.com/Qihoo360/wayne/pull/213) ([BennieMeng](https://github.com/BennieMeng))
+- Fix kubernetes deployment switch cluster not reload namespaces [\#212](https://github.com/Qihoo360/wayne/pull/212) ([wilhelmguo](https://github.com/wilhelmguo))
+- Fix secret save error when contain chinese character [\#203](https://github.com/Qihoo360/wayne/pull/203) ([BennieMeng](https://github.com/BennieMeng))
+- Fix ingress router lost [\#199](https://github.com/Qihoo360/wayne/pull/199) ([chengyumeng](https://github.com/chengyumeng))
+- Fix admin node and persistentVolume paginate select input change invalid [\#183](https://github.com/Qihoo360/wayne/pull/183) ([BennieMeng](https://github.com/BennieMeng))
+- Fix:Add k8s namespace page flipping function in the background [\#178](https://github.com/Qihoo360/wayne/pull/178) ([chengyumeng](https://github.com/chengyumeng))
+
+## [v1.2.2](https://github.com/Qihoo360/wayne/tree/v1.2.2) (2018-12-25)
+[Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.2.1...v1.2.2)
+
+**Implemented enhancements:**
+
+- User need an OpenAPI to get pod info by pod ip [\#131](https://github.com/Qihoo360/wayne/issues/131)
+- When administrator create namespace at backend,Wayne should also create a namespace on k8s. [\#56](https://github.com/Qihoo360/wayne/issues/56)
+- Feature: Ingress configures multiple paths [\#177](https://github.com/Qihoo360/wayne/pull/177) ([chengyumeng](https://github.com/chengyumeng))
+
+**Fixed bugs:**
+
+- Fix node list selector error [\#181](https://github.com/Qihoo360/wayne/pull/181) ([wilhelmguo](https://github.com/wilhelmguo))
+- Fix node list selector [\#180](https://github.com/Qihoo360/wayne/pull/180) ([wilhelmguo](https://github.com/wilhelmguo))
 
 ## [v1.2.1](https://github.com/Qihoo360/wayne/tree/v1.2.1) (2018-12-21)
 [Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.2.0...v1.2.1)
