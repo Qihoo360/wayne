@@ -158,7 +158,7 @@ func podUsedResourcesOnAvaliableNode(indexer *client.CacheFactory, avaliableNode
 			continue
 		}
 
-		resourceList := common.ContainersResourceList(pod.Spec.Containers)
+		resourceList := common.ContainersRequestResourceList(pod.Spec.Containers)
 
 		result.Cpu += resourceList.Cpu
 		result.Memory += resourceList.Memory

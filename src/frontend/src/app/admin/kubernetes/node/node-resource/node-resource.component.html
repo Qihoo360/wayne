@@ -8,8 +8,8 @@
   </svg>
 </div>
 <div class="box" *ngIf="showView">
-  <echarts-gauge style="height: 250px; width: 250px;" [title]="ready.title" [data]="ready.data" [name]="ready.name" type="percent" [tooltip]="ready.tooltip"></echarts-gauge>
-  <echarts-gauge style="height: 250px; width: 250px;" [title]="schedulable.title" [data]="schedulable.data" [name]="schedulable.name" type="percent" [tooltip]="schedulable.tooltip"></echarts-gauge>
+  <echarts-gauge style="height: 250px; width: 250px;" [title]="ready.title" [data]="ready.data" [name]="ready.name" type="percent" [tooltip]="ready.tooltip" reverse></echarts-gauge>
+  <echarts-gauge style="height: 250px; width: 250px;" [title]="schedulable.title" [data]="schedulable.data" [name]="schedulable.name" type="percent" [tooltip]="schedulable.tooltip" reverse></echarts-gauge>
   <echarts-gauge style="height: 250px; width: 250px;" [title]="cpu.title" [data]="cpu.data" [name]="cpu.name" type="percent" [tooltip]="cpu.tooltip"></echarts-gauge>
   <echarts-gauge style="height: 250px; width: 250px;" [title]="memory.title" [data]="memory.data" [name]="cpu.name" type="percent" [tooltip]="memory.tooltip"></echarts-gauge>
 </div>
