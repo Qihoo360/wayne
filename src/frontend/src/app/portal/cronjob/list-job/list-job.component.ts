@@ -24,7 +24,7 @@ export class ListJobComponent implements OnInit, OnDestroy {
   @Input() page: Page;
   @Input() currentCronjobName: string;
   @Output() paginate = new EventEmitter<State>();
-  _pageSize: number = 10;
+  _pageSize = 10;
   @ViewChild(ListPodComponent)
   listPodComponent: ListPodComponent;
   @ViewChild(ListEventComponent)
@@ -45,7 +45,7 @@ export class ListJobComponent implements OnInit, OnDestroy {
   }
 
   get appId(): number {
-    return parseInt(this.route.parent.snapshot.params['id']);
+    return parseInt(this.route.parent.snapshot.params['id'], 10);
   }
 
   ngOnDestroy(): void {
@@ -70,7 +70,7 @@ export class ListJobComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.periodSyncStatus();
-    this._pageSize = parseInt(this.storage.get('pagesize') || '10');
+    this._pageSize = parseInt(this.storage.get('pagesize') || '10', 10);
   }
 
   listPod(job: Job) {

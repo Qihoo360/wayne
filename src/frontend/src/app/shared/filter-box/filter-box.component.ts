@@ -27,20 +27,26 @@ export class FilterBoxComponent implements OnInit {
   }
 
   clickEvent(event) {
-    if (this.isBox(event.target)) return;
+    if (this.isBox(event.target)) {
+      return;
+    }
     this._cancel();
   }
 
   isBox(target: HTMLElement): boolean {
     while (target && target.tagName.toLocaleLowerCase() !== 'body') {
-      if (target.tagName.toLocaleLowerCase() === 'wayne-filter-box') return true;
+      if (target.tagName.toLocaleLowerCase() === 'wayne-filter-box') {
+        return true;
+      }
       target = target.parentElement;
     }
     return false;
   }
 
   destroyEvent() {
-    if (this.eventTarget) this.eventTarget();
+    if (this.eventTarget) {
+      this.eventTarget();
+    }
     this.show = false;
   }
 

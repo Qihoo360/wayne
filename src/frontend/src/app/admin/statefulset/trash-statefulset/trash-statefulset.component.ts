@@ -20,7 +20,7 @@ export class TrashStatefulsetComponent implements OnInit, OnDestroy {
   statefulsets: Statefulset[];
   pageState: PageState = new PageState();
   state: State;
-  currentPage: number = 1;
+  currentPage = 1;
 
   subscription: Subscription;
 
@@ -32,7 +32,7 @@ export class TrashStatefulsetComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_STATEFULSET) {
-        let id = message.data;
+        const id = message.data;
         this.statefulsetService.deleteById(id, 0, false)
           .subscribe(
             response => {
@@ -77,7 +77,7 @@ export class TrashStatefulsetComponent implements OnInit, OnDestroy {
     this.statefulsetService.listPage(this.pageState, 0)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.statefulsets = data.list;
@@ -87,7 +87,7 @@ export class TrashStatefulsetComponent implements OnInit, OnDestroy {
   }
 
   deleteStatefulset(statefulset: Statefulset) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除状态副本集确认',
       '你确认永久删除状态副本集 ' + statefulset.name + ' ？删除后将不可恢复！',
       statefulset.id,

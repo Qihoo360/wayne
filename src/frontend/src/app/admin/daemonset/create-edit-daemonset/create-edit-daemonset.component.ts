@@ -30,9 +30,9 @@ export class CreateEditDaemonsetComponent implements OnInit {
   aceBox: any;
 
   daemonset: DaemonSet = new DaemonSet();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
 
   title: string;
   resourceName = '守护进程集';
@@ -142,9 +142,9 @@ export class CreateEditDaemonsetComponent implements OnInit {
       !isUndefined(this.daemonset.appId);
   }
 
-  //Handle the form validation
+  // Handle the form validation
   handleValidation(): void {
-    let cont = this.currentForm.controls['daemonset_name'];
+    const cont = this.currentForm.controls['daemonset_name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }

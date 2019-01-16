@@ -19,7 +19,7 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
   templateUrl: 'create-edit-ingresstpl.component.html',
   styleUrls: ['create-edit-ingresstpl.scss']
 })
-export class CreateEditIngressTplComponent implements OnInit{
+export class CreateEditIngressTplComponent implements OnInit {
   @Output() create = new EventEmitter<boolean>();
   modalOpened: boolean;
 
@@ -98,7 +98,7 @@ export class CreateEditIngressTplComponent implements OnInit{
       return;
     }
     this.ingressTpl.template = this.aceBox.getValue();
-    for (let ingress of this.ingresses) {
+    for (const ingress of this.ingresses) {
       if (ingress.id === this.ingressTpl.ingressId) {
         this.ingressTpl.name = ingress.name;
       }

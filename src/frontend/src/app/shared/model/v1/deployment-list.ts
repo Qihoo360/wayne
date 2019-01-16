@@ -17,6 +17,50 @@ export class TypeMeta {
 
 }
 
+export class Time {
+  Time: Date;
+
+  constructor(init?: Time) {
+    if (!init) { return; }
+    if (init.Time) { this.Time = new Date(init.Time as any); }
+  }
+
+
+  static emptyObject(): Time {
+    const result = new Time();
+    result.Time = null;
+    return result;
+  }
+
+}
+
+export class ObjectMeta {
+  name: string;
+  namespace: string;
+  labels?: { [key: string]: string };
+  annotations?: { [key: string]: string };
+  creationTimestamp: Time;
+
+  constructor(init?: ObjectMeta) {
+    if (!init) { return; }
+    if (init.name) { this.name = init.name; }
+    if (init.namespace) { this.namespace = init.namespace; }
+    if (init.labels) { this.labels = init.labels; }
+    if (init.annotations) { this.annotations = init.annotations; }
+    if (init.creationTimestamp) { this.creationTimestamp = init.creationTimestamp; }
+  }
+
+
+  static emptyObject(): ObjectMeta {
+    const result = new ObjectMeta();
+    result.labels = null;
+    result.annotations = null;
+    result.creationTimestamp = Time.emptyObject();
+    return result;
+  }
+
+}
+
 export class Event {
   objectMeta: ObjectMeta;
   typeMeta: TypeMeta;
@@ -81,50 +125,6 @@ export class PodInfo {
   static emptyObject(): PodInfo {
     const result = new PodInfo();
     result.warnings = [];
-    return result;
-  }
-
-}
-
-export class Time {
-  Time: Date;
-
-  constructor(init?: Time) {
-    if (!init) { return; }
-    if (init.Time) { this.Time = new Date(init.Time as any); }
-  }
-
-
-  static emptyObject(): Time {
-    const result = new Time();
-    result.Time = null;
-    return result;
-  }
-
-}
-
-export class ObjectMeta {
-  name: string;
-  namespace: string;
-  labels?: { [key: string]: string };
-  annotations?: { [key: string]: string };
-  creationTimestamp: Time;
-
-  constructor(init?: ObjectMeta) {
-    if (!init) { return; }
-    if (init.name) { this.name = init.name; }
-    if (init.namespace) { this.namespace = init.namespace; }
-    if (init.labels) { this.labels = init.labels; }
-    if (init.annotations) { this.annotations = init.annotations; }
-    if (init.creationTimestamp) { this.creationTimestamp = init.creationTimestamp; }
-  }
-
-
-  static emptyObject(): ObjectMeta {
-    const result = new ObjectMeta();
-    result.labels = null;
-    result.annotations = null;
-    result.creationTimestamp = Time.emptyObject();
     return result;
   }
 

@@ -51,25 +51,30 @@ export class PersistentVolumeClaimRobinClient {
 
   createSnapshot(appId: number, cluster: string, namespace: string, name: string, version: string): Observable<any> {
     return this.http
-      .post(`/api/v1/kubernetes/apps/${appId}/persistentvolumeclaims/robin/${name}/snapshot/${version}/namespaces/${namespace}/clusters/${cluster}`, null)
+      .post(
+        `/api/v1/kubernetes/apps/${appId}/persistentvolumeclaims/robin
+        /${name}/snapshot/${version}/namespaces/${namespace}/clusters/${cluster}`, null)
       .catch(error => Observable.throw(error));
   }
 
   deleteSnapshot(appId: number, cluster: string, namespace: string, name: string, version: string): Observable<any> {
     return this.http
-      .delete(`/api/v1/kubernetes/apps/${appId}/persistentvolumeclaims/robin/${name}/snapshot/${version}/namespaces/${namespace}/clusters/${cluster}`)
+      .delete(`/api/v1/kubernetes/apps/${appId}/persistentvolumeclaims
+      /robin/${name}/snapshot/${version}/namespaces/${namespace}/clusters/${cluster}`)
       .catch(error => Observable.throw(error));
   }
 
   deleteAllSnapshot(appId: number, cluster: string, namespace: string, name: string): Observable<any> {
     return this.http
-      .delete(`/api/v1/kubernetes/apps/${appId}/persistentvolumeclaims/robin/${name}/snapshot/namespaces/${namespace}/clusters/${cluster}`)
+      .delete(`/api/v1/kubernetes/apps/${appId}/persistentvolumeclaims
+      /robin/${name}/snapshot/namespaces/${namespace}/clusters/${cluster}`)
       .catch(error => Observable.throw(error));
   }
 
   rollBackSnapshot(appId: number, cluster: string, namespace: string, name: string, version: string): Observable<any> {
     return this.http
-      .put(`/api/v1/kubernetes/apps/${appId}/persistentvolumeclaims/robin/${name}/snapshot/${version}/namespaces/${namespace}/clusters/${cluster}`, null)
+      .put(`/api/v1/kubernetes/apps/${appId}/persistentvolumeclaims
+      /robin/${name}/snapshot/${version}/namespaces/${namespace}/clusters/${cluster}`, null)
       .catch(error => Observable.throw(error));
   }
 

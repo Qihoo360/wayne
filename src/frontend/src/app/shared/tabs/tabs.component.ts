@@ -12,17 +12,17 @@ import { TabDragService } from '../client/v1/tab-drag.service';
 })
 export class TabsComponent implements AfterViewInit, OnDestroy {
   // margin 指的是tabs-box-inner的margin值。
-  margin: number = 40;
+  margin = 40;
   listStyle: ListStyle = new ListStyle();
-  showViewPager: boolean = false;
+  showViewPager = false;
   tabsContent: Element;
   tabsList: Element;
   tabsContentWidth: number;
   tabsListWidth: number;
-  firstEnter: boolean = true;
+  firstEnter = true;
   resizeTimer: any;
-  prevDisabled: boolean = true;
-  nextDisabled: boolean = false;
+  prevDisabled = true;
+  nextDisabled = false;
   dragSubscribe: Array<any> = new Array();
   eventList: Array<any> = new Array();
 
@@ -37,7 +37,8 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
         direction => {
           if (direction === 'right') {
             if (this.listStyle.translateX > (this.tabsContentWidth - this.tabsListWidth)) {
-              this.listStyle.translateX = this.listStyle.translateX < (this.tabsContentWidth - this.tabsListWidth + 10) ? this.tabsContentWidth - this.tabsListWidth : this.listStyle.translateX - 10;
+              this.listStyle.translateX = this.listStyle.translateX < (this.tabsContentWidth - this.tabsListWidth + 10) ?
+                this.tabsContentWidth - this.tabsListWidth : this.listStyle.translateX - 10;
             }
           } else if (direction === 'left') {
             if (this.listStyle.translateX < 0) {
@@ -62,9 +63,9 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
   @ContentChildren(TabComponent) set tabs(tabs: QueryList<any>) {
     this.addClickEvent(tabs);
     this.setActive(tabs);
-    if (!this.firstEnter) this.boxResize();
+    if (!this.firstEnter) { this.boxResize(); }
     this.firstEnter = false;
-  };
+  }
 
   prevEnter() {
     if (this.listStyle.translateX) {
@@ -122,7 +123,7 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
       this.showViewPager = true;
       this.tabsContentWidth -= 2 * this.margin;
     }
-    if (typeof window !== 'undefined') window.onresize = this.boxResize.bind(this);
+    if (typeof window !== 'undefined') { window.onresize = this.boxResize.bind(this); }
     this.dragService.init(this.el.nativeElement);
     this.eventList.push(
       this.eventManager.addEventListener(this.document.querySelector('.nav-trigger'), 'click', this.boxResize.bind(this, true))

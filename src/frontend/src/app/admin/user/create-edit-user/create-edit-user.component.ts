@@ -22,11 +22,11 @@ export class CreateEditUserComponent {
   currentForm: NgForm;
 
   user: User = new User();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
-  isDisplayValid: boolean = true;
-  isEmailValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
+  isDisplayValid = true;
+  isEmailValid = true;
 
   userTitle: string;
   actionType: ActionType;
@@ -35,9 +35,6 @@ export class CreateEditUserComponent {
     private userService: UserService,
     private messageHandlerService: MessageHandlerService
   ) {
-  }
-
-  ngOnInit(): void {
   }
 
   log() {
@@ -117,14 +114,14 @@ export class CreateEditUserComponent {
 
   // Handle the form validation
   handleNameValidation(): void {
-    let cont = this.currentForm.controls['user_name'];
+    const cont = this.currentForm.controls['user_name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }
   }
 
   handleEmailValidation(): void {
-    let cont = this.currentForm.controls['user_email'];
+    const cont = this.currentForm.controls['user_email'];
     if (cont) {
       this.isEmailValid = cont.valid;
     }

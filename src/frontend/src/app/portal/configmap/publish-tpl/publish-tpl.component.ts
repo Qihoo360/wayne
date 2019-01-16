@@ -21,14 +21,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PublishConfigMapTplComponent {
   @Output() published = new EventEmitter<boolean>();
-  modalOpened: boolean = false;
+  modalOpened = false;
   publishForm: NgForm;
   @ViewChild('publishForm')
   currentForm: NgForm;
 
   configMapTpl: ConfigMapTpl;
   clusters = Array<Cluster>();
-  isSubmitOnGoing: boolean = false;
+  isSubmitOnGoing = false;
   title: string;
   forceOffline: boolean;
   actionType: ResourcesActionType;
@@ -41,7 +41,7 @@ export class PublishConfigMapTplComponent {
   }
 
   get appId(): number {
-    return parseInt(this.route.parent.snapshot.params['id']);
+    return parseInt(this.route.parent.snapshot.params['id'], 10);
   }
 
   newPublishTpl(configMapTpl: ConfigMapTpl, actionType: ResourcesActionType) {
@@ -49,26 +49,26 @@ export class PublishConfigMapTplComponent {
     this.clusters = Array<Cluster>();
     this.configMapTpl = configMapTpl;
     this.forceOffline = false;
-    if (actionType == ResourcesActionType.PUBLISH) {
+    if (actionType === ResourcesActionType.PUBLISH) {
       this.title = '发布配置集[' + configMapTpl.name + ']';
       if (!configMapTpl.metaData) {
         this.messageHandlerService.warning('请先选择可发布集群');
         return;
       }
       this.modalOpened = true;
-      let metaData = JSON.parse(configMapTpl.metaData);
-      for (let cluster of metaData.clusters) {
+      const metaData = JSON.parse(configMapTpl.metaData);
+      for (const cluster of metaData.clusters) {
         if (this.cacheService.namespace.metaDataObj && this.cacheService.namespace.metaDataObj.clusterMeta[cluster]) {
-          let c = new Cluster();
+          const c = new Cluster();
           c.name = cluster;
           this.clusters.push(c);
         }
       }
-    } else if (actionType == ResourcesActionType.OFFLINE) {
+    } else if (actionType === ResourcesActionType.OFFLINE) {
       this.modalOpened = true;
       this.title = '下线配置集[' + configMapTpl.name + ']';
-      for (let state of configMapTpl.status) {
-        let c = new Cluster();
+      for (const state of configMapTpl.status) {
+        const c = new Cluster();
         c.name = state.cluster;
         this.clusters.push(c);
       }
@@ -83,8 +83,8 @@ export class PublishConfigMapTplComponent {
 
   getStatusByCluster(status: PublishStatus[], cluster: string): PublishStatus {
     if (status && status.length > 0) {
-      for (let state of status) {
-        if (state.cluster == cluster) {
+      for (const state of status) {
+        if (state.cluster === cluster) {
           return state;
         }
       }
@@ -116,7 +116,7 @@ export class PublishConfigMapTplComponent {
 
 
   offline(cluster: Cluster) {
-    let state = this.getStatusByCluster(this.configMapTpl.status, cluster.name);
+    const state = this.getStatusByCluster(this.configMapTpl.status, cluster.name);
     this.configMapClient.deleteByName(this.appId, cluster.name, this.cacheService.kubeNamespace, this.configMapTpl.name).subscribe(
       response => {
         this.deletePublishStatus(state.id);
@@ -144,7 +144,7 @@ export class PublishConfigMapTplComponent {
   }
 
   deploy(cluster: Cluster) {
-    let kubeConfigMap: KubeConfigMap = JSON.parse(this.configMapTpl.template);
+    const kubeConfigMap: KubeConfigMap = JSON.parse(this.configMapTpl.template);
     kubeConfigMap.metadata.namespace = this.cacheService.kubeNamespace;
     this.configMapClient.deploy(
       this.appId,

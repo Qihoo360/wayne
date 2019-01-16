@@ -31,7 +31,9 @@ export class DeployComponent implements OnInit {
   }
 
   refresh(state?: State) {
-    this.publishService.getDeployStatistics(moment(this.startTime).format('YYYY-MM-DDTHH:mm:SS') + 'Z', moment(this.endTime).format('YYYY-MM-DDTHH:mm:SS') + 'Z').subscribe(
+    this.publishService.getDeployStatistics(
+      moment(this.startTime).format('YYYY-MM-DDTHH:mm:SS') + 'Z', moment(this.endTime).format('YYYY-MM-DDTHH:mm:SS') + 'Z').
+    subscribe(
       resp => {
         this.datas = resp.data;
       },

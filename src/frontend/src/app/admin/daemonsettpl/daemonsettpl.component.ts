@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -17,7 +17,7 @@ import { DaemonSetTemplate } from '../../shared/model/v1/daemonsettpl';
   templateUrl: './daemonsettpl.component.html',
   styleUrls: ['./daemonsettpl.component.scss']
 })
-export class DaemonsettplComponent implements OnInit {
+export class DaemonsettplComponent implements OnInit, OnDestroy {
 
   @ViewChild(ListDaemonsettplComponent)
   listDaemonset: ListDaemonsettplComponent;
@@ -38,7 +38,7 @@ export class DaemonsettplComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.DAEMONSET_TPL) {
-        let id = message.data;
+        const id = message.data;
         this.daemonsetTplService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -56,7 +56,7 @@ export class DaemonsettplComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.daemonsetId = params['did'];
-      if (typeof (this.daemonsetId) == 'undefined') {
+      if (typeof (this.daemonsetId) === 'undefined') {
         this.daemonsetId = 0;
       }
     });
@@ -80,7 +80,7 @@ export class DaemonsettplComponent implements OnInit {
     this.daemonsetTplService.listPage(this.pageState, this.daemonsetId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedDaemonsets = data.list;
@@ -100,7 +100,7 @@ export class DaemonsettplComponent implements OnInit {
   }
 
   deleteDaemonset(tpl: DaemonSetTemplate) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除守护进程集模版确认',
       '你确认删除守护进程集模版 ' + tpl.name + ' ？',
       tpl.id,

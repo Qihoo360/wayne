@@ -144,7 +144,7 @@ export class SelectComponent implements OnInit, AfterViewInit, ControlValueAcces
       this._filterValue = value;
       if (this.search) {
         this._options.forEach(item => {
-          if (value === null || value === undefined || item.el.nativeElement.innerText.indexOf(value) > -1) {
+          if (value == null || value === undefined || item.el.nativeElement.innerText.indexOf(value) > -1) {
             item.el.nativeElement.classList.remove('hide');
           } else {
             item.el.nativeElement.classList.add('hide');
@@ -236,7 +236,7 @@ export class SelectComponent implements OnInit, AfterViewInit, ControlValueAcces
   }
 
   setActive(value: string) {
-    if (value === null) {
+    if (value == null) {
       return;
     }
     const textList = new Set();

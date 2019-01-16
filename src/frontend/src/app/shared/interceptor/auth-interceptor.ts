@@ -28,7 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
     headerSettings['Content-Type'] = 'application/json';
     const newHeader = new HttpHeaders(headerSettings);
 
-    let changedRequest = request.clone({
+    const changedRequest = request.clone({
       headers: newHeader
     });
     return next.handle(changedRequest).toPromise();

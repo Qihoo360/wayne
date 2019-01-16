@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CreateEditAutoscaleComponent } from './create-edit-autoscale.component';
 
 describe('CreateEditAutoscaleComponent', () => {
-  let component: CreateEditAutoscaleComponent;
-  let fixture: ComponentFixture<CreateEditAutoscaleComponent>;
+  const component: CreateEditAutoscaleComponent;
+  const fixture: ComponentFixture<CreateEditAutoscaleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

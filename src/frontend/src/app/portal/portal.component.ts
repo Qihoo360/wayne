@@ -15,7 +15,7 @@ export class PortalComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.router.url == '/portal') {
+    if (this.router.url === '/portal') {
       this.router.navigate([defaultRoutingUrl]);
     }
   }

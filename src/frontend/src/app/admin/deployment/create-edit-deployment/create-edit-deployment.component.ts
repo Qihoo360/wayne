@@ -31,9 +31,9 @@ export class CreateEditDeploymentComponent implements OnInit {
   aceBox: any;
 
   deployment: Deployment = new Deployment();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
 
   deploymentTitle: string;
   actionType: ActionType;
@@ -142,9 +142,9 @@ export class CreateEditDeploymentComponent implements OnInit {
       !isUndefined(this.deployment.appId);
   }
 
-  //Handle the form validation
+  // Handle the form validation
   handleValidation(): void {
-    let cont = this.currentForm.controls['deployment_name'];
+    const cont = this.currentForm.controls['deployment_name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }

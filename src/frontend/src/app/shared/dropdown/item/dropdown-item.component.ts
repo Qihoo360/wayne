@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 
 export class DropdownItemComponent {
-  @Input('name') title: string;
+  @Input('title') title: string;
 }

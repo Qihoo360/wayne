@@ -21,14 +21,14 @@ export class UserService {
     params = params.set('pageNo', pageState.page.pageNo + '');
     params = params.set('pageSize', pageState.page.pageSize + '');
     Object.getOwnPropertyNames(pageState.params).map(key => {
-      let value = pageState.params[key];
+      const value = pageState.params[key];
       if (isNotEmpty(value)) {
         params = params.set(key, value);
       }
     });
-    let filterList: Array<string> = [];
+    const filterList: Array<string> = [];
     Object.getOwnPropertyNames(pageState.filters).map(key => {
-      let value = pageState.filters[key];
+      const value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
           filterList.push(`${key}=${value}`);
@@ -41,7 +41,7 @@ export class UserService {
       params = params.set('filter', filterList.join(','));
     }
     if (Object.keys(pageState.sort).length !== 0) {
-      let sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
+      const sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
       params = params.set('sortby', sortType);
     }
     return this.http
@@ -85,7 +85,7 @@ export class UserService {
   }
 
   deleteUser(userId: number): Observable<any> {
-    let options: any = {};
+    const options: any = {};
     return this.http
       .delete(`/api/v1/users/${userId}`, options)
 

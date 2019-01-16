@@ -28,18 +28,18 @@ export class NamespaceUserService {
         break;
       case 'namespace':
         params = params.set('namespaceId', resourceId + '');
-        namespaceId = parseInt(resourceId);
+        namespaceId = parseInt(resourceId, 10);
         break;
     }
     Object.getOwnPropertyNames(pageState.params).map(key => {
-      let value = pageState.params[key];
+      const value = pageState.params[key];
       if (isNotEmpty(value)) {
         params = params.set(key, value);
       }
     });
-    let filterList: Array<string> = [];
+    const filterList: Array<string> = [];
     Object.getOwnPropertyNames(pageState.filters).map(key => {
-      let value = pageState.filters[key];
+      const value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
           filterList.push(`${key}=${value}`);
@@ -83,7 +83,7 @@ export class NamespaceUserService {
   }
 
   deleteById(id: number, namespaceId: number): Observable<any> {
-    let options: any = {};
+    const options: any = {};
     return this.http.delete(`/api/v1/namespaces/${namespaceId}/users/${id}`, options)
 
       .catch(error => Observable.throw(error));

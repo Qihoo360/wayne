@@ -45,7 +45,7 @@ export class ListIngressComponent extends ListResource implements OnInit, OnDest
       diffService,
       authService,
       deletionDialogService
-    )
+    );
     super.registSubscription(ConfirmationTargets.INGRESS_TPL, 'Ingress 模版删除成功！');
     super.registConfirmationTarget(ConfirmationTargets.INGRESS_TPL);
   }

@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Resource } from '../../shared/base/resource/resource';
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -17,7 +17,7 @@ import { StatefulsetTemplate } from '../../shared/model/v1/statefulsettpl';
   templateUrl: './statefulsettpl.component.html',
   styleUrls: ['./statefulsettpl.component.scss']
 })
-export class StatefulsettplComponent implements OnInit {
+export class StatefulsettplComponent implements OnInit, OnDestroy {
 
   @ViewChild(ListStatefulsettplComponent)
   listStatefulset: ListStatefulsettplComponent;
@@ -38,7 +38,7 @@ export class StatefulsettplComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.STATEFULSET_TPL) {
-        let id = message.data;
+        const id = message.data;
         this.statefulsetTplService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -56,7 +56,7 @@ export class StatefulsettplComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.statefulsetId = params['did'];
-      if (typeof (this.statefulsetId) == 'undefined') {
+      if (typeof (this.statefulsetId) === 'undefined') {
         this.statefulsetId = 0;
       }
     });
@@ -80,7 +80,7 @@ export class StatefulsettplComponent implements OnInit {
     this.statefulsetTplService.listPage(this.pageState, this.statefulsetId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedStatefulsets = data.list;
@@ -100,7 +100,7 @@ export class StatefulsettplComponent implements OnInit {
   }
 
   deleteStatefulset(tpl: StatefulsetTemplate) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除状态副本集模版确认',
       '你确认删除状态副本集模版 ' + tpl.name + ' ？',
       tpl.id,

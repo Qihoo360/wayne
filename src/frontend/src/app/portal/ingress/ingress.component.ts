@@ -74,7 +74,7 @@ export class IngressComponent extends Resource implements OnInit, OnDestroy, Aft
       tabDragService,
       el,
       messageHandlerService
-    )
+    );
     super.registResourceType('ingress');
     super.registPublishType(PublishType.INGRESS);
     super.registConfirmationTarget(ConfirmationTargets.INGRESS);

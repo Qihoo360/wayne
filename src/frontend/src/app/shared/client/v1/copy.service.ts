@@ -38,11 +38,6 @@ export class CopyService {
     return this.document.execCommand('copy');
   }
 
-  /**
-   * @param {textElement} input or textarea element
-   * @returns {boolean} 返回成功或者失败结果
-   */
-
   private selectText(textElement: HTMLInputElement | HTMLTextAreaElement): boolean {
     try {
       textElement.select();
@@ -60,8 +55,9 @@ export class CopyService {
   }
 
   private judgeModal() {
-    if (this.document.querySelector('.modal') && this.document.querySelector('.modal').hasAttribute('tabindex'))
+    if (this.document.querySelector('.modal') && this.document.querySelector('.modal').hasAttribute('tabindex')) {
       this.document.querySelector('.modal').removeAttribute('tabindex');
+    }
   }
 
   copy(value: any) {

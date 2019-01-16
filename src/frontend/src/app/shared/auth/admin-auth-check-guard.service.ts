@@ -16,7 +16,7 @@ export class AdminAuthCheckGuard implements CanActivate, CanActivateChild {
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean {
-    //When routing change, clear
+    // When routing change, clear
     this.msgHandler.clear();
 
     return new Promise((resolve, reject) => {
@@ -43,7 +43,7 @@ export class AdminAuthCheckGuard implements CanActivate, CanActivateChild {
           resolve(false);
         }
       }
-      //Before activating, we firstly need to confirm whether the route is coming from peer part - admiral
+      // Before activating, we firstly need to confirm whether the route is coming from peer part - admiral
       return resolve(true);
     });
   }

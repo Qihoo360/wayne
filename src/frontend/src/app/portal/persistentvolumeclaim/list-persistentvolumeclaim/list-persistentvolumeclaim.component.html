@@ -45,9 +45,9 @@
     </clr-dg-cell>
     <clr-dg-cell class="col-cluster">
       <div class="form-group" style="padding-bottom: 2px" *ngFor="let status of tpl.status">
-        {{status.cluster}}&nbsp;<clr-icon style="color: #FF3434" shape="exclamation-triangle" *ngIf="status.state == 1"
+        {{status.cluster}}&nbsp;<clr-icon style="color: #FF3434" shape="exclamation-triangle" *ngIf="status.state === 1"
                                           class="is-solid"></clr-icon>
-        <clr-icon style="color: green" shape="success-standard" *ngIf="status.state == 0" class="is-solid"></clr-icon>
+        <clr-icon style="color: green" shape="success-standard" *ngIf="status.state === 0" class="is-solid"></clr-icon>
       </div>
     </clr-dg-cell>
     <clr-dg-cell class="col-description">
@@ -192,7 +192,7 @@
               </div>
             </clr-dg-cell>
             <clr-dg-row-detail *clrIfExpanded>
-              <snapshot-persistentvolumeclaim *ngIf="state.fileSystemStatus?.imageType == 'rbd'" [appId]="appId"
+              <snapshot-persistentvolumeclaim *ngIf="state.fileSystemStatus?.imageType === 'rbd'" [appId]="appId"
                                               style="width: 98%"
                                               [state]="state"></snapshot-persistentvolumeclaim>
             </clr-dg-row-detail>

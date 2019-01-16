@@ -11,7 +11,7 @@ export class ConfirmationMessage {
 
   title: string;
   message: string;
-  data: any = {};//default is empty
+  data: any = {}; // default is empty
   targetId: ConfirmationTargets = ConfirmationTargets.EMPTY;
   param: string;
   buttons: ConfirmationButtons;

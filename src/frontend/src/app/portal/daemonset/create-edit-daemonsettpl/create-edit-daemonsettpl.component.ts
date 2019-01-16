@@ -94,7 +94,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   memoryUnitPrice = 10;
   top: number;
   box: HTMLElement;
-  naviList: string = JSON.stringify(templateDom);
+  naviList = JSON.stringify(templateDom);
   eventList: any = Array();
 
   constructor(private daemonSetTplService: DaemonSetTplService,

@@ -50,7 +50,7 @@ export class ListDaemonSetComponent implements OnInit, OnDestroy {
   @ViewChild(PublishDaemonSetTplComponent)
   publishDaemonSetTpl: PublishDaemonSetTplComponent;
   state: State;
-  currentPage: number = 1;
+  currentPage = 1;
 
   subscription: Subscription;
 
@@ -68,7 +68,7 @@ export class ListDaemonSetComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.DAEMONSET_TPL) {
-        let tplId = message.data;
+        const tplId = message.data;
         this.daemonSetTplService.deleteById(tplId, this.appId)
           .subscribe(
             response => {
@@ -114,7 +114,7 @@ export class ListDaemonSetComponent implements OnInit, OnDestroy {
   }
 
   deleteDaemonSetTpl(tpl: DaemonSetTemplate): void {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除守护进程集模版确认',
       `你确认删除守护进程集模版${tpl.name}？`,
       tpl.id,
@@ -139,7 +139,7 @@ export class ListDaemonSetComponent implements OnInit, OnDestroy {
   publishTpl(tpl: DaemonSetTemplate) {
     this.daemonSetService.getById(tpl.daemonSetId, this.appId).subscribe(
       status => {
-        let daemonSet = status.data;
+        const daemonSet = status.data;
         this.publishDaemonSetTpl.newPublishTpl(daemonSet, tpl, ResourcesActionType.PUBLISH);
       },
       error => {
@@ -150,7 +150,7 @@ export class ListDaemonSetComponent implements OnInit, OnDestroy {
   offlineDaemonSet(tpl: DaemonSetTemplate) {
     this.daemonSetService.getById(tpl.daemonSetId, this.appId).subscribe(
       status => {
-        let daemonSet = status.data;
+        const daemonSet = status.data;
         this.publishDaemonSetTpl.newPublishTpl(daemonSet, tpl, ResourcesActionType.OFFLINE);
       },
       error => {
@@ -171,7 +171,7 @@ export class ListDaemonSetComponent implements OnInit, OnDestroy {
   }
 
   listPod(status: TemplateStatus, tpl: DaemonSetTemplate) {
-    if (status.cluster && status.state != TemplateState.NOT_FOUND) {
+    if (status.cluster && status.state !== TemplateState.NOT_FOUND) {
       this.listPodComponent.openModal(status.cluster, tpl.name);
     }
   }

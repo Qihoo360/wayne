@@ -1,12 +1,24 @@
 import { State } from '@clr/angular';
 
+export class Page {
+  pageNo ? = 1;
+  pageSize ? = 10;
+  totalPage?: number;
+  totalCount?: number;
+}
+
+export class Sort {
+  by: string;
+  reverse: boolean;
+}
+
 export class PageState {
-  page? = new Page();
-  sort? = new Sort();
-  filters? = {};
+  page ? = new Page();
+  sort ? = new Sort();
+  filters ? = {};
   // relate?: string;
   // isOnline?: boolean;
-  params? = {};
+  params ? = {};
 
   constructor(page?: Page) {
     if (page) {
@@ -19,7 +31,7 @@ export class PageState {
     if (!state) {
       return new PageState();
     }
-    let pageState = new PageState(page);
+    const pageState = new PageState(page);
 
     if (state.page) {
       pageState.page.pageNo = Math.ceil((state.page.to + 1) / state.page.size);
@@ -30,24 +42,12 @@ export class PageState {
       pageState.sort.reverse = state.sort.reverse;
     }
     if (state.filters) {
-      for (let filter of state.filters) {
-        let {property, value} = <{ property: string, value: string }>filter;
+      for (const filter of state.filters) {
+        const {property, value} = <{ property: string, value: string }>filter;
         pageState.filters[property] = value;
       }
     }
     return pageState;
   }
-}
-
-export class Page {
-  pageNo?: number = 1;
-  pageSize?: number = 10;
-  totalPage?: number;
-  totalCount?: number;
-}
-
-export class Sort {
-  by: string;
-  reverse: boolean;
 }
 

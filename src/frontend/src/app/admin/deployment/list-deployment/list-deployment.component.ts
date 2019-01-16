@@ -16,9 +16,9 @@ export class ListDeploymentComponent implements OnInit {
   @Input() deployments: Deployment[];
 
   @Input() page: Page;
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
-  testInfo: number = 0;
+  testInfo = 0;
   @Output() paginate = new EventEmitter<State>();
   @Output() delete = new EventEmitter<Deployment>();
   @Output() edit = new EventEmitter<Deployment>();

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { Subscription } from 'rxjs/Subscription';
@@ -31,7 +31,7 @@ const showState = {
   templateUrl: './namespace-webhook.component.html',
   styleUrls: ['./namespace-webhook.component.scss']
 })
-export class NamespaceWebHookComponent implements OnInit {
+export class NamespaceWebHookComponent implements OnInit, OnDestroy {
   @ViewChild(ListNamespaceWebHookComponent)
   listWebHook: ListNamespaceWebHookComponent;
   @ViewChild(CreateEditNamespaceWebHookComponent)
@@ -56,7 +56,7 @@ export class NamespaceWebHookComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.WEBHOOK) {
-        let webHook = message.data;
+        const webHook = message.data;
         this.webHookService.delete(webHook)
           .subscribe(
             response => {
@@ -78,7 +78,7 @@ export class NamespaceWebHookComponent implements OnInit {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) this.showList.push(key);
+      if (!this.showState[key].hidden) { this.showList.push(key); }
     });
   }
 
@@ -114,7 +114,7 @@ export class NamespaceWebHookComponent implements OnInit {
     this.webHookService.query(this.pageState, 0, this.contextService.namespaceId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.webHooks = data.list;
@@ -130,7 +130,7 @@ export class NamespaceWebHookComponent implements OnInit {
   }
 
   deleteWebHook(webHook: WebHook) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除' + this.resourceLabel + '确认',
       '确认删除 ' + this.resourceLabel + ':' + webHook.name + '?',
       webHook,

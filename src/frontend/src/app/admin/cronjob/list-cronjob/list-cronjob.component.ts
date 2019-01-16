@@ -16,7 +16,7 @@ export class ListCronjobComponent implements OnInit {
   @Input() cronjobs: Cronjob[];
 
   @Input() page: Page;
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
 
   @Output() paginate = new EventEmitter<State>();

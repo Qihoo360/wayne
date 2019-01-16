@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -17,7 +17,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './deployment.component.html',
   styleUrls: ['./deployment.component.scss']
 })
-export class DeploymentComponent implements OnInit {
+export class DeploymentComponent implements OnInit, OnDestroy {
 
   @ViewChild(ListDeploymentComponent)
   listDeployment: ListDeploymentComponent;
@@ -40,7 +40,7 @@ export class DeploymentComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.DEPLOYMENT) {
-        let deploymentId = message.data;
+        const deploymentId = message.data;
         this.deploymentService.deleteById(deploymentId, 0)
           .subscribe(
             response => {
@@ -58,7 +58,7 @@ export class DeploymentComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.appId = params['aid'];
-      if (typeof (this.appId) == 'undefined') {
+      if (typeof (this.appId) === 'undefined') {
         this.appId = '';
       }
     });
@@ -76,7 +76,7 @@ export class DeploymentComponent implements OnInit {
     }
     this.deploymentService.list(this.pageState, 'false', this.appId).subscribe(
       response => {
-        let data = response.data;
+        const data = response.data;
         this.pageState.page.totalPage = data.totalPage;
         this.pageState.page.totalCount = data.totalCount;
         this.changedDeployments = data.list;
@@ -96,7 +96,7 @@ export class DeploymentComponent implements OnInit {
   }
 
   deleteDeployment(deployment: Deployment) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除部署确认',
       '你确认删除部署 ' + deployment.name + ' ？',
       deployment.id,

@@ -8,10 +8,10 @@ export class JobCondition {
   lastTransitionTime: Time;
   reason: string;
   message: string;
-  //[JobCondition:]
 
 
-  //[end]
+
+
 }
 
 export class JobStatus {
@@ -21,19 +21,19 @@ export class JobStatus {
   active: number;
   succeeded: number;
   failed: number;
-  //[JobStatus:]
 
 
-  //[end]
+
+
 }
 
 export class HostAlias {
   ip: string;
   hostnames: string[];
-  //[HostAlias:]
 
 
-  //[end]
+
+
 }
 
 export class Toleration {
@@ -42,102 +42,102 @@ export class Toleration {
   value: string;
   effect: string;
   tolerationSeconds: number;
-  //[Toleration:]
 
 
-  //[end]
+
+
 }
 
 
 export class PodAntiAffinity {
   requiredDuringSchedulingIgnoredDuringExecution: PodAffinityTerm[];
   preferredDuringSchedulingIgnoredDuringExecution: WeightedPodAffinityTerm[];
-  //[PodAntiAffinity:]
 
 
-  //[end]
+
+
 }
 
 export class WeightedPodAffinityTerm {
   weight: number;
   podAffinityTerm: PodAffinityTerm;
-  //[WeightedPodAffinityTerm:]
 
 
-  //[end]
+
+
 }
 
 export class PodAffinityTerm {
   labelSelector: LabelSelector;
   namespaces: string[];
   topologyKey: string;
-  //[PodAffinityTerm:]
 
 
-  //[end]
+
+
 }
 
 export class PodAffinity {
   requiredDuringSchedulingIgnoredDuringExecution: PodAffinityTerm[];
   preferredDuringSchedulingIgnoredDuringExecution: WeightedPodAffinityTerm[];
-  //[PodAffinity:]
 
 
-  //[end]
+
+
 }
 
 export class PreferredSchedulingTerm {
   weight: number;
   preference: NodeSelectorTerm;
-  //[PreferredSchedulingTerm:]
 
 
-  //[end]
+
+
 }
 
 export class NodeSelectorRequirement {
   key: string;
   operator: string;
   values: string[];
-  //[NodeSelectorRequirement:]
 
 
-  //[end]
+
+
 }
 
 export class NodeSelectorTerm {
   matchExpressions: NodeSelectorRequirement[];
-  //[NodeSelectorTerm:]
 
 
-  //[end]
+
+
 }
 
 export class NodeSelector {
   nodeSelectorTerms: NodeSelectorTerm[];
-  //[NodeSelector:]
 
 
-  //[end]
+
+
 }
 
 export class NodeAffinity {
   requiredDuringSchedulingIgnoredDuringExecution: NodeSelector;
   preferredDuringSchedulingIgnoredDuringExecution: PreferredSchedulingTerm[];
-  //[NodeAffinity:]
 
 
-  //[end]
+
+
 }
 
 export class Affinity {
   nodeAffinity: NodeAffinity;
   podAffinity: PodAffinity;
   podAntiAffinity: PodAntiAffinity;
-  //[Affinity:]
 
 
-  //[end]
+
+
 }
 
 
@@ -147,10 +147,10 @@ export class PodSecurityContext {
   runAsNonRoot: boolean;
   supplementalGroups: number[];
   fsGroup: number;
-  //[PodSecurityContext:]
 
 
-  //[end]
+
+
 }
 
 export class SELinuxOptions {
@@ -158,19 +158,19 @@ export class SELinuxOptions {
   role: string;
   type: string;
   level: string;
-  //[SELinuxOptions:]
 
 
-  //[end]
+
+
 }
 
 export class Capabilities {
   add: string[];
   drop: string[];
-  //[Capabilities:]
 
 
-  //[end]
+
+
 }
 
 export class SecurityContext {
@@ -180,10 +180,10 @@ export class SecurityContext {
   runAsUser: number;
   runAsNonRoot: boolean;
   readOnlyRootFilesystem: boolean;
-  //[SecurityContext:]
 
 
-  //[end]
+
+
 }
 
 
@@ -193,45 +193,45 @@ export class Handler {
   exec: ExecAction;
   httpGet: HTTPGetAction;
   tcpSocket: TCPSocketAction;
-  //[Handler:]
 
 
-  //[end]
+
+
 }
 
 export class Lifecycle {
   postStart: Handler;
   preStop: Handler;
-  //[Lifecycle:]
 
 
-  //[end]
+
+
 }
 
 
 export class TCPSocketAction {
   port: IntOrString;
   host: string;
-  //[TCPSocketAction:]
 
 
-  //[end]
+
+
 }
 
 export class HTTPHeader {
   name: string;
   value: string;
-  //[HTTPHeader:]
 
 
-  //[end]
+
+
 }
 
 export class IntOrString {
-  //[IntOrString:]
 
 
-  //[end]
+
+
 }
 
 export class HTTPGetAction {
@@ -240,18 +240,18 @@ export class HTTPGetAction {
   host: string;
   scheme: string;
   httpHeaders: HTTPHeader[];
-  //[HTTPGetAction:]
 
 
-  //[end]
+
+
 }
 
 export class ExecAction {
   command: string[];
-  //[ExecAction:]
 
 
-  //[end]
+
+
 }
 
 export class Probe {
@@ -263,10 +263,10 @@ export class Probe {
   periodSeconds: number;
   successThreshold: number;
   failureThreshold: number;
-  //[Probe:]
 
 
-  //[end]
+
+
 }
 
 export class VolumeMount {
@@ -274,39 +274,39 @@ export class VolumeMount {
   readOnly: boolean;
   mountPath: string;
   subPath: string;
-  //[VolumeMount:]
 
 
-  //[end]
+
+
 }
 
 export class ResourceRequirements {
   limits: {};
   requests: {};
-  //[ResourceRequirements:]
 
 
-  //[end]
+
+
 }
 
 export class SecretKeySelector {
   name: string;
   key: string;
   optional: boolean;
-  //[SecretKeySelector:]
 
 
-  //[end]
+
+
 }
 
 export class ConfigMapKeySelector {
   name: string;
   key: string;
   optional: boolean;
-  //[ConfigMapKeySelector:]
 
 
-  //[end]
+
+
 }
 
 
@@ -315,48 +315,48 @@ export class EnvVarSource {
   resourceFieldRef: ResourceFieldSelector;
   configMapKeyRef: ConfigMapKeySelector;
   secretKeyRef: SecretKeySelector;
-  //[EnvVarSource:]
 
 
-  //[end]
+
+
 }
 
 export class EnvVar {
   name: string;
   value: string;
   valueFrom: EnvVarSource;
-  //[EnvVar:]
 
 
-  //[end]
+
+
 }
 
 export class SecretEnvSource {
   name: string;
   optional: boolean;
-  //[SecretEnvSource:]
 
 
-  //[end]
+
+
 }
 
 export class ConfigMapEnvSource {
   name: string;
   optional: boolean;
-  //[ConfigMapEnvSource:]
 
 
-  //[end]
+
+
 }
 
 export class EnvFromSource {
   prefix: string;
   configMapRef: ConfigMapEnvSource;
   secretRef: SecretEnvSource;
-  //[EnvFromSource:]
 
 
-  //[end]
+
+
 }
 
 export class ContainerPort {
@@ -365,10 +365,10 @@ export class ContainerPort {
   containerPort: number;
   protocol: string;
   hostIP: string;
-  //[ContainerPort:]
 
 
-  //[end]
+
+
 }
 
 export class Container {
@@ -392,10 +392,10 @@ export class Container {
   stdin: boolean;
   stdinOnce: boolean;
   tty: boolean;
-  //[Container:]
 
 
-  //[end]
+
+
 }
 
 export class StorageOSVolumeSource {
@@ -404,10 +404,10 @@ export class StorageOSVolumeSource {
   fsType: string;
   readOnly: boolean;
   secretRef: LocalObjectReference;
-  //[StorageOSVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class ScaleIOVolumeSource {
@@ -421,76 +421,76 @@ export class ScaleIOVolumeSource {
   volumeName: string;
   fsType: string;
   readOnly: boolean;
-  //[ScaleIOVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class PortworxVolumeSource {
   volumeID: string;
   fsType: string;
   readOnly: boolean;
-  //[PortworxVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class ConfigMapProjection {
   name: string;
   items: KeyToPath[];
   optional: boolean;
-  //[ConfigMapProjection:]
 
 
-  //[end]
+
+
 }
 
 export class DownwardAPIProjection {
   items: DownwardAPIVolumeFile[];
-  //[DownwardAPIProjection:]
 
 
-  //[end]
+
+
 }
 
 export class SecretProjection {
   name: string;
   items: KeyToPath[];
   optional: boolean;
-  //[SecretProjection:]
 
 
-  //[end]
+
+
 }
 
 export class VolumeProjection {
   secret: SecretProjection;
   downwardAPI: DownwardAPIProjection;
   configMap: ConfigMapProjection;
-  //[VolumeProjection:]
 
 
-  //[end]
+
+
 }
 
 export class ProjectedVolumeSource {
   sources: VolumeProjection[];
   defaultMode: number;
-  //[ProjectedVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class PhotonPersistentDiskVolumeSource {
   pdID: string;
   fsType: string;
-  //[PhotonPersistentDiskVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class AzureDiskVolumeSource {
@@ -500,10 +500,10 @@ export class AzureDiskVolumeSource {
   fsType: string;
   readOnly: boolean;
   kind: string;
-  //[AzureDiskVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class QuobyteVolumeSource {
@@ -512,10 +512,10 @@ export class QuobyteVolumeSource {
   readOnly: boolean;
   user: string;
   group: string;
-  //[QuobyteVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class VsphereVirtualDiskVolumeSource {
@@ -523,10 +523,10 @@ export class VsphereVirtualDiskVolumeSource {
   fsType: string;
   storagePolicyName: string;
   storagePolicyID: string;
-  //[VsphereVirtualDiskVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class ConfigMapVolumeSource {
@@ -534,20 +534,20 @@ export class ConfigMapVolumeSource {
   items: KeyToPath[];
   defaultMode: number;
   optional: boolean;
-  //[ConfigMapVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class AzureFileVolumeSource {
   secretName: string;
   shareName: string;
   readOnly: boolean;
-  //[AzureFileVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class FCVolumeSource {
@@ -555,29 +555,29 @@ export class FCVolumeSource {
   lun: number;
   fsType: string;
   readOnly: boolean;
-  //[FCVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class ResourceFieldSelector {
   containerName: string;
   resource: string;
   divisor: Quantity;
-  //[ResourceFieldSelector:]
 
 
-  //[end]
+
+
 }
 
 export class ObjectFieldSelector {
   apiVersion: string;
   fieldPath: string;
-  //[ObjectFieldSelector:]
 
 
-  //[end]
+
+
 }
 
 export class DownwardAPIVolumeFile {
@@ -585,28 +585,28 @@ export class DownwardAPIVolumeFile {
   fieldRef: ObjectFieldSelector;
   resourceFieldRef: ResourceFieldSelector;
   mode: number;
-  //[DownwardAPIVolumeFile:]
 
 
-  //[end]
+
+
 }
 
 export class DownwardAPIVolumeSource {
   items: DownwardAPIVolumeFile[];
   defaultMode: number;
-  //[DownwardAPIVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class FlockerVolumeSource {
   datasetName: string;
   datasetUUID: string;
-  //[FlockerVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class CephFSVolumeSource {
@@ -616,20 +616,20 @@ export class CephFSVolumeSource {
   secretFile: string;
   secretRef: LocalObjectReference;
   readOnly: boolean;
-  //[CephFSVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class CinderVolumeSource {
   volumeID: string;
   fsType: string;
   readOnly: boolean;
-  //[CinderVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class FlexVolumeSource {
@@ -638,10 +638,10 @@ export class FlexVolumeSource {
   secretRef: LocalObjectReference;
   readOnly: boolean;
   options: {};
-  //[FlexVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class RBDVolumeSource {
@@ -653,37 +653,37 @@ export class RBDVolumeSource {
   keyring: string;
   secretRef: LocalObjectReference;
   readOnly: boolean;
-  //[RBDVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class PersistentVolumeClaimVolumeSource {
   claimName: string;
   readOnly: boolean;
-  //[PersistentVolumeClaimVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class GlusterfsVolumeSource {
   endpoints: string;
   path: string;
   readOnly: boolean;
-  //[GlusterfsVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class LocalObjectReference {
   name: string;
-  //[LocalObjectReference:]
 
 
-  //[end]
+
+
 }
 
 export class ISCSIVolumeSource {
@@ -697,30 +697,30 @@ export class ISCSIVolumeSource {
   chapAuthDiscovery: boolean;
   chapAuthSession: boolean;
   secretRef: LocalObjectReference;
-  //[ISCSIVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class NFSVolumeSource {
   server: string;
   path: string;
   readOnly: boolean;
-  //[NFSVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class KeyToPath {
   key: string;
   path: string;
   mode: number;
-  //[KeyToPath:]
 
 
-  //[end]
+
+
 }
 
 export class SecretVolumeSource {
@@ -728,20 +728,20 @@ export class SecretVolumeSource {
   items: KeyToPath[];
   defaultMode: number;
   optional: boolean;
-  //[SecretVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class GitRepoVolumeSource {
   repository: string;
   revision: string;
   directory: string;
-  //[GitRepoVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class AWSElasticBlockStoreVolumeSource {
@@ -749,10 +749,10 @@ export class AWSElasticBlockStoreVolumeSource {
   fsType: string;
   partition: number;
   readOnly: boolean;
-  //[AWSElasticBlockStoreVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class GCEPersistentDiskVolumeSource {
@@ -760,34 +760,34 @@ export class GCEPersistentDiskVolumeSource {
   fsType: string;
   partition: number;
   readOnly: boolean;
-  //[GCEPersistentDiskVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class Quantity {
-  //[Quantity:]
 
 
-  //[end]
+
+
 }
 
 export class EmptyDirVolumeSource {
   medium: string;
   sizeLimit: Quantity;
-  //[EmptyDirVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class HostPathVolumeSource {
   path: string;
-  //[HostPathVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class Volume {
@@ -819,10 +819,10 @@ export class Volume {
   portworxVolume: PortworxVolumeSource;
   scaleIO: ScaleIOVolumeSource;
   storageos: StorageOSVolumeSource;
-  //[Volume:]
 
 
-  //[end]
+
+
 }
 
 export class PodSpec {
@@ -849,38 +849,38 @@ export class PodSpec {
   schedulerName: string;
   tolerations: Toleration[];
   hostAliases: HostAlias[];
-  //[PodSpec:]
 
 
-  //[end]
+
+
 }
 
 export class PodTemplateSpec {
   metadata: ObjectMeta;
   spec: PodSpec;
-  //[PodTemplateSpec:]
 
 
-  //[end]
+
+
 }
 
 export class LabelSelectorRequirement {
   key: string;
   operator: string;
   values: string[];
-  //[LabelSelectorRequirement:]
 
 
-  //[end]
+
+
 }
 
 export class LabelSelector {
   matchLabels: {};
   matchExpressions: LabelSelectorRequirement[];
-  //[LabelSelector:]
 
 
-  //[end]
+
+
 }
 
 export class JobSpec {
@@ -890,20 +890,20 @@ export class JobSpec {
   selector: LabelSelector;
   manualSelector: boolean;
   template: PodTemplateSpec;
-  //[JobSpec:]
 
 
-  //[end]
+
+
 }
 
 export class StatusCause {
   reason: string;
   message: string;
   field: string;
-  //[StatusCause:]
 
 
-  //[end]
+
+
 }
 
 export class StatusDetails {
@@ -913,19 +913,19 @@ export class StatusDetails {
   uid: string;
   causes: StatusCause[];
   retryAfterSeconds: number;
-  //[StatusDetails:]
 
 
-  //[end]
+
+
 }
 
 export class ListMeta {
   selfLink: string;
   resourceVersion: string;
-  //[ListMeta:]
 
 
-  //[end]
+
+
 }
 
 export class Status {
@@ -937,27 +937,27 @@ export class Status {
   reason: string;
   details: StatusDetails;
   code: number;
-  //[Status:]
 
 
-  //[end]
+
+
 }
 
 export class Initializer {
   name: string;
-  //[Initializer:]
 
 
-  //[end]
+
+
 }
 
 export class Initializers {
   pending: Initializer[];
   result: Status;
-  //[Initializers:]
 
 
-  //[end]
+
+
 }
 
 export class OwnerReference {
@@ -967,17 +967,17 @@ export class OwnerReference {
   uid: string;
   controller: boolean;
   blockOwnerDeletion: boolean;
-  //[OwnerReference:]
 
 
-  //[end]
+
+
 }
 
 export class Time {
-  //[Time:]
 
 
-  //[end]
+
+
 }
 
 export class ObjectMeta {
@@ -997,10 +997,10 @@ export class ObjectMeta {
   initializers: Initializers;
   finalizers: string[];
   clusterName: string;
-  //[ObjectMeta:]
 
 
-  //[end]
+
+
 }
 
 export class KubeJob {
@@ -1009,8 +1009,8 @@ export class KubeJob {
   metadata: ObjectMeta;
   spec: JobSpec;
   status: JobStatus;
-  //[Job:]
 
 
-  //[end]
+
+
 }

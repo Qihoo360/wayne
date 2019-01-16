@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -17,7 +17,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './configmaptpl.component.html',
   styleUrls: ['./configmaptpl.component.scss']
 })
-export class ConfigMapTplComponent implements OnInit {
+export class ConfigMapTplComponent implements OnInit, OnDestroy {
   @ViewChild(ListConfigMapTplComponent)
   list: ListConfigMapTplComponent;
   @ViewChild(CreateEditConfigMapTplComponent)
@@ -38,7 +38,7 @@ export class ConfigMapTplComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.CONFIGMAP_TPL) {
-        let id = message.data;
+        const id = message.data;
         this.configMapTplService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -56,7 +56,7 @@ export class ConfigMapTplComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.configmapId = params['cid'];
-      if (typeof (this.configmapId) == 'undefined') {
+      if (typeof (this.configmapId) === 'undefined') {
         this.configmapId = '';
       }
     });
@@ -76,7 +76,7 @@ export class ConfigMapTplComponent implements OnInit {
     this.configMapTplService.listPage(this.pageState, 0, this.configmapId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.configMapTpls = data.list;
@@ -96,7 +96,7 @@ export class ConfigMapTplComponent implements OnInit {
   }
 
   deleteConfigMapTpl(configMapTpl: ConfigMapTpl) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除配置集模版确认',
       '你确认删除配置集模版 ' + configMapTpl.name + ' ？',
       configMapTpl.id,

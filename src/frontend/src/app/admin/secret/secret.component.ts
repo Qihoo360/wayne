@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ListSecretComponent } from './list-secret/list-secret.component';
@@ -17,7 +17,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './secret.component.html',
   styleUrls: ['./secret.component.scss']
 })
-export class SecretComponent implements OnInit {
+export class SecretComponent implements OnInit, OnDestroy {
   @ViewChild(ListSecretComponent)
   listSecret: ListSecretComponent;
   @ViewChild(CreateEditSecretComponent)
@@ -39,7 +39,7 @@ export class SecretComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.SECRET) {
-        let secretId = message.data;
+        const secretId = message.data;
         this.secretService.deleteById(secretId, 0)
           .subscribe(
             response => {
@@ -57,7 +57,7 @@ export class SecretComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.appId = params['aid'];
-      if (typeof (this.appId) == 'undefined') {
+      if (typeof (this.appId) === 'undefined') {
         this.appId = '';
       }
     });
@@ -76,7 +76,7 @@ export class SecretComponent implements OnInit {
     this.secretService.list(this.pageState, 'false', this.appId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedSecrets = data.list;

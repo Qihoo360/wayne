@@ -15,7 +15,7 @@ export class AutoscaleService {
   }
 
   // getNames(appId?: number): Observable<any> {
-  //   const params = new HttpParams();
+  //   let params = new HttpParams();
   //   if (typeof(appId) === 'undefined') {
   //     appId = 0;
   //   }
@@ -48,7 +48,7 @@ export class AutoscaleService {
           filterList.push(`${key}__contains=${value}`);
         }
       }
-    })
+    });
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }

@@ -41,15 +41,17 @@ export class WebHookService {
       }
     });
 
-    let filterList: Array<string> = [];
+    const filterList: Array<string> = [];
     if ('filters' in pageState) {
-      for (let key in pageState.filters) {
-        let value = pageState.filters[key];
-        if (isNotEmpty(value)) {
-          if (key === 'name' || key === 'url') {
-            filterList.push(`${key}__contains=${value}`);
-          } else {
-            filterList.push(`${key}=${value}`);
+      for (const key in pageState.filters) {
+        if (pageState.hasOwnProperty(key)) {
+          const value = pageState.filters[key];
+          if (isNotEmpty(value)) {
+            if (key === 'name' || key === 'url') {
+              filterList.push(`${key}__contains=${value}`);
+            } else {
+              filterList.push(`${key}=${value}`);
+            }
           }
         }
       }
@@ -58,7 +60,7 @@ export class WebHookService {
       params = params = params.set('filter', filterList.join(','));
     }
     if ('sort' in pageState) {
-      let sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
+      const sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
       if (sortType) {
         params = params = params.set('sortby', sortType);
       }

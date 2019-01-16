@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -17,7 +17,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './cronjobtpl.component.html',
   styleUrls: ['./cronjobtpl.component.scss']
 })
-export class CronjobTplComponent implements OnInit {
+export class CronjobTplComponent implements OnInit, OnDestroy {
   @ViewChild(ListCronjobTplComponent)
   list: ListCronjobTplComponent;
   @ViewChild(CreateEditCronjobTplComponent)
@@ -39,7 +39,7 @@ export class CronjobTplComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.CRONJOB_TPL) {
-        let id = message.data;
+        const id = message.data;
         this.cronjobTplService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -57,7 +57,7 @@ export class CronjobTplComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.cronjobId = params['cid'];
-      if (typeof (this.cronjobId) == 'undefined') {
+      if (typeof (this.cronjobId) === 'undefined') {
         this.cronjobId = '';
       }
     });
@@ -81,7 +81,7 @@ export class CronjobTplComponent implements OnInit {
     this.cronjobTplService.listPage(this.pageState, 0, this.cronjobId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.cronjobTpls = data.list;
@@ -101,7 +101,7 @@ export class CronjobTplComponent implements OnInit {
   }
 
   deleteCronjobTpl(cronjobTpl: CronjobTpl) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除' + this.componentName + '确认',
       '你确认删除' + this.componentName + cronjobTpl.name + ' ？',
       cronjobTpl.id,

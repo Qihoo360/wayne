@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
@@ -17,7 +16,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './cluster.component.html',
   styleUrls: ['./cluster.component.scss']
 })
-export class ClusterComponent implements OnInit {
+export class ClusterComponent implements OnInit, OnDestroy {
   @ViewChild(ListClusterComponent)
   list: ListClusterComponent;
   @ViewChild(CreateEditClusterComponent)

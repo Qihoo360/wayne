@@ -58,9 +58,9 @@ export class NameFilter implements StringFilter<Node> {
 
 export class LabelFilter implements StringFilter<Node> {
   accepts(node: Node, search: string): boolean {
-    let keys = Object.keys(node.labels);
-    for (let key of keys) {
-      let value = node.labels[key];
+    const keys = Object.keys(node.labels);
+    for (const key of keys) {
+      const value = node.labels[key];
       if ((key + ':' + value).indexOf(search) >= 0) {
         return true;
       }

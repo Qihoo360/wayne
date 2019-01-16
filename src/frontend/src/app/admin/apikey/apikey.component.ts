@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
@@ -18,7 +18,7 @@ import { ApiKeyService } from '../../shared/client/v1/apikey.service';
   templateUrl: './apikey.component.html',
   styleUrls: ['./apikey.component.scss']
 })
-export class ApiKeyComponent implements OnInit {
+export class ApiKeyComponent implements OnInit, OnDestroy {
   @ViewChild(ListApiKeyComponent)
   listApiKey: ListApiKeyComponent;
   @ViewChild(CreateEditApiKeyComponent)

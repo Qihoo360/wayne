@@ -8,6 +8,4 @@ export class PublishHistory {
   message: string;
   user: string;
   createTime: Date;
-  //[PublishHistory:]
-  //[end]
 }

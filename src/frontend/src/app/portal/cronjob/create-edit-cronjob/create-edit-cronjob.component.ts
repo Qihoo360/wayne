@@ -28,9 +28,9 @@ export class CreateEditCronjobComponent implements OnInit {
   clusterMetas: {};
   title: string;
   cronjob: Cronjob = new Cronjob();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
   actionType: ActionType;
   modalOpened: boolean;
   app: App;
@@ -52,7 +52,7 @@ export class CreateEditCronjobComponent implements OnInit {
     this.clusters = clusters;
     this.clusterMetas = {};
     if (this.clusters && this.clusters.length > 0) {
-      for (let clu of this.clusters) {
+      for (const clu of this.clusters) {
         this.clusterMetas[clu.name] = new ClusterMeta(false);
       }
     }
@@ -119,10 +119,10 @@ export class CreateEditCronjobComponent implements OnInit {
     this.isSubmitOnGoing = true;
     this.cronjob.appId = this.app.id;
 
-    let replicas = {};
-    let suspends = {};
-    for (let clu of this.clusters) {
-      let clusterMeta = this.clusterMetas[clu.name];
+    const replicas = {};
+    const suspends = {};
+    for (const clu of this.clusters) {
+      const clusterMeta = this.clusterMetas[clu.name];
       if (clusterMeta && clusterMeta.checked && clusterMeta.value) {
         replicas[clu.name] = clusterMeta.value;
         suspends[clu.name] = false;
@@ -131,7 +131,7 @@ export class CreateEditCronjobComponent implements OnInit {
     if (!this.cronjob.metaData) {
       this.cronjob.metaData = '{}';
     }
-    let metaData = JSON.parse(this.cronjob.metaData);
+    const metaData = JSON.parse(this.cronjob.metaData);
     metaData.replicas = replicas;
     metaData.suspends = suspends;
     metaData.resources = this.resourceLimitComponent.getValue();
@@ -186,8 +186,8 @@ export class CreateEditCronjobComponent implements OnInit {
 
   isClusterValid(): boolean {
     if (this.clusters) {
-      for (let clu of this.clusters) {
-        let clusterMeta = this.clusterMetas[clu.name];
+      for (const clu of this.clusters) {
+        const clusterMeta = this.clusterMetas[clu.name];
         if (clusterMeta && clusterMeta.checked && clusterMeta.value) {
           return true;
         }
@@ -197,7 +197,7 @@ export class CreateEditCronjobComponent implements OnInit {
   }
 
   handleValidation(): void {
-    let cont = this.currentForm.controls['cronjob_name'];
+    const cont = this.currentForm.controls['cronjob_name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }

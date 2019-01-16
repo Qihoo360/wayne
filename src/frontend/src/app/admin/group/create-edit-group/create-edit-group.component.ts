@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -16,7 +16,7 @@ import { PageState } from '../../../shared/page/page-state';
   templateUrl: 'create-edit-group.component.html',
   styleUrls: ['create-edit-group.scss']
 })
-export class CreateEditGroupComponent {
+export class CreateEditGroupComponent implements OnInit {
   @Output() create = new EventEmitter<boolean>();
   createGroupOpened: boolean;
 
@@ -25,9 +25,9 @@ export class CreateEditGroupComponent {
   currentForm: NgForm;
 
   group: Group = new Group();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
 
   groupTitle: string;
   actionType: ActionType;
@@ -51,8 +51,10 @@ export class CreateEditGroupComponent {
     this.permissionService.listPermission(new PageState({pageSize: 500})).subscribe(
       response => {
         this.basePermissions = response.data.list;
-        for (let x in this.basePermissions) {
-          this.mapPermissions.set(this.basePermissions[x].id.toString(), this.basePermissions[x]);
+        for (const x in this.basePermissions) {
+          if (this.basePermissions.hasOwnProperty(x)) {
+            this.mapPermissions.set(this.basePermissions[x].id.toString(), this.basePermissions[x]);
+          }
         }
       },
       error => this.messageHandlerService.handleError(error)
@@ -69,12 +71,16 @@ export class CreateEditGroupComponent {
       this.groupService.getGroup(id).subscribe(
         status => {
           this.group = status.data;
-          for (let key in this.allPermissions) {
-            for (let index in this.group.permissions) {
-              const source = this.allPermissions[key];
-              const detail = this.group.permissions[index];
-              if (JSON.stringify(source) === JSON.stringify(detail)) {
-                this.preparePermissions.push(this.allPermissions[key].id.toString());
+          for (const key in this.allPermissions) {
+            if (this.allPermissions.hasOwnProperty(key)) {
+              for (const index in this.group.permissions) {
+                if (this.group.permissions.hasOwnProperty(index)) {
+                  const source = this.allPermissions[key];
+                  const detail = this.group.permissions[index];
+                  if (JSON.stringify(source) === JSON.stringify(detail)) {
+                    this.preparePermissions.push(this.allPermissions[key].id.toString());
+                  }
+                }
               }
             }
           }
@@ -102,8 +108,10 @@ export class CreateEditGroupComponent {
     }
     this.group.permissions = new Array<Permission>();
     this.isSubmitOnGoing = true;
-    for (let k in this.selectPermissions) {
-      this.group.permissions.push(this.mapPermissions.get(this.selectPermissions[k]));
+    for (const k in this.selectPermissions) {
+      if (this.selectPermissions.hasOwnProperty(k)) {
+        this.group.permissions.push(this.mapPermissions.get(this.selectPermissions[k]));
+      }
     }
 
     switch (this.actionType) {
@@ -150,7 +158,7 @@ export class CreateEditGroupComponent {
 
   // Handle the form validation
   handleValidation(): void {
-    let cont = this.currentForm.controls['group_name'];
+    const cont = this.currentForm.controls['group_name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }

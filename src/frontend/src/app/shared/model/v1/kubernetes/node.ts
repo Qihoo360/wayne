@@ -1,6 +1,25 @@
 /* Do not change, this code is generated from Golang structs */
 import { Node } from './node-list';
 
+export class Time {
+  Time: Date;
+
+  constructor(init?: Time) {
+    if (!init) {  return; }
+    if (init.Time) {
+      this.Time = new Date(init.Time as any);
+    }
+  }
+
+
+  static emptyObject(): Time {
+    const result = new Time();
+    result.Time = null;
+    return result;
+  }
+
+}
+
 export interface NodeSummary {
   cpuSummary: Object;
   memorySummary: Object;
@@ -14,14 +33,14 @@ export class AttachedVolume {
   devicePath: string;
 
   constructor(init?: AttachedVolume) {
-    if (!init) return;
-    if (init.name) this.name = init.name;
-    if (init.devicePath) this.devicePath = init.devicePath;
+    if (!init) {  return; }
+    if (init.name) { this.name = init.name; }
+    if (init.devicePath) { this.devicePath = init.devicePath; }
   }
 
 
   static emptyObject(): AttachedVolume {
-    let result = new AttachedVolume();
+    const result = new AttachedVolume();
     return result;
   }
 
@@ -32,14 +51,14 @@ export class ContainerImage {
   sizeBytes: number;
 
   constructor(init?: ContainerImage) {
-    if (!init) return;
-    if (init.names) this.names = init.names;
-    if (init.sizeBytes) this.sizeBytes = init.sizeBytes;
+    if (!init) {  return; }
+    if (init.names) { this.names = init.names; }
+    if (init.sizeBytes) { this.sizeBytes = init.sizeBytes; }
   }
 
 
   static emptyObject(): ContainerImage {
-    let result = new ContainerImage();
+    const result = new ContainerImage();
     result.names = [];
     return result;
   }
@@ -59,22 +78,22 @@ export class NodeSystemInfo {
   architecture: string;
 
   constructor(init?: NodeSystemInfo) {
-    if (!init) return;
-    if (init.machineID) this.machineID = init.machineID;
-    if (init.systemUUID) this.systemUUID = init.systemUUID;
-    if (init.bootID) this.bootID = init.bootID;
-    if (init.kernelVersion) this.kernelVersion = init.kernelVersion;
-    if (init.osImage) this.osImage = init.osImage;
-    if (init.containerRuntimeVersion) this.containerRuntimeVersion = init.containerRuntimeVersion;
-    if (init.kubeletVersion) this.kubeletVersion = init.kubeletVersion;
-    if (init.kubeProxyVersion) this.kubeProxyVersion = init.kubeProxyVersion;
-    if (init.operatingSystem) this.operatingSystem = init.operatingSystem;
-    if (init.architecture) this.architecture = init.architecture;
+    if (!init) {  return; }
+    if (init.machineID) { this.machineID = init.machineID; }
+    if (init.systemUUID) { this.systemUUID = init.systemUUID; }
+    if (init.bootID) { this.bootID = init.bootID; }
+    if (init.kernelVersion) { this.kernelVersion = init.kernelVersion; }
+    if (init.osImage) { this.osImage = init.osImage; }
+    if (init.containerRuntimeVersion) { this.containerRuntimeVersion = init.containerRuntimeVersion; }
+    if (init.kubeletVersion) { this.kubeletVersion = init.kubeletVersion; }
+    if (init.kubeProxyVersion) { this.kubeProxyVersion = init.kubeProxyVersion; }
+    if (init.operatingSystem) { this.operatingSystem = init.operatingSystem; }
+    if (init.architecture) { this.architecture = init.architecture; }
   }
 
 
   static emptyObject(): NodeSystemInfo {
-    let result = new NodeSystemInfo();
+    const result = new NodeSystemInfo();
     return result;
   }
 
@@ -84,13 +103,13 @@ export class DaemonEndpoint {
   Port: number;
 
   constructor(init?: DaemonEndpoint) {
-    if (!init) return;
-    if (init.Port) this.Port = init.Port;
+    if (!init) {  return; }
+    if (init.Port) { this.Port = init.Port; }
   }
 
 
   static emptyObject(): DaemonEndpoint {
-    let result = new DaemonEndpoint();
+    const result = new DaemonEndpoint();
     return result;
   }
 
@@ -100,13 +119,13 @@ export class NodeDaemonEndpoints {
   kubeletEndpoint: DaemonEndpoint;
 
   constructor(init?: NodeDaemonEndpoints) {
-    if (!init) return;
-    if (init.kubeletEndpoint) this.kubeletEndpoint = init.kubeletEndpoint;
+    if (!init) {  return; }
+    if (init.kubeletEndpoint) { this.kubeletEndpoint = init.kubeletEndpoint; }
   }
 
 
   static emptyObject(): NodeDaemonEndpoints {
-    let result = new NodeDaemonEndpoints();
+    const result = new NodeDaemonEndpoints();
     result.kubeletEndpoint = DaemonEndpoint.emptyObject();
     return result;
   }
@@ -118,14 +137,14 @@ export class NodeAddress {
   address: string;
 
   constructor(init?: NodeAddress) {
-    if (!init) return;
-    if (init.type) this.type = init.type;
-    if (init.address) this.address = init.address;
+    if (!init) {  return; }
+    if (init.type) { this.type = init.type; }
+    if (init.address) { this.address = init.address; }
   }
 
 
   static emptyObject(): NodeAddress {
-    let result = new NodeAddress();
+    const result = new NodeAddress();
     return result;
   }
 
@@ -141,18 +160,18 @@ export class NodeCondition {
   message: string;
 
   constructor(init?: NodeCondition) {
-    if (!init) return;
-    if (init.type) this.type = init.type;
-    if (init.status) this.status = init.status;
-    if (init.lastHeartbeatTime) this.lastHeartbeatTime = init.lastHeartbeatTime;
-    if (init.lastTransitionTime) this.lastTransitionTime = init.lastTransitionTime;
-    if (init.reason) this.reason = init.reason;
-    if (init.message) this.message = init.message;
+    if (!init) {  return; }
+    if (init.type) { this.type = init.type; }
+    if (init.status) { this.status = init.status; }
+    if (init.lastHeartbeatTime) { this.lastHeartbeatTime = init.lastHeartbeatTime; }
+    if (init.lastTransitionTime) { this.lastTransitionTime = init.lastTransitionTime; }
+    if (init.reason) { this.reason = init.reason; }
+    if (init.message) { this.message = init.message; }
   }
 
 
   static emptyObject(): NodeCondition {
-    let result = new NodeCondition();
+    const result = new NodeCondition();
     result.lastHeartbeatTime = Time.emptyObject();
     result.lastTransitionTime = Time.emptyObject();
     return result;
@@ -164,13 +183,13 @@ export class Quantity {
   Format: string;
 
   constructor(init?: Quantity) {
-    if (!init) return;
-    if (init.Format) this.Format = init.Format;
+    if (!init) {  return; }
+    if (init.Format) { this.Format = init.Format; }
   }
 
 
   static emptyObject(): Quantity {
-    let result = new Quantity();
+    const result = new Quantity();
     return result;
   }
 
@@ -189,22 +208,22 @@ export class NodeStatus {
   volumesAttached: AttachedVolume[];
 
   constructor(init?: NodeStatus) {
-    if (!init) return;
-    if (init.capacity) this.capacity = init.capacity;
-    if (init.allocatable) this.allocatable = init.allocatable;
-    if (init.phase) this.phase = init.phase;
-    if (init.conditions) this.conditions = init.conditions;
-    if (init.addresses) this.addresses = init.addresses;
-    if (init.daemonEndpoints) this.daemonEndpoints = init.daemonEndpoints;
-    if (init.nodeInfo) this.nodeInfo = init.nodeInfo;
-    if (init.images) this.images = init.images;
-    if (init.volumesInUse) this.volumesInUse = init.volumesInUse;
-    if (init.volumesAttached) this.volumesAttached = init.volumesAttached;
+    if (!init) {  return; }
+    if (init.capacity) { this.capacity = init.capacity; }
+    if (init.allocatable) { this.allocatable = init.allocatable; }
+    if (init.phase) { this.phase = init.phase; }
+    if (init.conditions) { this.conditions = init.conditions; }
+    if (init.addresses) { this.addresses = init.addresses; }
+    if (init.daemonEndpoints) { this.daemonEndpoints = init.daemonEndpoints; }
+    if (init.nodeInfo) { this.nodeInfo = init.nodeInfo; }
+    if (init.images) { this.images = init.images; }
+    if (init.volumesInUse) { this.volumesInUse = init.volumesInUse; }
+    if (init.volumesAttached) { this.volumesAttached = init.volumesAttached; }
   }
 
 
   static emptyObject(): NodeStatus {
-    let result = new NodeStatus();
+    const result = new NodeStatus();
     result.capacity = null;
     result.allocatable = null;
     result.conditions = [];
@@ -229,19 +248,19 @@ export class ObjectReference {
   fieldPath: string;
 
   constructor(init?: ObjectReference) {
-    if (!init) return;
-    if (init.kind) this.kind = init.kind;
-    if (init.namespace) this.namespace = init.namespace;
-    if (init.name) this.name = init.name;
-    if (init.uid) this.uid = init.uid;
-    if (init.apiVersion) this.apiVersion = init.apiVersion;
-    if (init.resourceVersion) this.resourceVersion = init.resourceVersion;
-    if (init.fieldPath) this.fieldPath = init.fieldPath;
+    if (!init) {  return; }
+    if (init.kind) { this.kind = init.kind; }
+    if (init.namespace) { this.namespace = init.namespace; }
+    if (init.name) { this.name = init.name; }
+    if (init.uid) { this.uid = init.uid; }
+    if (init.apiVersion) { this.apiVersion = init.apiVersion; }
+    if (init.resourceVersion) { this.resourceVersion = init.resourceVersion; }
+    if (init.fieldPath) { this.fieldPath = init.fieldPath; }
   }
 
 
   static emptyObject(): ObjectReference {
-    let result = new ObjectReference();
+    const result = new ObjectReference();
     return result;
   }
 
@@ -253,15 +272,15 @@ export class NodeConfigSource {
   configMapRef?: ObjectReference;
 
   constructor(init?: NodeConfigSource) {
-    if (!init) return;
-    if (init.kind) this.kind = init.kind;
-    if (init.apiVersion) this.apiVersion = init.apiVersion;
-    if (init.configMapRef) this.configMapRef = init.configMapRef;
+    if (!init) {  return; }
+    if (init.kind) { this.kind = init.kind; }
+    if (init.apiVersion) { this.apiVersion = init.apiVersion; }
+    if (init.configMapRef) { this.configMapRef = init.configMapRef; }
   }
 
 
   static emptyObject(): NodeConfigSource {
-    let result = new NodeConfigSource();
+    const result = new NodeConfigSource();
     result.configMapRef = ObjectReference.emptyObject();
     return result;
   }
@@ -275,16 +294,16 @@ export class Taint {
   timeAdded?: Time;
 
   constructor(init?: Taint) {
-    if (!init) return;
-    if (init.key) this.key = init.key;
-    if (init.value) this.value = init.value;
-    if (init.effect) this.effect = init.effect;
-    if (init.timeAdded) this.timeAdded = init.timeAdded;
+    if (!init) {  return; }
+    if (init.key) { this.key = init.key; }
+    if (init.value) { this.value = init.value; }
+    if (init.effect) { this.effect = init.effect; }
+    if (init.timeAdded) { this.timeAdded = init.timeAdded; }
   }
 
 
   static emptyObject(): Taint {
-    let result = new Taint();
+    const result = new Taint();
     result.timeAdded = Time.emptyObject();
     return result;
   }
@@ -300,18 +319,18 @@ export class NodeSpec {
   configSource?: NodeConfigSource;
 
   constructor(init?: NodeSpec) {
-    if (!init) return;
-    if (init.podCIDR) this.podCIDR = init.podCIDR;
-    if (init.externalID) this.externalID = init.externalID;
-    if (init.providerID) this.providerID = init.providerID;
-    if (init.unschedulable) this.unschedulable = init.unschedulable;
-    if (init.taints) this.taints = init.taints;
-    if (init.configSource) this.configSource = init.configSource;
+    if (!init) {  return; }
+    if (init.podCIDR) { this.podCIDR = init.podCIDR; }
+    if (init.externalID) { this.externalID = init.externalID; }
+    if (init.providerID) { this.providerID = init.providerID; }
+    if (init.unschedulable) { this.unschedulable = init.unschedulable; }
+    if (init.taints) { this.taints = init.taints; }
+    if (init.configSource) { this.configSource = init.configSource; }
   }
 
 
   static emptyObject(): NodeSpec {
-    let result = new NodeSpec();
+    const result = new NodeSpec();
     result.taints = [];
     result.configSource = NodeConfigSource.emptyObject();
     return result;
@@ -325,15 +344,15 @@ export class StatusCause {
   field: string;
 
   constructor(init?: StatusCause) {
-    if (!init) return;
-    if (init.reason) this.reason = init.reason;
-    if (init.message) this.message = init.message;
-    if (init.field) this.field = init.field;
+    if (!init) {  return; }
+    if (init.reason) { this.reason = init.reason; }
+    if (init.message) { this.message = init.message; }
+    if (init.field) { this.field = init.field; }
   }
 
 
   static emptyObject(): StatusCause {
-    let result = new StatusCause();
+    const result = new StatusCause();
     return result;
   }
 
@@ -348,18 +367,18 @@ export class StatusDetails {
   retryAfterSeconds: number;
 
   constructor(init?: StatusDetails) {
-    if (!init) return;
-    if (init.name) this.name = init.name;
-    if (init.group) this.group = init.group;
-    if (init.kind) this.kind = init.kind;
-    if (init.uid) this.uid = init.uid;
-    if (init.causes) this.causes = init.causes;
-    if (init.retryAfterSeconds) this.retryAfterSeconds = init.retryAfterSeconds;
+    if (!init) {  return; }
+    if (init.name) { this.name = init.name; }
+    if (init.group) { this.group = init.group; }
+    if (init.kind) { this.kind = init.kind; }
+    if (init.uid) { this.uid = init.uid; }
+    if (init.causes) { this.causes = init.causes; }
+    if (init.retryAfterSeconds) { this.retryAfterSeconds = init.retryAfterSeconds; }
   }
 
 
   static emptyObject(): StatusDetails {
-    let result = new StatusDetails();
+    const result = new StatusDetails();
     result.causes = [];
     return result;
   }
@@ -372,15 +391,15 @@ export class ListMeta {
   continue: string;
 
   constructor(init?: ListMeta) {
-    if (!init) return;
-    if (init.selfLink) this.selfLink = init.selfLink;
-    if (init.resourceVersion) this.resourceVersion = init.resourceVersion;
-    if (init.continue) this.continue = init.continue;
+    if (!init) {  return; }
+    if (init.selfLink) { this.selfLink = init.selfLink; }
+    if (init.resourceVersion) { this.resourceVersion = init.resourceVersion; }
+    if (init.continue) { this.continue = init.continue; }
   }
 
 
   static emptyObject(): ListMeta {
-    let result = new ListMeta();
+    const result = new ListMeta();
     return result;
   }
 
@@ -397,20 +416,20 @@ export class Status {
   code: number;
 
   constructor(init?: Status) {
-    if (!init) return;
-    if (init.kind) this.kind = init.kind;
-    if (init.apiVersion) this.apiVersion = init.apiVersion;
-    if (init.metadata) this.metadata = init.metadata;
-    if (init.status) this.status = init.status;
-    if (init.message) this.message = init.message;
-    if (init.reason) this.reason = init.reason;
-    if (init.details) this.details = init.details;
-    if (init.code) this.code = init.code;
+    if (!init) {  return; }
+    if (init.kind) { this.kind = init.kind; }
+    if (init.apiVersion) { this.apiVersion = init.apiVersion; }
+    if (init.metadata) { this.metadata = init.metadata; }
+    if (init.status) { this.status = init.status; }
+    if (init.message) { this.message = init.message; }
+    if (init.reason) { this.reason = init.reason; }
+    if (init.details) { this.details = init.details; }
+    if (init.code) { this.code = init.code; }
   }
 
 
   static emptyObject(): Status {
-    let result = new Status();
+    const result = new Status();
     result.metadata = ListMeta.emptyObject();
     result.details = StatusDetails.emptyObject();
     return result;
@@ -422,13 +441,13 @@ export class Initializer {
   name: string;
 
   constructor(init?: Initializer) {
-    if (!init) return;
-    if (init.name) this.name = init.name;
+    if (!init) {  return; }
+    if (init.name) { this.name = init.name; }
   }
 
 
   static emptyObject(): Initializer {
-    let result = new Initializer();
+    const result = new Initializer();
     return result;
   }
 
@@ -439,14 +458,14 @@ export class Initializers {
   result?: Status;
 
   constructor(init?: Initializers) {
-    if (!init) return;
-    if (init.pending) this.pending = init.pending;
-    if (init.result) this.result = init.result;
+    if (!init) {  return; }
+    if (init.pending) { this.pending = init.pending; }
+    if (init.result) { this.result = init.result; }
   }
 
 
   static emptyObject(): Initializers {
-    let result = new Initializers();
+    const result = new Initializers();
     result.pending = [];
     result.result = Status.emptyObject();
     return result;
@@ -463,36 +482,18 @@ export class OwnerReference {
   blockOwnerDeletion?: boolean;
 
   constructor(init?: OwnerReference) {
-    if (!init) return;
-    if (init.apiVersion) this.apiVersion = init.apiVersion;
-    if (init.kind) this.kind = init.kind;
-    if (init.name) this.name = init.name;
-    if (init.uid) this.uid = init.uid;
-    if (init.controller) this.controller = init.controller;
-    if (init.blockOwnerDeletion) this.blockOwnerDeletion = init.blockOwnerDeletion;
+    if (!init) {  return; }
+    if (init.apiVersion) { this.apiVersion = init.apiVersion; }
+    if (init.kind) { this.kind = init.kind; }
+    if (init.name) { this.name = init.name; }
+    if (init.uid) { this.uid = init.uid; }
+    if (init.controller) { this.controller = init.controller; }
+    if (init.blockOwnerDeletion) { this.blockOwnerDeletion = init.blockOwnerDeletion; }
   }
 
 
   static emptyObject(): OwnerReference {
-    let result = new OwnerReference();
-    return result;
-  }
-
-}
-
-
-export class Time {
-  Time: Date;
-
-  constructor(init?: Time) {
-    if (!init) return;
-    if (init.Time) this.Time = new Date(init.Time as any);
-  }
-
-
-  static emptyObject(): Time {
-    let result = new Time();
-    result.Time = null;
+    const result = new OwnerReference();
     return result;
   }
 
@@ -517,28 +518,28 @@ export class ObjectMeta {
   clusterName: string;
 
   constructor(init?: ObjectMeta) {
-    if (!init) return;
-    if (init.name) this.name = init.name;
-    if (init.generateName) this.generateName = init.generateName;
-    if (init.namespace) this.namespace = init.namespace;
-    if (init.selfLink) this.selfLink = init.selfLink;
-    if (init.uid) this.uid = init.uid;
-    if (init.resourceVersion) this.resourceVersion = init.resourceVersion;
-    if (init.generation) this.generation = init.generation;
-    if (init.creationTimestamp) this.creationTimestamp = init.creationTimestamp;
-    if (init.deletionTimestamp) this.deletionTimestamp = init.deletionTimestamp;
-    if (init.deletionGracePeriodSeconds) this.deletionGracePeriodSeconds = init.deletionGracePeriodSeconds;
-    if (init.labels) this.labels = init.labels;
-    if (init.annotations) this.annotations = init.annotations;
-    if (init.ownerReferences) this.ownerReferences = init.ownerReferences;
-    if (init.initializers) this.initializers = init.initializers;
-    if (init.finalizers) this.finalizers = init.finalizers;
-    if (init.clusterName) this.clusterName = init.clusterName;
+    if (!init) {  return; }
+    if (init.name) { this.name = init.name; }
+    if (init.generateName) { this.generateName = init.generateName; }
+    if (init.namespace) { this.namespace = init.namespace; }
+    if (init.selfLink) { this.selfLink = init.selfLink; }
+    if (init.uid) { this.uid = init.uid; }
+    if (init.resourceVersion) { this.resourceVersion = init.resourceVersion; }
+    if (init.generation) { this.generation = init.generation; }
+    if (init.creationTimestamp) { this.creationTimestamp = init.creationTimestamp; }
+    if (init.deletionTimestamp) { this.deletionTimestamp = init.deletionTimestamp; }
+    if (init.deletionGracePeriodSeconds) { this.deletionGracePeriodSeconds = init.deletionGracePeriodSeconds; }
+    if (init.labels) { this.labels = init.labels; }
+    if (init.annotations) { this.annotations = init.annotations; }
+    if (init.ownerReferences) { this.ownerReferences = init.ownerReferences; }
+    if (init.initializers) { this.initializers = init.initializers; }
+    if (init.finalizers) { this.finalizers = init.finalizers; }
+    if (init.clusterName) { this.clusterName = init.clusterName; }
   }
 
 
   static emptyObject(): ObjectMeta {
-    let result = new ObjectMeta();
+    const result = new ObjectMeta();
     result.creationTimestamp = Time.emptyObject();
     result.deletionTimestamp = Time.emptyObject();
     result.labels = null;
@@ -559,17 +560,17 @@ export class KubeNode {
   status: NodeStatus;
 
   constructor(init?: KubeNode) {
-    if (!init) return;
-    if (init.kind) this.kind = init.kind;
-    if (init.apiVersion) this.apiVersion = init.apiVersion;
-    if (init.metadata) this.metadata = init.metadata;
-    if (init.spec) this.spec = init.spec;
-    if (init.status) this.status = init.status;
+    if (!init) {  return; }
+    if (init.kind) { this.kind = init.kind; }
+    if (init.apiVersion) { this.apiVersion = init.apiVersion; }
+    if (init.metadata) { this.metadata = init.metadata; }
+    if (init.spec) { this.spec = init.spec; }
+    if (init.status) { this.status = init.status; }
   }
 
 
   static emptyObject(): KubeNode {
-    let result = new KubeNode();
+    const result = new KubeNode();
     result.metadata = ObjectMeta.emptyObject();
     result.spec = NodeSpec.emptyObject();
     result.status = NodeStatus.emptyObject();

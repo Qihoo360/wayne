@@ -27,24 +27,24 @@ import { AuthService } from '../../../shared/auth/auth.service';
 })
 
 export class ListPodComponent implements OnInit, OnDestroy {
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
   modalOpened: boolean;
   pods: Pod[];
   sortOrder: SortOrder = SortOrder.Unsorted;
-  sorted: boolean = false;
+  sorted = false;
   timeComparator = new TimeComparator();
   stateComparator = new StateComparator();
   currentCluster: string;
   statefulset: string;
   logSource: string;
   timer: any;
-  whetherHotReflash: boolean = true;
+  whetherHotReflash = true;
 
   subscription: Subscription;
 
   get appId(): number {
-    return parseInt(this.route.parent.snapshot.params['id']);
+    return parseInt(this.route.parent.snapshot.params['id'], 10);
   }
 
   constructor(private inventory: Inventory,
@@ -62,7 +62,7 @@ export class ListPodComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.POD) {
-        let pod: Pod = message.data;
+        const pod: Pod = message.data;
         this.podClient
           .deleteByName(this.appId, this.currentCluster, pod.namespace, pod.name)
           .subscribe(
@@ -91,9 +91,9 @@ export class ListPodComponent implements OnInit, OnDestroy {
     this.whetherHotReflash = true;
     this.clusterService.getByName(this.currentCluster).subscribe(
       response => {
-        let cluster: Cluster = response.data;
-        if (cluster.metaData) {
-          let metaData = JSON.parse(cluster.metaData);
+        const data: Cluster = response.data;
+        if (data.metaData) {
+          const metaData = JSON.parse(data.metaData);
           if (metaData.logSource) {
             this.logSource = metaData.logSource;
           }
@@ -124,14 +124,15 @@ export class ListPodComponent implements OnInit, OnDestroy {
         clearInterval(this.timer);
         return;
       }
-      if (this.whetherHotReflash) this.refresh();
+      if (this.whetherHotReflash) { this.refresh(); }
     }, 5000);
   }
 
   refresh() {
-    this.podClient.listByResouce(this.appId, this.currentCluster, this.cacheService.kubeNamespace, 'statefulset', this.statefulset).subscribe(
+    this.podClient.listByResouce(this.appId, this.currentCluster, this.cacheService.kubeNamespace,
+      'statefulset', this.statefulset).subscribe(
       response => {
-        let pods = response.data;
+        const pods = response.data;
         this.inventory.size = pods.length;
         this.inventory.reset(pods);
         this.pods = this.inventory.all;
@@ -144,7 +145,7 @@ export class ListPodComponent implements OnInit, OnDestroy {
   }
 
   deletePod(pod: Pod) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除实例确认',
       `是否确认删除实例 ${pod.name}`,
       pod,
@@ -156,15 +157,17 @@ export class ListPodComponent implements OnInit, OnDestroy {
 
 
   enterContainer(pod: Pod): void {
-    let appId = this.route.parent.snapshot.params['id'];
-    let url = `portal/namespace/${this.cacheService.namespaceId}/app/${appId}/statefulset/${this.statefulset}/pod/${pod.name}/terminal/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
+    const appId = this.route.parent.snapshot.params['id'];
+    const url = `portal/namespace/${this.cacheService.namespaceId}/app/${appId}/statefulset
+    /${this.statefulset}/pod/${pod.name}/terminal/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 
 
   podLog(pod: Pod): void {
-    let appId = this.route.parent.snapshot.params['id'];
-    let url = `portal/logging/namespace/${this.cacheService.namespaceId}/app/${appId}/statefulset/${this.statefulset}/pod/${pod.name}/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
+    const appId = this.route.parent.snapshot.params['id'];
+    const url = `portal/logging/namespace/${this.cacheService.namespaceId}/app
+    /${appId}/statefulset/${this.statefulset}/pod/${pod.name}/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 }

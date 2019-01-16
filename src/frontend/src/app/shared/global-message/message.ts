@@ -26,7 +26,7 @@ export class Message {
   }
 
   static newMessage(statusCode: number, message: string, alertType: AlertType): Message {
-    let m = new Message();
+    const m = new Message();
     m.statusCode = statusCode;
     m.message = message;
     m.alertType = alertType;

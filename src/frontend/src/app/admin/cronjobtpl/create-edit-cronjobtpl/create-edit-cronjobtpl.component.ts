@@ -28,8 +28,8 @@ export class CreateEditCronjobTplComponent implements OnInit {
   currentForm: NgForm;
 
   cronjobTpl: CronjobTpl = new CronjobTpl();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
   componentName = '计划任务';
 
   title: string;
@@ -101,8 +101,8 @@ export class CreateEditCronjobTplComponent implements OnInit {
       this.isSubmitOnGoing = false;
       return;
     }
-    for (let cronjob of this.cronjobs) {
-      if (cronjob.id == this.cronjobTpl.cronjobId) {
+    for (const cronjob of this.cronjobs) {
+      if (cronjob.id === this.cronjobTpl.cronjobId) {
         this.cronjobTpl.name = cronjob.name;
       }
     }

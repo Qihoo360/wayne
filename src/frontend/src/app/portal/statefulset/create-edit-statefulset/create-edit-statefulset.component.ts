@@ -29,9 +29,9 @@ export class CreateEditStatefulsetComponent implements OnInit {
   clusterMetas: {};
   title: string;
   statefulset: Statefulset = new Statefulset();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
   actionType: ActionType;
   modalOpened: boolean;
   app: App;
@@ -52,7 +52,7 @@ export class CreateEditStatefulsetComponent implements OnInit {
     this.clusters = clusters;
     this.clusterMetas = {};
     if (this.clusters && this.clusters.length > 0) {
-      for (let clu of this.clusters) {
+      for (const clu of this.clusters) {
         this.clusterMetas[clu.name] = new ClusterMeta(false);
       }
     }
@@ -63,9 +63,9 @@ export class CreateEditStatefulsetComponent implements OnInit {
         status => {
           this.statefulset = status.data;
           if (this.clusters && this.clusters.length > 0) {
-            let replicas = JSON.parse(this.statefulset.metaData)['replicas'];
-            for (let clu of this.clusters) {
-              let culsterMeta = new ClusterMeta(false);
+            const replicas = JSON.parse(this.statefulset.metaData)['replicas'];
+            for (const clu of this.clusters) {
+              const culsterMeta = new ClusterMeta(false);
               if (replicas && replicas[clu.name]) {
                 culsterMeta.checked = true;
                 culsterMeta.value = replicas[clu.name];
@@ -90,22 +90,22 @@ export class CreateEditStatefulsetComponent implements OnInit {
   get replicaLimit(): number {
     let replicaLimit = defaultResources.replicaLimit;
     if (this.statefulset && this.statefulset.metaData) {
-      let metaData = JSON.parse(this.statefulset.metaData);
+      const metaData = JSON.parse(this.statefulset.metaData);
       if (metaData.resources &&
         metaData.resources.replicaLimit) {
-        replicaLimit = parseInt(metaData.resources.replicaLimit);
+        replicaLimit = parseInt(metaData.resources.replicaLimit, 10);
       }
     }
     return replicaLimit;
   }
 
   replicaValidation(cluster: string): boolean {
-    let clusterMeta = this.clusterMetas[cluster];
+    const clusterMeta = this.clusterMetas[cluster];
     if (this.statefulset && this.statefulset.metaData && clusterMeta) {
       if (!clusterMeta.checked) {
         return true;
       }
-      return parseInt(clusterMeta.value) <= this.replicaLimit;
+      return parseInt(clusterMeta.value, 10) <= this.replicaLimit;
     }
     return false;
   }
@@ -131,9 +131,9 @@ export class CreateEditStatefulsetComponent implements OnInit {
     this.isSubmitOnGoing = true;
     this.statefulset.appId = this.app.id;
 
-    let replicas = {};
-    for (let clu of this.clusters) {
-      let clusterMeta = this.clusterMetas[clu.name];
+    const replicas = {};
+    for (const clu of this.clusters) {
+      const clusterMeta = this.clusterMetas[clu.name];
       if (clusterMeta && clusterMeta.checked && clusterMeta.value) {
         replicas[clu.name] = clusterMeta.value;
       }
@@ -190,8 +190,8 @@ export class CreateEditStatefulsetComponent implements OnInit {
 
   isClusterValid(): boolean {
     if (this.clusters) {
-      for (let clu of this.clusters) {
-        let clusterMeta = this.clusterMetas[clu.name];
+      for (const clu of this.clusters) {
+        const clusterMeta = this.clusterMetas[clu.name];
         if (clusterMeta && clusterMeta.checked && clusterMeta.value) {
           return true;
         }
@@ -202,7 +202,7 @@ export class CreateEditStatefulsetComponent implements OnInit {
 
   isClusterReplicaValid(): boolean {
     if (this.clusters) {
-      for (let clu of this.clusters) {
+      for (const clu of this.clusters) {
         if (!this.replicaValidation(clu.name)) {
           return false;
         }
@@ -211,9 +211,9 @@ export class CreateEditStatefulsetComponent implements OnInit {
     return true;
   }
 
-//Handle the form validation
+// Handle the form validation
   handleValidation(): void {
-    let cont = this.currentForm.controls['statefulset_name'];
+    const cont = this.currentForm.controls['statefulset_name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }

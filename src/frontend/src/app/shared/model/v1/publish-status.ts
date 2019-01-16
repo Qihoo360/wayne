@@ -11,8 +11,6 @@ export class PublishStatus {
   resourceId: number;
   templateId: number;
   cluster: string;
-  //[PublishStatus:]
-  //[end]
   state: TemplateState;
   pvc: KubePersistentVolumeClaim;
   fileSystemStatus: PersistentVolumeClaimFileSystemStatus;

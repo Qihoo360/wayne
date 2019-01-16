@@ -11,7 +11,8 @@ export class LogClient {
     let params = new HttpParams();
     params = params.set('tailLines', tailLines + '');
     return this.http
-      .get(`/api/v1/kubernetes/apps/${appId}/podlogs/${pod}/containers/${container}/namespaces/${namespace}/clusters/${cluster}`, {params: params})
+      .get(`/api/v1/kubernetes/apps/${appId}/podlogs/${pod}/containers/${container}/
+      namespaces/${namespace}/clusters/${cluster}`, {params: params})
       .catch(error => Observable.throw(error));
   }
 }

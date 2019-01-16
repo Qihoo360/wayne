@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NotificationService } from '../../shared/client/v1/notification.service';
 import { ListNotificationComponent } from './list-notification/list-notification.component';
 import { AuthService } from '../../shared/auth/auth.service';
@@ -16,7 +16,7 @@ import { CreateNotificationComponent } from './create-notification/create-notifi
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss']
 })
-export class NotificationComponent implements OnInit {
+export class NotificationComponent implements OnInit, OnDestroy {
   @ViewChild(ListNotificationComponent)
   listNotification: ListNotificationComponent;
   @ViewChild(CreateNotificationComponent)
@@ -53,7 +53,7 @@ export class NotificationComponent implements OnInit {
     this.notificationService.query(this.pageState)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.notifications = data.list;

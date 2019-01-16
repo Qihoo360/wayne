@@ -28,7 +28,7 @@ export class CreateEditDaemonsettplComponent implements OnInit {
   currentForm: NgForm;
 
   daemonsetTpl: DaemonSetTemplate = new DaemonSetTemplate();
-  isSubmitOnGoing: boolean = false;
+  isSubmitOnGoing = false;
 
   title: string;
   actionType: ActionType;
@@ -99,8 +99,8 @@ export class CreateEditDaemonsettplComponent implements OnInit {
       return;
     }
     this.daemonsetTpl.template = this.aceBox.getValue();
-    for (let daemonset of this.daemonsets) {
-      if (daemonset.id == this.daemonsetTpl.daemonSetId) {
+    for (const daemonset of this.daemonsets) {
+      if (daemonset.id === this.daemonsetTpl.daemonSetId) {
         this.daemonsetTpl.name = daemonset.name;
       }
     }

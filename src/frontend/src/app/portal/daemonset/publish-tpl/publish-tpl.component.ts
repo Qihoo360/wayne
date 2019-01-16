@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import { forkJoin } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { CacheService } from '../../../shared/auth/cache.service';
@@ -8,7 +9,7 @@ import { ResourcesActionType } from '../../../shared/shared.const';
 import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
 import { DaemonSetClient } from '../../../shared/client/v1/kubernetes/daemonset';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { DaemonSet } from '../../../shared/model/v1/daemonset';
 import { TemplateStatus } from '../../../shared/model/v1/status';
 import { Cluster } from '../../../shared/model/v1/cluster';
@@ -22,7 +23,7 @@ import { KubeDaemonSet } from '../../../shared/model/v1/kubernetes/daemonset';
 })
 export class PublishDaemonSetTplComponent {
   @Output() published = new EventEmitter<boolean>();
-  modalOpened: boolean = false;
+  modalOpened = false;
   publishForm: NgForm;
   @ViewChild('publishForm')
   currentForm: NgForm;
@@ -30,7 +31,7 @@ export class PublishDaemonSetTplComponent {
   daemonSet: DaemonSet;
   daemonSetTpl: DaemonSetTemplate;
   clusters = Array<Cluster>();
-  isSubmitOnGoing: boolean = false;
+  isSubmitOnGoing = false;
   title: string;
   forceOffline: boolean;
   actionType: ResourcesActionType;
@@ -43,7 +44,7 @@ export class PublishDaemonSetTplComponent {
   }
 
   get appId(): number {
-    return parseInt(this.route.parent.snapshot.params['id']);
+    return parseInt(this.route.parent.snapshot.params['id'], 10);
   }
 
   newPublishTpl(daemonSet: DaemonSet, daemonSetTpl: DaemonSetTemplate, actionType: ResourcesActionType) {
@@ -53,21 +54,21 @@ export class PublishDaemonSetTplComponent {
     this.clusters = Array<Cluster>();
     this.daemonSetTpl = daemonSetTpl;
     this.daemonSet = daemonSet;
-    if (actionType == ResourcesActionType.PUBLISH) {
+    if (actionType === ResourcesActionType.PUBLISH) {
       this.title = '发布守护进程集[' + this.daemonSet.name + ']';
       if (!daemonSet.metaData) {
         this.messageHandlerService.warning('请先配置可发布集群');
         return;
       }
-      let metaData = JSON.parse(daemonSet.metaData);
-      for (let cluster of metaData.clusters) {
+      const metaData = JSON.parse(daemonSet.metaData);
+      for (const cluster of metaData.clusters) {
         if (this.cacheService.namespace.metaDataObj && this.cacheService.namespace.metaDataObj.clusterMeta[cluster]) {
           this.clusters.push(new Cluster(cluster, false));
         }
       }
-    } else if (actionType == ResourcesActionType.OFFLINE) {
+    } else if (actionType === ResourcesActionType.OFFLINE) {
       this.title = '下线守护进程集[' + this.daemonSet.name + ']';
-      for (let state of daemonSetTpl.status) {
+      for (const state of daemonSetTpl.status) {
         this.clusters.push(new Cluster(state.cluster, false));
       }
     }
@@ -75,8 +76,8 @@ export class PublishDaemonSetTplComponent {
 
   getStatusByCluster(status: TemplateStatus[], cluster: string): TemplateStatus {
     if (status && status.length > 0) {
-      for (let state of status) {
-        if (state.cluster == cluster) {
+      for (const state of status) {
+        if (state.cluster === cluster) {
           return state;
         }
       }
@@ -110,7 +111,7 @@ export class PublishDaemonSetTplComponent {
   offline() {
     this.clusters.map(cluster => {
       if (cluster.checked) {
-        let state = this.getStatusByCluster(this.daemonSetTpl.status, cluster.name);
+        const state = this.getStatusByCluster(this.daemonSetTpl.status, cluster.name);
         this.daemonSetClient.deleteByName(this.appId, cluster.name, this.cacheService.kubeNamespace, this.daemonSet.name).subscribe(
           response => {
             this.deletePublishStatus(state.id);
@@ -140,10 +141,10 @@ export class PublishDaemonSetTplComponent {
   }
 
   deploy() {
-    let observables = Array();
+    const observables = Array();
     this.clusters.map(cluster => {
       if (cluster.checked) {
-        let kubeDaemonSet: KubeDaemonSet = JSON.parse(this.daemonSetTpl.template);
+        const kubeDaemonSet: KubeDaemonSet = JSON.parse(this.daemonSetTpl.template);
         kubeDaemonSet.metadata.namespace = this.cacheService.kubeNamespace;
         observables.push(this.daemonSetClient.deploy(
           this.appId,
@@ -153,7 +154,8 @@ export class PublishDaemonSetTplComponent {
           kubeDaemonSet));
       }
     });
-    Observable.forkJoin(observables).subscribe(
+
+    forkJoin(observables).subscribe(
       response => {
         this.published.emit(true);
         this.messageHandlerService.showSuccess('发布成功！');

@@ -1,5 +1,25 @@
 /* Do not change, this code is generated from Golang structs */
 
+export class Time {
+  Time: Date;
+
+  constructor(init?: Time) {
+    if (!init) {
+      return ;
+    }
+    if (init.Time) {
+      this.Time = new Date(init.Time as any);
+    }
+  }
+
+
+  static emptyObject(): Time {
+    const result = new Time();
+    result.Time = null;
+    return result;
+  }
+
+}
 
 export class HorizontalPodAutoscalerStatus {
   observedGeneration?: number;
@@ -357,27 +377,6 @@ export class OwnerReference {
 
 }
 
-
-export class Time {
-  Time: Date;
-
-  constructor(init?: Time) {
-    if (!init) {
-      return ;
-    }
-    if (init.Time) {
-      this.Time = new Date(init.Time as any);
-    }
-  }
-
-
-  static emptyObject(): Time {
-    const result = new Time();
-    result.Time = null;
-    return result;
-  }
-
-}
 export class ObjectMeta {
   name: string;
   generateName: string;

@@ -25,15 +25,15 @@ export class AppService {
     params = params.set('sortby', '-id');
     // query param
     Object.getOwnPropertyNames(pageState.params).map(key => {
-      let value = pageState.params[key];
+      const value = pageState.params[key];
       if (isNotEmpty(value)) {
         params = params.set(key, value);
       }
     });
 
-    let filterList: Array<string> = [];
+    const filterList: Array<string> = [];
     Object.getOwnPropertyNames(pageState.filters).map(key => {
-      let value = pageState.filters[key];
+      const value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
           filterList.push(`${key}=${value}`);
@@ -47,7 +47,7 @@ export class AppService {
     }
     // sort param
     if (Object.keys(pageState.sort).length !== 0) {
-      let sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
+      const sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
       params = params.set('sortby', sortType);
     }
 
@@ -64,7 +64,7 @@ export class AppService {
     if ((typeof (namespaceId) === 'undefined') || (!namespaceId)) {
       namespaceId = 0;
     }
-    let options: any = {};
+    const options: any = {};
     if (appId != null) {
       let params = new HttpParams();
       params = params.set('app_id', appId + '');
@@ -101,7 +101,7 @@ export class AppService {
   }
 
   deleteById(id: number, namespaceId: number, logical?: boolean): Observable<any> {
-    let options: any = {};
+    const options: any = {};
     if (logical != null) {
       let params = new HttpParams();
       params = params.set('logical', logical + '');

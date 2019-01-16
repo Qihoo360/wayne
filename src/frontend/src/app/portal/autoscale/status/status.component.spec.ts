@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StatusComponent } from './status.component';
 
 describe('StatusComponent', () => {
-  let component: StatusComponent;
-  let fixture: ComponentFixture<StatusComponent>;
+  const component: StatusComponent;
+  const fixture: ComponentFixture<StatusComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
