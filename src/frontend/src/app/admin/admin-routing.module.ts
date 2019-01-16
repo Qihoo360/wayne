@@ -149,6 +149,8 @@ const routes: Routes = [
       {path: 'ingress/trash', component: TrashIngressComponent},
       {path: 'ingress/tpl', component: IngressTplComponent},
       {path: 'ingress/tpl/trash', component: TrashIngressTplComponent},
+      {path: 'ingress/relate-tpl/:gid', component: IngressTplComponent},
+      {path: 'ingress/app/:aid', component: AppComponent},
       {path: 'kubernetes/deployment', component: KubeDeploymentComponent},
       {path: 'kubernetes/deployment/:cluster', component: KubeDeploymentComponent},
       {path: 'kubernetes/namespace', component: KubeNamespaceComponent},

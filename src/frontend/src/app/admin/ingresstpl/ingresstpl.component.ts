@@ -26,7 +26,7 @@ export class IngressTplComponent implements OnInit, OnDestroy {
 
   pageState: PageState = new PageState({pageSize: 10});
   ingressTpls: IngressTpl[];
-  serviceId: string;
+  ingressId: string;
   componentName = 'Ingress 模板';
 
   subscription: Subscription;
@@ -60,9 +60,9 @@ export class IngressTplComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.serviceId = params['sid'];
-      if (typeof(this.serviceId) === 'undefined') {
-        this.serviceId = '';
+      this.ingressId = params['gid'];
+      if (typeof(this.ingressId) === 'undefined') {
+        this.ingressId = '';
       }
     });
   }
@@ -79,7 +79,7 @@ export class IngressTplComponent implements OnInit, OnDestroy {
         PageState.fromState(state, {pageSize: 10, totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.pageState.params['deleted'] = false;
-    this.ingressTplService.listPage(this.pageState, 0, this.serviceId)
+    this.ingressTplService.listPage(this.pageState, 0, this.ingressId)
       .subscribe(
         response => {
           const data = response.data;
