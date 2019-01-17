@@ -121,6 +121,9 @@
     "RUN_CYCLE_MESSAGE": "计划任务的定时周期,cron 表达式",
     "TIMER": "次数"
   },
+  "CRONJOB_ADMIN": {
+    "CRONJOB_CREATE": "创建计划任务"
+  },
   "DAEMONSET": {
     "CREATE": "创建守护进程集",
     "CREATE_EDIT": {

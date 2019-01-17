@@ -7,7 +7,7 @@
       <div class="option-left">
         <button class="btn btn-link" (click)="openModal()">
           <clr-icon shape="add"></clr-icon>
-          创建计划任务
+          {{'CRONJOB_ADMIN.CRONJOB_CREATE' | translate}}
         </button>
         <create-edit-cronjob (create)="createCronjob($event)"></create-edit-cronjob>
       </div>
