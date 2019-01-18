@@ -15,9 +15,9 @@ import { AuthInterceptor } from './shared/interceptor/auth-interceptor';
 // translate
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+const pageageJson = require('../../package.json');
 export function HttpLoaderFactory(httpClient: HttpClient) {
-  return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json?hash=' + +new Date());
+  return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json?v=' + pageageJson.version);
 }
 
 export function initUser(authService: AuthService, injector: Injector) {
