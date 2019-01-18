@@ -76,6 +76,10 @@ type UpgradeDeploymentParam struct {
 	// Required: false
 	Images   string `json:"images"`
 	imageMap map[string]string
+	// 该字段为扁平化为字符串的 key-value 字典，填写格式为 环境变量1=值1,环境变量2=值2 (即:多个环境变量之间使用英文半角的逗号分隔）
+	// Required: false
+	Environments string `json:"environments"`
+	envMap       map[string]string
 }
 
 // swagger:parameters ScaleDeploymentParam
@@ -310,11 +314,12 @@ func (c *OpenAPIController) RestartDeployment() {
 // @router /upgrade_deployment [get]
 func (c *OpenAPIController) UpgradeDeployment() {
 	param := UpgradeDeploymentParam{
-		Deployment:  c.GetString("deployment"),
-		Namespace:   c.GetString("namespace"),
-		Cluster:     c.GetString("cluster"),
-		Description: c.GetString("description"),
-		Images:      c.GetString("images"),
+		Deployment:   c.GetString("deployment"),
+		Namespace:    c.GetString("namespace"),
+		Cluster:      c.GetString("cluster"),
+		Description:  c.GetString("description"),
+		Images:       c.GetString("images"),
+		Environments: c.GetString("environments"),
 	}
 	if !c.CheckoutRoutePermission(UpgradeDeploymentAction) || !c.CheckDeploymentPermission(param.Deployment) || !c.CheckNamespacePermission(param.Namespace) {
 		return
@@ -362,8 +367,19 @@ func (c *OpenAPIController) UpgradeDeployment() {
 			param.imageMap[arr[0]] = arr[1]
 		}
 	}
-	if len(param.imageMap) == 0 {
-		c.AddErrorAndResponse(fmt.Sprintf("Invalid images parameter: %s", param.Images), http.StatusBadRequest)
+	// 拼凑环境变量
+	param.envMap = make(map[string]string)
+	envArr := strings.Split(param.Environments, ",")
+	param.envMap = make(map[string]string)
+	for _, env := range envArr {
+		arr := strings.Split(env, "=")
+		if len(arr) == 2 && arr[1] != "" {
+			param.envMap[arr[0]] = arr[1]
+		}
+	}
+
+	if len(param.imageMap) == 0 && len(param.envMap) == 0 {
+		c.AddErrorAndResponse(fmt.Sprintf("Invalid images/environments parameter: %s %s", param.Images, param.Environments), http.StatusBadRequest)
 		return
 	}
 
@@ -397,6 +413,13 @@ func (c *OpenAPIController) UpgradeDeployment() {
 			}
 			c.AddError(fmt.Sprintf("Deployment template don't have container: %s", strings.Join(keys, ",")))
 			continue
+		}
+		for k, v := range deployInfo.DeploymentObject.Spec.Template.Spec.Containers {
+			for i, e := range v.Env {
+				if param.envMap[e.Name] != "" {
+					deployInfo.DeploymentObject.Spec.Template.Spec.Containers[k].Env[i].Value = param.envMap[e.Name]
+				}
+			}
 		}
 		deployInfoMap[tmplId] = append(deployInfoMap[tmplId], deployInfo)
 	}
