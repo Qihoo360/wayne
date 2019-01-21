@@ -300,10 +300,11 @@ func (c *OpenAPIController) RestartDeployment() {
 //
 // 用于 CI/CD 中的集成升级部署
 //
-// 该接口只能使用 app 级别的 apikey，这样做的目的主要是防止 apikey 的滥用
-// 目前用户可以选择两种用法，第一种是默认的，会根据请求的 images 对特定部署线上模板进行修改并创建新模板，然后使用新模板进行升级；
-// 第二种是通过指定 publish=false 来关掉直接上线，这种条件下会根据 images 字段创建新的模板，并返回新模板id，用户可以选择去平台上手动上线或者通过本接口指定template_id参数上线。
-// cluster 字段可以选择单个机房也可以选择多个机房，对于创建模板并上线的用法，会根据指定的机房之前的模板进行分类（如果机房a和机房b使用同一个模板，那么调用以后仍然共用一个新模板）
+// 该接口只能使用 app 级别的 apikey，这样做的目的主要是防止 apikey 的滥用。
+// 目前用户可以选择两种用法，第一种是默认的，会根据请求的 images 和 environments 对特定部署线上模板进行修改并创建新模板，然后使用新模板进行升级；
+// 需要说明的是，environments 列表会对 deployment 内所有容器中包含指定环境变量 key 的环境变量进行更新，如不包含，则不更新。
+// 第二种是通过指定 publish=false 来关掉直接上线，这种条件下会根据 images 和 environments 字段创建新的模板，并返回新模板id，用户可以选择去平台上手动上线或者通过本接口指定template_id参数上线。
+// cluster 字段可以选择单个机房也可以选择多个机房，对于创建模板并上线的用法，会根据指定的机房之前的模板进行分类（如果机房 a 和机房 b 使用同一个模板，那么调用以后仍然共用一个新模板）
 // 而对于指定 template_id 来上线的形式，则会忽略掉所有检查，直接使用特定模板上线到所有机房。
 //
 //     Responses:
@@ -390,6 +391,16 @@ func (c *OpenAPIController) UpgradeDeployment() {
 			c.AddError(fmt.Sprintf("Failed to get online deployment info on %s", cluster))
 			continue
 		}
+
+		// 率先把强制指定的环境变量，如和系统环境变量冲突，后面会覆盖
+		for k, v := range deployInfo.DeploymentObject.Spec.Template.Spec.Containers {
+			for i, e := range v.Env {
+				if param.envMap[e.Name] != "" {
+					deployInfo.DeploymentObject.Spec.Template.Spec.Containers[k].Env[i].Value = param.envMap[e.Name]
+				}
+			}
+		}
+
 		common.DeploymentPreDeploy(deployInfo.DeploymentObject, deployInfo.Deployment, deployInfo.Cluster, deployInfo.Namespace)
 		tmplId := deployInfo.DeploymentTemplete.Id
 		deployInfo.DeploymentTemplete.Id = 0
@@ -413,13 +424,6 @@ func (c *OpenAPIController) UpgradeDeployment() {
 			}
 			c.AddError(fmt.Sprintf("Deployment template don't have container: %s", strings.Join(keys, ",")))
 			continue
-		}
-		for k, v := range deployInfo.DeploymentObject.Spec.Template.Spec.Containers {
-			for i, e := range v.Env {
-				if param.envMap[e.Name] != "" {
-					deployInfo.DeploymentObject.Spec.Template.Spec.Containers[k].Env[i].Value = param.envMap[e.Name]
-				}
-			}
 		}
 		deployInfoMap[tmplId] = append(deployInfoMap[tmplId], deployInfo)
 	}
