@@ -158,16 +158,16 @@ export class ListPodComponent implements OnInit, OnDestroy {
 
   enterContainer(pod: Pod): void {
     const appId = this.route.parent.snapshot.params['id'];
-    const url = `portal/namespace/${this.cacheService.namespaceId}/app/${appId}/statefulset
-    /${this.statefulset}/pod/${pod.name}/terminal/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
+    const url = `portal/namespace/${this.cacheService.namespaceId}/app/${appId}/statefulset` +
+    `/${this.statefulset}/pod/${pod.name}/terminal/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 
 
   podLog(pod: Pod): void {
     const appId = this.route.parent.snapshot.params['id'];
-    const url = `portal/logging/namespace/${this.cacheService.namespaceId}/app
-    /${appId}/statefulset/${this.statefulset}/pod/${pod.name}/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
+    const url = `portal/logging/namespace/${this.cacheService.namespaceId}/app` +
+    `/${appId}/statefulset/${this.statefulset}/pod/${pod.name}/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 }
