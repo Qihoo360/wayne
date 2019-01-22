@@ -55,8 +55,8 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
         if (this.pods && this.pods.length > 0) {
           const pod = this.getPodByName(podName);
           if (!pod) {
-            const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}
-            /${this.resourceName}/pod/${this.pods[0].name}/terminal/${this.cluster}/${this.namespace}`;
+            const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}` +
+            `/${this.resourceName}/pod/${this.pods[0].name}/terminal/${this.cluster}/${this.namespace}`;
             this.router.navigateByUrl(url);
           }
           this.selectedPod = pod;
@@ -83,8 +83,8 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
   }
 
   containerChange() {
-    const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}
-    /${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/terminal/${this.cluster}/${this.namespace}`;
+    const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}` +
+    `/${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/terminal/${this.cluster}/${this.namespace}`;
     this.router.navigateByUrl(url);
   }
 
@@ -104,8 +104,8 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
   podChange() {
     this.containers = this.selectedPod.containerStatus;
     this.selectedContainer = this.containers[0].name;
-    const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/${this.resourceName}
-    /pod/${this.selectedPod.name}/container/${this.selectedContainer}/terminal/${this.cluster}/${this.namespace}`;
+    const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/${this.resourceName}` +
+    `/pod/${this.selectedPod.name}/container/${this.selectedContainer}/terminal/${this.cluster}/${this.namespace}`;
     this.router.navigateByUrl(url);
   }
 

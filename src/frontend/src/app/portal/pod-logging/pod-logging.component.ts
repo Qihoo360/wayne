@@ -71,8 +71,8 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
         if (this.pods && this.pods.length > 0) {
           const pod = this.getPodByName(podName);
           if (!pod) {
-            const url = `portal/logging/namespace/${this.nid}/app/${this.appId}/
-            ${this.resourceType}/${this.resourceName}/pod/${this.pods[0].name}/${this.cluster}/${this.namespace}`;
+            const url = `portal/logging/namespace/${this.nid}/app/${this.appId}/` +
+            `${this.resourceType}/${this.resourceName}/pod/${this.pods[0].name}/${this.cluster}/${this.namespace}`;
             this.router.navigateByUrl(url);
           }
           this.selectedPod = pod;
@@ -123,8 +123,8 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
   }
 
   containerChange() {
-    const url = `portal/logging/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/
-    ${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/${this.cluster}/${this.namespace}`;
+    const url = `portal/logging/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/` +
+    `${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/${this.cluster}/${this.namespace}`;
     this.router.navigateByUrl(url);
     this.refreshLog();
   }
@@ -157,8 +157,8 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
     this.containers = this.selectedPod.containerStatus;
     if (this.containers && this.containers.length > 0) {
       this.selectedContainer = this.containers[0].name;
-      const url = `portal/logging/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/
-      ${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/${this.cluster}/${this.namespace}`;
+      const url = `portal/logging/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/` +
+      `${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/${this.cluster}/${this.namespace}`;
       this.router.navigateByUrl(url);
     }
   }

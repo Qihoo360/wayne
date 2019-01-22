@@ -7,7 +7,7 @@
 
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="daemonset_app_id" class="col-md-3 form-group-label-override required">守护进程集</label>
+          <label for="daemonset_app_id" class="col-md-3 form-group-label-override required">{{'DAEMONSET_ADMIN.TPL.CREATE.CONFIGMAP' | translate}}</label>
           <div class="select form-control">
             <select id="daemonset_app_id" [(ngModel)]="daemonsetTpl.daemonSetId" [disabled]="actionType==1"
                     name="daemonset_app_id">
@@ -28,7 +28,7 @@
 
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="daemonset_template" class="col-md-3 form-group-label-override">模版</label>
+          <label for="daemonset_template" class="col-md-3 form-group-label-override">{{'DAEMONSET_ADMIN.TPL.CREATE.TEMPLATE' | translate}}</label>
           <wayne-ace-editor-box></wayne-ace-editor-box>
         </div>
       </section>
