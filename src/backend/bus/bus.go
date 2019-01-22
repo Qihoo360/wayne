@@ -3,8 +3,9 @@ package bus
 import (
 	"encoding/json"
 
-	"github.com/Qihoo360/wayne/src/backend/bus/message"
 	"github.com/streadway/amqp"
+
+	"github.com/Qihoo360/wayne/src/backend/bus/message"
 )
 
 var DefaultBus *Bus

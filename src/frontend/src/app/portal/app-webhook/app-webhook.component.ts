@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { ActivatedRoute } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
@@ -29,7 +29,7 @@ const showState = {
   templateUrl: './app-webhook.component.html',
   styleUrls: ['./app-webhook.component.scss']
 })
-export class AppWebHookComponent implements OnInit {
+export class AppWebHookComponent implements OnInit, OnDestroy {
   showList: any[] = new Array();
   showState: object = showState;
   @ViewChild(ListAppWebHookComponent)
@@ -54,7 +54,7 @@ export class AppWebHookComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.WEBHOOK) {
-        let webHook = message.data;
+        const webHook = message.data;
         this.webHookService.delete(webHook)
           .subscribe(
             response => {
@@ -76,7 +76,7 @@ export class AppWebHookComponent implements OnInit {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) this.showList.push(key);
+      if (!this.showState[key].hidden) { this.showList.push(key); }
     });
   }
 
@@ -112,7 +112,7 @@ export class AppWebHookComponent implements OnInit {
     this.webHookService.query(this.pageState, 1, this.contextService.appId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.webHooks = data.list;
@@ -128,7 +128,7 @@ export class AppWebHookComponent implements OnInit {
   }
 
   deleteWebHook(webHook: WebHook) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除' + this.resourceLabel + '确认',
       '你确认删除 ' + this.resourceLabel + ':' + webHook.name + '?',
       webHook,

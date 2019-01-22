@@ -16,7 +16,7 @@ import { PageState } from '../../../shared/page/page-state';
 export class TrashNamespaceComponent implements OnInit, OnDestroy {
   namespaces: Namespace[];
   pageState: PageState = new PageState();
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
 
   subscription: Subscription;
@@ -28,7 +28,7 @@ export class TrashNamespaceComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_NAMESPACE) {
-        let namespaceId = message.data;
+        const namespaceId = message.data;
         this.namespaceService.deleteNamespace(namespaceId, false)
           .subscribe(
             response => {
@@ -67,7 +67,7 @@ export class TrashNamespaceComponent implements OnInit, OnDestroy {
     this.namespaceService.listNamespace(this.pageState, 'true')
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.namespaces = data.list;

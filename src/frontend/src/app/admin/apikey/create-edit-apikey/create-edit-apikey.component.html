@@ -26,7 +26,7 @@
           <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
             <div class="select">
               <select id="type" [(ngModel)]="apiKey.type" required name="type">
-                <option *ngFor="let type of apiKeyTypes" [selected]="type.id == 0" [ngValue]="type.id">{{type.name}}
+                <option *ngFor="let type of apiKeyTypes" [selected]="type.id === 0" [ngValue]="type.id">{{type.name}}
                 </option>
               </select>
             </div>

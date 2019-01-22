@@ -160,7 +160,7 @@ export class PersistentVolumeComponent implements OnInit, OnDestroy {
                 }
               }
               for (const pv of pvs) {
-                if (isNotEmpty(pv.spec.rbd) && rbdImages[pv.spec.rbd.image] && rbdImages[pv.spec.rbd.image].type == 'rbd') {
+                if (isNotEmpty(pv.spec.rbd) && rbdImages[pv.spec.rbd.image] && rbdImages[pv.spec.rbd.image].type === 'rbd') {
                   pv.spec.rbd.created = true;
                 } else if (isNotEmpty(pv.spec.cephfs)) {
                   const name = this.getCephfsName(pv.spec.cephfs.path);

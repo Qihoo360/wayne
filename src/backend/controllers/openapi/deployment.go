@@ -159,7 +159,7 @@ func (c *OpenAPIController) GetDeploymentStatus() {
 	}
 	manager, err := client.Manager(param.Cluster)
 	if err == nil {
-		deployInfo, err := resdeployment.GetDeploymentDetail(manager.Client, manager.Indexer, param.Deployment, ns.MetaDataObj.Namespace)
+		deployInfo, err := resdeployment.GetDeploymentDetail(manager.Client, manager.CacheFactory, param.Deployment, ns.MetaDataObj.Namespace)
 		if err != nil {
 			logs.Error("Failed to get  k8s deployment state: %s", err.Error())
 			c.AddErrorAndResponse("", http.StatusInternalServerError)
@@ -182,7 +182,7 @@ func (c *OpenAPIController) GetDeploymentStatus() {
 		for _, e := range deployInfo.Pods.Warnings {
 			result.Body.DeploymentStatus.Deployment.PodsState.Warnings = append(result.Body.DeploymentStatus.Deployment.PodsState.Warnings, fmt.Sprint(e))
 		}
-		podInfo, err := pod.GetPodsByDeployment(manager.Client, ns.MetaDataObj.Namespace, param.Deployment)
+		podInfo, err := pod.GetPodsByDeployment(manager.CacheFactory, ns.MetaDataObj.Namespace, param.Deployment)
 		if err != nil {
 			logs.Error("Failed to get k8s pod state: %s", err.Error())
 			c.AddErrorAndResponse("", http.StatusInternalServerError)

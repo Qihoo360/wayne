@@ -18,10 +18,7 @@ import { DOCUMENT, EventManager } from '@angular/platform-browser';
       transition('* => enter', animate('0s')),
       transition('* => leave', animate('4ms 1s'))
     ])
-  ],
-  host: {
-    'draggable': 'false'
-  }
+  ]
 })
 /**
  * @Input name: 作为主按钮的文案
@@ -39,10 +36,11 @@ export class FloatWindowComponent {
     private eventManager: EventManager,
     @Inject(DOCUMENT) private document: any
   ) {
+    el.nativeElement.setAttribute('draggable', 'false');
   }
 
   @Input() value: string;
-  boxState: string = 'leave';
+  boxState = 'leave';
   childs: QueryList<any>;
   eventList: any[] = new Array();
 
@@ -52,15 +50,15 @@ export class FloatWindowComponent {
       item.index = index;
       item.length = 4;
     });
-  };
+  }
 
   @HostListener('mousedown', ['$event'])
   downEvent(evt) {
-    let pos = {
+    const pos = {
       left: evt.offsetX,
       top: evt.offsetY
     };
-    let target = this.getBox(evt.target);
+    const target = this.getBox(evt.target);
     const shadow = this.document.createElement('div');
     shadow.style.cssText = 'position: fixed;width: 100%; height:100vh; z-index: 2; top: 0;';
     this.document.body.appendChild(shadow);
@@ -94,7 +92,7 @@ export class FloatWindowComponent {
   getBox(element: any): HTMLElement {
     while (element.tagName.toLocaleLowerCase() !== 'body') {
       element = element.parentElement;
-      if (element.tagName.toLocaleLowerCase() === 'wayne-float-window') break;
+      if (element.tagName.toLocaleLowerCase() === 'wayne-float-window') { break; }
     }
     return element;
   }

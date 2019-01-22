@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -6,7 +6,9 @@ import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmati
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
 import { Subscription } from 'rxjs/Subscription';
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { CreateEditPersistentVolumeClaimTplComponent } from './create-edit-persistentvolumeclaimtpl/create-edit-persistentvolumeclaimtpl.component';
+import {
+  CreateEditPersistentVolumeClaimTplComponent
+} from './create-edit-persistentvolumeclaimtpl/create-edit-persistentvolumeclaimtpl.component';
 import { PersistentVolumeClaimTplService } from '../../shared/client/v1/persistentvolumeclaimtpl.service';
 import { ListPersistentVolumeClaimTplComponent } from './list-persistentvolumeclaimtpl/list-persistentvolumeclaimtpl.component';
 import { PersistentVolumeClaimTpl } from '../../shared/model/v1/persistentvolumeclaimtpl';
@@ -17,7 +19,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './persistentvolumeclaimtpl.component.html',
   styleUrls: ['./persistentvolumeclaimtpl.component.scss']
 })
-export class PersistentVolumeClaimTplComponent implements OnInit {
+export class PersistentVolumeClaimTplComponent implements OnInit, OnDestroy {
   @ViewChild(ListPersistentVolumeClaimTplComponent)
   list: ListPersistentVolumeClaimTplComponent;
   @ViewChild(CreateEditPersistentVolumeClaimTplComponent)
@@ -39,7 +41,7 @@ export class PersistentVolumeClaimTplComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.PERSISTENT_VOLUME_CLAIM_TPL) {
-        let id = message.data;
+        const id = message.data;
         this.pvcTplService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -57,7 +59,7 @@ export class PersistentVolumeClaimTplComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.pvcId = params['sid'];
-      if (typeof (this.pvcId) == 'undefined') {
+      if (typeof (this.pvcId) === 'undefined') {
         this.pvcId = '';
       }
     });
@@ -76,7 +78,7 @@ export class PersistentVolumeClaimTplComponent implements OnInit {
     this.pvcTplService.list(this.pageState, 0, 'false', this.pvcId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.pvcTpls = data.list;
@@ -96,7 +98,7 @@ export class PersistentVolumeClaimTplComponent implements OnInit {
   }
 
   deletePvcTpl(tpl: PersistentVolumeClaimTpl) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除PVC模版确认',
       '你确认删除PVC模版 ' + tpl.name + ' ？',
       tpl.id,

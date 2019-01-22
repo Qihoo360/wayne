@@ -11,7 +11,7 @@ export class PublishHistoryService {
   publishHistory$ = this.history.asObservable();
 
   openModal(type: PublishType, resourceId: number) {
-    let publishHistory = new PublishHistory();
+    const publishHistory = new PublishHistory();
     publishHistory.type = type;
     publishHistory.resourceId = resourceId;
     this.history.next(publishHistory);

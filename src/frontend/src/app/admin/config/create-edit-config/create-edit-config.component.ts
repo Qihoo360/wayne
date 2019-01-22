@@ -22,8 +22,8 @@ export class CreateEditConfigComponent {
   currentForm: NgForm;
 
   config: Config = new Config();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
 
   title: string;
   actionType: ActionType;

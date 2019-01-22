@@ -5,6 +5,15 @@ export class Permission {
   type: string;
 }
 
+export class ActionPermission {
+  read = false;
+  create = false;
+  update = false;
+  delete = false;
+  deploy = false;
+  offline = false;
+}
+
 export class TypePermission {
   app: ActionPermission = new ActionPermission();
   appUser: ActionPermission = new ActionPermission();
@@ -21,6 +30,7 @@ export class TypePermission {
   statefulset: ActionPermission = new ActionPermission();
   apiKey: ActionPermission = new ActionPermission();
   daemonSet: ActionPermission = new ActionPermission();
+  autoscale: ActionPermission = new ActionPermission();
 
   deserialize(input) {
     this.app = input.app ? input.app : this.app;
@@ -38,14 +48,6 @@ export class TypePermission {
     this.statefulset = input.statefulset ? input.statefulset : this.statefulset;
     this.apiKey = input.apiKey ? input.apiKey : this.apiKey;
     this.daemonSet = input.daemonSet ? input.daemonSet : this.daemonSet;
+    this.autoscale = input.hpa ? input.hpa : this.autoscale;
   }
-}
-
-export class ActionPermission {
-  read = false;
-  create = false;
-  update = false;
-  delete = false;
-  deploy = false;
-  offline = false;
 }

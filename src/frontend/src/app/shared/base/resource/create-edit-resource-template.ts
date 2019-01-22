@@ -118,7 +118,7 @@ export class CreateEditResourceTemplate {
   }
 
   isValidResource(): boolean {
-    if (this.kubeResource === null) {
+    if (this.kubeResource == null) {
       return false;
     }
     return true;

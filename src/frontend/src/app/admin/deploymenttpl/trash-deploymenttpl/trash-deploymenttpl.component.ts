@@ -19,7 +19,7 @@ export class TrashDeploymentTplComponent implements OnInit, OnDestroy {
 
   deploymentTpls: DeploymentTpl[];
   pageState: PageState = new PageState();
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
 
   subscription: Subscription;
@@ -32,7 +32,7 @@ export class TrashDeploymentTplComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_DEPLOYMENT_TPL) {
-        let id = message.data;
+        const id = message.data;
         this.deploymentTplService.deleteById(id, 0, false)
           .subscribe(
             response => {
@@ -77,7 +77,7 @@ export class TrashDeploymentTplComponent implements OnInit, OnDestroy {
       .listPage(this.pageState, 0)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.deploymentTpls = data.list;
@@ -87,7 +87,7 @@ export class TrashDeploymentTplComponent implements OnInit, OnDestroy {
   }
 
   deleteDeploymentTpl(deploymentTpl: DeploymentTpl) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除部署模版确认',
       '你确认永久删除部署模版 ' + deploymentTpl.name + ' ？删除后将不可恢复！',
       deploymentTpl.id,

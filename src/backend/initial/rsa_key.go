@@ -4,9 +4,10 @@ import (
 	"io/ioutil"
 	"path/filepath"
 
-	"github.com/Qihoo360/wayne/src/backend/apikey"
 	"github.com/astaxie/beego"
 	"github.com/dgrijalva/jwt-go"
+
+	"github.com/Qihoo360/wayne/src/backend/apikey"
 )
 
 func InitRsaKey() {

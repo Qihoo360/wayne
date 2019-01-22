@@ -14,22 +14,22 @@ export class NodeSystemInfo {
   architecture: string;
 
   constructor(init?: NodeSystemInfo) {
-    if (!init) return;
-    if (init.machineID) this.machineID = init.machineID;
-    if (init.systemUUID) this.systemUUID = init.systemUUID;
-    if (init.bootID) this.bootID = init.bootID;
-    if (init.kernelVersion) this.kernelVersion = init.kernelVersion;
-    if (init.osImage) this.osImage = init.osImage;
-    if (init.containerRuntimeVersion) this.containerRuntimeVersion = init.containerRuntimeVersion;
-    if (init.kubeletVersion) this.kubeletVersion = init.kubeletVersion;
-    if (init.kubeProxyVersion) this.kubeProxyVersion = init.kubeProxyVersion;
-    if (init.operatingSystem) this.operatingSystem = init.operatingSystem;
-    if (init.architecture) this.architecture = init.architecture;
+    if (!init) {  return; }
+    if (init.machineID) { this.machineID = init.machineID; }
+    if (init.systemUUID) { this.systemUUID = init.systemUUID; }
+    if (init.bootID) { this.bootID = init.bootID; }
+    if (init.kernelVersion) { this.kernelVersion = init.kernelVersion; }
+    if (init.osImage) { this.osImage = init.osImage; }
+    if (init.containerRuntimeVersion) { this.containerRuntimeVersion = init.containerRuntimeVersion; }
+    if (init.kubeletVersion) { this.kubeletVersion = init.kubeletVersion; }
+    if (init.kubeProxyVersion) { this.kubeProxyVersion = init.kubeProxyVersion; }
+    if (init.operatingSystem) { this.operatingSystem = init.operatingSystem; }
+    if (init.architecture) { this.architecture = init.architecture; }
   }
 
 
   static emptyObject(): NodeSystemInfo {
-    let result = new NodeSystemInfo();
+    const result = new NodeSystemInfo();
     return result;
   }
 
@@ -39,13 +39,13 @@ export class Quantity {
   Format: string;
 
   constructor(init?: Quantity) {
-    if (!init) return;
-    if (init.Format) this.Format = init.Format;
+    if (!init) {  return; }
+    if (init.Format) { this.Format = init.Format; }
   }
 
 
   static emptyObject(): Quantity {
-    let result = new Quantity();
+    const result = new Quantity();
     return result;
   }
 
@@ -56,14 +56,14 @@ export class NodeStatus {
   nodeInfo: NodeSystemInfo;
 
   constructor(init?: NodeStatus) {
-    if (!init) return;
-    if (init.capacity) this.capacity = init.capacity;
-    if (init.nodeInfo) this.nodeInfo = init.nodeInfo;
+    if (!init) {  return; }
+    if (init.capacity) { this.capacity = init.capacity; }
+    if (init.nodeInfo) { this.nodeInfo = init.nodeInfo; }
   }
 
 
   static emptyObject(): NodeStatus {
-    let result = new NodeStatus();
+    const result = new NodeStatus();
     result.capacity = null;
     result.nodeInfo = NodeSystemInfo.emptyObject();
     return result;
@@ -75,13 +75,15 @@ export class Time {
   Time: Date;
 
   constructor(init?: Time) {
-    if (!init) return;
-    if (init.Time) this.Time = new Date(init.Time as any);
+    if (!init) {  return; }
+    if (init.Time) {
+      this.Time = new Date(init.Time as any);
+    }
   }
 
 
   static emptyObject(): Time {
-    let result = new Time();
+    const result = new Time();
     result.Time = null;
     return result;
   }
@@ -95,16 +97,16 @@ export class Taint {
   timeAdded?: Time;
 
   constructor(init?: Taint) {
-    if (!init) return;
-    if (init.key) this.key = init.key;
-    if (init.value) this.value = init.value;
-    if (init.effect) this.effect = init.effect;
-    if (init.timeAdded) this.timeAdded = init.timeAdded;
+    if (!init) {  return; }
+    if (init.key) { this.key = init.key; }
+    if (init.value) { this.value = init.value; }
+    if (init.effect) { this.effect = init.effect; }
+    if (init.timeAdded) { this.timeAdded = init.timeAdded; }
   }
 
 
   static emptyObject(): Taint {
-    let result = new Taint();
+    const result = new Taint();
     result.timeAdded = Time.emptyObject();
     return result;
   }
@@ -117,15 +119,15 @@ export class NodeSpec {
   ready: string;
 
   constructor(init?: NodeSpec) {
-    if (!init) return;
-    if (init.unschedulable) this.unschedulable = init.unschedulable;
-    if (init.taints) this.taints = init.taints;
-    if (init.ready) this.ready = init.ready;
+    if (!init) {  return; }
+    if (init.unschedulable) { this.unschedulable = init.unschedulable; }
+    if (init.taints) { this.taints = init.taints; }
+    if (init.ready) { this.ready = init.ready; }
   }
 
 
   static emptyObject(): NodeSpec {
-    let result = new NodeSpec();
+    const result = new NodeSpec();
     result.taints = [];
     return result;
   }
@@ -139,16 +141,16 @@ export class Node {
   status: NodeStatus;
 
   constructor(init?: Node) {
-    if (!init) return;
-    if (init.name) this.name = init.name;
-    if (init.labels) this.labels = init.labels;
-    if (init.spec) this.spec = init.spec;
-    if (init.status) this.status = init.status;
+    if (!init) {  return; }
+    if (init.name) { this.name = init.name; }
+    if (init.labels) { this.labels = init.labels; }
+    if (init.spec) { this.spec = init.spec; }
+    if (init.status) { this.status = init.status; }
   }
 
 
   static emptyObject(): Node {
-    let result = new Node();
+    const result = new Node();
     result.labels = null;
     result.spec = NodeSpec.emptyObject();
     result.status = NodeStatus.emptyObject();

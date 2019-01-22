@@ -16,7 +16,7 @@ export class ListClusterComponent implements OnInit {
   @Input() clusters: Cluster[];
 
   @Input() page: Page;
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
 
   @Output() paginate = new EventEmitter<State>();

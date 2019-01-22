@@ -1,0 +1,15 @@
+<div class="show-control" (click)="changeShow()">
+  <span *ngIf="showView">收起</span>
+  <span *ngIf="!showView">展开</span>
+  <svg class="card-change-svg" width="12" height="12" xmlns="http://www.w3.org/2000/svg" viewBox="0, 0, 20, 10" style="margin-left: 3px;transition: transform 250ms ease-in-out;" [class.rotate]="!showView">
+    <polyline points="3,2 10,10 17,2" style="fill: white;stroke: #377aec;stroke-width: 2;"></polyline>
+    <circle cx="3" cy="2" r="1" style="fill: #377aec;"></circle>
+    <circle cx="17" cy="2" r="1" style="fill: #377aec;"></circle>
+  </svg>
+</div>
+<div class="box" *ngIf="showView">
+  <echarts-gauge style="height: 250px; width: 250px;" [title]="ready.title" [data]="ready.data" [name]="ready.name" type="percent" [tooltip]="ready.tooltip" reverse></echarts-gauge>
+  <echarts-gauge style="height: 250px; width: 250px;" [title]="schedulable.title" [data]="schedulable.data" [name]="schedulable.name" type="percent" [tooltip]="schedulable.tooltip" reverse></echarts-gauge>
+  <echarts-gauge style="height: 250px; width: 250px;" [title]="cpu.title" [data]="cpu.data" [name]="cpu.name" type="percent" [tooltip]="cpu.tooltip"></echarts-gauge>
+  <echarts-gauge style="height: 250px; width: 250px;" [title]="memory.title" [data]="memory.data" [name]="cpu.name" type="percent" [tooltip]="memory.tooltip"></echarts-gauge>
+</div>

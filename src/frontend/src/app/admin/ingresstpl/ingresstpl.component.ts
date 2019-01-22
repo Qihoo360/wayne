@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets} from '../../shared/shared.const';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
 import { Subscription } from 'rxjs/Subscription';
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
 import { ListIngressTplComponent } from './list-ingresstpl/list-ingresstpl.component';
@@ -26,7 +26,7 @@ export class IngressTplComponent implements OnInit, OnDestroy {
 
   pageState: PageState = new PageState({pageSize: 10});
   ingressTpls: IngressTpl[];
-  serviceId: string;
+  ingressId: string;
   componentName = 'Ingress 模板';
 
   subscription: Subscription;
@@ -43,7 +43,7 @@ export class IngressTplComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.SERVICE_TPL) {
-        let id = message.data;
+        const id = message.data;
         this.ingressTplService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -60,9 +60,9 @@ export class IngressTplComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.serviceId = params['sid'];
-      if (typeof(this.serviceId) === 'undefined') {
-        this.serviceId = '';
+      this.ingressId = params['gid'];
+      if (typeof(this.ingressId) === 'undefined') {
+        this.ingressId = '';
       }
     });
   }
@@ -75,13 +75,14 @@ export class IngressTplComponent implements OnInit, OnDestroy {
 
   retrieve(state?: State): void {
     if (state) {
-      this.pageState = PageState.fromState(state, {pageSize: 10, totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
+      this.pageState =
+        PageState.fromState(state, {pageSize: 10, totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.pageState.params['deleted'] = false;
-    this.ingressTplService.listPage(this.pageState, 0, this.serviceId)
+    this.ingressTplService.listPage(this.pageState, 0, this.ingressId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.ingressTpls = data.list;

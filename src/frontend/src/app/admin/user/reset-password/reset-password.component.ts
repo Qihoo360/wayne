@@ -18,9 +18,9 @@ export class ResetPasswordComponent {
   currentForm: NgForm;
 
   user: User = new User();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
 
   userTitle: string;
 
@@ -29,9 +29,6 @@ export class ResetPasswordComponent {
   constructor(
     private userService: UserService,
     private messageHandlerService: MessageHandlerService) {
-  }
-
-  ngOnInit(): void {
   }
 
   resetPassword(user: User) {
@@ -49,12 +46,12 @@ export class ResetPasswordComponent {
       return;
     }
     this.isSubmitOnGoing = true;
-    if (this.user.password != this.user.rePassword) {
+    if (this.user.password !== this.user.rePassword) {
       this.alertMsg = '两次输入密码不一致，请检查！';
       this.isSubmitOnGoing = false;
       return;
     }
-    if (this.user.password == '') {
+    if (this.user.password === '') {
       this.alertMsg = '密码不能为空！';
       this.isSubmitOnGoing = false;
       return;

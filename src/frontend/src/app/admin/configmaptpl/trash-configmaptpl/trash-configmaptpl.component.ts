@@ -20,7 +20,7 @@ export class TrashConfigMapTplComponent implements OnInit, OnDestroy {
   configMapTpls: ConfigMapTpl[];
   pageState: PageState = new PageState();
   state: State;
-  currentPage: number = 1;
+  currentPage = 1;
 
   subscription: Subscription;
 
@@ -32,7 +32,7 @@ export class TrashConfigMapTplComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_CONFIGMAP_TPL) {
-        let id = message.data;
+        const id = message.data;
         this.configMapTplService.deleteById(id, 0, false)
           .subscribe(
             response => {
@@ -73,7 +73,7 @@ export class TrashConfigMapTplComponent implements OnInit, OnDestroy {
     this.configMapTplService.listPage(this.pageState, 0)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.configMapTpls = data.list;
@@ -83,7 +83,7 @@ export class TrashConfigMapTplComponent implements OnInit, OnDestroy {
   }
 
   deleteConfigMapTpl(configMapTpl: ConfigMapTpl) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除配置集确认',
       '你确认永久删除配置集模版 ' + configMapTpl.name + ' ？删除后将不可恢复！',
       configMapTpl.id,

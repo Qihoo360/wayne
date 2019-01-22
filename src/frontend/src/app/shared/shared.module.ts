@@ -24,7 +24,6 @@ import { AceEditorComponent } from './ace-editor/ace-editor.component';
 import { AceEditorBoxComponent } from './ace-editor/ace-editor-box/ace-editor-box.component';
 import { AceEditorService } from './ace-editor/ace-editor.service';
 import { ModalOperateComponent } from './modal-operate/modal-operate.component';
-import { SwitchComponent } from './switch/switch.component';
 import { ProgressComponent } from './progress/progress.component';
 import { FloatWindowComponent } from './float-window/float-window.component';
 import { FloatWindowItemComponent } from './float-window/float-window-item/float-window-item.component';
@@ -50,6 +49,8 @@ import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { DiffComponent } from './diff/diff.component';
 import { DiffService } from './diff/diff.service';
 import { ResourceLimitModule } from './component/resource-limit/resource-limit.module';
+import { EchartsModule } from './echarts/echars.module';
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -59,6 +60,7 @@ import { ResourceLimitModule } from './component/resource-limit/resource-limit.m
     FormsModule,
     ResourceLimitModule,
     HttpClientModule,
+    EchartsModule,
     ClarityModule.forRoot(),
   ],
   declarations: [
@@ -71,7 +73,6 @@ import { ResourceLimitModule } from './component/resource-limit/resource-limit.m
     PaginateComponent,
     BreadcrumbComponent,
     AceEditorComponent,
-    SwitchComponent,
     AceEditorBoxComponent,
     ModalOperateComponent,
     ProgressComponent,
@@ -97,13 +98,13 @@ import { ResourceLimitModule } from './component/resource-limit/resource-limit.m
     BrowserModule,
     ResourceLimitModule,
     FormsModule,
+    EchartsModule,
     ClarityModule,
     UnauthorizedComponent,
     PageNotFoundComponent,
     MessageComponent,
     TabsComponent,
     TabComponent,
-    SwitchComponent,
     BreadcrumbComponent,
     PaginateComponent,
     DualListBoxModule,

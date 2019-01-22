@@ -47,8 +47,8 @@ export class NavComponent implements OnInit, OnDestroy {
       this.currentLang = event.lang;
     });
     this.namespace = this.cacheService.currentNamespace;
-    let nid = this.route.snapshot.params['nid'];
-    if (this.cacheService.currentNamespace && nid != this.cacheService.namespaceId) {
+    const nid = this.route.snapshot.params['nid'];
+    if (this.cacheService.currentNamespace && parseInt(nid, 10) !== this.cacheService.namespaceId) {
       this.hackNavigateReload(`/portal/namespace/${this.cacheService.namespaceId}/app`);
     } else {
       this.authService.setNamespacePermissionById(nid);
@@ -57,7 +57,7 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   getTitle() {
-    let imagePrefix = this.authService.config['system.title'];
+    const imagePrefix = this.authService.config['system.title'];
     return imagePrefix ? imagePrefix : 'Wayne';
   }
 
@@ -68,12 +68,14 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   hackNavigateReload(url: string) {
-    let refreshUrl = url.indexOf('someRoute') > -1 ? '/someOtherRoute' : '/someRoute';
+    const refreshUrl = url.indexOf('someRoute') > -1 ? '/someOtherRoute' : '/someRoute';
     this.router.navigateByUrl(refreshUrl).then(() => this.router.navigateByUrl(url));
   }
 
   goBack() {
-    if (window) window.location.href = '/admin/reportform/overview';
+    if (window) {
+      window.location.href = '/admin/reportform/overview';
+    }
   }
 
   showLang(lang: string): string {
@@ -102,7 +104,7 @@ export class NavComponent implements OnInit, OnDestroy {
       response => {
         this.notificationLogs = response.data;
         this.mind = false;
-        for (let n of this.notificationLogs) {
+        for (const n of this.notificationLogs) {
           this.mind = this.mind || !n.is_readed;
         }
       },

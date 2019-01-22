@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PaginateComponent } from './paginate.component';
 
 describe('PaginateComponent', () => {
-  let component: PaginateComponent;
-  let fixture: ComponentFixture<PaginateComponent>;
+  const component: PaginateComponent;
+  const fixture: ComponentFixture<PaginateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

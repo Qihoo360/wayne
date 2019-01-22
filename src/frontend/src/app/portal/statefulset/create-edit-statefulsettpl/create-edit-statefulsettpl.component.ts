@@ -91,7 +91,7 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
   kubeStatefulSet: KubeStatefulSet = new KubeStatefulSet();
   top: number;
   box: HTMLElement;
-  naviList: string = JSON.stringify(templateDom);
+  naviList = JSON.stringify(templateDom);
   cpuUnitPrice = 30;
   memoryUnitPrice = 10;
   eventList: any[] = Array();

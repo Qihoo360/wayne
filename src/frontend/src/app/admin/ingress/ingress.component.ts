@@ -43,7 +43,7 @@ export class IngressComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.INGRESS) {
-        let id = message.data;
+        const id = message.data;
         this.ingressService.deleteById(id, 0)
           .subscribe(
             response => {

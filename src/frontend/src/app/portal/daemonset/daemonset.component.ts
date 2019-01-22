@@ -59,7 +59,7 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
 
   pageState: PageState = new PageState();
   changedDaemonSetTpls: DaemonSetTemplate[];
-  isOnline: boolean = false;
+  isOnline = false;
   daemonSetId: number;
   app: App;
   appId: number;
@@ -91,13 +91,13 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
               public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
     this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
-      if (over) this.tabChange();
+      if (over) { this.tabChange(); }
     });
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.DAEMONSET) {
-        let daemonSetId = message.data;
+        const daemonSetId = message.data;
         this.daemonSetService.deleteById(daemonSetId, this.appId)
           .subscribe(
             response => {
@@ -125,7 +125,7 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) this.showList.push(key);
+      if (!this.showState[key].hidden) { this.showList.push(key); }
     });
   }
 
@@ -152,11 +152,11 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
   tabChange() {
     const orderList = [].slice.call(this.el.nativeElement.querySelectorAll('.tabs-item')).map((item, index) => {
       return {
-        id: parseInt(item.id),
+        id: parseInt(item.id, 10),
         order: index
       };
     });
-    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) return;
+    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) { return; }
     this.daemonSetService.updateOrder(this.appId, orderList).subscribe(
       response => {
         if (response.data === 'ok!') {
@@ -181,7 +181,7 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
     } else {
       this.orderCache = [].slice.call(this.el.nativeElement.querySelectorAll('.tabs-item')).map((item, index) => {
         return {
-          id: parseInt(item.id),
+          id: parseInt(item.id, 10),
           order: index
         };
       });
@@ -195,27 +195,27 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
   syncStatus() {
     if (this.changedDaemonSetTpls && this.changedDaemonSetTpls.length > 0) {
       for (let i = 0; i < this.changedDaemonSetTpls.length; i++) {
-        let tpl = this.changedDaemonSetTpls[i];
+        const tpl = this.changedDaemonSetTpls[i];
         if (tpl.status && tpl.status.length > 0) {
           for (let j = 0; j < tpl.status.length; j++) {
-            let status = tpl.status[j];
-            if (status.errNum > 2) continue;
+            const status = tpl.status[j];
+            if (status.errNum > 2)  { continue; }
             this.daemonSetClient.get(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
               response => {
-                let code = response.statusCode | response.status;
+                const code = response.statusCode || response.status;
                 if (code === httpStatusCode.NoContent) {
                   this.changedDaemonSetTpls[i].status[j].state = TemplateState.NOT_FOUND;
                   return;
                 }
 
-                let podInfo = response.data.pods;
+                const podInfo = response.data.pods;
                 // 防止切换tab tpls数据发生变化导致报错
                 if (this.changedDaemonSetTpls &&
                   this.changedDaemonSetTpls[i] &&
                   this.changedDaemonSetTpls[i].status &&
                   this.changedDaemonSetTpls[i].status[j]) {
                   let state = TemplateState.FAILD;
-                  if (podInfo.current == podInfo.desired) {
+                  if (podInfo.current === podInfo.desired) {
                     state = TemplateState.SUCCESS;
                   }
                   this.changedDaemonSetTpls[i].status[j].state = state;
@@ -263,9 +263,9 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
   }
 
   initDaemonSet(refreshTpl?: boolean) {
-    this.appId = parseInt(this.route.parent.snapshot.params['id']);
-    let namespaceId = this.cacheService.namespaceId;
-    this.daemonSetId = parseInt(this.route.snapshot.params['daemonSetId']);
+    this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
+    const namespaceId = this.cacheService.namespaceId;
+    this.daemonSetId = parseInt(this.route.snapshot.params['daemonSetId'], 10);
     Observable.combineLatest(
       this.clusterService.getNames(),
       this.daemonSetService.listPage(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), this.appId, 'false'),
@@ -276,7 +276,7 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
         this.daemonSets = response[1].data.list.sort((a, b) => a.order - b.order);
         this.initOrder(this.daemonSets);
         this.app = response[2].data;
-        let isRedirectUri = this.redirectUri();
+        const isRedirectUri = this.redirectUri();
         if (isRedirectUri) {
           this.navigateUri();
         }
@@ -301,8 +301,8 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
         this.daemonSetId = this.daemonSets[0].id;
         return true;
       }
-      for (let daemon of this.daemonSets) {
-        if (this.daemonSetId == daemon.id) {
+      for (const daemon of this.daemonSets) {
+        if (this.daemonSetId === daemon.id) {
           return false;
         }
       }
@@ -352,7 +352,9 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
   // 点击克隆守护进程集模版
   cloneDaemonSetTpl(tpl: DaemonSetTemplate) {
     if (tpl) {
-      this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/daemonset/${this.daemonSetId}/tpl/${tpl.id}`]);
+      this.router.navigate(
+        [`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/daemonset
+        /${this.daemonSetId}/tpl/${tpl.id}`]);
     }
   }
 
@@ -360,7 +362,7 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
     if (this.publishStatus && this.publishStatus.length > 0) {
       this.messageHandlerService.warning('已上线守护进程集无法删除，请先下线守护进程集！');
     } else {
-      let deletionMessage = new ConfirmationMessage(
+      const deletionMessage = new ConfirmationMessage(
         '删除守护进程集确认',
         '是否确认删除守护进程集',
         this.daemonSetId,
@@ -393,9 +395,9 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
       this.publishService.listStatus(PublishType.DAEMONSET, this.daemonSetId)
     ).subscribe(
       response => {
-        let status = response[1].data;
+        const status = response[1].data;
         this.publishStatus = status;
-        let tpls = response[0].data;
+        const tpls = response[0].data;
         this.pageState.page.totalPage = tpls.totalPage;
         this.pageState.page.totalCount = tpls.totalCount;
         this.changedDaemonSetTpls = this.buildTplList(tpls.list, status);
@@ -409,9 +411,9 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
     if (!daemonSetTpls) {
       return daemonSetTpls;
     }
-    let tplStatusMap = {};
+    const tplStatusMap = {};
     if (status && status.length > 0) {
-      for (let state of status) {
+      for (const state of status) {
         if (!tplStatusMap[state.templateId]) {
           tplStatusMap[state.templateId] = Array<TemplateStatus>();
         }
@@ -419,19 +421,19 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
       }
     }
 
-    let results = Array<DaemonSetTemplate>();
-    for (let daemonSetTpl of daemonSetTpls) {
+    const results = Array<DaemonSetTemplate>();
+    for (const daemonSetTpl of daemonSetTpls) {
       let kubeDaemonSet = new KubeDaemonSet();
       kubeDaemonSet = JSON.parse(daemonSetTpl.template);
-      let containers = kubeDaemonSet.spec.template.spec.containers;
+      const containers = kubeDaemonSet.spec.template.spec.containers;
       if (containers.length > 0) {
-        let containerVersions = Array<string>();
-        for (let con of containers) {
+        const containerVersions = Array<string>();
+        for (const con of containers) {
           containerVersions.push(con.image);
         }
         daemonSetTpl.containerVersions = containerVersions;
 
-        let publishStatus = tplStatusMap[daemonSetTpl.id];
+        const publishStatus = tplStatusMap[daemonSetTpl.id];
         if (publishStatus && publishStatus.length > 0) {
           daemonSetTpl.status = publishStatus;
         }

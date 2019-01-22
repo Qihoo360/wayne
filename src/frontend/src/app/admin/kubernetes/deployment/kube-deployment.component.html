@@ -15,16 +15,14 @@
           </wayne-checkbox-group>
         </wayne-filter-box>
         <label for="namespace_name" class="col-md-3">Kubernetes 命名空间:</label>
-        <div class="select" style="display: inline-block;">
-          <select id="namespace_name"
-                  [(ngModel)]="namespace"
-                  name="namespace_name"
-                  (change)="retrieve()">
-            <option *ngFor="let namespace of namespaces" [ngValue]="namespace"
-                    [selected]="namespace == 'default'">{{namespace}}
-            </option>
-          </select>
-        </div>
+          <wayne-select [(ngModel)]="namespace"  (change)="retrieve()"
+                        searchable
+                        name="namespace_name"
+                        [placeholder]="'PLACEHOLDER.CHOOSE' | translate"
+                        style="margin-left: 12px;">
+            <wayne-option *ngFor="let ns of namespaces" [value]="ns">{{ns}}</wayne-option>
+          </wayne-select>
+
       </div>
     </div>
     <kube-list-deployment

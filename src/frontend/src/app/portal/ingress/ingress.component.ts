@@ -74,7 +74,7 @@ export class IngressComponent extends Resource implements OnInit, OnDestroy, Aft
       tabDragService,
       el,
       messageHandlerService
-    )
+    );
     super.registResourceType('ingress');
     super.registPublishType(PublishType.INGRESS);
     super.registConfirmationTarget(ConfirmationTargets.INGRESS);
@@ -96,10 +96,6 @@ export class IngressComponent extends Resource implements OnInit, OnDestroy, Aft
     clearInterval(this.timer);
     this.subscription.unsubscribe();
     this.tabScription.unsubscribe();
-  }
-
-  diffTpl() {
-    this.listResourceComponent.diffTpl();
   }
 
   ngAfterContentInit() {

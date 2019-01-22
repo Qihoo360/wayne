@@ -28,8 +28,8 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit {
   currentForm: NgForm;
 
   pvcTpl: PersistentVolumeClaimTpl = new PersistentVolumeClaimTpl();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
 
   title: string;
   actionType: ActionType;
@@ -99,8 +99,8 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit {
       return;
     }
     this.pvcTpl.template = this.aceBox.getValue();
-    for (let svc of this.pvcs) {
-      if (svc.id == this.pvcTpl.persistentVolumeClaimId) {
+    for (const svc of this.pvcs) {
+      if (svc.id === this.pvcTpl.persistentVolumeClaimId) {
         this.pvcTpl.name = svc.name;
       }
     }

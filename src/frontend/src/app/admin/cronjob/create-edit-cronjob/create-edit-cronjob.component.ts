@@ -30,11 +30,11 @@ export class CreateEditCronjobComponent implements OnInit {
   aceBox: any;
 
   cronjob: Cronjob = new Cronjob();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
 
-  componentName: string = '计划任务';
+  componentName = '计划任务';
   title: string;
   actionType: ActionType;
 
@@ -139,7 +139,7 @@ export class CreateEditCronjobComponent implements OnInit {
   }
 
   handleValidation(): void {
-    let cont = this.currentForm.controls['name'];
+    const cont = this.currentForm.controls['name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }

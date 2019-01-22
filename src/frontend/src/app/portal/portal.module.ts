@@ -31,6 +31,7 @@ import { PublishHistoryModule } from './common/publish-history/publish-history.m
 import { TplDetailModule } from '../shared/tpl-detail/tpl-detail.module';
 import { MarkdownModule } from 'ngx-markdown';
 import { LibraryPortalModule } from '../../../lib/portal/library-portal.module';
+import { AutoscaleModule } from './autoscale/autoscale.module';
 
 @NgModule({
   imports: [
@@ -57,6 +58,7 @@ import { LibraryPortalModule } from '../../../lib/portal/library-portal.module';
     PublishHistoryModule,
     LibraryPortalModule,
     IngressModule,
+    AutoscaleModule,
     MarkdownModule.forRoot(),
   ],
   providers: [

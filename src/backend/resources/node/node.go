@@ -6,10 +6,12 @@ import (
 
 	"k8s.io/api/core/v1"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/kubernetes"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/resources/common"
+	"github.com/Qihoo360/wayne/src/backend/resources/pod"
 )
 
 type NodeStatistics struct {
@@ -61,13 +63,20 @@ type NodeStatus struct {
 	NodeInfo v1.NodeSystemInfo          `json:"nodeInfo,omitempty"`
 }
 
-func GetNodeCounts(indexer *client.CacheIndexer) (int, error) {
-	nodeList := indexer.Node.List()
+func GetNodeCounts(indexer *client.CacheFactory) (int, error) {
+	nodeList, err := indexer.NodeLister().List(labels.Everything())
+	if err != nil {
+		return 0, err
+	}
 	return len(nodeList), nil
 }
 
-func ListNode(indexer *client.CacheIndexer) (NodeListResult, error) {
-	nodeList := indexer.Node.List()
+func ListNode(indexer *client.CacheFactory) (*NodeListResult, error) {
+	nodeList, err := indexer.NodeLister().List(labels.Everything())
+	if err != nil {
+		return nil, err
+	}
+
 	nodes := make([]Node, 0)
 	ready := 0
 	schedulable := 0
@@ -80,45 +89,44 @@ func ListNode(indexer *client.CacheIndexer) (NodeListResult, error) {
 	avaliableNodeMap := make(map[string]*v1.Node)
 
 	for _, node := range nodeList {
-		cacheNode, ok := node.(*v1.Node)
-		if !ok {
-			continue
-		}
 		isReady := false
 		isSchedulable := false
-		for _, condition := range cacheNode.Status.Conditions {
+		for _, condition := range node.Status.Conditions {
 			if condition.Type == v1.NodeReady && condition.Status == v1.ConditionTrue {
 				ready += 1
 				isReady = true
 			}
 
 		}
-		if !cacheNode.Spec.Unschedulable {
+		if !node.Spec.Unschedulable {
 			schedulable += 1
 			isSchedulable = true
 		}
 
 		if isReady && isSchedulable {
-			avaliableNodeMap[cacheNode.Name] = cacheNode
+			avaliableNodeMap[node.Name] = node
 
-			cpuQuantity := cacheNode.Status.Allocatable[v1.ResourceCPU]
-			memoryQuantity := cacheNode.Status.Allocatable[v1.ResourceMemory]
+			cpuQuantity := node.Status.Allocatable[v1.ResourceCPU]
+			memoryQuantity := node.Status.Allocatable[v1.ResourceMemory]
 			// unit m
 			avaliableCpu += cpuQuantity.MilliValue()
 			// unit Byte
 			avaliableMemory += memoryQuantity.Value()
 		}
 
-		nodes = append(nodes, toNode(*cacheNode))
+		nodes = append(nodes, toNode(node))
 	}
 
 	sort.Slice(nodes, func(i, j int) bool {
 		return nodes[i].Name < nodes[j].Name
 	})
 
-	resourceList := podUsedResourcesOnAvaliableNode(indexer, avaliableNodeMap)
+	resourceList, err := podUsedResourcesOnAvaliableNode(indexer, avaliableNodeMap)
+	if err != nil {
+		return nil, err
+	}
 
-	return NodeListResult{
+	return &NodeListResult{
 		NodeSummary: NodeListSummary{
 			Total:       int64(len(nodes)),
 			Ready:       int64(ready),
@@ -136,31 +144,30 @@ func ListNode(indexer *client.CacheIndexer) (NodeListResult, error) {
 	}, nil
 }
 
-func podUsedResourcesOnAvaliableNode(indexer *client.CacheIndexer, avaliableNodeMap map[string]*v1.Node) common.ResourceList {
-	result := common.ResourceList{}
-	cachePods := indexer.Pod.List()
-	for _, p := range cachePods {
-		cachePod, ok := p.(*v1.Pod)
-		if !ok {
-			continue
-		}
+func podUsedResourcesOnAvaliableNode(indexer *client.CacheFactory, avaliableNodeMap map[string]*v1.Node) (*common.ResourceList, error) {
+	result := &common.ResourceList{}
+	cachePods, err := pod.ListKubePod(indexer, "", nil)
+	if err != nil {
+		return nil, err
+	}
 
+	for _, pod := range cachePods {
 		// Exclude Pod on Unavailable Node
-		_, ok = avaliableNodeMap[cachePod.Spec.NodeName]
-		if cachePod.Status.Phase == v1.PodFailed || cachePod.Status.Phase == v1.PodSucceeded || cachePod.DeletionTimestamp != nil || !ok {
+		_, ok := avaliableNodeMap[pod.Spec.NodeName]
+		if pod.Status.Phase == v1.PodFailed || pod.Status.Phase == v1.PodSucceeded || pod.DeletionTimestamp != nil || !ok {
 			continue
 		}
 
-		resourceList := common.ContainersResourceList(cachePod.Spec.Containers)
+		resourceList := common.ContainersRequestResourceList(pod.Spec.Containers)
 
 		result.Cpu += resourceList.Cpu
 		result.Memory += resourceList.Memory
 	}
 
-	return result
+	return result, nil
 }
 
-func toNode(knode v1.Node) Node {
+func toNode(knode *v1.Node) Node {
 
 	node := Node{
 		Name:              knode.Name,

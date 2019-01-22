@@ -16,7 +16,7 @@ export class App {
   }
 
   static emptyObject(): App {
-    let result = new App();
+    const result = new App();
     result.namespace = Namespace.emptyObject();
     result.createTime = null;
     return result;

@@ -63,7 +63,7 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
   createEditCronjob: CreateEditCronjobComponent;
 
   pageState: PageState = new PageState();
-  isOnline: boolean = false;
+  isOnline = false;
 
   jobPageState: PageState = new PageState();
   changedJobs: Job[];
@@ -105,13 +105,13 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
               public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
     this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
-      if (over) this.tabChange();
+      if (over) { this.tabChange(); }
     });
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.CRONJOB) {
-        let cronjobId = message.data;
+        const cronjobId = message.data;
         this.cronjobService.deleteById(cronjobId, this.appId)
           .subscribe(
             response => {
@@ -139,7 +139,7 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) this.showList.push(key);
+      if (!this.showState[key].hidden) { this.showList.push(key); }
     });
   }
 
@@ -166,11 +166,11 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
   tabChange() {
     const orderList = [].slice.call(this.el.nativeElement.querySelectorAll('.tabs-item')).map((item, index) => {
       return {
-        id: parseInt(item.id),
+        id: parseInt(item.id, 10),
         order: index
       };
     });
-    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) return;
+    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) { return; }
     this.cronjobService.updateOrder(this.appId, orderList).subscribe(
       response => {
         if (response.data === 'ok!') {
@@ -195,7 +195,7 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
     } else {
       this.orderCache = [].slice.call(this.el.nativeElement.querySelectorAll('.tabs-item')).map((item, index) => {
         return {
-          id: parseInt(item.id),
+          id: parseInt(item.id, 10),
           order: index
         };
       });
@@ -209,16 +209,16 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
   syncStatus() {
     if (this.changedCronjobTpls && this.changedCronjobTpls.length > 0) {
       for (let i = 0; i < this.changedCronjobTpls.length; i++) {
-        let tpl = this.changedCronjobTpls[i];
+        const tpl = this.changedCronjobTpls[i];
         if (tpl.status && tpl.status.length > 0) {
           // 定时自动刷新获取Job列表
           this.retrieveJob();
           for (let j = 0; j < tpl.status.length; j++) {
-            let status = tpl.status[j];
-            if (status.errNum > 2) continue;
+            const status = tpl.status[j];
+            if (status.errNum > 2)  { continue; }
             this.cronjobClient.get(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
               response => {
-                let code = response.statusCode | response.status;
+                const code = response.statusCode || response.status;
                 if (code === httpStatusCode.NoContent) {
                   this.changedCronjobTpls[i].status[j].state = TemplateState.NOT_FOUND;
                   return;
@@ -274,9 +274,9 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
   }
 
   initCronjob(refreshTpl?: boolean) {
-    this.appId = parseInt(this.route.parent.snapshot.params['id']);
-    let namespaceId = this.cacheService.namespaceId;
-    this.cronjobId = parseInt(this.route.snapshot.params['cronjobId']);
+    this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
+    const namespaceId = this.cacheService.namespaceId;
+    this.cronjobId = parseInt(this.route.snapshot.params['cronjobId'], 10);
     Observable.combineLatest(
       this.clusterService.getNames(),
       this.cronjobService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
@@ -295,8 +295,8 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
         }
         if (this.cronjobId) {
           this.cronjobService.getById(this.cronjobId, this.appId).subscribe(
-            response => {
-              this.currentCronjob = response.data;
+            next => {
+              this.currentCronjob = next.data;
             },
             error => {
               this.messageHandlerService.handleError(error);
@@ -315,8 +315,8 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
       if (!cronjobId) {
         return this.cronjobs[0].id;
       }
-      for (let cronjob of this.cronjobs) {
-        if (cronjobId == cronjob.id) {
+      for (const cronjob of this.cronjobs) {
+        if (cronjobId === cronjob.id) {
           return cronjobId;
         }
       }
@@ -331,8 +331,8 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
       if (!cronjobId) {
         return this.cronjobs[0].name;
       }
-      for (let cronjob of this.cronjobs) {
-        if (cronjobId == cronjob.id) {
+      for (const cronjob of this.cronjobs) {
+        if (cronjobId === cronjob.id) {
           return cronjob.name;
         }
       }
@@ -380,7 +380,8 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
   // 点击克隆模版
   cloneCronjobTpl(tpl: CronjobTpl) {
     if (tpl) {
-      this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/cronjob/${this.cronjobId}/tpl/${tpl.id}`]);
+      this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app
+      /${this.app.id}/cronjob/${this.cronjobId}/tpl/${tpl.id}`]);
     }
   }
 
@@ -388,7 +389,7 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
     if (this.publishStatus && this.publishStatus.length > 0) {
       this.messageHandlerService.warning('已上线' + this.componentName + '无法删除，请先下线' + this.componentName);
     } else {
-      let deletionMessage = new ConfirmationMessage(
+      const deletionMessage = new ConfirmationMessage(
         '删除' + this.componentName + '确认',
         '是否确认删除' + this.componentName,
         this.cronjobId,
@@ -417,9 +418,9 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
       this.cronjobService.getById(this.cronjobId, this.appId),
     ).subscribe(
       response => {
-        let status = response[1].data;
+        const status = response[1].data;
         this.publishStatus = status;
-        let tpls = response[0].data;
+        const tpls = response[0].data;
         this.currentCronjob = response[2].data;
         this.pageState.page.totalPage = tpls.totalPage;
         this.pageState.page.totalCount = tpls.totalCount;
@@ -446,7 +447,7 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
       this.jobClient.listAllClusterByCronjobName(this.appId, this.cacheService.kubeNamespace, this.cronjobName)
     ).subscribe(
       response => {
-        let result = response[0];
+        const result = response[0];
         if (result == null) {
           this.jobPageState.page.totalPage = 0;
           this.jobPageState.page.totalCount = 0;
@@ -457,7 +458,7 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
           if (jobs) {
             this.jobPageState.page.totalPage = Math.ceil(jobs.length / this.jobPageState.page.pageSize);
             this.jobPageState.page.totalCount = jobs.length;
-            for (let x in jobs) {
+            for (const x in jobs) {
               // conditions有可能不存在
               if (jobs[x]['kubeJob']['status']['conditions'] &&
                 jobs[x]['kubeJob']['status']['conditions'][0]['type']) {
@@ -483,9 +484,9 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
     if (!cronjobTpls) {
       return cronjobTpls;
     }
-    let tplStatusMap = {};
+    const tplStatusMap = {};
     if (status && status.length > 0) {
-      for (let state of status) {
+      for (const state of status) {
         if (!tplStatusMap[state.templateId]) {
           tplStatusMap[state.templateId] = Array<CronjobStatus>();
         }
@@ -493,20 +494,20 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
       }
     }
 
-    let results = Array<CronjobTpl>();
-    for (let cronjobTpl of cronjobTpls) {
+    const results = Array<CronjobTpl>();
+    for (const cronjobTpl of cronjobTpls) {
       let kubeCronjob = new KubeCronJob();
       kubeCronjob = JSON.parse(cronjobTpl.template);
       // build container info
-      let containers = kubeCronjob.spec.jobTemplate.spec.template.spec.containers;
+      const containers = kubeCronjob.spec.jobTemplate.spec.template.spec.containers;
       if (containers.length > 0) {
-        let containerVersions = Array<string>();
-        for (let con of containers) {
+        const containerVersions = Array<string>();
+        for (const con of containers) {
           containerVersions.push(con.image);
         }
         cronjobTpl.containerVersions = containerVersions;
 
-        let publishStatus = tplStatusMap[cronjobTpl.id];
+        const publishStatus = tplStatusMap[cronjobTpl.id];
         if (publishStatus && publishStatus.length > 0) {
           cronjobTpl.status = publishStatus;
         }

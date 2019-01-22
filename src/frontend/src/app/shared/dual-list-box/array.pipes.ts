@@ -9,7 +9,6 @@ export class SortOptions {
    * Static property to defined ASC and DESC values
    * to avoid hardcoding and repeating
    * replaces string enums
-   * @type {{ASC: string; DESC: string}}
    */
   static direction: {
     ASC: string,

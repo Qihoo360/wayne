@@ -19,7 +19,7 @@ export class TrashDeploymentComponent implements OnInit, OnDestroy {
 
   deployments: Deployment[];
   pageState: PageState = new PageState();
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
 
   subscription: Subscription;
@@ -32,7 +32,7 @@ export class TrashDeploymentComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_DEPLOYMENT) {
-        let deploymentId = message.data;
+        const deploymentId = message.data;
         this.deploymentService.deleteById(deploymentId, 0, false)
           .subscribe(
             response => {
@@ -71,7 +71,7 @@ export class TrashDeploymentComponent implements OnInit, OnDestroy {
     this.deploymentService.list(this.pageState, 'true')
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.deployments = data.list;
@@ -81,7 +81,7 @@ export class TrashDeploymentComponent implements OnInit, OnDestroy {
   }
 
   deleteDeployment(deployment: Deployment) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除部署确认',
       '你确认永久删除部署 ' + deployment.name + ' ？删除后将不可恢复！',
       deployment.id,

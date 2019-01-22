@@ -44,7 +44,7 @@ export class TipDirective implements OnDestroy {
 
   @Input()
   set top(value: number | string) {
-    if (value || value == '0') {
+    if (value || value === '0') {
       this._top = parseInt(value + '', 10);
       if (this._hover) {
         this.tipService.close(this._text);
@@ -55,7 +55,7 @@ export class TipDirective implements OnDestroy {
 
   @Input()
   set left(value: number | string) {
-    if (value || value == '0') {
+    if (value || value === '0') {
       this._left = parseInt(value + '', 10);
       if (this._hover) {
         this.tipService.close(this._text);
@@ -72,7 +72,7 @@ export class TipDirective implements OnDestroy {
   enterEvent() {
     if (this._text) {
       const posiInfo = this.element.nativeElement.getClientRects()[0];
-      let message = {
+      const message = {
         top: this._top ? posiInfo.top + this._top : posiInfo.top,
         left: this._left ? posiInfo.left + this._left : posiInfo.left,
         text: this._text

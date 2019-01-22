@@ -16,7 +16,7 @@ export class ListAppComponent implements OnInit {
   @Input() apps: App[];
   @Input() idFilterInit: string;
   @Input() page: Page;
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
 
   @Output() paginate = new EventEmitter<State>();

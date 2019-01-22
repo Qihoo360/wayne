@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { State } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -17,7 +17,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './deploymenttpl.component.html',
   styleUrls: ['./deploymenttpl.component.scss']
 })
-export class DeploymentTplComponent implements OnInit {
+export class DeploymentTplComponent implements OnInit, OnDestroy {
 
   @ViewChild(ListDeploymentTplComponent)
   listDeployment: ListDeploymentTplComponent;
@@ -38,7 +38,7 @@ export class DeploymentTplComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.DEPLOYMENT_TPL) {
-        let id = message.data;
+        const id = message.data;
         this.deploymentTplService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -56,7 +56,7 @@ export class DeploymentTplComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.deploymentId = params['did'];
-      if (typeof (this.deploymentId) == 'undefined') {
+      if (typeof (this.deploymentId) === 'undefined') {
         this.deploymentId = '';
       }
     });
@@ -76,7 +76,7 @@ export class DeploymentTplComponent implements OnInit {
     this.deploymentTplService.listPage(this.pageState, 0, this.deploymentId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedDeployments = data.list;
@@ -96,7 +96,7 @@ export class DeploymentTplComponent implements OnInit {
   }
 
   deleteDeployment(tpl: DeploymentTpl) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除部署模版确认',
       '你确认删除部署模版 ' + tpl.name + ' ？',
       tpl.id,

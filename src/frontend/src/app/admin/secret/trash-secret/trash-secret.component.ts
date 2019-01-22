@@ -18,7 +18,7 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 export class TrashSecretComponent implements OnInit, OnDestroy {
   secrets: Secret[];
   pageState: PageState = new PageState();
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
 
   subscription: Subscription;
@@ -31,7 +31,7 @@ export class TrashSecretComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_SECRET) {
-        let secretId = message.data;
+        const secretId = message.data;
         this.secretService.deleteById(secretId, 0, false)
           .subscribe(
             response => {
@@ -71,7 +71,7 @@ export class TrashSecretComponent implements OnInit, OnDestroy {
     this.secretService.list(this.pageState, 'true')
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.secrets = data.list;

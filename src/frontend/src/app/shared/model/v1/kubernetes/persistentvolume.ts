@@ -5,10 +5,10 @@ export class PersistentVolumeStatus {
   phase: string;
   message: string;
   reason: string;
-  //[PersistentVolumeStatus:]
 
 
-  //[end]
+
+
 }
 
 export class ObjectReference {
@@ -19,10 +19,10 @@ export class ObjectReference {
   apiVersion: string;
   resourceVersion: string;
   fieldPath: string;
-  //[ObjectReference:]
 
 
-  //[end]
+
+
 }
 
 export class StorageOSPersistentVolumeSource {
@@ -31,18 +31,18 @@ export class StorageOSPersistentVolumeSource {
   fsType: string;
   readOnly: boolean;
   secretRef: ObjectReference;
-  //[StorageOSPersistentVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class LocalVolumeSource {
   path: string;
-  //[LocalVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class ScaleIOVolumeSource {
@@ -56,29 +56,29 @@ export class ScaleIOVolumeSource {
   volumeName: string;
   fsType: string;
   readOnly: boolean;
-  //[ScaleIOVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class PortworxVolumeSource {
   volumeID: string;
   fsType: string;
   readOnly: boolean;
-  //[PortworxVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class PhotonPersistentDiskVolumeSource {
   pdID: string;
   fsType: string;
-  //[PhotonPersistentDiskVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class AzureDiskVolumeSource {
@@ -88,10 +88,10 @@ export class AzureDiskVolumeSource {
   fsType: string;
   readOnly: boolean;
   kind: string;
-  //[AzureDiskVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class QuobyteVolumeSource {
@@ -100,10 +100,10 @@ export class QuobyteVolumeSource {
   readOnly: boolean;
   user: string;
   group: string;
-  //[QuobyteVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class VsphereVirtualDiskVolumeSource {
@@ -111,20 +111,20 @@ export class VsphereVirtualDiskVolumeSource {
   fsType: string;
   storagePolicyName: string;
   storagePolicyID: string;
-  //[VsphereVirtualDiskVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class AzureFileVolumeSource {
   secretName: string;
   shareName: string;
   readOnly: boolean;
-  //[AzureFileVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class FlexVolumeSource {
@@ -133,19 +133,19 @@ export class FlexVolumeSource {
   secretRef: LocalObjectReference;
   readOnly: boolean;
   options: {};
-  //[FlexVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class FlockerVolumeSource {
   datasetName: string;
   datasetUUID: string;
-  //[FlockerVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class FCVolumeSource {
@@ -153,10 +153,10 @@ export class FCVolumeSource {
   lun: number;
   fsType: string;
   readOnly: boolean;
-  //[FCVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class CephFSVolumeSource {
@@ -166,10 +166,10 @@ export class CephFSVolumeSource {
   secretFile: string;
   secretRef: LocalObjectReference;
   readOnly: boolean;
-  //[CephFSVolumeSource:]
 
 
-  //[end]
+
+
   // 标识是否已经创建cephfs路径
   created: boolean;
 }
@@ -178,10 +178,10 @@ export class CinderVolumeSource {
   volumeID: string;
   fsType: string;
   readOnly: boolean;
-  //[CinderVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class ISCSIVolumeSource {
@@ -195,18 +195,18 @@ export class ISCSIVolumeSource {
   chapAuthDiscovery: boolean;
   chapAuthSession: boolean;
   secretRef: LocalObjectReference;
-  //[ISCSIVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class LocalObjectReference {
   name: string;
-  //[LocalObjectReference:]
 
 
-  //[end]
+
+
 }
 
 export class RBDVolumeSource {
@@ -218,10 +218,10 @@ export class RBDVolumeSource {
   keyring: string;
   secretRef: LocalObjectReference;
   readOnly: boolean;
-  //[RBDVolumeSource:]
 
 
-  //[end]
+
+
   // 标识是否已经创建Rbd镜像
   created: boolean;
 }
@@ -230,28 +230,28 @@ export class NFSVolumeSource {
   server: string;
   path: string;
   readOnly: boolean;
-  //[NFSVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class GlusterfsVolumeSource {
   endpoints: string;
   path: string;
   readOnly: boolean;
-  //[GlusterfsVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class HostPathVolumeSource {
   path: string;
-  //[HostPathVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class AWSElasticBlockStoreVolumeSource {
@@ -259,10 +259,10 @@ export class AWSElasticBlockStoreVolumeSource {
   fsType: string;
   partition: number;
   readOnly: boolean;
-  //[AWSElasticBlockStoreVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class GCEPersistentDiskVolumeSource {
@@ -270,10 +270,10 @@ export class GCEPersistentDiskVolumeSource {
   fsType: string;
   partition: number;
   readOnly: boolean;
-  //[GCEPersistentDiskVolumeSource:]
 
 
-  //[end]
+
+
 }
 
 export class PersistentVolumeSpec {
@@ -303,20 +303,20 @@ export class PersistentVolumeSpec {
   claimRef: ObjectReference;
   persistentVolumeReclaimPolicy: string;
   storageClassName: string;
-  //[PersistentVolumeSpec:]
 
 
-  //[end]
+
+
 }
 
 export class StatusCause {
   reason: string;
   message: string;
   field: string;
-  //[StatusCause:]
 
 
-  //[end]
+
+
 }
 
 export class StatusDetails {
@@ -326,19 +326,19 @@ export class StatusDetails {
   uid: string;
   causes: StatusCause[];
   retryAfterSeconds: number;
-  //[StatusDetails:]
 
 
-  //[end]
+
+
 }
 
 export class ListMeta {
   selfLink: string;
   resourceVersion: string;
-  //[ListMeta:]
 
 
-  //[end]
+
+
 }
 
 export class Status {
@@ -350,27 +350,27 @@ export class Status {
   reason: string;
   details: StatusDetails;
   code: number;
-  //[Status:]
 
 
-  //[end]
+
+
 }
 
 export class Initializer {
   name: string;
-  //[Initializer:]
 
 
-  //[end]
+
+
 }
 
 export class Initializers {
   pending: Initializer[];
   result: Status;
-  //[Initializers:]
 
 
-  //[end]
+
+
 }
 
 export class OwnerReference {
@@ -380,10 +380,10 @@ export class OwnerReference {
   uid: string;
   controller: boolean;
   blockOwnerDeletion: boolean;
-  //[OwnerReference:]
 
 
-  //[end]
+
+
 }
 
 export class ObjectMeta {
@@ -403,10 +403,10 @@ export class ObjectMeta {
   initializers: Initializers;
   finalizers: string[];
   clusterName: string;
-  //[ObjectMeta:]
 
 
-  //[end]
+
+
 }
 
 export class PersistentVolume {
@@ -415,8 +415,8 @@ export class PersistentVolume {
   metadata: ObjectMeta;
   spec: PersistentVolumeSpec;
   status: PersistentVolumeStatus;
-  //[PersistentVolume:]
 
 
-  //[end]
+
+
 }

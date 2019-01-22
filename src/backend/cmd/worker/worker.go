@@ -7,14 +7,15 @@ import (
 	"os/signal"
 	"sync"
 
+	"github.com/astaxie/beego"
+	"github.com/spf13/cobra"
+
 	"github.com/Qihoo360/wayne/src/backend/bus"
 	"github.com/Qihoo360/wayne/src/backend/initial"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/Qihoo360/wayne/src/backend/workers"
 	"github.com/Qihoo360/wayne/src/backend/workers/audit"
 	"github.com/Qihoo360/wayne/src/backend/workers/webhook"
-	"github.com/astaxie/beego"
-	"github.com/spf13/cobra"
 )
 
 var (

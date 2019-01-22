@@ -37,7 +37,7 @@
     "DELETE_ALL": "删除所有",
     "DELETE_PERMANENTLY": "彻底删除",
     "DETAIL": "详情",
-    "DIFF_TMP": "对比模板",
+    "COMPARE_TEMPLATES": "对比模板",
     "DROP": "下线",
     "EDIT": "编辑",
     "HISTORY": "发布历史",
@@ -78,6 +78,18 @@
     "DELETE": "删除配置集",
     "EDIT": "编辑配置集"
   },
+  "HPA": {
+    "CREATE": "创建 HPA",
+    "CREATE_TEMPLATE": "创建 HPA 模板",
+    "DELETE": "删除 HPA",
+    "EDIT": "编辑 HPA",
+    "CREATE_EDIT": {
+      "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建 HPA"
+    },
+    "TIP": {
+      "VIEW_STATUS": "查看 HPA 状态"
+    }
+  },
   "COPY": {
     "SEARCH_COMMAND": "复制查询命令",
     "SUCCESS": "复制成功"
@@ -109,6 +121,15 @@
     "RUN_CYCLE_MESSAGE": "计划任务的定时周期,cron 表达式",
     "TIMER": "次数"
   },
+  "CRONJOB_ADMIN": {
+    "CRONJOB_CREATE": "创建计划任务",
+    "TPL": {
+      "CREATE": {
+        "CONFIGMAP": "配置集",
+        "TEMPLATE": "模版"
+      }
+    }
+  },
   "DAEMONSET": {
     "CREATE": "创建守护进程集",
     "CREATE_EDIT": {
@@ -117,6 +138,29 @@
     "CREATE_TMP": "创建守护进程集模板",
     "DELETE": "删除守护进程集",
     "EDIT": "编辑守护进程集"
+  },
+  "DAEMONSET_ADMIN": {
+    "CREATE": {
+      "APP": "应用",
+      "METADATA": "元数据",
+      "RULE": "部署名称不符合规范，验证规则"
+    },
+    "DAEMONSET_CREATE": "创建守护进程",
+    "DAEMONSET_LIST": "守护进程列表",
+    "TRASH": {
+      "DAEMONSET_DELETE_LIST": "已删除守护进程集列表"
+    },
+    "TPL": {
+      "DAEMONSET_TPL_LIST": "守护进程集模版列表",
+      "DAEMONSET_TPL_CREATE": "创建守护进程集模版",
+      "CREATE": {
+        "CONFIGMAP": "守护进程集",
+        "TEMPLATE": "模板"
+      },
+      "TRASH": {
+        "DAEMONSET_TPL_DELETE_LIST": "已删除守护进程集模版列表"
+      }
+    }
   },
   "DEPLOYMENT": {
     "CREATE": "创建部署",
@@ -190,6 +234,7 @@
     "DEPARTMENT": "部门概览",
     "DEPLOYMENT": "部署",
     "DEPLOYMENT_LIST": "部署列表",
+    "AUTO_POD_SCALE": "自动水平调度",
     "K8S": "Kubernetes",
     "LIST": "列表",
     "MEMBER": "成员列表",
@@ -246,7 +291,7 @@
   "OTHER": "其他",
   "PAGE": {
     "PAGE": "页",
-    "TOTAL": "共{{value}}条记录"
+    "TOTAL": "共 {{value}} 条记录"
   },
   "PLACEHOLDER": {
     "APP_NAME": "英文小写，中划线分隔",
@@ -332,9 +377,9 @@
   "SHARED": {
     "DIFF": {
       "CHECK_DATA": "请检查数据",
-      "TRANS_ERROR": "模板切换失败，请检查数据",
       "TMP_LESS": "请选择俩个模板",
-      "TMP_MORE": "选择多个模板仅对比俩个"
+      "TMP_MORE": "选择多个模板仅对比俩个",
+      "TRANS_ERROR": "模板切换失败，请检查数据"
     },
     "COMPONENT": {
       "RESOURCE_LIMIT": {
@@ -357,6 +402,18 @@
     "DELETE": "删除状态副本集",
     "EDIT": "编辑状态副本集",
     "TITLE": "状态副本集"
+  },
+  "STATEFULSET_ADMIN": {
+    "CREATE": {
+      "APP": "应用",
+      "METADATE": "元数据",
+      "RULE": "部署名称不符合规范，验证规则"
+    },
+    "STATEFULSET_CREATE": "创建状态副本集",
+    "STATEFULSET_LIST": "状态副本集列表",
+    "TRASH": {
+      "STATEFULSET_DELETE_LIST": "已删除状态副本集列表"
+    }
   },
   "TITLE": {
     "ACTION": "操作",
@@ -401,9 +458,13 @@
     "TEMPLATE": "模板",
     "TOTAL": "总量",
     "USER": "用户",
-    "VERSION": "版本"
+    "VERSION": "版本",
+    "COPY_INTERVAL":"副本区间"
   },
-  "TMP": {
+  "TIP": {
+    "REGULAR_NAME":"名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?"
+  },
+  "TEMPLATE": {
     "ADD_ENVIRONMENT": "添加环境变量",
     "ADD_GROUP": "批量加载",
     "ADD_ONE": "逐个加载",
@@ -460,7 +521,14 @@
     "UPDATE_WAY": "更新方式",
     "USABLE_CHECK": "可用性检查（建议开启）",
     "USABLE_CHECK_WAY": "可用性检查方式",
-    "USABLE_MESSAGE": "定期检查服务状态，只有检查通过才会提供服务，检查失败将会从可用服务列表移除"
+    "USABLE_MESSAGE": "定期检查服务状态，只有检查通过才会提供服务，检查失败将会从可用服务列表移除",
+    "RESOURCE_CONFIG": "资源配置",
+    "SCHEDULING_CONFIG": "调度配置",
+    "TYPE": "类型",
+    "NAME": "名称",
+    "MIN_REPLICAS":"最小副本数",
+    "MAX_REPLICAS":"最小副本数",
+    "CPU_THRESHOLD":"CPU 负载阈值"
   },
   "UNIT": {
     "CORE": "核",

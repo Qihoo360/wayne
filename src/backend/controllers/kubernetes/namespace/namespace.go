@@ -4,6 +4,10 @@ import (
 	"encoding/json"
 	"sync"
 
+	"k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/labels"
+	utilerrors "k8s.io/apimachinery/pkg/util/errors"
+
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
@@ -12,9 +16,7 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/util"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
-	"k8s.io/api/core/v1"
-	"k8s.io/apimachinery/pkg/labels"
-	utilerrors "k8s.io/apimachinery/pkg/util/errors"
+	"github.com/Qihoo360/wayne/src/backend/util/maps"
 )
 
 type KubeNamespaceController struct {
@@ -180,8 +182,10 @@ func (c *KubeNamespaceController) Resources() {
 	syncResourceMap := sync.Map{}
 	var errs []error
 	wg := sync.WaitGroup{}
+
 	managers := client.Managers()
-	for _, manager := range managers {
+	managers.Range(func(key, value interface{}) bool {
+		manager := value.(*client.ClusterManager)
 		wg.Add(1)
 		go func(m *client.ClusterManager) {
 			defer wg.Done()
@@ -215,9 +219,11 @@ func (c *KubeNamespaceController) Resources() {
 				},
 			})
 		}(manager)
-	}
+		return true
+	})
 	wg.Wait()
-	if len(errs) == len(managers) && len(errs) > 0 {
+
+	if len(errs) == maps.SyncMapLen(managers) && len(errs) > 0 {
 		c.HandleError(utilerrors.NewAggregate(errs))
 		return
 	}
@@ -256,7 +262,8 @@ func (c *KubeNamespaceController) Statistics() {
 	var errs []error
 	wg := sync.WaitGroup{}
 	managers := client.Managers()
-	for _, manager := range managers {
+	managers.Range(func(key, value interface{}) bool {
+		manager := value.(*client.ClusterManager)
 		wg.Add(1)
 		go func(m *client.ClusterManager) {
 			defer wg.Done()
@@ -275,9 +282,11 @@ func (c *KubeNamespaceController) Statistics() {
 			}
 			syncResourceMap.Store(m.Cluster.Name, resourceUsage)
 		}(manager)
-	}
+		return true
+	})
+
 	wg.Wait()
-	if len(errs) == len(managers) && len(errs) > 0 {
+	if len(errs) == maps.SyncMapLen(managers) && len(errs) > 0 {
 		c.HandleError(utilerrors.NewAggregate(errs))
 		return
 	}

@@ -24,8 +24,8 @@ export class CreateEditApiKeyComponent implements OnInit {
   currentForm: NgForm;
 
   apiKey = new ApiKey();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
   groups = Array<Group>();
   title: string;
   actionType: ActionType;
@@ -40,7 +40,7 @@ export class CreateEditApiKeyComponent implements OnInit {
     this.apiKeyTypes = ApiKeyType;
     this.groupService.listGroup(new PageState({pageSize: 1000}), 2).subscribe(
       response => {
-        let data = response.data;
+        const data = response.data;
         this.groups = data.list;
       },
       error => {

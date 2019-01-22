@@ -9,13 +9,14 @@ import (
 	"os"
 	"time"
 
+	"github.com/astaxie/beego"
+
 	"github.com/Qihoo360/wayne/src/backend/bus"
 	"github.com/Qihoo360/wayne/src/backend/bus/message"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/models/response"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/Qihoo360/wayne/src/backend/workers"
-	"github.com/astaxie/beego"
 )
 
 const QueueWebhook = "webhook"

@@ -10,7 +10,6 @@ import (
 
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/models"
-	"github.com/Qihoo360/wayne/src/backend/resources/common"
 )
 
 type PodStatistics struct {
@@ -34,51 +33,28 @@ type ContainerStatus struct {
 	RestartCount int32  `json:"restartCount"`
 }
 
-func GetPodCounts(indexer *client.CacheIndexer) int {
-	cachePods := indexer.Pod.List()
-	var pods []v1.Pod
-	for _, e := range cachePods {
-		cachePod, ok := e.(*v1.Pod)
-		if !ok {
-			continue
-		}
-		if cachePod.Status.Phase == v1.PodFailed || cachePod.Status.Phase == v1.PodSucceeded {
-			continue
-		}
-		pods = append(pods, *cachePod)
+func GetPodCounts(indexer *client.CacheFactory) (int, error) {
+	pods, err := indexer.PodLister().List(labels.Everything())
+	if err != nil {
+		return 0, err
 	}
-	return len(pods)
+	length := 0
+	for _, pod := range pods {
+		if pod.Status.Phase == v1.PodFailed || pod.Status.Phase == v1.PodSucceeded {
+			continue
+		}
+		length++
+	}
+	return length, nil
 }
 
-func GetPodsBySelectorFromCache(indexer *client.CacheIndexer, namespace string, labels map[string]string) []v1.Pod {
-	cachePods := indexer.Pod.List()
-	var pods []v1.Pod
-	for _, pod := range cachePods {
-		cachePod, ok := pod.(*v1.Pod)
-		if !ok {
-			continue
-		}
-		if namespace != "" && namespace != cachePod.Namespace {
-			continue
-		}
-
-		if labels != nil && !common.CompareLabels(labels, cachePod.Labels) {
-			continue
-		}
-
-		pods = append(pods, *cachePod)
-	}
-
-	return pods
-}
-
-func GetAllPodByLabelSelector(cli *kubernetes.Clientset, labelSelector string) ([]*Pod, error) {
-	podList, err := cli.CoreV1().Pods(metaV1.NamespaceAll).List(metaV1.ListOptions{LabelSelector: labelSelector})
+func ListPod(indexer *client.CacheFactory, namespace string, label map[string]string) ([]*Pod, error) {
+	podList, err := ListKubePod(indexer, namespace, label)
 	if err != nil {
 		return nil, err
 	}
 	pods := make([]*Pod, 0)
-	for _, pod := range podList.Items {
+	for _, pod := range podList {
 		pods = append(pods, &Pod{
 			Labels: pod.Labels,
 			PodIp:  pod.Status.PodIP,
@@ -87,17 +63,17 @@ func GetAllPodByLabelSelector(cli *kubernetes.Clientset, labelSelector string) (
 	return pods, nil
 }
 
-func GetPodsBySelector(cli *kubernetes.Clientset, namespace, labelSelector string) ([]v1.Pod, error) {
-	podList, err := cli.CoreV1().Pods(namespace).List(metaV1.ListOptions{LabelSelector: labelSelector})
+func ListKubePod(indexer *client.CacheFactory, namespace string, label map[string]string) ([]*v1.Pod, error) {
+	pods, err := indexer.PodLister().Pods(namespace).List(labels.SelectorFromSet(label))
 	if err != nil {
 		return nil, err
 	}
-	return podList.Items, nil
+	return pods, nil
 }
 
-func GetPodsByStatefulset(cli *kubernetes.Clientset, namespace, name string) ([]*Pod, error) {
-	podSelector := labels.SelectorFromSet(map[string]string{"app": name}).String()
-	pods, err := GetPodsBySelector(cli, namespace, podSelector)
+func GetPodsByStatefulset(indexer *client.CacheFactory, namespace, name string) ([]*Pod, error) {
+	podSelector := map[string]string{"app": name}
+	pods, err := ListKubePod(indexer, namespace, podSelector)
 	if err != nil {
 		return nil, err
 	}
@@ -105,8 +81,8 @@ func GetPodsByStatefulset(cli *kubernetes.Clientset, namespace, name string) ([]
 	return toPods(filteredPod), nil
 }
 
-func filterPodByApiType(pods []v1.Pod, apiType models.KubeApiType) []v1.Pod {
-	filteredPod := make([]v1.Pod, 0)
+func filterPodByApiType(pods []*v1.Pod, apiType models.KubeApiType) []*v1.Pod {
+	filteredPod := make([]*v1.Pod, 0)
 	for _, kpod := range pods {
 		for _, owner := range kpod.OwnerReferences {
 			if owner.Kind == string(apiType) {
@@ -119,9 +95,9 @@ func filterPodByApiType(pods []v1.Pod, apiType models.KubeApiType) []v1.Pod {
 	return filteredPod
 }
 
-func GetPodsByDaemonSet(cli *kubernetes.Clientset, namespace, name string) ([]*Pod, error) {
-	podSelector := labels.SelectorFromSet(map[string]string{"app": name}).String()
-	pods, err := GetPodsBySelector(cli, namespace, podSelector)
+func GetPodsByDaemonSet(indexer *client.CacheFactory, namespace, name string) ([]*Pod, error) {
+	podSelector := map[string]string{"app": name}
+	pods, err := ListKubePod(indexer, namespace, podSelector)
 	if err != nil {
 		return nil, err
 	}
@@ -130,15 +106,25 @@ func GetPodsByDaemonSet(cli *kubernetes.Clientset, namespace, name string) ([]*P
 	return toPods(filteredPod), nil
 }
 
-func GetPodsByDeployment(cli *kubernetes.Clientset, namespace, name string) ([]*Pod, error) {
-	podSelector := labels.SelectorFromSet(map[string]string{"app": name}).String()
-	pods, err := GetPodsBySelector(cli, namespace, podSelector)
+func GetPodsByDeployment(indexer *client.CacheFactory, namespace, name string) ([]*Pod, error) {
+	podSelector := map[string]string{"app": name}
+	pods, err := ListKubePod(indexer, namespace, podSelector)
 	if err != nil {
 		return nil, err
 	}
 	filteredPod := filterPodByApiType(pods, models.KubeApiTypeReplicaSet)
 
 	return toPods(filteredPod), nil
+}
+
+func GetPodsByJob(indexer *client.CacheFactory, namespace, name string) ([]*Pod, error) {
+	podSelector := map[string]string{"job-name": name}
+	pods, err := ListKubePod(indexer, namespace, podSelector)
+	if err != nil {
+		return nil, err
+	}
+
+	return toPods(pods), nil
 }
 
 func GetPodByName(cli *kubernetes.Clientset, namespace, name string) (*Pod, error) {
@@ -155,10 +141,10 @@ func DeletePod(cli *kubernetes.Clientset, name, namespace string) error {
 		Delete(name, &metaV1.DeleteOptions{})
 }
 
-func toPods(pods []v1.Pod) []*Pod {
+func toPods(pods []*v1.Pod) []*Pod {
 	result := make([]*Pod, 0)
 	for _, kpod := range pods {
-		result = append(result, toPod(&kpod))
+		result = append(result, toPod(kpod))
 	}
 
 	return result
@@ -228,14 +214,4 @@ func getPodStatus(pod *v1.Pod) string {
 
 	// Unknown?
 	return "Unknown"
-}
-
-func GetPodsByJob(cli *kubernetes.Clientset, namespace, name string) ([]*Pod, error) {
-	podSelector := labels.SelectorFromSet(map[string]string{"job-name": name}).String()
-	pods, err := GetPodsBySelector(cli, namespace, podSelector)
-	if err != nil {
-		return nil, err
-	}
-
-	return toPods(pods), nil
 }

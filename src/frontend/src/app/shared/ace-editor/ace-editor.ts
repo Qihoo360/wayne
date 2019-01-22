@@ -7,7 +7,7 @@ export class AceEditorMsg {
   }
 
   static Instance(message: any, edit?: boolean, title?: string): AceEditorMsg {
-    let msg = new AceEditorMsg();
+    const msg = new AceEditorMsg();
     msg.title = title;
     msg.edit = edit;
     msg.message = message;

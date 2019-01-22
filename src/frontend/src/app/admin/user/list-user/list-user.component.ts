@@ -18,7 +18,7 @@ export class ListUserComponent implements OnInit {
   @Input() users: User[];
 
   @Input() page: Page;
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
 
   @Output() paginate = new EventEmitter<State>();
@@ -57,7 +57,7 @@ export class ListUserComponent implements OnInit {
     if (!user) {
       return '用户不存在';
     }
-    const show: string = user.admin ? '取消管理员' : '设置为管理员';
+    const show = user.admin ? '取消管理员' : '设置为管理员';
     return show;
   }
 

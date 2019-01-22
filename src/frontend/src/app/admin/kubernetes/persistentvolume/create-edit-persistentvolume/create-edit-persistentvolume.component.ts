@@ -120,7 +120,7 @@ export class CreateEditPersistentVolumeComponent implements OnInit {
 
   get labels(): FormArray {
     return this.currentForm.get('labels') as FormArray;
-  };
+  }
 
   onAddLabel(index: number) {
     const selectors = this.currentForm.get(`labels`) as FormArray;

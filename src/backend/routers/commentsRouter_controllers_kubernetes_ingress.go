@@ -9,14 +9,6 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/ingress:KubeIngressController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/ingress:KubeIngressController"],
 		beego.ControllerComments{
-			Method:           "GetDetail",
-			Router:           `/:ingress/detail/namespaces/:namespace/clusters/:cluster`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams:     param.Make(),
-			Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/ingress:KubeIngressController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/ingress:KubeIngressController"],
-		beego.ControllerComments{
 			Method:           "Get",
 			Router:           `/:ingress/namespaces/:namespace/clusters/:cluster`,
 			AllowHTTPMethods: []string{"get"},

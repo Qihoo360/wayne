@@ -19,7 +19,7 @@ export class TrashPersistentVolumeClaimComponent implements OnInit, OnDestroy {
 
   pvcs: PersistentVolumeClaim[];
   pageState: PageState = new PageState();
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
 
   subscription: Subscription;
@@ -32,7 +32,7 @@ export class TrashPersistentVolumeClaimComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_PERSISTENT_VOLUME_CLAIM) {
-        let id = message.data;
+        const id = message.data;
         this.pvcService.deleteById(id, 0, false)
           .subscribe(
             response => {
@@ -71,7 +71,7 @@ export class TrashPersistentVolumeClaimComponent implements OnInit, OnDestroy {
     this.pvcService.list(this.pageState, 'true')
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.pvcs = data.list;
@@ -81,7 +81,7 @@ export class TrashPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   }
 
   deletePvc(pvc: PersistentVolumeClaim) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除PVC确认',
       '你确认永久删除PVC ' + pvc.name + ' ？删除后将不可恢复！',
       pvc.id,

@@ -68,7 +68,7 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.DEPLOYMENT_TPL) {
-        let tplId = message.data;
+        const tplId = message.data;
         this.deploymentTplService.deleteById(tplId, this.appId)
           .subscribe(
             response => {
@@ -117,7 +117,7 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
   }
 
   deleteDeploymentTpl(tpl: DeploymentTpl): void {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除部署模版确认',
       `你确认删除部署模版${tpl.name}？`,
       tpl.id,
@@ -142,7 +142,7 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
   publishTpl(tpl: DeploymentTpl) {
     this.deploymentService.getById(tpl.deploymentId, this.appId).subscribe(
       status => {
-        let deployment = status.data;
+        const deployment = status.data;
         this.publishDeploymentTpl.newPublishTpl(deployment, tpl, ResourcesActionType.PUBLISH);
       },
       error => {
@@ -153,7 +153,7 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
   restartDeployment(tpl: DeploymentTpl) {
     this.deploymentService.getById(tpl.deploymentId, this.appId).subscribe(
       status => {
-        let deployment = status.data;
+        const deployment = status.data;
         this.publishDeploymentTpl.newPublishTpl(deployment, tpl, ResourcesActionType.RESTART);
       },
       error => {
@@ -164,7 +164,7 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
   offlineDeployment(tpl: DeploymentTpl) {
     this.deploymentService.getById(tpl.deploymentId, this.appId).subscribe(
       status => {
-        let deployment = status.data;
+        const deployment = status.data;
         this.publishDeploymentTpl.newPublishTpl(deployment, tpl, ResourcesActionType.OFFLINE);
       },
       error => {
@@ -185,7 +185,7 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
   }
 
   listPod(status: DeploymentStatus, tpl: DeploymentTpl) {
-    if (status.cluster && status.state != TemplateState.NOT_FOUND) {
+    if (status.cluster && status.state !== TemplateState.NOT_FOUND) {
       this.listPodComponent.openModal(status.cluster, tpl.name);
     }
   }

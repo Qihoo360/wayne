@@ -16,7 +16,7 @@ export class ListNamespaceUserComponent implements OnInit {
   @Input() listType: string;
   @Input() namespaceUsers: NamespaceUser[];
   @Input() page: Page;
-  currentPage: number = 1;
+  currentPage = 1;
   state: State;
 
   @Output() paginate = new EventEmitter<State>();

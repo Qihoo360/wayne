@@ -20,7 +20,7 @@ export class TrashDaemonsettplComponent implements OnInit, OnDestroy {
   daemonsetTpls: DaemonSetTemplate[];
   pageState: PageState = new PageState();
   state: State;
-  currentPage: number = 1;
+  currentPage = 1;
 
   subscription: Subscription;
 
@@ -32,7 +32,7 @@ export class TrashDaemonsettplComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_DAEMONSET_TPL) {
-        let id = message.data;
+        const id = message.data;
         this.daemonsetTplService.deleteById(id, 0, false)
           .subscribe(
             response => {
@@ -74,7 +74,7 @@ export class TrashDaemonsettplComponent implements OnInit, OnDestroy {
       .listPage(this.pageState, 0)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.daemonsetTpls = data.list;
@@ -84,7 +84,7 @@ export class TrashDaemonsettplComponent implements OnInit, OnDestroy {
   }
 
   deleteDaemonsetTpl(template: DaemonSetTemplate) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除守护进程集模版确认',
       '你确认永久删除守护进程集模版 ' + template.name + ' ？删除后将不可恢复！',
       template.id,

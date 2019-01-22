@@ -19,7 +19,6 @@ import { DiffService } from '../../../shared/diff/diff.service';
   styleUrls: ['list-ingress.scss']
 })
 export class ListIngressComponent extends ListResource implements OnInit, OnDestroy {
-  selected: any[] = [];
   @ViewChild(PublishIngressTplComponent)
   publishTemplateComponent: PublishIngressTplComponent;
   @ViewChild(IngressStatusComponent)
@@ -32,7 +31,7 @@ export class ListIngressComponent extends ListResource implements OnInit, OnDest
               public route: ActivatedRoute,
               public aceEditorService: AceEditorService,
               public router: Router,
-              private diffService: DiffService,
+              public diffService: DiffService,
               public authService: AuthService,
               public deletionDialogService: ConfirmationDialogService) {
     super(
@@ -43,9 +42,10 @@ export class ListIngressComponent extends ListResource implements OnInit, OnDest
       route,
       aceEditorService,
       router,
+      diffService,
       authService,
       deletionDialogService
-    )
+    );
     super.registSubscription(ConfirmationTargets.INGRESS_TPL, 'Ingress 模版删除成功！');
     super.registConfirmationTarget(ConfirmationTargets.INGRESS_TPL);
   }
@@ -57,9 +57,5 @@ export class ListIngressComponent extends ListResource implements OnInit, OnDest
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
-  }
-
-  diffTpl() {
-    this.diffService.diff(this.selected);
   }
 }

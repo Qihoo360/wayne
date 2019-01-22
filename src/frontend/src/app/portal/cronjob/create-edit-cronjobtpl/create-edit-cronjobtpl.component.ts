@@ -81,7 +81,7 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
   componentName = '计划任务模板';
   top: number;
   box: HTMLElement;
-  naviList: string = JSON.stringify(templateDom);
+  naviList = JSON.stringify(templateDom);
   eventList: any = new Array();
 
   constructor(private cronjobTplService: CronjobTplService,

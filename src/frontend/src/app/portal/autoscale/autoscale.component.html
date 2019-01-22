@@ -1,0 +1,64 @@
+<button (click)="createResource()" class="wayne-button primary" *ngIf="authService.currentAppPermission.autoscale.create || authService.currentUser.admin">
+  {{'HPA.CREATE' | translate}}
+</button>
+<wayne-create-edit-autoscale (create)="onResourceCreatedEvent($event)"></wayne-create-edit-autoscale>
+
+<div *ngIf="resourceId && resources?.length>0">
+  <wayne-tabs>
+    <wayne-tab (click)="onResourceCreatedEvent(resource.id)"
+               [id]="resource.id"
+               *ngFor="let resource of resources"
+               [active]="resource.id==resourceId"
+               [description]="resource.description">
+      {{resource.name}}
+    </wayne-tab>
+  </wayne-tabs>
+  <div class="table-search">
+    <div class="table-search-left">
+      <button (click)="createTemplate()" class="wayne-button normal"
+              *ngIf="template?.length <= 0 && (authService.currentAppPermission.autoscale.create || authService.currentUser.admin)">
+        {{'HPA.CREATE_TEMPLATE' | translate}}
+      </button>
+      <button class="wayne-button normal" (click)="onShowDiffEvent()">{{'BUTTON.COMPARE_TEMPLATES' | translate}}</button>
+      <button (click)="editResource()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.autoscale.update || authService.currentUser.admin">
+        {{'HPA.EDIT' | translate}}
+      </button>
+      <button (click)="listPublishHistory()" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.autoscale.read || authService.currentUser.admin">
+        {{'BUTTON.HISTORY' | translate}}
+      </button>
+      <button (click)="deleteResource('删除 HPA','是否确定删除 HPA','已上线 HPA 禁止直接删除！')" class="wayne-button normal" *ngIf="authService.currentAppPermission.autoscale.offline || authService.currentUser.admin">
+        {{'HPA.DELETE' | translate}}
+      </button>
+
+      <wayne-filter-box (confirm)="onConfirmClick()" (cancel)="onCancelClick()">
+        <wayne-checkbox-group [(ngModel)]="showList">
+          <wayne-checkbox value="id">ID</wayne-checkbox>
+          <wayne-checkbox value="createTime">创建时间</wayne-checkbox>
+          <wayne-checkbox value="cluster">上线机房</wayne-checkbox>
+          <wayne-checkbox value="description">发布说明</wayne-checkbox>
+          <wayne-checkbox value="user">创建者</wayne-checkbox>
+          <wayne-checkbox value="action">操作</wayne-checkbox>
+        </wayne-checkbox-group>
+      </wayne-filter-box>
+    </div>
+    <div class="table-search-right">
+      <div class="toggle-switch">
+        <input type="checkbox" id="toggle_1" [(ngModel)]="isOnline" (change)="onTemplateListChanged()">
+        <label for="toggle_1">{{'MESSAGE.ONLY_ONLINE_TEMPLATE' | translate}}</label>
+      </div>
+    </div>
+  </div>
+  <wayne-list-autoscale
+    [resources]="resources"
+    [templates]="templates"
+    [appId]="appId"
+    [resourceId] = "resourceId"
+    [showState]="showState"
+    [page]="pageState.page"
+    (paginate)="retrieveTemplates($event)"
+    (cloneTemplate)="cloneTemplate($event)"
+  ></wayne-list-autoscale>
+
+</div>

@@ -15,8 +15,12 @@ import { CreateEditSecretTplComponent } from './secret/create-edit-secrettpl/cre
 import { AppUserComponent } from './app-user/app-user.component';
 import { NamespaceUserComponent } from './namespace-user/namespace-user.component';
 import { PersistentVolumeClaimComponent } from './persistentvolumeclaim/persistentvolumeclaim.component';
-import { CreateEditPersistentVolumeClaimTplComponent } from './persistentvolumeclaim/create-edit-persistentvolumeclaimtpl/create-edit-persistentvolumeclaimtpl.component';
-import { ListPersistentVolumeClaimComponent } from './persistentvolumeclaim/list-persistentvolumeclaim/list-persistentvolumeclaim.component';
+import {
+  CreateEditPersistentVolumeClaimTplComponent
+} from './persistentvolumeclaim/create-edit-persistentvolumeclaimtpl/create-edit-persistentvolumeclaimtpl.component';
+import {
+  ListPersistentVolumeClaimComponent
+} from './persistentvolumeclaim/list-persistentvolumeclaim/list-persistentvolumeclaim.component';
 import { CronjobComponent } from './cronjob/cronjob.component';
 import { CreateEditCronjobTplComponent } from './cronjob/create-edit-cronjobtpl/create-edit-cronjobtpl.component';
 import { NamespaceApiKeyComponent } from './namespace-apikey/apikey.component';
@@ -32,6 +36,8 @@ import { NamespaceReportComponent } from './namespace-report/namespace-report.co
 import { IngressComponent } from './ingress/ingress.component';
 import { CreateEditIngressTplComponent } from './ingress/create-edit-ingresstpl/create-edit-ingresstpl.component';
 import { PORTALROUTES } from '../../../lib/portal/library-routing-portal';
+import { AutoscaleComponent } from './autoscale/autoscale.component';
+import { CreateEditAutoscaletplComponent } from './autoscale/create-edit-autoscaletpl/create-edit-autoscaletpl.component';
 
 const routes: Routes = [
   {
@@ -89,6 +95,10 @@ const routes: Routes = [
           {path: 'ingress/:resourceId', component: IngressComponent},
           {path: 'ingress/:resourceId/tpl', component: CreateEditIngressTplComponent},
           {path: 'ingress/:resourceId/tpl/:tplId', component: CreateEditIngressTplComponent},
+          {path: 'autoscale', component: AutoscaleComponent},
+          {path: 'autoscale/:resourceId', component: AutoscaleComponent},
+          {path: 'autoscale/:resourceId/tpl', component: CreateEditAutoscaletplComponent},
+          {path: 'autoscale/:resourceId/tpl/:tplId', component: CreateEditAutoscaletplComponent},
           ...PORTALROUTES
         ]
       },

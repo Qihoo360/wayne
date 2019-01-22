@@ -19,14 +19,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PublishPersistentVolumeClaimTplComponent {
   @Output() published = new EventEmitter<boolean>();
-  modalOpened: boolean = false;
+  modalOpened = false;
   publishForm: NgForm;
   @ViewChild('publishForm')
   currentForm: NgForm;
 
   pvcTpl: PersistentVolumeClaimTpl;
   clusters = Array<Cluster>();
-  isSubmitOnGoing: boolean = false;
+  isSubmitOnGoing = false;
   title: string;
   forceOffline: boolean;
   actionType: ResourcesActionType;
@@ -39,7 +39,7 @@ export class PublishPersistentVolumeClaimTplComponent {
   }
 
   get appId(): number {
-    return parseInt(this.route.parent.parent.snapshot.params['id']);
+    return parseInt(this.route.parent.parent.snapshot.params['id'], 10);
   }
 
   newPublishTpl(pvcTpl: PersistentVolumeClaimTpl, actionType: ResourcesActionType) {
@@ -47,26 +47,26 @@ export class PublishPersistentVolumeClaimTplComponent {
     this.clusters = Array<Cluster>();
     this.pvcTpl = pvcTpl;
     this.forceOffline = false;
-    if (actionType == ResourcesActionType.PUBLISH) {
+    if (actionType === ResourcesActionType.PUBLISH) {
       this.title = '发布PVC[' + pvcTpl.name + ']';
       if (!pvcTpl.metaData) {
         this.messageHandlerService.warning('请先选择可发布集群');
         return;
       }
       this.modalOpened = true;
-      let metaData = JSON.parse(pvcTpl.metaData);
-      for (let cluster of metaData.clusters) {
+      const metaData = JSON.parse(pvcTpl.metaData);
+      for (const cluster of metaData.clusters) {
         if (this.cacheService.namespace.metaDataObj && this.cacheService.namespace.metaDataObj.clusterMeta[cluster]) {
-          let c = new Cluster();
+          const c = new Cluster();
           c.name = cluster;
           this.clusters.push(c);
         }
       }
-    } else if (actionType == ResourcesActionType.OFFLINE) {
+    } else if (actionType === ResourcesActionType.OFFLINE) {
       this.modalOpened = true;
       this.title = '下线PVC[' + pvcTpl.name + ']';
-      for (let state of pvcTpl.status) {
-        let c = new Cluster();
+      for (const state of pvcTpl.status) {
+        const c = new Cluster();
         c.name = state.cluster;
         this.clusters.push(c);
       }
@@ -76,8 +76,8 @@ export class PublishPersistentVolumeClaimTplComponent {
 
   getStatusByCluster(status: PublishStatus[], cluster: string): PublishStatus {
     if (status && status.length > 0) {
-      for (let state of status) {
-        if (state.cluster == cluster) {
+      for (const state of status) {
+        if (state.cluster === cluster) {
           return state;
         }
       }
@@ -113,7 +113,7 @@ export class PublishPersistentVolumeClaimTplComponent {
   }
 
   offline(cluster: Cluster) {
-    let state = this.getStatusByCluster(this.pvcTpl.status, cluster.name);
+    const state = this.getStatusByCluster(this.pvcTpl.status, cluster.name);
     this.persistentVolumeClaimClient.deleteByName(this.appId, cluster.name, this.cacheService.kubeNamespace, this.pvcTpl.name).subscribe(
       response => {
         this.deletePublishStatus(state.id);
@@ -141,7 +141,7 @@ export class PublishPersistentVolumeClaimTplComponent {
   }
 
   deploy(cluster: Cluster) {
-    let kubePvc = JSON.parse(this.pvcTpl.template);
+    const kubePvc = JSON.parse(this.pvcTpl.template);
     kubePvc.metadata.namespace = this.cacheService.kubeNamespace;
     this.persistentVolumeClaimClient.deploy(
       this.appId,

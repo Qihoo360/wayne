@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class BreadcrumbComponent implements OnInit, OnDestroy {
 
-  @Input() prefix: string = '';
+  @Input() prefix = '';
   urls: string[] = new Array();
   private routerSubscription: Subscription;
 
@@ -28,11 +28,15 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
   }
 
   navigateTo(url: string, avail: boolean) {
-    if (avail) this.router.navigateByUrl(url);
+    if (avail) {
+      this.router.navigateByUrl(url);
+    }
   }
 
   generateTrail(url: string) {
-    if (url === '') return;
+    if (url === '') {
+      return;
+    }
     if (!this.breadcrumbService.isRouteHidden(url)) {
       this.urls.unshift(url);
     }

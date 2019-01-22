@@ -11,7 +11,7 @@ export class CheckboxComponent implements OnInit {
    * 需要添加一个lable作为自己的value;
    */
   _value: any = '';
-  checked: boolean = false;
+  checked = false;
   inputElement: HTMLInputElement;
 
   constructor(private el: ElementRef) {

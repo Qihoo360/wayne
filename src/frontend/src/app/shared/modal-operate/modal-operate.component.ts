@@ -20,10 +20,15 @@ export class ModalOperateComponent implements OnInit {
 
   fullPageChange(full: boolean) {
     this.fullPage = full;
-    if (!this.modal) throw Error('请绑定modal');
+    if (!this.modal) {
+      throw Error('请绑定modal');
+    }
     const target = this.getParentBody(this.element).querySelector('.modal-dialog');
-    if (this.fullPage) target.classList.add('fullPage');
-    else target.classList.remove('fullPage');
+    if (this.fullPage) {
+      target.classList.add('fullPage');
+    } else {
+      target.classList.remove('fullPage');
+    }
   }
 
   getParentBody(element: Element) {
