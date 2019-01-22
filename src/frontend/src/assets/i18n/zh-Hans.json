@@ -121,6 +121,15 @@
     "RUN_CYCLE_MESSAGE": "计划任务的定时周期,cron 表达式",
     "TIMER": "次数"
   },
+  "CRONJOB_ADMIN": {
+    "CRONJOB_CREATE": "创建计划任务",
+    "TPL": {
+      "CREATE": {
+        "CONFIGMAP": "配置集",
+        "TEMPLATE": "模版"
+      }
+    }
+  },
   "DAEMONSET": {
     "CREATE": "创建守护进程集",
     "CREATE_EDIT": {
@@ -140,6 +149,17 @@
     "DAEMONSET_LIST": "守护进程列表",
     "TRASH": {
       "DAEMONSET_DELETE_LIST": "已删除守护进程集列表"
+    },
+    "TPL": {
+      "DAEMONSET_TPL_LIST": "守护进程集模版列表",
+      "DAEMONSET_TPL_CREATE": "创建守护进程集模版",
+      "CREATE": {
+        "CONFIGMAP": "守护进程集",
+        "TEMPLATE": "模板"
+      },
+      "TRASH": {
+        "DAEMONSET_TPL_DELETE_LIST": "已删除守护进程集模版列表"
+      }
     }
   },
   "DEPLOYMENT": {
