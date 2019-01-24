@@ -25,7 +25,7 @@ import {
   TemplateState
 } from '../../shared.const';
 import { Observable } from 'rxjs/Observable';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { CreateEditResource } from './create-edit-resource';
 import { ListResource } from './list-resource';
 
@@ -178,7 +178,7 @@ export class Resource {
   }
 
   // 获取模板列表
-  retrieveTemplates(state?: State): void {
+  retrieveTemplates(state?: ClrDatagridStateInterface): void {
     if (!this.resourceId) {
       return;
     }

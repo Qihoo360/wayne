@@ -1,5 +1,5 @@
 import { Event } from '../../../shared/model/v1/deploymenttpl';
-import { Comparator } from '@clr/angular';
+import { ClrDatagridComparatorInterface } from '@clr/angular';
 
 export class Inventory {
   public size = 10;
@@ -14,7 +14,7 @@ export class Inventory {
   }
 }
 
-export class TimeComparator implements Comparator<Event> {
+export class TimeComparator implements ClrDatagridComparatorInterface<Event> {
   compare(a: Event, b: Event) {
     return new Date(a.firstSeen).getTime() - new Date(b.firstSeen).getTime();
   }

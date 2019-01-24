@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { PageState } from '../../shared/page/page-state';
 import { AuditLogService } from '../../shared/client/v1/auditlog.service';
 import { AuditLog } from '../../shared/model/v1/auditlog';
@@ -13,7 +13,7 @@ export class AuditLogComponent implements OnInit {
   pageState: PageState = new PageState();
   auditLogs: AuditLog[];
   currentPage = 1;
-  state: State;
+  state: ClrDatagridStateInterface;
 
   constructor(private auditLogService: AuditLogService,
               private messageHandlerService: MessageHandlerService) {
@@ -30,7 +30,7 @@ export class AuditLogComponent implements OnInit {
     this.refresh(this.state);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});

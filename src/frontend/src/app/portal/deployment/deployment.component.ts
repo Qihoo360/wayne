@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ListDeploymentComponent } from './list-deployment/list-deployment.component';
 import { CreateEditDeploymentComponent } from './create-edit-deployment/create-edit-deployment.component';
 import { Observable } from 'rxjs/Observable';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { DeploymentClient } from '../../shared/client/v1/kubernetes/deployment';
 import { DeploymentStatus, DeploymentTpl } from '../../shared/model/v1/deploymenttpl';
 import { App } from '../../shared/model/v1/app';
@@ -393,7 +393,7 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (!this.deploymentId) {
       return;
     }

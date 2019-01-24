@@ -5,7 +5,7 @@ import { ListCronjobComponent } from './list-cronjob/list-cronjob.component';
 import { ListJobComponent } from './list-job/list-job.component';
 import { CreateEditCronjobComponent } from './create-edit-cronjob/create-edit-cronjob.component';
 import { Observable } from 'rxjs/Observable';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { CronjobClient } from '../../shared/client/v1/kubernetes/cronjob';
 import { CronjobStatus, CronjobTpl } from '../../shared/model/v1/cronjobtpl';
 import { App } from '../../shared/model/v1/app';
@@ -400,7 +400,7 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (!this.cronjobId) {
       return;
     }
@@ -433,7 +433,7 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
   }
 
   // 刷新job列表
-  retrieveJob(state?: State): void {
+  retrieveJob(state?: ClrDatagridStateInterface): void {
     if (!this.cronjobName) {
       return;
     }

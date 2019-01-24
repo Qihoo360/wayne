@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import {
@@ -39,7 +39,7 @@ export class ListStatefulsetComponent implements OnInit, OnDestroy {
   @Input() statefulsetTpls: StatefulsetTemplate[];
   @Input() page: Page;
   @Input() appId: number;
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() edit = new EventEmitter<boolean>();
   @Output() cloneTpl = new EventEmitter<StatefulsetTemplate>();
   @Output() createTpl = new EventEmitter<boolean>();
@@ -50,7 +50,7 @@ export class ListStatefulsetComponent implements OnInit, OnDestroy {
   listEventComponent: ListEventComponent;
   @ViewChild(PublishStatefulsetTplComponent)
   publishStatefulsetTpl: PublishStatefulsetTplComponent;
-  state: State;
+  state: ClrDatagridStateInterface;
   currentPage = 1;
 
   subscription: Subscription;
@@ -105,7 +105,7 @@ export class ListStatefulsetComponent implements OnInit, OnDestroy {
     this.paginate.emit(this.state);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }

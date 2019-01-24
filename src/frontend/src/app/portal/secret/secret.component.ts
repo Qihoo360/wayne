@@ -1,6 +1,6 @@
 import { AfterContentInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import {
   ConfirmationButtons,
   ConfirmationState,
@@ -301,7 +301,7 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
     this.tabScription.unsubscribe();
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (!this.secretId) {
       return;
     }

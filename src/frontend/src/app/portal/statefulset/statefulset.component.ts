@@ -2,7 +2,7 @@ import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, 
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { App } from '../../shared/model/v1/app';
 import { Cluster } from '../../shared/model/v1/cluster';
 import { AppService } from '../../shared/client/v1/app.service';
@@ -380,7 +380,7 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (!this.statefulsetId) {
       return;
     }

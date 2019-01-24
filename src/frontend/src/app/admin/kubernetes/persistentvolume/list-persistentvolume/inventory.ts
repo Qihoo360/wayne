@@ -1,4 +1,4 @@
-import { Comparator, StringFilter } from '@clr/angular';
+import { ClrDatagridComparatorInterface, ClrDatagridStringFilterInterface } from '@clr/angular';
 import { PersistentVolume } from '../../../../shared/model/v1/kubernetes/persistentvolume';
 
 export class Inventory {
@@ -14,25 +14,25 @@ export class Inventory {
   }
 }
 
-export class TimeComparator implements Comparator<PersistentVolume> {
+export class TimeComparator implements ClrDatagridComparatorInterface<PersistentVolume> {
   compare(a: PersistentVolume, b: PersistentVolume) {
     return new Date(a.metadata.creationTimestamp).getTime() - new Date(b.metadata.creationTimestamp).getTime();
   }
 }
 
-export class NameComparator implements Comparator<PersistentVolume> {
+export class NameComparator implements ClrDatagridComparatorInterface<PersistentVolume> {
   compare(a: PersistentVolume, b: PersistentVolume) {
     return a.metadata.name.localeCompare(b.metadata.name);
   }
 }
 
-export class NameFilter implements StringFilter<PersistentVolume> {
+export class NameFilter implements ClrDatagridStringFilterInterface<PersistentVolume> {
   accepts(pv: PersistentVolume, search: string): boolean {
     return pv.metadata.name.indexOf(search) >= 0;
   }
 }
 
-export class RbdImageNameFilter implements StringFilter<PersistentVolume> {
+export class RbdImageNameFilter implements ClrDatagridStringFilterInterface<PersistentVolume> {
   accepts(pv: PersistentVolume, search: string): boolean {
     let rbdImage = '';
     if (pv.spec.rbd) {
@@ -42,7 +42,7 @@ export class RbdImageNameFilter implements StringFilter<PersistentVolume> {
   }
 }
 
-export class PvcFilter implements StringFilter<PersistentVolume> {
+export class PvcFilter implements ClrDatagridStringFilterInterface<PersistentVolume> {
   accepts(pv: PersistentVolume, search: string): boolean {
     if (pv.spec.claimRef) {
       return pv.spec.claimRef.name.indexOf(search) >= 0;

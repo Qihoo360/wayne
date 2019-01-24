@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import {
   ConfirmationButtons,
@@ -49,7 +49,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   userInfoComponent: UserInfoComponent;
   appId: number;
   pvcId: number;
-  state: State;
+  state: ClrDatagridStateInterface;
   currentPage = 1;
   pageState: PageState = new PageState();
   isOnline = false;
@@ -363,7 +363,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
     this.deletionDialogService.openComfirmDialog(deletionMessage);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});

@@ -3,7 +3,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
 import { Inventory, StateComparator, TimeComparator } from './inventory';
-import { SortOrder } from '@clr/angular';
+import { ClrDatagridSortOrder } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { Pod } from '../../../shared/model/v1/kubernetes/pod';
 import { PodClient } from '../../../shared/client/v1/kubernetes/pod';
@@ -32,7 +32,7 @@ export class ListPodComponent implements OnInit, OnDestroy {
   isSubmitOnGoing = false;
   modalOpened: boolean;
   pods: Pod[];
-  sortOrder: SortOrder = SortOrder.Unsorted;
+  sortOrder: ClrDatagridSortOrder = ClrDatagridSortOrder.UNSORTED;
   sorted = false;
   timeComparator = new TimeComparator();
   stateComparator = new StateComparator();

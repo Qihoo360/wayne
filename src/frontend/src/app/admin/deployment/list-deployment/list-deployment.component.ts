@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
 import { Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { Deployment } from '../../../shared/model/v1/deployment';
 import { Page } from '../../../shared/page/page-state';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
@@ -17,9 +17,9 @@ export class ListDeploymentComponent implements OnInit {
 
   @Input() page: Page;
   currentPage = 1;
-  state: State;
+  state: ClrDatagridStateInterface;
   testInfo = 0;
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<Deployment>();
   @Output() edit = new EventEmitter<Deployment>();
 
@@ -42,7 +42,7 @@ export class ListDeploymentComponent implements OnInit {
     this.paginate.emit(this.state);
   }
 
-  refresh(state: State) {
+  refresh(state: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }
