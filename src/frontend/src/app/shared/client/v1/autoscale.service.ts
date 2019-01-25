@@ -14,15 +14,15 @@ export class AutoscaleService {
   constructor(private http: HttpClient) {
   }
 
-  // getNames(appId?: number): Observable<any> {
-  //   let params = new HttpParams();
-  //   if (typeof(appId) === 'undefined') {
-  //     appId = 0;
-  //   }
-  //   return this.http
-  //     .get(`/api/v1/apps/${appId}/hpas/names`, {params: params})
-  //     .catch(error => Observable.throw(error));
-  // }
+  getNames(appId?: number): Observable<any> {
+    let params = new HttpParams();
+    if (typeof(appId) === 'undefined') {
+      appId = 0;
+    }
+    return this.http
+      .get(`/api/v1/apps/${appId}/hpas/names`, {params: params})
+      .catch(error => Observable.throw(error));
+  }
 
   list(pageState: PageState, deleted?: string, appId?: string): Observable<any> {
     let params = new HttpParams();
