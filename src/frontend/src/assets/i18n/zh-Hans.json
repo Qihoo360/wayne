@@ -90,6 +90,15 @@
       "VIEW_STATUS": "查看 HPA 状态"
     }
   },
+  "HPA_ADMIN": {
+    "RULE": "HPA 名称不符合规范，验证规则",
+    "CREATE_HPA": "创建 HPA",
+    "HPA_LIST": "HPA 列表",
+    "HPA_DELETE_LIST": "已删除 HPA 列表",
+    "CREATE_HPA_TEMPLATE": "创建 HPA 模板",
+    "HPA_TEMPLATE_LIST": "HPA 模板列表",
+    "HPA_TEMPLATE_DELETE_LIST": "已删除 HPA 模板列表"
+  },
   "COPY": {
     "SEARCH_COMMAND": "复制查询命令",
     "SUCCESS": "复制成功"

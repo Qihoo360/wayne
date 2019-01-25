@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ResourceTemplateComponent } from '../../shared/base/admin-resource/resource-template';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';

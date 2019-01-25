@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './list-autoscale.component.html',
   styleUrls: ['./list-autoscale.component.scss']
 })
-export class ListAutoscaleComponent extends ListResourceComponent{
+export class ListAutoscaleComponent extends ListResourceComponent {
 
   constructor(public breadcrumbService: BreadcrumbService,
               public router: Router,
