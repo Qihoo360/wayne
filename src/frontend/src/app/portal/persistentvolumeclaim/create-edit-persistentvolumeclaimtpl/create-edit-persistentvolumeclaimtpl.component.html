@@ -34,20 +34,32 @@
       </div>
       <div class="form-group form-group-padding">
         <label class="col-md-3 form-group-label-override required">{{'PVC.ACCESS_PATTERN' | translate}}</label>
-        <clr-checkbox [clrInline]="true" class="col-md-8"
+        <!-- <clr-checkbox  class="col-md-8"
                       formControlName="readWriteOnce">
           ReadWriteOnce
         </clr-checkbox>
         <clr-checkbox class="form-group form-group-padding"
-                      [clrInline]="true" class="col-md-8"
+                       class="col-md-8"
                       formControlName="readOnlyMany">
           ReadOnlyMany
         </clr-checkbox>
         <clr-checkbox class="form-group form-group-padding"
-                      [clrInline]="true" class="col-md-8"
+                       class="col-md-8"
                       formControlName="readWriteMany">
           ReadWriteMany
-        </clr-checkbox>
+        </clr-checkbox> -->
+        <clr-checkbox-wrapper>
+            <input type="checkbox" formControlName="ReadWriteOnce" clrCheckbox name="ReadWriteOnce" value="ReadWriteOnce" />
+            <label>ReadWriteOnce</label>
+          </clr-checkbox-wrapper>
+          <clr-checkbox-wrapper>
+            <input type="checkbox" formControlName="ReadOnlyMany" clrCheckbox name="ReadOnlyMany" value="ReadOnlyMany" />
+            <label>ReadOnlyMany</label>
+          </clr-checkbox-wrapper>
+          <clr-checkbox-wrapper>
+            <input type="checkbox" formControlName="ReadWriteMany" clrCheckbox name="ReadWriteMany" value="ReadWriteMany" />
+            <label>ReadWriteMany</label>
+          </clr-checkbox-wrapper>
       </div>
       <div formArrayName="selectors">
         <div *ngFor="let selector of selectors.controls; let i = index"

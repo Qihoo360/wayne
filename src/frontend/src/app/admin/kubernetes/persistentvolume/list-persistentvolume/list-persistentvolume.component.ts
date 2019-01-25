@@ -25,7 +25,7 @@ export class ListPersistentVolumeComponent implements OnInit, OnDestroy {
   @Input() persistentVolumes: PersistentVolume[];
   @Input() cluster: string;
   @Input() showState: object;
-  sortOrder: ClrDatagridSortOrder = ClrDatagridSortOrder.Unsorted;
+  sortOrder: ClrDatagridSortOrder = ClrDatagridSortOrder.UNSORTED;
   sorted = false;
   currentPage = 1;
   _pageSize = 10;

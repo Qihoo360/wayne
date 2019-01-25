@@ -103,17 +103,28 @@
             <label class="required">{{'PVC.ACCESS_PATTERN' | translate}}</label>
           </div>
           <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
-            <clr-checkbox formControlName="ReadWriteOnce" [clrInline]="true" class="col-md-8">
+            <!-- <clr-checkbox formControlName="ReadWriteOnce" class="col-md-8">
               ReadWriteOnce
-            </clr-checkbox>
-            <clr-checkbox formControlName="ReadOnlyMany" class="form-group form-group-padding"
-                          [clrInline]="true" class="col-md-8">
+            </clr-checkbox> -->
+            <clr-checkbox-wrapper>
+              <input type="checkbox" formControlName="ReadWriteOnce" clrCheckbox name="ReadWriteOnce" value="ReadWriteOnce" />
+              <label>ReadWriteOnce</label>
+            </clr-checkbox-wrapper>
+            <clr-checkbox-wrapper>
+              <input type="checkbox" formControlName="ReadOnlyMany" clrCheckbox name="ReadOnlyMany" value="ReadOnlyMany" />
+              <label>ReadOnlyMany</label>
+            </clr-checkbox-wrapper>
+            <clr-checkbox-wrapper>
+              <input type="checkbox" formControlName="ReadWriteMany" clrCheckbox name="ReadWriteMany" value="ReadWriteMany" />
+              <label>ReadWriteMany</label>
+            </clr-checkbox-wrapper>
+            <!-- <clr-checkbox formControlName="ReadOnlyMany" class="form-group form-group-padding" class="col-md-8">
               ReadOnlyMany
             </clr-checkbox>
             <clr-checkbox formControlName="ReadWriteMany" class="form-group form-group-padding"
-                          [clrInline]="true" class="col-md-8">
+                           class="col-md-8">
               ReadWriteMany
-            </clr-checkbox>
+            </clr-checkbox> -->
           </div>
         </div>
         <div class="clr-wizard-footer-buttons" style="padding-top: 30px">
