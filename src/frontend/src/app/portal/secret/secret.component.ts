@@ -13,7 +13,7 @@ import {
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
 import { ListSecretComponent } from './list-secret/list-secret.component';
 import { CreateEditSecretComponent } from './create-edit-secret/create-edit-secret.component';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { SecretClient } from '../../shared/client/v1/kubernetes/secret';
 import { AppService } from '../../shared/client/v1/app.service';
 import { SecretService } from '../../shared/client/v1/secret.service';
@@ -239,7 +239,7 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
     this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
     this.secretId = parseInt(this.route.snapshot.params['secretId'], 10);
     const namespaceId = this.cacheService.namespaceId;
-    Observable.combineLatest(
+    combineLatest(
       this.secretService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
       this.appService.getById(this.appId, namespaceId)
     ).subscribe(
@@ -311,7 +311,7 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
     }
     this.pageState.params['deleted'] = false;
     this.pageState.params['isOnline'] = this.isOnline;
-    Observable.combineLatest(
+    combineLatest(
       this.secretTplService.listPage(this.pageState, this.app.id, this.secretId.toString()),
       this.publishService.listStatus(PublishType.SECRET, this.secretId)
     ).subscribe(

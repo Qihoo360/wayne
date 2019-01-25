@@ -32,7 +32,7 @@ import { AuthService } from '../../../shared/auth/auth.service';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { defaultCronJob } from '../../../shared/default-models/cronjob.const';
-import { Observable } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import * as cron from 'cron-parser';
 import { ObjectMeta } from '../../../shared/model/v1/kubernetes/deployment';
 
@@ -245,7 +245,7 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
     } else {
       this.actionType = ActionType.ADD_NEW;
     }
-    Observable.combineLatest(observables).subscribe(
+    combineLatest(observables).subscribe(
       response => {
         this.app = response[0].data;
         this.cronjob = response[1].data;

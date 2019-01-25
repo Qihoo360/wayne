@@ -34,7 +34,7 @@ import { Statefulset } from '../../../shared/model/v1/statefulset';
 import { StatefulsetTplService } from '../../../shared/client/v1/statefulsettpl.service';
 import { StatefulsetTemplate } from '../../../shared/model/v1/statefulsettpl';
 import { defaultStatefulset } from '../../../shared/default-models/statefulset.const';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
@@ -225,7 +225,7 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
     } else {
       this.actionType = ActionType.ADD_NEW;
     }
-    Observable.combineLatest(observables).subscribe(
+    combineLatest(observables).subscribe(
       response => {
         this.app = response[0].data;
         this.statefulset = response[1].data;

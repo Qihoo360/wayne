@@ -24,7 +24,7 @@ import {
   PublishType,
   TemplateState
 } from '../../shared.const';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { CreateEditResource } from './create-edit-resource';
 import { ListResource } from './list-resource';
@@ -190,7 +190,7 @@ export class Resource {
     }
     this.pageState.params['deleted'] = false;
     this.pageState.params['isOnline'] = this.isOnline;
-    Observable.combineLatest(
+    combineLatest(
       this.templateService.listPage(this.pageState, this.appId, this.resourceId.toString()),
       this.publishService.listStatus(this.publishType, this.resourceId)
     ).subscribe(
@@ -275,7 +275,7 @@ export class Resource {
     this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
     const namespaceId = this.cacheService.namespaceId;
     this.resourceId = parseInt(this.route.snapshot.params['resourceId'], 10);
-    Observable.combineLatest(
+    combineLatest(
       this.clusterService.getNames(),
       this.resourceService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
       this.appService.getById(this.appId, namespaceId)
@@ -383,7 +383,7 @@ export class Resource {
     if (id) {
       this.resourceId = id;
       this.setNavigateURI();
-      Observable.combineLatest(
+      combineLatest(
         this.resourceService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
       ).subscribe(
         response => {

@@ -28,7 +28,7 @@ import {
 } from '../../../shared/model/v1/kubernetes/deployment';
 import 'rxjs/add/observable/combineLatest';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { DeploymentTpl } from '../../../shared/model/v1/deploymenttpl';
 import { App } from '../../../shared/model/v1/app';
 import { Deployment } from '../../../shared/model/v1/deployment';
@@ -256,7 +256,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
     } else {
       this.actionType = ActionType.ADD_NEW;
     }
-    Observable.combineLatest(observables).subscribe(
+    combineLatest(observables).subscribe(
       response => {
         this.app = response[0].data;
         this.deployment = response[1].data;

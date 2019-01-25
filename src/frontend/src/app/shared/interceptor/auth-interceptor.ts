@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
+import { from } from 'rxjs';
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import 'rxjs/add/observable/fromPromise';
 import { LoginTokenKey } from '../shared.const';
@@ -10,7 +11,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return Observable.fromPromise(this.handleAccess(request, next));
+    return from(this.handleAccess(request, next));
   }
 
   private async handleAccess(request: HttpRequest<any>, next: HttpHandler):

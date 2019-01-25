@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ListCronjobComponent } from './list-cronjob/list-cronjob.component';
 import { ListJobComponent } from './list-job/list-job.component';
 import { CreateEditCronjobComponent } from './create-edit-cronjob/create-edit-cronjob.component';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { CronjobClient } from '../../shared/client/v1/kubernetes/cronjob';
 import { CronjobStatus, CronjobTpl } from '../../shared/model/v1/cronjobtpl';
@@ -277,7 +277,7 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
     this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
     const namespaceId = this.cacheService.namespaceId;
     this.cronjobId = parseInt(this.route.snapshot.params['cronjobId'], 10);
-    Observable.combineLatest(
+    combineLatest(
       this.clusterService.getNames(),
       this.cronjobService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
       this.appService.getById(this.appId, namespaceId),
@@ -412,7 +412,7 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
     }
     this.pageState.params['deleted'] = false;
     this.pageState.params['isOnline'] = this.isOnline;
-    Observable.combineLatest(
+    combineLatest(
       this.cronjobTplService.listPage(this.pageState, this.appId, this.cronjobId.toString()),
       this.publishService.listStatus(PublishType.CRONJOB, this.cronjobId),
       this.cronjobService.getById(this.cronjobId, this.appId),
@@ -443,7 +443,7 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
         totalCount: this.jobPageState.page.totalCount
       });
     }
-    Observable.combineLatest(
+    combineLatest(
       this.jobClient.listAllClusterByCronjobName(this.appId, this.cacheService.kubeNamespace, this.cronjobName)
     ).subscribe(
       response => {

@@ -6,7 +6,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ActionType, appLabelKey, namespaceLabelKey } from '../../../shared/shared.const';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { DOCUMENT, EventManager } from '@angular/platform-browser';
 import { App } from '../../../shared/model/v1/app';
 import { AppService } from '../../../shared/client/v1/app.service';
@@ -164,7 +164,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
       this.actionType = ActionType.ADD_NEW;
     }
     this.createForm();
-    Observable.combineLatest(observables).subscribe(
+    combineLatest(observables).subscribe(
       response => {
         const clusters = response[0].data;
         for (let i = 0; i < clusters.length; i++) {

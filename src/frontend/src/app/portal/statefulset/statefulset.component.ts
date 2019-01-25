@@ -1,7 +1,7 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { App } from '../../shared/model/v1/app';
 import { Cluster } from '../../shared/model/v1/cluster';
@@ -274,7 +274,7 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
     this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
     const namespaceId = this.cacheService.namespaceId;
     this.statefulsetId = parseInt(this.route.snapshot.params['statefulsetId'], 10);
-    Observable.combineLatest(
+    combineLatest(
       this.clusterService.getNames(),
       this.statefulsetService.listPage(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), this.appId, 'false'),
       this.appService.getById(this.appId, namespaceId)
@@ -397,7 +397,7 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
     this.pageState.params['deleted'] = false;
     this.pageState.params['statefulsetId'] = this.statefulsetId;
     this.pageState.params['isOnline'] = this.isOnline;
-    Observable.combineLatest(
+    combineLatest(
       this.statefulsetTplService.listPage(this.pageState, this.appId),
       this.publishService.listStatus(PublishType.STATEFULSET, this.statefulsetId)
     ).subscribe(

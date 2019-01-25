@@ -3,7 +3,6 @@ import { MessageHandlerService } from '../../shared/message-handler/message-hand
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListDeploymentComponent } from './list-deployment/list-deployment.component';
 import { CreateEditDeploymentComponent } from './create-edit-deployment/create-edit-deployment.component';
-import { Observable } from 'rxjs/Observable';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { DeploymentClient } from '../../shared/client/v1/kubernetes/deployment';
 import { DeploymentStatus, DeploymentTpl } from '../../shared/model/v1/deploymenttpl';
@@ -31,6 +30,7 @@ import { PublishStatus } from '../../shared/model/v1/publish-status';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
+import { combineLatest } from 'rxjs';
 import { PageState } from '../../shared/page/page-state';
 import { TabDragService } from '../../shared/client/v1/tab-drag.service';
 import { OrderItem } from '../../shared/model/v1/order';
@@ -253,7 +253,7 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
     this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
     const namespaceId = this.cacheService.namespaceId;
     this.deploymentId = parseInt(this.route.snapshot.params['deploymentId'], 10);
-    Observable.combineLatest(
+    combineLatest(
       this.clusterService.getNames(),
       this.deploymentService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
       this.appService.getById(this.appId, namespaceId)
@@ -405,7 +405,7 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
     }
     this.pageState.params['deleted'] = false;
     this.pageState.params['isOnline'] = this.isOnline;
-    Observable.combineLatest(
+    combineLatest(
       this.deploymentTplService.listPage(this.pageState, this.appId, this.deploymentId.toString()),
       this.publishService.listStatus(PublishType.DEPLOYMENT, this.deploymentId)
     ).subscribe(
