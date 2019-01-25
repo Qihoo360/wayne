@@ -42,6 +42,25 @@ func (c *HPAController) Prepare() {
 	}
 }
 
+// @router /names [get]
+func (c *HPAController) GetNames() {
+	filters := make(map[string]interface{})
+	deleted := c.GetDeleteFromQuery()
+	filters["Deleted"] = deleted
+	if c.AppId != 0 {
+		filters["App__Id"] = c.AppId
+	}
+
+	hpas, err := models.HPAModel.GetNames(filters)
+	if err != nil {
+		logs.Error("get names error. %v, delete-status %v", err, deleted)
+		c.HandleError(err)
+		return
+	}
+
+	c.Success(hpas)
+}
+
 // @router / [get]
 func (c *HPAController) List() {
 	param := c.BuildQueryParam()
