@@ -44,13 +44,15 @@
         <clr-dg-cell>{{al.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
         <clr-dg-cell>{{al.message}}</clr-dg-cell>
       </clr-dg-row>
-      <wayne-paginate
-        [(currentPage)]="currentPage"
-        [total]="pageState.page.totalCount"
-        [pageSizes]="[10, 20, 50]"
-        (sizeChange)="pageSizeChange($event)"
-      >
-      </wayne-paginate>
+      <clr-dg-footer>
+        <wayne-paginate
+          [(currentPage)]="currentPage"
+          [total]="pageState.page.totalCount"
+          [pageSizes]="[10, 20, 50]"
+          (sizeChange)="pageSizeChange($event)"
+        >
+        </wayne-paginate>
+      </clr-dg-footer>
     </clr-datagrid>
   </div>
 </div>
