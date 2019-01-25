@@ -18,7 +18,7 @@ export class CreateEditAutoscaleComponent extends CreateEditResourceComponent {
               public appService: AppService,
               public aceEditorService: AceEditorService,
               public messageHandlerService: MessageHandlerService) {
-    super(resourceService, appService, aceEditorService, messageHandlerService, Autoscale, defaultAutoscale, 'hpa');
+    super(resourceService, appService, aceEditorService, messageHandlerService, Autoscale, 'hpa');
   }
 
 }

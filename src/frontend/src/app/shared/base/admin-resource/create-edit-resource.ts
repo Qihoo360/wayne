@@ -35,7 +35,6 @@ export class CreateEditResourceComponent implements OnInit {
               public aceEditorService: AceEditorService,
               public messageHandlerService: MessageHandlerService,
               public resource: any,
-              public defaultKubeResource: any,
               public resourceType: string) {
   }
 
@@ -68,7 +67,7 @@ export class CreateEditResourceComponent implements OnInit {
     } else {
       this.actionType = ActionType.ADD_NEW;
       this.title = `创建 {this.resourceType}`;
-      this.resource = JSON.parse(this.defaultKubeResource);
+      this.resource = {};
       this.initJsonEditor();
     }
   }
