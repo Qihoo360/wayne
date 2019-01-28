@@ -34,30 +34,16 @@
       </div>
       <div class="form-group form-group-padding">
         <label class="clr-col-md-3 form-group-label-override required">{{'PVC.ACCESS_PATTERN' | translate}}</label>
-        <!-- <clr-checkbox  class="clr-col-md-8"
-                      formControlName="readWriteOnce">
-          ReadWriteOnce
-        </clr-checkbox>
-        <clr-checkbox class="form-group form-group-padding"
-                       class="clr-col-md-8"
-                      formControlName="readOnlyMany">
-          ReadOnlyMany
-        </clr-checkbox>
-        <clr-checkbox class="form-group form-group-padding"
-                       class="clr-col-md-8"
-                      formControlName="readWriteMany">
-          ReadWriteMany
-        </clr-checkbox> -->
-        <clr-checkbox-wrapper>
-            <input type="checkbox" formControlName="ReadWriteOnce" clrCheckbox name="ReadWriteOnce" value="ReadWriteOnce" />
+        <clr-checkbox-wrapper  class="clr-col-md-8">
+            <input type="checkbox" formControlName="readWriteOnce" clrCheckbox name="readWriteOnce" value="readWriteOnce" />
             <label>ReadWriteOnce</label>
           </clr-checkbox-wrapper>
-          <clr-checkbox-wrapper>
-            <input type="checkbox" formControlName="ReadOnlyMany" clrCheckbox name="ReadOnlyMany" value="ReadOnlyMany" />
+          <clr-checkbox-wrapper  class="clr-col-md-8">
+            <input type="checkbox" formControlName="readOnlyMany" clrCheckbox name="readOnlyMany" value="readOnlyMany" />
             <label>ReadOnlyMany</label>
           </clr-checkbox-wrapper>
-          <clr-checkbox-wrapper>
-            <input type="checkbox" formControlName="ReadWriteMany" clrCheckbox name="ReadWriteMany" value="ReadWriteMany" />
+          <clr-checkbox-wrapper  class="clr-col-md-8">
+            <input type="checkbox" formControlName="readWriteMany" clrCheckbox name="readWriteMany" value="readWriteMany" />
             <label>ReadWriteMany</label>
           </clr-checkbox-wrapper>
       </div>
