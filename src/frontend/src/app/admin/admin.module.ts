@@ -92,7 +92,9 @@ import { TrashAutoscaletplComponent } from './autoscaletpl/trash-autoscaletpl/tr
     AdminAuthCheckGuard,
     AuthService
   ],
-  declarations: [AdminComponent, AutoscaleComponent, AutoscaletplComponent, CreateEditAutoscaleComponent, ListAutoscaleComponent, TrashAutoscaleComponent, CreateEditAutoscaletplComponent, ListAutoscaletplComponent, TrashAutoscaletplComponent]
+  declarations: [AdminComponent, AutoscaleComponent, AutoscaletplComponent,
+    CreateEditAutoscaleComponent, ListAutoscaleComponent, TrashAutoscaleComponent,
+    CreateEditAutoscaletplComponent, ListAutoscaletplComponent, TrashAutoscaletplComponent]
 })
 export class AdminModule {
 }

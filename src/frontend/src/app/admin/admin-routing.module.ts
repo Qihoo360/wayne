@@ -67,7 +67,7 @@ import { KubeNamespaceComponent } from './kubernetes/namespace/kube-namespace.co
 import { AutoscaleComponent } from './autoscale/autoscale.component';
 import { TrashAutoscaleComponent } from './autoscale/trash-autoscale/trash-autoscale.component';
 import { AutoscaletplComponent } from './autoscaletpl/autoscaletpl.component';
-import {TrashAutoscaletplComponent} from './autoscaletpl/trash-autoscaletpl/trash-autoscaletpl.component';
+import { TrashAutoscaletplComponent } from './autoscaletpl/trash-autoscaletpl/trash-autoscaletpl.component';
 
 
 const routes: Routes = [
