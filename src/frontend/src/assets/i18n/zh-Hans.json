@@ -386,8 +386,8 @@
   "SHARED": {
     "DIFF": {
       "CHECK_DATA": "请检查数据",
-      "TMP_LESS": "请选择俩个模板",
-      "TMP_MORE": "选择多个模板仅对比俩个",
+      "TMP_LESS": "请选择两个模板",
+      "TMP_MORE": "选择多个模板仅对比两个",
       "TRANS_ERROR": "模板切换失败，请检查数据"
     },
     "COMPONENT": {
