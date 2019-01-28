@@ -6,7 +6,7 @@
     <form #ngForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="cronjob_id" class="col-md-3 form-group-label-override required">{{'CRONJOB_ADMIN.TPL.CREATE.CONFIGMAP' | translate}}</label>
+          <label for="cronjob_id" class="clr-col-md-3 form-group-label-override required">{{'CRONJOB_ADMIN.TPL.CREATE.CONFIGMAP' | translate}}</label>
           <div class="select form-control">
             <select id="cronjob_id" [(ngModel)]="cronjobTpl.cronjobId" [disabled]="actionType==1" name="cronjob_id">
               <!--这是一个坑，如果使用value获取到的是string，使用ngValue获取到的是model本身类型-->
@@ -18,14 +18,14 @@
         </div>
         <div class="form-group" style="padding-left: 135px;">
           <label for="description"
-                 class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
+                 class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="description" [(ngModel)]="cronjobTpl.description"
                     name="description"
                     rows="3">
           </textarea>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="template" class="col-md-3 form-group-label-override">{{'CRONJOB_ADMIN.TPL.CREATE.TEMPLATE' | translate}}</label>
+          <label for="template" class="clr-col-md-3 form-group-label-override">{{'CRONJOB_ADMIN.TPL.CREATE.TEMPLATE' | translate}}</label>
           <wayne-ace-editor-box></wayne-ace-editor-box>
         </div>
 

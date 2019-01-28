@@ -4,7 +4,7 @@
     <form #publishForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 100px;">
-          <label class="col-md-3 form-group-label-override required">{{'TITLE.CLUSTER' | translate}}</label>
+          <label class="clr-col-md-3 form-group-label-override required">{{'TITLE.CLUSTER' | translate}}</label>
           <div *ngFor="let cluster of clusters" style="padding-right: 15px" class="checkbox-inline"
                style="margin-top: 0px">
             <div class="checkbox">
@@ -17,7 +17,7 @@
           </div>
         </div>
         <div *ngIf="actionType==3" class="form-group" style="padding-left: 135px;">
-          <label class="col-md-3 form-group-label-override">{{'ACTION.FORCE_DROP' | translate}}
+          <label class="clr-col-md-3 form-group-label-override">{{'ACTION.FORCE_DROP' | translate}}
             <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
               <clr-icon shape="info-circle" size="24"></clr-icon>
               <span class="tooltip-content">{{'MESSAGE.FORCE_DROP' | translate}} </span>

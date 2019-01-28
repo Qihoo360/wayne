@@ -4,38 +4,38 @@
     <hr>
     <form>
       <section class="form-block form-box">
-        <div class="row group">
-          <div class="col-sm-3">
+        <div class="clr-row group">
+          <div class="clr-col-sm-3">
             {{'TITLE.NAME' | translate}}
           </div>
-          <div class="col-sm-9">
+          <div class="clr-col-sm-9">
             {{kubeResource?.metadata.name}}
           </div>
         </div>
 
-        <div class="row group">
-          <div class="col-sm-3">
+        <div class="clr-row group">
+          <div class="clr-col-sm-3">
             Reference
           </div>
-          <div class="col-sm-9">
+          <div class="clr-col-sm-9">
             {{kubeResource?.spec.scaleTargetRef.kind}}/{{kubeResource?.spec.scaleTargetRef.name}}
           </div>
         </div>
 
-        <div class="row group">
-          <div class="col-sm-3">
+        <div class="clr-row group">
+          <div class="clr-col-sm-3">
             {{'TITLE.COPY_INTERVAL' | translate}}
           </div>
-          <div class="col-sm-9">
+          <div class="clr-col-sm-9">
             {{kubeResource?.spec.minReplicas}} ~ {{kubeResource?.spec.maxReplicas}}
           </div>
         </div>
 
-        <div class="row group">
-          <div class="col-sm-3">
+        <div class="clr-row group">
+          <div class="clr-col-sm-3">
             {{'TEMPLATE.CPU_THRESHOLD' | translate}}
           </div>
-          <div class="col-sm-9">
+          <div class="clr-col-sm-9">
             {{kubeResource?.spec.targetCPUUtilizationPercentage}} %
           </div>
         </div>

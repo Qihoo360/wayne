@@ -6,7 +6,7 @@
     <form #namespaceForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="ns_name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
+          <label for="ns_name" class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="ns_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" id="ns_name" [(ngModel)]="ns.name"
@@ -22,7 +22,7 @@
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="kubernetes_namespace" class="col-md-3 form-group-label-override required">K8S命名空间</label>
+          <label for="kubernetes_namespace" class="clr-col-md-3 form-group-label-override required">K8S命名空间</label>
           <input type="text"
                  id="kubernetes_namespace"
                  [(ngModel)]="ns.metaDataObj.namespace"
@@ -39,7 +39,7 @@
           </div>
         </div>
         <div *ngFor="let cluster of clusters;let i=index" class="form-group" style="padding-left: 135px;">
-          <label *ngIf="i === 0" class="col-md-3 form-group-label-override required">可用机房</label>
+          <label *ngIf="i === 0" class="clr-col-md-3 form-group-label-override required">可用机房</label>
           <div class="checkbox-inline" style="margin-top: 0.1rem;margin-bottom: 0.1rem;">
             <div class="checkbox">
               <input [(ngModel)]="clusterMetas[cluster.name].checked"
@@ -69,7 +69,7 @@
             </button>
           </label>
           <div *ngFor="let env of ns.metaDataObj.env; let i = index" class="form-group" style="padding-left: 135px;">
-            <label for="kubernetes_env_name_{{i}}" class="col-md-3 form-group-label-override">Env</label>
+            <label for="kubernetes_env_name_{{i}}" class="clr-col-md-3 form-group-label-override">Env</label>
             <input [(ngModel)]="env.name"
                    style="width: 200px"
                    type="text"
@@ -95,7 +95,7 @@
           <div *ngFor="let imagePullSecret of ns.metaDataObj.imagePullSecrets; let i = index" class="form-group"
                style="padding-left: 135px;">
             <label for="kubernetes_imagepullsecrets_{{i}}"
-                   class="col-md-3 form-group-label-override">Secret</label>
+                   class="clr-col-md-3 form-group-label-override">Secret</label>
             <input [(ngModel)]="imagePullSecret.name"
                    type="text"
                    style="width: 500px"

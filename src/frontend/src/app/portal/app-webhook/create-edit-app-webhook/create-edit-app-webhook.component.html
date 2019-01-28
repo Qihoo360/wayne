@@ -5,7 +5,7 @@
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
           <label for="webhook-name"
-                 class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
+                 class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="webhook-name" aria-haspopup="true" role="tooltip" [class.invalid]="!validateName()"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <input class="form-control" type="text" id="webhook-name" [(ngModel)]="webHook.name"
@@ -21,7 +21,7 @@
           <span class="spinner spinner-inline" [hidden]="!requestLocked"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="webhook-url" class="col-md-3 form-group-label-override required">{{ 'WEBHOOK.ADDRESS' | translate }}</label>
+          <label for="webhook-url" class="clr-col-md-3 form-group-label-override required">{{ 'WEBHOOK.ADDRESS' | translate }}</label>
           <label for="webhook-url" aria-haspopup="true" role="tooltip" [class.invalid]="!validateUrl()"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <input class="form-control" type="text" id="webhook-url" [(ngModel)]="webHook.url"
@@ -36,7 +36,7 @@
           <span class="spinner spinner-inline" [hidden]="!requestLocked"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="webhook-secret" class="col-md-3 form-group-label-override">{{ 'WEBHOOK.CIPHER' | translate }}</label>
+          <label for="webhook-secret" class="clr-col-md-3 form-group-label-override">{{ 'WEBHOOK.CIPHER' | translate }}</label>
           <label for="webhook-secret" aria-haspopup="true" role="tooltip"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <input class="form-control" type="text" id="webhook-secret" [(ngModel)]="webHook.secret"
@@ -47,7 +47,7 @@
           <span class="spinner spinner-inline" [hidden]="!requestLocked"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;height:250px;">
-          <label for="webhook-events" class="col-md-3 form-group-label-override required">{{ 'WEBHOOK.FOCUS_EVENT' | translate }}</label>
+          <label for="webhook-events" class="clr-col-md-3 form-group-label-override required">{{ 'WEBHOOK.FOCUS_EVENT' | translate }}</label>
           <label for="webhook-events" aria-haspopup="true" role="tooltip"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <ng2-dual-list-box name="webhook-events"
