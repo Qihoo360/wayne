@@ -82,9 +82,9 @@ export class TrashIngressTplComponent implements OnInit, OnDestroy {
       );
   }
 
-  deleteServiceTpl(ingressTpl: IngressTpl) {
+  deleteTemplate(ingressTpl: IngressTpl) {
     const deletionMessage = new ConfirmationMessage(
-      '删除服务确认',
+      '删除 Ingress 模板确认',
       '你确认永久删除 Ingress 模版 ' + ingressTpl.name + ' ？删除后将不可恢复！',
       ingressTpl.id,
       ConfirmationTargets.TRASH_INGRESS_TPL,
@@ -97,7 +97,7 @@ export class TrashIngressTplComponent implements OnInit, OnDestroy {
     this.aceEditorService.announceMessage(AceEditorMsg.Instance(ingressTpl.template, false, '详情'));
   }
 
-  recoverServiceTpl(ingressTpl: IngressTpl) {
+  recoverTemplate(ingressTpl: IngressTpl) {
     ingressTpl.deleted = false;
     this.ingressTplService.update(ingressTpl, 0)
       .subscribe(
