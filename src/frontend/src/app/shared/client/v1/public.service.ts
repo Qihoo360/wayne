@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 @Injectable()
 
@@ -23,6 +24,6 @@ export class PublicService {
     return this.http
       .post(`/api/v1/public/shell/token`, urlSearchParams, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

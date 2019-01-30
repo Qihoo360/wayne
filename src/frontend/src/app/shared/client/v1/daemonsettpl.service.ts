@@ -7,6 +7,7 @@ import 'rxjs/add/observable/throw';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
 import { DaemonSetTemplate } from '../../model/v1/daemonsettpl';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class DaemonSetTplService {
@@ -52,21 +53,21 @@ export class DaemonSetTplService {
     return this.http
       .get(`/api/v1/apps/${appId}/daemonsets/tpls`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(tpl: DaemonSetTemplate, appId: number): Observable<any> {
     return this.http
       .post(`/api/v1/apps/${appId}/daemonsets/tpls`, tpl)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(tpl: DaemonSetTemplate, appId: number): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${appId}/daemonsets/tpls/${tpl.id}`, tpl, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
@@ -80,14 +81,14 @@ export class DaemonSetTplService {
     return this.http
       .delete(`/api/v1/apps/${appId}/daemonsets/tpls/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, appId: number): Observable<any> {
     return this.http
       .get(`/api/v1/apps/${appId}/daemonsets/tpls/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
 }

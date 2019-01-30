@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { throwError } from 'rxjs';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
@@ -57,7 +58,7 @@ export class AppService {
     return this.http
       .get(`/api/v1/namespaces/${namespaceId}/apps`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   listResourceCount(namespaceId?: number, appId?: number): Observable<any> {
@@ -73,7 +74,7 @@ export class AppService {
     return this.http
       .get(`/api/v1/namespaces/${namespaceId}/statistics`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getNames(namespaceId?: number): Observable<any> {
@@ -83,21 +84,21 @@ export class AppService {
     return this.http
       .get(`/api/v1/namespaces/${namespaceId}/apps/names`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(app: App): Observable<any> {
     return this.http
       .post(`/api/v1/namespaces/${app.namespace.id}/apps`, app, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(app: App): Observable<any> {
     return this.http
       .put(`/api/v1/namespaces/${app.namespace.id}/apps/${app.id}`, app, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, namespaceId: number, logical?: boolean): Observable<any> {
@@ -111,18 +112,18 @@ export class AppService {
     return this.http
       .delete(`/api/v1/namespaces/${namespaceId}/apps/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, namespaceId: number): Observable<any> {
     return this.http.get(`/api/v1/namespaces/${namespaceId}/apps/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getStatistics(): Observable<any> {
     return this.http.get(`/api/v1/apps/statistics`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

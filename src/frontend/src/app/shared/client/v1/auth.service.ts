@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class AuthoriseService {
@@ -15,6 +16,6 @@ export class AuthoriseService {
     const encodedPassword = encodeURIComponent(password);
     return this.http
       .post(`/login/${type}?username=${encodedName}&password=${encodedPassword}`, null, this.options)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

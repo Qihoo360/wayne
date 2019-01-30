@@ -7,6 +7,7 @@ import { Cluster } from '../../model/v1/cluster';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class ClusterService {
@@ -19,7 +20,7 @@ export class ClusterService {
   getNames(): Observable<any> {
     return this.http
       .get('/api/v1/clusters/names')
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   list(pageState: PageState, deleted?: string): Observable<any> {
@@ -56,21 +57,21 @@ export class ClusterService {
     return this.http
       .get('/api/v1/clusters', {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(cluster: Cluster): Observable<any> {
     return this.http
       .post(`/api/v1/clusters`, cluster, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(cluster: Cluster): Observable<any> {
     return this.http
       .put(`/api/v1/clusters/${cluster.name}`, cluster, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteByName(name: string, logical?: boolean): Observable<any> {
@@ -84,14 +85,14 @@ export class ClusterService {
     return this.http
       .delete(`/api/v1/clusters/${name}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getByName(name: string): Observable<any> {
     return this.http
       .get(`/api/v1/clusters/${name}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
 }
