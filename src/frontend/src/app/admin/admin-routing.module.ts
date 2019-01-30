@@ -64,6 +64,10 @@ import { IngressTplComponent } from './ingresstpl/ingresstpl.component';
 import { TrashIngressTplComponent } from './ingresstpl/trash-ingresstpl/trash-ingresstpl.component';
 import { KubeDeploymentComponent } from './kubernetes/deployment/kube-deployment.component';
 import { KubeNamespaceComponent } from './kubernetes/namespace/kube-namespace.component';
+import { AutoscaleComponent } from './autoscale/autoscale.component';
+import { TrashAutoscaleComponent } from './autoscale/trash-autoscale/trash-autoscale.component';
+import { AutoscaletplComponent } from './autoscaletpl/autoscaletpl.component';
+import { TrashAutoscaletplComponent } from './autoscaletpl/trash-autoscaletpl/trash-autoscaletpl.component';
 
 
 const routes: Routes = [
@@ -151,6 +155,12 @@ const routes: Routes = [
       {path: 'ingress/tpl/trash', component: TrashIngressTplComponent},
       {path: 'ingress/relate-tpl/:gid', component: IngressTplComponent},
       {path: 'ingress/app/:aid', component: AppComponent},
+      {path: 'hpa', component: AutoscaleComponent},
+      {path: 'hpa/trash', component: TrashAutoscaleComponent},
+      {path: 'hpa/tpl', component: AutoscaletplComponent},
+      {path: 'hpa/tpl/trash', component: TrashAutoscaletplComponent},
+      {path: 'hpa/relate-tpl/:gid', component: AutoscaletplComponent},
+      {path: 'hpa/app/:aid', component: AppComponent},
       {path: 'kubernetes/deployment', component: KubeDeploymentComponent},
       {path: 'kubernetes/deployment/:cluster', component: KubeDeploymentComponent},
       {path: 'kubernetes/namespace', component: KubeNamespaceComponent},

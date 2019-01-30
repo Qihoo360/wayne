@@ -39,6 +39,14 @@ import { IngressTplModule } from './ingresstpl/ingresstpl.module';
 import { KubeDeploymentModule } from './kubernetes/deployment/kube-deployment.module';
 import { TplDetailModule } from '../shared/tpl-detail/tpl-detail.module';
 import { KubeNamespaceModule } from './kubernetes/namespace/kube-namespace.module';
+import { AutoscaleComponent } from './autoscale/autoscale.component';
+import { AutoscaletplComponent } from './autoscaletpl/autoscaletpl.component';
+import { CreateEditAutoscaleComponent } from './autoscale/create-edit-autoscale/create-edit-autoscale.component';
+import { ListAutoscaleComponent } from './autoscale/list-autoscale/list-autoscale.component';
+import { TrashAutoscaleComponent } from './autoscale/trash-autoscale/trash-autoscale.component';
+import { CreateEditAutoscaletplComponent } from './autoscaletpl/create-edit-autoscaletpl/create-edit-autoscaletpl.component';
+import { ListAutoscaletplComponent } from './autoscaletpl/list-autoscaletpl/list-autoscaletpl.component';
+import { TrashAutoscaletplComponent } from './autoscaletpl/trash-autoscaletpl/trash-autoscaletpl.component';
 
 @NgModule({
   imports: [
@@ -84,7 +92,9 @@ import { KubeNamespaceModule } from './kubernetes/namespace/kube-namespace.modul
     AdminAuthCheckGuard,
     AuthService
   ],
-  declarations: [AdminComponent]
+  declarations: [AdminComponent, AutoscaleComponent, AutoscaletplComponent,
+    CreateEditAutoscaleComponent, ListAutoscaleComponent, TrashAutoscaleComponent,
+    CreateEditAutoscaletplComponent, ListAutoscaletplComponent, TrashAutoscaletplComponent]
 })
 export class AdminModule {
 }
