@@ -223,7 +223,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   * @param 获取element相对于body的偏移量
+   * @return 获取element相对于body的偏移量
    */
 
   getOffset(element: any | null): number {

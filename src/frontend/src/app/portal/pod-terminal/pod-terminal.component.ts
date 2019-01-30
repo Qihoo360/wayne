@@ -205,7 +205,7 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.xterm) {
-      this.xterm.destroy();
+      this.xterm.dispose();
     }
     if (this.socket) {
       this.socket.close();
