@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class PublishService {
@@ -52,7 +53,7 @@ export class PublishService {
     return this.http
       .get('/api/v1/publish/histories', {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   listStatus(type?: number, resourceId?: number): Observable<any> {
@@ -70,7 +71,7 @@ export class PublishService {
     return this.http
       .get('/api/v1/publish/statistics', {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
 }

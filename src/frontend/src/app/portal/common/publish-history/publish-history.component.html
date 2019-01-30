@@ -36,13 +36,15 @@
         <clr-dg-cell>{{history.cluster}}</clr-dg-cell>
         <clr-dg-cell>{{history.status == 1 ? 'success' : history.message}}</clr-dg-cell>
       </clr-dg-row>
-      <wayne-paginate
-        [(currentPage)]="currentPage"
-        [total]="pageState.page.totalCount"
-        [pageSizes]="[10, 20, 50]"
-        (sizeChange)="pageSizeChange($event)"
-      >
-      </wayne-paginate>
+      <clr-dg-footer>
+        <wayne-paginate
+          [(currentPage)]="currentPage"
+          [total]="pageState.page.totalCount"
+          [pageSizes]="[10, 20, 50]"
+          (sizeChange)="pageSizeChange($event)"
+        >
+        </wayne-paginate>
+      </clr-dg-footer>
     </clr-datagrid>
   </div>
 </clr-modal>

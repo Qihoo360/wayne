@@ -1,4 +1,4 @@
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 
 export class Page {
   pageNo ? = 1;
@@ -27,7 +27,7 @@ export class PageState {
 
   }
 
-  static fromState(state: State, page?: Page): PageState {
+  static fromState(state: ClrDatagridStateInterface, page?: Page): PageState {
     if (!state) {
       return new PageState();
     }

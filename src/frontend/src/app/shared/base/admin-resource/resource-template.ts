@@ -1,7 +1,7 @@
 import { OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { BreadcrumbService } from '../../client/v1/breadcrumb.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationDialogService } from '../../confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared.const';
@@ -69,7 +69,7 @@ export class ResourceTemplateComponent implements OnInit, OnDestroy {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState =
         PageState.fromState(state, {pageSize: 10, totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});

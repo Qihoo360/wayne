@@ -1,7 +1,8 @@
 import { Component, ContentChildren, ElementRef, HostListener, Inject, Input, QueryList } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FloatWindowItemComponent } from './float-window-item/float-window-item.component';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'wayne-float-window',

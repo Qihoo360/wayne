@@ -1,6 +1,6 @@
 import { ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { Subscription } from 'rxjs/Subscription';
 import { PageState } from '../../page/page-state';
 import { BreadcrumbService } from '../../client/v1/breadcrumb.service';
@@ -67,7 +67,7 @@ export class ResourceComponent implements OnInit, OnDestroy {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }

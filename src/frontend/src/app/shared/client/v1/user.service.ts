@@ -7,6 +7,7 @@ import 'rxjs/add/observable/throw';
 import { User } from '../../model/v1/user';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class UserService {
@@ -47,41 +48,41 @@ export class UserService {
     return this.http
       .get('/api/v1/users', {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   createUser(user: User): Observable<any> {
     return this.http
       .post(`/api/v1/users`, user, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getNames(): Observable<any> {
     return this.http.get('/api/v1/users/names')
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   updateUser(user: User): Observable<any> {
     return this.http
       .put(`/api/v1/users/${user.id}`, user, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   updateUserAdmin(user: User): Observable<any> {
     return this.http
       .put(`/api/v1/users/${user.id}/admin`, user, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   resetPassword(user: User): Observable<any> {
     return this.http
       .put(`/api/v1/users/${user.id}/resetpassword`, user, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteUser(userId: number): Observable<any> {
@@ -89,21 +90,21 @@ export class UserService {
     return this.http
       .delete(`/api/v1/users/${userId}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getUser(userId: number): Observable<any> {
     return this.http
       .get(`/api/v1/users/${userId}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getStatistics(): Observable<any> {
     return this.http
       .get('/api/v1/users/statistics')
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
 }

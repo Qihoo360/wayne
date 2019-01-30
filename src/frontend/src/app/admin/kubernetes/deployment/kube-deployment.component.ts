@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { Subscription } from 'rxjs/Subscription';
 import { DeploymentClient } from '../../../shared/client/v1/kubernetes/deployment';
 import { PageState } from '../../../shared/page/page-state';
@@ -148,7 +148,7 @@ export class KubeDeploymentComponent implements OnInit {
 
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }

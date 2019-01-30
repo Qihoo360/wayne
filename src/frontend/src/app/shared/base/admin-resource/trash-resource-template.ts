@@ -1,5 +1,5 @@
 import { OnDestroy, OnInit } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../message-handler/message-handler.service';
 import { ConfirmationMessage } from '../../confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared.const';
@@ -14,7 +14,7 @@ export class TrashResourceTemplateComponent implements OnInit, OnDestroy {
   templates: any[];
   pageState: PageState = new PageState();
   currentPage = 1;
-  state: State;
+  state: ClrDatagridStateInterface;
 
   subscription: Subscription;
 
@@ -61,7 +61,7 @@ export class TrashResourceTemplateComponent implements OnInit, OnDestroy {
     this.refresh(this.state);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});

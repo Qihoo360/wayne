@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets, ResourcesActionType, } from '../../../shared/shared.const';
@@ -29,7 +29,7 @@ export class ListCronjobComponent implements OnInit, OnDestroy {
   @Input() cronjobTpls: CronjobTpl[];
   @Input() page: Page;
   @Input() appId: number;
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() edit = new EventEmitter<boolean>();
   @Output() cloneTpl = new EventEmitter<CronjobTpl>();
   @Output() createTpl = new EventEmitter<boolean>();
@@ -37,7 +37,7 @@ export class ListCronjobComponent implements OnInit, OnDestroy {
   @ViewChild(PublishCronjobTplComponent)
   publishCronjobTpl: PublishCronjobTplComponent;
 
-  state: State;
+  state: ClrDatagridStateInterface;
   currentPage = 1;
 
   subscription: Subscription;
@@ -86,7 +86,7 @@ export class ListCronjobComponent implements OnInit, OnDestroy {
     this.diffService.diff(this.selected);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }

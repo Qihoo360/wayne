@@ -1,0 +1,12 @@
+.form .form-group.clr-row, form .form-group.clr-row {
+  padding-left: 0;
+  position: static;
+}
+
+form .form-group > label:first-child.required:after, form .form-group > span:first-child.required:after, form .form-group.clr-row > [class*='clr-col-'] > label.required:after, form .form-group.clr-row > [class*='clr-col-'] > span.required:after, .form .form-group > label:first-child.required:after, .form .form-group > span:first-child.required:after, .form .form-group.clr-row > [class*='clr-col-'] > label.required:after, .form .form-group.clr-row > [class*='clr-col-'] > span.required:after {
+  content: '*';
+  font-size: 0.58479532rem;
+  line-height: 0.5rem;
+  color: #c92100;
+  margin-left: 0.25rem;
+}

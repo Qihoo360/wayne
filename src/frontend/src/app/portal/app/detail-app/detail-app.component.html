@@ -1,54 +1,54 @@
 <list-cluster [resources]="clusterList"></list-cluster>
-<div class="row" style="padding-left: 5%">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="row flex flex-items-xs-between flex-items-xs-top"
+<div class="clr-row" style="padding-left: 5%">
+  <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
+    <div class="clr-row flex flex-items-xs-between flex-items-xs-top"
          style="flex-wrap: nowrap;justify-content: flex-start;padding-left: 15px; padding-right: 15px;">
       <h2 class="header-title"
           style="margin-top: 12px;white-space: nowrap;">{{'MENU.APP' | translate}}{{'MENU.OVERVIEW' | translate}}</h2>
     </div>
     <form>
       <section class="form-block form-box">
-        <div class="row group">
-          <div class="col-sm-2">
+        <div class="clr-row group">
+          <div class="clr-col-sm-2">
             {{'TITLE.NAME' | translate}}
           </div>
-          <div class="col-sm-10">
+          <div class="clr-col-sm-10">
             {{app.name}}
           </div>
         </div>
-        <div class="row group">
-          <div class="col-sm-2">
+        <div class="clr-row group">
+          <div class="clr-col-sm-2">
             {{'TITLE.CREATE_USER' | translate}}
           </div>
-          <div class="col-sm-10">
+          <div class="clr-col-sm-10">
             {{app.user}}
           </div>
         </div>
-        <div class="row group">
-          <div class="col-sm-2">
+        <div class="clr-row group">
+          <div class="clr-col-sm-2">
             {{'TITLE.CREATE_TIME' | translate}}
           </div>
-          <div class="col-sm-10">
+          <div class="clr-col-sm-10">
             {{app.createTime | date:'yyyy-MM-dd HH:mm:ss'}}
           </div>
         </div>
-        <div class="row group">
-          <div class="col-sm-2">
+        <div class="clr-row group">
+          <div class="clr-col-sm-2">
             {{'TITLE.EXPLAIN' | translate}}
           </div>
-          <div class="col-sm-10">
+          <div class="clr-col-sm-10">
             {{app.description}}
             <a (click)="editApp(app)" *ngIf="authService.currentNamespacePermission.app.update || authService.currentUser.admin"  href="javascript:void();"><clr-icon shape="pencil"></clr-icon></a>
           </div>
         </div>
-        <div class="row group">
-          <div class="col-sm-2">
+        <div class="clr-row group">
+          <div class="clr-col-sm-2">
             <div class="flex" style="height:70px;flex-direction: column; justify-content:space-around;">
               <span>{{'TITLE.CPU_USAGE' | translate}}</span>
               <span>{{'TITLE.MEMORY_USAGE' | translate}}</span>
             </div>
           </div>
-          <div class="col-sm-10">
+          <div class="clr-col-sm-10">
             <ng-container *ngFor="let cluster of clusters; let i = index">
               <div class="statistic-column-block" style="text-align: left">
                 <div>
@@ -69,7 +69,7 @@
             </ng-container>
           </div>
         </div>
-        <div class="row group">
+        <div class="clr-row group">
           <wayne-card class="wayne-card">
             <div class="card-title">{{'MENU.DEPLOYMENT' | translate}}</div>
             <p class="card-text">
@@ -98,7 +98,7 @@
             </p>
           </wayne-card>
         </div>
-        <div class="row group">
+        <div class="clr-row group">
           <wayne-card class="wayne-card">
             <div class="card-title">{{'MENU.SERVICE' | translate}}</div>
             <p class="card-text">

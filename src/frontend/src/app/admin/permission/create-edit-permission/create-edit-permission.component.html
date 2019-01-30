@@ -5,7 +5,7 @@
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
           <label for="permission_name"
-                 class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
+                 class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="permission_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" id="permission_name" [(ngModel)]="permission.name"
@@ -21,7 +21,7 @@
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <!-- <div class="form-group" style="padding-left: 135px;"> -->
-        <!--   <label for="permission_type" class="col-md-3 form-group-label-override required">资源类别</label> -->
+        <!--   <label for="permission_type" class="clr-col-md-3 form-group-label-override required">资源类别</label> -->
         <!--   <label for="permission_type" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left"> -->
         <!--     <input type="text" id="permission_type"  [(ngModel)]="permission.type" -->
         <!--            name="permission_type" size="36" -->
@@ -36,7 +36,7 @@
         <!-- </div> -->
         <div class="form-group" style="padding-left: 135px;">
           <label for="permission_comment"
-                 class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
+                 class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea type="text" id="permission_comment" [(ngModel)]="permission.comment"
                     name="permission_comment"></textarea>
         </div>

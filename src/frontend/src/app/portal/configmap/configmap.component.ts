@@ -1,6 +1,6 @@
 import { AfterContentInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import {
   ConfirmationButtons,
   ConfirmationState,
@@ -13,7 +13,7 @@ import {
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
 import { ListConfigMapComponent } from './list-configmap/list-configmap.component';
 import { CreateEditConfigMapComponent } from './create-edit-configmap/create-edit-configmap.component';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { ConfigMapClient } from '../../shared/client/v1/kubernetes/configmap';
 import { AppService } from '../../shared/client/v1/app.service';
 import { ConfigMapService } from '../../shared/client/v1/configmap.service';
@@ -238,7 +238,7 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
     const appId = parseInt(this.route.parent.snapshot.params['id'], 10);
     const namespaceId = this.cacheService.namespaceId;
     this.configMapId = parseInt(this.route.snapshot.params['configMapId'], 10);
-    Observable.combineLatest(
+    combineLatest(
       this.configMapService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', appId + ''),
       this.appService.getById(appId, namespaceId)
     ).subscribe(
@@ -302,7 +302,7 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
     this.tabScription.unsubscribe();
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (!this.configMapId) {
       return;
     }
@@ -311,7 +311,7 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
     }
     this.pageState.params['deleted'] = false;
     this.pageState.params['isOnline'] = this.isOnline;
-    Observable.combineLatest(
+    combineLatest(
       this.configMapTplService.listPage(this.pageState, this.app.id, this.configMapId.toString()),
       this.publishService.listStatus(PublishType.CONFIGMAP, this.configMapId)
     ).subscribe(

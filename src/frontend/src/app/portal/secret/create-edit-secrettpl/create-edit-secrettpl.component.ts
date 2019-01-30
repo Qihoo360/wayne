@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ActionType, appLabelKey, namespaceLabelKey } from '../../../shared/shared.const';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { combineLatest } from 'rxjs';
+import { EventManager } from '@angular/platform-browser';
 import { SecretTpl } from '../../../shared/model/v1/secrettpl';
 import { App } from '../../../shared/model/v1/app';
 import { Secret } from '../../../shared/model/v1/secret';
@@ -161,7 +161,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
       this.actionType = ActionType.ADD_NEW;
     }
     this.createForm();
-    Observable.combineLatest(observables).subscribe(
+    combineLatest(observables).subscribe(
       response => {
         const clusters = response[0].data;
         for (let i = 0; i < clusters.length; i++) {

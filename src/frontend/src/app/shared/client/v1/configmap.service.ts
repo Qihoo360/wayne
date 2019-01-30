@@ -8,6 +8,7 @@ import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
 import { OrderItem } from '../../model/v1/order';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class ConfigMapService {
@@ -25,7 +26,7 @@ export class ConfigMapService {
     return this.http
       .get(`/api/v1/apps/${appId}/configmaps/names`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   list(pageState: PageState, deleted?: string, appId?: string): Observable<any> {
@@ -66,28 +67,28 @@ export class ConfigMapService {
     return this.http
       .get(`/api/v1/apps/${appId}/configmaps`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(configMap: ConfigMap): Observable<any> {
     return this.http
       .post(`/api/v1/apps/${configMap.appId}/configmaps`, configMap, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(configMap: ConfigMap): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${configMap.appId}/configmaps/${configMap.id}`, configMap, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   updateOrder(appId: number, orderList: Array<OrderItem>): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${appId}/configmaps/updateorders`, orderList, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
@@ -101,13 +102,13 @@ export class ConfigMapService {
     return this.http
       .delete(`/api/v1/apps/${appId}/configmaps/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, appId: number): Observable<any> {
     return this.http
       .get(`/api/v1/apps/${appId}/configmaps/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

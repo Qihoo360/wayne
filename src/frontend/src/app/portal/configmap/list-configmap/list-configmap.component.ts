@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets, ResourcesActionType } from '../../../shared/shared.const';
 import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -32,10 +32,10 @@ export class ListConfigMapComponent implements OnInit, OnDestroy {
   @Input() configMaps: ConfigMap[];
   @Input() configMapTpls: ConfigMapTpl[];
   @Input() page: Page;
-  state: State;
+  state: ClrDatagridStateInterface;
   currentPage = 1;
 
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() configmapTab = new EventEmitter<number>();
   @Output() cloneTpl = new EventEmitter<ConfigMapTpl>();
   subscription: Subscription;
@@ -119,7 +119,7 @@ export class ListConfigMapComponent implements OnInit, OnDestroy {
     this.deletionDialogService.openComfirmDialog(deletionMessage);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }

@@ -7,6 +7,7 @@ import 'rxjs/add/observable/throw';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
 import { DeploymentTpl } from '../../model/v1/deploymenttpl';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class DeploymentTplService {
@@ -56,21 +57,21 @@ export class DeploymentTplService {
     return this.http
       .get(`/api/v1/apps/${appId}/deployments/tpls`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(tpl: DeploymentTpl, appId: number): Observable<any> {
     return this.http
       .post(`/api/v1/apps/${appId}/deployments/tpls`, tpl)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(tpl: DeploymentTpl, appId: number): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${appId}/deployments/tpls/${tpl.id}`, tpl, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
@@ -84,14 +85,14 @@ export class DeploymentTplService {
     return this.http
       .delete(`/api/v1/apps/${appId}/deployments/tpls/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, appId: number): Observable<any> {
     return this.http
       .get(`/api/v1/apps/${appId}/deployments/tpls/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
 }

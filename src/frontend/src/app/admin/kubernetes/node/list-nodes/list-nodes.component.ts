@@ -12,7 +12,7 @@ import {
   ReadyComparator,
   SchedulerComparator
 } from './inventory';
-import { SortOrder } from '@clr/angular';
+import { ClrDatagridSortOrder } from '@clr/angular';
 import { Node } from '../../../../shared/model/v1/kubernetes/node-list';
 import { StorageService } from '../../../../shared/client/v1/storage.service';
 
@@ -25,7 +25,7 @@ export class ListNodesComponent implements OnInit {
   @Input() nodes: Node[];
   @Input() cluster: string;
   @Input() showState: object;
-  sortOrder: SortOrder = SortOrder.Unsorted;
+  sortOrder: ClrDatagridSortOrder = ClrDatagridSortOrder.UNSORTED;
   sorted = false;
   currentPage = 1;
   _pageSize = 10;

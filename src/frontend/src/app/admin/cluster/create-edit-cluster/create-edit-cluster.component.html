@@ -6,7 +6,7 @@
     <form #ngForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
+          <label for="name" class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <input class="form-control" type="text" id="name" [(ngModel)]="cluster.name"
@@ -22,18 +22,18 @@
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="master" class="col-md-3 form-group-label-override required">Master</label>
+          <label for="master" class="clr-col-md-3 form-group-label-override required">Master</label>
           <input class="form-control" type="text" id="master" [(ngModel)]="cluster.master"
                  name="master" size="128"
                  required
                  maxlength="128">
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="meta_data" class="col-md-3 form-group-label-override required">KubeConfig</label>
+          <label for="meta_data" class="clr-col-md-3 form-group-label-override required">KubeConfig</label>
           <wayne-ace-editor-box #kubeConfig></wayne-ace-editor-box>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="status" class="col-md-3 form-group-label-override">集群状态</label>
+          <label for="status" class="clr-col-md-3 form-group-label-override">集群状态</label>
           <div class="select">
             <select id="concurrencyPolicy" name="status" [(ngModel)]="cluster.status">
               <option [ngValue]="0" selected>在线</option>
@@ -42,7 +42,7 @@
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="meta_data" class="col-md-3 form-group-label-override">MetaData
+          <label for="meta_data" class="clr-col-md-3 form-group-label-override">MetaData
             <clr-signpost>
               <clr-signpost-content [clrPosition]="position" style="min-width:25rem" *clrIfOpen>
                 <h3 style="margin-top: 0">配置说明</h3>
@@ -62,7 +62,7 @@
         </div>
         <div class="form-group" style="padding-left: 135px;">
           <label for="description"
-                 class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
+                 class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="description" [(ngModel)]="cluster.description"
                     name="description"
                     rows="3">

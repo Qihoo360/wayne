@@ -7,7 +7,7 @@ import { AuthService } from '../../../shared/auth/auth.service';
 import { defaultAutoscale } from '../../../shared/default-models/autoscale.const';
 import { Location } from '@angular/common';
 import { ActionType } from '../../../shared/shared.const';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AutoscaleTplService } from '../../../shared/client/v1/autoscaletpl.service';
@@ -67,7 +67,7 @@ export class CreateEditAutoscaletplComponent extends CreateEditResourceTemplate 
     } else {
       this.actionType = ActionType.ADD_NEW;
     }
-    Observable.combineLatest(observables).subscribe(
+    combineLatest(observables).subscribe(
       response => {
         this.app = response[0].data;
         this.resource = response[1].data;

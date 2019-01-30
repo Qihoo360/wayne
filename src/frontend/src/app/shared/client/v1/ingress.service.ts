@@ -5,6 +5,7 @@ import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
 import { OrderItem } from '../../model/v1/order';
 import { Ingress } from '../../model/v1/ingress';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class IngressService {
@@ -21,7 +22,7 @@ export class IngressService {
     }
     return this.http
       .get(`/api/v1/apps/${appId}/ingresses/names`, {params: params})
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   list(pageState: PageState, deleted?: string, appId?: string): Observable<any> {
@@ -62,25 +63,25 @@ export class IngressService {
     }
     return this.http
       .get(`/api/v1/apps/${appId}/ingresses`, {params: params})
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(ingress: Ingress): Observable<any> {
     return this.http
       .post(`/api/v1/apps/${ingress.appId}/ingresses`, ingress, this.options)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(ingress: Ingress): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${ingress.appId}/ingresses/${ingress.id}`, ingress, this.options)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   updateOrder(appId: number, orderList: Array<OrderItem>): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${appId}/ingresses/updateorders`, orderList, this.options)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
@@ -93,12 +94,12 @@ export class IngressService {
 
     return this.http
       .delete(`/api/v1/apps/${appId}/ingresses/${id}`, options)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, appId: number): Observable<any> {
     return this.http
       .get(`/api/v1/apps/${appId}/ingresses/${id}`)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }
