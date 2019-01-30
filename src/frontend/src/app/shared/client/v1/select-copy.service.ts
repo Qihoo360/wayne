@@ -1,5 +1,6 @@
 import { AfterViewInit, Inject, Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
+import { EventManager } from '@angular/platform-browser';
 import { CopyService } from './copy.service';
 
 @Injectable()

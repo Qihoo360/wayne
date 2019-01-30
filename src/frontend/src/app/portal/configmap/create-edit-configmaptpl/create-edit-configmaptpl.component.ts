@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { Location, DOCUMENT } from '@angular/common';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
@@ -7,7 +7,7 @@ import { MessageHandlerService } from '../../../shared/message-handler/message-h
 import { ActionType, appLabelKey, namespaceLabelKey } from '../../../shared/shared.const';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
 import { ConfigMapTpl } from '../../../shared/model/v1/configmaptpl';
 import { App } from '../../../shared/model/v1/app';
 import { ConfigMap } from '../../../shared/model/v1/configmap';

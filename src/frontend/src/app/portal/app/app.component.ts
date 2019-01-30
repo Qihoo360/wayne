@@ -17,10 +17,10 @@ import { ActivatedRoute } from '@angular/router';
 import { NamespaceClient } from '../../shared/client/v1/kubernetes/namespace';
 import { StorageService } from '../../shared/client/v1/storage.service';
 import { RedDot } from '../../shared/model/v1/red-dot';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { TranslateService } from '@ngx-translate/core';
-
+import { DOCUMENT } from '@angular/common';
 class ClusterCard {
   name: string;
   state: boolean;
@@ -210,13 +210,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       });
       svg.style.transform = 'rotateZ(90deg)';
-    }
-  }
-
-  // 处理回车事件也可以搜索
-  keyDownFunction(event: KeyboardEvent) {
-    if (event.keyCode === 13) {
-      this.searchApp();
     }
   }
 

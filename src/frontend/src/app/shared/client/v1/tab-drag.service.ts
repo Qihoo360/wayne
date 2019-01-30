@@ -1,7 +1,8 @@
 import { Inject, Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 import { TipService } from './tip.service';
+import { DOCUMENT } from '@angular/common';
 
 /**
  * angular 自己的组件高度都为0，所以只能在实际dom上添加draggable;

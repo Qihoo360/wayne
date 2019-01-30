@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { Location } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import { FormBuilder, NgForm } from '@angular/forms';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import {
   ConfigMapEnvSource,

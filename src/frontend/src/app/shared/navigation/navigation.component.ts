@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
 import { NodeOffset } from './nodeOffset';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'wayne-navigation',
