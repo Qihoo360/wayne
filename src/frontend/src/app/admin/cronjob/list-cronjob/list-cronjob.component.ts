@@ -57,21 +57,19 @@ export class ListCronjobComponent implements OnInit {
     this.edit.emit(cronjob);
   }
 
-  goToLink(cronjob: Cronjob, gate: string) {
-    let linkUrl = new Array();
+  goToLink(obj: Cronjob, gate: string) {
+    let linkUrl = '';
     switch (gate) {
       case 'tpl':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/cronjob/relate-tpl/[0-9]*', '[' + cronjob.name + ']模板列表');
-        linkUrl = ['admin', 'cronjob', 'relate-tpl', cronjob.id];
+        linkUrl = `/admin/cronjob/tpl?cronjobId=${obj.id}`;
         break;
       case 'app':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/cronjob/app/[0-9]*', '[' + cronjob.app.name + ']项目详情');
-        linkUrl = ['admin', 'cronjob', 'app', cronjob.app.id];
+        linkUrl = `admin/app?id=${obj.app.id}`;
         break;
       default:
         break;
     }
-    this.router.navigate(linkUrl);
+    this.router.navigateByUrl(linkUrl);
   }
 
   detailMetaDataTpl(tpl: string) {
