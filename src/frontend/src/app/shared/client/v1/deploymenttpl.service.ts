@@ -40,7 +40,11 @@ export class DeploymentTplService {
     Object.getOwnPropertyNames(pageState.filters).map(key => {
       const value = pageState.filters[key];
       if (isNotEmpty(value)) {
-        filterList.push(`${key}=${value}`);
+        if (key === 'deleted' || key === 'id') {
+          filterList.push(`${key}=${value}`);
+        } else {
+          filterList.push(`${key}__contains=${value}`);
+        }
       }
     });
     if (filterList.length) {

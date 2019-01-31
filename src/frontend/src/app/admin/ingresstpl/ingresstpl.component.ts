@@ -12,6 +12,7 @@ import { CreateEditIngressTplComponent } from './create-edit-ingresstpl/create-e
 import { IngressTplService } from '../../shared/client/v1/ingresstpl.service';
 import { IngressTpl } from '../../shared/model/v1/ingresstpl';
 import { PageState } from '../../shared/page/page-state';
+import { isNotEmpty } from '../../shared/utils';
 
 @Component({
   selector: 'wayne-ingresstpl',
@@ -79,6 +80,14 @@ export class IngressTplComponent implements OnInit, OnDestroy {
         PageState.fromState(state, {pageSize: 10, totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.pageState.params['deleted'] = false;
+    if (this.route.snapshot.queryParams) {
+      Object.getOwnPropertyNames(this.route.snapshot.queryParams).map(key => {
+        const value = this.route.snapshot.queryParams[key];
+        if (isNotEmpty(value)) {
+          this.pageState.filters[key] = value;
+        }
+      });
+    }
     this.ingressTplService.listPage(this.pageState, 0, this.ingressId)
       .subscribe(
         response => {

@@ -49,20 +49,18 @@ export class ListResourceComponent  {
   }
 
   goToLink(resource: any, gate: string) {
-    let linkUrl = new Array();
+    let linkUrl = '';
     switch (gate) {
       case 'tpl':
-        this.breadcrumbService.addFriendlyNameForRouteRegex(`/admin/${this.resourceType}/relate-tpl/[0-9]*`, '[' + resource.name + ']模板列表');
-        linkUrl = ['admin', this.resourceType, 'relate-tpl', resource.id];
+        linkUrl = `/admin/${this.resourceType}/tpl?${this.resourceType}Id=${resource.id}`;
         break;
       case 'app':
-        this.breadcrumbService.addFriendlyNameForRouteRegex(`/admin/${this.resourceType}/app/[0-9]*`, '[' + resource.app.name + ']项目详情');
-        linkUrl = ['admin', this.resourceType, 'app', resource.app.id];
+        linkUrl = `admin/app?id=${resource.app.id}`;
         break;
       default:
         break;
     }
-    this.router.navigate(linkUrl);
+    this.router.navigateByUrl(linkUrl);
   }
 
   viewMetaDataTemplate(tpl: string) {

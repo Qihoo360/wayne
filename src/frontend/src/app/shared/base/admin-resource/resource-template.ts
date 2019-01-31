@@ -1,6 +1,6 @@
-import { OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { OnDestroy, OnInit } from '@angular/core';
 import { BreadcrumbService } from '../../client/v1/breadcrumb.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationDialogService } from '../../confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../confirmation-dialog/confirmation-message';
@@ -10,6 +10,7 @@ import { MessageHandlerService } from '../../message-handler/message-handler.ser
 import { PageState } from '../../page/page-state';
 import { CreateEditResourceTemplateComponent } from './create-edit-resource-template';
 import { ListResourceTemplateComponent } from './list-resource-template';
+import { isNotEmpty } from '../../utils';
 
 export class ResourceTemplateComponent implements OnInit, OnDestroy {
   // @ViewChild(CreateEditResourceTemplateComponent)
@@ -33,8 +34,6 @@ export class ResourceTemplateComponent implements OnInit, OnDestroy {
     public componentName: string,
     public resourceType: string,
     public confirmationTargets: ConfirmationTargets) {
-    breadcrumbService.addFriendlyNameForRoute(`/admin/${this.resourceType}/tpl`, this.componentName + '列表');
-    breadcrumbService.addFriendlyNameForRoute(`/admin/${this.resourceType}/tpl/trash`, '已删除' + this.componentName + '列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
@@ -57,7 +56,7 @@ export class ResourceTemplateComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.resourceId = params['gid'];
-      if (typeof(this.resourceId) === 'undefined') {
+      if (typeof (this.resourceId) === 'undefined') {
         this.resourceId = '';
       }
     });
@@ -75,6 +74,14 @@ export class ResourceTemplateComponent implements OnInit, OnDestroy {
         PageState.fromState(state, {pageSize: 10, totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.pageState.params['deleted'] = false;
+    if (this.route.snapshot.queryParams) {
+      Object.getOwnPropertyNames(this.route.snapshot.queryParams).map(key => {
+        const value = this.route.snapshot.queryParams[key];
+        if (isNotEmpty(value)) {
+          this.pageState.filters[key] = value;
+        }
+      });
+    }
     this.resourceTemplateService.listPage(this.pageState, 0, this.resourceId)
       .subscribe(
         response => {

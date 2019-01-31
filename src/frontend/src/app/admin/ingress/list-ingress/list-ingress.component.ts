@@ -56,21 +56,19 @@ export class ListIngressComponent implements OnInit {
     this.edit.emit(ingress);
   }
 
-  goToLink(ingress: Ingress, gate: string) {
-    let linkUrl = new Array();
+  goToLink(obj: Ingress, gate: string) {
+    let linkUrl = '';
     switch (gate) {
       case 'tpl':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/ingress/relate-tpl/[0-9]*', '[' + ingress.name + ']模板列表');
-        linkUrl = ['admin', 'ingress', 'relate-tpl', ingress.id];
+        linkUrl = `/admin/ingress/tpl?ingressId=${obj.id}`;
         break;
       case 'app':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/ingress/app/[0-9]*', '[' + ingress.app.name + ']项目详情');
-        linkUrl = ['admin', 'ingress', 'app', ingress.app.id];
+        linkUrl = `admin/app?id=${obj.app.id}`;
         break;
       default:
         break;
     }
-    this.router.navigate(linkUrl);
+    this.router.navigateByUrl(linkUrl);
   }
 
   detailMetaDataTpl(tpl: string) {
