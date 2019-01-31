@@ -5,7 +5,6 @@ import { MessageHandlerService } from '../../../shared/message-handler/message-h
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AutoscaleService } from '../../../shared/client/v1/autoscale.service';
 import { Autoscale } from '../../../shared/model/v1/autoscale';
-import { defaultAutoscale } from '../../../shared/default-models/autoscale.const';
 
 @Component({
   selector: 'wayne-create-edit-autoscale',
@@ -18,7 +17,7 @@ export class CreateEditAutoscaleComponent extends CreateEditResourceComponent {
               public appService: AppService,
               public aceEditorService: AceEditorService,
               public messageHandlerService: MessageHandlerService) {
-    super(resourceService, appService, aceEditorService, messageHandlerService, Autoscale, 'hpa');
+    super(resourceService, appService, aceEditorService, messageHandlerService, Autoscale, 'HPA');
   }
 
 }
