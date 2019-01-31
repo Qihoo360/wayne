@@ -52,6 +52,21 @@ export class ListStatefulsetComponent implements OnInit {
     this.delete.emit(statefulset);
   }
 
+  goToLink(obj: Statefulset, gate: string) {
+    let linkUrl = '';
+    switch (gate) {
+      case 'tpl':
+        linkUrl = `/admin/statefulset/tpl?statefulsetId=${obj.id}`;
+        break;
+      case 'app':
+        linkUrl = `admin/app?id=${obj.app.id}`;
+        break;
+      default:
+        break;
+    }
+    this.router.navigateByUrl(linkUrl);
+  }
+
   editStatefulset(statefulset: Statefulset) {
     this.edit.emit(statefulset);
   }
