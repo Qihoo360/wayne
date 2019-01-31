@@ -26,7 +26,6 @@ export class AppComponent implements OnInit, OnDestroy {
   createEditApp: CreateEditAppComponent;
 
   namespaceId: string;
-  idFilterInit = '';
   changedApps: App[];
   pageState: PageState = new PageState();
   subscription: Subscription;
@@ -57,15 +56,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.namespaceId = params['nid'];
-      if (typeof (this.namespaceId) === 'undefined') {
-        this.namespaceId = '';
-      }
-      if (typeof (params['aid']) !== 'undefined') {
-        this.idFilterInit = params['aid'];
-      }
-    });
   }
 
   ngOnDestroy(): void {
@@ -80,6 +70,9 @@ export class AppComponent implements OnInit, OnDestroy {
     }
     this.pageState.params['deleted'] = false;
     this.pageState.params['relate'] = 'namespace';
+    if (this.route.snapshot.queryParams) {
+      this.pageState.filters = this.route.snapshot.queryParams;
+    }
     this.appService.listPage(this.pageState, this.namespaceId)
       .subscribe(
         response => {

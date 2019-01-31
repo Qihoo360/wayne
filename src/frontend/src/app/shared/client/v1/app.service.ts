@@ -36,7 +36,7 @@ export class AppService {
     Object.getOwnPropertyNames(pageState.filters).map(key => {
       const value = pageState.filters[key];
       if (isNotEmpty(value)) {
-        if (key === 'deleted' || key === 'id') {
+        if (key === 'deleted' || key === 'id' || key.endsWith('__exact')) {
           filterList.push(`${key}=${value}`);
         } else {
           filterList.push(`${key}__contains=${value}`);
