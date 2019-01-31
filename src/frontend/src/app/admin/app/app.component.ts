@@ -13,6 +13,7 @@ import { App } from '../../shared/model/v1/app';
 import { AppService } from '../../shared/client/v1/app.service';
 import { NamespaceService } from '../../shared/client/v1/namespace.service';
 import { PageState } from '../../shared/page/page-state';
+import { isNotEmpty } from '../../shared/utils';
 
 @Component({
   selector: 'wayne-app',
@@ -71,7 +72,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this.pageState.params['deleted'] = false;
     this.pageState.params['relate'] = 'namespace';
     if (this.route.snapshot.queryParams) {
-      this.pageState.filters = this.route.snapshot.queryParams;
+      Object.getOwnPropertyNames(this.route.snapshot.queryParams).map(key => {
+        const value = this.route.snapshot.queryParams[key];
+        if (isNotEmpty(value)) {
+          this.pageState.filters[key] = value;
+        }
+      });
     }
     this.appService.listPage(this.pageState, this.namespaceId)
       .subscribe(
