@@ -73,6 +73,9 @@ export class DeploymentTplComponent implements OnInit, OnDestroy {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.pageState.params['deleted'] = false;
+    if (this.route.snapshot.queryParams) {
+      this.pageState.filters = this.route.snapshot.queryParams;
+    }
     this.deploymentTplService.listPage(this.pageState, 0, this.deploymentId)
       .subscribe(
         response => {
