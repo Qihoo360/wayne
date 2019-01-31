@@ -4,6 +4,8 @@ import { PersistentVolumeClaim } from '../../../shared/model/v1/persistentvolume
 import { Page } from '../../../shared/page/page-state';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { Statefulset } from '../../../shared/model/v1/statefulset';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'list-persistentvolumeclaim',
@@ -22,7 +24,8 @@ export class ListPersistentVolumeClaimComponent implements OnInit {
   @Output() edit = new EventEmitter<PersistentVolumeClaim>();
 
 
-  constructor(private aceEditorService: AceEditorService) {
+  constructor(private aceEditorService: AceEditorService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -42,6 +45,21 @@ export class ListPersistentVolumeClaimComponent implements OnInit {
 
   deletePvc(pvc: PersistentVolumeClaim) {
     this.delete.emit(pvc);
+  }
+
+  goToLink(obj: Statefulset, gate: string) {
+    let linkUrl = '';
+    switch (gate) {
+      case 'tpl':
+        linkUrl = `/admin/persistentvolumeclaim/tpl?persistentVolumeClaimId=${obj.id}`;
+        break;
+      case 'app':
+        linkUrl = `admin/app?id=${obj.app.id}`;
+        break;
+      default:
+        break;
+    }
+    this.router.navigateByUrl(linkUrl);
   }
 
   editPvc(pvc: PersistentVolumeClaim) {
