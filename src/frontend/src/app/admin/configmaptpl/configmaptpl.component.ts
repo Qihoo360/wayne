@@ -11,6 +11,7 @@ import { ListConfigMapTplComponent } from './list-configmaptpl/list-configmaptpl
 import { ConfigMapTpl } from '../../shared/model/v1/configmaptpl';
 import { ConfigMapTplService } from '../../shared/client/v1/configmaptpl.service';
 import { PageState } from '../../shared/page/page-state';
+import { isNotEmpty } from '../../shared/utils';
 
 @Component({
   selector: 'wayne-configmaptpl',
@@ -73,6 +74,14 @@ export class ConfigMapTplComponent implements OnInit, OnDestroy {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.pageState.params['deleted'] = false;
+    if (this.route.snapshot.queryParams) {
+      Object.getOwnPropertyNames(this.route.snapshot.queryParams).map(key => {
+        const value = this.route.snapshot.queryParams[key];
+        if (isNotEmpty(value)) {
+          this.pageState.filters[key] = value;
+        }
+      });
+    }
     this.configMapTplService.listPage(this.pageState, 0, this.configmapId)
       .subscribe(
         response => {
