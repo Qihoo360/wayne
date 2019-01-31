@@ -14,7 +14,6 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 export class ListAppComponent implements OnInit {
 
   @Input() apps: App[];
-  @Input() idFilterInit: string;
   @Input() page: Page;
   currentPage = 1;
   state: ClrDatagridStateInterface;
