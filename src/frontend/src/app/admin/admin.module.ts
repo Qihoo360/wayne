@@ -47,6 +47,7 @@ import { TrashAutoscaleComponent } from './autoscale/trash-autoscale/trash-autos
 import { CreateEditAutoscaletplComponent } from './autoscaletpl/create-edit-autoscaletpl/create-edit-autoscaletpl.component';
 import { ListAutoscaletplComponent } from './autoscaletpl/list-autoscaletpl/list-autoscaletpl.component';
 import { TrashAutoscaletplComponent } from './autoscaletpl/trash-autoscaletpl/trash-autoscaletpl.component';
+import { SidenavModule } from './sidenav/sidenav.module';
 
 @NgModule({
   imports: [
@@ -86,7 +87,8 @@ import { TrashAutoscaletplComponent } from './autoscaletpl/trash-autoscaletpl/tr
     IngressModule,
     IngressTplModule,
     KubeDeploymentModule,
-    TplDetailModule
+    TplDetailModule,
+    SidenavModule
   ],
   providers: [
     AdminAuthCheckGuard,
