@@ -11,6 +11,7 @@ import { ListCronjobTplComponent } from './list-cronjobtpl/list-cronjobtpl.compo
 import { CronjobTpl } from '../../shared/model/v1/cronjobtpl';
 import { CronjobTplService } from '../../shared/client/v1/cronjobtpl.service';
 import { PageState } from '../../shared/page/page-state';
+import { isNotEmpty } from '../../shared/utils';
 
 @Component({
   selector: 'wayne-cronjobtpl',
@@ -78,6 +79,14 @@ export class CronjobTplComponent implements OnInit, OnDestroy {
       });
     }
     this.pageState.params['deleted'] = false;
+    if (this.route.snapshot.queryParams) {
+      Object.getOwnPropertyNames(this.route.snapshot.queryParams).map(key => {
+        const value = this.route.snapshot.queryParams[key];
+        if (isNotEmpty(value)) {
+          this.pageState.filters[key] = value;
+        }
+      });
+    }
     this.cronjobTplService.listPage(this.pageState, 0, this.cronjobId)
       .subscribe(
         response => {

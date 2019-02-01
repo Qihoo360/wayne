@@ -31,8 +31,6 @@ export class ResourceComponent implements OnInit, OnDestroy {
     public deletionDialogService: ConfirmationDialogService,
     public componentName: string,
     public confirmationTarget: ConfirmationTargets) {
-    breadcrumbService.addFriendlyNameForRoute(`/admin/${this.componentName}`, this.componentName + '列表');
-    breadcrumbService.addFriendlyNameForRoute(`/admin/${this.componentName}/trash`, '已删除' + this.componentName + '列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&

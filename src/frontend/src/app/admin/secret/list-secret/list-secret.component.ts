@@ -59,21 +59,19 @@ export class ListSecretComponent implements OnInit {
     this.edit.emit(secret);
   }
 
-  goToLink(secret: Secret, gate: string) {
-    let linkUrl = new Array();
+  goToLink(obj: Secret, gate: string) {
+    let linkUrl = '';
     switch (gate) {
       case 'tpl':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/secret/relate-tpl/[0-9]*', '[' + secret.name + ']模板列表');
-        linkUrl = ['admin', 'secret', 'relate-tpl', secret.id];
+        linkUrl = `/admin/secret/tpl?secretMapId=${obj.id}`;
         break;
       case 'app':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/secret/app/[0-9]*', '[' + secret.app.name + ']项目详情');
-        linkUrl = ['admin', 'secret', 'app', secret.app.id];
+        linkUrl = `admin/app?id=${obj.app.id}`;
         break;
       default:
         break;
     }
-    this.router.navigate(linkUrl);
+    this.router.navigateByUrl(linkUrl);
   }
 
   detailMetaDataTpl(tpl: string) {

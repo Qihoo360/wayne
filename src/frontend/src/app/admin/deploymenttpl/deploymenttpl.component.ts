@@ -11,6 +11,7 @@ import { CreateEditDeploymentTplComponent } from './create-edit-deploymenttpl/cr
 import { DeploymentTpl } from '../../shared/model/v1/deploymenttpl';
 import { DeploymentTplService } from '../../shared/client/v1/deploymenttpl.service';
 import { PageState } from '../../shared/page/page-state';
+import { isNotEmpty } from '../../shared/utils';
 
 @Component({
   selector: 'wayne-deploymenttpl',
@@ -73,6 +74,14 @@ export class DeploymentTplComponent implements OnInit, OnDestroy {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.pageState.params['deleted'] = false;
+    if (this.route.snapshot.queryParams) {
+      Object.getOwnPropertyNames(this.route.snapshot.queryParams).map(key => {
+        const value = this.route.snapshot.queryParams[key];
+        if (isNotEmpty(value)) {
+          this.pageState.filters[key] = value;
+        }
+      });
+    }
     this.deploymentTplService.listPage(this.pageState, 0, this.deploymentId)
       .subscribe(
         response => {

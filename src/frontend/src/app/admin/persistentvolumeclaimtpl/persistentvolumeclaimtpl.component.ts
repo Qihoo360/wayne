@@ -13,6 +13,7 @@ import { PersistentVolumeClaimTplService } from '../../shared/client/v1/persiste
 import { ListPersistentVolumeClaimTplComponent } from './list-persistentvolumeclaimtpl/list-persistentvolumeclaimtpl.component';
 import { PersistentVolumeClaimTpl } from '../../shared/model/v1/persistentvolumeclaimtpl';
 import { PageState } from '../../shared/page/page-state';
+import { isNotEmpty } from '../../shared/utils';
 
 @Component({
   selector: 'wayne-persistentvolumeclaimtpl',
@@ -74,6 +75,14 @@ export class PersistentVolumeClaimTplComponent implements OnInit, OnDestroy {
   retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
+    }
+    if (this.route.snapshot.queryParams) {
+      Object.getOwnPropertyNames(this.route.snapshot.queryParams).map(key => {
+        const value = this.route.snapshot.queryParams[key];
+        if (isNotEmpty(value)) {
+          this.pageState.filters[key] = value;
+        }
+      });
     }
     this.pvcTplService.list(this.pageState, 0, 'false', this.pvcId)
       .subscribe(

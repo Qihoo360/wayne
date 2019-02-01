@@ -6,6 +6,7 @@ import { DaemonSet } from '../../../shared/model/v1/daemonset';
 import { Page } from '../../../shared/page/page-state';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { Statefulset } from '../../../shared/model/v1/statefulset';
 
 @Component({
   selector: 'list-daemonset',
@@ -52,6 +53,21 @@ export class ListDaemonsetComponent implements OnInit {
 
   editDaemonset(daemonset: DaemonSet) {
     this.edit.emit(daemonset);
+  }
+
+  goToLink(obj: Statefulset, gate: string) {
+    let linkUrl = '';
+    switch (gate) {
+      case 'tpl':
+        linkUrl = `/admin/daemonset/tpl?daemonSetId=${obj.id}`;
+        break;
+      case 'app':
+        linkUrl = `admin/app?id=${obj.app.id}`;
+        break;
+      default:
+        break;
+    }
+    this.router.navigateByUrl(linkUrl);
   }
 
   detailMetaDataTpl(tpl: string) {

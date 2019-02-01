@@ -11,6 +11,7 @@ import { ListDaemonsettplComponent } from './list-daemonsettpl/list-daemonsettpl
 import { CreateEditDaemonsettplComponent } from './create-edit-daemonsettpl/create-edit-daemonsettpl.component';
 import { DaemonSetTplService } from '../../shared/client/v1/daemonsettpl.service';
 import { DaemonSetTemplate } from '../../shared/model/v1/daemonsettpl';
+import { isNotEmpty } from '../../shared/utils';
 
 @Component({
   selector: 'wayne-daemonsettpl',
@@ -77,6 +78,14 @@ export class DaemonsettplComponent implements OnInit, OnDestroy {
       });
     }
     this.pageState.params['deleted'] = false;
+    if (this.route.snapshot.queryParams) {
+      Object.getOwnPropertyNames(this.route.snapshot.queryParams).map(key => {
+        const value = this.route.snapshot.queryParams[key];
+        if (isNotEmpty(value)) {
+          this.pageState.filters[key] = value;
+        }
+      });
+    }
     this.daemonsetTplService.listPage(this.pageState, this.daemonsetId)
       .subscribe(
         response => {

@@ -57,21 +57,19 @@ export class ListConfigMapComponent implements OnInit {
     this.edit.emit(configMap);
   }
 
-  goToLink(configmap: ConfigMap, gate: string) {
-    let linkUrl = new Array();
+  goToLink(obj: ConfigMap, gate: string) {
+    let linkUrl = '';
     switch (gate) {
       case 'tpl':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/configmap/relate-tpl/[0-9]*', '[' + configmap.name + ']模板列表');
-        linkUrl = ['admin', 'configmap', 'relate-tpl', configmap.id];
+        linkUrl = `/admin/configmap/tpl?configMapId=${obj.id}`;
         break;
       case 'app':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/configmap/app/[0-9]*', '[' + configmap.app.name + ']项目详情');
-        linkUrl = ['admin', 'configmap', 'app', configmap.app.id];
+        linkUrl = `admin/app?id=${obj.app.id}`;
         break;
       default:
         break;
     }
-    this.router.navigate(linkUrl);
+    this.router.navigateByUrl(linkUrl);
   }
 
   detailMetaDataTpl(tpl: string) {

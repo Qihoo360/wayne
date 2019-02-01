@@ -1,4 +1,4 @@
-import {  EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
@@ -22,7 +22,7 @@ export class CreateEditResourceComponent implements OnInit {
   aceBox: any;
 
   checkOnGoing = false;
-  isSubmitOnGoing  = false;
+  isSubmitOnGoing = false;
   isNameValid = true;
 
   title: string;
@@ -53,7 +53,7 @@ export class CreateEditResourceComponent implements OnInit {
     this.modalOpened = true;
     if (id) {
       this.actionType = ActionType.EDIT;
-      this.title = `编辑 {this.resourceType}`;
+      this.title = `编辑 ${this.resourceType}`;
       this.resourceService.getById(id, 0).subscribe(
         status => {
           this.resource = status.data;
@@ -66,8 +66,9 @@ export class CreateEditResourceComponent implements OnInit {
         });
     } else {
       this.actionType = ActionType.ADD_NEW;
-      this.title = `创建 {this.resourceType}`;
+      this.title = `创建 ${this.resourceType}`;
       this.resource = {};
+      this.resource.metaDataObj = {};
       this.initJsonEditor();
     }
   }

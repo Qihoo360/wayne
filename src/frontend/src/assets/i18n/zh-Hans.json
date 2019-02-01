@@ -133,6 +133,7 @@
   "CRONJOB_ADMIN": {
     "CRONJOB_CREATE": "创建计划任务",
     "TPL": {
+      "LIST": "计划任务模版列表",
       "CREATE": {
         "CONFIGMAP": "配置集",
         "TEMPLATE": "模版"
@@ -243,7 +244,7 @@
     "DEPARTMENT": "部门概览",
     "DEPLOYMENT": "部署",
     "DEPLOYMENT_LIST": "部署列表",
-    "AUTO_POD_SCALE": "自动水平调度",
+    "AUTO_POD_SCALE": "自动水平伸缩",
     "K8S": "Kubernetes",
     "LIST": "列表",
     "MEMBER": "成员列表",
@@ -261,6 +262,7 @@
     "PV": "持久化存储",
     "PVC": "PVC",
     "PVC_LIST": "PVC 列表",
+    "HPA_LIST": "自动水平伸缩列表",
     "RECYCLED": "回收站",
     "RELEASE_RECORD": "上线记录",
     "RELEASE_STATISTICS": "上线统计",
