@@ -53,7 +53,7 @@ export class ConfirmationDialogComponent implements OnDestroy {
     }
 
     const data: any = this.message.data ? this.message.data : {};
-    const target = this.message.targetId ? this.message.targetId : ConfirmationTargets.EMPTY;
+    const target = this.message.target ? this.message.target : ConfirmationTargets.EMPTY;
     this.confirmationService.cancel(new ConfirmationAcknowledgement(
       ConfirmationState.CANCEL,
       data,
@@ -69,7 +69,7 @@ export class ConfirmationDialogComponent implements OnDestroy {
     }
 
     const data: any = this.message.data ? this.message.data : {};
-    const target = this.message.targetId ? this.message.targetId : ConfirmationTargets.EMPTY;
+    const target = this.message.target ? this.message.target : ConfirmationTargets.EMPTY;
     this.confirmationService.confirm(new ConfirmationAcknowledgement(
       ConfirmationState.CONFIRMED,
       data,
