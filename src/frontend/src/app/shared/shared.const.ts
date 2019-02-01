@@ -177,7 +177,9 @@ export const enum ConfirmationTargets {
   DAEMONSET_TPL,
   TRASH_DAEMONSET_TPL,
   NOTIFICATION,
-  NODE
+  NODE,
+  HPA,
+  ENDPOINT
 }
 
 export const enum ActionType {
