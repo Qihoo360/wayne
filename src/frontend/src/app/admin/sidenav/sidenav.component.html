@@ -19,6 +19,7 @@
         <clr-icon clrVerticalNavIcon shape="dashboard"></clr-icon>
         Dashboard
       </a>
+      <div class="nav-divider"></div>
       <a clrVerticalNavLink
          routerLink="kubernetes/namespace"
          [routerLinkActiveOptions]="{exact:true}"
@@ -33,6 +34,7 @@
         <clr-icon clrVerticalNavIcon shape="devices"></clr-icon>
         Node
       </a>
+      <div class="nav-divider"></div>
       <a clrVerticalNavLink
          routerLink="kubernetes/deployment"
          [routerLinkActiveOptions]="{exact:true}"
@@ -40,6 +42,14 @@
         <clr-icon clrVerticalNavIcon shape="event"></clr-icon>
         Deployment
       </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/pod"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="tree"></clr-icon>
+        Pod
+      </a>
+      <div class="nav-divider"></div>
       <a clrVerticalNavLink
          routerLink="kubernetes/persistentvolume"
          [routerLinkActiveOptions]="{exact:true}"
