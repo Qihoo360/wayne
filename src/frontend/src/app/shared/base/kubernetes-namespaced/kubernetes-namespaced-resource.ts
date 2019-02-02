@@ -104,6 +104,10 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
     this.initShow();
   }
 
+  createResource() {
+    this.aceEditorModal.openModal({}, 'ADMIN.KUBERNETES.POD.CREATE', true, true);
+  }
+
   onEditResourceEvent(obj: any) {
     this.kubernetesClient.get(this.cluster, this.kubeResource, obj.metadata.name, obj.metadata.namespace)
       .subscribe(
@@ -113,6 +117,22 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
         },
         error => this.messageHandlerService.handleError(error)
       );
+  }
+
+  onCreateResourceEvent(obj: any) {
+    if (obj && obj.metadata && obj.metadata.namespace) {
+      this.kubernetesClient.create(obj, this.cluster, this.kubeResource, obj.metadata.namespace).subscribe(
+        resp2 => {
+          this.messageHandlerService.showSuccess('ADMIN.KUBERNETES.MESSAGE.CREATE');
+          this.retrieveResource();
+        },
+        error => {
+          this.messageHandlerService.handleError(error);
+        }
+      );
+    } else {
+      this.messageHandlerService.showError('格式校验错误');
+    }
   }
 
   onSaveResourceEvent(obj: any) {

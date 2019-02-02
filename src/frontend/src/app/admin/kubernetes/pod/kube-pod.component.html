@@ -2,6 +2,9 @@
   <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
     <div class="table-search">
       <div class="table-search-left">
+        <button class="wayne-button normal" (click)="createResource()">
+          {{'ADMIN.KUBERNETES.POD.CREATE' | translate}}
+        </button>
         <button class="wayne-button normal" (click)="retrieveResource()">
           {{'ADMIN.KUBERNETES.ACTION.REFRESH' | translate}}
         </button>
@@ -38,7 +41,7 @@
     </wayne-list-pod>
   </div>
 </div>
-<wayne-ace-editor (outputObj)="onSaveResourceEvent($event)"></wayne-ace-editor>
+<wayne-ace-editor (createOutputObj)="onCreateResourceEvent($event)" (outputObj)="onSaveResourceEvent($event)"></wayne-ace-editor>
 <wayne-float-window value="{{ cluster }}">
   <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster"
                            (click)="jumpToHref(cluster)"></wayne-float-window-item>
