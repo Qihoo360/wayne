@@ -1,6 +1,8 @@
 package proxy
 
 import (
+	"sort"
+
 	"k8s.io/apimachinery/pkg/util/json"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
@@ -28,6 +30,10 @@ func GetPage(kubeClient client.ResourceHandler, kind string, namespace string, q
 		commonObjs = append(commonObjs, commonObj)
 	}
 
+	sort.Slice(commonObjs, func(i, j int) bool {
+		return commonObjs[j].GetProperty(dataselector.NameProperty).Compare(commonObjs[i].GetProperty(dataselector.NameProperty)) == 1
+	})
+
 	return dataselector.DataSelectPage(commonObjs, q), nil
 }
 
@@ -36,6 +42,7 @@ func GetNames(kubeClient client.ResourceHandler, kind string, namespace string) 
 	if err != nil {
 		return nil, err
 	}
+
 	commonObjs := make([]response.NamesObject, 0)
 	for _, obj := range objs {
 		objByte, err := json.Marshal(obj)
@@ -51,6 +58,10 @@ func GetNames(kubeClient client.ResourceHandler, kind string, namespace string) 
 			Name: commonObj.Name,
 		})
 	}
+
+	sort.Slice(commonObjs, func(i, j int) bool {
+		return commonObjs[i].Name < commonObjs[j].Name
+	})
 
 	return commonObjs, nil
 }

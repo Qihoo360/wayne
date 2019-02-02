@@ -470,10 +470,10 @@
     "TOTAL": "总量",
     "USER": "用户",
     "VERSION": "版本",
-    "COPY_INTERVAL":"副本区间"
+    "COPY_INTERVAL": "副本区间"
   },
   "TIP": {
-    "REGULAR_NAME":"名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?"
+    "REGULAR_NAME": "名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?"
   },
   "TEMPLATE": {
     "ADD_ENVIRONMENT": "添加环境变量",
@@ -537,9 +537,9 @@
     "SCHEDULING_CONFIG": "调度配置",
     "TYPE": "类型",
     "NAME": "名称",
-    "MIN_REPLICAS":"最小副本数",
-    "MAX_REPLICAS":"最小副本数",
-    "CPU_THRESHOLD":"CPU 负载阈值"
+    "MIN_REPLICAS": "最小副本数",
+    "MAX_REPLICAS": "最小副本数",
+    "CPU_THRESHOLD": "CPU 负载阈值"
   },
   "UNIT": {
     "CORE": "核",
@@ -566,5 +566,39 @@
     "CREATE": "创建新的{{ value }}",
     "FOCUS_EVENT": "关注事件",
     "TITLE": "{{ value }}列表"
+  },
+  "ADMIN": {
+    "KUBERNETES": {
+      "ACTION": {
+        "EDIT": "查看/编辑",
+        "DELETE": "删除",
+        "FORCEDELETE": "强制删除",
+        "REFRESH": "刷新"
+      },
+      "LABEL": {
+        "NAMESPACE": "命名空间:"
+      },
+      "TITLE": {
+        "DETAIL": "详情"
+      },
+      "MESSAGE": {
+        "CREATE": "创建成功！",
+        "DELETE": "删除成功！",
+        "UPDATE": "更新成功！"
+      },
+      "POD": {
+        "CREATE": "创建 Pod",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "IMAGES": "镜像",
+          "STATUS": "状态",
+          "PODIP": "PodIP",
+          "NODE": "主机节点",
+          "RESTARTCOUNT": "重启次数",
+          "AGE": "启动时间"
+        }
+      }
+    }
   }
 }

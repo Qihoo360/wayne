@@ -19,7 +19,7 @@ export class KubernetesResource {
   clusters: Array<any>;
   resourceName: string;
   resources: Array<any>;
-  showList: any[] = new Array();
+  showList: any[] = Array();
 
   subscription: Subscription;
   resourceType: string;

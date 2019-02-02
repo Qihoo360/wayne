@@ -27,8 +27,9 @@
       </wayne-card>
       <wayne-card class="wayne-card">
         <div class="card-title">实例数量</div>
-        <p style="color: #666" class="card-text">
-          {{summary.podTotal}}
+        <p class="card-text">
+          <a href="javascript:void(0)" (click)="goToLink('/admin/kubernetes/pod')"
+             class="nav-link"> {{summary.podTotal}}</a>
         </p>
       </wayne-card>
     </div>

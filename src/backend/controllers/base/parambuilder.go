@@ -13,28 +13,8 @@ type ParamBuilderController struct {
 	ResultHandlerController
 }
 
-// TODO: 需要重构成独立的Controller，参考Django的generic views设计
 func (c *ParamBuilderController) BuildQueryParam() *common.QueryParam {
-	pageNo := c.Input().Get("pageNo")
-	pageSize := c.Input().Get("pageSize")
-	if pageNo == "" {
-		pageNo = strconv.Itoa(defaultPageNo)
-	}
-
-	if pageSize == "" {
-		pageSize = strconv.Itoa(defaultPageSize)
-	}
-
-	no, err := strconv.ParseInt(pageNo, 10, 64)
-	// pageNo must bigger than zero.
-	if err != nil || no < 1 {
-		c.AbortBadRequest("Invalid pageNo in query.")
-	}
-	// pageSize must bigger than zero.
-	size, err := strconv.ParseInt(pageSize, 10, 64)
-	if err != nil || size < 1 {
-		c.AbortBadRequest("Invalid pageSize in query.")
-	}
+	no, size := c.buildPageParam()
 
 	qmap := map[string]interface{}{}
 	deletedStr := c.Input().Get("deleted")
@@ -73,12 +53,61 @@ func (c *ParamBuilderController) BuildQueryParam() *common.QueryParam {
 		relate = c.Input().Get("relate")
 	}
 
-	return &common.QueryParam{PageNo: no,
+	return &common.QueryParam{
+		PageNo:   no,
+		PageSize: size,
+		Query:    qmap,
+		Sortby:   snaker.CamelToSnake(c.Input().Get("sortby")),
+		Relate:   relate}
+}
+
+func (c *ParamBuilderController) BuildKubernetesQueryParam() *common.QueryParam {
+	no, size := c.buildPageParam()
+
+	qmap := map[string]interface{}{}
+
+	filter := c.Input().Get("filter")
+	if filter != "" {
+		filters := strings.Split(filter, ",")
+		for _, param := range filters {
+			params := strings.Split(param, "=")
+			if len(params) != 2 {
+				continue
+			}
+			qmap[params[0]] = params[1]
+		}
+	}
+
+	return &common.QueryParam{
+		PageNo:        no,
 		PageSize:      size,
 		Query:         qmap,
-		Sortby:        snaker.CamelToSnake(c.Input().Get("sortby")),
-		Relate:        relate,
-		LabelSelector: c.Input().Get("filter")}
+		Sortby:        c.Input().Get("sortby"),
+		LabelSelector: c.Input().Get("labelSelector")}
+}
+
+func (c *ParamBuilderController) buildPageParam() (no int64, size int64) {
+	pageNo := c.Input().Get("pageNo")
+	pageSize := c.Input().Get("pageSize")
+	if pageNo == "" {
+		pageNo = strconv.Itoa(defaultPageNo)
+	}
+
+	if pageSize == "" {
+		pageSize = strconv.Itoa(defaultPageSize)
+	}
+
+	no, err := strconv.ParseInt(pageNo, 10, 64)
+	// pageNo must bigger than zero.
+	if err != nil || no < 1 {
+		c.AbortBadRequest("Invalid pageNo in query.")
+	}
+	// pageSize must bigger than zero.
+	size, err = strconv.ParseInt(pageSize, 10, 64)
+	if err != nil || size < 1 {
+		c.AbortBadRequest("Invalid pageSize in query.")
+	}
+	return
 }
 
 func (c *ParamBuilderController) GetIDFromURL() int64 {

@@ -48,6 +48,7 @@ import { CreateEditAutoscaletplComponent } from './autoscaletpl/create-edit-auto
 import { ListAutoscaletplComponent } from './autoscaletpl/list-autoscaletpl/list-autoscaletpl.component';
 import { TrashAutoscaletplComponent } from './autoscaletpl/trash-autoscaletpl/trash-autoscaletpl.component';
 import { SidenavModule } from './sidenav/sidenav.module';
+import { KubePodModule } from './kubernetes/pod/kube-pod.module';
 
 @NgModule({
   imports: [
@@ -88,7 +89,8 @@ import { SidenavModule } from './sidenav/sidenav.module';
     IngressTplModule,
     KubeDeploymentModule,
     TplDetailModule,
-    SidenavModule
+    SidenavModule,
+    KubePodModule,
   ],
   providers: [
     AdminAuthCheckGuard,
