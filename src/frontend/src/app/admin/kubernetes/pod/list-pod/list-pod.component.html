@@ -45,6 +45,7 @@
     <clr-dg-action-overflow>
       <button class="action-item" (click)="onEditEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.EDIT' | translate}}</button>
       <button class="action-item" (click)="onDeleteEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.DELETE' | translate}}</button>
+      <button class="action-item" (click)="onForceDeleteEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.FORCEDELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell> {{ obj.metadata.name }} </clr-dg-cell>
     <clr-dg-cell class="col-version">

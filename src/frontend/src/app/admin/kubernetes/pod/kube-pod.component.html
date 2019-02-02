@@ -21,7 +21,7 @@
           </wayne-checkbox-group>
         </wayne-filter-box>
         <label for="namespace_name" class="clr-col-md-3">{{'ADMIN.KUBERNETES.LABEL.NAMESPACE' | translate}}</label>
-        <wayne-select [(ngModel)]="namespace"  (change)="retrieveResource()"
+        <wayne-select [(ngModel)]="namespace" (change)="retrieveResource()"
                       searchable
                       name="namespace_name"
                       [placeholder]="'PLACEHOLDER.CHOOSE' | translate"
@@ -41,6 +41,7 @@
     </wayne-list-pod>
   </div>
 </div>
+<deletion-dialog (outputObj)="confirmDeleteEvent($event)"></deletion-dialog>
 <wayne-ace-editor (createOutputObj)="onCreateResourceEvent($event)" (outputObj)="onSaveResourceEvent($event)"></wayne-ace-editor>
 <wayne-float-window value="{{ cluster }}">
   <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster"

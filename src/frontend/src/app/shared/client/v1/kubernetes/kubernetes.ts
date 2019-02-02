@@ -87,7 +87,8 @@ export class KubernetesClient {
       .catch(error => throwError(error));
   }
 
-  delete(cluster: string, kind: KubeResourcesName, name: string, namespace?: string, appId?: string): Observable<any> {
+  // force delete will delete obj for etcd directly
+  delete(cluster: string, kind: KubeResourcesName, force: boolean, name: string, namespace?: string, appId?: string): Observable<any> {
     if ((typeof (appId) === 'undefined') || (!appId)) {
       appId = '0';
     }
@@ -95,6 +96,10 @@ export class KubernetesClient {
     let link = `/api/v1/apps/${appId}/_proxy/clusters/${cluster}/${kind}/${name}`;
     if (namespace) {
       link = `/api/v1/apps/${appId}/_proxy/clusters/${cluster}/namespaces/${namespace}/${kind}/${name}`;
+    }
+
+    if (force === true) {
+      link = `${link}?force=${force}`;
     }
 
     return this.http

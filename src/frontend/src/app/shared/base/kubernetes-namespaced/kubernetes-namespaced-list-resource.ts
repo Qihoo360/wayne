@@ -3,6 +3,11 @@ import { ClrDatagridStateInterface } from '@clr/angular';
 import { Page } from '../../page/page-state';
 import { TplDetailService } from '../../tpl-detail/tpl-detail.service';
 
+export interface DeleteEvent {
+  obj: any;
+  force?: boolean;
+}
+
 export class KubernetesNamespacedListResource {
   state: ClrDatagridStateInterface;
   currentPage = 1;
@@ -11,7 +16,7 @@ export class KubernetesNamespacedListResource {
 
   @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() edit = new EventEmitter<any>();
-  @Output() delete = new EventEmitter<any>();
+  @Output() delete = new EventEmitter<DeleteEvent>();
 
   constructor(public tplDetailService: TplDetailService) {
   }
@@ -25,7 +30,11 @@ export class KubernetesNamespacedListResource {
   }
 
   onDeleteEvent(obj: any) {
-    this.delete.emit(obj);
+    this.delete.emit({obj: obj});
+  }
+
+  onForceDeleteEvent(obj: any) {
+    this.delete.emit({obj: obj, force: true});
   }
 
   refresh(state: ClrDatagridStateInterface) {

@@ -9,6 +9,7 @@ import { ListPodComponent } from './list-pod/list-pod.component';
 import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
 import { KubeResourcePod } from '../../../shared/shared.const';
 import { KubernetesNamespacedResource } from '../../../shared/base/kubernetes-namespaced/kubernetes-namespaced-resource';
+import { DeletionDialogComponent } from '../../../shared/deletion-dialog/deletion-dialog.component';
 
 const showState = {
   'name': {hidden: false},
@@ -33,15 +34,16 @@ export class KubePodComponent extends KubernetesNamespacedResource implements On
   @ViewChild(AceEditorComponent)
   aceEditorModal: AceEditorComponent;
 
+  @ViewChild(DeletionDialogComponent)
+  deletionDialogComponent: DeletionDialogComponent;
 
   constructor(public kubernetesClient: KubernetesClient,
               public route: ActivatedRoute,
               public router: Router,
               public clusterService: ClusterService,
               public authService: AuthService,
-              public messageHandlerService: MessageHandlerService,
-              public deletionDialogService: ConfirmationDialogService) {
-    super(kubernetesClient, route, router, clusterService, authService, messageHandlerService, deletionDialogService);
+              public messageHandlerService: MessageHandlerService) {
+    super(kubernetesClient, route, router, clusterService, authService, messageHandlerService);
     super.registResourceType('pod');
     super.registKubeResource(KubeResourcePod);
     super.registShowSate(showState);

@@ -1,19 +1,19 @@
 import { MessageHandlerService } from '../../message-handler/message-handler.service';
-import { Subscription } from 'rxjs/Subscription';
-import { ConfirmationDialogService } from '../../confirmation-dialog/confirmation-dialog.service';
 import { AceEditorComponent } from '../../ace-editor/ace-editor.component';
 import { AuthService } from '../../auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClusterService } from '../../client/v1/cluster.service';
 import { PageState } from '../../page/page-state';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { ConfirmationButtons, ConfirmationState, KubeResourceNamespace, KubeResourcePod, KubeResourcesName } from '../../shared.const';
+import { KubeResourceNamespace, KubeResourcePod, KubeResourcesName } from '../../shared.const';
 import { OnDestroy, OnInit } from '@angular/core';
 import { KubernetesClient } from '../../client/v1/kubernetes/kubernetes';
-import { ConfirmationMessage } from '../../confirmation-dialog/confirmation-message';
+import { DeletionDialogComponent } from '../../deletion-dialog/deletion-dialog.component';
+import { DeleteEvent } from './kubernetes-namespaced-list-resource';
 
 export class KubernetesNamespacedResource implements OnInit, OnDestroy {
   aceEditorModal: AceEditorComponent;
+  deletionDialogComponent: DeletionDialogComponent;
 
   showState: object;
   pageState: PageState = new PageState();
@@ -24,10 +24,8 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
   resources: Array<any>;
   showList: any[] = Array();
 
-  subscription: Subscription;
   resourceType: string;
   kubeResource: KubeResourcesName;
-
 
   namespaces: string[];
   namespace: string;
@@ -37,26 +35,7 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
               public router: Router,
               public clusterService: ClusterService,
               public authService: AuthService,
-              public messageHandlerService: MessageHandlerService,
-              public deletionDialogService: ConfirmationDialogService) {
-    this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
-      if (message &&
-        message.state === ConfirmationState.CONFIRMED &&
-        message.source === this.kubeResource) {
-        const obj: any = message.data;
-        this.kubernetesClient
-          .delete(this.cluster, this.kubeResource, obj.metadata.name, obj.metadata.namespace)
-          .subscribe(
-            response => {
-              this.retrieveResource();
-              this.messageHandlerService.showSuccess('ADMIN.KUBERNETES.MESSAGE.DELETE');
-            },
-            error => {
-              this.messageHandlerService.handleError(error);
-            }
-          );
-      }
-    });
+              public messageHandlerService: MessageHandlerService) {
   }
 
   ngOnInit() {
@@ -107,6 +86,32 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
   createResource() {
     this.aceEditorModal.openModal({}, 'ADMIN.KUBERNETES.POD.CREATE', true, true);
   }
+
+
+  onDeleteResourceEvent(event: DeleteEvent) {
+    let msg = `是否确认删除对象 ${event.obj.metadata.name}`;
+    let title = `删除确认`;
+    if (event.force === true) {
+      msg = `是否确认强制删除对象 ${event.obj.metadata.name}, 强制删除将直接从 etcd 中删除数据，可能导致与 Kubernetes 中状态不一致!`;
+      title = `强制删除确认`;
+    }
+    this.deletionDialogComponent.open(title, msg, event);
+  }
+
+  confirmDeleteEvent(event: DeleteEvent) {
+    this.kubernetesClient
+      .delete(this.cluster, this.kubeResource, event.force, event.obj.metadata.name, event.obj.metadata.namespace)
+      .subscribe(
+        response => {
+          this.retrieveResource();
+          this.messageHandlerService.showSuccess('ADMIN.KUBERNETES.MESSAGE.DELETE');
+        },
+        error => {
+          this.messageHandlerService.handleError(error);
+        }
+      );
+  }
+
 
   onEditResourceEvent(obj: any) {
     this.kubernetesClient.get(this.cluster, this.kubeResource, obj.metadata.name, obj.metadata.namespace)
@@ -186,17 +191,6 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
     }
   }
 
-  onDeleteResourceEvent(resource: any) {
-    const deletionMessage = new ConfirmationMessage(
-      '删除确认',
-      `是否确认删除对象 ${resource.metadata.name}`,
-      resource,
-      this.kubeResource,
-      ConfirmationButtons.DELETE_CANCEL
-    );
-    this.deletionDialogService.openComfirmDialog(deletionMessage);
-  }
-
   jumpToHref(cluster) {
     this.cluster = cluster;
     this.router.navigateByUrl(`admin/kubernetes/${this.resourceType}/${cluster}`);
@@ -215,6 +209,5 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }
