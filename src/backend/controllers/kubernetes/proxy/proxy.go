@@ -2,6 +2,7 @@ package proxy
 
 import (
 	"encoding/json"
+	"strconv"
 
 	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -179,6 +180,7 @@ func (c *KubeProxyController) Update() {
 // @Param	kind		path 	string	true		"the resource kind"
 // @Param	namespace		path 	string	true		"the namespace want to delete"
 // @Param	name		path 	string	true		"the name want to delete"
+// @Param	force		query 	bool	false		"force to delete the resource from etcd."
 // @Success 200 {string} delete success!
 // @router /:name [delete]
 func (c *KubeProxyController) Delete() {
@@ -186,9 +188,20 @@ func (c *KubeProxyController) Delete() {
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":name")
 	kind := c.Ctx.Input.Param(":kind")
+	force := c.Input().Get("force")
 	defaultPropagationPolicy := meta_v1.DeletePropagationBackground
 	defaultDeleteOptions := meta_v1.DeleteOptions{
 		PropagationPolicy: &defaultPropagationPolicy,
+	}
+	if force != "" {
+		forceBool, err := strconv.ParseBool(force)
+		if err != nil {
+			c.AbortBadRequestFormat("force")
+		}
+		if forceBool {
+			var gracePeriodSeconds int64 = 0
+			defaultDeleteOptions.GracePeriodSeconds = &gracePeriodSeconds
+		}
 	}
 	kubeClient := c.KubeClient(cluster)
 	err := kubeClient.Delete(kind, namespace, name, &defaultDeleteOptions)
