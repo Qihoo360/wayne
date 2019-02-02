@@ -37,14 +37,6 @@ export class ContainerStateTerminated {
     }
   }
 
-
-  static emptyObject(): ContainerStateTerminated {
-    const result = new ContainerStateTerminated();
-    result.startedAt = Time.emptyObject();
-    result.finishedAt = Time.emptyObject();
-    return result;
-  }
-
 }
 
 export class ContainerStateRunning {
@@ -57,13 +49,6 @@ export class ContainerStateRunning {
     if (init.startedAt) {
       this.startedAt = init.startedAt;
     }
-  }
-
-
-  static emptyObject(): ContainerStateRunning {
-    const result = new ContainerStateRunning();
-    result.startedAt = Time.emptyObject();
-    return result;
   }
 
 }
@@ -82,12 +67,6 @@ export class ContainerStateWaiting {
     if (init.message) {
       this.message = init.message;
     }
-  }
-
-
-  static emptyObject(): ContainerStateWaiting {
-    const result = new ContainerStateWaiting();
-    return result;
   }
 
 }
@@ -110,15 +89,6 @@ export class ContainerState {
     if (init.terminated) {
       this.terminated = init.terminated;
     }
-  }
-
-
-  static emptyObject(): ContainerState {
-    const result = new ContainerState();
-    result.waiting = ContainerStateWaiting.emptyObject();
-    result.running = ContainerStateRunning.emptyObject();
-    result.terminated = ContainerStateTerminated.emptyObject();
-    return result;
   }
 
 }
@@ -163,14 +133,6 @@ export class ContainerStatus {
     }
   }
 
-
-  static emptyObject(): ContainerStatus {
-    const result = new ContainerStatus();
-    result.state = ContainerState.emptyObject();
-    result.lastState = ContainerState.emptyObject();
-    return result;
-  }
-
 }
 
 
@@ -205,14 +167,6 @@ export class PodCondition {
     if (init.message) {
       this.message = init.message;
     }
-  }
-
-
-  static emptyObject(): PodCondition {
-    const result = new PodCondition();
-    result.lastProbeTime = Time.emptyObject();
-    result.lastTransitionTime = Time.emptyObject();
-    return result;
   }
 
 }
@@ -269,16 +223,6 @@ export class PodStatus {
     }
   }
 
-
-  static emptyObject(): PodStatus {
-    const result = new PodStatus();
-    result.conditions = [];
-    result.startTime = Time.emptyObject();
-    result.initContainerStatuses = [];
-    result.containerStatuses = [];
-    return result;
-  }
-
 }
 
 export class PodDNSConfigOption {
@@ -295,12 +239,6 @@ export class PodDNSConfigOption {
     if (init.value) {
       this.value = init.value;
     }
-  }
-
-
-  static emptyObject(): PodDNSConfigOption {
-    const result = new PodDNSConfigOption();
-    return result;
   }
 
 }
@@ -325,15 +263,6 @@ export class PodDNSConfig {
     }
   }
 
-
-  static emptyObject(): PodDNSConfig {
-    const result = new PodDNSConfig();
-    result.nameservers = [];
-    result.searches = [];
-    result.options = [];
-    return result;
-  }
-
 }
 
 export class HostAlias {
@@ -350,13 +279,6 @@ export class HostAlias {
     if (init.hostnames) {
       this.hostnames = init.hostnames;
     }
-  }
-
-
-  static emptyObject(): HostAlias {
-    const result = new HostAlias();
-    result.hostnames = [];
-    return result;
   }
 
 }
@@ -389,12 +311,6 @@ export class Toleration {
     }
   }
 
-
-  static emptyObject(): Toleration {
-    const result = new Toleration();
-    return result;
-  }
-
 }
 
 
@@ -414,14 +330,6 @@ export class PodAntiAffinity {
     }
   }
 
-
-  static emptyObject(): PodAntiAffinity {
-    const result = new PodAntiAffinity();
-    result.requiredDuringSchedulingIgnoredDuringExecution = [];
-    result.preferredDuringSchedulingIgnoredDuringExecution = [];
-    return result;
-  }
-
 }
 
 export class WeightedPodAffinityTerm {
@@ -438,13 +346,6 @@ export class WeightedPodAffinityTerm {
     if (init.podAffinityTerm) {
       this.podAffinityTerm = init.podAffinityTerm;
     }
-  }
-
-
-  static emptyObject(): WeightedPodAffinityTerm {
-    const result = new WeightedPodAffinityTerm();
-    result.podAffinityTerm = PodAffinityTerm.emptyObject();
-    return result;
   }
 
 }
@@ -469,13 +370,6 @@ export class LabelSelectorRequirement {
     }
   }
 
-
-  static emptyObject(): LabelSelectorRequirement {
-    const result = new LabelSelectorRequirement();
-    result.values = [];
-    return result;
-  }
-
 }
 
 export class LabelSelector {
@@ -492,14 +386,6 @@ export class LabelSelector {
     if (init.matchExpressions) {
       this.matchExpressions = init.matchExpressions;
     }
-  }
-
-
-  static emptyObject(): LabelSelector {
-    const result = new LabelSelector();
-    result.matchLabels = null;
-    result.matchExpressions = [];
-    return result;
   }
 
 }
@@ -524,14 +410,6 @@ export class PodAffinityTerm {
     }
   }
 
-
-  static emptyObject(): PodAffinityTerm {
-    const result = new PodAffinityTerm();
-    result.labelSelector = LabelSelector.emptyObject();
-    result.namespaces = [];
-    return result;
-  }
-
 }
 
 export class PodAffinity {
@@ -550,14 +428,6 @@ export class PodAffinity {
     }
   }
 
-
-  static emptyObject(): PodAffinity {
-    const result = new PodAffinity();
-    result.requiredDuringSchedulingIgnoredDuringExecution = [];
-    result.preferredDuringSchedulingIgnoredDuringExecution = [];
-    return result;
-  }
-
 }
 
 export class PreferredSchedulingTerm {
@@ -574,13 +444,6 @@ export class PreferredSchedulingTerm {
     if (init.preference) {
       this.preference = init.preference;
     }
-  }
-
-
-  static emptyObject(): PreferredSchedulingTerm {
-    const result = new PreferredSchedulingTerm();
-    result.preference = NodeSelectorTerm.emptyObject();
-    return result;
   }
 
 }
@@ -605,13 +468,6 @@ export class NodeSelectorRequirement {
     }
   }
 
-
-  static emptyObject(): NodeSelectorRequirement {
-    const result = new NodeSelectorRequirement();
-    result.values = [];
-    return result;
-  }
-
 }
 
 export class NodeSelectorTerm {
@@ -626,13 +482,6 @@ export class NodeSelectorTerm {
     }
   }
 
-
-  static emptyObject(): NodeSelectorTerm {
-    const result = new NodeSelectorTerm();
-    result.matchExpressions = [];
-    return result;
-  }
-
 }
 
 export class NodeSelector {
@@ -645,13 +494,6 @@ export class NodeSelector {
     if (init.nodeSelectorTerms) {
       this.nodeSelectorTerms = init.nodeSelectorTerms;
     }
-  }
-
-
-  static emptyObject(): NodeSelector {
-    const result = new NodeSelector();
-    result.nodeSelectorTerms = [];
-    return result;
   }
 
 }
@@ -670,14 +512,6 @@ export class NodeAffinity {
     if (init.preferredDuringSchedulingIgnoredDuringExecution) {
       this.preferredDuringSchedulingIgnoredDuringExecution = init.preferredDuringSchedulingIgnoredDuringExecution;
     }
-  }
-
-
-  static emptyObject(): NodeAffinity {
-    const result = new NodeAffinity();
-    result.requiredDuringSchedulingIgnoredDuringExecution = NodeSelector.emptyObject();
-    result.preferredDuringSchedulingIgnoredDuringExecution = [];
-    return result;
   }
 
 }
@@ -700,15 +534,6 @@ export class Affinity {
     if (init.podAntiAffinity) {
       this.podAntiAffinity = init.podAntiAffinity;
     }
-  }
-
-
-  static emptyObject(): Affinity {
-    const result = new Affinity();
-    result.nodeAffinity = NodeAffinity.emptyObject();
-    result.podAffinity = PodAffinity.emptyObject();
-    result.podAntiAffinity = PodAntiAffinity.emptyObject();
-    return result;
   }
 
 }
@@ -746,14 +571,6 @@ export class PodSecurityContext {
     }
   }
 
-
-  static emptyObject(): PodSecurityContext {
-    const result = new PodSecurityContext();
-    result.seLinuxOptions = SELinuxOptions.emptyObject();
-    result.supplementalGroups = [];
-    return result;
-  }
-
 }
 
 export class SELinuxOptions {
@@ -780,12 +597,6 @@ export class SELinuxOptions {
     }
   }
 
-
-  static emptyObject(): SELinuxOptions {
-    const result = new SELinuxOptions();
-    return result;
-  }
-
 }
 
 export class Capabilities {
@@ -802,14 +613,6 @@ export class Capabilities {
     if (init.drop) {
       this.drop = init.drop;
     }
-  }
-
-
-  static emptyObject(): Capabilities {
-    const result = new Capabilities();
-    result.add = [];
-    result.drop = [];
-    return result;
   }
 
 }
@@ -854,14 +657,6 @@ export class SecurityContext {
     }
   }
 
-
-  static emptyObject(): SecurityContext {
-    const result = new SecurityContext();
-    result.capabilities = Capabilities.emptyObject();
-    result.seLinuxOptions = SELinuxOptions.emptyObject();
-    return result;
-  }
-
 }
 
 
@@ -887,15 +682,6 @@ export class Handler {
     }
   }
 
-
-  static emptyObject(): Handler {
-    const result = new Handler();
-    result.exec = ExecAction.emptyObject();
-    result.httpGet = HTTPGetAction.emptyObject();
-    result.tcpSocket = TCPSocketAction.emptyObject();
-    return result;
-  }
-
 }
 
 export class Lifecycle {
@@ -912,14 +698,6 @@ export class Lifecycle {
     if (init.preStop) {
       this.preStop = init.preStop;
     }
-  }
-
-
-  static emptyObject(): Lifecycle {
-    const result = new Lifecycle();
-    result.postStart = Handler.emptyObject();
-    result.preStop = Handler.emptyObject();
-    return result;
   }
 
 }
@@ -941,13 +719,6 @@ export class TCPSocketAction {
     }
   }
 
-
-  static emptyObject(): TCPSocketAction {
-    const result = new TCPSocketAction();
-    result.port = IntOrString.emptyObject();
-    return result;
-  }
-
 }
 
 export class HTTPHeader {
@@ -964,12 +735,6 @@ export class HTTPHeader {
     if (init.value) {
       this.value = init.value;
     }
-  }
-
-
-  static emptyObject(): HTTPHeader {
-    const result = new HTTPHeader();
-    return result;
   }
 
 }
@@ -992,12 +757,6 @@ export class IntOrString {
     if (init.StrVal) {
       this.StrVal = init.StrVal;
     }
-  }
-
-
-  static emptyObject(): IntOrString {
-    const result = new IntOrString();
-    return result;
   }
 
 }
@@ -1030,14 +789,6 @@ export class HTTPGetAction {
     }
   }
 
-
-  static emptyObject(): HTTPGetAction {
-    const result = new HTTPGetAction();
-    result.port = IntOrString.emptyObject();
-    result.httpHeaders = [];
-    return result;
-  }
-
 }
 
 export class ExecAction {
@@ -1050,13 +801,6 @@ export class ExecAction {
     if (init.command) {
       this.command = init.command;
     }
-  }
-
-
-  static emptyObject(): ExecAction {
-    const result = new ExecAction();
-    result.command = [];
-    return result;
   }
 
 }
@@ -1101,15 +845,6 @@ export class Probe {
     }
   }
 
-
-  static emptyObject(): Probe {
-    const result = new Probe();
-    result.exec = ExecAction.emptyObject();
-    result.httpGet = HTTPGetAction.emptyObject();
-    result.tcpSocket = TCPSocketAction.emptyObject();
-    return result;
-  }
-
 }
 
 export class VolumeDevice {
@@ -1126,12 +861,6 @@ export class VolumeDevice {
     if (init.devicePath) {
       this.devicePath = init.devicePath;
     }
-  }
-
-
-  static emptyObject(): VolumeDevice {
-    const result = new VolumeDevice();
-    return result;
   }
 
 }
@@ -1164,12 +893,6 @@ export class VolumeMount {
     }
   }
 
-
-  static emptyObject(): VolumeMount {
-    const result = new VolumeMount();
-    return result;
-  }
-
 }
 
 export class ResourceRequirements {
@@ -1186,14 +909,6 @@ export class ResourceRequirements {
     if (init.requests) {
       this.requests = init.requests;
     }
-  }
-
-
-  static emptyObject(): ResourceRequirements {
-    const result = new ResourceRequirements();
-    result.limits = null;
-    result.requests = null;
-    return result;
   }
 
 }
@@ -1218,12 +933,6 @@ export class SecretKeySelector {
     }
   }
 
-
-  static emptyObject(): SecretKeySelector {
-    const result = new SecretKeySelector();
-    return result;
-  }
-
 }
 
 export class ConfigMapKeySelector {
@@ -1244,12 +953,6 @@ export class ConfigMapKeySelector {
     if (init.optional) {
       this.optional = init.optional;
     }
-  }
-
-
-  static emptyObject(): ConfigMapKeySelector {
-    const result = new ConfigMapKeySelector();
-    return result;
   }
 
 }
@@ -1279,16 +982,6 @@ export class EnvVarSource {
     }
   }
 
-
-  static emptyObject(): EnvVarSource {
-    const result = new EnvVarSource();
-    result.fieldRef = ObjectFieldSelector.emptyObject();
-    result.resourceFieldRef = ResourceFieldSelector.emptyObject();
-    result.configMapKeyRef = ConfigMapKeySelector.emptyObject();
-    result.secretKeyRef = SecretKeySelector.emptyObject();
-    return result;
-  }
-
 }
 
 export class EnvVar {
@@ -1311,13 +1004,6 @@ export class EnvVar {
     }
   }
 
-
-  static emptyObject(): EnvVar {
-    const result = new EnvVar();
-    result.valueFrom = EnvVarSource.emptyObject();
-    return result;
-  }
-
 }
 
 export class SecretEnvSource {
@@ -1336,12 +1022,6 @@ export class SecretEnvSource {
     }
   }
 
-
-  static emptyObject(): SecretEnvSource {
-    const result = new SecretEnvSource();
-    return result;
-  }
-
 }
 
 export class ConfigMapEnvSource {
@@ -1358,12 +1038,6 @@ export class ConfigMapEnvSource {
     if (init.optional) {
       this.optional = init.optional;
     }
-  }
-
-
-  static emptyObject(): ConfigMapEnvSource {
-    const result = new ConfigMapEnvSource();
-    return result;
   }
 
 }
@@ -1386,14 +1060,6 @@ export class EnvFromSource {
     if (init.secretRef) {
       this.secretRef = init.secretRef;
     }
-  }
-
-
-  static emptyObject(): EnvFromSource {
-    const result = new EnvFromSource();
-    result.configMapRef = ConfigMapEnvSource.emptyObject();
-    result.secretRef = SecretEnvSource.emptyObject();
-    return result;
   }
 
 }
@@ -1424,12 +1090,6 @@ export class ContainerPort {
     if (init.hostIP) {
       this.hostIP = init.hostIP;
     }
-  }
-
-
-  static emptyObject(): ContainerPort {
-    const result = new ContainerPort();
-    return result;
   }
 
 }
@@ -1526,24 +1186,6 @@ export class Container {
     }
   }
 
-
-  static emptyObject(): Container {
-    const result = new Container();
-    result.command = [];
-    result.args = [];
-    result.ports = [];
-    result.envFrom = [];
-    result.env = [];
-    result.resources = ResourceRequirements.emptyObject();
-    result.volumeMounts = [];
-    result.volumeDevices = [];
-    result.livenessProbe = Probe.emptyObject();
-    result.readinessProbe = Probe.emptyObject();
-    result.lifecycle = Lifecycle.emptyObject();
-    result.securityContext = SecurityContext.emptyObject();
-    return result;
-  }
-
 }
 
 export class StorageOSVolumeSource {
@@ -1572,13 +1214,6 @@ export class StorageOSVolumeSource {
     if (init.secretRef) {
       this.secretRef = init.secretRef;
     }
-  }
-
-
-  static emptyObject(): StorageOSVolumeSource {
-    const result = new StorageOSVolumeSource();
-    result.secretRef = LocalObjectReference.emptyObject();
-    return result;
   }
 
 }
@@ -1631,13 +1266,6 @@ export class ScaleIOVolumeSource {
     }
   }
 
-
-  static emptyObject(): ScaleIOVolumeSource {
-    const result = new ScaleIOVolumeSource();
-    result.secretRef = LocalObjectReference.emptyObject();
-    return result;
-  }
-
 }
 
 export class PortworxVolumeSource {
@@ -1658,12 +1286,6 @@ export class PortworxVolumeSource {
     if (init.readOnly) {
       this.readOnly = init.readOnly;
     }
-  }
-
-
-  static emptyObject(): PortworxVolumeSource {
-    const result = new PortworxVolumeSource();
-    return result;
   }
 
 }
@@ -1688,13 +1310,6 @@ export class ConfigMapProjection {
     }
   }
 
-
-  static emptyObject(): ConfigMapProjection {
-    const result = new ConfigMapProjection();
-    result.items = [];
-    return result;
-  }
-
 }
 
 export class DownwardAPIProjection {
@@ -1707,13 +1322,6 @@ export class DownwardAPIProjection {
     if (init.items) {
       this.items = init.items;
     }
-  }
-
-
-  static emptyObject(): DownwardAPIProjection {
-    const result = new DownwardAPIProjection();
-    result.items = [];
-    return result;
   }
 
 }
@@ -1738,13 +1346,6 @@ export class SecretProjection {
     }
   }
 
-
-  static emptyObject(): SecretProjection {
-    const result = new SecretProjection();
-    result.items = [];
-    return result;
-  }
-
 }
 
 export class VolumeProjection {
@@ -1767,15 +1368,6 @@ export class VolumeProjection {
     }
   }
 
-
-  static emptyObject(): VolumeProjection {
-    const result = new VolumeProjection();
-    result.secret = SecretProjection.emptyObject();
-    result.downwardAPI = DownwardAPIProjection.emptyObject();
-    result.configMap = ConfigMapProjection.emptyObject();
-    return result;
-  }
-
 }
 
 export class ProjectedVolumeSource {
@@ -1794,13 +1386,6 @@ export class ProjectedVolumeSource {
     }
   }
 
-
-  static emptyObject(): ProjectedVolumeSource {
-    const result = new ProjectedVolumeSource();
-    result.sources = [];
-    return result;
-  }
-
 }
 
 export class PhotonPersistentDiskVolumeSource {
@@ -1817,12 +1402,6 @@ export class PhotonPersistentDiskVolumeSource {
     if (init.fsType) {
       this.fsType = init.fsType;
     }
-  }
-
-
-  static emptyObject(): PhotonPersistentDiskVolumeSource {
-    const result = new PhotonPersistentDiskVolumeSource();
-    return result;
   }
 
 }
@@ -1859,12 +1438,6 @@ export class AzureDiskVolumeSource {
     }
   }
 
-
-  static emptyObject(): AzureDiskVolumeSource {
-    const result = new AzureDiskVolumeSource();
-    return result;
-  }
-
 }
 
 export class QuobyteVolumeSource {
@@ -1895,12 +1468,6 @@ export class QuobyteVolumeSource {
     }
   }
 
-
-  static emptyObject(): QuobyteVolumeSource {
-    const result = new QuobyteVolumeSource();
-    return result;
-  }
-
 }
 
 export class VsphereVirtualDiskVolumeSource {
@@ -1925,12 +1492,6 @@ export class VsphereVirtualDiskVolumeSource {
     if (init.storagePolicyID) {
       this.storagePolicyID = init.storagePolicyID;
     }
-  }
-
-
-  static emptyObject(): VsphereVirtualDiskVolumeSource {
-    const result = new VsphereVirtualDiskVolumeSource();
-    return result;
   }
 
 }
@@ -1959,13 +1520,6 @@ export class ConfigMapVolumeSource {
     }
   }
 
-
-  static emptyObject(): ConfigMapVolumeSource {
-    const result = new ConfigMapVolumeSource();
-    result.items = [];
-    return result;
-  }
-
 }
 
 export class AzureFileVolumeSource {
@@ -1986,12 +1540,6 @@ export class AzureFileVolumeSource {
     if (init.readOnly) {
       this.readOnly = init.readOnly;
     }
-  }
-
-
-  static emptyObject(): AzureFileVolumeSource {
-    const result = new AzureFileVolumeSource();
-    return result;
   }
 
 }
@@ -2024,14 +1572,6 @@ export class FCVolumeSource {
     }
   }
 
-
-  static emptyObject(): FCVolumeSource {
-    const result = new FCVolumeSource();
-    result.targetWWNs = [];
-    result.wwids = [];
-    return result;
-  }
-
 }
 
 export class ResourceFieldSelector {
@@ -2054,13 +1594,6 @@ export class ResourceFieldSelector {
     }
   }
 
-
-  static emptyObject(): ResourceFieldSelector {
-    const result = new ResourceFieldSelector();
-    result.divisor = Quantity.emptyObject();
-    return result;
-  }
-
 }
 
 export class ObjectFieldSelector {
@@ -2077,12 +1610,6 @@ export class ObjectFieldSelector {
     if (init.fieldPath) {
       this.fieldPath = init.fieldPath;
     }
-  }
-
-
-  static emptyObject(): ObjectFieldSelector {
-    const result = new ObjectFieldSelector();
-    return result;
   }
 
 }
@@ -2111,14 +1638,6 @@ export class DownwardAPIVolumeFile {
     }
   }
 
-
-  static emptyObject(): DownwardAPIVolumeFile {
-    const result = new DownwardAPIVolumeFile();
-    result.fieldRef = ObjectFieldSelector.emptyObject();
-    result.resourceFieldRef = ResourceFieldSelector.emptyObject();
-    return result;
-  }
-
 }
 
 export class DownwardAPIVolumeSource {
@@ -2137,13 +1656,6 @@ export class DownwardAPIVolumeSource {
     }
   }
 
-
-  static emptyObject(): DownwardAPIVolumeSource {
-    const result = new DownwardAPIVolumeSource();
-    result.items = [];
-    return result;
-  }
-
 }
 
 export class FlockerVolumeSource {
@@ -2160,12 +1672,6 @@ export class FlockerVolumeSource {
     if (init.datasetUUID) {
       this.datasetUUID = init.datasetUUID;
     }
-  }
-
-
-  static emptyObject(): FlockerVolumeSource {
-    const result = new FlockerVolumeSource();
-    return result;
   }
 
 }
@@ -2202,14 +1708,6 @@ export class CephFSVolumeSource {
     }
   }
 
-
-  static emptyObject(): CephFSVolumeSource {
-    const result = new CephFSVolumeSource();
-    result.monitors = [];
-    result.secretRef = LocalObjectReference.emptyObject();
-    return result;
-  }
-
 }
 
 export class CinderVolumeSource {
@@ -2230,12 +1728,6 @@ export class CinderVolumeSource {
     if (init.readOnly) {
       this.readOnly = init.readOnly;
     }
-  }
-
-
-  static emptyObject(): CinderVolumeSource {
-    const result = new CinderVolumeSource();
-    return result;
   }
 
 }
@@ -2266,14 +1758,6 @@ export class FlexVolumeSource {
     if (init.options) {
       this.options = init.options;
     }
-  }
-
-
-  static emptyObject(): FlexVolumeSource {
-    const result = new FlexVolumeSource();
-    result.secretRef = LocalObjectReference.emptyObject();
-    result.options = null;
-    return result;
   }
 
 }
@@ -2318,14 +1802,6 @@ export class RBDVolumeSource {
     }
   }
 
-
-  static emptyObject(): RBDVolumeSource {
-    const result = new RBDVolumeSource();
-    result.monitors = [];
-    result.secretRef = LocalObjectReference.emptyObject();
-    return result;
-  }
-
 }
 
 export class PersistentVolumeClaimVolumeSource {
@@ -2342,12 +1818,6 @@ export class PersistentVolumeClaimVolumeSource {
     if (init.readOnly) {
       this.readOnly = init.readOnly;
     }
-  }
-
-
-  static emptyObject(): PersistentVolumeClaimVolumeSource {
-    const result = new PersistentVolumeClaimVolumeSource();
-    return result;
   }
 
 }
@@ -2372,12 +1842,6 @@ export class GlusterfsVolumeSource {
     }
   }
 
-
-  static emptyObject(): GlusterfsVolumeSource {
-    const result = new GlusterfsVolumeSource();
-    return result;
-  }
-
 }
 
 export class LocalObjectReference {
@@ -2390,12 +1854,6 @@ export class LocalObjectReference {
     if (init.name) {
       this.name = init.name;
     }
-  }
-
-
-  static emptyObject(): LocalObjectReference {
-    const result = new LocalObjectReference();
-    return result;
   }
 
 }
@@ -2452,14 +1910,6 @@ export class ISCSIVolumeSource {
     }
   }
 
-
-  static emptyObject(): ISCSIVolumeSource {
-    const result = new ISCSIVolumeSource();
-    result.portals = [];
-    result.secretRef = LocalObjectReference.emptyObject();
-    return result;
-  }
-
 }
 
 export class NFSVolumeSource {
@@ -2482,12 +1932,6 @@ export class NFSVolumeSource {
     }
   }
 
-
-  static emptyObject(): NFSVolumeSource {
-    const result = new NFSVolumeSource();
-    return result;
-  }
-
 }
 
 export class KeyToPath {
@@ -2508,12 +1952,6 @@ export class KeyToPath {
     if (init.mode) {
       this.mode = init.mode;
     }
-  }
-
-
-  static emptyObject(): KeyToPath {
-    const result = new KeyToPath();
-    return result;
   }
 
 }
@@ -2542,13 +1980,6 @@ export class SecretVolumeSource {
     }
   }
 
-
-  static emptyObject(): SecretVolumeSource {
-    const result = new SecretVolumeSource();
-    result.items = [];
-    return result;
-  }
-
 }
 
 export class GitRepoVolumeSource {
@@ -2569,12 +2000,6 @@ export class GitRepoVolumeSource {
     if (init.directory) {
       this.directory = init.directory;
     }
-  }
-
-
-  static emptyObject(): GitRepoVolumeSource {
-    const result = new GitRepoVolumeSource();
-    return result;
   }
 
 }
@@ -2603,12 +2028,6 @@ export class AWSElasticBlockStoreVolumeSource {
     }
   }
 
-
-  static emptyObject(): AWSElasticBlockStoreVolumeSource {
-    const result = new AWSElasticBlockStoreVolumeSource();
-    return result;
-  }
-
 }
 
 export class GCEPersistentDiskVolumeSource {
@@ -2635,12 +2054,6 @@ export class GCEPersistentDiskVolumeSource {
     }
   }
 
-
-  static emptyObject(): GCEPersistentDiskVolumeSource {
-    const result = new GCEPersistentDiskVolumeSource();
-    return result;
-  }
-
 }
 
 export class Quantity {
@@ -2653,12 +2066,6 @@ export class Quantity {
     if (init.Format) {
       this.Format = init.Format;
     }
-  }
-
-
-  static emptyObject(): Quantity {
-    const result = new Quantity();
-    return result;
   }
 
 }
@@ -2679,13 +2086,6 @@ export class EmptyDirVolumeSource {
     }
   }
 
-
-  static emptyObject(): EmptyDirVolumeSource {
-    const result = new EmptyDirVolumeSource();
-    result.sizeLimit = Quantity.emptyObject();
-    return result;
-  }
-
 }
 
 export class HostPathVolumeSource {
@@ -2702,12 +2102,6 @@ export class HostPathVolumeSource {
     if (init.type) {
       this.type = init.type;
     }
-  }
-
-
-  static emptyObject(): HostPathVolumeSource {
-    const result = new HostPathVolumeSource();
-    return result;
   }
 
 }
@@ -2832,39 +2226,6 @@ export class Volume {
     }
   }
 
-
-  static emptyObject(): Volume {
-    const result = new Volume();
-    result.hostPath = HostPathVolumeSource.emptyObject();
-    result.emptyDir = EmptyDirVolumeSource.emptyObject();
-    result.gcePersistentDisk = GCEPersistentDiskVolumeSource.emptyObject();
-    result.awsElasticBlockStore = AWSElasticBlockStoreVolumeSource.emptyObject();
-    result.gitRepo = GitRepoVolumeSource.emptyObject();
-    result.secret = SecretVolumeSource.emptyObject();
-    result.nfs = NFSVolumeSource.emptyObject();
-    result.iscsi = ISCSIVolumeSource.emptyObject();
-    result.glusterfs = GlusterfsVolumeSource.emptyObject();
-    result.persistentVolumeClaim = PersistentVolumeClaimVolumeSource.emptyObject();
-    result.rbd = RBDVolumeSource.emptyObject();
-    result.flexVolume = FlexVolumeSource.emptyObject();
-    result.cinder = CinderVolumeSource.emptyObject();
-    result.cephfs = CephFSVolumeSource.emptyObject();
-    result.flocker = FlockerVolumeSource.emptyObject();
-    result.downwardAPI = DownwardAPIVolumeSource.emptyObject();
-    result.fc = FCVolumeSource.emptyObject();
-    result.azureFile = AzureFileVolumeSource.emptyObject();
-    result.configMap = ConfigMapVolumeSource.emptyObject();
-    result.vsphereVolume = VsphereVirtualDiskVolumeSource.emptyObject();
-    result.quobyte = QuobyteVolumeSource.emptyObject();
-    result.azureDisk = AzureDiskVolumeSource.emptyObject();
-    result.photonPersistentDisk = PhotonPersistentDiskVolumeSource.emptyObject();
-    result.projected = ProjectedVolumeSource.emptyObject();
-    result.portworxVolume = PortworxVolumeSource.emptyObject();
-    result.scaleIO = ScaleIOVolumeSource.emptyObject();
-    result.storageos = StorageOSVolumeSource.emptyObject();
-    return result;
-  }
-
 }
 
 export class PodSpec {
@@ -2983,22 +2344,6 @@ export class PodSpec {
     }
   }
 
-
-  static emptyObject(): PodSpec {
-    const result = new PodSpec();
-    result.volumes = [];
-    result.initContainers = [];
-    result.containers = [];
-    result.nodeSelector = null;
-    result.securityContext = PodSecurityContext.emptyObject();
-    result.imagePullSecrets = [];
-    result.affinity = Affinity.emptyObject();
-    result.tolerations = [];
-    result.hostAliases = [];
-    result.dnsConfig = PodDNSConfig.emptyObject();
-    return result;
-  }
-
 }
 
 export class StatusCause {
@@ -3019,12 +2364,6 @@ export class StatusCause {
     if (init.field) {
       this.field = init.field;
     }
-  }
-
-
-  static emptyObject(): StatusCause {
-    const result = new StatusCause();
-    return result;
   }
 
 }
@@ -3061,13 +2400,6 @@ export class StatusDetails {
     }
   }
 
-
-  static emptyObject(): StatusDetails {
-    const result = new StatusDetails();
-    result.causes = [];
-    return result;
-  }
-
 }
 
 export class ListMeta {
@@ -3088,12 +2420,6 @@ export class ListMeta {
     if (init.continue) {
       this.continue = init.continue;
     }
-  }
-
-
-  static emptyObject(): ListMeta {
-    const result = new ListMeta();
-    return result;
   }
 
 }
@@ -3138,14 +2464,6 @@ export class Status {
     }
   }
 
-
-  static emptyObject(): Status {
-    const result = new Status();
-    result.metadata = ListMeta.emptyObject();
-    result.details = StatusDetails.emptyObject();
-    return result;
-  }
-
 }
 
 export class Initializer {
@@ -3158,12 +2476,6 @@ export class Initializer {
     if (init.name) {
       this.name = init.name;
     }
-  }
-
-
-  static emptyObject(): Initializer {
-    const result = new Initializer();
-    return result;
   }
 
 }
@@ -3182,14 +2494,6 @@ export class Initializers {
     if (init.result) {
       this.result = init.result;
     }
-  }
-
-
-  static emptyObject(): Initializers {
-    const result = new Initializers();
-    result.pending = [];
-    result.result = Status.emptyObject();
-    return result;
   }
 
 }
@@ -3226,12 +2530,6 @@ export class OwnerReference {
     }
   }
 
-
-  static emptyObject(): OwnerReference {
-    const result = new OwnerReference();
-    return result;
-  }
-
 }
 
 
@@ -3245,13 +2543,6 @@ export class Time {
     if (init.Time) {
       this.Time = new Date(init.Time as any);
     }
-  }
-
-
-  static emptyObject(): Time {
-    const result = new Time();
-    result.Time = null;
-    return result;
   }
 
 }
@@ -3328,19 +2619,6 @@ export class ObjectMeta {
     }
   }
 
-
-  static emptyObject(): ObjectMeta {
-    const result = new ObjectMeta();
-    result.creationTimestamp = Time.emptyObject();
-    result.deletionTimestamp = Time.emptyObject();
-    result.labels = null;
-    result.annotations = null;
-    result.ownerReferences = [];
-    result.initializers = Initializers.emptyObject();
-    result.finalizers = [];
-    return result;
-  }
-
 }
 
 export class KubePod {
@@ -3369,15 +2647,6 @@ export class KubePod {
     if (init.status) {
       this.status = init.status;
     }
-  }
-
-
-  static emptyObject(): KubePod {
-    const result = new KubePod();
-    result.metadata = ObjectMeta.emptyObject();
-    result.spec = PodSpec.emptyObject();
-    result.status = PodStatus.emptyObject();
-    return result;
   }
 
 }
