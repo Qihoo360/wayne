@@ -17,7 +17,7 @@ export class KubernetesNamespacedListResource {
   }
 
   versionDetail(version: string) {
-    this.tplDetailService.openModal(version, '详情');
+    this.tplDetailService.openModal(version, 'ADMIN.KUBERNETES.TITLE.DETAIL');
   }
 
   onEditEvent(obj: any) {

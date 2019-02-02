@@ -1,50 +1,50 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)">
   <clr-dg-column [clrDgField]="'name'">
     <ng-container *clrDgHideableColumn="showState['name']">
-      名称
+      {{'ADMIN.KUBERNETES.POD.LIST.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['label']">
-      Label
+      {{'ADMIN.KUBERNETES.POD.LIST.LABEL' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['images']">
-      镜像
+      {{'ADMIN.KUBERNETES.POD.LIST.IMAGES' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['status']">
-      状态
+      {{'ADMIN.KUBERNETES.POD.LIST.STATUS' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['podIP']">
-      PodIP
+      {{'ADMIN.KUBERNETES.POD.LIST.PODIP' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['node']">
-      节点
+      {{'ADMIN.KUBERNETES.POD.LIST.NODE' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['restartCount']">
-      重启次数
+      {{'ADMIN.KUBERNETES.POD.LIST.RESTARTCOUNT' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'creationTimestamp'">
     <ng-container *clrDgHideableColumn="showState['age']">
-      Age
+      {{'ADMIN.KUBERNETES.POD.LIST.AGE' | translate}}
     </ng-container>
   </clr-dg-column>
 
 
   <clr-dg-row *ngFor="let obj of resources" [clrDgItem]="obj">
     <clr-dg-action-overflow>
-      <button class="action-item" (click)="onEditEvent(obj)">查看/编辑</button>
-      <button class="action-item" (click)="onDeleteEvent(obj)">删除</button>
+      <button class="action-item" (click)="onEditEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.EDIT' | translate}}</button>
+      <button class="action-item" (click)="onDeleteEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell> {{ obj.metadata.name }} </clr-dg-cell>
     <clr-dg-cell class="col-version">

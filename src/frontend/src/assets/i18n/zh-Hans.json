@@ -566,5 +566,36 @@
     "CREATE": "创建新的{{ value }}",
     "FOCUS_EVENT": "关注事件",
     "TITLE": "{{ value }}列表"
+  },
+  "ADMIN":{
+    "KUBERNETES": {
+      "ACTION": {
+        "EDIT": "查看/编辑",
+        "DELETE": "删除",
+        "REFRESH": "刷新"
+      },
+      "LABEL": {
+        "NAMESPACE": "命名空间:"
+      },
+      "TITLE": {
+        "DETAIL": "详情"
+      },
+      "MESSAGE": {
+        "DELETE": "删除成功！",
+        "UPDATE": "更新成功！"
+      },
+      "POD": {
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "IMAGES": "镜像",
+          "STATUS": "状态",
+          "PODIP": "PodIP",
+          "NODE": "主机节点",
+          "RESTARTCOUNT": "重启次数",
+          "AGE": "启动时间"
+        }
+      }
+    }
   }
 }

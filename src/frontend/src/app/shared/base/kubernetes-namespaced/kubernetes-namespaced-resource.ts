@@ -49,7 +49,7 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
           .subscribe(
             response => {
               this.retrieveResource();
-              this.messageHandlerService.showSuccess('删除成功！');
+              this.messageHandlerService.showSuccess('ADMIN.KUBERNETES.MESSAGE.DELETE');
             },
             error => {
               this.messageHandlerService.handleError(error);
@@ -109,7 +109,7 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
       .subscribe(
         response => {
           const data = response.data;
-          this.aceEditorModal.openModal(data, `编辑 [${obj.metadata.name}]`, true);
+          this.aceEditorModal.openModal(data, 'ADMIN.KUBERNETES.ACTION.EDIT', true);
         },
         error => this.messageHandlerService.handleError(error)
       );
@@ -124,7 +124,7 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
         respObj.metadata.annotations = obj.metadata.annotations;
         this.kubernetesClient.update(respObj, this.cluster, this.kubeResource, obj.metadata.name, obj.metadata.namespace).subscribe(
           resp2 => {
-            this.messageHandlerService.showSuccess(`[${obj.metadata.name}] Updated!`);
+            this.messageHandlerService.showSuccess('ADMIN.KUBERNETES.MESSAGE.UPDATE');
             this.retrieveResource();
           },
           error => {
