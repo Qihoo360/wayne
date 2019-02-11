@@ -11,7 +11,7 @@ import { KubernetesClient } from '../../client/v1/kubernetes/kubernetes';
 import { KubeResourcesName } from '../../shared.const';
 
 
-export class KubernetesNamespacedMigrationResource implements OnInit {
+export class MigrationResource implements OnInit {
   modalOpened: boolean;
   kubeResource: KubeResourcesName;
 

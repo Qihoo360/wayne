@@ -6,7 +6,7 @@ import { ServiceService } from '../../../../../../lib/shared/client/v1/service.s
 import { ServiceTplService } from '../../../../../../lib/shared/client/v1/servicetpl.service';
 import { Service } from '../../../../../../lib/shared/model/service';
 import { ServiceTpl } from '../../../../../../lib/shared/model/servicetpl';
-import { KubernetesNamespacedMigrationResource } from '../../../../shared/base/kubernetes-namespaced/kubernetes-namespaced-migration-resource';
+import { MigrationResource } from '../../../../shared/base/kubernetes-namespaced/migration-resource';
 import { KubernetesClient } from '../../../../shared/client/v1/kubernetes/kubernetes';
 import { KubeResourceService } from '../../../../shared/shared.const';
 
@@ -14,7 +14,7 @@ import { KubeResourceService } from '../../../../shared/shared.const';
   selector: 'kube-migration',
   templateUrl: 'migration.component.html'
 })
-export class MigrationComponent extends KubernetesNamespacedMigrationResource implements OnInit {
+export class MigrationComponent extends MigrationResource implements OnInit {
 
   constructor(private serviceService: ServiceService,
               private serviceTplService: ServiceTplService,
