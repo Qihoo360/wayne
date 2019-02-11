@@ -49,6 +49,7 @@ import { ListAutoscaletplComponent } from './autoscaletpl/list-autoscaletpl/list
 import { TrashAutoscaletplComponent } from './autoscaletpl/trash-autoscaletpl/trash-autoscaletpl.component';
 import { SidenavModule } from './sidenav/sidenav.module';
 import { KubePodModule } from './kubernetes/pod/kube-pod.module';
+import { KubeServiceModule } from './kubernetes/service/kube-service.module';
 
 @NgModule({
   imports: [
@@ -91,6 +92,7 @@ import { KubePodModule } from './kubernetes/pod/kube-pod.module';
     TplDetailModule,
     SidenavModule,
     KubePodModule,
+    KubeServiceModule,
   ],
   providers: [
     AdminAuthCheckGuard,

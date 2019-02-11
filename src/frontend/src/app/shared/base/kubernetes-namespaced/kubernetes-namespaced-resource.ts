@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClusterService } from '../../client/v1/cluster.service';
 import { PageState } from '../../page/page-state';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { KubeResourceNamespace, KubeResourcePod, KubeResourcesName } from '../../shared.const';
+import { KubeResourceNamespace, KubeResourcesName } from '../../shared.const';
 import { OnDestroy, OnInit } from '@angular/core';
 import { KubernetesClient } from '../../client/v1/kubernetes/kubernetes';
 import { DeletionDialogComponent } from '../../deletion-dialog/deletion-dialog.component';
@@ -178,7 +178,7 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     if (this.cluster) {
-      this.kubernetesClient.listPage(this.pageState, this.cluster, KubeResourcePod, this.namespace)
+      this.kubernetesClient.listPage(this.pageState, this.cluster, this.kubeResource, this.namespace)
         .subscribe(
           response => {
             const data = response.data;

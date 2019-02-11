@@ -1,0 +1,31 @@
+import { Component, Input } from '@angular/core';
+import { KubernetesNamespacedListResource } from '../../../../shared/base/kubernetes-namespaced/kubernetes-namespaced-list-resource';
+import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.service';
+import { KubeService } from '../../../../../../lib/shared/model/kubernetes/service';
+
+@Component({
+  selector: 'wayne-list-service',
+  templateUrl: './list-service.component.html'
+})
+
+export class ListServiceComponent extends KubernetesNamespacedListResource {
+  @Input() resources: any[];
+  @Input() showState: object;
+
+  constructor(public tplDetailService: TplDetailService) {
+    super(tplDetailService);
+  }
+
+
+  getPort(obj: KubeService) {
+    const result = Array<string>();
+    for (const port of obj.spec.ports) {
+      if (port.nodePort) {
+        result.push(`${port.targetPort}:${port.port}:${port.nodePort}/${port.protocol}`);
+      } else {
+        result.push(`${port.targetPort}:${port.port}/${port.protocol}`);
+      }
+    }
+    return result.join(', ');
+  }
+}

@@ -69,6 +69,7 @@ import { TrashAutoscaleComponent } from './autoscale/trash-autoscale/trash-autos
 import { AutoscaletplComponent } from './autoscaletpl/autoscaletpl.component';
 import { TrashAutoscaletplComponent } from './autoscaletpl/trash-autoscaletpl/trash-autoscaletpl.component';
 import { KubePodComponent } from './kubernetes/pod/kube-pod.component';
+import { KubeServiceComponent } from './kubernetes/service/kube-service.component';
 
 
 const routes: Routes = [
@@ -151,6 +152,8 @@ const routes: Routes = [
       {path: 'kubernetes/namespace/:cluster', component: KubeNamespaceComponent},
       {path: 'kubernetes/pod', component: KubePodComponent},
       {path: 'kubernetes/pod/:cluster', component: KubePodComponent},
+      {path: 'kubernetes/service', component: KubeServiceComponent},
+      {path: 'kubernetes/service/:cluster', component: KubeServiceComponent},
       ...ADMINROUTES
     ]
   }

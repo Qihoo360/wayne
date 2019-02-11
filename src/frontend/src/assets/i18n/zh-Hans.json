@@ -598,6 +598,17 @@
           "RESTARTCOUNT": "重启次数",
           "AGE": "启动时间"
         }
+      },
+      "SERVICE": {
+        "CREATE": "创建 Service",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "CLUSTERIP": "集群 IP",
+          "PORT": "端口",
+          "EXTERNALIP": "ExternalIP",
+          "AGE": "启动时间"
+        }
       }
     }
   }
