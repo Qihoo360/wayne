@@ -571,6 +571,7 @@
     "KUBERNETES": {
       "ACTION": {
         "EDIT": "查看/编辑",
+        "MIGRATION": "迁移",
         "DELETE": "删除",
         "FORCEDELETE": "强制删除",
         "REFRESH": "刷新"
@@ -596,6 +597,27 @@
           "PODIP": "PodIP",
           "NODE": "主机节点",
           "RESTARTCOUNT": "重启次数",
+          "AGE": "启动时间"
+        }
+      },
+      "SERVICE": {
+        "CREATE": "创建 Service",
+        "LIST": {
+          "NAME": "名称",
+          "TYPE": "类型",
+          "LABEL": "标签",
+          "CLUSTERIP": "集群 IP",
+          "PORT": "端口",
+          "EXTERNALIP": "ExternalIP",
+          "AGE": "启动时间"
+        }
+      },
+      "ENDPOINT": {
+        "CREATE": "创建 Endpoint",
+        "LIST": {
+          "NAME": "名称",
+          "PORT": "端口",
+          "IP": "IP",
           "AGE": "启动时间"
         }
       }

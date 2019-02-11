@@ -51,6 +51,21 @@
       </a>
       <div class="nav-divider"></div>
       <a clrVerticalNavLink
+         routerLink="kubernetes/service"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="network-globe"></clr-icon>
+        Service
+      </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/endpoint"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="tree-view"></clr-icon>
+        Endpoint
+      </a>
+      <div class="nav-divider"></div>
+      <a clrVerticalNavLink
          routerLink="kubernetes/persistentvolume"
          [routerLinkActiveOptions]="{exact:true}"
          routerLinkActive="active">
