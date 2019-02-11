@@ -9,6 +9,8 @@ type Object struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   interface{} `json:"spec,omitempty"`
-	Status interface{} `json:"status,omitempty"`
+	// for endpoint only
+	Subsets interface{} `json:"subsets,omitempty"`
+	Spec    interface{} `json:"spec,omitempty"`
+	Status  interface{} `json:"status,omitempty"`
 }
