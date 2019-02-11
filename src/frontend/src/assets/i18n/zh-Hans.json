@@ -603,6 +603,7 @@
         "CREATE": "创建 Service",
         "LIST": {
           "NAME": "名称",
+          "TYPE": "类型",
           "LABEL": "标签",
           "CLUSTERIP": "集群 IP",
           "PORT": "端口",

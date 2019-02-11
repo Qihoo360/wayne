@@ -10,6 +10,11 @@
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['type']">
+      {{'ADMIN.KUBERNETES.SERVICE.LIST.TYPE' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['clusterIP']">
       {{'ADMIN.KUBERNETES.SERVICE.LIST.CLUSTERIP' | translate}}
     </ng-container>
@@ -42,6 +47,7 @@
         <a href="javascript:" (click)="versionDetail(label.key + ': ' + label.value)">{{label.key}}: {{label.value}}</a>
       </div>
     </clr-dg-cell>
+    <clr-dg-cell> {{ obj.spec.type }}</clr-dg-cell>
     <clr-dg-cell> {{ obj.spec.clusterIP }}</clr-dg-cell>
     <clr-dg-cell title = "targetPort:port:nodePort/protocol"> {{ getPort(obj) }} </clr-dg-cell>
     <clr-dg-cell>

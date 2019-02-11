@@ -12,6 +12,7 @@ import { DeletionDialogComponent } from '../../../shared/deletion-dialog/deletio
 
 const showState = {
   'name': {hidden: false},
+  'type': {hidden: false},
   'label': {hidden: false},
   'clusterIP': {hidden: false},
   'port': {hidden: false},

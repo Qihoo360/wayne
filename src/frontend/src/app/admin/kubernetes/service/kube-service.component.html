@@ -11,6 +11,7 @@
         <wayne-filter-box (confirm)="onConfirmEvent()" (cancel)="onCancelEvent()">
           <wayne-checkbox-group [(ngModel)]="showList">
             <wayne-checkbox value="name">{{'ADMIN.KUBERNETES.SERVICE.LIST.NAME' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="type">{{'ADMIN.KUBERNETES.SERVICE.LIST.TYPE' | translate}}</wayne-checkbox>
             <wayne-checkbox value="label">{{'ADMIN.KUBERNETES.SERVICE.LIST.LABEL' | translate}}</wayne-checkbox>
             <wayne-checkbox value="clusterIP">{{'ADMIN.KUBERNETES.SERVICE.LIST.CLUSTERIP' | translate}}</wayne-checkbox>
             <wayne-checkbox value="port"> {{'ADMIN.KUBERNETES.SERVICE.LIST.PORT' | translate}}</wayne-checkbox>
