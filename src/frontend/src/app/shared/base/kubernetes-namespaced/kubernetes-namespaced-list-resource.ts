@@ -12,6 +12,7 @@ export class KubernetesNamespacedListResource {
   state: ClrDatagridStateInterface;
   currentPage = 1;
 
+  @Input() cluster: string;
   @Input() page: Page;
 
   @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();

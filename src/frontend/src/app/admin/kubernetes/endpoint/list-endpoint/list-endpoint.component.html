@@ -34,11 +34,13 @@
         </div>
       </div>
     </clr-dg-cell>
-    <clr-dg-cell>  <div *ngFor="let subset of obj.subsets">
+    <clr-dg-cell>
+      <div *ngFor="let subset of obj.subsets">
         <div *ngFor="let addresse of subset.addresses">
           {{ addresse.ip }}
         </div>
-      </div></clr-dg-cell>
+      </div>
+    </clr-dg-cell>
     <clr-dg-cell> {{ obj.metadata.creationTimestamp | relativeTime}} </clr-dg-cell>
   </clr-dg-row>
   <clr-dg-footer>

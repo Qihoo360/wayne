@@ -56,6 +56,9 @@
       </div>
     </clr-dg-cell>
     <clr-dg-cell> {{ obj.metadata.creationTimestamp | relativeTime}} </clr-dg-cell>
+    <service-detail *clrIfExpanded [obj]="obj" [cluster]="cluster" ngProjectAs="clr-dg-row-detail">
+      Lorem ipsum...
+    </service-detail>
   </clr-dg-row>
   <clr-dg-footer>
     <wayne-paginate

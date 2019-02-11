@@ -36,6 +36,7 @@
       (delete)="onDeleteResourceEvent($event)"
       (edit)="onEditResourceEvent($event)"
       [page]="pageState.page"
+      [cluster]="cluster"
       (paginate)="retrieveResource($event)">
     </wayne-list-service>
   </div>
