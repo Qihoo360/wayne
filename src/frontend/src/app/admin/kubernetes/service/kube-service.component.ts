@@ -9,6 +9,7 @@ import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernete
 import { KubeResourceService } from '../../../shared/shared.const';
 import { KubernetesNamespacedResource } from '../../../shared/base/kubernetes-namespaced/kubernetes-namespaced-resource';
 import { DeletionDialogComponent } from '../../../shared/deletion-dialog/deletion-dialog.component';
+import { MigrationComponent } from './migration/migration.component';
 
 const showState = {
   'name': {hidden: false},
@@ -35,6 +36,9 @@ export class KubeServiceComponent extends KubernetesNamespacedResource implement
   @ViewChild(DeletionDialogComponent)
   deletionDialogComponent: DeletionDialogComponent;
 
+  @ViewChild(MigrationComponent)
+  migrationComponent: MigrationComponent;
+
   constructor(public kubernetesClient: KubernetesClient,
               public route: ActivatedRoute,
               public router: Router,
@@ -56,6 +60,8 @@ export class KubeServiceComponent extends KubernetesNamespacedResource implement
   }
 
 
-
+  migration(obj: any) {
+    this.migrationComponent.openModal(this.cluster, obj);
+  }
 
 }

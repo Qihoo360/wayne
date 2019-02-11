@@ -571,6 +571,7 @@
     "KUBERNETES": {
       "ACTION": {
         "EDIT": "查看/编辑",
+        "MIGRATION": "迁移",
         "DELETE": "删除",
         "FORCEDELETE": "强制删除",
         "REFRESH": "刷新"
