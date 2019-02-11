@@ -610,6 +610,15 @@
           "EXTERNALIP": "ExternalIP",
           "AGE": "启动时间"
         }
+      },
+      "ENDPOINT": {
+        "CREATE": "创建 Endpoint",
+        "LIST": {
+          "NAME": "名称",
+          "PORT": "端口",
+          "IP": "IP",
+          "AGE": "启动时间"
+        }
       }
     }
   }
