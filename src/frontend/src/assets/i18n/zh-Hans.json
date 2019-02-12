@@ -628,6 +628,15 @@
           "LABEL": "标签",
           "AGE": "启动时间"
         }
+      },
+      "SECRET": {
+        "CREATE": "创建 Secret",
+        "LIST": {
+          "NAME": "名称",
+          "TYPE": "类型",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
       }
     }
   }
