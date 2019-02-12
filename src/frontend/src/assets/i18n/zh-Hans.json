@@ -620,6 +620,14 @@
           "IP": "IP",
           "AGE": "启动时间"
         }
+      },
+      "CONFIGMAP": {
+        "CREATE": "创建 ConfigMap",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
       }
     }
   }

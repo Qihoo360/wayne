@@ -5,7 +5,6 @@ import { App } from '../../model/v1/app';
 import { AppService } from '../../client/v1/app.service';
 import { AceEditorService } from '../../ace-editor/ace-editor.service';
 import { MessageHandlerService } from '../../message-handler/message-handler.service';
-import { defaultKubeResouce } from '../../default-models/kube-resource.const';
 import { AceEditorMsg } from '../../ace-editor/ace-editor';
 import { KubernetesClient } from '../../client/v1/kubernetes/kubernetes';
 import { KubeResourcesName } from '../../shared.const';
@@ -59,11 +58,12 @@ export class MigrationResource implements OnInit {
       .subscribe(
         response => {
           const data = response.data;
-          this.obj = JSON.parse(defaultKubeResouce);
-          this.obj.metadata.name = data.metadata.name;
-          this.obj.metadata.labels = data.metadata.labels;
-          this.obj.metadata.annotations = data.metadata.annotations;
-          this.obj.spec = data.spec;
+          data.status = undefined;
+          data.metadata.selfLink = undefined;
+          data.metadata.uid = undefined;
+          data.metadata.resourceVersion = undefined;
+          data.metadata.creationTimestamp = undefined;
+          this.obj = data;
           this.aceEditorService.announceMessage(AceEditorMsg.Instance(this.obj));
         },
         error => this.messageHandlerService.handleError(error)

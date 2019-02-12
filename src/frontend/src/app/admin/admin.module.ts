@@ -51,6 +51,7 @@ import { SidenavModule } from './sidenav/sidenav.module';
 import { KubePodModule } from './kubernetes/pod/kube-pod.module';
 import { KubeServiceModule } from './kubernetes/service/kube-service.module';
 import { KubeEndpointModule } from './kubernetes/endpoint/kube-endpoint.module';
+import { KubeConfigmapModule } from './kubernetes/configmap/kube-configmap.module';
 
 @NgModule({
   imports: [
@@ -94,7 +95,8 @@ import { KubeEndpointModule } from './kubernetes/endpoint/kube-endpoint.module';
     SidenavModule,
     KubePodModule,
     KubeServiceModule,
-    KubeEndpointModule
+    KubeEndpointModule,
+    KubeConfigmapModule
   ],
   providers: [
     AdminAuthCheckGuard,
