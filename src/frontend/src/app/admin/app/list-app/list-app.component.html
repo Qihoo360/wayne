@@ -40,8 +40,7 @@
       <button class="action-item" (click)="deleteApp(app)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-id">{{app.id}}</clr-dg-cell>
-    <clr-dg-cell class="col-app-name copy"><a href="javascript:void(0)"
-                                              (click)="goToLink(app, 'deploy')">{{app.name}}</a></clr-dg-cell>
+    <clr-dg-cell class="col-app-name copy">{{app.name}}</clr-dg-cell>
     <clr-dg-cell class="col-metadata">
       <div class="text-overflow">
         <a href="javascript:;" (click)="detailMetaDataTpl(app.metaData)">{{app.metaData}}</a>
@@ -54,11 +53,13 @@
 
   </clr-dg-row>
 
-  <wayne-paginate
-    [(currentPage)]="currentPage"
-    [total]="page.totalCount"
-    [pageSizes]="[10, 20, 50]"
-    (sizeChange)="pageSizeChange($event)"
-  >
-  </wayne-paginate>
+  <clr-dg-footer>
+    <wayne-paginate
+      [(currentPage)]="currentPage"
+      [total]="page.totalCount"
+      [pageSizes]="[10, 20, 50]"
+      (sizeChange)="pageSizeChange($event)"
+    >
+    </wayne-paginate>
+  </clr-dg-footer>
 </clr-datagrid>

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import {
   ConfirmationButtons,
@@ -25,7 +25,7 @@ import { PublishStatus } from '../../../shared/model/v1/publish-status';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersistentVolumeClaimService } from '../../../shared/client/v1/persistentvolumeclaim.service';
 import { AppService } from '../../../shared/client/v1/app.service';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { PageState } from '../../../shared/page/page-state';
 import { PublishService } from '../../../shared/client/v1/publish.service';
 import { isArrayEmpty, isArrayNotEmpty } from '../../../shared/utils';
@@ -49,7 +49,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   userInfoComponent: UserInfoComponent;
   appId: number;
   pvcId: number;
-  state: State;
+  state: ClrDatagridStateInterface;
   currentPage = 1;
   pageState: PageState = new PageState();
   isOnline = false;
@@ -363,7 +363,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
     this.deletionDialogService.openComfirmDialog(deletionMessage);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
@@ -373,7 +373,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
     this.pageState.params['isOnline'] = this.isOnline;
     this.pageState.sort.by = 'id';
     this.pageState.sort.reverse = true;
-    Observable.combineLatest(
+    combineLatest(
       this.pvcTplService.listPage(this.pageState, this.appId),
       this.publishService.listStatus(PublishType.PERSISTENT_VOLUME_CLAIM, this.pvcId)
     ).subscribe(

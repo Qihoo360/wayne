@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
 import { Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { Cronjob } from '../../../shared/model/v1/cronjob';
 import { Page } from '../../../shared/page/page-state';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
@@ -17,9 +17,9 @@ export class ListCronjobComponent implements OnInit {
 
   @Input() page: Page;
   currentPage = 1;
-  state: State;
+  state: ClrDatagridStateInterface;
 
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<Cronjob>();
   @Output() edit = new EventEmitter<Cronjob>();
 
@@ -44,7 +44,7 @@ export class ListCronjobComponent implements OnInit {
   }
 
 
-  refresh(state: State) {
+  refresh(state: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }
@@ -57,21 +57,19 @@ export class ListCronjobComponent implements OnInit {
     this.edit.emit(cronjob);
   }
 
-  goToLink(cronjob: Cronjob, gate: string) {
-    let linkUrl = new Array();
+  goToLink(obj: Cronjob, gate: string) {
+    let linkUrl = '';
     switch (gate) {
       case 'tpl':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/cronjob/relate-tpl/[0-9]*', '[' + cronjob.name + ']模板列表');
-        linkUrl = ['admin', 'cronjob', 'relate-tpl', cronjob.id];
+        linkUrl = `/admin/cronjob/tpl?cronjobId=${obj.id}`;
         break;
       case 'app':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/cronjob/app/[0-9]*', '[' + cronjob.app.name + ']项目详情');
-        linkUrl = ['admin', 'cronjob', 'app', cronjob.app.id];
+        linkUrl = `admin/app?id=${obj.app.id}`;
         break;
       default:
         break;
     }
-    this.router.navigate(linkUrl);
+    this.router.navigateByUrl(linkUrl);
   }
 
   detailMetaDataTpl(tpl: string) {

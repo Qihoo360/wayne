@@ -25,7 +25,6 @@ export const isArrayEmpty = function (obj: any): boolean {
 
 /**
  * Simple object check.
- * @param item
  * @returns  boolean
  */
 export function isObject(item) {
@@ -35,8 +34,6 @@ export function isObject(item) {
 /**
  * Deep merge two objects.
  * refer to https://stackoverflow.com/questions/27936772/how-to-deep-merge-instead-of-shallow-merge
- * @param target
- * @param ...sources
  */
 export function mergeDeep(target, ...sources) {
   if (!sources.length) {

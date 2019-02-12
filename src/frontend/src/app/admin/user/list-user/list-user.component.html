@@ -56,12 +56,14 @@
     <clr-dg-cell>{{user.lastIp}}</clr-dg-cell>
     <clr-dg-cell>{{user.comment}}</clr-dg-cell>
   </clr-dg-row>
-  <wayne-paginate
-    [(currentPage)]="currentPage"
-    [total]="page.totalCount"
-    [pageSizes]="[10, 20, 50]"
-    (sizeChange)="pageSizeChange($event)"
-  >
-  </wayne-paginate>
+  <clr-dg-footer>
+    <wayne-paginate
+      [(currentPage)]="currentPage"
+      [total]="page.totalCount"
+      [pageSizes]="[10, 20, 50]"
+      (sizeChange)="pageSizeChange($event)"
+    >
+    </wayne-paginate>
+  </clr-dg-footer>
 </clr-datagrid>
 <reset-password></reset-password>

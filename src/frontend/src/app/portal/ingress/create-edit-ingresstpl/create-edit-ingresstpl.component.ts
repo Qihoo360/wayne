@@ -5,7 +5,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ActionType } from '../../../shared/shared.const';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { AppService } from '../../../shared/client/v1/app.service';
 import { CacheService } from '../../../shared/auth/cache.service';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
@@ -72,7 +72,7 @@ export class CreateEditIngressTplComponent extends CreateEditResourceTemplate im
     } else {
       this.actionType = ActionType.ADD_NEW;
     }
-    Observable.combineLatest(observables).subscribe(
+    combineLatest(observables).subscribe(
       response => {
         this.app = response[0].data;
         this.resource = response[1].data;

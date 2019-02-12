@@ -61,7 +61,7 @@ import { EchartsModule } from './echarts/echars.module';
     ResourceLimitModule,
     HttpClientModule,
     EchartsModule,
-    ClarityModule.forRoot(),
+    ClarityModule,
   ],
   declarations: [
     PageNotFoundComponent,

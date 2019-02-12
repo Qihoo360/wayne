@@ -1,0 +1,66 @@
+<div class="clr-row">
+  <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
+    <div class="clr-row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
+      <h2 class="header-title">{{'HPA_ADMIN.HPA_DELETE_LIST' | translate}}</h2>
+    </div>
+    <clr-datagrid (clrDgRefresh)="refresh($event)">
+      <clr-dg-column [clrDgField]="'id'" class="col-query-id">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          ID
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgField]="'name'" class="col-app-name">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'TITLE.NAME' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column class="col-metadata">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'TITLE.METADATA' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgField]="'description'">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'TITLE.DESCRIPTION' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgField]="'user'">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'TITLE.CREATE_USER' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgSortBy]="'createTime'" class="col-time">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'TITLE.CREATE_TIME' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-row *ngFor="let resource of resources" [clrDgItem]="resource">
+        <clr-dg-action-overflow>
+          <button class="action-item" (click)="recoverResource(resource)" >{{'BUTTON.RESTORE' | translate}}</button>
+          <button class="action-item" (click)="deleteResource(resource)">{{'BUTTON.DELETE_PERMANENTLY' | translate}}</button>
+        </clr-dg-action-overflow>
+        <clr-dg-cell class="col-query-id">{{resource.id}}</clr-dg-cell>
+        <clr-dg-cell class="col-app-name copy">{{resource.name}}</clr-dg-cell>
+        <clr-dg-cell class="col-metadata">
+          <div class="text-overflow">
+            <a href="javascript:void(0);" (click)="viewMetaDataTemplate(resource.metaData)">{{resource.metaData}}</a>
+          </div>
+        </clr-dg-cell>
+        <clr-dg-cell>{{resource.description}}</clr-dg-cell>
+        <clr-dg-cell>{{resource.user}}</clr-dg-cell>
+        <clr-dg-cell class="col-time">{{resource.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
+      </clr-dg-row>
+      <clr-dg-footer>
+        <wayne-paginate
+          [(currentPage)]="currentPage"
+          [total]="pageState.page.totalCount"
+          [pageSizes]="[10, 20, 50]"
+          (sizeChange)="pageSizeChange($event)"
+        >
+        </wayne-paginate>
+      </clr-dg-footer>
+    </clr-datagrid>
+  </div>
+</div>
+
+

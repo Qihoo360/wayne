@@ -8,6 +8,7 @@ import 'rxjs/add/observable/throw';
 import { PersistentVolumeClaimTpl } from '../../model/v1/persistentvolumeclaimtpl';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class PersistentVolumeClaimTplService {
@@ -69,7 +70,7 @@ export class PersistentVolumeClaimTplService {
     return this.http
       .get(`/api/v1/apps/${appId}/persistentvolumeclaims/tpls`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   listPage(pageState: PageState, appId: number): Observable<any> {
@@ -108,21 +109,21 @@ export class PersistentVolumeClaimTplService {
     return this.http
       .get(`/api/v1/apps/${appId}/persistentvolumeclaims/tpls`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(pvcTpl: PersistentVolumeClaimTpl, appId: number): Observable<any> {
     return this.http
       .post(`/api/v1/apps/${appId}/persistentvolumeclaims/tpls`, pvcTpl, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(pvcTpl: PersistentVolumeClaimTpl, appId: number): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${appId}/persistentvolumeclaims/tpls/${pvcTpl.id}`, pvcTpl, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
@@ -136,13 +137,13 @@ export class PersistentVolumeClaimTplService {
     return this.http
       .delete(`/api/v1/apps/${appId}/persistentvolumeclaims/tpls/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, appId: number): Observable<any> {
     return this.http
       .get(`/api/v1/apps/${appId}/persistentvolumeclaims/tpls/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

@@ -40,8 +40,11 @@
       <button class="action-item" (click)="deleteStatefulset(statefulset)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{statefulset.id}}</clr-dg-cell>
-    <clr-dg-cell class="col-app-name copy">{{statefulset.name}}</clr-dg-cell>
-    <clr-dg-cell class="col-namespace">{{statefulset.app.name}}</clr-dg-cell>
+
+    <clr-dg-cell class="col-app-name copy"><a href="javascript:void(0)"
+                                              (click)="goToLink(statefulset, 'tpl')">{{statefulset.name}}</a></clr-dg-cell>
+    <clr-dg-cell class="col-namespace"><a href="javascript:void(0)"
+                                          (click)="goToLink(statefulset, 'app')">{{statefulset.app.name}}</a></clr-dg-cell>
     <clr-dg-cell class="col-metadata">
       <div class="text-overflow">
         <a href="javascript:;" (click)="detailMetaDataTpl(statefulset.metaData)">{{statefulset.metaData}}</a>
@@ -52,11 +55,13 @@
     <clr-dg-cell class="col-time">{{statefulset.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
   </clr-dg-row>
 
-  <wayne-paginate
-    [(currentPage)]="currentPage"
-    [total]="page.totalCount"
-    [pageSizes]="[10, 20, 50]"
-    (sizeChange)="pageSizeChange($event)"
-  >
-  </wayne-paginate>
+  <clr-dg-footer>
+    <wayne-paginate
+      [(currentPage)]="currentPage"
+      [total]="page.totalCount"
+      [pageSizes]="[10, 20, 50]"
+      (sizeChange)="pageSizeChange($event)"
+    >
+    </wayne-paginate>
+  </clr-dg-footer>
 </clr-datagrid>

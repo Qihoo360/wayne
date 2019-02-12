@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { throwError } from 'rxjs';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
@@ -49,7 +50,7 @@ export class ApiKeyService {
     return this.http
       .get(this.buildAPIKeyUrl(namespaceId, appId), {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   buildAPIKeyUrl(namespaceId?: number, appId?: number): string {
@@ -67,14 +68,14 @@ export class ApiKeyService {
     return this.http
       .post(this.buildAPIKeyUrl(namespaceId, appId), apiKey, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(apiKey: ApiKey, namespaceId?: number, appId?: number): Observable<any> {
     return this.http
       .put(`${this.buildAPIKeyUrl(namespaceId, appId)}/${apiKey.id}`, apiKey, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, logical?: boolean, namespaceId?: number, appId?: number): Observable<any> {
@@ -88,12 +89,12 @@ export class ApiKeyService {
     return this.http
       .delete(`${this.buildAPIKeyUrl(namespaceId, appId)}/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, namespaceId?: number, appId?: number): Observable<any> {
     return this.http.get(`${this.buildAPIKeyUrl(namespaceId, appId)}/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

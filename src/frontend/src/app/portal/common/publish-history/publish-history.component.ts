@@ -6,7 +6,7 @@ import { MessageHandlerService } from '../../../shared/message-handler/message-h
 import { PublishHistory } from '../../../shared/model/v1/publish-history';
 import { PublishType } from '../../../shared/shared.const';
 import { PublishService } from '../../../shared/client/v1/publish.service';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { PublishHistoryService } from './publish-history.service';
 import { Subscription } from 'rxjs/Subscription';
 import { PageState } from '../../../shared/page/page-state';
@@ -26,7 +26,7 @@ export class PublishHistoryComponent implements OnInit, OnDestroy {
   publishHistories: PublishHistory[];
   pageState: PageState = new PageState();
   currentPage = 1;
-  state: State;
+  state: ClrDatagridStateInterface;
 
   constructor(private publishService: PublishService,
               private publishHistoryService: PublishHistoryService,
@@ -72,7 +72,7 @@ export class PublishHistoryComponent implements OnInit, OnDestroy {
     this.refresh(this.state);
   }
 
-  refresh(state?: State): void {
+  refresh(state?: ClrDatagridStateInterface): void {
     if (this.type == null || this.resourceId == null) {
       return;
     }

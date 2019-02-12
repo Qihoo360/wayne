@@ -40,8 +40,10 @@
       <button class="action-item" (click)="deleteDaemonset(daemonset)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-query-id">{{daemonset.id}}</clr-dg-cell>
-    <clr-dg-cell class="col-app-name copy">{{daemonset.name}}</clr-dg-cell>
-    <clr-dg-cell class="col-namespace">{{daemonset.app.name}}</clr-dg-cell>
+    <clr-dg-cell class="col-app-name copy"><a href="javascript:void(0)"
+                                              (click)="goToLink(daemonset, 'tpl')">{{daemonset.name}}</a></clr-dg-cell>
+    <clr-dg-cell class="col-namespace"><a href="javascript:void(0)"
+                                          (click)="goToLink(daemonset, 'app')">{{daemonset.app.name}}</a></clr-dg-cell>
     <clr-dg-cell class="col-metadata">
       <div class="text-overflow">
         <a href="javascript:;" (click)="detailMetaDataTpl(daemonset.metaData)">{{daemonset.metaData}}</a>
@@ -51,8 +53,8 @@
     <clr-dg-cell>{{daemonset.user}}</clr-dg-cell>
     <clr-dg-cell class="col-time">{{daemonset.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
   </clr-dg-row>
-
-  <wayne-paginate [(currentPage)]="currentPage" [total]="page.totalCount" [pageSizes]="[10, 20, 50]"
-                  (sizeChange)="pageSizeChange($event)">
-  </wayne-paginate>
+  <clr-dg-footer>
+    <wayne-paginate [(currentPage)]="currentPage" [total]="page.totalCount" [pageSizes]="[10, 20, 50]" (sizeChange)="pageSizeChange($event)">
+    </wayne-paginate>
+  </clr-dg-footer>
 </clr-datagrid>

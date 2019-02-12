@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ListSecretTplComponent } from './list-secrettpl/list-secrettpl.component';
 import { CreateEditSecretTplComponent } from './create-edit-secrettpl/create-edit-secrettpl.component';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -11,6 +11,7 @@ import { MessageHandlerService } from '../../shared/message-handler/message-hand
 import { SecretTpl } from '../../shared/model/v1/secrettpl';
 import { SecretTplService } from '../../shared/client/v1/secrettpl.service';
 import { PageState } from '../../shared/page/page-state';
+import { isNotEmpty } from '../../shared/utils';
 
 @Component({
   selector: 'wayne-secrettpl',
@@ -69,11 +70,19 @@ export class SecretTplComponent implements OnInit, OnDestroy {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.pageState.params['deleted'] = false;
+    if (this.route.snapshot.queryParams) {
+      Object.getOwnPropertyNames(this.route.snapshot.queryParams).map(key => {
+        const value = this.route.snapshot.queryParams[key];
+        if (isNotEmpty(value)) {
+          this.pageState.filters[key] = value;
+        }
+      });
+    }
     this.secrettplService.listPage(this.pageState, 0, this.secretId)
       .subscribe(
         response => {

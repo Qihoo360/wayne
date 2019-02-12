@@ -1,7 +1,7 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { State } from '@clr/angular';
-import { Observable } from 'rxjs/Observable';
+import { ClrDatagridStateInterface } from '@clr/angular';
+import { combineLatest } from 'rxjs';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../../shared/auth/auth.service';
 import { CacheService } from '../../shared/auth/cache.service';
@@ -266,7 +266,7 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
     this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
     const namespaceId = this.cacheService.namespaceId;
     this.daemonSetId = parseInt(this.route.snapshot.params['daemonSetId'], 10);
-    Observable.combineLatest(
+    combineLatest(
       this.clusterService.getNames(),
       this.daemonSetService.listPage(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), this.appId, 'false'),
       this.appService.getById(this.appId, namespaceId)
@@ -373,7 +373,7 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (!this.daemonSetId) {
       return;
     }
@@ -390,7 +390,7 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
     this.pageState.params['deleted'] = false;
     this.pageState.params['daemonSetId'] = this.daemonSetId;
     this.pageState.params['isOnline'] = this.isOnline;
-    Observable.combineLatest(
+    combineLatest(
       this.daemonSetTplService.listPage(this.pageState, this.appId),
       this.publishService.listStatus(PublishType.DAEMONSET, this.daemonSetId)
     ).subscribe(

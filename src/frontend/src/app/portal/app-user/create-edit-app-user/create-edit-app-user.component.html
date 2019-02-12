@@ -4,7 +4,7 @@
     <form #appUserForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
+          <label for="name" class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <input class="form-control" type="text" id="app_user_name" [(ngModel)]="appUser.user.name"
@@ -20,7 +20,7 @@
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;height:250px;">
-          <label for="app_user_group" class="col-md-3 form-group-label-override required">{{'USER.GROUP' | translate}}</label>
+          <label for="app_user_group" class="clr-col-md-3 form-group-label-override required">{{'USER.GROUP' | translate}}</label>
           <label for="app_user_group" aria-haspopup="true" role="tooltip"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <ng2-dual-list-box name="app_user_group"

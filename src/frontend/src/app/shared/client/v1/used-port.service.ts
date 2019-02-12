@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class UsedPortService {
@@ -48,7 +49,7 @@ export class UsedPortService {
     return this.http
       .get('/api/v1/services/usedports', {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, logical?: boolean): Observable<any> {
@@ -62,7 +63,7 @@ export class UsedPortService {
     return this.http
       .delete(`/api/v1/services/usedports/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteByServiceId(serviceId: number): Observable<any> {
@@ -73,14 +74,14 @@ export class UsedPortService {
     return this.http
       .delete(`/api/v1/services/usedports`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number): Observable<any> {
     return this.http
       .get(`/api/v1/services/usedports/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
 }

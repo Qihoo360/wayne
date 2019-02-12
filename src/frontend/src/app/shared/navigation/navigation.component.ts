@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
 import { NodeOffset } from './nodeOffset';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'wayne-navigation',
@@ -222,7 +223,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   * @param 获取element相对于body的偏移量
+   * @return 获取element相对于body的偏移量
    */
 
   getOffset(element: any | null): number {

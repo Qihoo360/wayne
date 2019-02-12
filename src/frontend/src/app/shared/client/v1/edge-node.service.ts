@@ -7,6 +7,7 @@ import 'rxjs/add/observable/throw';
 import { EdgeNode } from '../../model/v1/edge-node';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class EdgeNodeService {
@@ -20,7 +21,7 @@ export class EdgeNodeService {
     return this.http
       .get(`/api/v1/services/edgenodes/cluster/${cluster}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   list(pageState: PageState): Observable<any> {
@@ -56,35 +57,35 @@ export class EdgeNodeService {
     return this.http
       .get('/api/v1/services/edgenodes', {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(edgeNode: EdgeNode): Observable<any> {
     return this.http
       .post(`/api/v1/services/edgenodes`, edgeNode, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(edgeNode: EdgeNode): Observable<any> {
     return this.http
       .put(`/api/v1/services/edgenodes/${edgeNode.id}`, edgeNode, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number): Observable<any> {
     return this.http
       .delete(`/api/v1/services/edgenodes/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number): Observable<any> {
     return this.http
       .get(`/api/v1/services/edgenodes/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
 }

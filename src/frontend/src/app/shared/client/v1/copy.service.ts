@@ -1,5 +1,5 @@
 import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 import { MessageHandlerService } from '../../message-handler/message-handler.service';
 
 @Injectable()

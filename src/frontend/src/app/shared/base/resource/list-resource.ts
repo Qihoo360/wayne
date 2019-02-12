@@ -7,7 +7,7 @@ import { MessageHandlerService } from '../../message-handler/message-handler.ser
 import { Page } from '../../page/page-state';
 import { EventEmitter, Input, Output } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import {
   ConfirmationButtons,
   ConfirmationState,
@@ -31,12 +31,12 @@ export class ListResource {
   @Input() appId: number;
   @Input() resourceId: number;
 
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() serviceTab = new EventEmitter<number>();
   @Output() cloneTemplate = new EventEmitter<any>();
 
   subscription: Subscription;
-  state: State;
+  state: ClrDatagridStateInterface;
   currentPage = 1;
   confirmationTarget: ConfirmationTargets;
 
@@ -158,7 +158,7 @@ export class ListResource {
     this.diffService.diff(this.selectedTemplate);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }

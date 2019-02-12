@@ -7,6 +7,7 @@ import 'rxjs/add/observable/throw';
 import { SecretTpl } from '../../model/v1/secrettpl';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class SecretTplService {
@@ -23,7 +24,7 @@ export class SecretTplService {
     return this.http
       .get(`/api/v1/apps/${appId}/secrets/tpls/names`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   listPage(pageState: PageState, appId?: number, secretId?: string, needStatus?: string): Observable<any> {
@@ -63,21 +64,21 @@ export class SecretTplService {
     return this.http
       .get(`/api/v1/apps/${appId}/secrets/tpls`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(secretTpl: SecretTpl, appId: number): Observable<any> {
     return this.http
       .post(`/api/v1/apps/${appId}/secrets/tpls`, secretTpl, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(secretTpl: SecretTpl, appId: number): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${appId}/secrets/tpls/${secretTpl.id}`, secretTpl, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
@@ -91,13 +92,13 @@ export class SecretTplService {
     return this.http
       .delete(`/api/v1/apps/${appId}/secrets/tpls/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, appId: number): Observable<any> {
     return this.http
       .get(`/api/v1/apps/${appId}/secrets/tpls/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

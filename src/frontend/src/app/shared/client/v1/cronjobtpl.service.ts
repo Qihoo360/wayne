@@ -7,6 +7,7 @@ import { CronjobTpl } from '../../model/v1/cronjobtpl';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class CronjobTplService {
@@ -53,21 +54,21 @@ export class CronjobTplService {
     return this.http
       .get(`/api/v1/apps/${appId}/cronjobs/tpls`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(cronjobTpl: CronjobTpl, appId: number): Observable<any> {
     return this.http
       .post(`/api/v1/apps/${appId}/cronjobs/tpls`, cronjobTpl, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(cronjobTpl: CronjobTpl, appId: number): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${appId}/cronjobs/tpls/${cronjobTpl.id}`, cronjobTpl, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
@@ -81,13 +82,13 @@ export class CronjobTplService {
     return this.http
       .delete(`/api/v1/apps/${appId}/cronjobs/tpls/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, appId: number): Observable<any> {
     return this.http
       .get(`/api/v1/apps/${appId}/cronjobs/tpls/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

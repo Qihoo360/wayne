@@ -2,6 +2,7 @@ package proxy
 
 import (
 	"encoding/json"
+	"strconv"
 
 	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -100,7 +101,7 @@ func (c *KubeProxyController) GetNames() {
 // @Success 200 {object}  success
 // @router / [get]
 func (c *KubeProxyController) List() {
-	param := c.BuildQueryParam()
+	param := c.BuildKubernetesQueryParam()
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	kind := c.Ctx.Input.Param(":kind")
@@ -179,7 +180,7 @@ func (c *KubeProxyController) Update() {
 // @Param	kind		path 	string	true		"the resource kind"
 // @Param	namespace		path 	string	true		"the namespace want to delete"
 // @Param	name		path 	string	true		"the name want to delete"
-// @Param	deleteOptions		body 	string	false		"the kubernetes delete options"
+// @Param	force		query 	bool	false		"force to delete the resource from etcd."
 // @Success 200 {string} delete success!
 // @router /:name [delete]
 func (c *KubeProxyController) Delete() {
@@ -187,13 +188,23 @@ func (c *KubeProxyController) Delete() {
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":name")
 	kind := c.Ctx.Input.Param(":kind")
-	var deleteOptions meta_v1.DeleteOptions
-	err := json.Unmarshal(c.Ctx.Input.RequestBody, &deleteOptions)
-	if err != nil {
-		c.AbortBadRequestFormat("deleteOptions")
+	force := c.Input().Get("force")
+	defaultPropagationPolicy := meta_v1.DeletePropagationBackground
+	defaultDeleteOptions := meta_v1.DeleteOptions{
+		PropagationPolicy: &defaultPropagationPolicy,
+	}
+	if force != "" {
+		forceBool, err := strconv.ParseBool(force)
+		if err != nil {
+			c.AbortBadRequestFormat("force")
+		}
+		if forceBool {
+			var gracePeriodSeconds int64 = 0
+			defaultDeleteOptions.GracePeriodSeconds = &gracePeriodSeconds
+		}
 	}
 	kubeClient := c.KubeClient(cluster)
-	err = kubeClient.Delete(kind, namespace, name, &deleteOptions)
+	err := kubeClient.Delete(kind, namespace, name, &defaultDeleteOptions)
 	if err != nil {
 		logs.Error("Delete kubernetes resource (%s:%s:%s) from cluster (%s) error. %v", kind, namespace, name, cluster, err)
 		c.HandleError(err)

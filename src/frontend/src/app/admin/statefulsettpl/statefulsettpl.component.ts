@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
@@ -11,6 +11,7 @@ import { ListStatefulsettplComponent } from './list-statefulsettpl/list-stateful
 import { CreateEditStatefulsettplComponent } from './create-edit-statefulsettpl/create-edit-statefulsettpl.component';
 import { StatefulsetTplService } from '../../shared/client/v1/statefulsettpl.service';
 import { StatefulsetTemplate } from '../../shared/model/v1/statefulsettpl';
+import { isNotEmpty } from '../../shared/utils';
 
 @Component({
   selector: 'wayne-statefulsettpl',
@@ -68,7 +69,7 @@ export class StatefulsettplComponent implements OnInit, OnDestroy {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {
         pageSize: 10,
@@ -77,6 +78,14 @@ export class StatefulsettplComponent implements OnInit, OnDestroy {
       });
     }
     this.pageState.params['deleted'] = false;
+    if (this.route.snapshot.queryParams) {
+      Object.getOwnPropertyNames(this.route.snapshot.queryParams).map(key => {
+        const value = this.route.snapshot.queryParams[key];
+        if (isNotEmpty(value)) {
+          this.pageState.filters[key] = value;
+        }
+      });
+    }
     this.statefulsetTplService.listPage(this.pageState, this.statefulsetId)
       .subscribe(
         response => {
