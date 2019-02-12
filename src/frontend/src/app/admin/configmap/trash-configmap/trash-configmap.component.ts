@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
@@ -18,8 +18,8 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 export class TrashConfigMapComponent implements OnInit, OnDestroy {
   configMaps: ConfigMap[];
   pageState: PageState = new PageState();
-  state: State;
-  currentPage: number = 1;
+  state: ClrDatagridStateInterface;
+  currentPage = 1;
 
   subscription: Subscription;
 
@@ -33,7 +33,7 @@ export class TrashConfigMapComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_CONFIGMAP) {
-        let configMap = message.data;
+        const configMap = message.data;
         this.configMapService.deleteById(configMap.id, 0, false)
           .subscribe(
             response => {
@@ -64,7 +64,7 @@ export class TrashConfigMapComponent implements OnInit, OnDestroy {
     this.refresh(this.state);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
@@ -72,7 +72,7 @@ export class TrashConfigMapComponent implements OnInit, OnDestroy {
     this.configMapService.list(this.pageState, 'true')
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.configMaps = data.list;
@@ -82,7 +82,7 @@ export class TrashConfigMapComponent implements OnInit, OnDestroy {
   }
 
   deleteConfigMap(configMap: ConfigMap) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除配置集确认',
       '你确认永久删除配置集 ' + configMap.name + ' ？删除后将不可恢复！',
       configMap,

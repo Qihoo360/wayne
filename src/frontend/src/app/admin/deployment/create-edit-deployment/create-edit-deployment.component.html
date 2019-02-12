@@ -5,19 +5,19 @@
 
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="deployment_app_id" class="col-md-3 form-group-label-override required">{{'DEPLOYMENT_ADMIN.CREATE.APPLYMENT' | translate}}</label>
+          <label for="deployment_app_id" class="clr-col-md-3 form-group-label-override required">{{'DEPLOYMENT_ADMIN.CREATE.APPLYMENT' | translate}}</label>
           <div class="select form-control">
             <select id="deployment_app_id" [(ngModel)]="deployment.appId" [disabled]="actionType==1"
                     name="deployment_app_id">
               <!--这是一个坑，如果使用value获取到的是string，使用ngValue获取到的是model本身类型-->
-              <option *ngFor="let app of apps" [ngValue]="app.id" [selected]="app.id == deployment.appId">{{app.name}}
+              <option *ngFor="let app of apps" [ngValue]="app.id" [selected]="app.id === deployment.appId">{{app.name}}
               </option>
             </select>
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
           <label for="deployment_name"
-                 class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
+                 class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="deployment_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <input class="form-control" type="text" id="deployment_name" [(ngModel)]="deployment.name"
@@ -34,13 +34,13 @@
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="deployment_metadata" class="col-md-3 form-group-label-override">{{'DEPLOYMENT_ADMIN.CREATE.METADATA' | translate}}</label>
+          <label for="deployment_metadata" class="clr-col-md-3 form-group-label-override">{{'DEPLOYMENT_ADMIN.CREATE.METADATA' | translate}}</label>
           <wayne-ace-editor-box></wayne-ace-editor-box>
 
         </div>
         <div class="form-group" style="padding-left: 135px;">
           <label for="deployment_description"
-                 class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
+                 class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="deployment_description" [(ngModel)]="deployment.description"
                     name="deployment_description"
                     rows="3">

@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class UsedPortService {
@@ -21,14 +22,14 @@ export class UsedPortService {
     params = params.set('pageSize', pageState.page.pageSize + '');
     params = params.set('sortby', '-id');
     Object.getOwnPropertyNames(pageState.params).map(key => {
-      let value = pageState.params[key];
+      const value = pageState.params[key];
       if (isNotEmpty(value)) {
         params = params.set(key, value);
       }
     });
-    let filterList: Array<string> = [];
+    const filterList: Array<string> = [];
     Object.getOwnPropertyNames(pageState.filters).map(key => {
-      let value = pageState.filters[key];
+      const value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
           filterList.push(`${key}=${value}`);
@@ -42,17 +43,17 @@ export class UsedPortService {
     }
     // sort param
     if (Object.keys(pageState.sort).length !== 0 && pageState.sort.by !== 'service.name') {
-      let sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
+      const sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
       params = params.set('sortby', sortType);
     }
     return this.http
       .get('/api/v1/services/usedports', {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, logical?: boolean): Observable<any> {
-    let options: any = {};
+    const options: any = {};
     if (logical != null) {
       let params = new HttpParams();
       params = params.set('logical', logical + '');
@@ -62,25 +63,25 @@ export class UsedPortService {
     return this.http
       .delete(`/api/v1/services/usedports/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteByServiceId(serviceId: number): Observable<any> {
-    let options: any = {};
+    const options: any = {};
     let params = new HttpParams();
     params = params.set('serviceId', serviceId + '');
     options.params = params;
     return this.http
       .delete(`/api/v1/services/usedports`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number): Observable<any> {
     return this.http
       .get(`/api/v1/services/usedports/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
 }

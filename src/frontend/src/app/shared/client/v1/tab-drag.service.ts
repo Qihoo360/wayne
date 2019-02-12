@@ -1,19 +1,27 @@
 import { Inject, Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 import { TipService } from './tip.service';
+import { DOCUMENT } from '@angular/common';
 
 /**
  * angular 自己的组件高度都为0，所以只能在实际dom上添加draggable;
  */
 @Injectable()
 export class TabDragService implements OnDestroy {
+  // dragenter tab切换
+  private tabChange = new Subject<boolean>();
+  tabChangeObservable = this.tabChange.asObservable();
+  // dragover
+  private tabDragOver = new Subject<boolean>();
+  tabDragOverObservable = this.tabDragOver.asObservable();
+
   target: any;
   parentNode: any;
   eventList: Array<any> = new Array();
   render: Renderer2;
-  tabDrag: boolean = false;
-  ms: number = 150;
+  tabDrag = false;
+  ms = 150;
   repainer: any;
   // 左右按钮
   private controlTrans = new Subject<string>();
@@ -23,17 +31,9 @@ export class TabDragService implements OnDestroy {
     this.controlTrans.next(direction);
   }
 
-  // dragenter tab切换
-  private tabChange = new Subject<boolean>();
-  tabChangeObservable = this.tabChange.asObservable();
-
   tabChangeEvent(change: boolean) {
     this.tabChange.next(change);
   }
-
-  // dragover 
-  private tabDragOver = new Subject<boolean>();
-  tabDragOverObservable = this.tabDragOver.asObservable();
 
   tabDragOverEvent(over: boolean) {
     this.tabDragOver.next(over);
@@ -95,11 +95,14 @@ export class TabDragService implements OnDestroy {
     // 组织默认事件可以帮助控制鼠标样式。
     evt.preventDefault();
     if (this.tabDrag) {
-      if (this.target.animated) return;
+      if (this.target.animated) {
+        return;
+      }
       let toElement = this.getBox(evt.target);
       if (this.isBoxItem(toElement) && toElement !== this.target) {
         const fromElement = this.target;
-        toElement = this.isBeforeItem(fromElement, toElement) ? this.getSilbingItem(fromElement, false) : this.getSilbingItem(fromElement, true);
+        toElement = this.isBeforeItem(fromElement, toElement) ?
+          this.getSilbingItem(fromElement, false) : this.getSilbingItem(fromElement, true);
         const fromRect = fromElement.getBoundingClientRect();
         const toRect = toElement.getBoundingClientRect();
         this.insertElement(toElement, fromElement);
@@ -126,7 +129,8 @@ export class TabDragService implements OnDestroy {
   setTargetCss(target: Element) {
     this.setCss(target, 'background', '#f2f2f2');
     this.setCss(target, 'border-radius', '4px');
-    this.setCss(target, 'box-shadow', 'rgb(204, 204, 204) 0px 1px 5px inset, rgb(204, 204, 204) 1px 0px 5px inset, rgba(204, 204, 204, 0.8) -1px 0px 5px inset, rgb(204, 204, 204) -1px 0px 5px inset');
+    this.setCss(target, 'box-shadow', 'rgb(204, 204, 204) 0px 1px 5px inset, ' +
+      'rgb(204, 204, 204) 1px 0px 5px inset, rgba(204, 204, 204, 0.8) -1px 0px 5px inset, rgb(204, 204, 204) -1px 0px 5px inset');
   }
 
   resetTargetCss(target: Element): void {
@@ -136,7 +140,8 @@ export class TabDragService implements OnDestroy {
   }
 
   insertElement(anotherEl: Element, targetEl: Element): void {
-    this.render.insertBefore(this.parentNode, targetEl, this.isBeforeItem(targetEl, anotherEl) ? this.getBox(anotherEl).nextElementSibling : this.getBox(anotherEl));
+    this.render.insertBefore(this.parentNode, targetEl, this.isBeforeItem(targetEl, anotherEl) ?
+      this.getBox(anotherEl).nextElementSibling : this.getBox(anotherEl));
   }
 
   animate(prevRect: any, el: any) {
@@ -155,7 +160,7 @@ export class TabDragService implements OnDestroy {
   }
 
   setCss(el, prop, val) {
-    var style = el && el.style;
+    const style = el && el.style;
 
     if (style) {
       if (val === void 0) {
@@ -178,7 +183,9 @@ export class TabDragService implements OnDestroy {
 
   isTabChild(element: any): boolean {
     while (element.tagName.toLowerCase() !== 'body') {
-      if (element.tagName.toLowerCase === 'wayne-tab') return true;
+      if (element.tagName.toLowerCase === 'wayne-tab') {
+        return true;
+      }
       element = element.parentNode;
     }
     return false;

@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { State } from '@clr/angular';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
@@ -16,7 +16,7 @@ import { ConfigService } from '../../shared/client/v1/config.service';
   templateUrl: './config.component.html',
   styleUrls: ['./config.component.scss']
 })
-export class ConfigComponent implements OnInit {
+export class ConfigComponent implements OnInit, OnDestroy {
   @ViewChild(ListConfigComponent)
   list: ListConfigComponent;
   @ViewChild(CreateEditConfigComponent)
@@ -61,14 +61,14 @@ export class ConfigComponent implements OnInit {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.configService.list(this.pageState)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.configs = data.list;
@@ -88,7 +88,7 @@ export class ConfigComponent implements OnInit {
   }
 
   deleteConfig(config: Config) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除配置确认',
       '你确认删除配置 ' + config.name + ' ？',
       config.id,

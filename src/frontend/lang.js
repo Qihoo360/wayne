@@ -25,7 +25,7 @@ if (process.argv[2] === 'fill') {
   for(let file of files) {
     const filePath = path.resolve(__dirname, 'src/assets/i18n', file +'.json');
     if (fs.existsSync(filePath)) {
-      let value = require(filePath);
+      const value = require(filePath);
       if (typeof value !== 'object') {
         value = {};
       }

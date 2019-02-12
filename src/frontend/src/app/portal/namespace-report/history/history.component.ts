@@ -38,13 +38,15 @@ export class HistoryComponent implements OnInit, AfterViewInit {
       res => {
         this.text = res['TITLE.DEPLOY_FREQ'];
         this.subText = res['TITLE.LATE_DAY'];
-        if (this.dataDone) this.initHistoryOptions();
+        if (this.dataDone) {
+          this.initHistoryOptions();
+        }
       }
     );
   }
 
   ngAfterViewInit(): void {
-    let namespaceId = this.cacheService.namespaceId;
+    const namespaceId = this.cacheService.namespaceId;
     this.basicChart = echarts.init(this.elementBasicView.nativeElement, 'macarons');
     this.namespaceClient.getHistory(namespaceId).subscribe(
       response => {
@@ -58,9 +60,11 @@ export class HistoryComponent implements OnInit, AfterViewInit {
 
   initHistoryOptions() {
     const _this = this;
-    let data = [];
-    for (let key in this.historys) {
-      data.push({value: [this.historys[key].date, this.historys[key].count]});
+    const data = [];
+    for (const key in this.historys) {
+      if (this.historys.hasOwnProperty(key)) {
+        data.push({value: [this.historys[key].date, this.historys[key].count]});
+      }
     }
     this.basicOption = <EChartOption>{
       title: {

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfigMapTpl } from '../../../shared/model/v1/configmaptpl';
 import { Page } from '../../../shared/page/page-state';
 
@@ -13,10 +13,10 @@ export class ListConfigMapTplComponent implements OnInit {
   @Input() configMapTpls: ConfigMapTpl[];
 
   @Input() page: Page;
-  state: State;
-  currentPage: number = 1;
+  state: ClrDatagridStateInterface;
+  currentPage = 1;
 
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<ConfigMapTpl>();
   @Output() edit = new EventEmitter<ConfigMapTpl>();
 
@@ -35,7 +35,7 @@ export class ListConfigMapTplComponent implements OnInit {
   }
 
 
-  refresh(state: State) {
+  refresh(state: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }

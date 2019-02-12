@@ -19,8 +19,4 @@ export class ApiKey {
   deleted: boolean;
   createTime: Date;
   updateTime: Date;
-  //[ApiKey:]
-
-
-  //[end]
 }

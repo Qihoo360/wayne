@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { State } from '@clr/angular';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
 import { apiKeyTypeNamespace, ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
@@ -28,7 +28,7 @@ const showState = {
   templateUrl: './apikey.component.html',
   styleUrls: ['./apikey.component.scss']
 })
-export class NamespaceApiKeyComponent implements OnInit {
+export class NamespaceApiKeyComponent implements OnInit, OnDestroy {
   @ViewChild(ListApiKeyComponent)
   listApiKey: ListApiKeyComponent;
   @ViewChild(CreateEditApiKeyComponent)
@@ -48,7 +48,7 @@ export class NamespaceApiKeyComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.API_KEY) {
-        let id = message.data;
+        const id = message.data;
         this.apiKeyService
           .deleteById(id, true, this.cacheService.namespaceId)
           .subscribe(
@@ -71,7 +71,7 @@ export class NamespaceApiKeyComponent implements OnInit {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) this.showList.push(key);
+      if (!this.showState[key].hidden) { this.showList.push(key); }
     });
   }
 
@@ -95,7 +95,7 @@ export class NamespaceApiKeyComponent implements OnInit {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {
         totalPage: this.pageState.page.totalPage,
@@ -110,7 +110,7 @@ export class NamespaceApiKeyComponent implements OnInit {
     this.apiKeyService.listPage(this.pageState, this.cacheService.namespaceId, null)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedApiKeys = data.list;
@@ -130,7 +130,7 @@ export class NamespaceApiKeyComponent implements OnInit {
   }
 
   deleteApiKey(apiKey: ApiKey) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除APIKey确认',
       '你确认删除APIKey ' + apiKey.name + ' ？',
       apiKey.id,

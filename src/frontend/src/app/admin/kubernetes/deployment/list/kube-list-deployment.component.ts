@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { Page } from '../../../../shared/page/page-state';
 import { BreadcrumbService } from '../../../../shared/client/v1/breadcrumb.service';
 import { DeploymentList } from '../../../../shared/model/v1/deployment-list';
@@ -16,9 +16,9 @@ export class KubeListDeploymentComponent implements OnInit {
   @Input() page: Page;
   @Input() showState: object;
   currentPage = 1;
-  state: State;
+  state: ClrDatagridStateInterface;
 
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() detail = new EventEmitter<DeploymentList>();
   @Output() migration = new EventEmitter<DeploymentList>();
 
@@ -38,7 +38,7 @@ export class KubeListDeploymentComponent implements OnInit {
     this.paginate.emit(this.state);
   }
 
-  refresh(state: State) {
+  refresh(state: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }

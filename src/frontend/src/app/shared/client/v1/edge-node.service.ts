@@ -7,6 +7,7 @@ import 'rxjs/add/observable/throw';
 import { EdgeNode } from '../../model/v1/edge-node';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class EdgeNodeService {
@@ -20,7 +21,7 @@ export class EdgeNodeService {
     return this.http
       .get(`/api/v1/services/edgenodes/cluster/${cluster}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   list(pageState: PageState): Observable<any> {
@@ -29,14 +30,14 @@ export class EdgeNodeService {
     params = params.set('pageSize', pageState.page.pageSize + '');
     params = params.set('sortby', '-id');
     Object.getOwnPropertyNames(pageState.params).map(key => {
-      let value = pageState.params[key];
+      const value = pageState.params[key];
       if (isNotEmpty(value)) {
         params = params.set(key, value);
       }
     });
-    let filterList: Array<string> = [];
+    const filterList: Array<string> = [];
     Object.getOwnPropertyNames(pageState.filters).map(key => {
-      let value = pageState.filters[key];
+      const value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
           filterList.push(`${key}=${value}`);
@@ -50,41 +51,41 @@ export class EdgeNodeService {
     }
     // sort param
     if (Object.keys(pageState.sort).length !== 0) {
-      let sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
+      const sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
       params = params.set('sortby', sortType);
     }
     return this.http
       .get('/api/v1/services/edgenodes', {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(edgeNode: EdgeNode): Observable<any> {
     return this.http
       .post(`/api/v1/services/edgenodes`, edgeNode, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(edgeNode: EdgeNode): Observable<any> {
     return this.http
       .put(`/api/v1/services/edgenodes/${edgeNode.id}`, edgeNode, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number): Observable<any> {
     return this.http
       .delete(`/api/v1/services/edgenodes/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number): Observable<any> {
     return this.http
       .get(`/api/v1/services/edgenodes/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
 }

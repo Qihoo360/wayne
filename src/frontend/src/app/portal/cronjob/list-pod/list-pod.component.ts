@@ -3,7 +3,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
 import { Inventory, StateComparator, TimeComparator } from './inventory';
-import { SortOrder } from '@clr/angular';
+import { ClrDatagridSortOrder } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { Pod } from '../../../shared/model/v1/kubernetes/pod';
 import { PodClient } from '../../../shared/client/v1/kubernetes/pod';
@@ -25,12 +25,12 @@ import { KubeJob } from '../../../shared/model/v1/kubernetes/job';
 })
 
 export class ListPodComponent implements OnInit, OnDestroy {
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
   modalOpened: boolean;
   pods: Pod[];
-  sortOrder: SortOrder = SortOrder.Unsorted;
-  sorted: boolean = false;
+  sortOrder: ClrDatagridSortOrder = ClrDatagridSortOrder.UNSORTED;
+  sorted = false;
   timeComparator = new TimeComparator();
   stateComparator = new StateComparator();
   currentCluster: string;
@@ -39,7 +39,7 @@ export class ListPodComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   get appId(): number {
-    return parseInt(this.route.parent.snapshot.params['id']);
+    return parseInt(this.route.parent.snapshot.params['id'], 10);
   }
 
 
@@ -55,7 +55,7 @@ export class ListPodComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.POD) {
-        let pod: Pod = message.data;
+        const pod: Pod = message.data;
         this.podClient
           .deleteByName(this.appId, this.currentCluster, pod.namespace, pod.name)
           .subscribe(
@@ -101,7 +101,7 @@ export class ListPodComponent implements OnInit, OnDestroy {
   }
 
   deletePod(pod: Pod) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除实例确认',
       `是否确认删除实例 ${pod.name}`,
       pod,
@@ -112,14 +112,16 @@ export class ListPodComponent implements OnInit, OnDestroy {
   }
 
   enterContainer(pod: Pod): void {
-    let appId = this.route.parent.snapshot.params['id'];
-    let url = `portal/namespace/${this.cacheService.namespaceId}/app/${appId}/job/${this.job.metadata.name}/pod/${pod.name}/terminal/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
+    const appId = this.route.parent.snapshot.params['id'];
+    const url = `portal/namespace/${this.cacheService.namespaceId}/app` +
+    `/${appId}/job/${this.job.metadata.name}/pod/${pod.name}/terminal/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 
   podLog(pod: Pod): void {
-    let appId = this.route.parent.snapshot.params['id'];
-    let url = `portal/logging/namespace/${this.cacheService.namespaceId}/app/${appId}/job/${this.job.metadata.name}/pod/${pod.name}/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
+    const appId = this.route.parent.snapshot.params['id'];
+    const url = `portal/logging/namespace/${this.cacheService.namespaceId}/app` +
+    `/${appId}/job/${this.job.metadata.name}/pod/${pod.name}/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 }

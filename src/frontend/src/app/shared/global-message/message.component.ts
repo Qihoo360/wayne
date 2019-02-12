@@ -46,9 +46,9 @@ export class MessageComponent implements OnInit, OnDestroy {
   msgSub: Subscription;
   clearSub: Subscription;
   // box的位置
-  posiRight: number = 18;
+  posiRight = 18;
 
-  delayTime: number = 5000;
+  delayTime = 5000;
 
   constructor(
     private element: ElementRef,

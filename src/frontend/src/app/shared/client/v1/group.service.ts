@@ -7,6 +7,7 @@ import 'rxjs/add/observable/throw';
 import { Group } from '../../model/v1/group';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class GroupService {
@@ -24,14 +25,14 @@ export class GroupService {
       params = params.set('type', type + '');
     }
     Object.getOwnPropertyNames(pageState.params).map(key => {
-      let value = pageState.params[key];
+      const value = pageState.params[key];
       if (isNotEmpty(value)) {
         params = params.set(key, value);
       }
     });
-    let filterList: Array<string> = [];
+    const filterList: Array<string> = [];
     Object.getOwnPropertyNames(pageState.filters).map(key => {
-      let value = pageState.filters[key];
+      const value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
           filterList.push(`${key}=${value}`);
@@ -45,48 +46,48 @@ export class GroupService {
     }
     // sort param
     if (Object.keys(pageState.sort).length !== 0) {
-      let sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
+      const sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
       params = params.set('sortby', sortType);
     }
 
     return this.http
       .get('/api/v1/groups', {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   createGroup(group: Group): Observable<any> {
     return this.http
       .post(`/api/v1/groups`, group, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   updateGroup(group: Group): Observable<any> {
     return this.http
       .put(`/api/v1/groups/${group.id}`, group, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteGroup(groupId: number): Observable<any> {
-    let options: any = {};
+    const options: any = {};
     return this.http
       .delete(`/api/v1/groups/${groupId}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getGroup(groupId: number): Observable<any> {
     return this.http
       .get(`/api/v1/groups/${groupId}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   initGroup(): Observable<any> {
     return this.http.get(`/api/v1/groups/init`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

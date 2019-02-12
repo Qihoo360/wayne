@@ -6,7 +6,7 @@
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'name'" class="col-app-name">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      名称
+      {{'TITLE.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'description'" class="col-description">
@@ -46,11 +46,13 @@
     <clr-dg-cell>{{cronjobTpl.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
   </clr-dg-row>
 
-  <wayne-paginate
-    [(currentPage)]="currentPage"
-    [total]="page.totalCount"
-    [pageSizes]="[10, 20, 50]"
-    (sizeChange)="pageSizeChange($event)"
-  >
-  </wayne-paginate>
+  <clr-dg-footer>
+    <wayne-paginate
+      [(currentPage)]="currentPage"
+      [total]="page.totalCount"
+      [pageSizes]="[10, 20, 50]"
+      (sizeChange)="pageSizeChange($event)"
+    >
+    </wayne-paginate>
+  </clr-dg-footer>
 </clr-datagrid>

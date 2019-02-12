@@ -45,7 +45,7 @@ export class ListAutoscaleComponent extends ListResource implements OnInit, OnDe
       diffService,
       authService,
       deletionDialogService
-    )
+    );
     super.registSubscription(ConfirmationTargets.AUTOSCALE_TPL, 'HPA 模版删除成功！');
     super.registConfirmationTarget(ConfirmationTargets.AUTOSCALE_TPL);
   }

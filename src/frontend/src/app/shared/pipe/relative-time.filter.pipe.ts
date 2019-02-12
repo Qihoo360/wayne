@@ -7,15 +7,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class RelativeTimeFilterPipe implements PipeTransform {
 
   transform(inputDate: string): string {
-    let current = new Date().valueOf();
-    let input = new Date(inputDate).valueOf();
-    let msPerMinute = 60 * 1000;
-    let msPerHour = msPerMinute * 60;
-    let msPerDay = msPerHour * 24;
-    let msPerMonth = msPerDay * 30;
-    let msPerYear = msPerDay * 365;
+    const current = new Date().valueOf();
+    const input = new Date(inputDate).valueOf();
+    const msPerMinute = 60 * 1000;
+    const msPerHour = msPerMinute * 60;
+    const msPerDay = msPerHour * 24;
+    const msPerMonth = msPerDay * 30;
+    const msPerYear = msPerDay * 365;
 
-    let elapsed = current - input;
+    const elapsed = current - input;
 
     if (elapsed < msPerMinute) {
       return Math.floor(elapsed / 1000) + 's';

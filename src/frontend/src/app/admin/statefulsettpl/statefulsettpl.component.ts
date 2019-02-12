@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
@@ -11,13 +11,14 @@ import { ListStatefulsettplComponent } from './list-statefulsettpl/list-stateful
 import { CreateEditStatefulsettplComponent } from './create-edit-statefulsettpl/create-edit-statefulsettpl.component';
 import { StatefulsetTplService } from '../../shared/client/v1/statefulsettpl.service';
 import { StatefulsetTemplate } from '../../shared/model/v1/statefulsettpl';
+import { isNotEmpty } from '../../shared/utils';
 
 @Component({
   selector: 'wayne-statefulsettpl',
   templateUrl: './statefulsettpl.component.html',
   styleUrls: ['./statefulsettpl.component.scss']
 })
-export class StatefulsettplComponent implements OnInit {
+export class StatefulsettplComponent implements OnInit, OnDestroy {
 
   @ViewChild(ListStatefulsettplComponent)
   listStatefulset: ListStatefulsettplComponent;
@@ -38,7 +39,7 @@ export class StatefulsettplComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.STATEFULSET_TPL) {
-        let id = message.data;
+        const id = message.data;
         this.statefulsetTplService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -56,7 +57,7 @@ export class StatefulsettplComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.statefulsetId = params['did'];
-      if (typeof (this.statefulsetId) == 'undefined') {
+      if (typeof (this.statefulsetId) === 'undefined') {
         this.statefulsetId = 0;
       }
     });
@@ -68,7 +69,7 @@ export class StatefulsettplComponent implements OnInit {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {
         pageSize: 10,
@@ -77,10 +78,18 @@ export class StatefulsettplComponent implements OnInit {
       });
     }
     this.pageState.params['deleted'] = false;
+    if (this.route.snapshot.queryParams) {
+      Object.getOwnPropertyNames(this.route.snapshot.queryParams).map(key => {
+        const value = this.route.snapshot.queryParams[key];
+        if (isNotEmpty(value)) {
+          this.pageState.filters[key] = value;
+        }
+      });
+    }
     this.statefulsetTplService.listPage(this.pageState, this.statefulsetId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedStatefulsets = data.list;
@@ -100,7 +109,7 @@ export class StatefulsettplComponent implements OnInit {
   }
 
   deleteStatefulset(tpl: StatefulsetTemplate) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除状态副本集模版确认',
       '你确认删除状态副本集模版 ' + tpl.name + ' ？',
       tpl.id,

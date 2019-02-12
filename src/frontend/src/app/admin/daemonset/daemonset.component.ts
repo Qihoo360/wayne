@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
@@ -18,7 +18,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './daemonset.component.html',
   styleUrls: ['./daemonset.component.scss']
 })
-export class DaemonsetComponent implements OnInit {
+export class DaemonsetComponent implements OnInit, OnDestroy {
 
   @ViewChild(ListDaemonsetComponent)
   listDaemonset: ListDaemonsetComponent;
@@ -40,7 +40,7 @@ export class DaemonsetComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.DAEMONSET) {
-        let id = message.data;
+        const id = message.data;
         this.daemonsetService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -70,7 +70,7 @@ export class DaemonsetComponent implements OnInit {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
@@ -83,7 +83,7 @@ export class DaemonsetComponent implements OnInit {
     this.daemonsetService.listPage(this.pageState, this.appId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedDaemonsets = data.list;
@@ -103,7 +103,7 @@ export class DaemonsetComponent implements OnInit {
   }
 
   deleteDaemonset(daemonset: DaemonSet) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除守护进程集确认',
       '你确认删除守护进程集 ' + daemonset.name + ' ？',
       daemonset.id,

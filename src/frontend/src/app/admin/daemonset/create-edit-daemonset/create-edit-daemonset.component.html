@@ -5,17 +5,17 @@
 
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="app_id" class="col-md-3 form-group-label-override required">{{'DAEMONSET_ADMIN.CREATE.APP' | translate}}</label>
+          <label for="app_id" class="clr-col-md-3 form-group-label-override required">{{'DAEMONSET_ADMIN.CREATE.APP' | translate}}</label>
           <div class="select form-control">
             <select id="app_id" [(ngModel)]="daemonset.appId" [disabled]="actionType==1" name="app_id">
-              <option *ngFor="let app of apps" [ngValue]="app.id" [selected]="app.id == daemonset.appId">{{app.name}}
+              <option *ngFor="let app of apps" [ngValue]="app.id" [selected]="app.id === daemonset.appId">{{app.name}}
               </option>
             </select>
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
           <label for="daemonset_name"
-                 class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
+                 class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="daemonset_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <input class="form-control" type="text" id="daemonset_name" [(ngModel)]="daemonset.name"
@@ -32,13 +32,13 @@
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="daemonset_metadata" class="col-md-3 form-group-label-override">{{'DAEMONSET_ADMIN.CREATE.METADATA' | translate}}</label>
+          <label for="daemonset_metadata" class="clr-col-md-3 form-group-label-override">{{'DAEMONSET_ADMIN.CREATE.METADATA' | translate}}</label>
           <wayne-ace-editor-box></wayne-ace-editor-box>
 
         </div>
         <div class="form-group" style="padding-left: 135px;">
           <label for="daemonset_description"
-                 class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
+                 class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="daemonset_description" [(ngModel)]="daemonset.description" name="daemonset_description"
                     rows="3">
           </textarea>

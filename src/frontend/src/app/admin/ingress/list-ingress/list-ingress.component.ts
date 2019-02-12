@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
 import { Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { Ingress } from '../../../shared/model/v1/ingress';
 import { Page } from '../../../shared/page/page-state';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
@@ -17,9 +17,9 @@ export class ListIngressComponent implements OnInit {
 
   @Input() page: Page;
   currentPage = 1;
-  state: State;
+  state: ClrDatagridStateInterface;
 
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<Ingress>();
   @Output() edit = new EventEmitter<Ingress>();
 
@@ -43,7 +43,7 @@ export class ListIngressComponent implements OnInit {
     this.paginate.emit(this.state);
   }
 
-  refresh(state: State) {
+  refresh(state: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }
@@ -56,21 +56,19 @@ export class ListIngressComponent implements OnInit {
     this.edit.emit(ingress);
   }
 
-  goToLink(ingress: Ingress, gate: string) {
-    let linkUrl = new Array();
+  goToLink(obj: Ingress, gate: string) {
+    let linkUrl = '';
     switch (gate) {
       case 'tpl':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/ingress/relate-tpl/[0-9]*', '[' + ingress.name + ']模板列表');
-        linkUrl = ['admin', 'service', 'relate-tpl', ingress.id];
+        linkUrl = `/admin/ingress/tpl?ingressId=${obj.id}`;
         break;
       case 'app':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/ingress/app/[0-9]*', '[' + ingress.app.name + ']项目详情');
-        linkUrl = ['admin', 'service', 'app', ingress.app.id];
+        linkUrl = `admin/app?id=${obj.app.id}`;
         break;
       default:
         break;
     }
-    this.router.navigate(linkUrl);
+    this.router.navigateByUrl(linkUrl);
   }
 
   detailMetaDataTpl(tpl: string) {

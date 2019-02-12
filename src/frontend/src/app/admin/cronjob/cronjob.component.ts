@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
@@ -18,7 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './cronjob.component.html',
   styleUrls: ['./cronjob.component.scss']
 })
-export class CronjobComponent implements OnInit {
+export class CronjobComponent implements OnInit, OnDestroy {
   @ViewChild(ListCronjobComponent)
   list: ListCronjobComponent;
   @ViewChild(CreateEditCronjobComponent)
@@ -41,7 +41,7 @@ export class CronjobComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.CRONJOB) {
-        let id = message.data;
+        const id = message.data;
         this.cronjobService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -59,7 +59,7 @@ export class CronjobComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.appId = params['aid'];
-      if (typeof (this.appId) == 'undefined') {
+      if (typeof (this.appId) === 'undefined') {
         this.appId = '';
       }
     });
@@ -71,14 +71,14 @@ export class CronjobComponent implements OnInit {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.cronjobService.list(this.pageState, 'false', this.appId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.cronjobs = data.list;
@@ -98,7 +98,7 @@ export class CronjobComponent implements OnInit {
   }
 
   deleteCronjob(cronjob: Cronjob) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除' + this.componentName + '确认',
       '你确认删除' + this.componentName + cronjob.name + ' ？',
       cronjob.id,

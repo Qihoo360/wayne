@@ -105,7 +105,7 @@ export class CreateEditDeploymentComponent implements OnInit {
       if (!clusterMeta.checked) {
         return true;
       }
-      return parseInt(clusterMeta.value) <= this.replicaLimit;
+      return parseInt(clusterMeta.value, 10) <= this.replicaLimit;
     }
     return false;
   }

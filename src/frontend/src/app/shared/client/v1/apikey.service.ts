@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { throwError } from 'rxjs';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
@@ -22,14 +23,14 @@ export class ApiKeyService {
     params = params.set('pageSize', pageState.page.pageSize + '');
     params = params.set('sortby', '-id');
     Object.getOwnPropertyNames(pageState.params).map(key => {
-      let value = pageState.params[key];
+      const value = pageState.params[key];
       if (isNotEmpty(value)) {
         params = params.set(key, value);
       }
     });
-    let filterList: Array<string> = [];
+    const filterList: Array<string> = [];
     Object.getOwnPropertyNames(pageState.filters).map(key => {
-      let value = pageState.filters[key];
+      const value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
           filterList.push(`${key}=${value}`);
@@ -42,14 +43,14 @@ export class ApiKeyService {
       params = params.set('filter', filterList.join(','));
     }
     if (Object.keys(pageState.sort).length !== 0) {
-      let sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
+      const sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
       params = params.set('sortby', sortType);
     }
 
     return this.http
       .get(this.buildAPIKeyUrl(namespaceId, appId), {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   buildAPIKeyUrl(namespaceId?: number, appId?: number): string {
@@ -67,18 +68,18 @@ export class ApiKeyService {
     return this.http
       .post(this.buildAPIKeyUrl(namespaceId, appId), apiKey, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(apiKey: ApiKey, namespaceId?: number, appId?: number): Observable<any> {
     return this.http
       .put(`${this.buildAPIKeyUrl(namespaceId, appId)}/${apiKey.id}`, apiKey, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, logical?: boolean, namespaceId?: number, appId?: number): Observable<any> {
-    let options: any = {};
+    const options: any = {};
     if (logical != null) {
       let params = new HttpParams();
       params = params.set('logical', logical + '');
@@ -88,12 +89,12 @@ export class ApiKeyService {
     return this.http
       .delete(`${this.buildAPIKeyUrl(namespaceId, appId)}/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, namespaceId?: number, appId?: number): Observable<any> {
     return this.http.get(`${this.buildAPIKeyUrl(namespaceId, appId)}/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

@@ -4,7 +4,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
 import { Inventory, TimeComparator } from './inventory';
 import { Event } from '../../../shared/model/v1/deploymenttpl';
-import { SortOrder } from '@clr/angular';
+import { ClrDatagridSortOrder } from '@clr/angular';
 
 @Component({
   selector: 'list-event',
@@ -14,12 +14,12 @@ import { SortOrder } from '@clr/angular';
 })
 
 export class ListEventComponent implements OnInit {
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
   modalOpened: boolean;
   warnings: Event[];
-  sortOrder: SortOrder = SortOrder.Unsorted;
-  sorted: boolean = false;
+  sortOrder: ClrDatagridSortOrder = ClrDatagridSortOrder.UNSORTED;
+  sorted = false;
 
   timeComparator = new TimeComparator();
 

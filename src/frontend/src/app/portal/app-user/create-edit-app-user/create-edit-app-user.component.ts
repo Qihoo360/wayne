@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -19,7 +19,7 @@ import { PageState } from '../../../shared/page/page-state';
   templateUrl: 'create-edit-app-user.component.html',
   styleUrls: ['create-edit-app-user.scss']
 })
-export class CreateEditAppUserComponent {
+export class CreateEditAppUserComponent implements OnInit {
   @Output() create = new EventEmitter<boolean>();
   createAppUserOpened: boolean;
 
@@ -28,9 +28,9 @@ export class CreateEditAppUserComponent {
   currentForm: NgForm;
 
   appUser: AppUser;
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
 
   allGroups: Array<any>;
   mapGroups: Map<string, Group> = new Map<string, Group>();
@@ -63,8 +63,10 @@ export class CreateEditAppUserComponent {
     this.groupService.listGroup(new PageState({pageSize: 500}), groupType[0].id).subscribe(
       response => {
         this.allGroups = response.data.list;
-        for (let x in this.allGroups) {
-          this.mapGroups.set(this.allGroups[x].id.toString(), this.allGroups[x]);
+        for (const x in this.allGroups) {
+          if (this.allGroups.hasOwnProperty(x)) {
+            this.mapGroups.set(this.allGroups[x].id.toString(), this.allGroups[x]);
+          }
         }
       },
       error => this.messageHandlerService.handleError(error)
@@ -77,16 +79,20 @@ export class CreateEditAppUserComponent {
     if (id) {
       this.actionType = ActionType.EDIT;
       this.appUserTitle = '编辑项目用户';
-      this.appUserService.getById(id, parseInt(appId)).subscribe(
+      this.appUserService.getById(id, parseInt(appId, 10)).subscribe(
         status => {
           this.appUser = status.data;
           // 编辑用户时，需要调整allGroup与selectGroup内容
-          for (let key in this.allGroups) {
-            for (let index in this.appUser.groups) {
-              const source = this.allGroups[key];
-              const detail = this.appUser.groups[index];
-              if (JSON.stringify(source) === JSON.stringify(detail)) {
-                this.prepareGroups.push(this.allGroups[key].id.toString());
+          for (const key in this.allGroups) {
+            if (this.allGroups.hasOwnProperty(key)) {
+              for (const index in this.appUser.groups) {
+                if (this.appUser.groups.hasOwnProperty(index)) {
+                  const source = this.allGroups[key];
+                  const detail = this.appUser.groups[index];
+                  if (JSON.stringify(source) === JSON.stringify(detail)) {
+                    this.prepareGroups.push(this.allGroups[key].id.toString());
+                  }
+                }
               }
             }
           }
@@ -135,8 +141,10 @@ export class CreateEditAppUserComponent {
     }
     this.appUser.groups = new Array<Group>();
     this.isSubmitOnGoing = true;
-    for (let k in this.selectGroups) {
-      this.appUser.groups.push(this.mapGroups.get(this.selectGroups[k]));
+    for (const k in this.selectGroups) {
+      if (this.selectGroups.hasOwnProperty(k)) {
+        this.appUser.groups.push(this.mapGroups.get(this.selectGroups[k]));
+      }
     }
     switch (this.actionType) {
       case ActionType.ADD_NEW:

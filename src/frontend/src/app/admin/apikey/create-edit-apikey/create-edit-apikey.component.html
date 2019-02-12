@@ -1,14 +1,14 @@
 <clr-modal [(clrModalOpen)]="modalOpened">
   <h3 class="modal-title">{{title}}</h3>
 
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" class="modal-body">
+  <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12 clr-col-xs-12" class="modal-body">
     <form #apiKeyForm="ngForm">
       <section class="form-block">
-        <div class="form-group row">
-          <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group clr-row">
+          <div class="clr-col-lg-3 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
             <label for="name" class="required">{{'TITLE.NAME' | translate}}</label>
           </div>
-          <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
+          <div class="clr-col-lg-8 clr-col-md-4 clr-col-sm-12 clr-col-xs-12">
             <input class="form-control"
                    [(ngModel)]="apiKey.name"
                    type="text"
@@ -19,24 +19,24 @@
                    size="45">
           </div>
         </div>
-        <div class="form-group row">
-          <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group clr-row">
+          <div class="clr-col-lg-3 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
             <label for="type" class="required">类型</label>
           </div>
-          <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
+          <div class="clr-col-lg-8 clr-col-md-4 clr-col-sm-12 clr-col-xs-12">
             <div class="select">
               <select id="type" [(ngModel)]="apiKey.type" required name="type">
-                <option *ngFor="let type of apiKeyTypes" [selected]="type.id == 0" [ngValue]="type.id">{{type.name}}
+                <option *ngFor="let type of apiKeyTypes" [selected]="type.id === 0" [ngValue]="type.id">{{type.name}}
                 </option>
               </select>
             </div>
           </div>
         </div>
-        <div class="form-group row" *ngIf="apiKey.type!=0">
-          <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group clr-row" *ngIf="apiKey.type!=0">
+          <div class="clr-col-lg-3 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
             <label for="resourceId" class="required">资源ID</label>
           </div>
-          <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
+          <div class="clr-col-lg-8 clr-col-md-4 clr-col-sm-12 clr-col-xs-12">
             <input class="form-control"
                    [(ngModel)]="apiKey.resourceId"
                    type="number"
@@ -47,11 +47,11 @@
                    size="45">
           </div>
         </div>
-        <div class="form-group row">
-          <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group clr-row">
+          <div class="clr-col-lg-3 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
             <label for="role" class="required">角色</label>
           </div>
-          <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
+          <div class="clr-col-lg-8 clr-col-md-4 clr-col-sm-12 clr-col-xs-12">
             <div class="select">
               <select id="role" [(ngModel)]="apiKey.group.id" required name="role">
                 <!--这是一个坑，如果使用value获取到的是string，使用ngValue获取到的是model本身类型-->
@@ -61,11 +61,11 @@
             </div>
           </div>
         </div>
-        <div class="form-group row">
-          <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group clr-row">
+          <div class="clr-col-lg-3 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
             <label for="expire_in" class="required">过期时间</label>
           </div>
-          <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+          <div class="clr-col-lg-8 clr-col-md-8 clr-col-sm-12 clr-col-xs-12">
             <input class="form-control"
                    [(ngModel)]="apiKey.expireIn"
                    type="number"
@@ -76,11 +76,11 @@
                    size="45">
           </div>
         </div>
-        <div class="form-group row">
-          <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group clr-row">
+          <div class="clr-col-lg-3 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
             <label for="description">{{'TITLE.DESCRIPTION' | translate}}</label>
           </div>
-          <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
+          <div class="clr-col-lg-8 clr-col-md-4 clr-col-sm-12 clr-col-xs-12">
               <textarea class="form-control"
                         type="text"
                         [(ngModel)]="apiKey.description"

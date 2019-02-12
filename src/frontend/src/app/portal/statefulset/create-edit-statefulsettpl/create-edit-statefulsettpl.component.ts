@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { Location } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import { FormBuilder, NgForm } from '@angular/forms';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import {
   ConfigMapEnvSource,
@@ -34,7 +34,7 @@ import { Statefulset } from '../../../shared/model/v1/statefulset';
 import { StatefulsetTplService } from '../../../shared/client/v1/statefulsettpl.service';
 import { StatefulsetTemplate } from '../../../shared/model/v1/statefulsettpl';
 import { defaultStatefulset } from '../../../shared/default-models/statefulset.const';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
@@ -91,7 +91,7 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
   kubeStatefulSet: KubeStatefulSet = new KubeStatefulSet();
   top: number;
   box: HTMLElement;
-  naviList: string = JSON.stringify(templateDom);
+  naviList = JSON.stringify(templateDom);
   cpuUnitPrice = 30;
   memoryUnitPrice = 10;
   eventList: any[] = Array();
@@ -225,7 +225,7 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
     } else {
       this.actionType = ActionType.ADD_NEW;
     }
-    Observable.combineLatest(observables).subscribe(
+    combineLatest(observables).subscribe(
       response => {
         this.app = response[0].data;
         this.statefulset = response[1].data;

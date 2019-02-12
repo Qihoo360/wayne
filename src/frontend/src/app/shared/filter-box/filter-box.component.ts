@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'wayne-filter-box',
@@ -27,20 +28,26 @@ export class FilterBoxComponent implements OnInit {
   }
 
   clickEvent(event) {
-    if (this.isBox(event.target)) return;
+    if (this.isBox(event.target)) {
+      return;
+    }
     this._cancel();
   }
 
   isBox(target: HTMLElement): boolean {
     while (target && target.tagName.toLocaleLowerCase() !== 'body') {
-      if (target.tagName.toLocaleLowerCase() === 'wayne-filter-box') return true;
+      if (target.tagName.toLocaleLowerCase() === 'wayne-filter-box') {
+        return true;
+      }
       target = target.parentElement;
     }
     return false;
   }
 
   destroyEvent() {
-    if (this.eventTarget) this.eventTarget();
+    if (this.eventTarget) {
+      this.eventTarget();
+    }
     this.show = false;
   }
 

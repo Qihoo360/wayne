@@ -9,5 +9,5 @@ export class ConfirmationAcknowledgement {
 
   state: ConfirmationState = ConfirmationState.NA;
   data: any = {};
-  source: ConfirmationTargets = ConfirmationTargets.EMPTY;
+  source: any = ConfirmationTargets.EMPTY;
 }

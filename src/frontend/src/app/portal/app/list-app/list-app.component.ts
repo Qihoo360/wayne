@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { App } from '../../../shared/model/v1/app';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { Page } from '../../../shared/page/page-state';
@@ -19,10 +19,10 @@ export class ListAppComponent implements OnInit {
   @Input() starredFilter: boolean;
   @Input() apps: App[];
   @Input() page: Page;
-  state: State;
+  state: ClrDatagridStateInterface;
   currentPage = 1;
   @Input() showState: object;
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<App>();
   @Output() edit = new EventEmitter<App>();
 
@@ -53,7 +53,7 @@ export class ListAppComponent implements OnInit {
     return this.authService.config['system.monitor-uri'];
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }

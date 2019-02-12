@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { Location } from '@angular/common';
+import {  DOCUMENT, Location } from '@angular/common';
 import { FormBuilder, NgForm } from '@angular/forms';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import {
@@ -16,7 +16,7 @@ import {
   SecretEnvSource,
   SecretKeySelector,
 } from '../../../shared/model/v1/kubernetes/cronjob';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
 import 'rxjs/add/observable/combineLatest';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CronjobTpl } from '../../../shared/model/v1/cronjobtpl';
@@ -32,7 +32,7 @@ import { AuthService } from '../../../shared/auth/auth.service';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { defaultCronJob } from '../../../shared/default-models/cronjob.const';
-import { Observable } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import * as cron from 'cron-parser';
 import { ObjectMeta } from '../../../shared/model/v1/kubernetes/deployment';
 
@@ -81,7 +81,7 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
   componentName = '计划任务模板';
   top: number;
   box: HTMLElement;
-  naviList: string = JSON.stringify(templateDom);
+  naviList = JSON.stringify(templateDom);
   eventList: any = new Array();
 
   constructor(private cronjobTplService: CronjobTplService,
@@ -245,7 +245,7 @@ export class CreateEditCronjobTplComponent implements OnInit, AfterViewInit, OnD
     } else {
       this.actionType = ActionType.ADD_NEW;
     }
-    Observable.combineLatest(observables).subscribe(
+    combineLatest(observables).subscribe(
       response => {
         this.app = response[0].data;
         this.cronjob = response[1].data;

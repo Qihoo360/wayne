@@ -1,3 +1,3 @@
 export class ListStyle {
-  translateX: number = 0;
+  translateX = 0;
 }

@@ -50,9 +50,9 @@
     </clr-dg-cell>
     <clr-dg-cell class="col-cluster">
       <div class="form-group" style="padding-bottom: 2px" *ngFor="let status of cronjobTpl.status">
-        {{status.cluster}}&nbsp;<clr-icon style="color: #FF3434" shape="exclamation-triangle" *ngIf="status.state == 1"
+        {{status.cluster}}&nbsp;<clr-icon style="color: #FF3434" shape="exclamation-triangle" *ngIf="status.state === 1"
                                           class="is-solid"></clr-icon>
-        <clr-icon style="color: green" shape="success-standard" *ngIf="status.state == 0" class="is-solid"></clr-icon>
+        <clr-icon style="color: green" shape="success-standard" *ngIf="status.state === 0" class="is-solid"></clr-icon>
       </div>
     </clr-dg-cell>
     <clr-dg-cell>
@@ -94,14 +94,16 @@
     </clr-dg-cell>
   </clr-dg-row>
 
-  <wayne-paginate
-    [(currentPage)]="currentPage"
-    [total]="page.totalCount"
-    [rate]="0.5"
-    [pageSizes]="[5, 10, 25]"
-    (sizeChange)="pageSizeChange($event)"
-  >
-  </wayne-paginate>
+  <clr-dg-footer>
+    <wayne-paginate
+      [(currentPage)]="currentPage"
+      [total]="page.totalCount"
+      [rate]="0.5"
+      [pageSizes]="[5, 10, 25]"
+      (sizeChange)="pageSizeChange($event)"
+    >
+    </wayne-paginate>
+  </clr-dg-footer>
 </clr-datagrid>
 <wayne-ace-editor></wayne-ace-editor>
 <publish-tpl (published)="published($event)"></publish-tpl>

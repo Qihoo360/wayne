@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
@@ -19,8 +19,8 @@ export class TrashCronjobTplComponent implements OnInit, OnDestroy {
 
   cronjobTpls: CronjobTpl[];
   pageState: PageState = new PageState();
-  currentPage: number = 1;
-  state: State;
+  currentPage = 1;
+  state: ClrDatagridStateInterface;
 
   componentName = '计划任务模板';
 
@@ -34,7 +34,7 @@ export class TrashCronjobTplComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_CRONJOB_TPL) {
-        let id = message.data;
+        const id = message.data;
         this.cronjobTplService.deleteById(id, 0, false)
           .subscribe(
             response => {
@@ -65,7 +65,7 @@ export class TrashCronjobTplComponent implements OnInit, OnDestroy {
     this.refresh(this.state);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
@@ -74,7 +74,7 @@ export class TrashCronjobTplComponent implements OnInit, OnDestroy {
     this.cronjobTplService.listPage(this.pageState, 0)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.cronjobTpls = data.list;
@@ -84,7 +84,7 @@ export class TrashCronjobTplComponent implements OnInit, OnDestroy {
   }
 
   deleteCronjobTpl(cronjobTpl: CronjobTpl) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除' + this.componentName + '确认',
       '你确认永久删除' + this.componentName + cronjobTpl.name + ' ？删除后将不可恢复！',
       cronjobTpl.id,

@@ -8,6 +8,7 @@ import { PersistentVolumeClaim } from '../../model/v1/persistentvolumeclaim';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
 import { OrderItem } from '../../model/v1/order';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class PersistentVolumeClaimService {
@@ -22,14 +23,14 @@ export class PersistentVolumeClaimService {
   }
 
   getNames(appId?: number): Observable<any> {
-    let params = new HttpParams();
+    const params = new HttpParams();
     if (typeof (appId) === 'undefined') {
       appId = 0;
     }
     return this.http
       .get(`/api/v1/apps/${appId}/persistentvolumeclaims/names`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   list(pageState: PageState, deleted?: string, appId?: string): Observable<any> {
@@ -40,14 +41,14 @@ export class PersistentVolumeClaimService {
     params = params.set('relate', 'all');
     params = params.set('sortby', '-id');
     Object.getOwnPropertyNames(pageState.params).map(key => {
-      let value = pageState.params[key];
+      const value = pageState.params[key];
       if (isNotEmpty(value)) {
         params = params.set(key, value);
       }
     });
-    let filterList: Array<string> = [];
+    const filterList: Array<string> = [];
     Object.getOwnPropertyNames(pageState.filters).map(key => {
-      let value = pageState.filters[key];
+      const value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
           filterList.push(`${key}=${value}`);
@@ -61,7 +62,7 @@ export class PersistentVolumeClaimService {
     }
     // sort param
     if (Object.keys(pageState.sort).length !== 0) {
-      let sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
+      const sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
       params = params.set('sortby', sortType);
     }
     if ((typeof (appId) === 'undefined') || (!appId)) {
@@ -70,32 +71,32 @@ export class PersistentVolumeClaimService {
     return this.http
       .get(`/api/v1/apps/${appId}/persistentvolumeclaims`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(pvc: PersistentVolumeClaim): Observable<any> {
     return this.http
       .post(`/api/v1/apps/${pvc.appId}/persistentvolumeclaims`, pvc, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(pvc: PersistentVolumeClaim): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${pvc.appId}/persistentvolumeclaims/${pvc.id}`, pvc, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   updateOrder(appId: number, orderList: Array<OrderItem>): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${appId}/persistentvolumeclaims/updateorders`, orderList, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
-    let options: any = {};
+    const options: any = {};
     if (logical != null) {
       let params = new HttpParams();
       params = params.set('logical', logical + '');
@@ -105,13 +106,13 @@ export class PersistentVolumeClaimService {
     return this.http
       .delete(`/api/v1/apps/${appId}/persistentvolumeclaims/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, appId: number): Observable<any> {
     return this.http
       .get(`/api/v1/apps/${appId}/persistentvolumeclaims/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

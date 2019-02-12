@@ -2,8 +2,6 @@ export class StatusCause {
   reason: string;
   message: string;
   field: string;
-  //[StatusCause:]
-  //[end]
 }
 
 export class StatusDetails {
@@ -13,15 +11,11 @@ export class StatusDetails {
   uid: string;
   causes: StatusCause[];
   retryAfterSeconds: number;
-  //[StatusDetails:]
-  //[end]
 }
 
 export class ListMeta {
   selfLink: string;
   resourceVersion: string;
-  //[ListMeta:]
-  //[end]
 }
 
 export class Status {
@@ -33,21 +27,15 @@ export class Status {
   reason: string;
   details: StatusDetails;
   code: number;
-  //[Status:]
-  //[end]
 }
 
 export class Initializer {
   name: string;
-  //[Initializer:]
-  //[end]
 }
 
 export class Initializers {
   pending: Initializer[];
   result: Status;
-  //[Initializers:]
-  //[end]
 }
 
 export class OwnerReference {
@@ -57,13 +45,9 @@ export class OwnerReference {
   uid: string;
   controller: boolean;
   blockOwnerDeletion: boolean;
-  //[OwnerReference:]
-  //[end]
 }
 
 export class Time {
-  //[Time:]
-  //[end]
 }
 
 export class ObjectMeta {
@@ -83,8 +67,6 @@ export class ObjectMeta {
   initializers: Initializers;
   finalizers: string[];
   clusterName: string;
-  //[ObjectMeta:]
-  //[end]
 }
 
 export class KubeSecret {
@@ -94,6 +76,4 @@ export class KubeSecret {
   data: {};
   stringData: {};
   type: string;
-  //[Secret:]
-  //[end]
 }

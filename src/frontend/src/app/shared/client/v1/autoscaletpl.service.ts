@@ -7,6 +7,7 @@ import 'rxjs/add/observable/throw';
 import { AutoscaleTpl } from '../../model/v1/autoscaletpl';
 import { isNotEmpty } from '../../utils';
 import { PageState } from '../../page/page-state';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class AutoscaleTplService {
@@ -41,7 +42,7 @@ export class AutoscaleTplService {
           filterList.push(`${key}__contains=${value}`);
         }
       }
-    })
+    });
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }
@@ -52,19 +53,19 @@ export class AutoscaleTplService {
 
     return this.http
       .get(`/api/v1/apps/${appId}/hpas/tpls`, {params: params})
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(autoscaletpl: AutoscaleTpl, appId: number): Observable<any> {
     return this.http
       .post(`/api/v1/apps/${appId}/hpas/tpls`, autoscaletpl, this.options)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(autoscaletpl: AutoscaleTpl, appId: number): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${appId}/hpas/tpls/${autoscaletpl.id}`, autoscaletpl, this.options)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
@@ -77,12 +78,12 @@ export class AutoscaleTplService {
 
     return this.http
       .delete(`/api/v1/apps/${appId}/hpas/tpls/${id}`, options)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, appId: number): Observable<any> {
     return this.http
       .get(`/api/v1/apps/${appId}/hpas/tpls/${id}`)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
@@ -17,8 +17,8 @@ export class TrashClusterComponent implements OnInit, OnDestroy {
 
   clusters: Cluster[];
   pageState: PageState = new PageState();
-  currentPage: number = 1;
-  state: State;
+  currentPage = 1;
+  state: ClrDatagridStateInterface;
 
   subscription: Subscription;
 
@@ -29,7 +29,7 @@ export class TrashClusterComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_CLUSTER) {
-        let name = message.data;
+        const name = message.data;
         this.clusterService
           .deleteByName(name, false)
           .subscribe(
@@ -61,7 +61,7 @@ export class TrashClusterComponent implements OnInit, OnDestroy {
     this.refresh(this.state);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
@@ -69,7 +69,7 @@ export class TrashClusterComponent implements OnInit, OnDestroy {
     this.clusterService.list(this.pageState, 'true')
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.clusters = data.list;
@@ -79,7 +79,7 @@ export class TrashClusterComponent implements OnInit, OnDestroy {
   }
 
   deleteCluster(cluster: Cluster) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除集群确认',
       '你确认永久删除集群 ' + cluster.name + ' ？删除后将不可恢复！',
       cluster.name,

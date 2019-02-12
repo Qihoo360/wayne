@@ -24,9 +24,9 @@ export class CreateEditAppComponent {
   currentForm: NgForm;
 
   app: App = new App();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
 
   appTitle: string;
   actionType: ActionType;
@@ -41,7 +41,7 @@ export class CreateEditAppComponent {
     if (!this.cacheService.currentNamespace) {
       return;
     }
-    let namespaceId = this.cacheService.namespaceId;
+    const namespaceId = this.cacheService.namespaceId;
     this.createAppOpened = true;
     if (id) {
       this.actionType = ActionType.EDIT;
@@ -116,9 +116,9 @@ export class CreateEditAppComponent {
       !this.checkOnGoing;
   }
 
-  //Handle the form validation
+  // Handle the form validation
   handleValidation(): void {
-    let cont = this.currentForm.controls['app_name'];
+    const cont = this.currentForm.controls['app_name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }

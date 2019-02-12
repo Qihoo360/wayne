@@ -28,7 +28,7 @@ export class CreateEditDeploymentTplComponent implements OnInit {
   currentForm: NgForm;
 
   deploymentTpl: DeploymentTpl = new DeploymentTpl();
-  isSubmitOnGoing: boolean = false;
+  isSubmitOnGoing = false;
 
   deploymentTplTitle: string;
   actionType: ActionType;
@@ -100,8 +100,8 @@ export class CreateEditDeploymentTplComponent implements OnInit {
       return;
     }
 
-    for (let deployment of this.deployments) {
-      if (deployment.id == this.deploymentTpl.deploymentId) {
+    for (const deployment of this.deployments) {
+      if (deployment.id === this.deploymentTpl.deploymentId) {
         this.deploymentTpl.name = deployment.name;
       }
     }

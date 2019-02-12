@@ -1,22 +1,22 @@
 import { EventEmitter, Input, Output } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { NamespaceList } from '../../model/v1/namespace-list';
 import { Page } from '../../page/page-state';
 
 export class KubernetesListResource {
-  state: State;
+  state: ClrDatagridStateInterface;
   currentPage = 1;
 
   @Input() page: Page;
 
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() detail = new EventEmitter<NamespaceList>();
 
   onDetailEvent(obj: any) {
     this.detail.emit(obj);
   }
 
-  refresh(state: State) {
+  refresh(state: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }

@@ -4,7 +4,7 @@
     <form #snapForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="version" class="col-md-3 form-group-label-override required">{{'TITLE.VERSION' | translate}}</label>
+          <label for="version" class="clr-col-md-3 form-group-label-override required">{{'TITLE.VERSION' | translate}}</label>
           <input class="form-control" type="text" id="version" name="version" [(ngModel)]="snapshotVersion"
                  required
                  [placeholder]="'PVC.SNAPSHOOT_VERSION' | translate"

@@ -1,9 +1,9 @@
-<div class="row">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="row flex-items-xs-between flex-items-xs-top overview-offset">
+<div class="clr-row">
+  <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
+    <div class="clr-row flex-items-xs-between flex-items-xs-top overview-offset">
       <h2 class="header-title">资源</h2>
     </div>
-    <div class="row group overview-offset">
+    <div class="clr-row group overview-offset">
       <wayne-card class="wayne-card">
         <div class="card-title">机器数量</div>
         <p class="card-text">
@@ -27,8 +27,9 @@
       </wayne-card>
       <wayne-card class="wayne-card">
         <div class="card-title">实例数量</div>
-        <p style="color: #666" class="card-text">
-          {{summary.podTotal}}
+        <p class="card-text">
+          <a href="javascript:void(0)" (click)="goToLink('/admin/kubernetes/pod')"
+             class="nav-link"> {{summary.podTotal}}</a>
         </p>
       </wayne-card>
     </div>

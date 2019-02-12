@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
@@ -17,7 +17,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './configmap.component.html',
   styleUrls: ['./configmap.component.scss']
 })
-export class ConfigMapComponent implements OnInit {
+export class ConfigMapComponent implements OnInit, OnDestroy {
   @ViewChild(ListConfigMapComponent)
   list: ListConfigMapComponent;
   @ViewChild(CreateEditConfigMapComponent)
@@ -37,7 +37,7 @@ export class ConfigMapComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.CONFIGMAP) {
-        let id = message.data;
+        const id = message.data;
         this.configMapService.deleteById(id, 0)
           .subscribe(
             response => {
@@ -61,14 +61,14 @@ export class ConfigMapComponent implements OnInit {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.configMapService.list(this.pageState, 'false', '0')
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.configMaps = data.list;
@@ -88,7 +88,7 @@ export class ConfigMapComponent implements OnInit {
   }
 
   deleteConfigMap(configMap: ConfigMap) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除配置集确认',
       '你确认删除配置集 ' + configMap.name + ' ？',
       configMap.id,

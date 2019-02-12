@@ -71,14 +71,14 @@ export class DetailAppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initRedDot();
     this.appId = this.route.parent.snapshot.params['id'];
-    let namespaceId = this.cacheService.namespaceId;
+    const namespaceId = this.cacheService.namespaceId;
     this.appService.getById(this.appId, namespaceId).subscribe(response => {
         this.app = response.data;
         this.namespaceClient.getResourceUsage(namespaceId, response.data.name).subscribe(
-          response => {
-            this.resources = response.data;
+          next => {
+            this.resources = next.data;
             this.clusterList = Object.keys(this.resources).map(item => {
-              let a = new Cluster();
+              const a = new Cluster();
               a['cluster'] = item;
               a['resource'] = this.resources[item];
               return a;
@@ -124,7 +124,7 @@ export class DetailAppComponent implements OnInit, OnDestroy {
     // 这个组件需要的红点判断列表
     const redList = ['detailShowCluster'];
     if (this.storage.get('red-dot')) {
-      let redDot = JSON.parse(this.storage.get('red-dot'));
+      const redDot = JSON.parse(this.storage.get('red-dot'));
       redList.forEach(item => {
         if (redDot[item]) {
           this.redDot[item] = false;
@@ -141,13 +141,13 @@ export class DetailAppComponent implements OnInit, OnDestroy {
 
   setRedDot(value: string) {
     if (this.storage.get('red-dot')) {
-      let redDot = JSON.parse(this.storage.get('red-dot'));
+      const redDot = JSON.parse(this.storage.get('red-dot'));
       if (!redDot[value]) {
         redDot[value] = true;
         this.storage.save('red-dot', JSON.stringify(redDot));
       }
     } else {
-      let redDot = new RedDot();
+      const redDot = new RedDot();
       redDot[value] = true;
       this.storage.save('red-dot', JSON.stringify(redDot));
     }

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { Page } from '../../../shared/page/page-state';
 import { DaemonSetTemplate } from '../../../shared/model/v1/daemonsettpl';
 
@@ -13,10 +13,10 @@ export class ListDaemonsettplComponent implements OnInit {
   @Input() daemonsetTpls: DaemonSetTemplate[];
 
   @Input() page: Page;
-  state: State;
-  currentPage: number = 1;
+  state: ClrDatagridStateInterface;
+  currentPage = 1;
 
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<DaemonSetTemplate>();
   @Output() edit = new EventEmitter<DaemonSetTemplate>();
 
@@ -34,7 +34,7 @@ export class ListDaemonsettplComponent implements OnInit {
     this.paginate.emit(this.state);
   }
 
-  refresh(state: State) {
+  refresh(state: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }

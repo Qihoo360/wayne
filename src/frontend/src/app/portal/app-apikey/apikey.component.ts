@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
 import { apiKeyTypeApp, ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
@@ -53,7 +53,7 @@ export class AppApiKeyComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.API_KEY) {
-        let id = message.data;
+        const id = message.data;
         this.apiKeyService
           .deleteById(id, true, null, this.appId)
           .subscribe(
@@ -77,7 +77,7 @@ export class AppApiKeyComponent implements OnInit, OnDestroy {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) this.showList.push(key);
+      if (!this.showState[key].hidden) { this.showList.push(key); }
     });
   }
 
@@ -101,7 +101,7 @@ export class AppApiKeyComponent implements OnInit, OnDestroy {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {
         totalPage: this.pageState.page.totalPage,
@@ -117,7 +117,7 @@ export class AppApiKeyComponent implements OnInit, OnDestroy {
       .listPage(this.pageState, null, this.appId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedApiKeys = data.list;
@@ -137,7 +137,7 @@ export class AppApiKeyComponent implements OnInit, OnDestroy {
   }
 
   deleteApiKey(apiKey: ApiKey) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除APIKey确认',
       '你确认删除APIKey ' + apiKey.name + ' ？',
       apiKey.id,

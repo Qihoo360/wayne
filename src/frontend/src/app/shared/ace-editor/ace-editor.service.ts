@@ -15,10 +15,6 @@ export class AceEditorService {
     this.aceMessageAnnouncedSource.next(message);
   }
 
-  ngOnInit(): void {
-
-  }
-
   clear() {
     this.clearSource.next(true);
   }

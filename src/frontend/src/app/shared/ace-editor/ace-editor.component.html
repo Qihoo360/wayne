@@ -1,5 +1,5 @@
 <clr-modal [clrModalSize]="'lg'" [(clrModalOpen)]="modalOpened" #modal>
-  <h3 class="modal-title">{{title}}
+  <h3 class="modal-title">{{title | translate}}
     <wayne-modal-operate [modal]="modal" *ngIf="modalOpened"></wayne-modal-operate>
   </h3>
 

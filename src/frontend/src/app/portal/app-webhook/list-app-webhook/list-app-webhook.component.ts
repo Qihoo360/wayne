@@ -14,7 +14,7 @@ export class ListAppWebHookComponent implements OnInit {
   @Input() showState: object;
   @Input() webHooks: WebHook[];
   @Input() page: Page;
-  currentPage: number = 1;
+  currentPage = 1;
   state: ClrDatagridStateInterface;
 
   @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();

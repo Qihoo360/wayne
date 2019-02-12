@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { PersistentVolumeClaimTpl } from '../../../shared/model/v1/persistentvolumeclaimtpl';
 import { Page } from '../../../shared/page/page-state';
 
@@ -14,10 +14,10 @@ export class ListPersistentVolumeClaimTplComponent implements OnInit {
   @Input() pvcTpls: PersistentVolumeClaimTpl[];
 
   @Input() page: Page;
-  currentPage: number = 1;
-  state: State;
+  currentPage = 1;
+  state: ClrDatagridStateInterface;
 
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<PersistentVolumeClaimTpl>();
   @Output() edit = new EventEmitter<PersistentVolumeClaimTpl>();
 
@@ -35,7 +35,7 @@ export class ListPersistentVolumeClaimTplComponent implements OnInit {
     this.paginate.emit(this.state);
   }
 
-  refresh(state: State) {
+  refresh(state: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }

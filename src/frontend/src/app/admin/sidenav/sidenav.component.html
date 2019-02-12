@@ -1,0 +1,652 @@
+<clr-vertical-nav [clrVerticalNavCollapsible]="true">
+  <a
+    clrVerticalNavLink
+    [title]="'MENU.PLATFORM_OVERVIEW' | translate"
+    routerLink="reportform/overview"
+    routerLinkActive="active">
+    <clr-icon clrVerticalNavIcon shape="help-info"></clr-icon>
+    {{ "MENU.PLATFORM_OVERVIEW" | translate }}
+  </a>
+  <div class="nav-divider"></div>
+  <clr-vertical-nav-group routerLinkActive="active">
+    <clr-icon shape="world" title="Kubernetes" class="is-solid" clrVerticalNavIcon></clr-icon>
+    Kubernetes
+    <clr-vertical-nav-group-children *clrIfExpanded="false">
+      <a clrVerticalNavLink
+         routerLink="kubernetes/dashboard"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="dashboard"></clr-icon>
+        Dashboard
+      </a>
+      <div class="nav-divider"></div>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/namespace"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="vmw-app"></clr-icon>
+        Namespace
+      </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/node"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="devices"></clr-icon>
+        Node
+      </a>
+      <div class="nav-divider"></div>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/deployment"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="event"></clr-icon>
+        Deployment
+      </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/pod"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="tree"></clr-icon>
+        Pod
+      </a>
+      <div class="nav-divider"></div>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/service"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="network-globe"></clr-icon>
+        Service
+      </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/endpoint"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="tree-view"></clr-icon>
+        Endpoint
+      </a>
+      <div class="nav-divider"></div>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/configmap"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="file-settings"></clr-icon>
+        ConfigMap
+      </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/secret"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="certificate"></clr-icon>
+        Secret
+      </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/persistentvolume"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="storage"></clr-icon>
+        PersistentVolume
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+  <div class="nav-divider"></div>
+  <clr-vertical-nav-group routerLinkActive="active">
+    <clr-icon
+      shape="image-gallery"
+      [title]="'MENU.SYSTEM_STATISTICS' | translate"
+      clrVerticalNavIcon>
+    </clr-icon>
+    {{ "MENU.SYSTEM_STATISTICS" | translate }}
+    <clr-vertical-nav-group-children>
+      <a clrVerticalNavLink
+         routerLink="reportform/app"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{ "MENU.PROJECT_REPORT" | translate }}
+      </a>
+    </clr-vertical-nav-group-children>
+    <clr-vertical-nav-group-children>
+      <a clrVerticalNavLink
+         routerLink="reportform/deploy"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{ "MENU.RELEASE_STATISTICS" | translate }}
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+  <clr-vertical-nav-group
+    routerLinkActive="active">
+    <clr-icon
+      shape="cog"
+      [title]="'MENU.CONFIGURATION' | translate"
+      clrVerticalNavIcon>
+    </clr-icon>
+      {{ "MENU.CONFIGURATION" | translate }}
+    <clr-vertical-nav-group-children>
+      <a clrVerticalNavLink
+         routerLink="config/system"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.SYSTEM_CONFIGURATION" | translate }}
+      </a>
+    </clr-vertical-nav-group-children>
+    <clr-vertical-nav-group-children>
+      <a clrVerticalNavLink
+         routerLink="config/database"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.DATABASE_CONFIGURATION" | translate }}
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+  <clr-vertical-nav-group
+    routerLinkActive="active">
+    <clr-icon
+      shape="users"
+      [title]="'MENU.PERMISSION' | translate"
+      clrVerticalNavIcon>
+    </clr-icon>
+      {{"MENU.PERMISSION" | translate }}
+    <clr-vertical-nav-group-children>
+      <a clrVerticalNavLink
+         routerLink="system/user"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.USER_LIST" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="system/group"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.ROLE_LIST" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="system/permission"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.PERMISSION_LIST" | translate }}
+      </a>
+      <a *ngIf="this.authService.config['enableApiKeys']"
+         clrVerticalNavLink
+         routerLink="apikey"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.API_KEYS" | translate }}
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+  <div class="nav-divider"></div>
+  <clr-vertical-nav-group
+    routerLinkActive="active">
+    <clr-icon
+      shape="cloud-scale"
+      [title]="'MENU.CLUSTER' | translate"
+      clrVerticalNavIcon>
+    </clr-icon>
+      {{"MENU.CLUSTER" | translate }}
+    <clr-vertical-nav-group-children *clrIfExpanded="false">
+      <a clrVerticalNavLink
+         [routerLink]="['cluster']"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.LIST" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         [routerLink]="['cluster/trash']"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.RECYCLED" | translate }}
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+  <clr-vertical-nav-group
+    routerLinkActive="active">
+    <clr-icon
+      shape="vmw-app"
+      [title]="'MENU.NAMESPACE' | translate"
+      clrVerticalNavIcon>
+    </clr-icon>
+      {{"MENU.NAMESPACE" | translate }}
+    <clr-vertical-nav-group-children *clrIfExpanded="false">
+      <a clrVerticalNavLink
+         routerLink="namespace"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.LIST" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="namespace/trash"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.RECYCLED" | translate }}
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+  <clr-vertical-nav-group
+    routerLinkActive="active">
+    <clr-icon
+      shape="window-restore"
+      [title]="'MENU.APP' | translate"
+      clrVerticalNavIcon>
+    </clr-icon>
+      {{"MENU.APP" | translate }}
+    <clr-vertical-nav-group-children *clrIfExpanded="false">
+      <a clrVerticalNavLink
+         routerLink="app"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.LIST" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="app/trash"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.RECYCLED" | translate }}
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+  <div class="nav-divider"></div>
+  <clr-vertical-nav-group
+    routerLinkActive="active">
+    <clr-icon
+      shape="event"
+      [title]="'MENU.DEPLOYMENT' | translate"
+      clrVerticalNavIcon>
+    </clr-icon>
+      {{"MENU.DEPLOYMENT" | translate }}
+    <clr-vertical-nav-group-children *clrIfExpanded="false">
+      <a clrVerticalNavLink
+         routerLink="deployment"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.LIST" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="deployment/trash"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.RECYCLED" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="deployment/tpl"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.TEMPLATE_LIST" | translate }}
+
+      </a>
+      <a clrVerticalNavLink
+         routerLink="deployment/tpl/trash"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.TEMPLATE_RECYCLED" | translate }}
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+
+
+  <clr-vertical-nav-group routerLinkActive="active">
+    <clr-icon
+      shape="blocks-group"
+      [title]="'MENU.STATEFULSET' | translate"
+      clrVerticalNavIcon>
+    </clr-icon>
+      {{"MENU.STATEFULSET" | translate }}
+    <clr-vertical-nav-group-children *clrIfExpanded="false">
+      <a clrVerticalNavLink
+        routerLink="statefulset"
+        [routerLinkActiveOptions]="{exact:true}"
+        routerLinkActive="active">
+        {{"MENU.LIST" | translate }}
+      </a>
+      <a
+        clrVerticalNavLink
+        routerLink="statefulset/trash"
+        [routerLinkActiveOptions]="{exact:true}"
+        routerLinkActive="active">
+        {{"MENU.RECYCLED" | translate }}
+      </a>
+      <a
+        clrVerticalNavLink
+        routerLink="statefulset/tpl"
+        [routerLinkActiveOptions]="{exact:true}"
+        routerLinkActive="active">
+        {{"MENU.TEMPLATE_LIST" | translate }}
+      </a>
+      <a
+        clrVerticalNavLink
+        routerLink="statefulset/tpl/trash"
+        [routerLinkActiveOptions]="{exact:true}"
+        routerLinkActive="active">
+        {{"MENU.TEMPLATE_RECYCLED" | translate }}
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+  <clr-vertical-nav-group routerLinkActive="active">
+    <clr-icon
+      shape="layers"
+      [title]="'MENU.DAEMONSET' | translate"
+      clrVerticalNavIcon></clr-icon>
+      {{"MENU.DAEMONSET" | translate }}
+    <clr-vertical-nav-group-children *clrIfExpanded="false">
+      <a clrVerticalNavLink
+        routerLink="daemonset"
+        [routerLinkActiveOptions]="{exact:true}"
+        routerLinkActive="active">
+        {{"MENU.LIST" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="daemonset/trash"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.RECYCLED" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="daemonset/tpl"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.TEMPLATE_LIST" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="daemonset/tpl/trash"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.TEMPLATE_RECYCLED" | translate }}
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+  <clr-vertical-nav-group routerLinkActive="active">
+    <clr-icon
+      shape="clock"
+      [title]="'MENU.CRONJOB' | translate"
+      clrVerticalNavIcon>
+    </clr-icon>
+      {{"MENU.CRONJOB" | translate }}
+    <clr-vertical-nav-group-children *clrIfExpanded="false">
+      <a clrVerticalNavLink
+         routerLink="cronjob"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.LIST" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="cronjob/trash"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.RECYCLED" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="cronjob/tpl"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.TEMPLATE_LIST" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="cronjob/tpl/trash"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.TEMPLATE_RECYCLED" | translate }}
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+  <ng-container>
+    <ng-container>
+      <div class="nav-divider"></div>
+      <clr-vertical-nav-group
+        routerLinkActive="active">
+        <clr-icon
+          shape="cloud-scale"
+          [title]="'MENU.AUTO_POD_SCALE' | translate"
+          clrVerticalNavIcon>
+        </clr-icon>
+        {{'MENU.AUTO_POD_SCALE' | translate}}
+        <clr-vertical-nav-group-children *clrIfExpanded="false">
+          <a clrVerticalNavLink
+             routerLink="hpa"
+             [routerLinkActiveOptions]="{exact:true}"
+             routerLinkActive="active">
+            {{"MENU.LIST" | translate }}
+          </a>
+          <a clrVerticalNavLink
+             routerLink="hpa/trash"
+             [routerLinkActiveOptions]="{exact:true}"
+             routerLinkActive="active">
+            {{"MENU.RECYCLED" | translate }}
+          </a>
+          <a clrVerticalNavLink
+             routerLink="hpa/tpl"
+             [routerLinkActiveOptions]="{exact:true}"
+             routerLinkActive="active">
+            {{"MENU.TEMPLATE_LIST" | translate }}
+          </a>
+          <a clrVerticalNavLink
+             routerLink="hpa/tpl/trash"
+             [routerLinkActiveOptions]="{exact:true}"
+             routerLinkActive="active">
+            {{"MENU.TEMPLATE_RECYCLED" | translate }}
+          </a>
+        </clr-vertical-nav-group-children>
+      </clr-vertical-nav-group>
+    </ng-container>
+  </ng-container>
+
+  <ng-container>
+    <ng-container>
+      <div class="nav-divider"></div>
+      <clr-vertical-nav-group
+        routerLinkActive="active">
+        <clr-icon
+          shape="network-globe"
+          [title]="'MENU.SERVICE' | translate"
+          clrVerticalNavIcon>
+        </clr-icon>
+        {{"MENU.SERVICE" | translate }}
+        <clr-vertical-nav-group-children *clrIfExpanded="false">
+          <a clrVerticalNavLink
+             routerLink="service"
+             [routerLinkActiveOptions]="{exact:true}"
+             routerLinkActive="active">
+            {{"MENU.LIST" | translate }}
+          </a>
+          <a clrVerticalNavLink
+             routerLink="service/trash"
+             [routerLinkActiveOptions]="{exact:true}"
+             routerLinkActive="active">
+            {{"MENU.RECYCLED" | translate }}
+          </a>
+          <a clrVerticalNavLink
+             routerLink="service/tpl"
+             [routerLinkActiveOptions]="{exact:true}"
+             routerLinkActive="active">
+            {{"MENU.TEMPLATE_LIST" | translate }}
+          </a>
+          <a clrVerticalNavLink
+             routerLink="service/tpl/trash"
+             [routerLinkActiveOptions]="{exact:true}"
+             routerLinkActive="active">
+            {{"MENU.TEMPLATE_RECYCLED" | translate }}
+          </a>
+        </clr-vertical-nav-group-children>
+      </clr-vertical-nav-group>
+      <clr-vertical-nav-group
+        *ngIf="this.authService.config['system.external-ip']"
+        routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="cloud-traffic" title="边缘节点相关"></clr-icon>
+        边缘节点相关
+        <clr-vertical-nav-group-children *clrIfExpanded="false">
+          <a [routerLinkActiveOptions]="{exact:true}"
+             clrVerticalNavLink
+             routerLink="service/edge-node"
+             routerLinkActive="active">
+            边缘节点配置
+          </a>
+          <a [routerLinkActiveOptions]="{exact:true}"
+             clrVerticalNavLink
+             routerLink="service/available-port"
+             routerLinkActive="active">
+            可用端口配置
+          </a>
+          <a [routerLinkActiveOptions]="{exact:true}"
+             clrVerticalNavLink
+             routerLink="service/used-port"
+             routerLinkActive="active">
+            已分配端口
+          </a>
+        </clr-vertical-nav-group-children>
+      </clr-vertical-nav-group>
+      <clr-vertical-nav-group routerLinkActive="active">
+        <clr-icon shape="network-switch" title="Ingress" clrVerticalNavIcon></clr-icon>
+        Ingress
+        <clr-vertical-nav-group-children *clrIfExpanded="false">
+          <a clrVerticalNavLink
+             routerLink="ingress"
+             [routerLinkActiveOptions]="{exact:true}"
+             routerLinkActive="active">
+            {{"MENU.LIST" | translate }}
+          </a>
+          <a clrVerticalNavLink
+             routerLink="ingress/trash"
+             [routerLinkActiveOptions]="{exact:true}"
+             routerLinkActive="active">
+            {{"MENU.RECYCLED" | translate }}
+          </a>
+          <a clrVerticalNavLink
+             routerLink="ingress/tpl"
+             [routerLinkActiveOptions]="{exact:true}"
+             routerLinkActive="active">
+            {{"MENU.TEMPLATE_LIST" | translate }}
+          </a>
+          <a clrVerticalNavLink
+             routerLink="ingress/tpl/trash"
+             [routerLinkActiveOptions]="{exact:true}"
+             routerLinkActive="active">
+            {{"MENU.TEMPLATE_RECYCLED" | translate }}
+          </a>
+        </clr-vertical-nav-group-children>
+      </clr-vertical-nav-group>
+    </ng-container>
+  </ng-container>
+  <div class="nav-divider"></div>
+  <clr-vertical-nav-group routerLinkActive="active">
+    <clr-icon
+      shape="file-settings"
+      [title]="'MENU.CONFIGMAP' | translate"
+      clrVerticalNavIcon>
+    </clr-icon>
+    {{"MENU.CONFIGMAP" | translate }}
+    <clr-vertical-nav-group-children *clrIfExpanded="false">
+      <a clrVerticalNavLink
+         routerLink="configmap"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.LIST" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="configmap/trash"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.RECYCLED" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="configmap/tpl"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.TEMPLATE_LIST" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="configmap/tpl/trash"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.TEMPLATE_RECYCLED" | translate }}
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+  <clr-vertical-nav-group routerLinkActive="active">
+    <clr-icon
+      shape="certificate"
+      [title]="'MENU.SECRET' | translate"
+      clrVerticalNavIcon>
+    </clr-icon>
+      {{"MENU.SECRET" | translate }}
+    <clr-vertical-nav-group-children *clrIfExpanded="false">
+      <a clrVerticalNavLink
+         routerLink="secret"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.LIST" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="secret/trash"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.RECYCLED" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="secret/tpl"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.TEMPLATE_LIST" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="secret/tpl/trash"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.TEMPLATE_RECYCLED" | translate }}
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+  <clr-vertical-nav-group routerLinkActive="active">
+    <clr-icon
+      shape="storage"
+      [title]="'MENU.PVC' | translate"
+      class="is-solid"
+      clrVerticalNavIcon>
+    </clr-icon>
+      {{"MENU.PVC" | translate }}
+    <clr-vertical-nav-group-children *clrIfExpanded="false">
+      <a clrVerticalNavLink
+         routerLink="persistentvolumeclaim"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.LIST" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="persistentvolumeclaim/trash"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.RECYCLED" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="persistentvolumeclaim/tpl"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.TEMPLATE_LIST" | translate }}
+      </a>
+      <a clrVerticalNavLink
+         routerLink="persistentvolumeclaim/tpl/trash"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        {{"MENU.TEMPLATE_RECYCLED" | translate }}
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+  <div class="nav-divider"></div>
+  <clr-vertical-nav-group routerLinkActive="active">
+    <clr-icon
+      shape="bell"
+      [title]="'MENU.NOTIFICATION_AUDIT' | translate"
+      class="is-solid"
+      clrVerticalNavIcon>
+    </clr-icon>
+      {{"MENU.NOTIFICATION_AUDIT" | translate }}
+    <clr-vertical-nav-group-children *clrIfExpanded="false">
+      <a clrVerticalNavLink routerLink="notification" routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="bell"></clr-icon>
+        {{"MENU.NOTIFICATION" | translate }}
+      </a>
+      <a clrVerticalNavLink routerLink="auditlog" routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="file-group"></clr-icon>
+        {{"MENU.AUDIT_LOD" | translate }}
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+
+</clr-vertical-nav>

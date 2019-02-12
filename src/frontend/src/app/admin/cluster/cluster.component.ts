@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
-import { State } from '@clr/angular';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
@@ -17,7 +16,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './cluster.component.html',
   styleUrls: ['./cluster.component.scss']
 })
-export class ClusterComponent implements OnInit {
+export class ClusterComponent implements OnInit, OnDestroy {
   @ViewChild(ListClusterComponent)
   list: ListClusterComponent;
   @ViewChild(CreateEditClusterComponent)
@@ -61,7 +60,7 @@ export class ClusterComponent implements OnInit {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }

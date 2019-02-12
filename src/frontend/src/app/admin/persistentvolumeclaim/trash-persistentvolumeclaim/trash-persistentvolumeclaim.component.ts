@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
 import { Subscription } from 'rxjs/Subscription';
@@ -19,8 +19,8 @@ export class TrashPersistentVolumeClaimComponent implements OnInit, OnDestroy {
 
   pvcs: PersistentVolumeClaim[];
   pageState: PageState = new PageState();
-  currentPage: number = 1;
-  state: State;
+  currentPage = 1;
+  state: ClrDatagridStateInterface;
 
   subscription: Subscription;
 
@@ -32,7 +32,7 @@ export class TrashPersistentVolumeClaimComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_PERSISTENT_VOLUME_CLAIM) {
-        let id = message.data;
+        const id = message.data;
         this.pvcService.deleteById(id, 0, false)
           .subscribe(
             response => {
@@ -63,7 +63,7 @@ export class TrashPersistentVolumeClaimComponent implements OnInit, OnDestroy {
     this.refresh(this.state);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
@@ -71,7 +71,7 @@ export class TrashPersistentVolumeClaimComponent implements OnInit, OnDestroy {
     this.pvcService.list(this.pageState, 'true')
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.pvcs = data.list;
@@ -81,7 +81,7 @@ export class TrashPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   }
 
   deletePvc(pvc: PersistentVolumeClaim) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除PVC确认',
       '你确认永久删除PVC ' + pvc.name + ' ？删除后将不可恢复！',
       pvc.id,

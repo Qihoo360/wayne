@@ -165,6 +165,18 @@ export class AdminComponent implements OnInit {
     '/admin/persistentvolumeclaim/tpl/trash': {
       i18nKey: 'MENU.TEMPLATE_RECYCLED',
     },
+    '/admin/hpa': {
+      i18nKey: 'MENU.HPA_LIST',
+    },
+    '/admin/hpa/trash': {
+      i18nKey: 'MENU.RECYCLED',
+    },
+    '/admin/hpa/tpl': {
+      i18nKey: 'MENU.TEMPLATE_LIST',
+    },
+    '/admin/hpa/tpl/trash': {
+      i18nKey: 'MENU.TEMPLATE_RECYCLED',
+    },
     '/admin/notification': {
       i18nKey: 'MENU.NOTIFICATION',
     },

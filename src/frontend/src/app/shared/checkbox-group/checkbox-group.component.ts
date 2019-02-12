@@ -19,7 +19,7 @@ export class CheckboxGroupComponent implements ControlValueAccessor {
   _boxs: QueryList<any>;
   eventList: any[] = new Array();
   updateEmit = (_: any) => {
-  };
+  }
 
   constructor(private eventManage: EventManager) {
 

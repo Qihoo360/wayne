@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { throwError } from 'rxjs';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
@@ -25,17 +26,17 @@ export class AppService {
     params = params.set('sortby', '-id');
     // query param
     Object.getOwnPropertyNames(pageState.params).map(key => {
-      let value = pageState.params[key];
+      const value = pageState.params[key];
       if (isNotEmpty(value)) {
         params = params.set(key, value);
       }
     });
 
-    let filterList: Array<string> = [];
+    const filterList: Array<string> = [];
     Object.getOwnPropertyNames(pageState.filters).map(key => {
-      let value = pageState.filters[key];
+      const value = pageState.filters[key];
       if (isNotEmpty(value)) {
-        if (key === 'deleted' || key === 'id') {
+        if (key === 'deleted' || key === 'id' || key.endsWith('__exact')) {
           filterList.push(`${key}=${value}`);
         } else {
           filterList.push(`${key}__contains=${value}`);
@@ -47,7 +48,7 @@ export class AppService {
     }
     // sort param
     if (Object.keys(pageState.sort).length !== 0) {
-      let sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
+      const sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
       params = params.set('sortby', sortType);
     }
 
@@ -57,14 +58,14 @@ export class AppService {
     return this.http
       .get(`/api/v1/namespaces/${namespaceId}/apps`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   listResourceCount(namespaceId?: number, appId?: number): Observable<any> {
     if ((typeof (namespaceId) === 'undefined') || (!namespaceId)) {
       namespaceId = 0;
     }
-    let options: any = {};
+    const options: any = {};
     if (appId != null) {
       let params = new HttpParams();
       params = params.set('app_id', appId + '');
@@ -73,7 +74,7 @@ export class AppService {
     return this.http
       .get(`/api/v1/namespaces/${namespaceId}/statistics`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getNames(namespaceId?: number): Observable<any> {
@@ -83,25 +84,25 @@ export class AppService {
     return this.http
       .get(`/api/v1/namespaces/${namespaceId}/apps/names`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(app: App): Observable<any> {
     return this.http
       .post(`/api/v1/namespaces/${app.namespace.id}/apps`, app, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(app: App): Observable<any> {
     return this.http
       .put(`/api/v1/namespaces/${app.namespace.id}/apps/${app.id}`, app, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, namespaceId: number, logical?: boolean): Observable<any> {
-    let options: any = {};
+    const options: any = {};
     if (logical != null) {
       let params = new HttpParams();
       params = params.set('logical', logical + '');
@@ -111,18 +112,18 @@ export class AppService {
     return this.http
       .delete(`/api/v1/namespaces/${namespaceId}/apps/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, namespaceId: number): Observable<any> {
     return this.http.get(`/api/v1/namespaces/${namespaceId}/apps/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getStatistics(): Observable<any> {
     return this.http.get(`/api/v1/apps/statistics`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

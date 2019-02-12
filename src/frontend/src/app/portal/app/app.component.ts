@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, HostBinding } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ListAppComponent } from './list-app/list-app.component';
 import { CreateEditAppComponent } from './create-edit-app/create-edit-app.component';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -17,10 +17,10 @@ import { ActivatedRoute } from '@angular/router';
 import { NamespaceClient } from '../../shared/client/v1/kubernetes/namespace';
 import { StorageService } from '../../shared/client/v1/storage.service';
 import { RedDot } from '../../shared/model/v1/red-dot';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { TranslateService } from '@ngx-translate/core';
-
+import { DOCUMENT } from '@angular/common';
 class ClusterCard {
   name: string;
   state: boolean;
@@ -175,9 +175,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
         });
         this.allowNumber = this.getClusterMaxNumber();
         for (let i = 0; i < this.allowNumber - 1; i++) {
-          setTimeout(((i) => {
-            if (this.clusters[i]) {
-              this.clusters[i].state = true;
+          setTimeout(((idx) => {
+            if (this.clusters[idx]) {
+              this.clusters[idx].state = true;
             }
           }).bind(this, i), 200 * i);
         }
@@ -194,8 +194,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       const length = this.clusters.length;
       for (let i = length; i > 0; i--) {
         if (i >= this.allowNumber) {
-          setTimeout(((i) => {
-            this.clusters[i - 1].state = false;
+          setTimeout(((idx) => {
+            this.clusters[idx - 1].state = false;
           }).bind(this, i), 200 * count++);
         }
       }
@@ -204,19 +204,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       this.allowShowAll = true;
       this.clusters.forEach(item => {
         if (!item.state) {
-          setTimeout((item => {
-            item.state = true;
+          setTimeout((itm => {
+            itm.state = true;
           }).bind(this, item), 200 * count++);
         }
       });
       svg.style.transform = 'rotateZ(90deg)';
-    }
-  }
-
-  // 处理回车事件也可以搜索
-  keyDownFunction(event: KeyboardEvent) {
-    if (event.keyCode === 13) {
-      this.searchApp();
     }
   }
 
@@ -239,7 +232,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (!this.cacheService.currentNamespace) {
       return;
     }

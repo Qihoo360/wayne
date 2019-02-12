@@ -1,8 +1,6 @@
 export class ContainerStatus {
   name: string;
   restartCount: number;
-  //[ContainerStatus:]
-  //[end]
 }
 
 export class Pod {
@@ -12,6 +10,4 @@ export class Pod {
   podIp: string;
   state: string;
   startTime: Date;
-  //[Pod:]
-  //[end]
 }

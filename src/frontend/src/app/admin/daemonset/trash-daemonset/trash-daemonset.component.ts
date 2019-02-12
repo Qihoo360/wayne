@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
@@ -19,8 +19,8 @@ export class TrashDaemonsetComponent implements OnInit, OnDestroy {
 
   daemonsets: DaemonSet[];
   pageState: PageState = new PageState();
-  state: State;
-  currentPage: number = 1;
+  state: ClrDatagridStateInterface;
+  currentPage = 1;
 
   subscription: Subscription;
 
@@ -32,7 +32,7 @@ export class TrashDaemonsetComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_DAEMONSET_TPL) {
-        let id = message.data;
+        const id = message.data;
         this.daemonsetService.deleteById(id, 0, false)
           .subscribe(
             response => {
@@ -64,7 +64,7 @@ export class TrashDaemonsetComponent implements OnInit, OnDestroy {
   }
 
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
@@ -77,7 +77,7 @@ export class TrashDaemonsetComponent implements OnInit, OnDestroy {
     this.daemonsetService.listPage(this.pageState, 0)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.daemonsets = data.list;
@@ -87,7 +87,7 @@ export class TrashDaemonsetComponent implements OnInit, OnDestroy {
   }
 
   deleteDaemonset(daemonset: DaemonSet) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除守护进程集确认',
       '你确认永久删除守护进程集 ' + daemonset.name + ' ？删除后将不可恢复！',
       daemonset.id,

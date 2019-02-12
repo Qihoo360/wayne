@@ -23,9 +23,9 @@ export class CreateEditPermissionComponent {
 
   componentName = '操作权限';
   permission: Permission = new Permission();
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
 
   permissionTitle: string;
   actionType: ActionType;
@@ -109,7 +109,7 @@ export class CreateEditPermissionComponent {
   }
 
   handleValidation(): void {
-    let cont = this.currentForm.controls['permission_name'];
+    const cont = this.currentForm.controls['permission_name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }

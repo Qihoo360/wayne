@@ -4,31 +4,31 @@
     <hr>
     <form>
       <section class="form-block form-box">
-        <div class="row group">
-          <div class="col-sm-3">
+        <div class="clr-row group">
+          <div class="clr-col-sm-3">
             Ingress 名称
           </div>
-          <div class="col-sm-9">
+          <div class="clr-col-sm-9">
             {{kubeResource?.metadata.name}}
           </div>
         </div>
         <div *ngFor="let rule of kubeResource?.spec.rules">
-          <div class="row group">
-            <div class="col-sm-3">
+          <div class="clr-row group">
+            <div class="clr-col-sm-3">
             域名
           </div>
-          <div class="col-sm-9">
+          <div class="clr-col-sm-9">
             {{rule.host}}
           </div>
         </div>
-        <div *ngFor="let path of rule.http.paths" class="row group">
-          <div class="col-sm-3">
+        <div *ngFor="let path of rule.http.paths" class="clr-row group">
+          <div class="clr-col-sm-3">
             代理
           </div>
-          <div class="col-sm-6">
+          <div class="clr-col-sm-6">
             {{path.backend.serviceName}}:{{path.backend.servicePort}}
           </div>
-          <div class="col-sm-3">
+          <div class="clr-col-sm-3">
             {{path.path}}
           </div>
         </div>

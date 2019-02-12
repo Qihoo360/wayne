@@ -1,18 +1,18 @@
 import { ConfirmationButtons, ConfirmationTargets } from '../shared.const';
 
 export class ConfirmationMessage {
-  public constructor(title: string, message: string, data: any, targetId: ConfirmationTargets, buttons?: ConfirmationButtons) {
+  public constructor(title: string, message: string, data: any, target: any, buttons?: ConfirmationButtons) {
     this.title = title;
     this.message = message;
     this.data = data;
-    this.targetId = targetId;
+    this.target = target;
     this.buttons = buttons ? buttons : ConfirmationButtons.CONFIRM_CANCEL;
   }
 
   title: string;
   message: string;
-  data: any = {};//default is empty
-  targetId: ConfirmationTargets = ConfirmationTargets.EMPTY;
+  data: any = {}; // default is empty
+  target = ConfirmationTargets.EMPTY;
   param: string;
   buttons: ConfirmationButtons;
 }

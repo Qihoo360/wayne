@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
@@ -16,8 +16,8 @@ import { PageState } from '../../../shared/page/page-state';
 export class TrashNamespaceComponent implements OnInit, OnDestroy {
   namespaces: Namespace[];
   pageState: PageState = new PageState();
-  currentPage: number = 1;
-  state: State;
+  currentPage = 1;
+  state: ClrDatagridStateInterface;
 
   subscription: Subscription;
 
@@ -28,7 +28,7 @@ export class TrashNamespaceComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_NAMESPACE) {
-        let namespaceId = message.data;
+        const namespaceId = message.data;
         this.namespaceService.deleteNamespace(namespaceId, false)
           .subscribe(
             response => {
@@ -59,7 +59,7 @@ export class TrashNamespaceComponent implements OnInit, OnDestroy {
     this.refresh(this.state);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
@@ -67,7 +67,7 @@ export class TrashNamespaceComponent implements OnInit, OnDestroy {
     this.namespaceService.listNamespace(this.pageState, 'true')
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.namespaces = data.list;

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
@@ -17,7 +17,7 @@ import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box
   templateUrl: 'create-edit-app.component.html',
   styleUrls: ['create-edit-app.scss']
 })
-export class CreateEditAppComponent {
+export class CreateEditAppComponent implements OnInit {
   @Output() create = new EventEmitter<boolean>();
   createAppOpened: boolean;
 
@@ -31,9 +31,9 @@ export class CreateEditAppComponent {
   componentName = '项目';
   app: App = new App();
   namespaces: Namespace[];
-  checkOnGoing: boolean = false;
-  isSubmitOnGoing: boolean = false;
-  isNameValid: boolean = true;
+  checkOnGoing = false;
+  isSubmitOnGoing = false;
+  isNameValid = true;
 
   appTitle: string;
   actionType: ActionType;
@@ -137,7 +137,7 @@ export class CreateEditAppComponent {
   }
 
   handleValidation(): void {
-    let cont = this.currentForm.controls['app_name'];
+    const cont = this.currentForm.controls['app_name'];
     if (cont) {
       this.isNameValid = cont.valid;
     }

@@ -1,4 +1,4 @@
-import { Comparator } from '@clr/angular';
+import { ClrDatagridComparatorInterface } from '@clr/angular';
 import { Pod } from '../../../shared/model/v1/kubernetes/pod';
 
 export class Inventory {
@@ -14,13 +14,13 @@ export class Inventory {
   }
 }
 
-export class TimeComparator implements Comparator<Pod> {
+export class TimeComparator implements ClrDatagridComparatorInterface<Pod> {
   compare(a: Pod, b: Pod) {
     return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
   }
 }
 
-export class StateComparator implements Comparator<Pod> {
+export class StateComparator implements ClrDatagridComparatorInterface<Pod> {
   compare(a: Pod, b: Pod) {
     return a.state.localeCompare(b.state);
   }

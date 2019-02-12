@@ -18,7 +18,7 @@ export class TemplateStatus {
   }
 
   static fromPublishStatus(state: PublishStatus) {
-    let dStatus = new TemplateStatus();
+    const dStatus = new TemplateStatus();
     dStatus.id = state.id;
     dStatus.deploymentId = state.resourceId;
     dStatus.templateId = state.templateId;

@@ -11,9 +11,7 @@ import { PersistentVolumeClaimRobinClient } from '../../../shared/client/v1/kube
   templateUrl: 'create-snapshot.component.html',
   styleUrls: ['create-snapshot.scss']
 })
-
-
-export class CreateSnapshot {
+export class CreateSnapshotComponent {
   createAppOpened: boolean;
   snapForm: NgForm;
   @ViewChild('snapForm')
@@ -49,7 +47,8 @@ export class CreateSnapshot {
   }
 
   onSubmit() {
-    this.persistentVolumeClaimRobinClient.createSnapshot(this.appId, this.state.cluster, this.state.pvc.metadata.namespace, this.state.pvc.metadata.name, this.snapshotVersion).subscribe(
+    this.persistentVolumeClaimRobinClient.createSnapshot(this.appId, this.state.cluster,
+      this.state.pvc.metadata.namespace, this.state.pvc.metadata.name, this.snapshotVersion).subscribe(
       response => {
         this.messageHandlerService.showSuccess('创建快照成功！');
         this.create.emit(true);

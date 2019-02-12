@@ -9,7 +9,7 @@ import { CephFSVolumeSource, PersistentVolume, RBDVolumeSource } from '../../../
 import { PersistentVolumeClient } from '../../../../shared/client/v1/kubernetes/persistentvolume';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClusterService } from '../../../../shared/client/v1/cluster.service';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { Cluster } from '../../../../shared/model/v1/cluster';
 import { AceEditorMsg } from '../../../../shared/ace-editor/ace-editor';
 import { AceEditorService } from '../../../../shared/ace-editor/ace-editor.service';
@@ -94,7 +94,7 @@ export class CreateEditPersistentVolumeComponent implements OnInit {
       this.actionType = ActionType.ADD_NEW;
       this.title = '创建PV';
     }
-    Observable.combineLatest(
+    combineLatest(
       observables
     ).subscribe(
       response => {
@@ -120,7 +120,7 @@ export class CreateEditPersistentVolumeComponent implements OnInit {
 
   get labels(): FormArray {
     return this.currentForm.get('labels') as FormArray;
-  };
+  }
 
   onAddLabel(index: number) {
     const selectors = this.currentForm.get(`labels`) as FormArray;

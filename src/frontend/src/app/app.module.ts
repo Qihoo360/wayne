@@ -15,16 +15,16 @@ import { AuthInterceptor } from './shared/interceptor/auth-interceptor';
 // translate
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+const packageJson = require('../../package.json');
 export function HttpLoaderFactory(httpClient: HttpClient) {
-  return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json?v=' + packageJson.version);
 }
 
 export function initUser(authService: AuthService, injector: Injector) {
   return () => authService.retrieveUser().then(() => {
   }).catch(error => {
     const router = injector.get(Router);
-    if (error.status == httpStatusCode.Unauthorized) {
+    if (error.status === httpStatusCode.Unauthorized) {
       router.navigate(['sign-in']);
     }
     console.log('init current user error.', error);
@@ -38,7 +38,7 @@ export function initConfig(authService: AuthService) {
   });
 }
 
-if (environment.ravenDsn && environment.ravenDsn != '__ravenDsn__') {
+if (environment.ravenDsn && environment.ravenDsn !== '__ravenDsn__') {
   Raven.config(environment.ravenDsn).install();
 }
 
@@ -96,7 +96,7 @@ export class WayneErrorHandler implements ErrorHandler {
     },
     {
       provide: ErrorHandler,
-      useClass: environment.ravenDsn && environment.ravenDsn != '__ravenDsn__' ? RavenErrorHandler : WayneErrorHandler
+      useClass: environment.ravenDsn && environment.ravenDsn !== '__ravenDsn__' ? RavenErrorHandler : WayneErrorHandler
     }
   ],
   bootstrap: [AppComponent]

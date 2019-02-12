@@ -33,7 +33,7 @@ export class DeploymentStatus {
   }
 
   static fromPublishStatus(state: PublishStatus) {
-    let dStatus = new DeploymentStatus();
+    const dStatus = new DeploymentStatus();
     dStatus.id = state.id;
     dStatus.deploymentId = state.resourceId;
     dStatus.templateId = state.templateId;

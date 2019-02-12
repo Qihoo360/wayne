@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { Job } from '../../../shared/model/v1/job';
 import { JobClient } from '../../../shared/client/v1/kubernetes/job';
@@ -23,8 +23,8 @@ export class ListJobComponent implements OnInit, OnDestroy {
   @Input() jobs: Job[];
   @Input() page: Page;
   @Input() currentCronjobName: string;
-  @Output() paginate = new EventEmitter<State>();
-  _pageSize: number = 10;
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
+  _pageSize = 10;
   @ViewChild(ListPodComponent)
   listPodComponent: ListPodComponent;
   @ViewChild(ListEventComponent)
@@ -45,7 +45,7 @@ export class ListJobComponent implements OnInit, OnDestroy {
   }
 
   get appId(): number {
-    return parseInt(this.route.parent.snapshot.params['id']);
+    return parseInt(this.route.parent.snapshot.params['id'], 10);
   }
 
   ngOnDestroy(): void {
@@ -70,7 +70,7 @@ export class ListJobComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.periodSyncStatus();
-    this._pageSize = parseInt(this.storage.get('pagesize') || '10');
+    this._pageSize = parseInt(this.storage.get('pagesize') || '10', 10);
   }
 
   listPod(job: Job) {
@@ -78,7 +78,7 @@ export class ListJobComponent implements OnInit, OnDestroy {
     this.listPodComponent.openModal(job.cluster, job.kubeJob);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     this.paginate.emit(state);
   }
 

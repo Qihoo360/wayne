@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { ActivatedRoute } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ListNamespaceUserComponent } from './list-namespace-user/list-namespace-user.component';
 import { CreateEditNamespaceUserComponent } from './create-edit-namespace-user/create-edit-namespace-user.component';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -30,7 +30,7 @@ const showState = {
   templateUrl: './namespace-user.component.html',
   styleUrls: ['./namespace-user.component.scss']
 })
-export class NamespaceUserComponent implements OnInit {
+export class NamespaceUserComponent implements OnInit, OnDestroy {
   @ViewChild(ListNamespaceUserComponent)
   listNamespaceUser: ListNamespaceUserComponent;
   @ViewChild(CreateEditNamespaceUserComponent)
@@ -59,7 +59,7 @@ export class NamespaceUserComponent implements OnInit {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.NAMESPACE_USER) {
-        let namespaceUser = message.data;
+        const namespaceUser = message.data;
         this.namespaceUserService.deleteById(namespaceUser.id, namespaceUser.namespace.id)
           .subscribe(
             response => {
@@ -83,7 +83,7 @@ export class NamespaceUserComponent implements OnInit {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) this.showList.push(key);
+      if (!this.showState[key].hidden) { this.showList.push(key); }
     });
   }
 
@@ -107,14 +107,14 @@ export class NamespaceUserComponent implements OnInit {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.namespaceUserService.list(this.pageState, this.listType, this.resourceId)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedNamespaceUsers = data.list;
@@ -136,7 +136,7 @@ export class NamespaceUserComponent implements OnInit {
   }
 
   deleteNamespaceUser(namespaceUser: NamespaceUser) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除' + this.componentName + '确认',
       '你确认删除 ' + this.componentName + namespaceUser.user.name + ' ？',
       namespaceUser,

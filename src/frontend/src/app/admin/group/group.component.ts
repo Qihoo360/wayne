@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { State } from '@clr/angular';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ListGroupComponent } from './list-group/list-group.component';
 import { CreateEditGroupComponent } from './create-edit-group/create-edit-group.component';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -16,7 +16,7 @@ import { PageState } from '../../shared/page/page-state';
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.scss']
 })
-export class GroupComponent implements OnInit {
+export class GroupComponent implements OnInit, OnDestroy {
   @ViewChild(ListGroupComponent)
   listGroup: ListGroupComponent;
   @ViewChild(CreateEditGroupComponent)
@@ -60,14 +60,14 @@ export class GroupComponent implements OnInit {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.groupService.listGroup(this.pageState)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedGroups = data.list;

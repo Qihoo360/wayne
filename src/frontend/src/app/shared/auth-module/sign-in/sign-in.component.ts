@@ -12,7 +12,7 @@ import * as particlesJS from 'particlesjs/dist/particles';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-  version: String = require('../../../../../package.json').version;
+  version = require('../../../../../package.json').version;
   errMsg: string;
   username: string;
   password: string;
@@ -33,8 +33,8 @@ export class SignInComponent implements OnInit {
       connectParticles: true
     });
 
-    let sid = this.route.snapshot.queryParams['sid'];
-    let ref = this.route.snapshot.queryParams['ref'] ? this.route.snapshot.queryParams['ref'] : '/';
+    const sid = this.route.snapshot.queryParams['sid'];
+    const ref = this.route.snapshot.queryParams['ref'] ? this.route.snapshot.queryParams['ref'] : '/';
     if (sid) {
       localStorage.setItem(LoginTokenKey, sid);
       window.location.replace(ref);
@@ -61,8 +61,8 @@ export class SignInComponent implements OnInit {
     }
     this.authoriseService.Login(this.username, this.password, type).subscribe(
       resp => {
-        let ref = this.route.snapshot.queryParams['ref'] ? this.route.snapshot.queryParams['ref'] : '/';
-        let data = resp.data;
+        const ref = this.route.snapshot.queryParams['ref'] ? this.route.snapshot.queryParams['ref'] : '/';
+        const data = resp.data;
         localStorage.setItem(LoginTokenKey, data.token);
         window.location.replace(ref);
       },
@@ -75,18 +75,18 @@ export class SignInComponent implements OnInit {
   }
 
   oauth2Login() {
-    let currentUrl = document.location.origin;
-    let ref = this.route.snapshot.queryParams['ref'] ? this.route.snapshot.queryParams['ref'] : '/';
+    const currentUrl = document.location.origin;
+    const ref = this.route.snapshot.queryParams['ref'] ? this.route.snapshot.queryParams['ref'] : '/';
     window.location.replace(`/login/oauth2/oauth2?next=${currentUrl}/sign-in?ref=${ref}`);
   }
 
   getOAuth2Title() {
-    let oauth2Title = this.authService.config['system.oauth2-title'];
+    const oauth2Title = this.authService.config['system.oauth2-title'];
     return oauth2Title ? oauth2Title : 'OAuth 2.0 Login';
   }
 
   getTitle() {
-    let imagePrefix = this.authService.config['system.title'];
+    const imagePrefix = this.authService.config['system.title'];
     return imagePrefix ? imagePrefix : 'Wayne';
   }
 

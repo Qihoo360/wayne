@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
@@ -19,11 +19,11 @@ export class TrashCronjobComponent implements OnInit, OnDestroy {
 
   cronjobs: Cronjob[];
   pageState: PageState = new PageState();
-  currentPage: number = 1;
-  state: State;
+  currentPage = 1;
+  state: ClrDatagridStateInterface;
 
   subscription: Subscription;
-  componentName: string = '计划任务';
+  componentName = '计划任务';
 
   constructor(
     private cronjobService: CronjobService,
@@ -35,7 +35,7 @@ export class TrashCronjobComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_CRONJOB) {
-        let id = message.data;
+        const id = message.data;
         this.cronjobService.deleteById(id, 0, false)
           .subscribe(
             response => {
@@ -67,7 +67,7 @@ export class TrashCronjobComponent implements OnInit, OnDestroy {
   }
 
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
@@ -75,7 +75,7 @@ export class TrashCronjobComponent implements OnInit, OnDestroy {
     this.cronjobService.list(this.pageState, 'true')
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.cronjobs = data.list;
@@ -85,7 +85,7 @@ export class TrashCronjobComponent implements OnInit, OnDestroy {
   }
 
   deleteCronjob(cronjob: Cronjob) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除' + this.componentName + '确认',
       '你确认永久删除' + this.componentName + cronjob.name + ' ？删除后将不可恢复！',
       cronjob.id,

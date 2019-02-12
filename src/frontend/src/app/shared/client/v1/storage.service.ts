@@ -22,7 +22,7 @@ export class StorageService {
   save(k: any, v: any) {
     const key = this._toString(k);
     const value = this._toString(v);
-    if (!(key && value)) return;
+    if (!(key && value)) { return; }
     if (window.localStorage) {
       try {
         localStorage.setItem(key, value);
@@ -36,7 +36,7 @@ export class StorageService {
 
   get(k: any) {
     const key = this._toString(k);
-    if (!key) return;
+    if (!key) { return; }
     if (window.localStorage) {
       try {
         return localStorage.getItem(key);
@@ -52,14 +52,14 @@ export class StorageService {
     if (day === undefined) {
       day = 100;
     }
-    let exp = new Date();
+    const exp = new Date();
     exp.setTime(exp.getTime() + day * 24 * 60 * 60 * 1000);
     document.cookie = `${key}=${value};expires=${exp.toUTCString()}`;
   }
 
   getCookie(key: string) {
     const arr = document.cookie.match(new RegExp('(^| )' + key + '=([^;]*)(;|$)'));
-    if (arr !== null) return arr[2];
+    if (arr !== null) { return arr[2]; }
     return null;
   }
 

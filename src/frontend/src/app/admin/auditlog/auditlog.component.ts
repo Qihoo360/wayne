@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { PageState } from '../../shared/page/page-state';
 import { AuditLogService } from '../../shared/client/v1/auditlog.service';
 import { AuditLog } from '../../shared/model/v1/auditlog';
@@ -12,18 +12,14 @@ import { MessageHandlerService } from '../../shared/message-handler/message-hand
 export class AuditLogComponent implements OnInit {
   pageState: PageState = new PageState();
   auditLogs: AuditLog[];
-  currentPage: number = 1;
-  state: State;
+  currentPage = 1;
+  state: ClrDatagridStateInterface;
 
   constructor(private auditLogService: AuditLogService,
               private messageHandlerService: MessageHandlerService) {
   }
 
   ngOnInit() {
-
-  }
-
-  ngOnDestroy(): void {
 
   }
 
@@ -34,7 +30,7 @@ export class AuditLogComponent implements OnInit {
     this.refresh(this.state);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
@@ -50,7 +46,7 @@ export class AuditLogComponent implements OnInit {
     this.auditLogService.listPage(this.pageState)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.auditLogs = data.list;

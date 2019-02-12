@@ -5,6 +5,15 @@ export class Permission {
   type: string;
 }
 
+export class ActionPermission {
+  read = false;
+  create = false;
+  update = false;
+  delete = false;
+  deploy = false;
+  offline = false;
+}
+
 export class TypePermission {
   app: ActionPermission = new ActionPermission();
   appUser: ActionPermission = new ActionPermission();
@@ -41,13 +50,4 @@ export class TypePermission {
     this.daemonSet = input.daemonSet ? input.daemonSet : this.daemonSet;
     this.autoscale = input.hpa ? input.hpa : this.autoscale;
   }
-}
-
-export class ActionPermission {
-  read = false;
-  create = false;
-  update = false;
-  delete = false;
-  deploy = false;
-  offline = false;
 }

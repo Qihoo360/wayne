@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
@@ -19,8 +19,8 @@ export class TrashDeploymentComponent implements OnInit, OnDestroy {
 
   deployments: Deployment[];
   pageState: PageState = new PageState();
-  currentPage: number = 1;
-  state: State;
+  currentPage = 1;
+  state: ClrDatagridStateInterface;
 
   subscription: Subscription;
 
@@ -32,7 +32,7 @@ export class TrashDeploymentComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_DEPLOYMENT) {
-        let deploymentId = message.data;
+        const deploymentId = message.data;
         this.deploymentService.deleteById(deploymentId, 0, false)
           .subscribe(
             response => {
@@ -63,7 +63,7 @@ export class TrashDeploymentComponent implements OnInit, OnDestroy {
     this.refresh(this.state);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
@@ -71,7 +71,7 @@ export class TrashDeploymentComponent implements OnInit, OnDestroy {
     this.deploymentService.list(this.pageState, 'true')
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.deployments = data.list;
@@ -81,7 +81,7 @@ export class TrashDeploymentComponent implements OnInit, OnDestroy {
   }
 
   deleteDeployment(deployment: Deployment) {
-    let deletionMessage = new ConfirmationMessage(
+    const deletionMessage = new ConfirmationMessage(
       '删除部署确认',
       '你确认永久删除部署 ' + deployment.name + ' ？删除后将不可恢复！',
       deployment.id,

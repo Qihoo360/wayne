@@ -61,7 +61,7 @@ export class IngressStatus {
 }
 
 export class IngressPath {
-  backend: IngressBackend
+  backend: IngressBackend;
   path: string;
 }
 

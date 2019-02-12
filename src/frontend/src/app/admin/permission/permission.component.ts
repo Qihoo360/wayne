@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { State } from '@clr/angular';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ListPermissionComponent } from './list-permission/list-permission.component';
 import { CreateEditPermissionComponent } from './create-edit-permission/create-edit-permission.component';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -17,7 +17,7 @@ import { PageState } from '../../shared/page/page-state';
   styleUrls: ['./permission.component.scss']
 })
 
-export class PermissionComponent implements OnInit {
+export class PermissionComponent implements OnInit, OnDestroy {
   @ViewChild(ListPermissionComponent)
   listPermission: ListPermissionComponent;
   @ViewChild(CreateEditPermissionComponent)
@@ -62,14 +62,14 @@ export class PermissionComponent implements OnInit {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.permissionService.listPermission(this.pageState)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.changedPermissions = data.list;

@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { Location } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import { FormBuilder, NgForm } from '@angular/forms';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import {
   ConfigMapEnvSource,
@@ -28,7 +28,7 @@ import {
 } from '../../../shared/model/v1/kubernetes/deployment';
 import 'rxjs/add/observable/combineLatest';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { DeploymentTpl } from '../../../shared/model/v1/deploymenttpl';
 import { App } from '../../../shared/model/v1/app';
 import { Deployment } from '../../../shared/model/v1/deployment';
@@ -100,7 +100,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
   memoryUnitPrice = 10;
   top: number;
   box: HTMLElement;
-  naviList: string = JSON.stringify(templateDom);
+  naviList = JSON.stringify(templateDom);
   eventList: any[] = Array();
   defaultSafeExecCommand = 'sleep\n30';
 
@@ -256,7 +256,7 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
     } else {
       this.actionType = ActionType.ADD_NEW;
     }
-    Observable.combineLatest(observables).subscribe(
+    combineLatest(observables).subscribe(
       response => {
         this.app = response[0].data;
         this.deployment = response[1].data;

@@ -1,5 +1,6 @@
 import { AfterViewInit, Inject, Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
+import { EventManager } from '@angular/platform-browser';
 import { CopyService } from './copy.service';
 
 @Injectable()
@@ -7,10 +8,10 @@ import { CopyService } from './copy.service';
 export class SelectCopyService implements OnDestroy, AfterViewInit {
 
   render: Renderer2;
-  range: number = 30;
+  range = 30;
   globalEventList: Array<any> = new Array();
   scrollBoxList: Array<any> = new Array();
-  isCopy: boolean = false;
+  isCopy = false;
 
   constructor(
     @Inject(DOCUMENT) private document: any,
@@ -100,13 +101,21 @@ export class SelectCopyService implements OnDestroy, AfterViewInit {
 
   mouseUpEvent(event) {
     const target = event.target;
-    if (this.getSelectText().trim() === '') return;
-    if (this.isButton(target) || this.isCopyButton(target)) return;
-    let dom = this.render.createElement('div');
+    if (this.getSelectText().trim() === '') {
+      return;
+    }
+    if (this.isButton(target) || this.isCopyButton(target)) {
+      return;
+    }
+    const dom = this.render.createElement('div');
     dom.id = 'copy-button';
-    let result = this.buttonPosition(event, this.getSelectPosition());
+    const result = this.buttonPosition(event, this.getSelectPosition());
     dom.style.cssText = `width: 30px;height: 30px; position: fixed;z-index: 1051;left: ${result.left}px; top: ${result.top}px`;
-    dom.innerHTML = '<svg width="25" height="25" class="copy-svg" viewBox="0 0 448 512"><path fill="black" d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"></path></svg>';
+    dom.innerHTML = '<svg width="25" height="25" class="copy-svg" viewBox="0 0 448 512">' +
+      '<path fill="black" d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 ' +
+      '24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c' +
+      '13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h' +
+      '96v-6.059a24 24 0 0 0-7.029-16.97z"></path></svg>';
     this.render.appendChild(this.document.body, dom);
     this.boxAddScroll(target);
     this.isCopy = true;
@@ -118,7 +127,7 @@ export class SelectCopyService implements OnDestroy, AfterViewInit {
       this.copyService.copy(this.getSelectText());
     }
     this.removeCopyButton();
-    if (this.isAceBox(eventDom)) return;
+    if (this.isAceBox(eventDom)) { return; }
     this.removeSelect();
   }
 
@@ -165,6 +174,7 @@ export class SelectCopyService implements OnDestroy, AfterViewInit {
   }
 
   getSelectPosition() {
-    return this.supportSelection ? this.document.selection.createRange().getBoundingClientRect() : this.document.getSelection().getRangeAt(0).getBoundingClientRect();
+    return this.supportSelection ?
+      this.document.selection.createRange().getBoundingClientRect() : this.document.getSelection().getRangeAt(0).getBoundingClientRect();
   }
 }

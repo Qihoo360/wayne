@@ -5,6 +5,7 @@ import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
 import { OrderItem } from '../../model/v1/order';
 import { Autoscale } from '../../model/v1/autoscale';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class AutoscaleService {
@@ -14,15 +15,15 @@ export class AutoscaleService {
   constructor(private http: HttpClient) {
   }
 
-  // getNames(appId?: number): Observable<any> {
-  //   const params = new HttpParams();
-  //   if (typeof(appId) === 'undefined') {
-  //     appId = 0;
-  //   }
-  //   return this.http
-  //     .get(`/api/v1/apps/${appId}/hpas/names`, {params: params})
-  //     .catch(error => Observable.throw(error));
-  // }
+  getNames(appId?: number): Observable<any> {
+    const params = new HttpParams();
+    if (typeof(appId) === 'undefined') {
+      appId = 0;
+    }
+    return this.http
+      .get(`/api/v1/apps/${appId}/hpas/names`, {params: params})
+      .catch(error => throwError(error));
+  }
 
   list(pageState: PageState, deleted?: string, appId?: string): Observable<any> {
     let params = new HttpParams();
@@ -48,7 +49,7 @@ export class AutoscaleService {
           filterList.push(`${key}__contains=${value}`);
         }
       }
-    })
+    });
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }
@@ -62,25 +63,25 @@ export class AutoscaleService {
     }
     return this.http
       .get(`/api/v1/apps/${appId}/hpas`, {params: params})
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(hpa: Autoscale): Observable<any> {
     return this.http
       .post(`/api/v1/apps/${hpa.appId}/hpas`, hpa, this.options)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(hpa: Autoscale): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${hpa.appId}/hpas/${hpa.id}`, hpa, this.options)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   updateOrder(appId: number, orderList: Array<OrderItem>): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${appId}/hpas/updateorders`, orderList, this.options)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
@@ -93,12 +94,12 @@ export class AutoscaleService {
 
     return this.http
       .delete(`/api/v1/apps/${appId}/hpas/${id}`, options)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, appId: number): Observable<any> {
     return this.http
       .get(`/api/v1/apps/${appId}/hpas/${id}`)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

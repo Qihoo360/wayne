@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
 import { Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { Secret } from '../../../shared/model/v1/secret';
 import { SecretService } from '../../../shared/client/v1/secret.service';
@@ -18,10 +18,10 @@ export class ListSecretComponent implements OnInit {
   @Input() secrets: Secret[];
 
   @Input() page: Page;
-  currentPage: number = 1;
-  state: State;
+  currentPage = 1;
+  state: ClrDatagridStateInterface;
 
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<Secret>();
   @Output() edit = new EventEmitter<Secret>();
 
@@ -46,7 +46,7 @@ export class ListSecretComponent implements OnInit {
     this.paginate.emit(this.state);
   }
 
-  refresh(state: State) {
+  refresh(state: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }
@@ -59,21 +59,19 @@ export class ListSecretComponent implements OnInit {
     this.edit.emit(secret);
   }
 
-  goToLink(secret: Secret, gate: string) {
-    let linkUrl = new Array();
+  goToLink(obj: Secret, gate: string) {
+    let linkUrl = '';
     switch (gate) {
       case 'tpl':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/secret/relate-tpl/[0-9]*', '[' + secret.name + ']模板列表');
-        linkUrl = ['admin', 'secret', 'relate-tpl', secret.id];
+        linkUrl = `/admin/secret/tpl?secretMapId=${obj.id}`;
         break;
       case 'app':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/secret/app/[0-9]*', '[' + secret.app.name + ']项目详情');
-        linkUrl = ['admin', 'secret', 'app', secret.app.id];
+        linkUrl = `admin/app?id=${obj.app.id}`;
         break;
       default:
         break;
     }
-    this.router.navigate(linkUrl);
+    this.router.navigateByUrl(linkUrl);
   }
 
   detailMetaDataTpl(tpl: string) {

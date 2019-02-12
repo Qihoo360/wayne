@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
 import { Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { Deployment } from '../../../shared/model/v1/deployment';
 import { Page } from '../../../shared/page/page-state';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
@@ -16,10 +16,10 @@ export class ListDeploymentComponent implements OnInit {
   @Input() deployments: Deployment[];
 
   @Input() page: Page;
-  currentPage: number = 1;
-  state: State;
-  testInfo: number = 0;
-  @Output() paginate = new EventEmitter<State>();
+  currentPage = 1;
+  state: ClrDatagridStateInterface;
+  testInfo = 0;
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<Deployment>();
   @Output() edit = new EventEmitter<Deployment>();
 
@@ -42,7 +42,7 @@ export class ListDeploymentComponent implements OnInit {
     this.paginate.emit(this.state);
   }
 
-  refresh(state: State) {
+  refresh(state: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }
@@ -56,20 +56,18 @@ export class ListDeploymentComponent implements OnInit {
   }
 
   goToLink(deployment: Deployment, gate: string) {
-    let linkUrl = new Array();
+    let linkUrl = '';
     switch (gate) {
       case 'tpl':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/deployment/relate-tpl/[0-9]*', '[' + deployment.name + ']模板列表');
-        linkUrl = ['admin', 'deployment', 'relate-tpl', deployment.id];
+        linkUrl = `/admin/deployment/tpl?deploymentId=${deployment.id}`;
         break;
       case 'app':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/deployment/app/[0-9]*', '[' + deployment.app.name + ']项目详情');
-        linkUrl = ['admin', 'deployment', 'app', deployment.app.id];
+        linkUrl = `admin/app?id=${deployment.app.id}`;
         break;
       default:
         break;
     }
-    this.router.navigate(linkUrl);
+    this.router.navigateByUrl(linkUrl);
   }
 
   detailMetaDataTpl(tpl: string) {

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { AppUser } from '../../../shared/model/v1/app-user';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { Page } from '../../../shared/page/page-state';
@@ -15,10 +15,10 @@ export class ListAppUserComponent implements OnInit {
   @Input() listType: string;
   @Input() appUsers: AppUser[];
   @Input() page: Page;
-  currentPage: number = 1;
-  state: State;
+  currentPage = 1;
+  state: ClrDatagridStateInterface;
 
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<AppUser>();
   @Output() edit = new EventEmitter<AppUser>();
 
@@ -38,7 +38,7 @@ export class ListAppUserComponent implements OnInit {
     this.paginate.emit(this.state);
   }
 
-  refresh(state: State) {
+  refresh(state: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }

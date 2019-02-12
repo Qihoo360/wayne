@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
@@ -18,8 +18,8 @@ import { PageState } from '../../../shared/page/page-state';
 export class TrashSecretTplComponent implements OnInit, OnDestroy {
   secrettpls: SecretTpl[];
   pageState: PageState = new PageState();
-  currentPage: number = 1;
-  state: State;
+  currentPage = 1;
+  state: ClrDatagridStateInterface;
 
   subscription: Subscription;
 
@@ -31,7 +31,7 @@ export class TrashSecretTplComponent implements OnInit, OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.TRASH_SECRET_TPL) {
-        let secrettplId = message.data;
+        const secrettplId = message.data;
         this.secrettplService.deleteById(secrettplId, 0, false)
           .subscribe(
             response => {
@@ -62,7 +62,7 @@ export class TrashSecretTplComponent implements OnInit, OnDestroy {
     this.refresh(this.state);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
@@ -71,7 +71,7 @@ export class TrashSecretTplComponent implements OnInit, OnDestroy {
     this.secrettplService.listPage(this.pageState, 0)
       .subscribe(
         response => {
-          let data = response.data;
+          const data = response.data;
           this.pageState.page.totalPage = data.totalPage;
           this.pageState.page.totalCount = data.totalCount;
           this.secrettpls = data.list;

@@ -6,7 +6,7 @@
     <form #ngForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="pvc_id" class="col-md-3 form-group-label-override required">PVC</label>
+          <label for="pvc_id" class="clr-col-md-3 form-group-label-override required">PVC</label>
           <div class="select form-control">
             <select id="pvc_id"
                     [(ngModel)]="pvcTpl.persistentVolumeClaimId"
@@ -14,21 +14,21 @@
               <!--这是一个坑，如果使用value获取到的是string，使用ngValue获取到的是model本身类型-->
               <option *ngFor="let pvc of pvcs"
                       [ngValue]="pvc.id"
-                      [selected]="pvc.id == pvcTpl.persistentVolumeClaimId">{{pvc.name}}
+                      [selected]="pvc.id === pvcTpl.persistentVolumeClaimId">{{pvc.name}}
               </option>
             </select>
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
           <label for="description"
-                 class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
+                 class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="description" [(ngModel)]="pvcTpl.description"
                     name="description"
                     rows="3">
           </textarea>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="template" class="col-md-3 form-group-label-override">模版</label>
+          <label for="template" class="clr-col-md-3 form-group-label-override">模版</label>
           <wayne-ace-editor-box></wayne-ace-editor-box>
         </div>
 

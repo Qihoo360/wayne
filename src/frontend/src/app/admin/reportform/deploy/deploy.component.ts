@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { PublishService } from '../../../shared/client/v1/publish.service';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import * as moment from 'moment';
 
 @Component({
@@ -30,8 +30,10 @@ export class DeployComponent implements OnInit {
     this.refresh();
   }
 
-  refresh(state?: State) {
-    this.publishService.getDeployStatistics(moment(this.startTime).format('YYYY-MM-DDTHH:mm:SS') + 'Z', moment(this.endTime).format('YYYY-MM-DDTHH:mm:SS') + 'Z').subscribe(
+  refresh(state?: ClrDatagridStateInterface) {
+    this.publishService.getDeployStatistics(
+      moment(this.startTime).format('YYYY-MM-DDTHH:mm:SS') + 'Z', moment(this.endTime).format('YYYY-MM-DDTHH:mm:SS') + 'Z').
+    subscribe(
       resp => {
         this.datas = resp.data;
       },

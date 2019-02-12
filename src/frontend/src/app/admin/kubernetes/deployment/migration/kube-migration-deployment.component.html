@@ -6,7 +6,7 @@
     <form #ngForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="deployment_app" class="col-md-3 form-group-label-override required">应用</label>
+          <label for="deployment_app" class="clr-col-md-3 form-group-label-override required">应用</label>
           <div class="select form-control">
             <wayne-select name="deployment_app" [(ngModel)]="selectedApp"
                           searchable
@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="deployment_metadata" class="col-md-3 form-group-label-override">部署模版</label>
+          <label for="deployment_metadata" class="clr-col-md-3 form-group-label-override">部署模版</label>
           <wayne-ace-editor-box id="deployment_metadata"></wayne-ace-editor-box>
 
         </div>

@@ -8,6 +8,7 @@ import 'rxjs/add/observable/throw';
 import { PersistentVolumeClaimTpl } from '../../model/v1/persistentvolumeclaimtpl';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class PersistentVolumeClaimTplService {
@@ -38,14 +39,14 @@ export class PersistentVolumeClaimTplService {
       params = params.set('pvcId', pvcId);
     }
     Object.getOwnPropertyNames(pageState.params).map(key => {
-      let value = pageState.params[key];
+      const value = pageState.params[key];
       if (isNotEmpty(value)) {
         params = params.set(key, value);
       }
     });
-    let filterList: Array<string> = [];
+    const filterList: Array<string> = [];
     Object.getOwnPropertyNames(pageState.filters).map(key => {
-      let value = pageState.filters[key];
+      const value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
           filterList.push(`${key}=${value}`);
@@ -59,7 +60,7 @@ export class PersistentVolumeClaimTplService {
     }
     // sort param
     if (Object.keys(pageState.sort).length !== 0) {
-      let sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
+      const sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
       params = params.set('sortby', sortType);
     }
     if ((typeof (appId) === 'undefined') || (!appId)) {
@@ -69,7 +70,7 @@ export class PersistentVolumeClaimTplService {
     return this.http
       .get(`/api/v1/apps/${appId}/persistentvolumeclaims/tpls`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   listPage(pageState: PageState, appId: number): Observable<any> {
@@ -77,14 +78,14 @@ export class PersistentVolumeClaimTplService {
     params = params.set('pageNo', pageState.page.pageNo + '');
     params = params.set('pageSize', pageState.page.pageSize + '');
     Object.getOwnPropertyNames(pageState.params).map(key => {
-      let value = pageState.params[key];
+      const value = pageState.params[key];
       if (isNotEmpty(value)) {
         params = params.set(key, value);
       }
     });
-    let filterList: Array<string> = [];
+    const filterList: Array<string> = [];
     Object.getOwnPropertyNames(pageState.filters).map(key => {
-      let value = pageState.filters[key];
+      const value = pageState.filters[key];
       if (isNotEmpty(value)) {
         if (key === 'deleted' || key === 'id') {
           filterList.push(`${key}=${value}`);
@@ -98,7 +99,7 @@ export class PersistentVolumeClaimTplService {
     }
     // sort param
     if (Object.keys(pageState.sort).length !== 0) {
-      let sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
+      const sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
       params = params.set('sortby', sortType);
     }
     if ((typeof (appId) === 'undefined') || (!appId)) {
@@ -108,25 +109,25 @@ export class PersistentVolumeClaimTplService {
     return this.http
       .get(`/api/v1/apps/${appId}/persistentvolumeclaims/tpls`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(pvcTpl: PersistentVolumeClaimTpl, appId: number): Observable<any> {
     return this.http
       .post(`/api/v1/apps/${appId}/persistentvolumeclaims/tpls`, pvcTpl, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(pvcTpl: PersistentVolumeClaimTpl, appId: number): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${appId}/persistentvolumeclaims/tpls/${pvcTpl.id}`, pvcTpl, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
-    let options: any = {};
+    const options: any = {};
     if (logical != null) {
       let params = new HttpParams();
       params = params.set('logical', logical + '');
@@ -136,13 +137,13 @@ export class PersistentVolumeClaimTplService {
     return this.http
       .delete(`/api/v1/apps/${appId}/persistentvolumeclaims/tpls/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, appId: number): Observable<any> {
     return this.http
       .get(`/api/v1/apps/${appId}/persistentvolumeclaims/tpls/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

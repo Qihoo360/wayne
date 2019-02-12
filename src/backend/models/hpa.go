@@ -33,6 +33,25 @@ func (*HPA) TableName() string {
 	return TableNameHPA
 }
 
+func (*hpaModel) GetNames(filters map[string]interface{}) ([]HPA, error) {
+	hpas := []HPA{}
+	qs := Ormer().
+		QueryTable(new(HPA))
+
+	if len(filters) > 0 {
+		for k, v := range filters {
+			qs = qs.Filter(k, v)
+		}
+	}
+	_, err := qs.All(&hpas, "Id", "Name")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return hpas, nil
+}
+
 func (*hpaModel) Add(hpa *HPA) (id int64, err error) {
 	hpa.App = &App{Id: hpa.AppId}
 	hpa.CreateTime = nil
