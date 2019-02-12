@@ -325,7 +325,7 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
               tplStatusMap[statu.templateId] = Array<PublishStatus>();
             }
             statu.errNum = 0;
-            tplStatusMap[statu.templateId].push(state);
+            tplStatusMap[statu.templateId].push(statu);
           }
         }
         this.tplStatusMap = tplStatusMap;
