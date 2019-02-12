@@ -73,6 +73,13 @@
         ConfigMap
       </a>
       <a clrVerticalNavLink
+         routerLink="kubernetes/secret"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="certificate"></clr-icon>
+        Secret
+      </a>
+      <a clrVerticalNavLink
          routerLink="kubernetes/persistentvolume"
          [routerLinkActiveOptions]="{exact:true}"
          routerLinkActive="active">
