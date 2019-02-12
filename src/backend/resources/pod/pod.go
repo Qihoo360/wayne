@@ -71,6 +71,24 @@ func ListKubePod(indexer *client.CacheFactory, namespace string, label map[strin
 	return pods, nil
 }
 
+func ListPodByLabelKey(indexer *client.CacheFactory, namespace string, label string) ([]*Pod, error) {
+	podSelector := map[string]string{}
+	podList, err := ListKubePod(indexer, namespace, podSelector)
+	if err != nil {
+		return nil, err
+	}
+	pods := make([]*Pod, 0)
+	for _, pod := range podList {
+		if pod.Labels[label] != "" {
+			pods = append(pods, &Pod{
+				Labels: pod.Labels,
+				PodIp:  pod.Status.PodIP,
+			})
+		}
+	}
+	return pods, nil
+}
+
 func GetPodsByStatefulset(indexer *client.CacheFactory, namespace, name string) ([]*Pod, error) {
 	podSelector := map[string]string{"app": name}
 	pods, err := ListKubePod(indexer, namespace, podSelector)

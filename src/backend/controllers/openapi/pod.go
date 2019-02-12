@@ -5,8 +5,6 @@ import (
 	"net/http"
 	"strings"
 
-	"k8s.io/apimachinery/pkg/labels"
-
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/models/response"
@@ -79,13 +77,7 @@ func (c *OpenAPIController) GetPodInfo() {
 		return
 	}
 
-	label, err := labels.ConvertSelectorToLabelsMap(params.LabelSelector)
-	if err != nil {
-		c.AddErrorAndResponse(fmt.Sprintf("Invalid LabelSelector parameter: %v!", err), http.StatusBadRequest)
-		return
-	}
-
-	pods, err := pod.ListPod(manager.CacheFactory, "", label)
+	pods, err := pod.ListPodByLabelKey(manager.CacheFactory, "", params.LabelSelector)
 	if err != nil {
 		logs.Error(fmt.Sprintf("Failed to parse metadata: %s", err.Error()))
 		c.AddErrorAndResponse(fmt.Sprintf("Maybe a problematic k8s cluster(%s)!", params.Cluster), http.StatusInternalServerError)
