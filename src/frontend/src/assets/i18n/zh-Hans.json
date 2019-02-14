@@ -465,6 +465,7 @@
     "SHOW_COLUMN": "展示列",
     "START_STATUS": "启用状态",
     "START_TIME": "开始时间",
+    "END_TIME": "结束时间",
     "STATUS": "状态",
     "TEMPLATE": "模板",
     "TOTAL": "总量",
