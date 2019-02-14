@@ -4,7 +4,6 @@ import { CreateEditCronjobComponent } from './create-edit-cronjob/create-edit-cr
 import { CronjobComponent } from './cronjob.component';
 import { ListCronjobComponent } from './list-cronjob/list-cronjob.component';
 import { ListJobComponent } from './list-job/list-job.component';
-import { ListPodComponent } from './list-pod/list-pod.component';
 import { CreateEditCronjobTplComponent } from './create-edit-cronjobtpl/create-edit-cronjobtpl.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PublishCronjobTplComponent } from './publish-tpl/publish-tpl.component';
@@ -38,7 +37,6 @@ import { ListEventComponent } from './list-event/list-event.component';
     CronjobComponent,
     ListCronjobComponent,
     ListJobComponent,
-    ListPodComponent,
     CreateEditCronjobComponent,
     CreateEditCronjobTplComponent,
     PublishCronjobTplComponent,
