@@ -48,13 +48,20 @@
       <clr-dg-row *clrDgItems="let pod of pods">
         <clr-dg-cell class="copy">{{pod.name}}</clr-dg-cell>
         <clr-dg-cell>
-          <span class="label label-light-blue">{{pod.state}}</span>
+          <span class="label label-light-blue"
+                [class.label-danger]="pod.state!=='Running' && pod.state!=='Pending'"
+                [class.label-success]="pod.state==='Running'"
+                [class.label-warning]="pod.state==='Pending'">{{pod.state}}</span>
         </clr-dg-cell>
         <clr-dg-cell>{{pod.podIp}}</clr-dg-cell>
         <clr-dg-cell *ngIf="authService.currentUser.admin">{{pod.nodeName}}</clr-dg-cell>
         <clr-dg-cell>
-          <span *ngFor="let state of pod.containerStatus" class="label label-light-blue">{{state.name}}
-            :{{state.restartCount}}
+          <span *ngFor="let state of pod.containerStatus" class="label label-light-blue"
+                [class.label-danger]="state.restartCount > 10"
+                [class.label-success]="state.restartCount === 0"
+                [class.label-warning]="state.restartCount > 0 && state.restartCount <= 10"
+          >
+            {{state.name}} : {{state.restartCount}}
           </span>
         </clr-dg-cell>
         <clr-dg-cell>{{pod.startTime | relativeTime}}</clr-dg-cell>
