@@ -13,7 +13,7 @@ import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/c
 import { Subscription } from 'rxjs/Subscription';
 import { PublishStatefulsetTplComponent } from '../publish-tpl/publish-tpl.component';
 import { ListEventComponent } from '../list-event/list-event.component';
-import { ListPodComponent } from '../list-pod/list-pod.component';
+import { ListPodComponent } from '../../../shared/list-pod/list-pod.component';
 import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
