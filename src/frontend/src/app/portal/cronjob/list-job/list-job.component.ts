@@ -3,7 +3,7 @@ import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { Job } from '../../../shared/model/v1/job';
 import { JobClient } from '../../../shared/client/v1/kubernetes/job';
-import { ListPodComponent } from '../list-pod/list-pod.component';
+import { ListPodComponent } from '../../../shared/list-pod/list-pod.component';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -75,7 +75,7 @@ export class ListJobComponent implements OnInit, OnDestroy {
 
   listPod(job: Job) {
     // 只允许查看非完成的pod列表?
-    this.listPodComponent.openModal(job.cluster, job.kubeJob);
+    this.listPodComponent.openModal(job.cluster, job.kubeJob.metadata.name);
   }
 
   refresh(state?: ClrDatagridStateInterface) {

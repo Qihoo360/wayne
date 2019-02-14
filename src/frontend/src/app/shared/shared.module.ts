@@ -50,6 +50,7 @@ import { DiffComponent } from './diff/diff.component';
 import { DiffService } from './diff/diff.service';
 import { ResourceLimitModule } from './component/resource-limit/resource-limit.module';
 import { EchartsModule } from './echarts/echars.module';
+import { ListPodComponent } from './list-pod/list-pod.component';
 
 @NgModule({
   imports: [
@@ -91,7 +92,8 @@ import { EchartsModule } from './echarts/echars.module';
     DropDownComponent,
     DropdownItemComponent,
     RelativeTimeFilterPipe,
-    DiffComponent
+    DiffComponent,
+    ListPodComponent
   ],
   exports: [
     BrowserAnimationsModule,
@@ -129,7 +131,8 @@ import { EchartsModule } from './echarts/echars.module';
     DropdownItemComponent,
     RelativeTimeFilterPipe,
     TranslateModule,
-    DiffComponent
+    DiffComponent,
+    ListPodComponent
   ],
   providers: [
     TipService,
