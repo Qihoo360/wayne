@@ -353,8 +353,7 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
   cloneDaemonSetTpl(tpl: DaemonSetTemplate) {
     if (tpl) {
       this.router.navigate(
-        [`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/daemonset
-        /${this.daemonSetId}/tpl/${tpl.id}`]);
+        [`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/daemonset/${this.daemonSetId}/tpl/${tpl.id}`]);
     }
   }
 

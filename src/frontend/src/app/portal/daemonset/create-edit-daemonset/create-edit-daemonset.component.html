@@ -41,7 +41,7 @@
                     rows="3">
           </textarea>
         </div>
-        <resource-limit *ngIf="authService.currentUser.admin"></resource-limit>
+        <resource-limit [style.display]="authService.currentUser.admin ? 'block' : 'none'"></resource-limit>
       </section>
     </form>
   </div>

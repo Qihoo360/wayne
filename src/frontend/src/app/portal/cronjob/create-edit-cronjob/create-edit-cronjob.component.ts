@@ -77,7 +77,8 @@ export class CreateEditCronjobComponent implements OnInit {
               this.clusterMetas[clu.name] = culsterMeta;
             }
           }
-          this.resourceLimitComponent.setValue(JSON.parse(this.cronjob.metaData)['resources']);
+          const metaData = JSON.parse(this.cronjob.metaData ? this.cronjob.metaData : '{}');
+          this.resourceLimitComponent.setValue(metaData['resources']);
         },
         error => {
           this.messageHandlerService.handleError(error);

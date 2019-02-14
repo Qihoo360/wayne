@@ -380,8 +380,8 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
   // 点击克隆模版
   cloneCronjobTpl(tpl: CronjobTpl) {
     if (tpl) {
-      this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app
-      /${this.app.id}/cronjob/${this.cronjobId}/tpl/${tpl.id}`]);
+      this.router.navigate(
+        [`portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/cronjob/${this.cronjobId}/tpl/${tpl.id}`]);
     }
   }
 
