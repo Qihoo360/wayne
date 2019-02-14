@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ListEventComponent } from './list-event/list-event.component';
-import { ListPodComponent } from './list-pod/list-pod.component';
 import { PodClient } from '../../shared/client/v1/kubernetes/pod';
 import { ClusterService } from '../../shared/client/v1/cluster.service';
 import { PublicService } from '../../shared/client/v1/public.service';
@@ -41,7 +40,6 @@ import { CreateEditStatefulsettplComponent } from './create-edit-statefulsettpl/
     ListStatefulsetComponent,
     PublishStatefulsetTplComponent,
     ListEventComponent,
-    ListPodComponent,
     CreateEditStatefulsettplComponent
 
   ]
