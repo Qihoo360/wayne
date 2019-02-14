@@ -15,7 +15,7 @@
         </textarea>
       </div>
     </section>
-    <section  class="form-block wrap" style="overflow:hidden">
+    <section  class="form-block wrap">
       <div style="float: left;width: 60%">
         <label class="label-level1">服务配置</label>
         <div *ngFor="let rule of kubeResource.spec.rules; let i = index">
@@ -31,7 +31,12 @@
             <div *ngFor="let path of kubeResource.spec.rules[i].http.paths; let j = index">
               <div class="form-group form-group-padding" >
                 <label class="clr-col-md-3 form-group-label-override required">负载均衡名称</label>
-                <input type="text" class="clr-col-md-2"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.rules[i].http.paths[j].backend.serviceName">
+                <wayne-select [direction]="bottom" inputable name="svc_name" [(ngModel)]="kubeResource.spec.rules[i].http.paths[j].backend.serviceName"
+                              searchable
+                              [placeholder]="'PLACEHOLDER.CHOOSE' | translate">
+                  <wayne-option *ngFor="let svc of svcs" [value]="svc.name">{{svc.name}}</wayne-option>
+                </wayne-select>
+
                 <label class="clr-col-md-2 form-group-label-override required">端口</label>
                 <input type="number" class="clr-col-md-1"  [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.rules[i].http.paths[j].backend.servicePort">
                 <label class="clr-col-md-2 form-group-label-override required">路由</label>
@@ -44,7 +49,7 @@
         </div>
       </div>
     </section>
-    <section  class="form-block wrap" style="overflow:hidden">
+    <section  class="form-block wrap">
       <div style="float: left;width: 60%">
         <label class="label-level1">TLS 配置</label>
         <button class="btn btn-sm btn-link" (click)="onAddTLS()" href="javascript:void(0)" *ngIf="kubeResource.spec.tls.length === 0"><clr-icon shape="add"></clr-icon>添加</button>
@@ -52,19 +57,24 @@
           <div class="form-group form-group-padding" >
             <label class="clr-col-md-2 form-group-label-override">主机</label>
             <input  class="clr-col-md-3" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.tls[i].hosts[0]">
-            <label class="clr-col-md-2 form-group-label-override">秘密名字</label>
-            <input class="clr-col-md-3" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.tls[i].secretName">
+            <label class="clr-col-md-2 form-group-label-override">加密字典名称</label>
+            <wayne-select inputable name="secret_name" [(ngModel)]="kubeResource.spec.tls[i].secretName"
+                          searchable
+                          [placeholder]="'PLACEHOLDER.CHOOSE' | translate">
+              <wayne-option *ngFor="let secret of secrets" [value]="secret.name">{{secret.name}}</wayne-option>
+            </wayne-select>
             <a href="javascript:void(0)" *ngIf="kubeResource.spec.tls.length > 0"><clr-icon (click)="onDeleteTLS(i)" shape="trash" title="删除 TLS" class="is-solid clr-icon"></clr-icon></a>
             <a href="javascript:void(0)" *ngIf=" i === kubeResource.spec.tls.length - 1"><clr-icon (click)="onAddTLS()" shape="plus-circle" title="添加 TLS" class="is-solid clr-icon"></clr-icon></a>
           </div>
         </div>
       </div>
     </section>
-    <div class="clr-wizard-footer-buttons" style="padding-top: 30px">
-      <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
-      <button type="button" class="btn btn-primary" (click)="onOpenModal()">高级配置</button>
-      <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
-    </div>
+
   </form>
+</div>
+<div class="clr-wizard-footer-buttons tpl-bottom">
+  <button type="button" class="btn btn-outline" (click)="onCancel()">取消</button>
+  <button type="button" class="btn btn-primary" (click)="onOpenModal()">高级配置</button>
+  <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">提交</button>
 </div>
 <wayne-ace-editor (outputObj)="saveResourceTemplate($event)"></wayne-ace-editor>

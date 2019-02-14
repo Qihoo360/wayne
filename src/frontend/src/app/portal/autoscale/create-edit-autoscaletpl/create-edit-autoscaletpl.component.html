@@ -21,7 +21,7 @@
         <div class="form-group form-group-padding" >
           <label class="clr-col-md-4 form-group-label-override required">{{'TEMPLATE.TYPE' | translate}}</label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text"
+            <input readonly type="text"
                    [ngModelOptions]="{standalone: true}"
                    [(ngModel)]="kubeResource.spec.scaleTargetRef.kind">
           </label>
@@ -29,9 +29,11 @@
         <div class="form-group form-group-padding" >
           <label class="clr-col-md-4 form-group-label-override required">{{'TEMPLATE.NAME' | translate}}</label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text"
-                   [ngModelOptions]="{standalone: true}"
-                   [(ngModel)]="kubeResource.spec.scaleTargetRef.name">
+            <wayne-select inputable name="deploy_name" [(ngModel)]="kubeResource.spec.scaleTargetRef.name"
+                          searchable
+                          [placeholder]="'PLACEHOLDER.CHOOSE' | translate">
+              <wayne-option *ngFor="let deploy of deploys" [value]="deploy.name">{{deploy.name}}</wayne-option>
+            </wayne-select>
           </label>
         </div>
 
