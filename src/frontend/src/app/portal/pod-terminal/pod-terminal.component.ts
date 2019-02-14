@@ -56,7 +56,7 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
           const pod = this.getPodByName(podName);
           if (!pod) {
             const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}` +
-            `/${this.resourceName}/pod/${this.pods[0].name}/terminal/${this.cluster}/${this.namespace}`;
+              `/${this.resourceName}/pod/${this.pods[0].name}/terminal/${this.cluster}/${this.namespace}`;
             this.router.navigateByUrl(url);
           }
           this.selectedPod = pod;
@@ -84,7 +84,7 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
 
   containerChange() {
     const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}` +
-    `/${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/terminal/${this.cluster}/${this.namespace}`;
+      `/${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/terminal/${this.cluster}/${this.namespace}`;
     this.router.navigateByUrl(url);
   }
 
@@ -105,7 +105,7 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
     this.containers = this.selectedPod.containerStatus;
     this.selectedContainer = this.containers[0].name;
     const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/${this.resourceName}` +
-    `/pod/${this.selectedPod.name}/container/${this.selectedContainer}/terminal/${this.cluster}/${this.namespace}`;
+      `/pod/${this.selectedPod.name}/container/${this.selectedContainer}/terminal/${this.cluster}/${this.namespace}`;
     this.router.navigateByUrl(url);
   }
 
@@ -157,9 +157,9 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
   onTerminalResize() {
     const width = this.terminal.nativeElement.parentElement.clientWidth;
     const height = this.terminal.nativeElement.parentElement.clientHeight;
-    const xterm = Terminal.apply(this.xterm);
-    const cols = (width - xterm.viewport.scrollBarWidth - 15) / xterm.renderer.dimensions.actualCellWidth;
-    const rows = height / xterm.renderer.dimensions.actualCellHeight;
+    const xterm: any = this.xterm;
+    const cols = (width - xterm._core.viewport.scrollBarWidth - 15) / xterm._core.renderer.dimensions.actualCellWidth;
+    const rows = height / xterm._core.renderer.dimensions.actualCellHeight;
     this.xterm.resize(parseInt(cols.toString(), 10), parseInt(rows.toString(), 10));
 
   }
