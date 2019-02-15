@@ -2,6 +2,7 @@ package common
 
 import (
 	"github.com/Qihoo360/wayne/src/backend/models"
+
 	kapiv1beta1 "k8s.io/api/extensions/v1beta1"
 )
 
@@ -14,11 +15,11 @@ func IngressPreDeploy(kubeIngress *kapiv1beta1.Ingress, cluster *models.Cluster,
 		preDefinedAnnotationMap[k] = v
 	}
 	// cluster defined, overwrite user defined
-	for k, v := range cluster.MetaDataObj.SvcAnnotations {
+	for k, v := range cluster.MetaDataObj.ServiceAnnotations {
 		preDefinedAnnotationMap[k] = v
 	}
 	// namespace defined, overwrite cluster and user defined
-	for k, v := range namespace.MetaDataObj.SvcAnnotations {
+	for k, v := range namespace.MetaDataObj.ServiceAnnotations {
 		preDefinedAnnotationMap[k] = v
 	}
 	for k, v := range preDefinedAnnotationMap {

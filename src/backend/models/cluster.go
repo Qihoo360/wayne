@@ -84,7 +84,7 @@ type ClusterMetaData struct {
 	// current cluster image pull secrets, will be overwrite by namespace's ImagePullSecrets
 	ImagePullSecrets []v1.LocalObjectReference `json:"imagePullSecrets"`
 	// 默认添加service注解，会在发布资源时在每个service添加此Annotations, will be overwrite by namespace's Annotations
-	SvcAnnotations map[string]string `json:"svcAnnotations,omitempty"`
+	ServiceAnnotations map[string]string `json:"serviceAnnotations,omitempty"`
 	// 默认添加ingress注解，会在发布资源时在每个ingress添加此Annotations, will be overwrite by namespace's Annotations
 	IngressAnnotations map[string]string `json:"ingressAnnotations,omitempty"`
 }
