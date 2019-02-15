@@ -12,6 +12,7 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/resources/service"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/Qihoo360/wayne/src/backend/workers/webhook"
+	"github.com/Qihoo360/wayne/src/backend/controllers/common"
 )
 
 type KubeServiceController struct {
@@ -113,6 +114,24 @@ func (c *KubeServiceController) Deploy() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	cli, err := client.Client(cluster)
 	if err == nil {
+		namespaceModel, err := common.GetNamespace(c.AppId)
+		if err != nil {
+			logs.Error("get getNamespaceMetaData error.%v", err)
+			c.HandleError(err)
+			return
+		}
+
+		clusterModel, err := models.ClusterModel.GetParsedMetaDataByName(cluster)
+		if err != nil {
+			logs.Error("get cluster error.%v", err)
+			c.HandleError(err)
+			return
+		}
+
+		// add service predeploy
+		common.ServicePreDeploy(&kubeService, clusterModel, namespaceModel)
+
+
 		publishHistory := &models.PublishHistory{
 			Type:         models.PublishTypeService,
 			ResourceId:   int64(serviceId),

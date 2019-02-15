@@ -49,6 +49,10 @@ type NamespaceMetaData struct {
 	Env []v1.EnvVar `json:"env,omitempty"`
 	// current namespace image pull secrets, will overwrite cluster's ImagePullSecrets
 	ImagePullSecrets []v1.LocalObjectReference `json:"imagePullSecrets"`
+	// current namespace service annotation, will overwrite cluster service's Annotation
+	SvcAnnotations map[string]string `json:"svcAnnotations,omitempty"`
+	// current namespace ingress annotation, will overwrite cluster ingress's Annotation
+	IngressAnnotations map[string]string `json:"ingressAnnotations,omitempty"`
 }
 
 type ClusterMeta struct {

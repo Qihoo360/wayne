@@ -7,6 +7,7 @@ import (
 
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
+	"github.com/Qihoo360/wayne/src/backend/controllers/common"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/models/response"
 	"github.com/Qihoo360/wayne/src/backend/resources/ingress"
@@ -92,6 +93,24 @@ func (c *KubeIngressController) Deploy() {
 		c.AbortBadRequestFormat("Cluster")
 		return
 	}
+
+	namespaceModel, err := common.GetNamespace(c.AppId)
+	if err != nil {
+		logs.Error("get getNamespaceMetaData error.%v", err)
+		c.HandleError(err)
+		return
+	}
+
+	clusterModel, err := models.ClusterModel.GetParsedMetaDataByName(clusterName)
+	if err != nil {
+		logs.Error("get cluster error.%v", err)
+		c.HandleError(err)
+		return
+	}
+
+	// add ingress predeploy
+	common.IngressPreDeploy(&kubeIngress, clusterModel, namespaceModel)
+
 	publishHistory := &models.PublishHistory{
 		Type:         models.PublishTypeIngress,
 		ResourceId:   int64(ingressId),

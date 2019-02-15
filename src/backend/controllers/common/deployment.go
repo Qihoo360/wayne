@@ -1,6 +1,7 @@
 package common
 
 import (
+	"encoding/json"
 	"strings"
 
 	"k8s.io/api/apps/v1beta1"
@@ -8,6 +9,8 @@ import (
 
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/util"
+	"github.com/Qihoo360/wayne/src/backend/util/logs"
+	"github.com/Qihoo360/wayne/src/backend/util/hack"
 )
 
 func DeploymentPreDeploy(kubeDeployment *v1beta1.Deployment, deploy *models.Deployment,
@@ -82,4 +85,27 @@ func DeploymentPreDeploy(kubeDeployment *v1beta1.Deployment, deploy *models.Depl
 	}
 	kubeDeployment.Spec.Template.Annotations[util.PodAnnotationControllerKindLabelKey] = strings.ToLower(string(models.KubeApiTypeDeployment))
 
+}
+
+
+func GetNamespace(appId int64) (*models.Namespace, error) {
+	app, err := models.AppModel.GetById(appId)
+	if err != nil {
+		logs.Warning("get app by id (%d) error. %v", appId, err)
+		return nil, err
+	}
+
+	ns, err := models.NamespaceModel.GetById(app.Namespace.Id)
+	if err != nil {
+		logs.Warning("get namespace by id (%d) error. %v", app.Namespace.Id, err)
+		return nil, err
+	}
+	var namespaceMetaData models.NamespaceMetaData
+	err = json.Unmarshal(hack.Slice(ns.MetaData), &namespaceMetaData)
+	if err != nil {
+		logs.Error("Unmarshal namespace metadata (%s) error. %v", ns.MetaData, err)
+		return nil, err
+	}
+	ns.MetaDataObj = namespaceMetaData
+	return ns, nil
 }
