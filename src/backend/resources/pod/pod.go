@@ -177,9 +177,7 @@ func toPod(kpod *v1.Pod) *Pod {
 		State:     getPodStatus(kpod),
 	}
 
-	if kpod.Status.StartTime != nil {
-		pod.StartTime = kpod.Status.StartTime.Local()
-	}
+	pod.StartTime = kpod.CreationTimestamp.Time
 
 	status := make([]ContainerStatus, 0)
 
