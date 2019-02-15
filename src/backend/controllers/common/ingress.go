@@ -1,9 +1,9 @@
 package common
 
 import (
-	"github.com/Qihoo360/wayne/src/backend/models"
-
 	kapiv1beta1 "k8s.io/api/extensions/v1beta1"
+
+	"github.com/Qihoo360/wayne/src/backend/models"
 )
 
 func IngressPreDeploy(kubeIngress *kapiv1beta1.Ingress, cluster *models.Cluster, namespace *models.Namespace) {
