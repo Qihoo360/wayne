@@ -55,10 +55,10 @@ func (*App) TableName() string {
 type AppStar struct {
 	App
 
-	CreateTime    time.Time `json:"createTime"`
-	NamespaceId   int64     `json:"namespaceId"`
-	NamespaceName string    `json:"namespaceName"`
-	Starred       bool      `json:"starred"`
+	CreateTime    *time.Time `json:"createTime"`
+	NamespaceId   int64      `json:"namespaceId"`
+	NamespaceName string     `json:"namespaceName"`
+	Starred       bool       `json:"starred"`
 }
 
 type AppStatistics struct {

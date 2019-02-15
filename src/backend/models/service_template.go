@@ -15,10 +15,10 @@ type ServiceTemplate struct {
 	Service     *Service `orm:"index;rel(fk);column(service_id)" json:"service,omitempty"`
 	Description string   `orm:"size(512)" json:"description,omitempty"`
 
-	CreateTime time.Time `orm:"auto_now_add;type(datetime)" json:"createTime,omitempty"`
-	UpdateTime time.Time `orm:"auto_now;type(datetime)" json:"updateTime,omitempty"`
-	User       string    `orm:"size(128)" json:"user,omitempty"`
-	Deleted    bool      `orm:"default(false)" json:"deleted,omitempty"`
+	CreateTime *time.Time `orm:"auto_now_add;type(datetime)" json:"createTime,omitempty"`
+	UpdateTime *time.Time `orm:"auto_now;type(datetime)" json:"updateTime,omitempty"`
+	User       string     `orm:"size(128)" json:"user,omitempty"`
+	Deleted    bool       `orm:"default(false)" json:"deleted,omitempty"`
 
 	Status    []*PublishStatus `orm:"-" json:"status,omitempty"`
 	ServiceId int64            `orm:"-" json:"serviceId,omitempty"`

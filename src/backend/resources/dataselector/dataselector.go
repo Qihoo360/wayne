@@ -117,6 +117,9 @@ func ParseToComparableValue(value interface{}) ComparableValue {
 		return StdComparableInt(value.(int))
 	case time.Time:
 		return StdComparableTime(value.(time.Time))
+	case *time.Time:
+		v := value.(*time.Time)
+		return StdComparableTime(*v)
 	default:
 		return nil
 	}

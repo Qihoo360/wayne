@@ -68,10 +68,10 @@ type DaemonSet struct {
 	Description string            `orm:"null;size(512)" json:"description,omitempty"`
 	OrderId     int64             `orm:"index;default(0)" json:"order"`
 
-	CreateTime time.Time `orm:"auto_now_add;type(datetime)" json:"createTime,omitempty"`
-	UpdateTime time.Time `orm:"auto_now;type(datetime)" json:"updateTime,omitempty"`
-	User       string    `orm:"size(128)" json:"user,omitempty"`
-	Deleted    bool      `orm:"default(false)" json:"deleted,omitempty"`
+	CreateTime *time.Time `orm:"auto_now_add;type(datetime)" json:"createTime,omitempty"`
+	UpdateTime *time.Time `orm:"auto_now;type(datetime)" json:"updateTime,omitempty"`
+	User       string     `orm:"size(128)" json:"user,omitempty"`
+	Deleted    bool       `orm:"default(false)" json:"deleted,omitempty"`
 
 	AppId int64 `orm:"-" json:"appId,omitempty"`
 }

@@ -20,7 +20,7 @@ type Request struct {
 	App       response.App       `json:"app"`
 	User      string             `json:"user"`
 	IP        string             `json:"ip"`
-	Datetime  time.Time          `json:"datetime"`
+	Datetime  *time.Time         `json:"datetime"`
 	Payload   interface{}        `json:"payload"`
 }
 
@@ -62,12 +62,13 @@ func PublishEventDeployment(namespaceId int64, appId int64, user string, ip stri
 	if !enable() {
 		return
 	}
+	t := time.Now()
 	messageData, err := json.Marshal(message.HookMessageData{
 		NamespaceId: namespaceId,
 		AppId:       appId,
 		User:        user,
 		IP:          ip,
-		Datetime:    time.Now(),
+		Datetime:    &t,
 		EventKey:    hookevent.EventDeployment.Key,
 		Payload: EventDeploymentPayload{
 			Action:     action,
@@ -91,12 +92,13 @@ func PublishEventService(namespaceId int64, appId int64, user string, ip string,
 	if !enable() {
 		return
 	}
+	t := time.Now()
 	messageData, err := json.Marshal(message.HookMessageData{
 		NamespaceId: namespaceId,
 		AppId:       appId,
 		User:        user,
 		IP:          ip,
-		Datetime:    time.Now(),
+		Datetime:    &t,
 		EventKey:    hookevent.EventService.Key,
 		Payload: EventServicePayload{
 			Action:  action,
@@ -120,12 +122,13 @@ func PublishEventIngress(namespaceId int64, appId int64, user string, ip string,
 	if !enable() {
 		return
 	}
+	t := time.Now()
 	messageData, err := json.Marshal(message.HookMessageData{
 		NamespaceId: namespaceId,
 		AppId:       appId,
 		User:        user,
 		IP:          ip,
-		Datetime:    time.Now(),
+		Datetime:    &t,
 		EventKey:    hookevent.EventIngress.Key,
 		Payload: EventIngressPayload{
 			Action:  action,
@@ -151,12 +154,13 @@ func PublishEventMember(namespaceId int64, appId int64, user string, ip string, 
 	}
 	m := response.User{}
 	m.LoadFromModel(member)
+	t := time.Now()
 	messageData, err := json.Marshal(message.HookMessageData{
 		NamespaceId: namespaceId,
 		AppId:       appId,
 		User:        user,
 		IP:          ip,
-		Datetime:    time.Now(),
+		Datetime:    &t,
 		EventKey:    hookevent.EventMember.Key,
 		Payload: EventMemberPayload{
 			Action: action,

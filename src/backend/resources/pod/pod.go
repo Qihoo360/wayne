@@ -24,7 +24,7 @@ type Pod struct {
 	State           string            `json:"state,omitempty"`
 	PodIp           string            `json:"podIp,omitempty"`
 	NodeName        string            `json:"nodeName,omitempty"`
-	StartTime       time.Time         `json:"startTime,omitempty"`
+	StartTime       *time.Time        `json:"startTime,omitempty"`
 	Labels          map[string]string `json:"labels,omitempty"`
 }
 
@@ -178,7 +178,8 @@ func toPod(kpod *v1.Pod) *Pod {
 	}
 
 	if kpod.Status.StartTime != nil {
-		pod.StartTime = kpod.Status.StartTime.Local()
+		t := kpod.Status.StartTime.Local()
+		pod.StartTime = &t
 	}
 
 	status := make([]ContainerStatus, 0)

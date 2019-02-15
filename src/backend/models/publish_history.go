@@ -35,8 +35,8 @@ func (*PublishHistory) TableName() string {
 }
 
 type DeployCount struct {
-	Date  time.Time `json:"date,omitempty"`
-	Count int       `json:"count"`
+	Date  *time.Time `json:"date,omitempty"`
+	Count int        `json:"count"`
 }
 
 func (*publishHistoryModel) Add(m *PublishHistory) (id int64, err error) {

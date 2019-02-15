@@ -17,10 +17,10 @@ type DaemonSetTemplate struct {
 	DaemonSet   *DaemonSet `orm:"index;rel(fk)" json:"daemonSet,omitempty"`
 	Description string     `orm:"size(512)" json:"description,omitempty"`
 
-	CreateTime time.Time `orm:"auto_now_add;type(datetime)" json:"createTime,omitempty"`
-	UpdateTime time.Time `orm:"auto_now;type(datetime)" json:"updateTime,omitempty"`
-	User       string    `orm:"size(128)" json:"user,omitempty"`
-	Deleted    bool      `orm:"default(false)" json:"deleted,omitempty"`
+	CreateTime *time.Time `orm:"auto_now_add;type(datetime)" json:"createTime,omitempty"`
+	UpdateTime *time.Time `orm:"auto_now;type(datetime)" json:"updateTime,omitempty"`
+	User       string     `orm:"size(128)" json:"user,omitempty"`
+	Deleted    bool       `orm:"default(false)" json:"deleted,omitempty"`
 
 	DaemonSetId int64            `orm:"-" json:"daemonSetId,omitempty"`
 	Status      []*PublishStatus `orm:"-" json:"status,omitempty"`

@@ -36,7 +36,7 @@ type HookMessageData struct {
 
 	User     string
 	IP       string
-	Datetime time.Time
+	Datetime *time.Time
 
 	EventKey string
 	Payload  interface{}

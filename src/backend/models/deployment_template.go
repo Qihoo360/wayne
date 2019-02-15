@@ -20,10 +20,10 @@ type DeploymentTemplate struct {
 	// TODO
 	// 如果使用指针类型auto_now_add和auto_now可以自动生效,但是orm QueryRows无法对指针类型的time正常赋值，
 	// 不使用指针类型创建时需要手动把创建时间设置为当前时间,更新时也需要处理创建时间
-	CreateTime time.Time `orm:"auto_now_add;type(datetime)" json:"createTime,omitempty"`
-	UpdateTime time.Time `orm:"auto_now;type(datetime)" json:"updateTime,omitempty"`
-	User       string    `orm:"size(128)" json:"user,omitempty"`
-	Deleted    bool      `orm:"default(false)" json:"deleted,omitempty"`
+	CreateTime *time.Time `orm:"auto_now_add;type(datetime)" json:"createTime,omitempty"`
+	UpdateTime *time.Time `orm:"auto_now;type(datetime)" json:"updateTime,omitempty"`
+	User       string     `orm:"size(128)" json:"user,omitempty"`
+	Deleted    bool       `orm:"default(false)" json:"deleted,omitempty"`
 
 	DeploymentId int64            `orm:"-" json:"deploymentId,omitempty"`
 	Status       []*PublishStatus `orm:"-" json:"status,omitempty"`

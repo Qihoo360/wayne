@@ -173,7 +173,7 @@ func (c *OpenAPIController) GetDeploymentStatus() {
 			Name:       deployInfo.ObjectMeta.Name,
 			Namespace:  deployInfo.ObjectMeta.Namespace,
 			Labels:     deployInfo.ObjectMeta.Labels,
-			CreateTime: deployInfo.ObjectMeta.CreationTimestamp.Time,
+			CreateTime: &(deployInfo.ObjectMeta.CreationTimestamp.Time),
 			PodsState: response.PodInfo{
 				Current:   deployInfo.Pods.Current,
 				Desired:   deployInfo.Pods.Desired,
@@ -199,7 +199,7 @@ func (c *OpenAPIController) GetDeploymentStatus() {
 				State:     pod.State,
 				PodIp:     pod.PodIp,
 				NodeName:  pod.NodeName,
-				StartTime: &pod.StartTime,
+				StartTime: pod.StartTime,
 				Labels:    pod.Labels,
 			}
 			for _, status := range pod.ContainerStatus {
