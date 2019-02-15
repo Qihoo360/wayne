@@ -53,9 +53,9 @@ else
 fi
 RELEASE_BRANCH="release/v$V_MAJOR.$V_MINOR"
 
-if [ "$CHANGELOG_GITHUB_TOKEN" = "" ]; then
-    read -p "Please insert the CHANGELOG_GITHUB_TOKEN environment variable to your 40 digit token: " CHANGELOG_GITHUB_TOKEN
-fi
+#if [ "$CHANGELOG_GITHUB_TOKEN" = "" ]; then
+#    read -p "Please insert the CHANGELOG_GITHUB_TOKEN environment variable to your 40 digit token: " CHANGELOG_GITHUB_TOKEN
+#fi
 
 read -p "Change branch to [$RELEASE_BRANCH]? (Y): " CONFIRM0
 if [ "$CONFIRM0" = "" ]; then CONFIRM0="Y"; fi
@@ -85,7 +85,7 @@ if [ "$CONFIRM1" = "Y" ]; then
     sed -i "s/$VERSION/$NEXT_VERSION/" $GO_MAIN
     sed -i 's/\("version": "\)'$VERSION'/\1'$NEXT_VERSION'/' $PACKAGE_JSON
     sed -i 's/\(Version: \)'$VERSION'/\1'$NEXT_VERSION'/' $SWAGGER_VERSION_GO
-    github_changelog_generator -u Qihoo360 -p wayne --token $CHANGELOG_GITHUB_TOKEN --unreleased-label=$NEXT_VERSION
+#    github_changelog_generator -u Qihoo360 -p wayne --token $CHANGELOG_GITHUB_TOKEN --unreleased-label=$NEXT_VERSION
 
     COMMITLOG="
 Release v$NEXT_VERSION
