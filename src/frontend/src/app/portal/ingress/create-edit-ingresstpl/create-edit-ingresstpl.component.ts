@@ -15,7 +15,10 @@ import { IngressService } from '../../../shared/client/v1/ingress.service';
 import { IngressTplService } from '../../../shared/client/v1/ingresstpl.service';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { CreateEditResourceTemplate } from '../../../shared/base/resource/create-edit-resource-template';
-import { KubeIngress, IngressRule, IngressPath } from '../../../shared/model/v1/kubernetes/ingress';
+import { ServiceService } from '../../../../../lib/shared/client/v1/service.service';
+import { Service } from '../../../../../lib/shared/model/service';
+import { SecretService } from '../../../shared/client/v1/secret.service';
+import { Secret } from '../../../shared/model/v1/secret';
 
 
 @Component({
@@ -25,10 +28,13 @@ import { KubeIngress, IngressRule, IngressPath } from '../../../shared/model/v1/
 })
 export class CreateEditIngressTplComponent extends CreateEditResourceTemplate implements OnInit {
   actionType: ActionType;
-
+  svcs: Service[];
+  secrets: Secret[];
 
   constructor(private ingressTplService: IngressTplService,
               private ingressService: IngressService,
+              private serviceService: ServiceService,
+              private secretService: SecretService,
               public location: Location,
               public router: Router,
               public appService: AppService,
@@ -65,6 +71,8 @@ export class CreateEditIngressTplComponent extends CreateEditResourceTemplate im
     const observables = Array(
       this.appService.getById(appId, namespaceId),
       this.ingressService.getById(ingressId, appId),
+      this.serviceService.getNames(appId),
+      this.secretService.getNames(appId)
     );
     if (tplId) {
       this.actionType = ActionType.EDIT;
@@ -76,7 +84,9 @@ export class CreateEditIngressTplComponent extends CreateEditResourceTemplate im
       response => {
         this.app = response[0].data;
         this.resource = response[1].data;
-        const tpl = response[2];
+        this.svcs = response[2].data;
+        this.secrets = response[3].data;
+        const tpl = response[4];
         if (tpl) {
           this.template = tpl.data;
           this.template.description = null;
@@ -150,14 +160,17 @@ export class CreateEditIngressTplComponent extends CreateEditResourceTemplate im
   }
 
   onAddPath(idx: number) {
-    this.kubeResource.spec.rules[idx].http.paths.push({ backend: { serviceName: '', servicePort: 80}, path: '/'});
+    this.kubeResource.spec.rules[idx].http.paths.push({backend: {serviceName: '', servicePort: 80}, path: '/'});
   }
+
   onDeletePath(i: number, j: number) {
     this.kubeResource.spec.rules[i].http.paths.splice(j, 1);
   }
+
   onAddTLS() {
     this.kubeResource.spec.tls.push({hosts: [''], secretName: ''});
   }
+
   onDeleteTLS(i: number) {
     this.kubeResource.spec.tls.splice(i, 1);
   }

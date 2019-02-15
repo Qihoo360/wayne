@@ -13,6 +13,8 @@ import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service'
 import { AutoscaleTplService } from '../../../shared/client/v1/autoscaletpl.service';
 import { AutoscaleService } from '../../../shared/client/v1/autoscale.service';
 import { AutoscaleTpl } from '../../../shared/model/v1/autoscaletpl';
+import { DeploymentService } from '../../../shared/client/v1/deployment.service';
+import { Deployment } from '../../../shared/model/v1/deployment';
 
 @Component({
   selector: 'wayne-create-edit-autoscaletpl',
@@ -22,18 +24,19 @@ import { AutoscaleTpl } from '../../../shared/model/v1/autoscaletpl';
 export class CreateEditAutoscaletplComponent extends CreateEditResourceTemplate implements OnInit {
   actionType: ActionType;
 
+  deploys: Deployment[];
 
   constructor(private autoscaleTplService: AutoscaleTplService,
-    private autoscaleService: AutoscaleService,
-    public location: Location,
-    public router: Router,
-    public appService: AppService,
-    public route: ActivatedRoute,
-    public authService: AuthService,
-    public cacheService: CacheService,
-    public aceEditorService: AceEditorService,
-    public messageHandlerService: MessageHandlerService
-) {
+              private autoscaleService: AutoscaleService,
+              public location: Location,
+              public router: Router,
+              public deploymentService: DeploymentService,
+              public appService: AppService,
+              public route: ActivatedRoute,
+              public authService: AuthService,
+              public cacheService: CacheService,
+              public aceEditorService: AceEditorService,
+              public messageHandlerService: MessageHandlerService) {
     super(
       autoscaleTplService,
       autoscaleService,
@@ -60,6 +63,7 @@ export class CreateEditAutoscaletplComponent extends CreateEditResourceTemplate 
     const observables = Array(
       this.appService.getById(appId, namespaceId),
       this.autoscaleService.getById(hpaId, appId),
+      this.deploymentService.getNames(appId),
     );
     if (tplId) {
       this.actionType = ActionType.EDIT;
@@ -71,14 +75,15 @@ export class CreateEditAutoscaletplComponent extends CreateEditResourceTemplate 
       response => {
         this.app = response[0].data;
         this.resource = response[1].data;
-        const tpl = response[2];
+        this.deploys = response[2].data;
+        const tpl = response[3];
         if (tpl) {
           this.template = tpl.data;
           this.template.description = null;
           this.saveResourceTemplate(JSON.parse(this.template.template));
         }
       },
-    error => {
+      error => {
         this.messageHandlerService.handleError(error);
       }
     );
@@ -88,7 +93,7 @@ export class CreateEditAutoscaletplComponent extends CreateEditResourceTemplate 
     if (super.isValidResource() === false) {
       return false;
     }
-    if (this.kubeResource.spec.minReplicas >  this.kubeResource.spec.maxReplicas) {
+    if (this.kubeResource.spec.minReplicas > this.kubeResource.spec.maxReplicas) {
       return false;
     }
     if (this.kubeResource.spec.targetCPUUtilizationPercentage <= 0) {
