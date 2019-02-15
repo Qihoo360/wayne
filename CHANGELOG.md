@@ -1,7 +1,51 @@
 # Change Log
 
-## [v1.3.1](https://github.com/Qihoo360/wayne/tree/HEAD)
+## [v1.4.0](https://github.com/Qihoo360/wayne/tree/v1.4.0) (2019-02-15)
 
+[Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.3.2...v1.4.0)
+
+**Implemented enhancements:**
+
+- Name selectable exist name list [\#252](https://github.com/Qihoo360/wayne/issues/252)
+- support for updating environment variables is added to the open interface of the upgrade deployment. [\#238](https://github.com/Qihoo360/wayne/issues/238)
+- Service type support LoadBalancer [\#276](https://github.com/Qihoo360/wayne/pull/276) ([wilhelmguo](https://github.com/wilhelmguo))
+- Secret template support set type [\#275](https://github.com/Qihoo360/wayne/pull/275) ([wilhelmguo](https://github.com/wilhelmguo))
+- Name selectable [\#271](https://github.com/Qihoo360/wayne/pull/271) ([wilhelmguo](https://github.com/wilhelmguo))
+- Different resource states by label of different colors [\#270](https://github.com/Qihoo360/wayne/pull/270) ([chengyumeng](https://github.com/chengyumeng))
+- Support HPA mangement [\#171](https://github.com/Qihoo360/wayne/issues/171)
+- 支持Endpoint [\#146](https://github.com/Qihoo360/wayne/issues/146)
+- Support Kubernetes Pod resource management [\#136](https://github.com/Qihoo360/wayne/issues/136)
+- Migration Secret from exist kubernetes clusters [\#134](https://github.com/Qihoo360/wayne/issues/134)
+- Migration ConfigMap from exist kubernetes clusters [\#133](https://github.com/Qihoo360/wayne/issues/133)
+- Migration Service from exist kubernetes clusters [\#132](https://github.com/Qihoo360/wayne/issues/132)
+- migration from exist kubernetes clusters [\#68](https://github.com/Qihoo360/wayne/issues/68)
+- Add kubernetes secret resource [\#259](https://github.com/Qihoo360/wayne/pull/259) ([wilhelmguo](https://github.com/wilhelmguo))
+- Feature/add kubernetes configmap [\#256](https://github.com/Qihoo360/wayne/pull/256) ([wilhelmguo](https://github.com/wilhelmguo))
+- Add kubernetes service and endpoint resource [\#255](https://github.com/Qihoo360/wayne/pull/255) ([wilhelmguo](https://github.com/wilhelmguo))
+- Feature/add kubernetes pod resource [\#254](https://github.com/Qihoo360/wayne/pull/254) ([wilhelmguo](https://github.com/wilhelmguo))
+- Feature: Add HPA in admin page. [\#247](https://github.com/Qihoo360/wayne/pull/247) ([chengyumeng](https://github.com/chengyumeng))
+
+**Fixed bugs:**
+
+- Wayne Get Pod Info Open API can't be used [\#260](https://github.com/Qihoo360/wayne/issues/260)
+- Fix pod list create time ref error [\#278](https://github.com/Qihoo360/wayne/pull/278) ([wilhelmguo](https://github.com/wilhelmguo))
+- Fix pod log container i18 error [\#272](https://github.com/Qihoo360/wayne/pull/272) ([wilhelmguo](https://github.com/wilhelmguo))
+- Fix portal configmap get status error [\#266](https://github.com/Qihoo360/wayne/pull/266) ([wilhelmguo](https://github.com/wilhelmguo))
+- View Pod log error [\#263](https://github.com/Qihoo360/wayne/issues/263)
+- When click “进入容器”, can not enter the pod. [\#240](https://github.com/Qihoo360/wayne/issues/240)
+- 后台管理的ingress中，回收站里的模板也不能删除和恢复 [\#225](https://github.com/Qihoo360/wayne/issues/225)
+- 后台管理中的负载均衡和ingress列表，点击“名称”和“项目”全部跳转404页面? [\#224](https://github.com/Qihoo360/wayne/issues/224)
+- Fix log detail error [\#261](https://github.com/Qihoo360/wayne/pull/261) ([wilhelmguo](https://github.com/wilhelmguo))
+- Fix get pod info API bug that label should be a key not a map [\#258](https://github.com/Qihoo360/wayne/pull/258) ([chengyumeng](https://github.com/chengyumeng))
+- frontend:fix error route in jump url [\#239](https://github.com/Qihoo360/wayne/pull/239) ([chengyumeng](https://github.com/chengyumeng))
+
+## [v1.3.2](https://github.com/Qihoo360/wayne/tree/v1.3.2) (2019-02-12)
+[Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.3.1...v1.3.2)
+
+**Fixed bugs:**
+- Wayne Get Pod Info Open API error  [\#260](https://github.com/Qihoo360/wayne/pull/258) ([chengyumeng](https://github.com/chengyumeng))
+
+## [v1.3.1](https://github.com/Qihoo360/wayne/tree/v1.3.1) (2019-01-11)
 [Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.3.0...v1.3.1)
 
 **Fixed bugs:**
