@@ -17,6 +17,10 @@ export class RelativeTimeFilterPipe implements PipeTransform {
 
     const elapsed = current - input;
 
+    if (inputDate === null || inputDate === undefined) {
+      return '';
+    }
+
     if (elapsed < msPerMinute) {
       return Math.floor(elapsed / 1000) + 's';
     } else if (elapsed < msPerHour) {
