@@ -15,11 +15,11 @@ func ServicePreDeploy(kubeService *v1.Service, cluster *models.Cluster, namespac
 		preDefinedAnnotationMap[k] = v
 	}
 	// cluster defined, overwrite user defined
-	for k, v := range cluster.MetaDataObj.SvcAnnotations {
+	for k, v := range cluster.MetaDataObj.ServiceAnnotations {
 		preDefinedAnnotationMap[k] = v
 	}
 	// namespace defined, overwrite cluster and user defined
-	for k, v := range namespace.MetaDataObj.SvcAnnotations {
+	for k, v := range namespace.MetaDataObj.ServiceAnnotations {
 		preDefinedAnnotationMap[k] = v
 	}
 	for k, v := range preDefinedAnnotationMap {

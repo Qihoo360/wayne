@@ -94,7 +94,7 @@ func (c *KubeIngressController) Deploy() {
 		return
 	}
 
-	namespaceModel, err := common.GetNamespace(c.AppId)
+	namespaceModel, err := models.NamespaceModel.GetNamespaceByAppId(c.AppId)
 	if err != nil {
 		logs.Error("get getNamespaceMetaData error.%v", err)
 		c.HandleError(err)

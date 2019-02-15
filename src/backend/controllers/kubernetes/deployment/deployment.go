@@ -132,7 +132,7 @@ func (c *KubeDeploymentController) Deploy() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	cli, err := client.Client(cluster)
 	if err == nil {
-		namespaceModel, err := common.GetNamespace(c.AppId)
+		namespaceModel, err := models.NamespaceModel.GetNamespaceByAppId(c.AppId)
 		if err != nil {
 			logs.Error("get getNamespaceMetaData error.%v", err)
 			c.HandleError(err)
