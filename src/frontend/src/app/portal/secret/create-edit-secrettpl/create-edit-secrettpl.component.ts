@@ -120,6 +120,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
       disabled = true;
     }
     this.currentForm = this.fb.group({
+      type: 'Opaque',
       description: this.secretTpl.description,
       datas: this.fb.array([
         this.fb.group({
@@ -267,7 +268,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
     }
     kubeSecret.kind = 'Secret';
     kubeSecret.apiVersion = 'v1';
-    kubeSecret.type = 'Opaque';
+    kubeSecret.type = formValue.type;
     kubeSecret.metadata.name = this.secret.name;
     kubeSecret.metadata.labels = this.buildLabels(kubeSecret.metadata.labels);
     if (formValue.datas && formValue.datas.length > 0) {
@@ -294,6 +295,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
           dataValue: Base64.decode(kubeSecret.data[key]),
         }));
       });
+      this.currentForm.setControl('type', this.fb.control(this.kubeSecret.type));
       this.currentForm.setControl('datas', this.fb.array(datas));
     }
   }
