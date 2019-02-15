@@ -4,7 +4,7 @@ GO_MAIN=src/backend/main.go
 PACKAGE_JSON=src/frontend/package.json
 SWAGGER_VERSION_GO=src/backend/controllers/openapi/openapi.go
 
-VERSION=(`grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+[a-z0-9\-]*" ${GO_MAIN}`)
+VERSION=(`grep -Eo "[0-9]+\.[0-9]+\.[0-9]+[a-z0-9\-]*" ${GO_MAIN}`)
 NEXT_VERSION=$(git describe --always --tags)
 
 echo "Project current version: [$VERSION], next_version:[$NEXT_VERSION] "

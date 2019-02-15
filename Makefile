@@ -5,11 +5,11 @@ MAKEFLAGS += --warn-undefined-variables
 # Build variables
 REGISTRY_URI :=360cloud
 RELEASE_VERSION :=$(shell git describe --always --tags)
-UI_BUILD_VERSION :=v1.0.0
+UI_BUILD_VERSION :=v1.0.1
 SERVER_BUILD_VERSION :=v1.0.0
 
 
-release: update-version build-release-image push-image
+release: build-release-image push-image
 
 update-version:
 	./hack/updateversion.sh

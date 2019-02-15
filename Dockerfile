@@ -4,7 +4,7 @@
 # docker --build-arg RELEASE_VERSION=v1.0.0 -t infra/wayne:v1.0.0 .
 
 # build ui
-FROM 360cloud/wayne-ui-builder:v1.0.0 as frontend
+FROM 360cloud/wayne-ui-builder:v1.0.1 as frontend
 
 ARG RAVEN_DSN
 
