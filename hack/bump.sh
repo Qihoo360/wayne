@@ -89,8 +89,6 @@ if [ "$CONFIRM1" = "Y" ]; then
 
     COMMITLOG="
 Release v$NEXT_VERSION
-
-$(git changelog -x -n -p -l)
 "
 
     git commit -ae -m "$COMMITLOG"
