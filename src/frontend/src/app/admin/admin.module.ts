@@ -56,6 +56,7 @@ import { KubeSecretModule } from './kubernetes/secret/kube-secret.module';
 import { KubeIngressModule } from './kubernetes/ingress/kube-ingress.module';
 import { KubeStatefulsetModule } from './kubernetes/statefulset/kube-statefulset.module';
 import { KubeDaemonsetModule } from './kubernetes/daemonset/kube-daemonset.module';
+import { KubeCronjobModule } from './kubernetes/cronjob/kube-cronjob.module';
 
 @NgModule({
   imports: [
@@ -104,7 +105,8 @@ import { KubeDaemonsetModule } from './kubernetes/daemonset/kube-daemonset.modul
     KubeSecretModule,
     KubeIngressModule,
     KubeStatefulsetModule,
-    KubeDaemonsetModule
+    KubeDaemonsetModule,
+    KubeCronjobModule
   ],
   providers: [
     AdminAuthCheckGuard,

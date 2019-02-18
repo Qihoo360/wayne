@@ -691,6 +691,20 @@
           "IMAGES": "镜像",
           "STATUS": "状态"
         }
+      },
+      "CRONJOB": {
+        "CREATE": "创建 CronJob",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "IMAGES": "镜像",
+          "SCHEDULE": "计划",
+          "SUSPEND": "挂起",
+          "ACTIVE": "活跃中",
+          "LAST_SCHEDULE": "最近调度",
+          "STATUS": "状态"
+        }
       }
     }
   }
