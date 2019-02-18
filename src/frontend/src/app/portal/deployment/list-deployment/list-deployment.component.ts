@@ -12,7 +12,7 @@ import {
 import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
 import { PublishDeploymentTplComponent } from '../publish-tpl/publish-tpl.component';
-import { ListEventComponent } from '../list-event/list-event.component';
+import { ListEventComponent } from '../../../shared/list-event/list-event.component';
 import { ListPodComponent } from '../../../shared/list-pod/list-pod.component';
 import { DeploymentStatus, DeploymentTpl, Event } from '../../../shared/model/v1/deploymenttpl';
 import { DeploymentService } from '../../../shared/client/v1/deployment.service';

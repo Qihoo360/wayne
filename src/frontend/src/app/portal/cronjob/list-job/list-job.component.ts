@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
 import { CacheService } from '../../../shared/auth/cache.service';
-import { ListEventComponent } from '../list-event/list-event.component';
+import { ListEventComponent } from '../../../shared/list-event/list-event.component';
 import { Event } from '../../../shared/model/v1/deploymenttpl';
 import { Page } from '../../../shared/page/page-state';
 import { StorageService } from '../../../shared/client/v1/storage.service';
