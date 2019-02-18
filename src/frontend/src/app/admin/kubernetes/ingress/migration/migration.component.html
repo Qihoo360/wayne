@@ -1,0 +1,32 @@
+<clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'xl'" #modal>
+  <h3 class="modal-title">迁移资源
+    <wayne-modal-operate [modal]="modal" *ngIf="modalOpened"></wayne-modal-operate>
+  </h3>
+  <div class="modal-body">
+    <form #ngForm="ngForm">
+      <section class="form-block">
+        <div class="form-group" style="padding-left: 135px;">
+          <label for="app" class="clr-col-md-3 form-group-label-override required">应用</label>
+          <div class="select form-control">
+            <wayne-select name="app" [(ngModel)]="selectedApp"
+                          searchable
+                          [placeholder]="'PLACEHOLDER.CHOOSE' | translate">
+              <wayne-option *ngFor="let app of apps" [value]="app">{{app.name}}</wayne-option>
+            </wayne-select>
+          </div>
+        </div>
+        <div class="form-group" style="padding-left: 135px;">
+          <label class="clr-col-md-3 form-group-label-override">模版</label>
+          <wayne-ace-editor-box></wayne-ace-editor-box>
+
+        </div>
+      </section>
+    </form>
+    <div class="modal-footer">
+
+      <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+      <button type="button" class="btn btn-primary" [disabled]="!isValid"
+              (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+    </div>
+  </div>
+</clr-modal>
