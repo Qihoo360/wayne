@@ -18,7 +18,6 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/resources/deployment"
 	"github.com/Qihoo360/wayne/src/backend/resources/namespace"
 	"github.com/Qihoo360/wayne/src/backend/util"
-	"github.com/Qihoo360/wayne/src/backend/util/hack"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/Qihoo360/wayne/src/backend/workers/webhook"
 )
@@ -133,7 +132,7 @@ func (c *KubeDeploymentController) Deploy() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	cli, err := client.Client(cluster)
 	if err == nil {
-		namespaceModel, err := getNamespace(c.AppId)
+		namespaceModel, err := models.NamespaceModel.GetNamespaceByAppId(c.AppId)
 		if err != nil {
 			logs.Error("get getNamespaceMetaData error.%v", err)
 			c.HandleError(err)
@@ -259,28 +258,6 @@ func checkResourceAvailable(ns *models.Namespace, cli *kubernetes.Clientset, kub
 
 	}
 	return nil
-}
-
-func getNamespace(appId int64) (*models.Namespace, error) {
-	app, err := models.AppModel.GetById(appId)
-	if err != nil {
-		logs.Warning("get app by id (%d) error. %v", appId, err)
-		return nil, err
-	}
-
-	ns, err := models.NamespaceModel.GetById(app.Namespace.Id)
-	if err != nil {
-		logs.Warning("get namespace by id (%d) error. %v", app.Namespace.Id, err)
-		return nil, err
-	}
-	var namespaceMetaData models.NamespaceMetaData
-	err = json.Unmarshal(hack.Slice(ns.MetaData), &namespaceMetaData)
-	if err != nil {
-		logs.Error("Unmarshal namespace metadata (%s) error. %v", ns.MetaData, err)
-		return nil, err
-	}
-	ns.MetaDataObj = namespaceMetaData
-	return ns, nil
 }
 
 // @Title Get

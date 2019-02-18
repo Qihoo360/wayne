@@ -79,10 +79,14 @@ type ClusterMetaData struct {
 	RBD *v1.RBDVolumeSource `json:"rbd"`
 	// cephfs默认配置，创建或修改cephfs类型的PV时会使用此配置填充
 	CephFS *v1.CephFSVolumeSource `json:"cephfs"`
-	// 默认添加环境变量，会在发布资源时在每个Container添加此环境变量, will be overwrite by namespace's ImagePullSecrets
+	// 默认添加环境变量，会在发布资源时在每个Container添加此环境变量, will be overwrite by namespace's Env
 	Env []v1.EnvVar
 	// current cluster image pull secrets, will be overwrite by namespace's ImagePullSecrets
 	ImagePullSecrets []v1.LocalObjectReference `json:"imagePullSecrets"`
+	// 默认添加service注解，会在发布资源时在每个service添加此Annotations, will be overwrite by namespace's Annotations
+	ServiceAnnotations map[string]string `json:"serviceAnnotations,omitempty"`
+	// 默认添加ingress注解，会在发布资源时在每个ingress添加此Annotations, will be overwrite by namespace's Annotations
+	IngressAnnotations map[string]string `json:"ingressAnnotations,omitempty"`
 }
 
 type ClusterRobinMetaData struct {
