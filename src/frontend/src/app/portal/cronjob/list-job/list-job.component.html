@@ -61,7 +61,7 @@
       <wayne-select [(ngModel)]="pageSize" style="width: 50px; height: 24px;margin-left: 12px;" inputable>
         <wayne-option *ngFor="let pagesize of pageSizes" [value]="pagesize">{{pagesize}}</wayne-option>
       </wayne-select>
-      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}}
+      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} 共 {{pagination.totalItems}} 条记录
     </ng-container>
     <span [translate]="'TOTAL.PAGE'" [translateParams]="{value: page.totalCount}"></span>
     <clr-dg-pagination #pagination [clrDgPageSize]="pageSize"></clr-dg-pagination>
