@@ -5,11 +5,11 @@ import { ClusterService } from '../../../shared/client/v1/cluster.service';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { AceEditorComponent } from '../../../shared/ace-editor/ace-editor.component';
 import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
-import { KubeResourceConfigMap } from '../../../shared/shared.const';
+import { KubeResourceIngress } from '../../../shared/shared.const';
 import { KubernetesNamespacedResource } from '../../../shared/base/kubernetes-namespaced/kubernetes-namespaced-resource';
 import { DeletionDialogComponent } from '../../../shared/deletion-dialog/deletion-dialog.component';
 import { MigrationComponent } from './migration/migration.component';
-import { ListConfigmapComponent } from './list-configmap/list-configmap.component';
+import { ListIngressComponent } from './list-ingress/list-ingress.component';
 
 const showState = {
   'name': {hidden: false},
@@ -18,13 +18,13 @@ const showState = {
 };
 
 @Component({
-  selector: 'wayne-kube-configmap',
-  templateUrl: './kube-configmap.component.html'
+  selector: 'wayne-kube-ingress',
+  templateUrl: './kube-ingress.component.html'
 })
 
-export class KubeConfigmapComponent extends KubernetesNamespacedResource implements OnInit, OnDestroy {
-  @ViewChild(ListConfigmapComponent)
-  listResourceComponent: ListConfigmapComponent;
+export class KubeIngressComponent extends KubernetesNamespacedResource implements OnInit, OnDestroy {
+  @ViewChild(ListIngressComponent)
+  listResourceComponent: ListIngressComponent;
 
   @ViewChild(AceEditorComponent)
   aceEditorModal: AceEditorComponent;
@@ -42,8 +42,8 @@ export class KubeConfigmapComponent extends KubernetesNamespacedResource impleme
               public authService: AuthService,
               public messageHandlerService: MessageHandlerService) {
     super(kubernetesClient, route, router, clusterService, authService, messageHandlerService);
-    super.registResourceType('configmap');
-    super.registKubeResource(KubeResourceConfigMap);
+    super.registResourceType('ingress');
+    super.registKubeResource(KubeResourceIngress);
     super.registShowSate(showState);
   }
 
