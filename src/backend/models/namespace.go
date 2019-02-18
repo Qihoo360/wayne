@@ -1,10 +1,15 @@
 package models
 
 import (
+	"encoding/json"
 	"fmt"
 	"time"
 
 	"k8s.io/api/core/v1"
+
+	"github.com/Qihoo360/wayne/src/backend/util/hack"
+	"github.com/Qihoo360/wayne/src/backend/util/logs"
+
 )
 
 const (
@@ -49,6 +54,10 @@ type NamespaceMetaData struct {
 	Env []v1.EnvVar `json:"env,omitempty"`
 	// current namespace image pull secrets, will overwrite cluster's ImagePullSecrets
 	ImagePullSecrets []v1.LocalObjectReference `json:"imagePullSecrets"`
+	// current namespace service annotation, will overwrite cluster service's Annotation
+	ServiceAnnotations map[string]string `json:"serviceAnnotations,omitempty"`
+	// current namespace ingress annotation, will overwrite cluster ingress's Annotation
+	IngressAnnotations map[string]string `json:"ingressAnnotations,omitempty"`
 }
 
 type ClusterMeta struct {
@@ -159,4 +168,26 @@ func (*namespaceModel) InitNamespace() (err error) {
 	}
 	_, _, err = Ormer().ReadOrCreate(&defaultNS, "Name")
 	return
+}
+
+func (*namespaceModel) GetNamespaceByAppId(appId int64) (*Namespace, error) {
+	app, err := AppModel.GetById(appId)
+	if err != nil {
+		logs.Warning("get app by id (%d) error. %v", appId, err)
+		return nil, err
+	}
+
+	ns, err := NamespaceModel.GetById(app.Namespace.Id)
+	if err != nil {
+		logs.Warning("get namespace by id (%d) error. %v", app.Namespace.Id, err)
+		return nil, err
+	}
+	var namespaceMetaData NamespaceMetaData
+	err = json.Unmarshal(hack.Slice(ns.MetaData), &namespaceMetaData)
+	if err != nil {
+		logs.Error("Unmarshal namespace metadata (%s) error. %v", ns.MetaData, err)
+		return nil, err
+	}
+	ns.MetaDataObj = namespaceMetaData
+	return ns, nil
 }
