@@ -286,14 +286,14 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
 
   cloneConfigMapTpl(tpl: ConfigMapTpl) {
     if (tpl) {
-      this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app
-      /${this.app.id}/configmap/${this.configMapId}/tpl/${tpl.id}`]);
+      this.router.navigate([
+        `portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/configmap/${this.configMapId}/tpl/${tpl.id}`]);
     }
   }
 
   createConfigMapTpl() {
-    this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app
-    /${this.app.id}/configmap/${this.configMapId}/tpl`]);
+    this.router.navigate([
+      `portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/configmap/${this.configMapId}/tpl`]);
   }
 
   ngOnDestroy(): void {
