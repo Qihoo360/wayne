@@ -63,7 +63,7 @@
       </wayne-select>
       {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} 共 {{pagination.totalItems}} 条记录
     </ng-container>
-    <span [translate]="'TOTAL.PAGE'" [translateParams]="{value: page.totalCount}"></span>
+    <span [translate]="'PAGE.TOTAL'" [translateParams]="{value: page.totalCount}"></span>
     <clr-dg-pagination #pagination [clrDgPageSize]="pageSize"></clr-dg-pagination>
   </clr-dg-footer>
 </clr-datagrid>
