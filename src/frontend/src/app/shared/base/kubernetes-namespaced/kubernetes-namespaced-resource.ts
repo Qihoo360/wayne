@@ -84,7 +84,7 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
   }
 
   createResource() {
-    this.aceEditorModal.openModal({}, 'ADMIN.KUBERNETES.POD.CREATE', true, true);
+    this.aceEditorModal.openModal({}, `创建 ${this.resourceType}`, true, true);
   }
 
 

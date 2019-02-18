@@ -54,6 +54,7 @@ import { KubeEndpointModule } from './kubernetes/endpoint/kube-endpoint.module';
 import { KubeConfigmapModule } from './kubernetes/configmap/kube-configmap.module';
 import { KubeSecretModule } from './kubernetes/secret/kube-secret.module';
 import { KubeIngressModule } from './kubernetes/ingress/kube-ingress.module';
+import { KubeStatefulsetModule } from './kubernetes/statefulset/kube-statefulset.module';
 
 @NgModule({
   imports: [
@@ -100,7 +101,8 @@ import { KubeIngressModule } from './kubernetes/ingress/kube-ingress.module';
     KubeEndpointModule,
     KubeConfigmapModule,
     KubeSecretModule,
-    KubeIngressModule
+    KubeIngressModule,
+    KubeStatefulsetModule
   ],
   providers: [
     AdminAuthCheckGuard,
