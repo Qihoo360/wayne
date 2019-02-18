@@ -657,6 +657,16 @@
           "IMAGES": "镜像",
           "STATUS": "状态"
         }
+      },
+      "DAEMONSET": {
+        "CREATE": "创建 DaemonSet",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "IMAGES": "镜像",
+          "STATUS": "状态"
+        }
       }
     }
   }
