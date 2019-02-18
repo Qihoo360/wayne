@@ -64,6 +64,13 @@
         <clr-icon clrVerticalNavIcon shape="tree-view"></clr-icon>
         Endpoint
       </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/ingress"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="network-switch"></clr-icon>
+        Ingress
+      </a>
       <div class="nav-divider"></div>
       <a clrVerticalNavLink
          routerLink="kubernetes/configmap"
