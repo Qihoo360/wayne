@@ -43,6 +43,13 @@
         Deployment
       </a>
       <a clrVerticalNavLink
+         routerLink="kubernetes/statefulset"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="blocks-group"></clr-icon>
+        StatefulSet
+      </a>
+      <a clrVerticalNavLink
          routerLink="kubernetes/pod"
          [routerLinkActiveOptions]="{exact:true}"
          routerLinkActive="active">

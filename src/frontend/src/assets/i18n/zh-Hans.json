@@ -647,6 +647,16 @@
           "LABEL": "标签",
           "AGE": "启动时间"
         }
+      },
+      "STATEFULSET": {
+        "CREATE": "创建 StatefulSet",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "IMAGES": "镜像",
+          "STATUS": "状态"
+        }
       }
     }
   }

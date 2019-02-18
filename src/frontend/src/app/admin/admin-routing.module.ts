@@ -74,6 +74,7 @@ import { KubeEndpointComponent } from './kubernetes/endpoint/kube-endpoint.compo
 import { KubeConfigmapComponent } from './kubernetes/configmap/kube-configmap.component';
 import { KubeSecretComponent } from './kubernetes/secret/kube-secret.component';
 import { KubeIngressComponent } from './kubernetes/ingress/kube-ingress.component';
+import { KubeStatefulsetComponent } from './kubernetes/statefulset/kube-statefulset.component';
 
 
 const routes: Routes = [
@@ -166,6 +167,8 @@ const routes: Routes = [
       {path: 'kubernetes/secret/:cluster', component: KubeSecretComponent},
       {path: 'kubernetes/ingress', component: KubeIngressComponent},
       {path: 'kubernetes/ingress/:cluster', component: KubeIngressComponent},
+      {path: 'kubernetes/statefulset', component: KubeStatefulsetComponent},
+      {path: 'kubernetes/statefulset/:cluster', component: KubeStatefulsetComponent},
       ...ADMINROUTES
     ]
   }
