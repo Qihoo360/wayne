@@ -15,11 +15,11 @@ func IngressPreDeploy(kubeIngress *kapiv1beta1.Ingress, cluster *models.Cluster,
 		preDefinedAnnotationMap[k] = v
 	}
 	// cluster defined, overwrite user defined
-	for k, v := range cluster.MetaDataObj.ServiceAnnotations {
+	for k, v := range cluster.MetaDataObj.IngressAnnotations {
 		preDefinedAnnotationMap[k] = v
 	}
 	// namespace defined, overwrite cluster and user defined
-	for k, v := range namespace.MetaDataObj.ServiceAnnotations {
+	for k, v := range namespace.MetaDataObj.IngressAnnotations {
 		preDefinedAnnotationMap[k] = v
 	}
 	for k, v := range preDefinedAnnotationMap {
