@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { Cronjob } from '../../../shared/model/v1/cronjob';
@@ -11,7 +10,7 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
   selector: 'list-cronjob',
   templateUrl: 'list-cronjob.component.html'
 })
-export class ListCronjobComponent implements OnInit {
+export class ListCronjobComponent {
 
   @Input() cronjobs: Cronjob[];
 
@@ -24,17 +23,8 @@ export class ListCronjobComponent implements OnInit {
   @Output() edit = new EventEmitter<Cronjob>();
 
 
-  constructor(
-    private breadcrumbService: BreadcrumbService,
-    private router: Router,
-    private aceEditorService: AceEditorService
-  ) {
-    breadcrumbService.hideRoute('/admin/cronjob/relate-tpl');
-    breadcrumbService.hideRoute('/admin/cronjob/app');
-  }
+  constructor( private router: Router, private aceEditorService: AceEditorService) {}
 
-  ngOnInit(): void {
-  }
 
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;

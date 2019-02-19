@@ -1,10 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { Secret } from '../../../shared/model/v1/secret';
-import { SecretService } from '../../../shared/client/v1/secret.service';
 import { Page } from '../../../shared/page/page-state';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
@@ -13,7 +10,7 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
   selector: 'list-secret',
   templateUrl: 'list-secret.component.html'
 })
-export class ListSecretComponent implements OnInit {
+export class ListSecretComponent {
 
   @Input() secrets: Secret[];
 
@@ -25,19 +22,8 @@ export class ListSecretComponent implements OnInit {
   @Output() delete = new EventEmitter<Secret>();
   @Output() edit = new EventEmitter<Secret>();
 
-  constructor(
-    private breadcrumbService: BreadcrumbService,
-    private secretService: SecretService,
-    private messageHandlerService: MessageHandlerService,
-    private router: Router,
-    private aceEditorService: AceEditorService
-  ) {
-    breadcrumbService.hideRoute('/admin/secret/relate-tpl');
-    breadcrumbService.hideRoute('/admin/secret/app');
-  }
+  constructor( private router: Router, private aceEditorService: AceEditorService) {}
 
-  ngOnInit(): void {
-  }
 
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;

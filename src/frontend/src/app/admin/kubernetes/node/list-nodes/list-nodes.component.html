@@ -108,8 +108,7 @@
         <wayne-option *ngFor="let pagesize of pageSizes" [value]="pagesize">{{pagesize}}</wayne-option>
       </wayne-select>
     </ng-container>
-    {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
-    共{{pagination.totalItems}}条记录
+    {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} 共{{pagination.totalItems}}条记录
     <clr-dg-pagination #pagination [clrDgPageSize]="pageSize"></clr-dg-pagination>
   </clr-dg-footer>
 </clr-datagrid>

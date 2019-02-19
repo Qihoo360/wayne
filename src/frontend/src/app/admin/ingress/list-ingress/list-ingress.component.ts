@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { Ingress } from '../../../shared/model/v1/ingress';
@@ -11,7 +10,7 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
   selector: 'list-ingress',
   templateUrl: 'list-ingress.component.html'
 })
-export class ListIngressComponent implements OnInit {
+export class ListIngressComponent {
 
   @Input() ingresses: Ingress[];
 
@@ -23,18 +22,7 @@ export class ListIngressComponent implements OnInit {
   @Output() delete = new EventEmitter<Ingress>();
   @Output() edit = new EventEmitter<Ingress>();
 
-
-  constructor(
-    private breadcrumbService: BreadcrumbService,
-    private router: Router,
-    private aceEditorService: AceEditorService
-  ) {
-    breadcrumbService.hideRoute('/admin/ingress/relate-tpl');
-    breadcrumbService.hideRoute('/admin/ingress/app');
-  }
-
-  ngOnInit(): void {
-  }
+  constructor(private router: Router, private aceEditorService: AceEditorService) {}
 
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;
