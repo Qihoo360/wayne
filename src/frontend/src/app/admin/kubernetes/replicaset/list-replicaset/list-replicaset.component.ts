@@ -3,11 +3,11 @@ import { KubernetesNamespacedListResource } from '../../../../shared/base/kubern
 import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.service';
 
 @Component({
-  selector: 'wayne-list-job',
-  templateUrl: './list-job.component.html'
+  selector: 'wayne-list-replicaset',
+  templateUrl: './list-replicaset.component.html'
 })
 
-export class ListJobComponent extends KubernetesNamespacedListResource {
+export class ListReplicasetComponent extends KubernetesNamespacedListResource {
   @Input() resources: any[];
   @Input() showState: object;
 
@@ -16,8 +16,8 @@ export class ListJobComponent extends KubernetesNamespacedListResource {
   }
 
   isReady(obj: any): boolean {
-    const readyNumber = obj.status.succeeded ? obj.status.succeeded : 0;
-    const desiredNumber = obj.spec.completions;
+    const readyNumber = obj.status.readyReplicas ? obj.status.readyReplicas : 0;
+    const desiredNumber = obj.spec.replicas;
     return readyNumber === desiredNumber;
   }
 

@@ -58,6 +58,7 @@ import { KubeStatefulsetModule } from './kubernetes/statefulset/kube-statefulset
 import { KubeDaemonsetModule } from './kubernetes/daemonset/kube-daemonset.module';
 import { KubeCronjobModule } from './kubernetes/cronjob/kube-cronjob.module';
 import { KubeJobModule } from './kubernetes/job/kube-job.module';
+import { KubeReplicasetModule } from './kubernetes/replicaset/kube-replicaset.module';
 import { KubePvcModule } from './kubernetes/pvc/kube-pvc.module';
 
 @NgModule({
@@ -109,6 +110,8 @@ import { KubePvcModule } from './kubernetes/pvc/kube-pvc.module';
     KubeStatefulsetModule,
     KubeDaemonsetModule,
     KubeCronjobModule,
+    KubeJobModule,
+    KubeReplicasetModule,
     KubeJobModule,
     KubePvcModule
   ],

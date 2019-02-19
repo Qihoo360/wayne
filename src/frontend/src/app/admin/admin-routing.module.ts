@@ -79,6 +79,7 @@ import { KubeDaemonsetComponent } from './kubernetes/daemonset/kube-daemonset.co
 import { KubeCronjobComponent } from './kubernetes/cronjob/kube-cronjob.component';
 import { KubeJobComponent } from './kubernetes/job/kube-job.component';
 import { KubePvcComponent } from './kubernetes/pvc/kube-pvc.component';
+import { KubeReplicasetComponent } from './kubernetes/replicaset/kube-replicaset.component';
 
 
 const routes: Routes = [
@@ -181,6 +182,8 @@ const routes: Routes = [
       {path: 'kubernetes/job/:cluster', component: KubeJobComponent},
       {path: 'kubernetes/persistentvolumeclaim', component: KubePvcComponent},
       {path: 'kubernetes/persistentvolumeclaim/:cluster', component: KubePvcComponent},
+      {path: 'kubernetes/replicaset', component: KubeReplicasetComponent},
+      {path: 'kubernetes/replicaset/:cluster', component: KubeReplicasetComponent},
       ...ADMINROUTES
     ]
   }
