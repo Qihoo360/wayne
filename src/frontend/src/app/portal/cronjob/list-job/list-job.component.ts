@@ -34,6 +34,8 @@ export class ListJobComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   componentName = '任务';
   pageSizes: number[] = new Array(10, 20, 50);
+  currentPage = 1;
+  state: ClrDatagridStateInterface;
 
   constructor(
     private deletionDialogService: ConfirmationDialogService,
@@ -53,6 +55,13 @@ export class ListJobComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  pageSizeChange(pageSize: number) {
+    this.state.page.to = pageSize - 1;
+    this.state.page.size = pageSize;
+    this.currentPage = 1;
+    this.paginate.emit(this.state);
   }
 
   get pageSize() {
@@ -79,6 +88,7 @@ export class ListJobComponent implements OnInit, OnDestroy {
   }
 
   refresh(state?: ClrDatagridStateInterface) {
+    this.state = state;
     this.paginate.emit(state);
   }
 
