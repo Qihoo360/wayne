@@ -62,6 +62,7 @@ import { KubeReplicasetModule } from './kubernetes/replicaset/kube-replicaset.mo
 import { KubePvcModule } from './kubernetes/pvc/kube-pvc.module';
 import { KubeStorageclassModule } from './kubernetes/storageclass/kube-storageclass.module';
 import { KubeHpaModule } from './kubernetes/hpa/kube-hpa.module';
+import { KubeRoleModule } from './kubernetes/role/kube-role.module';
 
 @NgModule({
   imports: [
@@ -117,7 +118,8 @@ import { KubeHpaModule } from './kubernetes/hpa/kube-hpa.module';
     KubeJobModule,
     KubePvcModule,
     KubeStorageclassModule,
-    KubeHpaModule
+    KubeHpaModule,
+    KubeRoleModule
   ],
   providers: [
     AdminAuthCheckGuard,

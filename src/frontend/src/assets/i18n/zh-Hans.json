@@ -765,6 +765,14 @@
           "REPLICAS": "当前副本数",
           "AGE": "启动时间"
         }
+      },
+      "ROLE": {
+        "CREATE": "创建 Role",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
       }
     }
   }

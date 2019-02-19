@@ -82,6 +82,7 @@ import { KubePvcComponent } from './kubernetes/pvc/kube-pvc.component';
 import { KubeReplicasetComponent } from './kubernetes/replicaset/kube-replicaset.component';
 import { KubeStorageclassComponent } from './kubernetes/storageclass/kube-storageclass.component';
 import { KubeHpaComponent } from './kubernetes/hpa/kube-hpa.component';
+import { KubeRoleComponent } from './kubernetes/role/kube-role.component';
 
 
 const routes: Routes = [
@@ -190,6 +191,8 @@ const routes: Routes = [
       {path: 'kubernetes/storageclass/:cluster', component: KubeStorageclassComponent},
       {path: 'kubernetes/horizontalpodautoscaler', component: KubeHpaComponent},
       {path: 'kubernetes/horizontalpodautoscaler/:cluster', component: KubeHpaComponent},
+      {path: 'kubernetes/role', component: KubeRoleComponent},
+      {path: 'kubernetes/role/:cluster', component: KubeRoleComponent},
       ...ADMINROUTES
     ]
   }
