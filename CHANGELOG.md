@@ -1,5 +1,13 @@
 # Change Log
 
+## [v1.4.1](https://github.com/Qihoo360/wayne/tree/v1.4.1) (2019-02-18)
+[Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.4.0...v1.4.1)
+
+**Fixed bugs:**
+
+- fix paginate page change [\#286](https://github.com/Qihoo360/wayne/pull/286) ([BennieMeng](https://github.com/BennieMeng))
+- Fix create or clone configtpl url redirect error [\#283](https://github.com/Qihoo360/wayne/pull/283) ([wilhelmguo](https://github.com/wilhelmguo))
+
 ## [v1.4.0](https://github.com/Qihoo360/wayne/tree/v1.4.0) (2019-02-15)
 
 [Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.3.2...v1.4.0)
