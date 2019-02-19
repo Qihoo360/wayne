@@ -3,11 +3,11 @@ import { KubernetesListResource } from '../../../../shared/base/kubernetes-names
 import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.service';
 
 @Component({
-  selector: 'wayne-list-job',
-  templateUrl: './list-job.component.html'
+  selector: 'wayne-list-storageclass',
+  templateUrl: './list-storageclass.component.html'
 })
 
-export class ListJobComponent extends KubernetesListResource {
+export class ListStorageclassComponent extends KubernetesListResource {
   @Input() resources: any[];
   @Input() showState: object;
 

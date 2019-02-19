@@ -8,7 +8,7 @@ export interface DeleteEvent {
   force?: boolean;
 }
 
-export class KubernetesNamespacedListResource {
+export class KubernetesListResource {
   state: ClrDatagridStateInterface;
   currentPage = 1;
 

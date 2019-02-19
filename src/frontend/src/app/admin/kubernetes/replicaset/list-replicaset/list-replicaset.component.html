@@ -1,27 +1,27 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)">
   <clr-dg-column class="col-app-name" [clrDgField]="'name'">
     <ng-container *clrDgHideableColumn="showState['name']">
-      {{'ADMIN.KUBERNETES.JOB.LIST.NAME' | translate}}
+      {{'ADMIN.KUBERNETES.REPLICASET.LIST.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['label']">
-      {{'ADMIN.KUBERNETES.JOB.LIST.LABEL' | translate}}
+      {{'ADMIN.KUBERNETES.REPLICASET.LIST.LABEL' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-version">
     <ng-container *clrDgHideableColumn="showState['containers']">
-      {{'ADMIN.KUBERNETES.JOB.LIST.IMAGES' | translate}}
+      {{'ADMIN.KUBERNETES.REPLICASET.LIST.IMAGES' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['status']">
-      {{'ADMIN.KUBERNETES.JOB.LIST.STATUS' | translate}}
+      {{'ADMIN.KUBERNETES.REPLICASET.LIST.STATUS' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'creationTimestamp'">
     <ng-container *clrDgHideableColumn="showState['age']">
-      {{'ADMIN.KUBERNETES.JOB.LIST.AGE' | translate}}
+      {{'ADMIN.KUBERNETES.REPLICASET.LIST.AGE' | translate}}
     </ng-container>
   </clr-dg-column>
 
@@ -43,7 +43,7 @@
       </div>
     </clr-dg-cell>
     <clr-dg-cell>
-      {{obj.status.succeeded ? obj.status.succeeded : 0}}/{{obj.spec.completions }}
+      {{obj.status.readyReplicas ? obj.status.readyReplicas : 0}}/{{ obj.spec.replicas }}
       <clr-icon style="color: #FF3434" shape="exclamation-triangle" *ngIf="!isReady(obj)"
                 class="is-solid"></clr-icon>
       <clr-icon style="color: green" shape="success-standard" *ngIf="isReady(obj)"

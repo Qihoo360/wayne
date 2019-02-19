@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { KubernetesNamespacedListResource } from '../../../../shared/base/kubernetes-namespaced/kubernetes-namespaced-list-resource';
+import { KubernetesListResource } from '../../../../shared/base/kubernetes-namespaced/kubernetes-list-resource';
 import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.service';
 import { KubeService } from '../../../../../../lib/shared/model/kubernetes/service';
 
@@ -8,7 +8,7 @@ import { KubeService } from '../../../../../../lib/shared/model/kubernetes/servi
   templateUrl: './list-service.component.html'
 })
 
-export class ListServiceComponent extends KubernetesNamespacedListResource {
+export class ListServiceComponent extends KubernetesListResource {
   @Input() resources: any[];
   @Input() showState: object;
 

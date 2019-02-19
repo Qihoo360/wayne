@@ -1,27 +1,27 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)">
   <clr-dg-column class="col-app-name" [clrDgField]="'name'">
     <ng-container *clrDgHideableColumn="showState['name']">
-      {{'ADMIN.KUBERNETES.JOB.LIST.NAME' | translate}}
+      {{'ADMIN.KUBERNETES.STORAGECLASS.LIST.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['label']">
-      {{'ADMIN.KUBERNETES.JOB.LIST.LABEL' | translate}}
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column class="col-version">
-    <ng-container *clrDgHideableColumn="showState['containers']">
-      {{'ADMIN.KUBERNETES.JOB.LIST.IMAGES' | translate}}
+      {{'ADMIN.KUBERNETES.STORAGECLASS.LIST.LABEL' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['status']">
-      {{'ADMIN.KUBERNETES.JOB.LIST.STATUS' | translate}}
+    <ng-container *clrDgHideableColumn="showState['provisioner']">
+      {{'ADMIN.KUBERNETES.STORAGECLASS.LIST.PROVISIONER' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['reclaimPolicy']">
+      {{'ADMIN.KUBERNETES.STORAGECLASS.LIST.RECLAIMPOLICY' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'creationTimestamp'">
     <ng-container *clrDgHideableColumn="showState['age']">
-      {{'ADMIN.KUBERNETES.JOB.LIST.AGE' | translate}}
+      {{'ADMIN.KUBERNETES.STORAGECLASS.LIST.AGE' | translate}}
     </ng-container>
   </clr-dg-column>
 
@@ -37,18 +37,8 @@
         <a href="javascript:" (click)="versionDetail(label.key + ': ' + label.value)">{{label.key}}: {{label.value}}</a>
       </div>
     </clr-dg-cell>
-    <clr-dg-cell class="col-version">
-      <div *ngFor="let container of obj.spec.template.spec.containers" class="version-text">
-        <a href="javascript:" (click)="versionDetail(container.image)">{{container.image}}</a>
-      </div>
-    </clr-dg-cell>
-    <clr-dg-cell>
-      {{obj.status.succeeded ? obj.status.succeeded : 0}}/{{obj.spec.completions }}
-      <clr-icon style="color: #FF3434" shape="exclamation-triangle" *ngIf="!isReady(obj)"
-                class="is-solid"></clr-icon>
-      <clr-icon style="color: green" shape="success-standard" *ngIf="isReady(obj)"
-                class="is-solid"></clr-icon>
-    </clr-dg-cell>
+    <clr-dg-cell> {{ obj.provisioner}} </clr-dg-cell>
+    <clr-dg-cell> {{ obj.reclaimPolicy}} </clr-dg-cell>
     <clr-dg-cell> {{ obj.metadata.creationTimestamp | relativeTime}} </clr-dg-cell>
   </clr-dg-row>
   <clr-dg-footer>

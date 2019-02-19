@@ -1,27 +1,42 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)">
   <clr-dg-column class="col-app-name" [clrDgField]="'name'">
     <ng-container *clrDgHideableColumn="showState['name']">
-      {{'ADMIN.KUBERNETES.JOB.LIST.NAME' | translate}}
+      {{'ADMIN.KUBERNETES.PVC.LIST.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['label']">
-      {{'ADMIN.KUBERNETES.JOB.LIST.LABEL' | translate}}
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column class="col-version">
-    <ng-container *clrDgHideableColumn="showState['containers']">
-      {{'ADMIN.KUBERNETES.JOB.LIST.IMAGES' | translate}}
+      {{'ADMIN.KUBERNETES.PVC.LIST.LABEL' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['status']">
-      {{'ADMIN.KUBERNETES.JOB.LIST.STATUS' | translate}}
+      {{'ADMIN.KUBERNETES.PVC.LIST.STATUS' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['storage']">
+      {{'ADMIN.KUBERNETES.PVC.LIST.STORAGE' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['accessModes']">
+      {{'ADMIN.KUBERNETES.PVC.LIST.ACCESSMODES' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['pv']">
+      {{'ADMIN.KUBERNETES.PVC.LIST.PV' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['storageClass']">
+      {{'ADMIN.KUBERNETES.PVC.LIST.STORAGECLASS' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'creationTimestamp'">
     <ng-container *clrDgHideableColumn="showState['age']">
-      {{'ADMIN.KUBERNETES.JOB.LIST.AGE' | translate}}
+      {{'ADMIN.KUBERNETES.PVC.LIST.AGE' | translate}}
     </ng-container>
   </clr-dg-column>
 
@@ -30,6 +45,7 @@
     <clr-dg-action-overflow>
       <button class="action-item" (click)="onEditEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.EDIT' | translate}}</button>
       <button class="action-item" (click)="onDeleteEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.DELETE' | translate}}</button>
+      <button class="action-item" (click)="migrationResource(obj)">{{'ADMIN.KUBERNETES.ACTION.MIGRATION' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-app-name"> {{ obj.metadata.name }} </clr-dg-cell>
     <clr-dg-cell>
@@ -37,18 +53,11 @@
         <a href="javascript:" (click)="versionDetail(label.key + ': ' + label.value)">{{label.key}}: {{label.value}}</a>
       </div>
     </clr-dg-cell>
-    <clr-dg-cell class="col-version">
-      <div *ngFor="let container of obj.spec.template.spec.containers" class="version-text">
-        <a href="javascript:" (click)="versionDetail(container.image)">{{container.image}}</a>
-      </div>
-    </clr-dg-cell>
-    <clr-dg-cell>
-      {{obj.status.succeeded ? obj.status.succeeded : 0}}/{{obj.spec.completions }}
-      <clr-icon style="color: #FF3434" shape="exclamation-triangle" *ngIf="!isReady(obj)"
-                class="is-solid"></clr-icon>
-      <clr-icon style="color: green" shape="success-standard" *ngIf="isReady(obj)"
-                class="is-solid"></clr-icon>
-    </clr-dg-cell>
+    <clr-dg-cell> {{ obj.status.phase}} </clr-dg-cell>
+    <clr-dg-cell> {{ obj.status?.capacity?.storage}} </clr-dg-cell>
+    <clr-dg-cell> {{ obj.spec.accessModes}} </clr-dg-cell>
+    <clr-dg-cell> {{ obj.spec.volumeName}} </clr-dg-cell>
+    <clr-dg-cell> {{ obj.spec.storageClassName}} </clr-dg-cell>
     <clr-dg-cell> {{ obj.metadata.creationTimestamp | relativeTime}} </clr-dg-cell>
   </clr-dg-row>
   <clr-dg-footer>

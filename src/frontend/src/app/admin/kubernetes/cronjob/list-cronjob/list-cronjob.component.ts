@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { KubernetesNamespacedListResource } from '../../../../shared/base/kubernetes-namespaced/kubernetes-namespaced-list-resource';
+import { KubernetesListResource } from '../../../../shared/base/kubernetes-namespaced/kubernetes-list-resource';
 import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.service';
 import { KubeCronJob } from '../../../../shared/model/v1/kubernetes/cronjob';
 
@@ -8,7 +8,7 @@ import { KubeCronJob } from '../../../../shared/model/v1/kubernetes/cronjob';
   templateUrl: './list-cronjob.component.html'
 })
 
-export class ListCronjobComponent extends KubernetesNamespacedListResource {
+export class ListCronjobComponent extends KubernetesListResource {
   @Input() resources: any[];
   @Input() showState: object;
 

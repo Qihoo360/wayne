@@ -5,13 +5,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClusterService } from '../../client/v1/cluster.service';
 import { PageState } from '../../page/page-state';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { KubeResourceNamespace, KubeResourcesName } from '../../shared.const';
+import { KubeResourcesName } from '../../shared.const';
 import { OnDestroy, OnInit } from '@angular/core';
 import { KubernetesClient } from '../../client/v1/kubernetes/kubernetes';
 import { DeletionDialogComponent } from '../../deletion-dialog/deletion-dialog.component';
 import { DeleteEvent } from './kubernetes-list-resource';
 
-export class KubernetesNamespacedResource implements OnInit, OnDestroy {
+export class KubernetesUnNamespacedResource implements OnInit, OnDestroy {
   aceEditorModal: AceEditorComponent;
   deletionDialogComponent: DeletionDialogComponent;
 
@@ -26,9 +26,6 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
 
   resourceType: string;
   kubeResource: KubeResourcesName;
-
-  namespaces: string[];
-  namespace: string;
 
   constructor(public kubernetesClient: KubernetesClient,
               public route: ActivatedRoute,
@@ -100,7 +97,7 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
 
   confirmDeleteEvent(event: DeleteEvent) {
     this.kubernetesClient
-      .delete(this.cluster, this.kubeResource, event.force, event.obj.metadata.name, event.obj.metadata.namespace)
+      .delete(this.cluster, this.kubeResource, event.force, event.obj.metadata.name)
       .subscribe(
         response => {
           this.retrieveResource();
@@ -114,7 +111,7 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
 
 
   onEditResourceEvent(obj: any) {
-    this.kubernetesClient.get(this.cluster, this.kubeResource, obj.metadata.name, obj.metadata.namespace)
+    this.kubernetesClient.get(this.cluster, this.kubeResource, obj.metadata.name)
       .subscribe(
         response => {
           const data = response.data;
@@ -125,8 +122,8 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
   }
 
   onCreateResourceEvent(obj: any) {
-    if (obj && obj.metadata && obj.metadata.namespace) {
-      this.kubernetesClient.create(obj, this.cluster, this.kubeResource, obj.metadata.namespace).subscribe(
+    if (obj && obj.metadata) {
+      this.kubernetesClient.create(obj, this.cluster, this.kubeResource).subscribe(
         resp2 => {
           this.messageHandlerService.showSuccess('ADMIN.KUBERNETES.MESSAGE.CREATE');
           this.retrieveResource();
@@ -141,13 +138,13 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
   }
 
   onSaveResourceEvent(obj: any) {
-    this.kubernetesClient.get(this.cluster, this.kubeResource, obj.metadata.name, obj.metadata.namespace).subscribe(
+    this.kubernetesClient.get(this.cluster, this.kubeResource, obj.metadata.name).subscribe(
       resp => {
         const respObj = resp.data;
         respObj.spec = obj.spec;
         respObj.metadata.labels = obj.metadata.labels;
         respObj.metadata.annotations = obj.metadata.annotations;
-        this.kubernetesClient.update(respObj, this.cluster, this.kubeResource, obj.metadata.name, obj.metadata.namespace).subscribe(
+        this.kubernetesClient.update(respObj, this.cluster, this.kubeResource, obj.metadata.name).subscribe(
           resp2 => {
             this.messageHandlerService.showSuccess('ADMIN.KUBERNETES.MESSAGE.UPDATE');
             this.retrieveResource();
@@ -175,10 +172,12 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
 
   retrieveResource(state?: ClrDatagridStateInterface): void {
     if (state) {
-      this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
+      this.pageState = PageState.fromState(state, {
+        totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount
+      });
     }
     if (this.cluster) {
-      this.kubernetesClient.listPage(this.pageState, this.cluster, this.kubeResource, this.namespace)
+      this.kubernetesClient.listPage(this.pageState, this.cluster, this.kubeResource)
         .subscribe(
           response => {
             const data = response.data;
@@ -194,18 +193,7 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
   jumpToHref(cluster) {
     this.cluster = cluster;
     this.router.navigateByUrl(`admin/kubernetes/${this.resourceType}/${cluster}`);
-    this.kubernetesClient.getNames(cluster, KubeResourceNamespace).subscribe(
-      resp => {
-        this.namespaces = Array<string>();
-        const namespaces: Array<any> = resp.data;
-        namespaces.map(ns => {
-          this.namespaces.push(ns.name);
-        });
-        this.namespace = this.namespaces && this.namespaces.length > 0 ? this.namespaces[0] : 'default';
-        this.retrieveResource();
-      },
-      error => this.messageHandlerService.handleError(error)
-    );
+    this.retrieveResource();
   }
 
   ngOnDestroy(): void {
