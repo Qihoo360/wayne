@@ -76,6 +76,8 @@ import { KubeSecretComponent } from './kubernetes/secret/kube-secret.component';
 import { KubeIngressComponent } from './kubernetes/ingress/kube-ingress.component';
 import { KubeStatefulsetComponent } from './kubernetes/statefulset/kube-statefulset.component';
 import { KubeDaemonsetComponent } from './kubernetes/daemonset/kube-daemonset.component';
+import { KubeCronjobComponent } from './kubernetes/cronjob/kube-cronjob.component';
+import { KubeJobComponent } from './kubernetes/job/kube-job.component';
 
 
 const routes: Routes = [
@@ -172,6 +174,10 @@ const routes: Routes = [
       {path: 'kubernetes/statefulset/:cluster', component: KubeStatefulsetComponent},
       {path: 'kubernetes/daemonset', component: KubeDaemonsetComponent},
       {path: 'kubernetes/daemonset/:cluster', component: KubeDaemonsetComponent},
+      {path: 'kubernetes/cronjob', component: KubeCronjobComponent},
+      {path: 'kubernetes/cronjob/:cluster', component: KubeCronjobComponent},
+      {path: 'kubernetes/job', component: KubeJobComponent},
+      {path: 'kubernetes/job/:cluster', component: KubeJobComponent},
       ...ADMINROUTES
     ]
   }

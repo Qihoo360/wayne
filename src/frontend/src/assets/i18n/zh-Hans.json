@@ -105,6 +105,7 @@
   },
   "CREATE": {},
   "CRONJOB": {
+    "JOB": "任务列表",
     "CONFIG": "计划任务配置",
     "CONFIG_MESSAGE": "k8s 调度任务的时区是 UTC(+0)，按小时定期执行的任务，请减去8小时调整为北京时区(+8)<br>例如想在北京时间每天11点(0 11 * * *)执行定时任务，则设置为(0 2 * * *)",
     "CREATE": "创建计划任务",
@@ -684,6 +685,30 @@
       },
       "DAEMONSET": {
         "CREATE": "创建 DaemonSet",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "IMAGES": "镜像",
+          "STATUS": "状态"
+        }
+      },
+      "CRONJOB": {
+        "CREATE": "创建 CronJob",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "IMAGES": "镜像",
+          "SCHEDULE": "计划",
+          "SUSPEND": "挂起",
+          "ACTIVE": "活跃中",
+          "LAST_SCHEDULE": "最近调度",
+          "STATUS": "状态"
+        }
+      },
+      "JOB": {
+        "CREATE": "创建 Job",
         "LIST": {
           "NAME": "名称",
           "LABEL": "标签",
