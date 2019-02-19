@@ -1,4 +1,4 @@
-import { Event } from '../../../shared/model/v1/event';
+import { Event } from '../model/v1/deploymenttpl';
 import { ClrDatagridComparatorInterface } from '@clr/angular';
 
 export class Inventory {

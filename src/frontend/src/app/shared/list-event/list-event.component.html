@@ -35,7 +35,7 @@
         </ng-container>
       </clr-dg-column>
       <clr-dg-row *clrDgItems="let warning of warnings">
-        <clr-dg-cell>{{warning.name}}</clr-dg-cell>
+        <clr-dg-cell class="copy">{{warning.name}}</clr-dg-cell>
         <clr-dg-cell>{{warning.count}}</clr-dg-cell>
         <clr-dg-cell>{{warning.reason}}</clr-dg-cell>
         <clr-dg-cell>{{warning.message}}</clr-dg-cell>
@@ -43,8 +43,7 @@
         <clr-dg-cell>{{warning.lastSeen | date: "yyyy-MM-dd HH:mm:ss"}}</clr-dg-cell>
       </clr-dg-row>
       <clr-dg-footer>
-        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
-        of {{pagination.totalItems}}
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} 共 {{pagination.totalItems}} 条记录
         <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
       </clr-dg-footer>
     </clr-datagrid>

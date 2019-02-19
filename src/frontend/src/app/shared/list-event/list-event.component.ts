@@ -3,7 +3,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
 import { Inventory, TimeComparator } from './inventory';
-import { Event } from '../../../shared/model/v1/deploymenttpl';
+import { Event } from '../model/v1/deploymenttpl';
 import { ClrDatagridSortOrder } from '@clr/angular';
 
 @Component({
@@ -33,6 +33,12 @@ export class ListEventComponent implements OnInit {
     this.warnings = this.inventory.all;
   }
 
+
   ngOnInit(): void {
+
   }
+
+
 }
+
+
