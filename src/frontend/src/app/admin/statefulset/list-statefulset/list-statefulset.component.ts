@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { Statefulset } from '../../../shared/model/v1/statefulset';
@@ -11,7 +10,7 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
   selector: 'list-statefulset',
   templateUrl: 'list-statefulset.component.html'
 })
-export class ListStatefulsetComponent implements OnInit {
+export class ListStatefulsetComponent {
 
   @Input() statefulsets: Statefulset[];
 
@@ -23,17 +22,7 @@ export class ListStatefulsetComponent implements OnInit {
   @Output() delete = new EventEmitter<Statefulset>();
   @Output() edit = new EventEmitter<Statefulset>();
 
-  constructor(
-    private breadcrumbService: BreadcrumbService,
-    private router: Router,
-    private aceEditorService: AceEditorService
-  ) {
-    breadcrumbService.hideRoute('/admin/statefulset/relate-tpl');
-    breadcrumbService.hideRoute('/admin/statefulset/app');
-  }
-
-  ngOnInit(): void {
-  }
+  constructor( private router: Router, private aceEditorService: AceEditorService) {}
 
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;

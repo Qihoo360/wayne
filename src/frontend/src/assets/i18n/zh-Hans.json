@@ -271,6 +271,8 @@
     "SECRET_LIST": "加密字典列表",
     "SERVICE": "负载均衡",
     "SERVICE_LIST": "负载均衡列表",
+    "INGRESS": "Ingress",
+    "INGRESS_LIST": "Ingress 列表",
     "SOURCE_STAT": "资源统计",
     "STATEFULSET": "状态副本集",
     "STATEFULSET_LIST": "状态副本集列表",
