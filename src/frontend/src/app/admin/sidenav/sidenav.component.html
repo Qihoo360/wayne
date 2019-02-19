@@ -84,6 +84,13 @@
         <clr-icon clrVerticalNavIcon shape="tree"></clr-icon>
         Pod
       </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/horizontalpodautoscaler"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="cloud-scale"></clr-icon>
+        HPA
+      </a>
       <div class="nav-divider"></div>
       <a clrVerticalNavLink
          routerLink="kubernetes/service"
