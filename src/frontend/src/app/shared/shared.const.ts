@@ -28,6 +28,7 @@ export const KubeResourceSecret: KubeResourcesName = 'secrets';
 export const KubeResourceService: KubeResourcesName = 'services';
 export const KubeResourceStatefulSet: KubeResourcesName = 'statefulsets';
 export const KubeResourceEndpoint: KubeResourcesName = 'endpoints';
+export const KubeResourceStorageClass: KubeResourcesName = 'storageclasses';
 
 export const LoginTokenKey = 'wayne_token';
 

@@ -60,6 +60,7 @@ import { KubeCronjobModule } from './kubernetes/cronjob/kube-cronjob.module';
 import { KubeJobModule } from './kubernetes/job/kube-job.module';
 import { KubeReplicasetModule } from './kubernetes/replicaset/kube-replicaset.module';
 import { KubePvcModule } from './kubernetes/pvc/kube-pvc.module';
+import { KubeStorageclassModule } from './kubernetes/storageclass/kube-storageclass.module';
 
 @NgModule({
   imports: [
@@ -113,7 +114,8 @@ import { KubePvcModule } from './kubernetes/pvc/kube-pvc.module';
     KubeJobModule,
     KubeReplicasetModule,
     KubeJobModule,
-    KubePvcModule
+    KubePvcModule,
+    KubeStorageclassModule
   ],
   providers: [
     AdminAuthCheckGuard,
