@@ -718,6 +718,19 @@
           "IMAGES": "镜像",
           "STATUS": "状态"
         }
+      },
+      "PVC": {
+        "CREATE": "创建 PVC",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "STATUS": "状态",
+          "STORAGE": "容量",
+          "ACCESSMODES": "访问模式",
+          "PV": "PV",
+          "STORAGECLASS": "StorageClass"
+        }
       }
     }
   }
