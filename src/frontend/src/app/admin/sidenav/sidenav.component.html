@@ -43,6 +43,13 @@
         Deployment
       </a>
       <a clrVerticalNavLink
+         routerLink="kubernetes/replicaset"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="event"></clr-icon>
+        ReplicaSet
+      </a>
+      <a clrVerticalNavLink
          routerLink="kubernetes/statefulset"
          [routerLinkActiveOptions]="{exact:true}"
          routerLinkActive="active">

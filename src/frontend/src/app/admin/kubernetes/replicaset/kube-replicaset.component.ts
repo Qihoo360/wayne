@@ -5,10 +5,10 @@ import { ClusterService } from '../../../shared/client/v1/cluster.service';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { AceEditorComponent } from '../../../shared/ace-editor/ace-editor.component';
 import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
-import { KubeResourceJob } from '../../../shared/shared.const';
+import { KubeResourceReplicaSet } from '../../../shared/shared.const';
 import { KubernetesNamespacedResource } from '../../../shared/base/kubernetes-namespaced/kubernetes-namespaced-resource';
 import { DeletionDialogComponent } from '../../../shared/deletion-dialog/deletion-dialog.component';
-import { ListJobComponent } from './list-job/list-job.component';
+import { ListReplicasetComponent } from './list-replicaset/list-replicaset.component';
 
 const showState = {
   'name': {hidden: false},
@@ -19,13 +19,13 @@ const showState = {
 };
 
 @Component({
-  selector: 'wayne-kube-job',
-  templateUrl: './kube-job.component.html'
+  selector: 'wayne-kube-replicaset',
+  templateUrl: './kube-replicaset.component.html'
 })
 
-export class KubeJobComponent extends KubernetesNamespacedResource implements OnInit, OnDestroy {
-  @ViewChild(ListJobComponent)
-  listResourceComponent: ListJobComponent;
+export class KubeReplicasetComponent extends KubernetesNamespacedResource implements OnInit, OnDestroy {
+  @ViewChild(ListReplicasetComponent)
+  listResourceComponent: ListReplicasetComponent;
 
   @ViewChild(AceEditorComponent)
   aceEditorModal: AceEditorComponent;
@@ -40,8 +40,8 @@ export class KubeJobComponent extends KubernetesNamespacedResource implements On
               public authService: AuthService,
               public messageHandlerService: MessageHandlerService) {
     super(kubernetesClient, route, router, clusterService, authService, messageHandlerService);
-    super.registResourceType('job');
-    super.registKubeResource(KubeResourceJob);
+    super.registResourceType('replicaset');
+    super.registKubeResource(KubeResourceReplicaSet);
     super.registShowSate(showState);
   }
 

@@ -716,6 +716,16 @@
           "IMAGES": "镜像",
           "STATUS": "状态"
         }
+      },
+      "REPLICASET": {
+        "CREATE": "创建 ReplicaSet",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "IMAGES": "镜像",
+          "STATUS": "状态"
+        }
       }
     }
   }
