@@ -58,6 +58,7 @@ import { KubeStatefulsetModule } from './kubernetes/statefulset/kube-statefulset
 import { KubeDaemonsetModule } from './kubernetes/daemonset/kube-daemonset.module';
 import { KubeCronjobModule } from './kubernetes/cronjob/kube-cronjob.module';
 import { KubeJobModule } from './kubernetes/job/kube-job.module';
+import { KubeReplicasetModule } from './kubernetes/replicaset/kube-replicaset.module';
 
 @NgModule({
   imports: [
@@ -108,7 +109,8 @@ import { KubeJobModule } from './kubernetes/job/kube-job.module';
     KubeStatefulsetModule,
     KubeDaemonsetModule,
     KubeCronjobModule,
-    KubeJobModule
+    KubeJobModule,
+    KubeReplicasetModule
   ],
   providers: [
     AdminAuthCheckGuard,

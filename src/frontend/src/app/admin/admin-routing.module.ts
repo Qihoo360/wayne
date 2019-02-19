@@ -78,6 +78,7 @@ import { KubeStatefulsetComponent } from './kubernetes/statefulset/kube-stateful
 import { KubeDaemonsetComponent } from './kubernetes/daemonset/kube-daemonset.component';
 import { KubeCronjobComponent } from './kubernetes/cronjob/kube-cronjob.component';
 import { KubeJobComponent } from './kubernetes/job/kube-job.component';
+import { KubeReplicasetComponent } from './kubernetes/replicaset/kube-replicaset.component';
 
 
 const routes: Routes = [
@@ -178,6 +179,8 @@ const routes: Routes = [
       {path: 'kubernetes/cronjob/:cluster', component: KubeCronjobComponent},
       {path: 'kubernetes/job', component: KubeJobComponent},
       {path: 'kubernetes/job/:cluster', component: KubeJobComponent},
+      {path: 'kubernetes/replicaset', component: KubeReplicasetComponent},
+      {path: 'kubernetes/replicaset/:cluster', component: KubeReplicasetComponent},
       ...ADMINROUTES
     ]
   }
