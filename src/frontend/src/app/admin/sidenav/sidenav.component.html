@@ -64,6 +64,13 @@
         CronJob
       </a>
       <a clrVerticalNavLink
+         routerLink="kubernetes/job"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="clock"></clr-icon>
+        Job
+      </a>
+      <a clrVerticalNavLink
          routerLink="kubernetes/pod"
          [routerLinkActiveOptions]="{exact:true}"
          routerLinkActive="active">
