@@ -7,6 +7,7 @@ import (
 	batchv1beta1 "k8s.io/api/batch/v1beta1"
 	corev1 "k8s.io/api/core/v1"
 	extensionsv1beta1 "k8s.io/api/extensions/v1beta1"
+	rbacv1 "k8s.io/api/rbac/v1"
 	storagev1 "k8s.io/api/storage/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
@@ -33,6 +34,11 @@ const (
 	ResourceNameStatefulSet             ResourceName = "statefulsets"
 	ResourceNameEndpoint                ResourceName = "endpoints"
 	ResourceNameStorageClass            ResourceName = "storageclasses"
+	ResourceNameRole                    ResourceName = "roles"
+	ResourceNameRoleBinding             ResourceName = "rolebindings"
+	ResourceNameClusterRole             ResourceName = "clusterroles"
+	ResourceNameClusterRoleBinding      ResourceName = "clusterrolebindings"
+	ResourceNameServiceAccount          ResourceName = "serviceaccounts"
 )
 
 type ResourceMap struct {
@@ -193,5 +199,46 @@ var KindToResourceMap = map[string]ResourceMap{
 			Resource: ResourceNameStorageClass,
 		},
 		Namespaced: false,
+	},
+
+	ResourceNameRole: {
+		GroupVersionResource: schema.GroupVersionResource{
+			Group:    rbacv1.GroupName,
+			Version:  rbacv1.SchemeGroupVersion.Version,
+			Resource: ResourceNameRole,
+		},
+		Namespaced: true,
+	},
+	ResourceNameRoleBinding: {
+		GroupVersionResource: schema.GroupVersionResource{
+			Group:    rbacv1.GroupName,
+			Version:  rbacv1.SchemeGroupVersion.Version,
+			Resource: ResourceNameRoleBinding,
+		},
+		Namespaced: true,
+	},
+	ResourceNameClusterRole: {
+		GroupVersionResource: schema.GroupVersionResource{
+			Group:    rbacv1.GroupName,
+			Version:  rbacv1.SchemeGroupVersion.Version,
+			Resource: ResourceNameClusterRole,
+		},
+		Namespaced: false,
+	},
+	ResourceNameClusterRoleBinding: {
+		GroupVersionResource: schema.GroupVersionResource{
+			Group:    rbacv1.GroupName,
+			Version:  rbacv1.SchemeGroupVersion.Version,
+			Resource: ResourceNameClusterRoleBinding,
+		},
+		Namespaced: false,
+	},
+	ResourceNameServiceAccount: {
+		GroupVersionResource: schema.GroupVersionResource{
+			Group:    corev1.GroupName,
+			Version:  corev1.SchemeGroupVersion.Version,
+			Resource: ResourceNameServiceAccount,
+		},
+		Namespaced: true,
 	},
 }
