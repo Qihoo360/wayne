@@ -81,6 +81,7 @@ import { KubeJobComponent } from './kubernetes/job/kube-job.component';
 import { KubePvcComponent } from './kubernetes/pvc/kube-pvc.component';
 import { KubeReplicasetComponent } from './kubernetes/replicaset/kube-replicaset.component';
 import { KubeStorageclassComponent } from './kubernetes/storageclass/kube-storageclass.component';
+import { KubeHpaComponent } from './kubernetes/hpa/kube-hpa.component';
 
 
 const routes: Routes = [
@@ -187,6 +188,8 @@ const routes: Routes = [
       {path: 'kubernetes/replicaset/:cluster', component: KubeReplicasetComponent},
       {path: 'kubernetes/storageclass', component: KubeStorageclassComponent},
       {path: 'kubernetes/storageclass/:cluster', component: KubeStorageclassComponent},
+      {path: 'kubernetes/horizontalpodautoscaler', component: KubeHpaComponent},
+      {path: 'kubernetes/horizontalpodautoscaler/:cluster', component: KubeHpaComponent},
       ...ADMINROUTES
     ]
   }

@@ -752,6 +752,19 @@
           "STATUS": "状态",
           "AGE": "启动时间"
         }
+      },
+      "HPA": {
+        "CREATE": "创建 HPA",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "REFERENCE": "作用对象",
+          "TARGETS": "目标值",
+          "MINPODS": "最小数量",
+          "MAXPODS": "最大数量",
+          "REPLICAS": "当前副本数",
+          "AGE": "启动时间"
+        }
       }
     }
   }
