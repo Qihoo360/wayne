@@ -719,6 +719,19 @@
           "STATUS": "状态"
         }
       },
+      "PVC": {
+        "CREATE": "创建 PVC",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "STATUS": "状态",
+          "STORAGE": "容量",
+          "ACCESSMODES": "访问模式",
+          "PV": "PV",
+          "STORAGECLASS": "StorageClass"
+        }
+      },
       "REPLICASET": {
         "CREATE": "创建 ReplicaSet",
         "LIST": {
@@ -727,6 +740,17 @@
           "AGE": "启动时间",
           "IMAGES": "镜像",
           "STATUS": "状态"
+        }
+      },
+      "STORAGECLASS": {
+        "CREATE": "创建 StorageClass",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "PROVISIONER": "供应者",
+          "RECLAIMPOLICY": "回收策略",
+          "STATUS": "状态",
+          "AGE": "启动时间"
         }
       }
     }

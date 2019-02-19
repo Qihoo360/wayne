@@ -3,11 +3,11 @@ import { KubernetesListResource } from '../../../../shared/base/kubernetes-names
 import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.service';
 
 @Component({
-  selector: 'wayne-list-daemonset',
-  templateUrl: './list-daemonset.component.html'
+  selector: 'wayne-list-pvc',
+  templateUrl: './list-pvc.component.html'
 })
 
-export class ListDaemonsetComponent extends KubernetesListResource {
+export class ListPvcComponent extends KubernetesListResource {
   @Input() resources: any[];
   @Input() showState: object;
 
