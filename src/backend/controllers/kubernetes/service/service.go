@@ -7,12 +7,12 @@ import (
 
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
+	"github.com/Qihoo360/wayne/src/backend/controllers/common"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/models/response"
 	"github.com/Qihoo360/wayne/src/backend/resources/service"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 	"github.com/Qihoo360/wayne/src/backend/workers/webhook"
-	"github.com/Qihoo360/wayne/src/backend/controllers/common"
 )
 
 type KubeServiceController struct {
@@ -130,7 +130,6 @@ func (c *KubeServiceController) Deploy() {
 
 		// add service predeploy
 		common.ServicePreDeploy(&kubeService, clusterModel, namespaceModel)
-
 
 		publishHistory := &models.PublishHistory{
 			Type:         models.PublishTypeService,
