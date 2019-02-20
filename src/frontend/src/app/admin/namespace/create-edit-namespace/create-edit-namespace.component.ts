@@ -8,8 +8,11 @@ import { ClusterMeta, Namespace } from '../../../shared/model/v1/namespace';
 import { NamespaceService } from '../../../shared/client/v1/namespace.service';
 import { Cluster } from '../../../shared/model/v1/cluster';
 import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
-import { KubeNamespace } from '../../../shared/model/v1/kubernetes/namespace';
 
+class Annotation {
+  key: string;
+  value: string;
+}
 @Component({
   selector: 'create-edit-namespace',
   templateUrl: 'create-edit-namespace.component.html',
@@ -22,6 +25,8 @@ export class CreateEditNamespaceComponent {
   "imagePullSecrets": [],
   "env":[],
   "clusterMeta": {
+  },
+  "ingressAnnotations": {
   },
   "namespace": ""
 }`;
@@ -39,6 +44,11 @@ export class CreateEditNamespaceComponent {
   clusters: Cluster[];
   clusterMetas: {};
 
+  ingressAnnotations: Annotation[] = [];
+  ingressMetas: {};
+
+  serviceAnnotations: Annotation[] = [];
+  serviceMetas: {};
 
   constructor(
     private namespaceClient: NamespaceClient,
@@ -67,6 +77,7 @@ export class CreateEditNamespaceComponent {
             this.ns.metaDataObj = Namespace.ParseNamespaceMetaData(this.ns.metaData);
           }
           this.setClusterMetas();
+          this.setIngressMetas();
         },
         error => {
           this.messageHandlerService.handleError(error);
@@ -92,6 +103,28 @@ export class CreateEditNamespaceComponent {
     this.ns.metaDataObj.env.splice(i, 1);
   }
 
+  onAddIngressAnnotations() {
+    if (!this.ns.metaDataObj.ingressAnnotations) {
+      this.ns.metaDataObj.ingressAnnotations = {};
+    }
+    this.ingressAnnotations.push({'key': '', 'value': ''});
+  }
+
+  onDeleteIngressAnnotations(i: number) {
+    this.ingressAnnotations.splice(i, 1);
+  }
+
+  onAddServiceAnnotations() {
+    if (!this.ns.metaDataObj.serviceAnnotations) {
+      this.ns.metaDataObj.serviceAnnotations = {};
+    }
+    this.serviceAnnotations.push({'key': '', 'value': ''});
+  }
+
+  onDeleteServiceAnnotations(i: number) {
+    this.serviceAnnotations.splice(i, 1);
+  }
+
   onAddSecret() {
     if (!this.ns.metaDataObj.imagePullSecrets) {
       this.ns.metaDataObj.imagePullSecrets = [];
@@ -102,6 +135,7 @@ export class CreateEditNamespaceComponent {
   onDeleteSecret(i: number) {
     this.ns.metaDataObj.imagePullSecrets.splice(i, 1);
   }
+
 
   setClusterMetas() {
     if (this.ns && this.ns.metaDataObj && this.ns.metaDataObj.clusterMeta) {
@@ -114,6 +148,24 @@ export class CreateEditNamespaceComponent {
           clusterMeta.memory = clusterMetaData.resourcesLimit.memory;
         }
         this.clusterMetas[cluster] = clusterMeta;
+      });
+    }
+  }
+
+  setIngressMetas() {
+    if (this.ns && this.ns.metaDataObj && this.ns.metaDataObj.ingressAnnotations) {
+      this.ingressAnnotations = [];
+      Object.getOwnPropertyNames(this.ns.metaDataObj.ingressAnnotations).map(key => {
+          this.ingressAnnotations.push({'key': key, 'value': this.ns.metaDataObj.ingressAnnotations[key]});
+      });
+    }
+  }
+
+  setServiceMetas() {
+    if (this.ns && this.ns.metaDataObj && this.ns.metaDataObj.serviceAnnotations) {
+      this.serviceAnnotations = [];
+      Object.getOwnPropertyNames(this.ns.metaDataObj.serviceAnnotations).map(key => {
+        this.serviceAnnotations.push({'key': key, 'value': this.ns.metaDataObj.serviceAnnotations[key]});
       });
     }
   }
@@ -131,6 +183,22 @@ export class CreateEditNamespaceComponent {
           this.ns.metaDataObj.clusterMeta[cluster] = undefined;
         }
       });
+    }
+    if (this.ingressAnnotations) {
+      this.ns.metaDataObj.ingressAnnotations = {};
+      for (const a of this.ingressAnnotations) {
+        if (a.key !== '') {
+          this.ns.metaDataObj.ingressAnnotations[a.key] = a.value;
+        }
+      }
+    }
+    if (this.serviceAnnotations) {
+      this.ns.metaDataObj.serviceAnnotations = {};
+      for (const a of this.serviceAnnotations) {
+        if (a.key !== '') {
+          this.ns.metaDataObj.serviceAnnotations[a.key] = a.value;
+        }
+      }
     }
   }
 

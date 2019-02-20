@@ -69,7 +69,7 @@
             </button>
           </label>
           <div *ngFor="let env of ns.metaDataObj.env; let i = index" class="form-group" style="padding-left: 135px;">
-            <label for="kubernetes_env_name_{{i}}" class="clr-col-md-3 form-group-label-override">Env</label>
+            <label class="clr-col-md-3 form-group-label-override">Env</label>
             <input [(ngModel)]="env.name"
                    style="width: 200px"
                    type="text"
@@ -86,6 +86,54 @@
         </div>
         <div class="container-box">
           <label style="padding-left: 10px;color: #000;font-size: 0.65rem;padding-bottom: 20px;"
+                 class="form-group-label-override">Service 注解配置
+            <button (click)="onAddServiceAnnotations()" style="margin-left: 10px;" class="wayne-button primary">
+              <clr-icon shape="add"></clr-icon>
+              添加
+            </button>
+          </label>
+          <div *ngFor="let svc of serviceAnnotations; let i = index" class="form-group" style="padding-left: 135px;">
+            <label class="clr-col-md-3 form-group-label-override">注解</label>
+            <input [(ngModel)]="serviceAnnotations[i].key"
+                   style="width: 200px"
+                   type="text"
+                   placeholder="Service 注解名字"
+                   name="kubernetes_env_name_{{i}}">
+            <input [(ngModel)]="serviceAnnotations[i].value"
+                   style="margin-left:30px;width: 200px"
+                   type="text"
+                   placeholder="Service 注解值"
+                   name="kubernetes_env_value_{{i}}">
+            <clr-icon style="margin-top: 10px" (click)="onDeleteServiceAnnotations(i)" shape="trash" title="删除 Service 注解"
+                      class="is-solid"></clr-icon>
+          </div>
+        </div>
+        <div class="container-box">
+          <label style="padding-left: 10px;color: #000;font-size: 0.65rem;padding-bottom: 20px;"
+                 class="form-group-label-override">Ingress 注解配置
+            <button (click)="onAddIngressAnnotations()" style="margin-left: 10px;" class="wayne-button primary">
+              <clr-icon shape="add"></clr-icon>
+              添加
+            </button>
+          </label>
+          <div *ngFor="let ing of ingressAnnotations; let i = index" class="form-group" style="padding-left: 135px;">
+            <label class="clr-col-md-3 form-group-label-override">注解</label>
+            <input [(ngModel)]="ingressAnnotations[i].key"
+                   style="width: 200px"
+                   type="text"
+                   placeholder="Ingress 注解名称"
+                   name="kubernetes_env_name_{{i}}">
+            <input [(ngModel)]="ingressAnnotations[i].value"
+                   style="margin-left:30px;width: 200px"
+                   type="text"
+                   placeholder="Ingress 注解值"
+                   name="kubernetes_env_value_{{i}}">
+            <clr-icon style="margin-top: 10px" (click)="onDeleteIngressAnnotations(i)" shape="trash" title="删除注解"
+                      class="is-solid"></clr-icon>
+          </div>
+        </div>
+        <div class="container-box">
+          <label style="padding-left: 10px;color: #000;font-size: 0.65rem;padding-bottom: 20px;"
                  class="form-group-label-override">ImagePullSecrets
             <button (click)="onAddSecret()" style="margin-left: 10px;" class="wayne-button primary">
               <clr-icon shape="add"></clr-icon>
@@ -94,8 +142,7 @@
           </label>
           <div *ngFor="let imagePullSecret of ns.metaDataObj.imagePullSecrets; let i = index" class="form-group"
                style="padding-left: 135px;">
-            <label for="kubernetes_imagepullsecrets_{{i}}"
-                   class="clr-col-md-3 form-group-label-override">Secret</label>
+            <label class="clr-col-md-3 form-group-label-override">Secret</label>
             <input [(ngModel)]="imagePullSecret.name"
                    type="text"
                    style="width: 500px"
@@ -110,7 +157,9 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-    <button type="button" class="btn btn-primary" [disabled]="!isValid"
-            (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+    <!--<button type="button" class="btn btn-primary" (click)="onOpenModal()">{{'BUTTON.ADVANCED_CONFIG' | translate}}</button>-->
+    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
   </div>
 </clr-modal>
+
+
