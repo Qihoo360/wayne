@@ -8,9 +8,9 @@ import { ClusterMeta, Namespace } from '../../../shared/model/v1/namespace';
 import { NamespaceService } from '../../../shared/client/v1/namespace.service';
 import { Cluster } from '../../../shared/model/v1/cluster';
 import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
-import {AceEditorBoxComponent} from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
-import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
+import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 
 class Annotation {
   key: string;
