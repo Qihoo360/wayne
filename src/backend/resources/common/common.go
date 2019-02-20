@@ -11,6 +11,9 @@ type Object struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
+	// for ServiceAccount
+	Secrets []v1.ObjectReference `json:"secrets,omitempty"`
+
 	// for StorageClass
 	Provisioner   string                            `json:"provisioner,omitempty"`
 	ReclaimPolicy *v1.PersistentVolumeReclaimPolicy `json:"reclaimPolicy,omitempty"`
