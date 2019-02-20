@@ -773,6 +773,14 @@
           "LABEL": "标签",
           "AGE": "启动时间"
         }
+      },
+      "ROLEBINDING": {
+        "CREATE": "创建 RoleBinding",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
       }
     }
   }
