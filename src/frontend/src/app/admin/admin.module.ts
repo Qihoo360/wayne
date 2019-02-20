@@ -66,6 +66,7 @@ import { KubeRoleModule } from './kubernetes/role/kube-role.module';
 import { KubeRolebindingModule } from './kubernetes/rolebinding/kube-rolebinding.module';
 import { KubeServiceaccountModule } from './kubernetes/serviceaccount/kube-serviceaccount.module';
 import { KubeClusterroleModule } from './kubernetes/clusterrole/kube-clusterrole.module';
+import { KubeClusterrolebindingModule } from './kubernetes/clusterrolebinding/kube-clusterrolebinding.module';
 
 @NgModule({
   imports: [
@@ -125,7 +126,8 @@ import { KubeClusterroleModule } from './kubernetes/clusterrole/kube-clusterrole
     KubeRoleModule,
     KubeRolebindingModule,
     KubeServiceaccountModule,
-    KubeClusterroleModule
+    KubeClusterroleModule,
+    KubeClusterrolebindingModule
   ],
   providers: [
     AdminAuthCheckGuard,
