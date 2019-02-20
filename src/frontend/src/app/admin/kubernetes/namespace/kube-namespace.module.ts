@@ -1,24 +1,21 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
-import { PersistentVolumeClient } from '../../../shared/client/v1/kubernetes/persistentvolume';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PersistentVolumeRobinClient } from '../../../shared/client/v1/kubernetes/persistentvolume-robin';
 import { KubeNamespaceComponent } from './kube-namespace.component';
+import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
+import { DeletionDialogModule } from '../../../shared/deletion-dialog/deletion-dialog.module';
 import { ListNamespaceComponent } from './list-namespace/list-namespace.component';
 
 @NgModule({
   imports: [
     SharedModule,
     ReactiveFormsModule,
+    DeletionDialogModule
   ],
   providers: [
-    PersistentVolumeClient,
-    PersistentVolumeRobinClient
+    KubernetesClient
   ],
-  exports: [
-    KubeNamespaceComponent,
-    ListNamespaceComponent
-  ],
+  exports: [],
   declarations: [
     KubeNamespaceComponent,
     ListNamespaceComponent

@@ -13,11 +13,39 @@
     Kubernetes
     <clr-vertical-nav-group-children *clrIfExpanded="false">
       <a clrVerticalNavLink
-         routerLink="kubernetes/dashboard"
+         routerLink="kubernetes/role"
          [routerLinkActiveOptions]="{exact:true}"
          routerLinkActive="active">
-        <clr-icon clrVerticalNavIcon shape="dashboard"></clr-icon>
-        Dashboard
+        <clr-icon clrVerticalNavIcon shape="assign-user"></clr-icon>
+        Role
+      </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/clusterrole"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon class="is-solid" shape="assign-user"></clr-icon>
+        ClusterRole
+      </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/rolebinding"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="administrator"></clr-icon>
+        RoleBinding
+      </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/clusterrolebinding"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon class="is-solid" shape="administrator"></clr-icon>
+        ClusterRoleBinding
+      </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/serviceaccount"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
+        ServiceAccount
       </a>
       <div class="nav-divider"></div>
       <a clrVerticalNavLink
@@ -41,6 +69,13 @@
          routerLinkActive="active">
         <clr-icon clrVerticalNavIcon shape="event"></clr-icon>
         Deployment
+      </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/replicaset"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="box-plot"></clr-icon>
+        ReplicaSet
       </a>
       <a clrVerticalNavLink
          routerLink="kubernetes/statefulset"
@@ -76,6 +111,13 @@
          routerLinkActive="active">
         <clr-icon clrVerticalNavIcon shape="tree"></clr-icon>
         Pod
+      </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/horizontalpodautoscaler"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="cloud-scale"></clr-icon>
+        HPA
       </a>
       <div class="nav-divider"></div>
       <a clrVerticalNavLink
@@ -120,6 +162,20 @@
          routerLinkActive="active">
         <clr-icon clrVerticalNavIcon shape="storage"></clr-icon>
         PersistentVolume
+      </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/persistentvolumeclaim"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="data-cluster"></clr-icon>
+        PVC
+      </a>
+      <a clrVerticalNavLink
+         routerLink="kubernetes/storageclass"
+         [routerLinkActiveOptions]="{exact:true}"
+         routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="data-cluster"></clr-icon>
+        StorageClass
       </a>
     </clr-vertical-nav-group-children>
   </clr-vertical-nav-group>

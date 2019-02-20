@@ -78,6 +78,15 @@ import { KubeStatefulsetComponent } from './kubernetes/statefulset/kube-stateful
 import { KubeDaemonsetComponent } from './kubernetes/daemonset/kube-daemonset.component';
 import { KubeCronjobComponent } from './kubernetes/cronjob/kube-cronjob.component';
 import { KubeJobComponent } from './kubernetes/job/kube-job.component';
+import { KubePvcComponent } from './kubernetes/pvc/kube-pvc.component';
+import { KubeReplicasetComponent } from './kubernetes/replicaset/kube-replicaset.component';
+import { KubeStorageclassComponent } from './kubernetes/storageclass/kube-storageclass.component';
+import { KubeHpaComponent } from './kubernetes/hpa/kube-hpa.component';
+import { KubeRoleComponent } from './kubernetes/role/kube-role.component';
+import { KubeRolebindingComponent } from './kubernetes/rolebinding/kube-rolebinding.component';
+import { KubeServiceaccountComponent } from './kubernetes/serviceaccount/kube-serviceaccount.component';
+import { KubeClusterroleComponent } from './kubernetes/clusterrole/kube-clusterrole.component';
+import { KubeClusterrolebindingComponent } from './kubernetes/clusterrolebinding/kube-clusterrolebinding.component';
 
 
 const routes: Routes = [
@@ -178,6 +187,24 @@ const routes: Routes = [
       {path: 'kubernetes/cronjob/:cluster', component: KubeCronjobComponent},
       {path: 'kubernetes/job', component: KubeJobComponent},
       {path: 'kubernetes/job/:cluster', component: KubeJobComponent},
+      {path: 'kubernetes/persistentvolumeclaim', component: KubePvcComponent},
+      {path: 'kubernetes/persistentvolumeclaim/:cluster', component: KubePvcComponent},
+      {path: 'kubernetes/replicaset', component: KubeReplicasetComponent},
+      {path: 'kubernetes/replicaset/:cluster', component: KubeReplicasetComponent},
+      {path: 'kubernetes/storageclass', component: KubeStorageclassComponent},
+      {path: 'kubernetes/storageclass/:cluster', component: KubeStorageclassComponent},
+      {path: 'kubernetes/horizontalpodautoscaler', component: KubeHpaComponent},
+      {path: 'kubernetes/horizontalpodautoscaler/:cluster', component: KubeHpaComponent},
+      {path: 'kubernetes/role', component: KubeRoleComponent},
+      {path: 'kubernetes/role/:cluster', component: KubeRoleComponent},
+      {path: 'kubernetes/rolebinding', component: KubeRolebindingComponent},
+      {path: 'kubernetes/rolebinding/:cluster', component: KubeRolebindingComponent},
+      {path: 'kubernetes/serviceaccount', component: KubeServiceaccountComponent},
+      {path: 'kubernetes/serviceaccount/:cluster', component: KubeServiceaccountComponent},
+      {path: 'kubernetes/clusterrole', component: KubeClusterroleComponent},
+      {path: 'kubernetes/clusterrole/:cluster', component: KubeClusterroleComponent},
+      {path: 'kubernetes/clusterrolebinding', component: KubeClusterrolebindingComponent},
+      {path: 'kubernetes/clusterrolebinding/:cluster', component: KubeClusterrolebindingComponent},
       ...ADMINROUTES
     ]
   }

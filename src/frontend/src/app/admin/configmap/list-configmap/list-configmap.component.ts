@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfigMap } from '../../../shared/model/v1/configmap';
@@ -11,7 +10,7 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
   selector: 'list-configmap',
   templateUrl: 'list-configmap.component.html'
 })
-export class ListConfigMapComponent implements OnInit {
+export class ListConfigMapComponent {
 
   @Input() configMaps: ConfigMap[];
 
@@ -24,17 +23,8 @@ export class ListConfigMapComponent implements OnInit {
   @Output() edit = new EventEmitter<ConfigMap>();
 
 
-  constructor(
-    private breadcrumbService: BreadcrumbService,
-    private router: Router,
-    private aceEditorService: AceEditorService
-  ) {
-    breadcrumbService.hideRoute('/admin/configmap/relate-tpl');
-    breadcrumbService.hideRoute('/admin/configmap/app');
-  }
+  constructor( private router: Router, private aceEditorService: AceEditorService) {}
 
-  ngOnInit(): void {
-  }
 
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;

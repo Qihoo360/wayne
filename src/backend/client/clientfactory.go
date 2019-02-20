@@ -6,7 +6,8 @@ import (
 	batchv1 "k8s.io/api/batch/v1"
 	corev1 "k8s.io/api/core/v1"
 	extensionsv1beta1 "k8s.io/api/extensions/v1beta1"
-
+	rbacv1 "k8s.io/api/rbac/v1"
+	storagev1 "k8s.io/api/storage/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/rest"
 )
@@ -27,6 +28,10 @@ func (h *resourceHandler) getClientByGroupVersion(groupVersion schema.GroupVersi
 		return h.client.BatchV1().RESTClient()
 	case extensionsv1beta1.GroupName:
 		return h.client.ExtensionsV1beta1().RESTClient()
+	case storagev1.GroupName:
+		return h.client.StorageV1().RESTClient()
+	case rbacv1.GroupName:
+		return h.client.RbacV1().RESTClient()
 	default:
 		return h.client.CoreV1().RESTClient()
 	}

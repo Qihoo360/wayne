@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { KubernetesNamespacedListResource } from '../../../../shared/base/kubernetes-namespaced/kubernetes-namespaced-list-resource';
+import { KubernetesListResource } from '../../../../shared/base/kubernetes-namespaced/kubernetes-list-resource';
 import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.service';
 
 @Component({
@@ -7,12 +7,18 @@ import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.servi
   templateUrl: './list-job.component.html'
 })
 
-export class ListJobComponent extends KubernetesNamespacedListResource {
+export class ListJobComponent extends KubernetesListResource {
   @Input() resources: any[];
   @Input() showState: object;
 
   constructor(public tplDetailService: TplDetailService) {
     super(tplDetailService);
+  }
+
+  isReady(obj: any): boolean {
+    const readyNumber = obj.status.succeeded ? obj.status.succeeded : 0;
+    const desiredNumber = obj.spec.completions;
+    return readyNumber === desiredNumber;
   }
 
 }
