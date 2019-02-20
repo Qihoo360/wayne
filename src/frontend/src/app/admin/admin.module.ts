@@ -64,6 +64,7 @@ import { KubeStorageclassModule } from './kubernetes/storageclass/kube-storagecl
 import { KubeHpaModule } from './kubernetes/hpa/kube-hpa.module';
 import { KubeRoleModule } from './kubernetes/role/kube-role.module';
 import { KubeRolebindingModule } from './kubernetes/rolebinding/kube-rolebinding.module';
+import { KubeServiceaccountModule } from './kubernetes/serviceaccount/kube-serviceaccount.module';
 
 @NgModule({
   imports: [
@@ -121,7 +122,8 @@ import { KubeRolebindingModule } from './kubernetes/rolebinding/kube-rolebinding
     KubeStorageclassModule,
     KubeHpaModule,
     KubeRoleModule,
-    KubeRolebindingModule
+    KubeRolebindingModule,
+    KubeServiceaccountModule
   ],
   providers: [
     AdminAuthCheckGuard,

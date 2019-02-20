@@ -781,6 +781,15 @@
           "LABEL": "标签",
           "AGE": "启动时间"
         }
+      },
+      "SERVICEACCOUNT": {
+        "CREATE": "创建 ServiceAccount",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "SECRET": "秘钥列表"
+        }
       }
     }
   }
