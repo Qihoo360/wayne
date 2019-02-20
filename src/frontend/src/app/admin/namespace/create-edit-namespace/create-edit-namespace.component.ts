@@ -8,6 +8,9 @@ import { ClusterMeta, Namespace } from '../../../shared/model/v1/namespace';
 import { NamespaceService } from '../../../shared/client/v1/namespace.service';
 import { Cluster } from '../../../shared/model/v1/cluster';
 import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
+import {AceEditorBoxComponent} from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
+import {AceEditorService} from '../../../shared/ace-editor/ace-editor.service';
+import {AceEditorMsg} from '../../../shared/ace-editor/ace-editor';
 
 class Annotation {
   key: string;
@@ -21,6 +24,7 @@ class Annotation {
 export class CreateEditNamespaceComponent {
   @Output() create = new EventEmitter<boolean>();
   opened: boolean;
+  showACE: boolean;
   defaultMetaData = `{
   "imagePullSecrets": [],
   "env":[],
@@ -30,6 +34,9 @@ export class CreateEditNamespaceComponent {
   },
   "namespace": ""
 }`;
+  @ViewChild(AceEditorBoxComponent)
+  aceBox: any;
+
   namespaceForm: NgForm;
   @ViewChild('namespaceForm')
   currentForm: NgForm;
@@ -53,7 +60,8 @@ export class CreateEditNamespaceComponent {
   constructor(
     private namespaceClient: NamespaceClient,
     private namespaceService: NamespaceService,
-    private messageHandlerService: MessageHandlerService) {
+    private messageHandlerService: MessageHandlerService,
+    private aceEditorService: AceEditorService) {
   }
 
   newOrEditNamespace(clusters: Cluster[], id?: number) {
@@ -78,6 +86,8 @@ export class CreateEditNamespaceComponent {
           }
           this.setClusterMetas();
           this.setIngressMetas();
+          this.setServiceMetas();
+          this.initJsonEditor();
         },
         error => {
           this.messageHandlerService.handleError(error);
@@ -88,8 +98,22 @@ export class CreateEditNamespaceComponent {
       this.nsTitle = '创建命名空间';
       this.ns = new Namespace();
       this.ns.metaDataObj = JSON.parse(this.defaultMetaData);
+      this.initJsonEditor();
     }
+  }
 
+  initJsonEditor(): void {
+    this.aceEditorService.announceMessage(AceEditorMsg.Instance(this.ns.metaDataObj));
+  }
+
+  onEditMetadata() {
+    this.showACE = !this.showACE;
+    if (!this.showACE) {
+      this.ns.metaDataObj = JSON.parse(this.aceBox.getValue());
+      this.setClusterMetas();
+      this.setIngressMetas();
+      this.setServiceMetas();
+    }
   }
 
   onAddEnv() {
@@ -212,6 +236,9 @@ export class CreateEditNamespaceComponent {
       return;
     }
     this.isSubmitOnGoing = true;
+    if (this.showACE) {
+      this.ns.metaDataObj = JSON.parse(this.aceBox.getValue());
+    }
     this.buildMetaDataObj();
     this.ns.metaData = JSON.stringify(this.ns.metaDataObj);
     switch (this.actionType) {

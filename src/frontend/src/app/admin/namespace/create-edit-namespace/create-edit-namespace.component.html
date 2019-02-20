@@ -38,7 +38,8 @@
             </div>
           </div>
         </div>
-        <div *ngFor="let cluster of clusters;let i=index" class="form-group" style="padding-left: 135px;">
+        <div *ngIf="!showACE"  class="form-group" style="padding-left: 135px;">
+          <div *ngFor="let cluster of clusters;let i=index">
           <label *ngIf="i === 0" class="clr-col-md-3 form-group-label-override required">可用机房</label>
           <div class="checkbox-inline" style="margin-top: 0.1rem;margin-bottom: 0.1rem;">
             <div class="checkbox">
@@ -58,9 +59,10 @@
                      name="{{cluster.name}}-memory"
                      type="number">
             </div>
+            </div>
           </div>
         </div>
-        <div class="container-box">
+        <div *ngIf="!showACE" class="container-box">
           <label style="padding-left: 10px;color: #000;font-size: 0.65rem;padding-bottom: 20px;"
                  class="form-group-label-override">环境变量配置
             <button (click)="onAddEnv()" style="margin-left: 10px;" class="wayne-button primary">
@@ -84,7 +86,7 @@
                       class="is-solid"></clr-icon>
           </div>
         </div>
-        <div class="container-box">
+        <div *ngIf="!showACE" class="container-box">
           <label style="padding-left: 10px;color: #000;font-size: 0.65rem;padding-bottom: 20px;"
                  class="form-group-label-override">Service 注解配置
             <button (click)="onAddServiceAnnotations()" style="margin-left: 10px;" class="wayne-button primary">
@@ -108,7 +110,7 @@
                       class="is-solid"></clr-icon>
           </div>
         </div>
-        <div class="container-box">
+        <div *ngIf="!showACE" class="container-box">
           <label style="padding-left: 10px;color: #000;font-size: 0.65rem;padding-bottom: 20px;"
                  class="form-group-label-override">Ingress 注解配置
             <button (click)="onAddIngressAnnotations()" style="margin-left: 10px;" class="wayne-button primary">
@@ -132,7 +134,7 @@
                       class="is-solid"></clr-icon>
           </div>
         </div>
-        <div class="container-box">
+        <div *ngIf="!showACE" class="container-box">
           <label style="padding-left: 10px;color: #000;font-size: 0.65rem;padding-bottom: 20px;"
                  class="form-group-label-override">ImagePullSecrets
             <button (click)="onAddSecret()" style="margin-left: 10px;" class="wayne-button primary">
@@ -152,12 +154,18 @@
                       class="is-solid"></clr-icon>
           </div>
         </div>
+        <div [style.display]="showACE ? 'block' : 'none'" class="container-box">
+          <div class="form-group" style="padding-left: 135px;">
+            <label class="clr-col-md-3 form-group-label-override">元数据</label>
+            <wayne-ace-editor-box style="width: 500px"></wayne-ace-editor-box>
+          </div>
+        </div>
       </section>
     </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-    <!--<button type="button" class="btn btn-primary" (click)="onOpenModal()">{{'BUTTON.ADVANCED_CONFIG' | translate}}</button>-->
+    <button type="button" class="btn btn-primary" (click)="onEditMetadata()">{{'BUTTON.EXCHANGE_EDIT_MODE' | translate}}</button>
     <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
   </div>
 </clr-modal>

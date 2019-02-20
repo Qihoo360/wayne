@@ -27,6 +27,7 @@
     "ACTIONS": "Actions",
     "ADD_CONTAINER": "添加容器",
     "ADVANCED_CONFIG": "高级配置",
+    "EXCHANGE_EDIT_MODE":"切换编辑模式",
     "BROWSE": "Browse",
     "CANCEL": "取消",
     "CLONE": "克隆",
