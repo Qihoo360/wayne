@@ -25,7 +25,7 @@ func buildCacheController(client *kubernetes.Clientset) (*CacheFactory, error) {
 
 	// Start all Resources defined in KindToResourceMap
 	for _, value := range api.KindToResourceMap {
-		genericInformer, err := sharedInformerFactory.ForResource(value.GroupVersionResource)
+		genericInformer, err := sharedInformerFactory.ForResource(value.GroupVersionResourceKind.GroupVersionResource)
 		if err != nil {
 			return nil, err
 		}
