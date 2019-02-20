@@ -675,6 +675,16 @@
           "AGE": "启动时间"
         }
       },
+      "DEPLOYMENT": {
+        "CREATE": "创建 Deployment",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "IMAGES": "镜像",
+          "STATUS": "状态"
+        }
+      },
       "STATEFULSET": {
         "CREATE": "创建 StatefulSet",
         "LIST": {

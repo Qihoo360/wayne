@@ -1,28 +1,26 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
-import { KubeDeploymentComponent } from './kube-deployment.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DeploymentClient } from '../../../shared/client/v1/kubernetes/deployment';
-import { KubeListDeploymentComponent } from './list/kube-list-deployment.component';
-import { KubeMigrationDeploymentComponent } from './migration/kube-migration-deployment.component';
+import { KubeDeploymentComponent } from './kube-deployment.component';
+import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
+import { DeletionDialogModule } from '../../../shared/deletion-dialog/deletion-dialog.module';
+import { MigrationComponent } from './migration/migration.component';
+import { ListDeploymentComponent } from './list-deployment/list-deployment.component';
 
 @NgModule({
   imports: [
     SharedModule,
     ReactiveFormsModule,
+    DeletionDialogModule
   ],
   providers: [
-    DeploymentClient
+    KubernetesClient
   ],
-  exports: [
-    KubeDeploymentComponent,
-    KubeListDeploymentComponent,
-    KubeMigrationDeploymentComponent
-  ],
+  exports: [],
   declarations: [
     KubeDeploymentComponent,
-    KubeListDeploymentComponent,
-    KubeMigrationDeploymentComponent
+    ListDeploymentComponent,
+    MigrationComponent
   ]
 })
 
