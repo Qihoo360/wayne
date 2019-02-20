@@ -806,6 +806,15 @@
           "LABEL": "标签",
           "AGE": "启动时间"
         }
+      },
+      "NAMESPACE": {
+        "CREATE": "创建 Namespace",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "STATUS": "状态"
+        }
       }
     }
   }

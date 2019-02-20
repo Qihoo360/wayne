@@ -127,7 +127,8 @@ import { KubeClusterrolebindingModule } from './kubernetes/clusterrolebinding/ku
     KubeRolebindingModule,
     KubeServiceaccountModule,
     KubeClusterroleModule,
-    KubeClusterrolebindingModule
+    KubeClusterrolebindingModule,
+    KubeNamespaceModule
   ],
   providers: [
     AdminAuthCheckGuard,
