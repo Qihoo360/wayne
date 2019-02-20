@@ -12,9 +12,22 @@ import { KubePod } from '../../../../shared/model/v1/kubernetes/kubepod';
 export class ListPodComponent extends KubernetesListResource {
   @Input() resources: any[];
   @Input() showState: object;
+  @Input() cluster: string;
 
   constructor(public tplDetailService: TplDetailService) {
     super(tplDetailService);
+  }
+
+  enterContainer(pod: KubePod): void {
+    const url = `portal/namespace/0/app/0/pod` +
+      `/${pod.metadata.name}/pod/${pod.metadata.name}/terminal/${this.cluster}/${pod.metadata.namespace}`;
+    window.open(url, '_blank');
+  }
+
+  podLog(pod: KubePod): void {
+    const url = `portal/logging/namespace/0/app/0/pod/${pod.metadata.name}` +
+      `/pod/${pod.metadata.name}/${this.cluster}/${pod.metadata.namespace}`;
+    window.open(url, '_blank');
   }
 
   // getPodStatus returns the pod state

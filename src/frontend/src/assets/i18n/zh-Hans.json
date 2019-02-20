@@ -603,7 +603,9 @@
         "MIGRATION": "迁移",
         "DELETE": "删除",
         "FORCEDELETE": "强制删除",
-        "REFRESH": "刷新"
+        "REFRESH": "刷新",
+        "ENTER_CONTAINER": "进入容器",
+        "LOG": "查看日志"
       },
       "LABEL": {
         "NAMESPACE": "命名空间:"
