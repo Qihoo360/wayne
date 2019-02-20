@@ -38,8 +38,8 @@
             </div>
           </div>
         </div>
-        <div *ngIf="!showACE"  class="form-group" style="padding-left: 135px;">
-          <div *ngFor="let cluster of clusters;let i=index">
+        <div *ngIf="!showACE">
+          <div   class="form-group" style="padding-left: 135px;" *ngFor="let cluster of clusters;let i=index">
           <label *ngIf="i === 0" class="clr-col-md-3 form-group-label-override required">可用机房</label>
           <div class="checkbox-inline" style="margin-top: 0.1rem;margin-bottom: 0.1rem;">
             <div class="checkbox">
