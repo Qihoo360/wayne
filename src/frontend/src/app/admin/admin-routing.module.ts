@@ -85,6 +85,7 @@ import { KubeHpaComponent } from './kubernetes/hpa/kube-hpa.component';
 import { KubeRoleComponent } from './kubernetes/role/kube-role.component';
 import { KubeRolebindingComponent } from './kubernetes/rolebinding/kube-rolebinding.component';
 import { KubeServiceaccountComponent } from './kubernetes/serviceaccount/kube-serviceaccount.component';
+import { KubeClusterroleComponent } from './kubernetes/clusterrole/kube-clusterrole.component';
 
 
 const routes: Routes = [
@@ -199,6 +200,8 @@ const routes: Routes = [
       {path: 'kubernetes/rolebinding/:cluster', component: KubeRolebindingComponent},
       {path: 'kubernetes/serviceaccount', component: KubeServiceaccountComponent},
       {path: 'kubernetes/serviceaccount/:cluster', component: KubeServiceaccountComponent},
+      {path: 'kubernetes/clusterrole', component: KubeClusterroleComponent},
+      {path: 'kubernetes/clusterrole/:cluster', component: KubeClusterroleComponent},
       ...ADMINROUTES
     ]
   }

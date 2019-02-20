@@ -790,6 +790,22 @@
           "AGE": "启动时间",
           "SECRET": "秘钥列表"
         }
+      },
+      "CLUSTERROLE": {
+        "CREATE": "创建 ClusterRole",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
+      },
+      "CLUSTERROLEBINDING": {
+        "CREATE": "创建 ClusterRoleBinding",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
       }
     }
   }
