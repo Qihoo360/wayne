@@ -104,6 +104,7 @@ func (c *KubePodController) List() {
 	deployment := c.Input().Get("deployment")
 	statefulset := c.Input().Get("statefulset")
 	daemonSet := c.Input().Get("daemonSet")
+	podName := c.Input().Get("pod")
 	job := c.Input().Get("job")
 	manager, err := client.Manager(cluster)
 	if err == nil {
@@ -117,6 +118,10 @@ func (c *KubePodController) List() {
 			result, err = pod.GetPodsByDaemonSet(manager.CacheFactory, namespace, daemonSet)
 		} else if job != "" {
 			result, err = pod.GetPodsByJob(manager.CacheFactory, namespace, job)
+		} else if podName != "" {
+			var podInfo *pod.Pod
+			podInfo, err = pod.GetPodByName(manager.Client, namespace, podName)
+			result = []*pod.Pod{podInfo}
 		} else {
 			err = fmt.Errorf("unknown resource type. ")
 		}
