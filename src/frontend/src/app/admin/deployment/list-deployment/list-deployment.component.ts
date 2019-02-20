@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { Deployment } from '../../../shared/model/v1/deployment';
@@ -11,7 +10,7 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
   selector: 'list-deployment',
   templateUrl: 'list-deployment.component.html'
 })
-export class ListDeploymentComponent implements OnInit {
+export class ListDeploymentComponent {
 
   @Input() deployments: Deployment[];
 
@@ -23,17 +22,7 @@ export class ListDeploymentComponent implements OnInit {
   @Output() delete = new EventEmitter<Deployment>();
   @Output() edit = new EventEmitter<Deployment>();
 
-  constructor(
-    private breadcrumbService: BreadcrumbService,
-    private router: Router,
-    private aceEditorService: AceEditorService
-  ) {
-    breadcrumbService.hideRoute('/admin/deployment/relate-tpl');
-    breadcrumbService.hideRoute('/admin/deployment/app');
-  }
-
-  ngOnInit(): void {
-  }
+  constructor( private router: Router, private aceEditorService: AceEditorService) {}
 
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;

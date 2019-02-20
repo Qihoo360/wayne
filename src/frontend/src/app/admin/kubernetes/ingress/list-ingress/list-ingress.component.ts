@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { KubernetesNamespacedListResource } from '../../../../shared/base/kubernetes-namespaced/kubernetes-namespaced-list-resource';
+import { KubernetesListResource } from '../../../../shared/base/kubernetes-namespaced/kubernetes-list-resource';
 import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.servi
   templateUrl: './list-ingress.component.html'
 })
 
-export class ListIngressComponent extends KubernetesNamespacedListResource {
+export class ListIngressComponent extends KubernetesListResource {
   @Input() resources: any[];
   @Input() showState: object;
 

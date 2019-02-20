@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { KubernetesNamespacedListResource } from '../../../../shared/base/kubernetes-namespaced/kubernetes-namespaced-list-resource';
+import { KubernetesListResource } from '../../../../shared/base/kubernetes-namespaced/kubernetes-list-resource';
 import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.service';
 import { KubePod } from '../../../../shared/model/v1/kubernetes/kubepod';
 
@@ -9,7 +9,7 @@ import { KubePod } from '../../../../shared/model/v1/kubernetes/kubepod';
   templateUrl: './list-pod.component.html'
 })
 
-export class ListPodComponent extends KubernetesNamespacedListResource {
+export class ListPodComponent extends KubernetesListResource {
   @Input() resources: any[];
   @Input() showState: object;
 

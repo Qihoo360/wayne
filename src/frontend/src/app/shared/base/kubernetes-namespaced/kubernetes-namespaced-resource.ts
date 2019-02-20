@@ -9,7 +9,7 @@ import { KubeResourceNamespace, KubeResourcesName } from '../../shared.const';
 import { OnDestroy, OnInit } from '@angular/core';
 import { KubernetesClient } from '../../client/v1/kubernetes/kubernetes';
 import { DeletionDialogComponent } from '../../deletion-dialog/deletion-dialog.component';
-import { DeleteEvent } from './kubernetes-namespaced-list-resource';
+import { DeleteEvent } from './kubernetes-list-resource';
 
 export class KubernetesNamespacedResource implements OnInit, OnDestroy {
   aceEditorModal: AceEditorComponent;
@@ -202,7 +202,7 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
           this.namespaces.push(ns.name);
         });
         this.namespace = this.namespaces && this.namespaces.length > 0 ? this.namespaces[0] : 'default';
-        // this.retrieveResource();
+        this.retrieveResource();
       },
       error => this.messageHandlerService.handleError(error)
     );

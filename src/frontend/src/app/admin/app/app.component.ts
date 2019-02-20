@@ -75,7 +75,11 @@ export class AppComponent implements OnInit, OnDestroy {
       Object.getOwnPropertyNames(this.route.snapshot.queryParams).map(key => {
         const value = this.route.snapshot.queryParams[key];
         if (isNotEmpty(value)) {
-          this.pageState.filters[key] = value;
+          if (key === 'namespaceId') {
+            this.namespaceId = value;
+          } else {
+            this.pageState.filters[key] = value;
+          }
         }
       });
     }

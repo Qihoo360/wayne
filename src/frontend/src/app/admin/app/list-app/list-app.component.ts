@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { App } from '../../../shared/model/v1/app';
@@ -23,7 +22,6 @@ export class ListAppComponent implements OnInit {
   @Output() edit = new EventEmitter<App>();
 
   constructor(
-    private breadcrumbService: BreadcrumbService,
     private router: Router,
     private aceEditorService: AceEditorService) {
   }

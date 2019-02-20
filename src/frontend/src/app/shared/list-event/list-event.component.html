@@ -1,0 +1,52 @@
+<clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'xl'">
+  <h3 class="modal-title">{{'EVENT.ERROR' | translate}}</h3>
+  <div class="modal-body">
+    <hr>
+    <clr-datagrid>
+      <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+         {{'TITLE.NAME' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'CRONJOB.TIMER' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+           {{'CRONJOB.ERROR_REASON' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+           {{'EVENT.ERROR_MESSAGE' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgField]="'firstSeen'" [clrDgSortBy]="timeComparator" [(clrDgSortOrder)]="sortOrder">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'TITLE.START_TIME' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'EVENT.FINISH_CHECK_TIME' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-row *clrDgItems="let warning of warnings">
+        <clr-dg-cell class="copy">{{warning.name}}</clr-dg-cell>
+        <clr-dg-cell>{{warning.count}}</clr-dg-cell>
+        <clr-dg-cell>{{warning.reason}}</clr-dg-cell>
+        <clr-dg-cell>{{warning.message}}</clr-dg-cell>
+        <clr-dg-cell>{{warning.firstSeen | date: "yyyy-MM-dd HH:mm:ss"}}</clr-dg-cell>
+        <clr-dg-cell>{{warning.lastSeen | date: "yyyy-MM-dd HH:mm:ss"}}</clr-dg-cell>
+      </clr-dg-row>
+      <clr-dg-footer>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} 共 {{pagination.totalItems}} 条记录
+        <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
+      </clr-dg-footer>
+    </clr-datagrid>
+  </div>
+</clr-modal>
+

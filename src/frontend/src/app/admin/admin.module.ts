@@ -58,6 +58,15 @@ import { KubeStatefulsetModule } from './kubernetes/statefulset/kube-statefulset
 import { KubeDaemonsetModule } from './kubernetes/daemonset/kube-daemonset.module';
 import { KubeCronjobModule } from './kubernetes/cronjob/kube-cronjob.module';
 import { KubeJobModule } from './kubernetes/job/kube-job.module';
+import { KubeReplicasetModule } from './kubernetes/replicaset/kube-replicaset.module';
+import { KubePvcModule } from './kubernetes/pvc/kube-pvc.module';
+import { KubeStorageclassModule } from './kubernetes/storageclass/kube-storageclass.module';
+import { KubeHpaModule } from './kubernetes/hpa/kube-hpa.module';
+import { KubeRoleModule } from './kubernetes/role/kube-role.module';
+import { KubeRolebindingModule } from './kubernetes/rolebinding/kube-rolebinding.module';
+import { KubeServiceaccountModule } from './kubernetes/serviceaccount/kube-serviceaccount.module';
+import { KubeClusterroleModule } from './kubernetes/clusterrole/kube-clusterrole.module';
+import { KubeClusterrolebindingModule } from './kubernetes/clusterrolebinding/kube-clusterrolebinding.module';
 
 @NgModule({
   imports: [
@@ -108,7 +117,18 @@ import { KubeJobModule } from './kubernetes/job/kube-job.module';
     KubeStatefulsetModule,
     KubeDaemonsetModule,
     KubeCronjobModule,
-    KubeJobModule
+    KubeJobModule,
+    KubeReplicasetModule,
+    KubeJobModule,
+    KubePvcModule,
+    KubeStorageclassModule,
+    KubeHpaModule,
+    KubeRoleModule,
+    KubeRolebindingModule,
+    KubeServiceaccountModule,
+    KubeClusterroleModule,
+    KubeClusterrolebindingModule,
+    KubeNamespaceModule
   ],
   providers: [
     AdminAuthCheckGuard,

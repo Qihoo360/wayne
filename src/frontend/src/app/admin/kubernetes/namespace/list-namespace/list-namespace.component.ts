@@ -1,29 +1,18 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { NamespaceList } from '../../../../shared/model/v1/namespace-list';
-import { KubernetesListResource } from '../../../../shared/base/kubernetes/kubernetes-list-resource';
-
+import { Component, Input } from '@angular/core';
+import { KubernetesListResource } from '../../../../shared/base/kubernetes-namespaced/kubernetes-list-resource';
+import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.service';
 
 @Component({
   selector: 'wayne-list-namespace',
-  templateUrl: './list-namespace.component.html',
-  styleUrls: ['./list-namespace.component.scss']
+  templateUrl: './list-namespace.component.html'
 })
 
-export class ListNamespaceComponent extends KubernetesListResource implements OnInit, OnDestroy {
-  @Input() resources: NamespaceList[];
+export class ListNamespaceComponent extends KubernetesListResource {
+  @Input() resources: any[];
   @Input() showState: object;
 
-  @Output() detail = new EventEmitter<NamespaceList>();
-
-  constructor() {
-    super();
+  constructor(public tplDetailService: TplDetailService) {
+    super(tplDetailService);
   }
-
-  ngOnInit() {
-  }
-
-  ngOnDestroy() {
-  }
-
 
 }

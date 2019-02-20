@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { Namespace } from '../../../shared/model/v1/namespace';
@@ -9,7 +8,7 @@ import { Page } from '../../../shared/page/page-state';
   selector: 'list-namespace',
   templateUrl: 'list-namespace.component.html'
 })
-export class ListNamespaceComponent implements OnInit {
+export class ListNamespaceComponent {
 
   @Input() namespaces: Namespace[];
 
@@ -21,16 +20,7 @@ export class ListNamespaceComponent implements OnInit {
   @Output() delete = new EventEmitter<Namespace>();
   @Output() edit = new EventEmitter<Namespace>();
 
-  constructor(
-    private breadcrumbService: BreadcrumbService,
-    private router: Router
-  ) {
-    breadcrumbService.hideRoute('/admin/namespace/app');
-    breadcrumbService.hideRoute('/admin/namespace/user');
-  }
-
-  ngOnInit(): void {
-  }
+  constructor(private router: Router) {}
 
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;
@@ -53,19 +43,14 @@ export class ListNamespaceComponent implements OnInit {
   }
 
   goToLink(ns: Namespace, gate: string) {
-    let linkUrl = new Array();
+    let linkUrl = '';
     switch (gate) {
       case 'app':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/namespace/app/[0-9]*', '[' + ns.name + ']项目列表');
-        linkUrl = ['admin', 'namespace', 'app', ns.id];
-        break;
-      case 'user':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/namespace/user/[0-9]*', '[' + ns.name + ']用户列表');
-        linkUrl = ['admin', 'namespace', 'user', ns.id];
+        linkUrl = `/admin/app?namespaceId=${ns.id}`;
         break;
       default:
         break;
     }
-    this.router.navigate(linkUrl);
+    this.router.navigateByUrl(linkUrl);
   }
 }
