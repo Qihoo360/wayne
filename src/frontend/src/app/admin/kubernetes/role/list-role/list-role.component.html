@@ -1,22 +1,17 @@
 <clr-datagrid (clrDgRefresh)="refresh($event)">
   <clr-dg-column class="col-app-name" [clrDgField]="'name'">
     <ng-container *clrDgHideableColumn="showState['name']">
-      {{'ADMIN.KUBERNETES.NAMESPACE.LIST.NAME' | translate}}
+      {{'ADMIN.KUBERNETES.ROLE.LIST.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['label']">
-      {{'ADMIN.KUBERNETES.NAMESPACE.LIST.LABEL' | translate}}
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="showState['status']">
-      {{'ADMIN.KUBERNETES.NAMESPACE.LIST.STATUS' | translate}}
+      {{'ADMIN.KUBERNETES.ROLE.LIST.LABEL' | translate}}
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'creationTimestamp'">
     <ng-container *clrDgHideableColumn="showState['age']">
-      {{'ADMIN.KUBERNETES.NAMESPACE.LIST.AGE' | translate}}
+      {{'ADMIN.KUBERNETES.ROLE.LIST.AGE' | translate}}
     </ng-container>
   </clr-dg-column>
 
@@ -32,7 +27,6 @@
         <a href="javascript:" (click)="versionDetail(label.key + ': ' + label.value)">{{label.key}}: {{label.value}}</a>
       </div>
     </clr-dg-cell>
-    <clr-dg-cell> {{ obj.status.phase }} </clr-dg-cell>
     <clr-dg-cell> {{ obj.metadata.creationTimestamp | relativeTime}} </clr-dg-cell>
   </clr-dg-row>
   <clr-dg-footer>

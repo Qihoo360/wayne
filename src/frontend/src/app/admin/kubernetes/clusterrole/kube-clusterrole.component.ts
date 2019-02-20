@@ -5,37 +5,31 @@ import { ClusterService } from '../../../shared/client/v1/cluster.service';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { AceEditorComponent } from '../../../shared/ace-editor/ace-editor.component';
 import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
-import { KubeResourceDeployment } from '../../../shared/shared.const';
-import { KubernetesNamespacedResource } from '../../../shared/base/kubernetes-namespaced/kubernetes-namespaced-resource';
+import { KubeResourceClusterRole } from '../../../shared/shared.const';
 import { DeletionDialogComponent } from '../../../shared/deletion-dialog/deletion-dialog.component';
-import { MigrationComponent } from './migration/migration.component';
-import { ListDeploymentComponent } from './list-deployment/list-deployment.component';
+import { KubernetesUnNamespacedResource } from '../../../shared/base/kubernetes-namespaced/kubernetes-unnamespaced-resource';
+import { ListClusterroleComponent } from './list-clusterrole/list-clusterrole.component';
 
 const showState = {
   'name': {hidden: false},
   'label': {hidden: false},
-  'containers': {hidden: false},
-  'status': {hidden: false},
   'age': {hidden: false},
 };
 
 @Component({
-  selector: 'wayne-kube-deployment',
-  templateUrl: './kube-deployment.component.html'
+  selector: 'wayne-kube-clusterrole',
+  templateUrl: './kube-clusterrole.component.html'
 })
 
-export class KubeDeploymentComponent extends KubernetesNamespacedResource implements OnInit, OnDestroy {
-  @ViewChild(ListDeploymentComponent)
-  listResourceComponent: ListDeploymentComponent;
+export class KubeClusterroleComponent extends KubernetesUnNamespacedResource implements OnInit, OnDestroy {
+  @ViewChild(ListClusterroleComponent)
+  listResourceComponent: ListClusterroleComponent;
 
   @ViewChild(AceEditorComponent)
   aceEditorModal: AceEditorComponent;
 
   @ViewChild(DeletionDialogComponent)
   deletionDialogComponent: DeletionDialogComponent;
-
-  @ViewChild(MigrationComponent)
-  migrationComponent: MigrationComponent;
 
   constructor(public kubernetesClient: KubernetesClient,
               public route: ActivatedRoute,
@@ -44,8 +38,8 @@ export class KubeDeploymentComponent extends KubernetesNamespacedResource implem
               public authService: AuthService,
               public messageHandlerService: MessageHandlerService) {
     super(kubernetesClient, route, router, clusterService, authService, messageHandlerService);
-    super.registResourceType('deployment');
-    super.registKubeResource(KubeResourceDeployment);
+    super.registResourceType('clusterrole');
+    super.registKubeResource(KubeResourceClusterRole);
     super.registShowSate(showState);
   }
 
@@ -55,11 +49,6 @@ export class KubeDeploymentComponent extends KubernetesNamespacedResource implem
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
-  }
-
-
-  migration(obj: any) {
-    this.migrationComponent.openModal(this.cluster, obj);
   }
 
 }

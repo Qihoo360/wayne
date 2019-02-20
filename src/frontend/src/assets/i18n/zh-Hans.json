@@ -675,6 +675,16 @@
           "AGE": "启动时间"
         }
       },
+      "DEPLOYMENT": {
+        "CREATE": "创建 Deployment",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "IMAGES": "镜像",
+          "STATUS": "状态"
+        }
+      },
       "STATEFULSET": {
         "CREATE": "创建 StatefulSet",
         "LIST": {
@@ -764,6 +774,56 @@
           "MAXPODS": "最大数量",
           "REPLICAS": "当前副本数",
           "AGE": "启动时间"
+        }
+      },
+      "ROLE": {
+        "CREATE": "创建 Role",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
+      },
+      "ROLEBINDING": {
+        "CREATE": "创建 RoleBinding",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
+      },
+      "SERVICEACCOUNT": {
+        "CREATE": "创建 ServiceAccount",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "SECRET": "秘钥列表"
+        }
+      },
+      "CLUSTERROLE": {
+        "CREATE": "创建 ClusterRole",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
+      },
+      "CLUSTERROLEBINDING": {
+        "CREATE": "创建 ClusterRoleBinding",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
+      },
+      "NAMESPACE": {
+        "CREATE": "创建 Namespace",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "STATUS": "状态"
         }
       }
     }

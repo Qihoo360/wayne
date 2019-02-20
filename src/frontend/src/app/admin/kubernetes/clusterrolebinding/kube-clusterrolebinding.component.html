@@ -3,23 +3,22 @@
     <div class="table-search">
       <div class="table-search-left">
         <button class="wayne-button normal" (click)="createResource()">
-          {{'ADMIN.KUBERNETES.NAMESPACE.CREATE' | translate}}
+          {{'ADMIN.KUBERNETES.CLUSTERROLEBINDING.CREATE' | translate}}
         </button>
         <button class="wayne-button normal" (click)="retrieveResource()">
           {{'ADMIN.KUBERNETES.ACTION.REFRESH' | translate}}
         </button>
         <wayne-filter-box (confirm)="onConfirmEvent()" (cancel)="onCancelEvent()">
           <wayne-checkbox-group [(ngModel)]="showList">
-            <wayne-checkbox value="name">{{'ADMIN.KUBERNETES.NAMESPACE.LIST.NAME' | translate}}</wayne-checkbox>
-            <wayne-checkbox value="label">{{'ADMIN.KUBERNETES.NAMESPACE.LIST.LABEL' | translate}}</wayne-checkbox>
-            <wayne-checkbox value="status">{{'ADMIN.KUBERNETES.NAMESPACE.LIST.STATUS' | translate}}</wayne-checkbox>
-            <wayne-checkbox value="age">{{'ADMIN.KUBERNETES.NAMESPACE.LIST.AGE' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="name">{{'ADMIN.KUBERNETES.CLUSTERROLEBINDING.LIST.NAME' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="label">{{'ADMIN.KUBERNETES.CLUSTERROLEBINDING.LIST.LABEL' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="age">{{'ADMIN.KUBERNETES.CLUSTERROLEBINDING.LIST.AGE' | translate}}</wayne-checkbox>
           </wayne-checkbox-group>
         </wayne-filter-box>
       </div>
     </div>
 
-    <wayne-list-namespace
+    <wayne-list-clusterrolebinding
       [resources]="resources"
       [showState]="showState"
       (delete)="onDeleteResourceEvent($event)"
@@ -27,7 +26,7 @@
       [page]="pageState.page"
       [cluster]="cluster"
       (paginate)="retrieveResource($event)">
-    </wayne-list-namespace>
+    </wayne-list-clusterrolebinding>
   </div>
 </div>
 <deletion-dialog (outputObj)="confirmDeleteEvent($event)"></deletion-dialog>

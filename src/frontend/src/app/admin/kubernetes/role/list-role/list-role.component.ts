@@ -3,13 +3,14 @@ import { KubernetesListResource } from '../../../../shared/base/kubernetes-names
 import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.service';
 
 @Component({
-  selector: 'wayne-list-namespace',
-  templateUrl: './list-namespace.component.html'
+  selector: 'wayne-list-role',
+  templateUrl: './list-role.component.html'
 })
 
-export class ListNamespaceComponent extends KubernetesListResource {
+export class ListRoleComponent extends KubernetesListResource {
   @Input() resources: any[];
   @Input() showState: object;
+
 
   constructor(public tplDetailService: TplDetailService) {
     super(tplDetailService);
