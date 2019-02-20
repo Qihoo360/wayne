@@ -81,7 +81,7 @@ export class PaginateComponent implements OnInit {
   set size(value) {
     // Number(value) 防止出现 00 类似情况。
     if (Number(value) && value !== this._size) {
-      this._size = value;
+      this._size = Number(value);
       if (this.localSave && this.pageSizes && this.pageSizes.indexOf(value) > -1) {
         this.storage.save('pagesize', this._size / this.rate);
       }
