@@ -3,8 +3,8 @@ export class NamespaceMetaData {
   clusterMeta: { [key: string]: ClusterMeta };
   imagePullSecrets: LocalObjectReference[];
   env: EnvVar[];
-  serviceAnnotations: {[key: string]: string}
-  ingressAnnotations: {[key: string]: string}
+  serviceAnnotations: {[key: string]: string};
+  ingressAnnotations: {[key: string]: string};
 
   constructor() {
     this.imagePullSecrets = [];
