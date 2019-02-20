@@ -222,6 +222,7 @@
     }
   },
   "LIMIT": {
+    "DEPLOYMENT": "副本份数不能超过",
     "MEMORY": "内存限制",
     "STATEFULSET": "状态副本集份数超过系统最大限制"
   },

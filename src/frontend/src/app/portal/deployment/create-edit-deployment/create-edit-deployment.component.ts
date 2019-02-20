@@ -61,7 +61,8 @@ export class CreateEditDeploymentComponent implements OnInit {
       this.deploymentService.getById(id, app.id).subscribe(
         status => {
           this.deployment = status.data;
-          const metaData = JSON.parse(this.deployment.metaData ? this.deployment.metaData : '{}');
+          this.deployment.metaData = this.deployment.metaData ? this.deployment.metaData : '{}';
+          const metaData = JSON.parse(this.deployment.metaData);
           if (this.clusters && this.clusters.length > 0) {
             const replicas = metaData['replicas'];
             for (const clu of this.clusters) {
