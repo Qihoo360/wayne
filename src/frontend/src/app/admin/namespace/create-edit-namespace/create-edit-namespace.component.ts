@@ -113,6 +113,9 @@ export class CreateEditNamespaceComponent {
       this.setClusterMetas();
       this.setIngressMetas();
       this.setServiceMetas();
+    } else {
+      this.buildMetaDataObj();
+      this.initJsonEditor();
     }
   }
 
