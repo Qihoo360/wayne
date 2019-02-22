@@ -158,15 +158,15 @@ func (c *OpenAPIController) GetDeploymentStatus() {
 	err = json.Unmarshal([]byte(ns.MetaData), &ns.MetaDataObj)
 	if err != nil {
 		logs.Error(fmt.Sprintf("Failed to parse metadata: %s", err.Error()))
-		c.AddErrorAndResponse("", http.StatusInternalServerError)
+		c.AddErrorAndResponse("Failed to parse metadata", http.StatusInternalServerError)
 		return
 	}
 	manager, err := client.Manager(param.Cluster)
 	if err == nil {
 		deployInfo, err := resdeployment.GetDeploymentDetail(manager.Client, manager.CacheFactory, param.Deployment, ns.MetaDataObj.Namespace)
 		if err != nil {
-			logs.Error("Failed to get  k8s deployment state: %s", err.Error())
-			c.AddErrorAndResponse("", http.StatusInternalServerError)
+			logs.Error("Failed to get k8s deployment state", err.Error())
+			c.AddErrorAndResponse("Failed to get k8s deployment state:the specified deployment may not exist in the kubernetes cluster.", http.StatusInternalServerError)
 			return
 		}
 		result.Body.DeploymentStatus.Deployment = response.Deployment{
@@ -188,8 +188,8 @@ func (c *OpenAPIController) GetDeploymentStatus() {
 		}
 		podInfo, err := pod.GetPodsByDeployment(manager.CacheFactory, ns.MetaDataObj.Namespace, param.Deployment)
 		if err != nil {
-			logs.Error("Failed to get k8s pod state: %s", err.Error())
-			c.AddErrorAndResponse("", http.StatusInternalServerError)
+			logs.Error("Failed to get k8s pod state", err.Error())
+			c.AddErrorAndResponse("Failed to get k8s pod state", http.StatusInternalServerError)
 			return
 		}
 		for _, pod := range podInfo {
@@ -290,7 +290,7 @@ func (c *OpenAPIController) RestartDeployment() {
 
 	if err := updateDeployment(deployObj, param.Cluster, c.APIKey.String(), "Restart Deployment", deployResource.Id); err != nil {
 		logs.Error("Failed to restart from k8s client", err.Error())
-		c.AddErrorAndResponse(fmt.Sprintf("Failed to restart from k8s client on %s!", param.Cluster), http.StatusInternalServerError)
+		c.AddErrorAndResponse(fmt.Sprintf("Failed to restart from k8s client on %s:%s!", param.Cluster, err.Error()), http.StatusInternalServerError)
 		return
 	}
 	c.HandleResponse(nil)
@@ -344,14 +344,14 @@ func (c *OpenAPIController) UpgradeDeployment() {
 			deployInfo, err := getOnlineDeploymenetInfo(param.Deployment, param.Namespace, cluster, int64(param.TemplateId))
 			if err != nil {
 				logs.Error("Failed to get online deployment", err)
-				c.AddError(fmt.Sprintf("Failed to get online deployment on %s!", cluster))
+				c.AddError(fmt.Sprintf("Failed to get online deployment on %s:%s!", cluster, err.Error()))
 				continue
 			}
 			common.DeploymentPreDeploy(deployInfo.DeploymentObject, deployInfo.Deployment, deployInfo.Cluster, deployInfo.Namespace)
 			err = publishDeployment(deployInfo, c.APIKey.String())
 			if err != nil {
 				logs.Error("Failed to publish deployment", err)
-				c.AddError(fmt.Sprintf("Failed to publish deployment on %s!", cluster))
+				c.AddError(fmt.Sprintf("Failed to publish deployment on %s:%s!", cluster, err.Error()))
 			}
 		}
 		c.HandleResponse(nil)
@@ -388,17 +388,30 @@ func (c *OpenAPIController) UpgradeDeployment() {
 	for _, cluster := range param.clusters {
 		deployInfo, err := getOnlineDeploymenetInfo(param.Deployment, param.Namespace, cluster, 0)
 		if err != nil {
-			c.AddError(fmt.Sprintf("Failed to get online deployment info on %s", cluster))
+			c.AddError(fmt.Sprintf("Failed to get online deployment info on %s:%s", cluster, err.Error()))
 			continue
 		}
 
 		// 率先把强制指定的环境变量，如和系统环境变量冲突，后面会覆盖
+		ce := make(map[string]string)
+		for k, v := range param.envMap {
+			ce[k] = v
+		}
 		for k, v := range deployInfo.DeploymentObject.Spec.Template.Spec.Containers {
 			for i, e := range v.Env {
 				if param.envMap[e.Name] != "" {
 					deployInfo.DeploymentObject.Spec.Template.Spec.Containers[k].Env[i].Value = param.envMap[e.Name]
+					delete(ce, e.Name)
 				}
 			}
+		}
+		if len(ce) > 0 {
+			var keys []string
+			for k := range ce {
+				keys = append(keys, k)
+			}
+			c.AddError(fmt.Sprintf("Deployment template don't have environments: %s", strings.Join(keys, ",")))
+			continue
 		}
 
 		common.DeploymentPreDeploy(deployInfo.DeploymentObject, deployInfo.Deployment, deployInfo.Cluster, deployInfo.Namespace)
@@ -437,7 +450,7 @@ func (c *OpenAPIController) UpgradeDeployment() {
 		deployInfo := deployInfos[0]
 		newTpl, err := json.Marshal(deployInfo.DeploymentObject)
 		if err != nil {
-			logs.Error("Failed to parse metadata: %s", err)
+			logs.Error("Failed to parse metadata", err.Error())
 			c.AddError(fmt.Sprintf("Failed to parse metadata!"))
 			continue
 		}
@@ -445,7 +458,7 @@ func (c *OpenAPIController) UpgradeDeployment() {
 
 		newtmplId, err := models.DeploymentTplModel.Add(deployInfo.DeploymentTemplete)
 		if err != nil {
-			logs.Error("Failed to save new deployment template", err)
+			logs.Error("Failed to save new deployment template", err.Error())
 			c.AddError(fmt.Sprintf("Failed to save new deployment template!"))
 			continue
 		}
@@ -453,7 +466,7 @@ func (c *OpenAPIController) UpgradeDeployment() {
 		for k, deployInfo := range deployInfos {
 			err := models.DeploymentModel.UpdateById(deployInfo.Deployment)
 			if err != nil {
-				logs.Error("Failed to update deployment by id", err)
+				logs.Error("Failed to update deployment by id", err.Error())
 				c.AddError(fmt.Sprintf("Failed to update deployment by id!"))
 				continue
 			}
@@ -470,8 +483,8 @@ func (c *OpenAPIController) UpgradeDeployment() {
 		for _, deployInfo := range deployInfos {
 			err := publishDeployment(deployInfo, c.APIKey.String())
 			if err != nil {
-				logs.Error("Failed to publish deployment", err)
-				c.AddError(fmt.Sprintf("Failed to publish deployment on %s!", deployInfo.Cluster.Name))
+				logs.Error("Failed to publish deployment", err.Error())
+				c.AddError(fmt.Sprintf("Failed to publish deployment on %s:%s!", deployInfo.Cluster.Name, err.Error()))
 			}
 		}
 	}
@@ -527,7 +540,7 @@ func (c *OpenAPIController) ScaleDeployment() {
 	err = json.Unmarshal([]byte(ns.MetaData), &ns.MetaDataObj)
 	if err != nil {
 		logs.Error(fmt.Sprintf("Failed to parse metadata: %s", err.Error()))
-		c.AddErrorAndResponse("", http.StatusInternalServerError)
+		c.AddErrorAndResponse("Failed to parse metadata", http.StatusInternalServerError)
 		return
 	}
 	deployResource, err := models.DeploymentModel.GetByName(param.Deployment)
@@ -538,7 +551,7 @@ func (c *OpenAPIController) ScaleDeployment() {
 	err = json.Unmarshal([]byte(deployResource.MetaData), &deployResource.MetaDataObj)
 	if err != nil {
 		logs.Error(fmt.Sprintf("Failed to parse metadata: %s", err.Error()))
-		c.AddErrorAndResponse("", http.StatusInternalServerError)
+		c.AddErrorAndResponse("Failed to parse metadata", http.StatusInternalServerError)
 		return
 	}
 
@@ -559,7 +572,7 @@ func (c *OpenAPIController) ScaleDeployment() {
 	deployObj.Spec.Replicas = &replicas32
 	if err := updateDeployment(deployObj, param.Cluster, c.APIKey.String(), "Scale Deployment", deployResource.Id); err != nil {
 		logs.Error("Failed to upgrade from k8s client", err.Error())
-		c.AddErrorAndResponse(fmt.Sprintf("Failed to upgrade from k8s client on %s!", param.Cluster), http.StatusInternalServerError)
+		c.AddErrorAndResponse(fmt.Sprintf("Failed to upgrade from k8s client on %s:%s!", param.Cluster, err.Error()), http.StatusInternalServerError)
 		return
 	}
 	err = models.DeploymentModel.Update(replicas32, deployResource, param.Cluster)
@@ -573,17 +586,17 @@ func (c *OpenAPIController) ScaleDeployment() {
 // 主要用于从数据库中查找、拼凑出用于更新的模板资源，资源主要用于 k8s 数据更新和 数据库存储更新记录等
 func getOnlineDeploymenetInfo(deployment, namespace, cluster string, templateId int64) (deployInfo *DeploymentInfo, err error) {
 	if len(deployment) == 0 {
-		return nil, fmt.Errorf("Invalid deployment parameter!")
+		return nil, fmt.Errorf("invalid deployment parameter")
 	}
 	if len(namespace) == 0 {
-		return nil, fmt.Errorf("Invalid namespace parameter!")
+		return nil, fmt.Errorf("invalid namespace parameter")
 	}
 	if len(cluster) == 0 {
-		return nil, fmt.Errorf("Invalid cluster parameter!")
+		return nil, fmt.Errorf("invalid cluster parameter")
 	}
 	deployResource, err := models.DeploymentModel.GetByName(deployment)
 	if err != nil {
-		return nil, fmt.Errorf("Failed to get deployment by name(%s)!", deployment)
+		return nil, fmt.Errorf("failed to get deployment by name(%s)", deployment)
 	}
 
 	deployInfo = new(DeploymentInfo)
@@ -592,45 +605,45 @@ func getOnlineDeploymenetInfo(deployment, namespace, cluster string, templateId 
 	if templateId != 0 {
 		deployInfo.DeploymentTemplete, err = models.DeploymentTplModel.GetById(int64(templateId))
 		if err != nil {
-			return nil, fmt.Errorf("Failed to get deployment template by id: %s", err.Error())
+			return nil, fmt.Errorf("failed to get deployment template by id: %s", err.Error())
 		}
 		if deployResource.Id != deployInfo.DeploymentTemplete.DeploymentId {
-			return nil, fmt.Errorf("Invalid template id parameter(no permission)!")
+			return nil, fmt.Errorf("invalid template id parameter(no permission)")
 		}
 	} else {
 		// 获取并更新线上模板
 		status, err := models.PublishStatusModel.GetByCluster(models.PublishTypeDeployment, deployResource.Id, cluster)
 		if err != nil {
-			return nil, fmt.Errorf("Failed to get publish status by cluster: %s", err.Error())
+			return nil, fmt.Errorf("failed to get publish status by cluster: %s", err.Error())
 		}
 		onlineTplId := status.TemplateId
 
 		deployInfo.DeploymentTemplete, err = models.DeploymentTplModel.GetById(onlineTplId)
 		if err != nil {
-			return nil, fmt.Errorf("Failed to get deployment template by id: %s", err.Error())
+			return nil, fmt.Errorf("failed to get deployment template by id: %s", err.Error())
 		}
 	}
 
 	deployObj := v1beta1.Deployment{}
 	err = json.Unmarshal(hack.Slice(deployInfo.DeploymentTemplete.Template), &deployObj)
 	if err != nil {
-		return nil, fmt.Errorf("Failed to parse deployment template: %s", err.Error())
+		return nil, fmt.Errorf("failed to parse deployment template: %s", err.Error())
 	}
 	// 拼凑 namespace 参数
 	app, _ := models.AppModel.GetById(deployResource.AppId)
 	err = json.Unmarshal([]byte(app.Namespace.MetaData), &app.Namespace.MetaDataObj)
 	if err != nil {
-		return nil, fmt.Errorf("Failed to parse namespace metadata: %s", err.Error())
+		return nil, fmt.Errorf("failed to parse namespace metadata: %s", err.Error())
 	}
 	if namespace != app.Namespace.Name {
-		return nil, fmt.Errorf("Invalid namespace parameter(should be the namespace of the application)")
+		return nil, fmt.Errorf("invalid namespace parameter(should be the namespace of the application)")
 	}
 	deployObj.Namespace = app.Namespace.MetaDataObj.Namespace
 
 	// 拼凑副本数量参数
 	err = json.Unmarshal([]byte(deployResource.MetaData), &deployResource.MetaDataObj)
 	if err != nil {
-		return nil, fmt.Errorf("Failed to parse deployment resource metadata: %s", err.Error())
+		return nil, fmt.Errorf("failed to parse deployment resource metadata: %s", err.Error())
 	}
 	rp := deployResource.MetaDataObj.Replicas[cluster]
 	deployObj.Spec.Replicas = &rp
@@ -641,7 +654,7 @@ func getOnlineDeploymenetInfo(deployment, namespace, cluster string, templateId 
 
 	deployInfo.Cluster, err = models.ClusterModel.GetParsedMetaDataByName(cluster)
 	if err != nil {
-		return nil, fmt.Errorf("Failed to get cluster by name: %s", err.Error())
+		return nil, fmt.Errorf("failed to get cluster by name: %s", err.Error())
 	}
 	return deployInfo, nil
 }
@@ -665,7 +678,7 @@ func publishDeployment(deployInfo *DeploymentInfo, username string) error {
 		if err != nil {
 			publishHistory.Status = models.ReleaseFailure
 			publishHistory.Message = err.Error()
-			return fmt.Errorf("Failed to create or update deployment by k8s client: %s", err.Error())
+			return fmt.Errorf("failed to create or update deployment by k8s client: %s", err.Error())
 		} else {
 			publishHistory.Status = models.ReleaseSuccess
 			err := models.PublishStatusModel.Add(deployInfo.Deployment.Id, deployInfo.DeploymentTemplete.Id, deployInfo.Cluster.Name, models.PublishTypeDeployment)
@@ -675,14 +688,14 @@ func publishDeployment(deployInfo *DeploymentInfo, username string) error {
 			return nil
 		}
 	} else {
-		return fmt.Errorf("Failed to get k8s client(cluster: %s): %v", deployInfo.Cluster.Name, err)
+		return fmt.Errorf("failed to get k8s client(cluster: %s): %v", deployInfo.Cluster.Name, err)
 	}
 }
 
 func updateDeployment(deployObj *v1beta1.Deployment, cluster string, name string, msg string, resourceId int64) error {
 	status, err := models.PublishStatusModel.GetByCluster(models.PublishTypeDeployment, resourceId, cluster)
 	if err != nil {
-		return fmt.Errorf("Failed to get publish status by cluster: %s", err.Error())
+		return fmt.Errorf("failed to get publish status by cluster: %s", err.Error())
 	}
 	publishHistory := &models.PublishHistory{
 		Type:         models.PublishTypeDeployment,
@@ -702,7 +715,7 @@ func updateDeployment(deployObj *v1beta1.Deployment, cluster string, name string
 	if err != nil {
 		publishHistory.Status = models.ReleaseFailure
 		publishHistory.Message = err.Error()
-		return fmt.Errorf("Failed to update deployment by k8s client: %s", err.Error())
+		return fmt.Errorf("failed to update deployment by k8s client: %s", err.Error())
 	} else {
 		publishHistory.Status = models.ReleaseSuccess
 		err := models.PublishStatusModel.Add(resourceId, status.TemplateId, cluster, models.PublishTypeDeployment)
