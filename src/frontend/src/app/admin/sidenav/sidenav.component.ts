@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../shared/auth/auth.service';
 import { SideNavService } from '../../shared/client/v1/sidenav.service';
 import { adminSideNav } from '../../shared/sidenav.const';
-import { Subscription } from 'rxjs';
 import { SideNavExpand } from '../../shared/base/side-nav/side-nav-expand';
 
 @Component({

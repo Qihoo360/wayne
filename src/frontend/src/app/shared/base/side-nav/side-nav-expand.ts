@@ -2,12 +2,13 @@ import { OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SideNavService } from '../../client/v1/sidenav.service';
 import { Subscription } from 'rxjs';
+import { SideNavType } from '../../sidenav.const';
 
 export class SideNavExpand implements OnInit, OnDestroy {
   sideNavSub: Subscription;
   currentUrl = this.router.url;
   public adminSideNav: any[];
-
+  sideNavType = SideNavType;
   constructor(
     public sideNav: any[],
     public sideNavService: SideNavService,
@@ -34,7 +35,7 @@ export class SideNavExpand implements OnInit, OnDestroy {
 
   addMathLinks(sideNav: any[]) {
     sideNav.forEach(item => {
-      if (item.type === 2 && item.child) {
+      if (item.type === SideNavType.GroupLink && item.child) {
         item.links = item.child.filter(child => child.a).map(child => `${this.prefix}${child.a.link}`);
       }
     });
