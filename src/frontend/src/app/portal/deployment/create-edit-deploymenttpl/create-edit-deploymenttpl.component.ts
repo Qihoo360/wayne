@@ -62,7 +62,6 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
   isSubmitOnGoing = false;
   app: App;
   deployment: Deployment;
-  kubeDeployment: KubeDeployment = new KubeDeployment();
 
   cpuUnitPrice = 30;
   memoryUnitPrice = 10;
@@ -168,15 +167,15 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
 
   get containersLength(): number {
     try {
-      return this.kubeDeployment.spec.template.spec.containers.length;
+      return this.kubeResource.spec.template.spec.containers.length;
     } catch (error) {
       return 0;
     }
   }
 
   initDefault() {
-    this.kubeDeployment = JSON.parse(defaultDeployment);
-    this.kubeDeployment.spec.template.spec.containers.push(this.defaultContainer());
+    this.kubeResource = JSON.parse(defaultDeployment);
+    this.kubeResource.spec.template.spec.containers.push(this.defaultContainer());
   }
 
   defaultContainer(): Container {
@@ -264,54 +263,54 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
 
   fillDeploymentLabel(kubeDeployment: KubeDeployment): KubeDeployment {
     kubeDeployment.metadata.name = this.deployment.name;
-    kubeDeployment.metadata.labels = this.buildLabels(this.kubeDeployment.metadata.labels);
-    kubeDeployment.spec.selector.matchLabels = this.buildSelectorLabels(this.kubeDeployment.spec.selector.matchLabels);
-    kubeDeployment.spec.template.metadata.labels = this.buildLabels(this.kubeDeployment.spec.template.metadata.labels);
+    kubeDeployment.metadata.labels = this.buildLabels(this.kubeResource.metadata.labels);
+    kubeDeployment.spec.selector.matchLabels = this.buildSelectorLabels(this.kubeResource.spec.selector.matchLabels);
+    kubeDeployment.spec.template.metadata.labels = this.buildLabels(this.kubeResource.spec.template.metadata.labels);
     return kubeDeployment;
   }
 
   onDeleteContainer(index: number) {
-    this.kubeDeployment.spec.template.spec.containers.splice(index, 1);
+    this.kubeResource.spec.template.spec.containers.splice(index, 1);
     this.initNavList();
   }
 
   onAddContainer() {
-    this.kubeDeployment.spec.template.spec.containers.push(this.defaultContainer());
+    this.kubeResource.spec.template.spec.containers.push(this.defaultContainer());
     this.initNavList();
   }
 
   onAddEnv(index: number) {
-    if (!this.kubeDeployment.spec.template.spec.containers[index].env) {
-      this.kubeDeployment.spec.template.spec.containers[index].env = [];
+    if (!this.kubeResource.spec.template.spec.containers[index].env) {
+      this.kubeResource.spec.template.spec.containers[index].env = [];
     }
-    this.kubeDeployment.spec.template.spec.containers[index].env.push(this.defaultEnv(0));
+    this.kubeResource.spec.template.spec.containers[index].env.push(this.defaultEnv(0));
   }
 
   onAddEnvFrom(index: number) {
-    if (!this.kubeDeployment.spec.template.spec.containers[index].envFrom) {
-      this.kubeDeployment.spec.template.spec.containers[index].envFrom = [];
+    if (!this.kubeResource.spec.template.spec.containers[index].envFrom) {
+      this.kubeResource.spec.template.spec.containers[index].envFrom = [];
     }
-    this.kubeDeployment.spec.template.spec.containers[index].envFrom.push(this.defaultEnvFrom(1));
+    this.kubeResource.spec.template.spec.containers[index].envFrom.push(this.defaultEnvFrom(1));
   }
 
   onDeleteEnv(i: number, j: number) {
-    this.kubeDeployment.spec.template.spec.containers[i].env.splice(j, 1);
+    this.kubeResource.spec.template.spec.containers[i].env.splice(j, 1);
   }
 
   onDeleteEnvFrom(i: number, j: number) {
-    this.kubeDeployment.spec.template.spec.containers[i].envFrom.splice(j, 1);
+    this.kubeResource.spec.template.spec.containers[i].envFrom.splice(j, 1);
   }
 
   envChange(type: number, i: number, j: number) {
-    this.kubeDeployment.spec.template.spec.containers[i].env[j] = this.defaultEnv(type);
+    this.kubeResource.spec.template.spec.containers[i].env[j] = this.defaultEnv(type);
   }
 
   envFromChange(type: number, i: number, j: number) {
-    this.kubeDeployment.spec.template.spec.containers[i].envFrom[j] = this.defaultEnvFrom(type);
+    this.kubeResource.spec.template.spec.containers[i].envFrom[j] = this.defaultEnvFrom(type);
   }
 
   readinessProbeChange(i: number) {
-    let probe = this.kubeDeployment.spec.template.spec.containers[i].readinessProbe;
+    let probe = this.kubeResource.spec.template.spec.containers[i].readinessProbe;
     if (probe) {
       probe = undefined;
     } else {
@@ -321,11 +320,11 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
       probe.periodSeconds = 10;
       probe.failureThreshold = 10;
     }
-    this.kubeDeployment.spec.template.spec.containers[i].readinessProbe = probe;
+    this.kubeResource.spec.template.spec.containers[i].readinessProbe = probe;
   }
 
   lifecycleChange(i: number) {
-    let lifecycle = this.kubeDeployment.spec.template.spec.containers[i].lifecycle;
+    let lifecycle = this.kubeResource.spec.template.spec.containers[i].lifecycle;
     if (lifecycle) {
       lifecycle = undefined;
     } else {
@@ -334,11 +333,11 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
       lifecycle.preStop.exec = new ExecAction();
       lifecycle.preStop.exec.command = Array(this.defaultSafeExecCommand);
     }
-    this.kubeDeployment.spec.template.spec.containers[i].lifecycle = lifecycle;
+    this.kubeResource.spec.template.spec.containers[i].lifecycle = lifecycle;
   }
 
   livenessProbeChange(i: number) {
-    let probe = this.kubeDeployment.spec.template.spec.containers[i].livenessProbe;
+    let probe = this.kubeResource.spec.template.spec.containers[i].livenessProbe;
     if (probe) {
       probe = undefined;
     } else {
@@ -349,7 +348,7 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
       probe.failureThreshold = 10;
       probe.initialDelaySeconds = 30;
     }
-    this.kubeDeployment.spec.template.spec.containers[i].livenessProbe = probe;
+    this.kubeResource.spec.template.spec.containers[i].livenessProbe = probe;
   }
 
   probeTypeChange(probe: Probe, type: number) {
@@ -376,13 +375,13 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
   }
 
   lifecyclePostStartProbeTypeChange(type: number, i: number) {
-    this.kubeDeployment.spec.template.spec.containers[i].lifecycle.postStart = this.lifecycleProbeTypeChange(
-      this.kubeDeployment.spec.template.spec.containers[i].lifecycle.postStart, type);
+    this.kubeResource.spec.template.spec.containers[i].lifecycle.postStart = this.lifecycleProbeTypeChange(
+      this.kubeResource.spec.template.spec.containers[i].lifecycle.postStart, type);
   }
 
   lifecyclePreStopProbeTypeChange(type: number, i: number) {
-    this.kubeDeployment.spec.template.spec.containers[i].lifecycle.preStop = this.lifecycleProbeTypeChange(
-      this.kubeDeployment.spec.template.spec.containers[i].lifecycle.preStop, type);
+    this.kubeResource.spec.template.spec.containers[i].lifecycle.preStop = this.lifecycleProbeTypeChange(
+      this.kubeResource.spec.template.spec.containers[i].lifecycle.preStop, type);
   }
 
   lifecycleProbeTypeChange(handler: Handler, type: number) {
@@ -425,22 +424,22 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
   }
 
   livenessProbeTypeChange(type: number, i: number) {
-    this.probeTypeChange(this.kubeDeployment.spec.template.spec.containers[i].livenessProbe, type);
+    this.probeTypeChange(this.kubeResource.spec.template.spec.containers[i].livenessProbe, type);
   }
 
   readinessProbeTypeChange(type: number, i: number) {
-    this.probeTypeChange(this.kubeDeployment.spec.template.spec.containers[i].readinessProbe, type);
+    this.probeTypeChange(this.kubeResource.spec.template.spec.containers[i].readinessProbe, type);
   }
 
   normalPreStopExecSelected(i: number): boolean {
-    const preStop = this.kubeDeployment.spec.template.spec.containers[i].lifecycle.preStop;
+    const preStop = this.kubeResource.spec.template.spec.containers[i].lifecycle.preStop;
     return preStop && preStop.exec &&
       preStop.exec.command && preStop.exec.command.length > 0 &&
       preStop.exec.command[0] !== this.defaultSafeExecCommand;
   }
 
   safeExitSelected(i: number): boolean {
-    const preStop = this.kubeDeployment.spec.template.spec.containers[i].lifecycle.preStop;
+    const preStop = this.kubeResource.spec.template.spec.containers[i].lifecycle.preStop;
     return preStop && preStop.exec &&
       preStop.exec.command && preStop.exec.command.length > 0 &&
       preStop.exec.command[0] === this.defaultSafeExecCommand;
@@ -488,7 +487,7 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
       return;
     }
     this.isSubmitOnGoing = true;
-    let newState = JSON.parse(JSON.stringify(this.kubeDeployment));
+    let newState = JSON.parse(JSON.stringify(this.kubeResource));
     newState = this.generateDeployment(newState);
     this.deploymentTpl.deploymentId = this.deployment.id;
     this.deploymentTpl.template = JSON.stringify(newState);
@@ -622,8 +621,8 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
 
   get totalFee() {
     let fee = 0;
-    if (this.kubeDeployment.spec.template.spec.containers) {
-      for (const container of this.kubeDeployment.spec.template.spec.containers) {
+    if (this.kubeResource.spec.template.spec.containers) {
+      for (const container of this.kubeResource.spec.template.spec.containers) {
         const limit = container.resources.limits;
         const cpu = limit['cpu'];
         const memory = limit['memory'];
@@ -644,7 +643,7 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
     this.removeUnused(kubeDeployment);
     this.fillDefault(kubeDeployment);
     this.convertProbeCommandToText(kubeDeployment);
-    this.kubeDeployment = kubeDeployment;
+    this.kubeResource = kubeDeployment;
     this.initNavList();
   }
 
@@ -728,7 +727,7 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
   openModal(): void {
     // let copy = Object.assign({}, myObject).
     // but this wont work for nested objects. SO an alternative would be
-    let newState = JSON.parse(JSON.stringify(this.kubeDeployment));
+    let newState = JSON.parse(JSON.stringify(this.kubeResource));
     newState = this.generateDeployment(newState);
     this.aceEditorService.announceMessage(AceEditorMsg.Instance(newState, true));
   }

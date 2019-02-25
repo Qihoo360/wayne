@@ -35,7 +35,7 @@
           <label aria-haspopup="true" role="tooltip" [class.invalid]="!isScheduleValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" name="schedule"
-                   [(ngModel)]="kubeCronjob.spec.schedule"
+                   [(ngModel)]="kubeResource.spec.schedule"
                    size="40"
                    required
                    class="tooltip tooltip-validation tooltip-md tooltip-bottom-left"
@@ -55,7 +55,7 @@
           </label>
           <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <div class="select">
-              <select name="concurrencyPolicy" [(ngModel)]="kubeCronjob.spec.concurrencyPolicy">
+              <select name="concurrencyPolicy" [(ngModel)]="kubeResource.spec.concurrencyPolicy">
                 <option value="Allow" selected>{{'ACTION.ALLOW' | translate}}</option>
                 <option value="Forbid">{{'ACTION.FORBID' | translate}}</option>
                 <option value="Replace">{{'ACTION.REPLACE' | translate}}</option>
@@ -73,7 +73,7 @@
           <label aria-haspopup="true" role="tooltip" [class.invalid]="formValid('activeDeadlineSeconds')"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="number" name="activeDeadlineSeconds"
-                   [(ngModel)]="kubeCronjob.spec.jobTemplate.spec.activeDeadlineSeconds" size="45" required
+                   [(ngModel)]="kubeResource.spec.jobTemplate.spec.activeDeadlineSeconds" size="45" required
                    [placeholder]="'CRONJOB.MAX_EXECUTE_TIME' | translate">{{'UNIT.SECOND' | translate}}
           </label>
         </div>
@@ -86,7 +86,7 @@
             </a>
           </label>
           <label aria-haspopup="true" role="tooltip" [class.invalid]="formValid('successfulJobsHistoryLimit')" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="number" name="successfulJobsHistoryLimit" [(ngModel)]="kubeCronjob.spec.successfulJobsHistoryLimit" size="45" required
+            <input type="number" name="successfulJobsHistoryLimit" [(ngModel)]="kubeResource.spec.successfulJobsHistoryLimit" size="45" required
                    placeholder="'CRONJOB.MAX_EXECUTE_TIME' | translate">
           </label>
         </div>
@@ -98,13 +98,13 @@
             </a>
           </label>
           <label aria-haspopup="true" role="tooltip" [class.invalid]="formValid('failedJobsHistoryLimit')" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="number" name="failedJobsHistoryLimit" [(ngModel)]="kubeCronjob.spec.failedJobsHistoryLimit" size="45" required
+            <input type="number" name="failedJobsHistoryLimit" [(ngModel)]="kubeResource.spec.failedJobsHistoryLimit" size="45" required
                    placeholder="'CRONJOB.MAX_EXECUTE_TIME' | translate">
           </label>
         </div>-->
       </div>
     </section>
-    <section *ngFor="let container of kubeCronjob.spec.jobTemplate.spec.template.spec.containers; let i = index"
+    <section *ngFor="let container of kubeResource.spec.jobTemplate.spec.template.spec.containers; let i = index"
              class="form-block wrap">
       <div>
         <label class="label-level1" [id]="i ? '容器配置' + i : '容器配置'">{{'TEMPLATE.CONTAINER_CONFIG' | translate}}
@@ -165,6 +165,31 @@
             </label>
           </div>
 
+        </div>
+
+        <div class="container-box">
+          <label class="label-level2" [id]="i ? '启动命令' + i : '启动命令'">启动命令
+            <button (click)="onAddContainerCommand(i)" style="margin-left: 10px;" class="wayne-button primary">
+              <clr-icon shape="add-text"></clr-icon>
+              添加命令</button>
+          </label>
+          <div *ngFor="let cmd of container.command; let cmdIndex = index; trackBy:trackByFn">
+            <input style="margin-top: 10px" type="text" size="60" name="command_{{i}}_{{cmdIndex}}" [(ngModel)]="container.command[cmdIndex]"
+                   placeholder="容器 Entrypoint">
+            <clr-icon style="margin-top: 5px;margin-left: 5px;" (click)="onDeleteContainerCommand(i,cmdIndex)" shape="trash" class="is-solid"></clr-icon>
+          </div>
+        </div>
+        <div class="container-box">
+          <label class="label-level2" [id]="i ? '启动参数' + i : '启动参数'">启动参数
+            <button (click)="onAddContainerArgs(i)" style="margin-left: 10px;" class="wayne-button primary">
+              <clr-icon shape="add-text"></clr-icon>
+              添加参数</button>
+          </label>
+          <div *ngFor="let arg of container.args; let l = index; trackBy:trackByFn">
+            <input style="margin-top: 10px" type="text" size="60" name="args_{{i}}_{{l}}" [(ngModel)]="container.args[l]"
+                   placeholder="容器 CMD">
+            <clr-icon style="margin-top: 5px;margin-left: 5px;" (click)="onDeleteContainerArg(i,l)" shape="trash" class="is-solid"></clr-icon>
+          </div>
         </div>
 
         <div class="container-box">

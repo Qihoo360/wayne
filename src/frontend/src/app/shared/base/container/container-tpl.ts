@@ -36,5 +36,28 @@ export const containerDom = {
 };
 
 export class ContainerTpl {
+  kubeResource: any = {};
+
+  onAddContainerCommand(index: number) {
+    if (!this.kubeResource.spec.template.spec.containers[index].command) {
+      this.kubeResource.spec.template.spec.containers[index].command = [];
+    }
+    this.kubeResource.spec.template.spec.containers[index].command.push('');
+  }
+
+  onAddContainerArgs(index: number) {
+    if (!this.kubeResource.spec.template.spec.containers[index].args) {
+      this.kubeResource.spec.template.spec.containers[index].args = [];
+    }
+    this.kubeResource.spec.template.spec.containers[index].args.push('');
+  }
+
+  onDeleteContainerCommand(i: number, j: number) {
+    this.kubeResource.spec.template.spec.containers[i].command.splice(j, 1);
+  }
+
+  onDeleteContainerArg(i: number, j: number) {
+    this.kubeResource.spec.template.spec.containers[i].args.splice(j, 1);
+  }
 
 }

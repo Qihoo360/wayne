@@ -24,19 +24,19 @@
           <label class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.UPDATE_WAY' | translate}}</label>
           <div class="radio-inline">
             <input type="radio" name="daemonSetStrategyType" id="daemonSetStrategyType1" value="OnDelete"
-                   [(ngModel)]="kubeDaemonSet.spec.updateStrategy.type" checked>
+                   [(ngModel)]="kubeResource.spec.updateStrategy.type" checked>
             <label for="daemonSetStrategyType1">{{'TEMPLATE.DELETE_UPDATE' | translate}}</label>
           </div>
           <div class="radio-inline">
             <input type="radio" name="daemonSetStrategyType" id="daemonSetStrategyType2" value="RollingUpdate"
-                   [(ngModel)]="kubeDaemonSet.spec.updateStrategy.type">
+                   [(ngModel)]="kubeResource.spec.updateStrategy.type">
             <label for="daemonSetStrategyType2">{{'TEMPLATE.SCROLL_UPDATE' | translate}}</label>
           </div>
         </div>
       </div>
     </section>
 
-    <section *ngFor="let container of kubeDaemonSet.spec.template.spec.containers; let i = index"
+    <section *ngFor="let container of kubeResource.spec.template.spec.containers; let i = index"
              class="form-block wrap">
       <div>
         <label class="label-level1" [id]="i ? '容器配置' + i : '容器配置'">{{'TEMPLATE.CONTAINER_CONFIG' | translate}}
@@ -101,6 +101,31 @@
             </label>
           </div>
 
+        </div>
+
+        <div class="container-box">
+          <label class="label-level2" [id]="i ? '启动命令' + i : '启动命令'">启动命令
+            <button (click)="onAddContainerCommand(i)" style="margin-left: 10px;" class="wayne-button primary">
+              <clr-icon shape="add-text"></clr-icon>
+              添加命令</button>
+          </label>
+          <div *ngFor="let cmd of container.command; let k = index; trackBy:trackByFn">
+            <input style="margin-top: 10px" type="text" size="60" name="command_{{i}}_{{k}}" [(ngModel)]="container.command[k]"
+                   placeholder="容器 Entrypoint">
+            <clr-icon style="margin-top: 5px;margin-left: 5px;" (click)="onDeleteContainerCommand(i,k)" shape="trash" class="is-solid"></clr-icon>
+          </div>
+        </div>
+        <div class="container-box">
+          <label class="label-level2" [id]="i ? '启动参数' + i : '启动参数'">启动参数
+            <button (click)="onAddContainerArgs(i)" style="margin-left: 10px;" class="wayne-button primary">
+              <clr-icon shape="add-text"></clr-icon>
+              添加参数</button>
+          </label>
+          <div *ngFor="let arg of container.args; let l = index; trackBy:trackByFn">
+            <input style="margin-top: 10px" type="text" size="60" name="args_{{i}}_{{l}}" [(ngModel)]="container.args[l]"
+                   placeholder="容器 CMD">
+            <clr-icon style="margin-top: 5px;margin-left: 5px;" (click)="onDeleteContainerArg(i,l)" shape="trash" class="is-solid"></clr-icon>
+          </div>
         </div>
 
         <div class="container-box">
