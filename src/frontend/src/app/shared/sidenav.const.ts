@@ -1,9 +1,9 @@
 // tslint:disable:max-line-length
 /**
  * 一共有3种类型
- * type 0 不展开跳转链接
- * type 1 存在展开的跳转
- * type 2 分割线
+ * type SideNavType.NormalLink 不展开跳转链接
+ * type SideNavType.GroupLink 存在展开的跳转
+ * type SideNavType.Divider 分割线
  * 注意一点 link 必须统一不加 admin 前缀
  */
 enum SideNavType {
