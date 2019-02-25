@@ -52,6 +52,7 @@ import { ResourceLimitModule } from './component/resource-limit/resource-limit.m
 import { EchartsModule } from './echarts/echars.module';
 import { ListPodComponent } from './list-pod/list-pod.component';
 import { ListEventComponent } from './list-event/list-event.component';
+import { SideNavService } from './client/v1/sidenav.service';
 
 @NgModule({
   imports: [
@@ -138,6 +139,7 @@ import { ListEventComponent } from './list-event/list-event.component';
     ListEventComponent
   ],
   providers: [
+    SideNavService,
     TipService,
     MessageService,
     StorageService,

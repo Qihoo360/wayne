@@ -80,6 +80,7 @@
     "EDIT": "编辑配置集"
   },
   "HPA": {
+    "HPA": "HPA",
     "CREATE": "创建 HPA",
     "CREATE_TEMPLATE": "创建 HPA 模板",
     "DELETE": "删除 HPA",
@@ -284,7 +285,11 @@
     "TEMPLATE_LIST": "模版列表",
     "TEMPLATE_RECYCLED": "回收站",
     "USER_LIST": "用户列表",
-    "VIEW_MONITOR": "查看监控"
+    "VIEW_MONITOR": "查看监控",
+    "EDGE_NODE_ABOUT": "边缘节点相关",
+    "EDGE_NODE_CONFIG": "边缘节点配置",
+    "AVAILABLE_PORT_CONFIG": "可用端口配置",
+    "USED_PORT": "已分配端口"
   },
   "MESSAGE": {
     "ANNOUNCEMENT": "公告",
