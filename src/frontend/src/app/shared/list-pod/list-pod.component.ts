@@ -27,7 +27,7 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['list-pod.scss']
 })
 
-export class ListPodComponent implements  OnDestroy {
+export class ListPodComponent implements OnDestroy {
   @Input() Type: string;
   checkOnGoing = false;
   isSubmitOnGoing = false;
@@ -38,7 +38,7 @@ export class ListPodComponent implements  OnDestroy {
   timeComparator = new TimeComparator();
   stateComparator = new StateComparator();
   currentCluster: string;
-  deployment: string;
+  resourceName: string;
   logSource: string;
   timer: any;
   whetherHotReflash = true;
@@ -87,9 +87,9 @@ export class ListPodComponent implements  OnDestroy {
     clearInterval(this.timer);
   }
 
-  openModal(cluster: string, deployment: string) {
+  openModal(cluster: string, resourceName: string) {
     this.currentCluster = cluster;
-    this.deployment = deployment;
+    this.resourceName = resourceName;
     this.pods = null;
     this.logSource = null;
     this.modalOpened = true;
@@ -125,12 +125,14 @@ export class ListPodComponent implements  OnDestroy {
       if (!this.modalOpened) {
         clearInterval(this.timer);
       }
-      if (this.whetherHotReflash) { this.refresh(); }
+      if (this.whetherHotReflash) {
+        this.refresh();
+      }
     }, 5000);
   }
 
   refresh() {
-    this.podClient.listByResouce(this.appId, this.currentCluster, this.cacheService.kubeNamespace, this.Type, this.deployment).subscribe(
+    this.podClient.listByResouce(this.appId, this.currentCluster, this.cacheService.kubeNamespace, this.Type, this.resourceName).subscribe(
       response => {
         const pods = response.data;
         this.inventory.size = pods.length;
@@ -159,7 +161,7 @@ export class ListPodComponent implements  OnDestroy {
   enterContainer(pod: Pod): void {
     const appId = this.route.parent.snapshot.params['id'];
     const url = `portal/namespace/${this.cacheService.namespaceId}/app/${appId}/${this.Type}` +
-    `/${this.deployment}/pod/${pod.name}/terminal/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
+      `/${this.resourceName}/pod/${pod.name}/terminal/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 
@@ -174,8 +176,8 @@ export class ListPodComponent implements  OnDestroy {
     if (this.logSource === undefined) {
       this.messageHandlerService.showInfo('缺少机房信息，请联系管理员');
     }
-    const kubeToolCmd = `kubetool log --source ${this.logSource === undefined ? '' : this.logSource}  --${this.Type} ${this.deployment} ` +
-      `--pod=${pod.name} --layout=log`;
+    const kubeToolCmd = `kubetool log --source ${this.logSource === undefined ? '' : this.logSource} ` +
+      ` --${this.Type} ${this.resourceName} --pod=${pod.name} --layout=log`;
     this.copyService.copy(kubeToolCmd);
     this.switchCopyButton();
   }
@@ -183,8 +185,8 @@ export class ListPodComponent implements  OnDestroy {
 
   podLog(pod: Pod): void {
     const appId = this.route.parent.snapshot.params['id'];
-    const url = `portal/logging/namespace/${this.cacheService.namespaceId}/app/${appId}/${this.Type}/${this.deployment}` +
-    `/pod/${pod.name}/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
+    const url = `portal/logging/namespace/${this.cacheService.namespaceId}/app/${appId}/${this.Type}/${this.resourceName}` +
+      `/pod/${pod.name}/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 }

@@ -62,6 +62,7 @@ export class CreateEditCronjobComponent implements OnInit {
       this.cronjobService.getById(id, this.app.id).subscribe(
         status => {
           this.cronjob = status.data;
+          this.cronjob.metaData = this.cronjob.metaData ? this.cronjob.metaData : '{}';
           if (this.clusters && this.clusters.length > 0) {
             const replicas = JSON.parse(this.cronjob.metaData)['replicas'];
             for (const clu of this.clusters) {
@@ -77,7 +78,7 @@ export class CreateEditCronjobComponent implements OnInit {
               this.clusterMetas[clu.name] = culsterMeta;
             }
           }
-          const metaData = JSON.parse(this.cronjob.metaData ? this.cronjob.metaData : '{}');
+          const metaData = JSON.parse(this.cronjob.metaData);
           this.resourceLimitComponent.setValue(metaData['resources']);
         },
         error => {

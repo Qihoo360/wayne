@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ClusterService } from '../../../shared/client/v1/cluster.service';
 import { AuthService } from '../../../shared/auth/auth.service';
