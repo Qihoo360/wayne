@@ -40,45 +40,14 @@ import { DaemonSetTplService } from '../../../shared/client/v1/daemonsettpl.serv
 import { defaultDaemonSet } from '../../../shared/default-models/daemonset.const';
 import { ResourceUnitConvertor } from '../../../shared/utils';
 import { TranslateService } from '@ngx-translate/core';
-
-const templateDom = [
-  {
-    id: '创建守护进程集模版',
-    child: [
-      {
-        id: '发布信息',
-      },
-      {
-        id: '更新策略'
-      }
-    ]
-  }
-];
-
-const containerDom = {
-  id: '容器配置',
-  child: [
-    {
-      id: '镜像配置'
-    },
-    {
-      id: '环境变量配置'
-    },
-    {
-      id: '可用性检查'
-    },
-    {
-      id: '存活检查'
-    }
-  ]
-};
+import { containerDom, ContainerTpl, templateDom } from '../../../shared/base/container/container-tpl';
 
 @Component({
   selector: 'create-edit-daemonsettpl',
   templateUrl: 'create-edit-daemonsettpl.component.html',
   styleUrls: ['create-edit-daemonsettpl.scss']
 })
-export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CreateEditDaemonSetTplComponent extends ContainerTpl implements OnInit, AfterViewInit, OnDestroy {
   ngForm: NgForm;
   @ViewChild('ngForm')
   currentForm: NgForm;
@@ -110,9 +79,8 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
               private messageHandlerService: MessageHandlerService,
               @Inject(DOCUMENT) private document: any,
               public translate: TranslateService,
-              private eventManager: EventManager
-  ) {
-
+              private eventManager: EventManager) {
+    super();
   }
 
   ngAfterViewInit() {

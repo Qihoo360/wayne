@@ -39,38 +39,7 @@ import { AuthService } from '../../../shared/auth/auth.service';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { ResourceUnitConvertor } from '../../../shared/utils';
-
-const templateDom = [
-  {
-    id: '创建状态副本集模版',
-    child: [
-      {
-        id: '发布信息',
-      },
-      {
-        id: '更新策略'
-      }
-    ]
-  }
-];
-
-const containerDom = {
-  id: '容器配置',
-  child: [
-    {
-      id: '镜像配置'
-    },
-    {
-      id: '环境变量配置'
-    },
-    {
-      id: '可用性检查'
-    },
-    {
-      id: '存活检查'
-    }
-  ]
-};
+import { containerDom, ContainerTpl, templateDom } from '../../../shared/base/container/container-tpl';
 
 @Component({
   selector: 'create-edit-statefulsettpl',
@@ -78,7 +47,7 @@ const containerDom = {
   styleUrls: ['create-edit-statefulsettpl.scss']
 })
 
-export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CreateEditStatefulsettplComponent extends ContainerTpl implements OnInit, AfterViewInit, OnDestroy {
   ngForm: NgForm;
   @ViewChild('ngForm')
   currentForm: NgForm;
@@ -108,9 +77,8 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
               private route: ActivatedRoute,
               private messageHandlerService: MessageHandlerService,
               @Inject(DOCUMENT) private document: any,
-              private eventManager: EventManager
-  ) {
-
+              private eventManager: EventManager) {
+    super();
   }
 
   ngAfterViewInit() {

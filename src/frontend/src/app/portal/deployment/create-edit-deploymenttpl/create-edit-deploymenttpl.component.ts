@@ -42,41 +42,9 @@ import { AuthService } from '../../../shared/auth/auth.service';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { defaultDeployment } from '../../../shared/default-models/deployment.const';
+import { containerDom, ContainerTpl, templateDom } from '../../../shared/base/container/container-tpl';
 
-const templateDom = [
-  {
-    id: '创建部署模版',
-    child: [
-      {
-        id: '发布信息',
-      },
-      {
-        id: '更新策略'
-      }
-    ]
-  }
-];
 
-const containerDom = {
-  id: '容器配置',
-  child: [
-    {
-      id: '镜像配置'
-    },
-    {
-      id: '环境变量配置'
-    },
-    {
-      id: '可用性检查'
-    },
-    {
-      id: '存活检查'
-    },
-    {
-      id: '生命周期'
-    }
-  ]
-};
 
 @Component({
   selector: 'create-edit-deploymenttpl',
@@ -84,7 +52,7 @@ const containerDom = {
   styleUrls: ['create-edit-deploymenttpl.scss']
 })
 
-export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CreateEditDeploymentTplComponent extends ContainerTpl implements OnInit, AfterViewInit, OnDestroy {
   ngForm: NgForm;
   @ViewChild('ngForm')
   currentForm: NgForm;
@@ -116,8 +84,8 @@ export class CreateEditDeploymentTplComponent implements OnInit, AfterViewInit, 
               private route: ActivatedRoute,
               private messageHandlerService: MessageHandlerService,
               @Inject(DOCUMENT) private document: any,
-              private eventManager: EventManager
-  ) {
+              private eventManager: EventManager) {
+    super();
   }
 
   formValid(field: string): boolean {
