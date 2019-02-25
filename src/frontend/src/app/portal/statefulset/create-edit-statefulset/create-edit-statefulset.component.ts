@@ -62,6 +62,7 @@ export class CreateEditStatefulsetComponent implements OnInit {
       this.statefulsetService.getById(id, app.id).subscribe(
         status => {
           this.statefulset = status.data;
+          this.statefulset.metaData = this.statefulset.metaData ? this.statefulset.metaData : '{}';
           if (this.clusters && this.clusters.length > 0) {
             const replicas = JSON.parse(this.statefulset.metaData)['replicas'];
             for (const clu of this.clusters) {
