@@ -386,7 +386,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
             if (!tplStatusMap[stat.templateId]) {
               tplStatusMap[stat.templateId] = Array<PublishStatus>();
             }
-            tplStatusMap[stat.templateId].push(state);
+            tplStatusMap[stat.templateId].push(stat);
           }
         }
         this.tplStatusMap = tplStatusMap;
