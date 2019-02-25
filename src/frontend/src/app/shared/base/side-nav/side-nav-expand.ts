@@ -46,6 +46,8 @@ export class SideNavExpand implements OnInit, OnDestroy {
       return option.exact ?
         this.currentUrl === `${this.prefix}${link}` :
         new RegExp(link).test(this.currentUrl);
+    } else {
+      return this.currentUrl === `${this.prefix}${link}`;
     }
   }
 
