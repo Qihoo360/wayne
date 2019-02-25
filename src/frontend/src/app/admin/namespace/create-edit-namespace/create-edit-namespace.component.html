@@ -100,12 +100,12 @@
                    style="width: 200px"
                    type="text"
                    placeholder="Service 注解名字"
-                   name="kubernetes_env_name_{{i}}">
+                   name="kubernetes_service_annotation_key_{{i}}">
             <input [(ngModel)]="serviceAnnotations[i].value"
                    style="margin-left:30px;width: 200px"
                    type="text"
                    placeholder="Service 注解值"
-                   name="kubernetes_env_value_{{i}}">
+                   name="kubernetes_service_annotation_value_{{i}}">
             <clr-icon style="margin-top: 10px" (click)="onDeleteServiceAnnotations(i)" shape="trash" title="删除 Service 注解"
                       class="is-solid"></clr-icon>
           </div>
@@ -124,12 +124,12 @@
                    style="width: 200px"
                    type="text"
                    placeholder="Ingress 注解名称"
-                   name="kubernetes_env_name_{{i}}">
+                   name="kubernetes_ingress_annotation_key_{{i}}">
             <input [(ngModel)]="ingressAnnotations[i].value"
                    style="margin-left:30px;width: 200px"
                    type="text"
                    placeholder="Ingress 注解值"
-                   name="kubernetes_env_value_{{i}}">
+                   name="kubernetes_ingress_annotation_value_{{i}}">
             <clr-icon style="margin-top: 10px" (click)="onDeleteIngressAnnotations(i)" shape="trash" title="删除注解"
                       class="is-solid"></clr-icon>
           </div>

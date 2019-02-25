@@ -98,6 +98,8 @@ export class CreateEditNamespaceComponent {
       this.nsTitle = '创建命名空间';
       this.ns = new Namespace();
       this.ns.metaDataObj = JSON.parse(this.defaultMetaData);
+      this.ingressAnnotations = [];
+      this.serviceAnnotations = [];
       this.initJsonEditor();
     }
   }
@@ -113,6 +115,9 @@ export class CreateEditNamespaceComponent {
       this.setClusterMetas();
       this.setIngressMetas();
       this.setServiceMetas();
+    } else {
+      this.buildMetaDataObj();
+      this.initJsonEditor();
     }
   }
 
