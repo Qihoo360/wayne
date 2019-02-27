@@ -40,45 +40,14 @@ import { DaemonSetTplService } from '../../../shared/client/v1/daemonsettpl.serv
 import { defaultDaemonSet } from '../../../shared/default-models/daemonset.const';
 import { ResourceUnitConvertor } from '../../../shared/utils';
 import { TranslateService } from '@ngx-translate/core';
-
-const templateDom = [
-  {
-    id: '创建守护进程集模版',
-    child: [
-      {
-        id: '发布信息',
-      },
-      {
-        id: '更新策略'
-      }
-    ]
-  }
-];
-
-const containerDom = {
-  id: '容器配置',
-  child: [
-    {
-      id: '镜像配置'
-    },
-    {
-      id: '环境变量配置'
-    },
-    {
-      id: '可用性检查'
-    },
-    {
-      id: '存活检查'
-    }
-  ]
-};
+import { containerDom, ContainerTpl, templateDom } from '../../../shared/base/container/container-tpl';
 
 @Component({
   selector: 'create-edit-daemonsettpl',
   templateUrl: 'create-edit-daemonsettpl.component.html',
   styleUrls: ['create-edit-daemonsettpl.scss']
 })
-export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CreateEditDaemonSetTplComponent extends ContainerTpl implements OnInit, AfterViewInit, OnDestroy {
   ngForm: NgForm;
   @ViewChild('ngForm')
   currentForm: NgForm;
@@ -88,7 +57,6 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   isSubmitOnGoing = false;
   app: App;
   daemonSet: DaemonSet;
-  kubeDaemonSet = new KubeDaemonSet();
 
   cpuUnitPrice = 30;
   memoryUnitPrice = 10;
@@ -110,9 +78,8 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
               private messageHandlerService: MessageHandlerService,
               @Inject(DOCUMENT) private document: any,
               public translate: TranslateService,
-              private eventManager: EventManager
-  ) {
-
+              private eventManager: EventManager) {
+    super();
   }
 
   ngAfterViewInit() {
@@ -147,7 +114,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
 
   get containersLength(): number {
     try {
-      return this.kubeDaemonSet.spec.template.spec.containers.length;
+      return this.kubeResource.spec.template.spec.containers.length;
     } catch (error) {
       return 0;
     }
@@ -265,57 +232,57 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
     return result;
   }
 
-  fillLabel(kubeDaemonSet: KubeDaemonSet): KubeDaemonSet {
-    kubeDaemonSet.metadata.name = this.daemonSet.name;
-    kubeDaemonSet.metadata.labels = this.buildLabels(this.kubeDaemonSet.metadata.labels);
-    kubeDaemonSet.spec.selector.matchLabels = this.buildSelectorLabels(this.kubeDaemonSet.spec.selector.matchLabels);
-    kubeDaemonSet.spec.template.metadata.labels = this.buildLabels(this.kubeDaemonSet.spec.template.metadata.labels);
-    return kubeDaemonSet;
+  fillLabel(kubeResource: KubeDaemonSet): KubeDaemonSet {
+    kubeResource.metadata.name = this.daemonSet.name;
+    kubeResource.metadata.labels = this.buildLabels(this.kubeResource.metadata.labels);
+    kubeResource.spec.selector.matchLabels = this.buildSelectorLabels(this.kubeResource.spec.selector.matchLabels);
+    kubeResource.spec.template.metadata.labels = this.buildLabels(this.kubeResource.spec.template.metadata.labels);
+    return kubeResource;
   }
 
   initDefault() {
-    this.kubeDaemonSet = JSON.parse(defaultDaemonSet);
-    this.kubeDaemonSet.spec.template.spec.containers.push(this.defaultContainer());
+    this.kubeResource = JSON.parse(defaultDaemonSet);
+    this.kubeResource.spec.template.spec.containers.push(this.defaultContainer());
     this.initNavList();
   }
 
   onDeleteContainer(index: number) {
-    this.kubeDaemonSet.spec.template.spec.containers.splice(index, 1);
+    this.kubeResource.spec.template.spec.containers.splice(index, 1);
     this.initNavList();
   }
 
   onAddContainer() {
-    this.kubeDaemonSet.spec.template.spec.containers.push(this.defaultContainer());
+    this.kubeResource.spec.template.spec.containers.push(this.defaultContainer());
   }
 
   onAddEnv(index: number) {
-    if (!this.kubeDaemonSet.spec.template.spec.containers[index].env) {
-      this.kubeDaemonSet.spec.template.spec.containers[index].env = [];
+    if (!this.kubeResource.spec.template.spec.containers[index].env) {
+      this.kubeResource.spec.template.spec.containers[index].env = [];
     }
-    this.kubeDaemonSet.spec.template.spec.containers[index].env.push(this.defaultEnv(0));
+    this.kubeResource.spec.template.spec.containers[index].env.push(this.defaultEnv(0));
   }
 
   onAddEnvFrom(index: number) {
-    if (!this.kubeDaemonSet.spec.template.spec.containers[index].envFrom) {
-      this.kubeDaemonSet.spec.template.spec.containers[index].envFrom = [];
+    if (!this.kubeResource.spec.template.spec.containers[index].envFrom) {
+      this.kubeResource.spec.template.spec.containers[index].envFrom = [];
     }
-    this.kubeDaemonSet.spec.template.spec.containers[index].envFrom.push(this.defaultEnvFrom(1));
+    this.kubeResource.spec.template.spec.containers[index].envFrom.push(this.defaultEnvFrom(1));
   }
 
   onDeleteEnv(i: number, j: number) {
-    this.kubeDaemonSet.spec.template.spec.containers[i].env.splice(j, 1);
+    this.kubeResource.spec.template.spec.containers[i].env.splice(j, 1);
   }
 
   onDeleteEnvFrom(i: number, j: number) {
-    this.kubeDaemonSet.spec.template.spec.containers[i].envFrom.splice(j, 1);
+    this.kubeResource.spec.template.spec.containers[i].envFrom.splice(j, 1);
   }
 
   envChange(type: number, i: number, j: number) {
-    this.kubeDaemonSet.spec.template.spec.containers[i].env[j] = this.defaultEnv(type);
+    this.kubeResource.spec.template.spec.containers[i].env[j] = this.defaultEnv(type);
   }
 
   envFromChange(type: number, i: number, j: number) {
-    this.kubeDaemonSet.spec.template.spec.containers[i].envFrom[j] = this.defaultEnvFrom(type);
+    this.kubeResource.spec.template.spec.containers[i].envFrom[j] = this.defaultEnvFrom(type);
   }
 
   defaultEnvFrom(type: number): EnvFromSource {
@@ -332,7 +299,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   }
 
   readinessProbeChange(i: number) {
-    let probe = this.kubeDaemonSet.spec.template.spec.containers[i].readinessProbe;
+    let probe = this.kubeResource.spec.template.spec.containers[i].readinessProbe;
     if (probe) {
       probe = undefined;
     } else {
@@ -342,11 +309,11 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
       probe.periodSeconds = 10;
       probe.failureThreshold = 10;
     }
-    this.kubeDaemonSet.spec.template.spec.containers[i].readinessProbe = probe;
+    this.kubeResource.spec.template.spec.containers[i].readinessProbe = probe;
   }
 
   livenessProbeChange(i: number) {
-    let probe = this.kubeDaemonSet.spec.template.spec.containers[i].livenessProbe;
+    let probe = this.kubeResource.spec.template.spec.containers[i].livenessProbe;
     if (probe) {
       probe = undefined;
     } else {
@@ -357,7 +324,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
       probe.failureThreshold = 10;
       probe.initialDelaySeconds = 30;
     }
-    this.kubeDaemonSet.spec.template.spec.containers[i].livenessProbe = probe;
+    this.kubeResource.spec.template.spec.containers[i].livenessProbe = probe;
   }
 
   probeTypeChange(probe: Probe, type: number) {
@@ -384,11 +351,11 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
   }
 
   livenessProbeTypeChange(type: number, i: number) {
-    this.probeTypeChange(this.kubeDaemonSet.spec.template.spec.containers[i].livenessProbe, type);
+    this.probeTypeChange(this.kubeResource.spec.template.spec.containers[i].livenessProbe, type);
   }
 
   readinessProbeTypeChange(type: number, i: number) {
-    this.probeTypeChange(this.kubeDaemonSet.spec.template.spec.containers[i].readinessProbe, type);
+    this.probeTypeChange(this.kubeResource.spec.template.spec.containers[i].readinessProbe, type);
   }
 
   trackByFn(index, item) {
@@ -431,7 +398,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
     this.isSubmitOnGoing = true;
     // let copy = Object.assign({}, myObject).
     // but this wont work for nested objects. SO an alternative would be
-    let newDaemonSet = JSON.parse(JSON.stringify(this.kubeDaemonSet));
+    let newDaemonSet = JSON.parse(JSON.stringify(this.kubeResource));
     newDaemonSet = this.generateDaemonSet(newDaemonSet);
     this.daemonSetTpl.daemonSetId = this.daemonSet.id;
     this.daemonSetTpl.template = JSON.stringify(newDaemonSet);
@@ -452,7 +419,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
 
   }
 
-  addResourceUnit(kubeDaemonSet: KubeDaemonSet): KubeDaemonSet {
+  addResourceUnit(kubeResource: KubeDaemonSet): KubeDaemonSet {
     let cpuRequestLimitPercent = 0.5;
     let memoryRequestLimitPercent = 1;
     if (this.daemonSet.metaData) {
@@ -473,7 +440,7 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
       }
     }
 
-    for (const container of kubeDaemonSet.spec.template.spec.containers) {
+    for (const container of kubeResource.spec.template.spec.containers) {
       const memoryLimit = container.resources.limits['memory'];
       const cpuLimit = container.resources.limits['cpu'];
       if (!container.resources.requests) {
@@ -488,14 +455,14 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
         container.resources.requests['cpu'] = (parseFloat(cpuLimit) * cpuRequestLimitPercent).toString();
       }
     }
-    return kubeDaemonSet;
+    return kubeResource;
   }
 
 
   get totalFee() {
     let fee = 0;
-    if (this.kubeDaemonSet.spec.template.spec.containers) {
-      for (const container of this.kubeDaemonSet.spec.template.spec.containers) {
+    if (this.kubeResource.spec.template.spec.containers) {
+      for (const container of this.kubeResource.spec.template.spec.containers) {
         const limit = container.resources.limits;
         const cpu = limit['cpu'];
         const memory = limit['memory'];
@@ -511,11 +478,11 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
     return fee;
   }
 
-  saveDaemonSet(kubeDaemonSet: KubeDaemonSet) {
-    this.removeUnused(kubeDaemonSet);
-    this.fillDefault(kubeDaemonSet);
-    this.convertProbeCommandToText(kubeDaemonSet);
-    this.kubeDaemonSet = kubeDaemonSet;
+  saveDaemonSet(kubeResource: KubeDaemonSet) {
+    this.removeUnused(kubeResource);
+    this.fillDefault(kubeResource);
+    this.convertProbeCommandToText(kubeResource);
+    this.kubeResource = kubeResource;
     this.initNavList();
   }
 
@@ -530,9 +497,9 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
     obj.status = undefined;
   }
 
-  convertProbeCommandToText(kubeDaemonSet: KubeDaemonSet) {
-    if (kubeDaemonSet.spec.template.spec.containers && kubeDaemonSet.spec.template.spec.containers.length > 0) {
-      for (const container of kubeDaemonSet.spec.template.spec.containers) {
+  convertProbeCommandToText(kubeResource: KubeDaemonSet) {
+    if (kubeResource.spec.template.spec.containers && kubeResource.spec.template.spec.containers.length > 0) {
+      for (const container of kubeResource.spec.template.spec.containers) {
         if (container.livenessProbe && container.livenessProbe.exec &&
           container.livenessProbe.exec.command && container.livenessProbe.exec.command.length > 0) {
           const commands = container.livenessProbe.exec.command;
@@ -548,16 +515,16 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
       }
     }
 
-    return kubeDaemonSet;
+    return kubeResource;
   }
 
-  fillDefault(kubeDaemonSet: KubeDaemonSet) {
-    if (!kubeDaemonSet.spec.updateStrategy) {
-      kubeDaemonSet.spec.updateStrategy = DaemonSetUpdateStrategy.emptyObject();
-      kubeDaemonSet.spec.updateStrategy.type = 'OnDelete';
+  fillDefault(kubeResource: KubeDaemonSet) {
+    if (!kubeResource.spec.updateStrategy) {
+      kubeResource.spec.updateStrategy = DaemonSetUpdateStrategy.emptyObject();
+      kubeResource.spec.updateStrategy.type = 'OnDelete';
     }
-    if (kubeDaemonSet.spec.template.spec.containers && kubeDaemonSet.spec.template.spec.containers.length > 0) {
-      for (const container of kubeDaemonSet.spec.template.spec.containers) {
+    if (kubeResource.spec.template.spec.containers && kubeResource.spec.template.spec.containers.length > 0) {
+      for (const container of kubeResource.spec.template.spec.containers) {
         if (!container.resources) {
           container.resources = ResourceRequirements.emptyObject();
         }
@@ -570,16 +537,16 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
     }
   }
 
-  generateDaemonSet(kubeDaemonSet: KubeDaemonSet): KubeDaemonSet {
-    kubeDaemonSet = this.convertProbeCommandToArray(kubeDaemonSet);
-    kubeDaemonSet = this.addResourceUnit(kubeDaemonSet);
-    kubeDaemonSet = this.fillLabel(kubeDaemonSet);
-    return kubeDaemonSet;
+  generateDaemonSet(kubeResource: KubeDaemonSet): KubeDaemonSet {
+    kubeResource = this.convertProbeCommandToArray(kubeResource);
+    kubeResource = this.addResourceUnit(kubeResource);
+    kubeResource = this.fillLabel(kubeResource);
+    return kubeResource;
   }
 
-  convertProbeCommandToArray(kubeDaemonSet: KubeDaemonSet): KubeDaemonSet {
-    if (kubeDaemonSet.spec.template.spec.containers && kubeDaemonSet.spec.template.spec.containers.length > 0) {
-      for (const container of kubeDaemonSet.spec.template.spec.containers) {
+  convertProbeCommandToArray(kubeResource: KubeDaemonSet): KubeDaemonSet {
+    if (kubeResource.spec.template.spec.containers && kubeResource.spec.template.spec.containers.length > 0) {
+      for (const container of kubeResource.spec.template.spec.containers) {
         if (container.livenessProbe && container.livenessProbe.exec &&
           container.livenessProbe.exec.command && container.livenessProbe.exec.command.length > 0) {
           container.livenessProbe.exec.command = container.livenessProbe.exec.command[0].split('\n');
@@ -591,13 +558,13 @@ export class CreateEditDaemonSetTplComponent implements OnInit, AfterViewInit, O
       }
     }
 
-    return kubeDaemonSet;
+    return kubeResource;
   }
 
   openModal(): void {
     // let copy = Object.assign({}, myObject).
     // but this wont work for nested objects. SO an alternative would be
-    let newDaemonSet = JSON.parse(JSON.stringify(this.kubeDaemonSet));
+    let newDaemonSet = JSON.parse(JSON.stringify(this.kubeResource));
     newDaemonSet = this.generateDaemonSet(newDaemonSet);
     this.aceEditorService.announceMessage(AceEditorMsg.Instance(newDaemonSet, true));
   }
