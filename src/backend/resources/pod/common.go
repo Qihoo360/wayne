@@ -17,6 +17,8 @@ func (cell ObjectCell) GetProperty(name dataselector.PropertyName) dataselector.
 		return dataselector.StdComparableTime(cell.ObjectMeta.CreationTimestamp.Time)
 	case dataselector.NamespaceProperty:
 		return dataselector.StdComparableString(cell.ObjectMeta.Namespace)
+	case dataselector.StatusProperty:
+		return dataselector.StdComparableString(cell.Status.Phase)
 	case "podIP":
 		return dataselector.StdComparableString(cell.Status.PodIP)
 	default:
