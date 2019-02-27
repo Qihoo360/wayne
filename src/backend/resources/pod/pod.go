@@ -182,7 +182,11 @@ func GetRelatedPodByType(kubeClient client.ResourceHandler, namespace, resourceN
 			return nil, fmt.Errorf("Convert pod obj (%v) error. ", obj)
 		}
 		for _, ref := range pod.OwnerReferences {
-			if ref.Kind == resourceType && resourceName == ref.Name {
+			groupVersionResourceKind, ok := api.KindToResourceMap[resourceType]
+			if !ok {
+				continue
+			}
+			if ref.Kind == groupVersionResourceKind.GroupVersionResourceKind.Kind && resourceName == ref.Name {
 				relatePod = append(relatePod, pod)
 			}
 		}
@@ -198,7 +202,8 @@ func pageResult(relatePod []*v1.Pod, q *common.QueryParam) *common.Page {
 	}
 
 	sort.Slice(commonObjs, func(i, j int) bool {
-		return commonObjs[j].GetProperty(dataselector.NameProperty).Compare(commonObjs[i].GetProperty(dataselector.NameProperty)) == 1
+		return commonObjs[j].GetProperty(dataselector.CreationTimestampProperty).
+			Compare(commonObjs[i].GetProperty(dataselector.CreationTimestampProperty)) == -1
 	})
 
 	return dataselector.DataSelectPage(commonObjs, q)
