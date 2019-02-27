@@ -25,7 +25,7 @@
                   {{'TITLE.STATUS' | translate}}
                 </ng-container>
               </clr-dg-column>
-              <clr-dg-column [clrDgField]="'podIp'">
+              <clr-dg-column [clrDgField]="'podIP'">
                 <ng-container *clrDgHideableColumn="{hidden: false}">
                   PODIP
                 </ng-container>
@@ -40,7 +40,7 @@
                   {{'POD.RESTART_NUM' | translate}}
                 </ng-container>
               </clr-dg-column>
-              <clr-dg-column [clrDgSortBy]="timeComparator" [(clrDgSortOrder)]="sortOrder">
+              <clr-dg-column [clrDgSortBy]="'creationTimestamp'">
                 <ng-container *clrDgHideableColumn="{hidden: false}">
                   Age
                 </ng-container>

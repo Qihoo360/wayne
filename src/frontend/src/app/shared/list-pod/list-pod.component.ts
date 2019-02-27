@@ -145,27 +145,27 @@ export class ListPodComponent implements OnDestroy {
   }
 
   refresh(state?: ClrDatagridStateInterface) {
-    if (!this.cluster) {
-      return;
-    }
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
-    this.podClient.listPageByResouce(this.pageState, this.cluster, this.cacheService.kubeNamespace, this.resourceType,
-      this.resourceName, this.appId)
-      .subscribe(
-        response => {
-          const data = response.data;
-          this.pods = data.list;
-          this.pageState.page.totalPage = data.totalPage;
-          this.pageState.page.totalCount = data.totalCount;
-        },
-        error => {
-          this.pods = null;
-          this.messageHandlerService.handleError(error);
-        }
-      );
+    if (this.cluster) {
+      this.podClient.listPageByResouce(this.pageState, this.cluster, this.cacheService.kubeNamespace, this.resourceType,
+        this.resourceName, this.appId)
+        .subscribe(
+          response => {
+            const data = response.data;
+            this.pods = data.list;
+            this.pageState.page.totalPage = data.totalPage;
+            this.pageState.page.totalCount = data.totalCount;
+          },
+          error => {
+            this.pods = null;
+            this.messageHandlerService.handleError(error);
+          }
+        );
+    }
+
   }
 
   deletePod(pod: Pod) {
