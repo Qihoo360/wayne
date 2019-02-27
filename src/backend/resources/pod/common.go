@@ -6,8 +6,10 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/resources/dataselector"
 )
 
+// implements dataselector.DataCell
 type ObjectCell v1.Pod
 
+// implements dataselector.DataCell
 func (cell ObjectCell) GetProperty(name dataselector.PropertyName) dataselector.ComparableValue {
 	switch name {
 	case dataselector.NameProperty:
