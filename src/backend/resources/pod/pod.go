@@ -1,15 +1,23 @@
 package pod
 
 import (
+	"fmt"
+	"sort"
 	"time"
 
 	"k8s.io/api/core/v1"
+	extensionsv1beta1 "k8s.io/api/extensions/v1beta1"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
+	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/kubernetes"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
+	"github.com/Qihoo360/wayne/src/backend/client/api"
+	"github.com/Qihoo360/wayne/src/backend/common"
 	"github.com/Qihoo360/wayne/src/backend/models"
+	"github.com/Qihoo360/wayne/src/backend/resources/dataselector"
+	"github.com/Qihoo360/wayne/src/backend/util/slice"
 )
 
 type PodStatistics struct {
@@ -111,6 +119,89 @@ func filterPodByApiType(pods []*v1.Pod, apiType models.KubeApiType) []*v1.Pod {
 		}
 	}
 	return filteredPod
+}
+
+func GetPodsByDeploymentPage(kubeClient client.ResourceHandler, namespace, name string, q *common.QueryParam) (*common.Page, error) {
+	rss, err := kubeClient.List(api.ResourceNameReplicaSet, namespace, labels.Everything().String())
+	if err != nil {
+		return nil, err
+	}
+	relateRs := make([]string, 0)
+	for _, obj := range rss {
+		rs, ok := obj.(*extensionsv1beta1.ReplicaSet)
+		if !ok {
+			return nil, fmt.Errorf("Convert rs obj (%v) error. ", obj)
+		}
+		for _, ref := range rs.OwnerReferences {
+			if ref.Kind == api.KindNameDeployment && ref.Name == name {
+				relateRs = append(relateRs, rs.Name)
+			}
+		}
+
+	}
+	pods, err := kubeClient.List(api.ResourceNamePod, namespace, labels.Everything().String())
+	if err != nil {
+		return nil, err
+	}
+	relatePod := make([]*v1.Pod, 0)
+	for _, obj := range pods {
+		pod, ok := obj.(*v1.Pod)
+		if !ok {
+			return nil, fmt.Errorf("Convert pod obj (%v) error. ", obj)
+		}
+		for _, ref := range pod.OwnerReferences {
+			if ref.Kind == api.KindNameReplicaSet && slice.StrSliceContains(relateRs, ref.Name) {
+				relatePod = append(relatePod, pod)
+			}
+		}
+
+	}
+	return pageResult(relatePod, q), nil
+}
+
+func GetRelatedPodByType(kubeClient client.ResourceHandler, namespace, resourceName string, resourceType api.ResourceName, q *common.QueryParam) (*common.Page, error) {
+	var objs = make([]runtime.Object, 0)
+	var err error
+	if resourceType == api.ResourceNamePod {
+		pod, err := kubeClient.Get(api.ResourceNamePod, namespace, resourceName)
+		if err != nil {
+			return nil, err
+		}
+		objs = append(objs, pod)
+	} else {
+		objs, err = kubeClient.List(api.ResourceNamePod, namespace, labels.Everything().String())
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	relatePod := make([]*v1.Pod, 0)
+	for _, obj := range objs {
+		pod, ok := obj.(*v1.Pod)
+		if !ok {
+			return nil, fmt.Errorf("Convert pod obj (%v) error. ", obj)
+		}
+		for _, ref := range pod.OwnerReferences {
+			if ref.Kind == resourceType && resourceName == ref.Name {
+				relatePod = append(relatePod, pod)
+			}
+		}
+
+	}
+	return pageResult(relatePod, q), nil
+}
+
+func pageResult(relatePod []*v1.Pod, q *common.QueryParam) *common.Page {
+	commonObjs := make([]dataselector.DataCell, 0)
+	for _, pod := range relatePod {
+		commonObjs = append(commonObjs, ObjectCell(*pod))
+	}
+
+	sort.Slice(commonObjs, func(i, j int) bool {
+		return commonObjs[j].GetProperty(dataselector.NameProperty).Compare(commonObjs[i].GetProperty(dataselector.NameProperty)) == 1
+	})
+
+	return dataselector.DataSelectPage(commonObjs, q)
 }
 
 func GetPodsByDaemonSet(indexer *client.CacheFactory, namespace, name string) ([]*Pod, error) {
