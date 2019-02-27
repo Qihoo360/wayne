@@ -6,6 +6,7 @@ import {
   ConfirmationButtons,
   ConfirmationState,
   ConfirmationTargets,
+  KubeResourceStatefulSet,
   ResourcesActionType,
   TemplateState
 } from '../../../shared/shared.const';
@@ -173,7 +174,7 @@ export class ListStatefulsetComponent implements OnInit, OnDestroy {
 
   listPod(status: TemplateStatus, tpl: StatefulsetTemplate) {
     if (status.cluster && status.state !== TemplateState.NOT_FOUND) {
-      this.listPodComponent.openModal(status.cluster, tpl.name);
+      this.listPodComponent.openModal(status.cluster, tpl.name, KubeResourceStatefulSet);
     }
   }
 

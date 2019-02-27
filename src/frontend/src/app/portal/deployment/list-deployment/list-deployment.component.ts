@@ -6,6 +6,7 @@ import {
   ConfirmationButtons,
   ConfirmationState,
   ConfirmationTargets,
+  KubeResourceDeployment,
   ResourcesActionType,
   TemplateState
 } from '../../../shared/shared.const';
@@ -94,10 +95,11 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
 
   /**
    * diff template
-  */
+   */
   diffTpl() {
     this.diffService.diff(this.selected);
   }
+
   // --------------------------------
 
   pageSizeChange(pageSize: number) {
@@ -186,7 +188,7 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
 
   listPod(status: DeploymentStatus, tpl: DeploymentTpl) {
     if (status.cluster && status.state !== TemplateState.NOT_FOUND) {
-      this.listPodComponent.openModal(status.cluster, tpl.name);
+      this.listPodComponent.openModal(status.cluster, tpl.name, KubeResourceDeployment);
     }
   }
 

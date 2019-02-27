@@ -12,6 +12,7 @@ import { ListEventComponent } from '../../../shared/list-event/list-event.compon
 import { Event } from '../../../shared/model/v1/deploymenttpl';
 import { Page } from '../../../shared/page/page-state';
 import { StorageService } from '../../../shared/client/v1/storage.service';
+import { KubeResourceJob } from '../../../shared/shared.const';
 
 @Component({
   selector: 'list-job',
@@ -84,7 +85,7 @@ export class ListJobComponent implements OnInit, OnDestroy {
 
   listPod(job: Job) {
     // 只允许查看非完成的pod列表?
-    this.listPodComponent.openModal(job.cluster, job.kubeJob.metadata.name);
+    this.listPodComponent.openModal(job.cluster, job.kubeJob.metadata.name, KubeResourceJob);
   }
 
   refresh(state?: ClrDatagridStateInterface) {

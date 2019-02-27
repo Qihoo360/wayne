@@ -1,15 +1,14 @@
-import { Component, Inject, Input, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
-import { Inventory, StateComparator, TimeComparator } from './inventory';
-import { ClrDatagridSortOrder } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../message-handler/message-handler.service';
 import { Pod } from '../model/v1/kubernetes/pod';
 import { PodClient } from '../client/v1/kubernetes/pod';
 import { PublicService } from '../client/v1/public.service';
 import { CacheService } from '../auth/cache.service';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../shared.const';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets, KubeResourcesName } from '../shared.const';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationMessage } from '../confirmation-dialog/confirmation-message';
@@ -19,30 +18,32 @@ import { ClusterService } from '../client/v1/cluster.service';
 import { Cluster } from '../model/v1/cluster';
 import { CopyService } from '../client/v1/copy.service';
 import { AuthService } from '../auth/auth.service';
+import { PageState } from '../page/page-state';
+import { KubePod } from '../model/v1/kubernetes/kubepod';
+import { KubePodUtil } from '../utils';
 
 @Component({
   selector: 'list-pod',
-  providers: [Inventory],
   templateUrl: 'list-pod.component.html',
   styleUrls: ['list-pod.scss']
 })
 
 export class ListPodComponent implements OnDestroy {
-  @Input() Type: string;
+  resourceType: KubeResourcesName;
   checkOnGoing = false;
   isSubmitOnGoing = false;
   modalOpened: boolean;
   pods: Pod[];
-  sortOrder: ClrDatagridSortOrder = ClrDatagridSortOrder.UNSORTED;
-  sorted = false;
-  timeComparator = new TimeComparator();
-  stateComparator = new StateComparator();
-  currentCluster: string;
+  cluster: string;
   resourceName: string;
   logSource: string;
   timer: any;
   whetherHotReflash = true;
   isCopied = false;
+
+  pageState: PageState = new PageState();
+  currentPage = 1;
+  state: ClrDatagridStateInterface;
 
   subscription: Subscription;
 
@@ -50,8 +51,14 @@ export class ListPodComponent implements OnDestroy {
     return parseInt(this.route.parent.snapshot.params['id'], 10);
   }
 
-  constructor(private inventory: Inventory,
-              private router: Router,
+  pageSizeChange(pageSize: number) {
+    this.state.page.to = pageSize - 1;
+    this.state.page.size = pageSize;
+    this.currentPage = 1;
+    this.refresh(this.state);
+  }
+
+  constructor(private router: Router,
               private deletionDialogService: ConfirmationDialogService,
               private route: ActivatedRoute,
               @Inject(DOCUMENT) private document: any,
@@ -68,7 +75,7 @@ export class ListPodComponent implements OnDestroy {
         message.source === ConfirmationTargets.POD) {
         const pod: Pod = message.data;
         this.podClient
-          .deleteByName(this.appId, this.currentCluster, pod.namespace, pod.name)
+          .deleteByName(this.appId, this.cluster, pod.namespace, pod.name)
           .subscribe(
             response => {
               this.refresh();
@@ -87,14 +94,20 @@ export class ListPodComponent implements OnDestroy {
     clearInterval(this.timer);
   }
 
-  openModal(cluster: string, resourceName: string) {
-    this.currentCluster = cluster;
+  // getPodStatus returns the pod state
+  getPodStatus(pod: KubePod): string {
+    return KubePodUtil.getPodStatus(pod);
+  }
+
+  openModal(cluster: string, resourceName: string, resourceType: KubeResourcesName) {
+    this.cluster = cluster;
+    this.resourceType = resourceType;
     this.resourceName = resourceName;
     this.pods = null;
     this.logSource = null;
     this.modalOpened = true;
     this.whetherHotReflash = true;
-    this.clusterService.getByName(this.currentCluster).subscribe(
+    this.clusterService.getByName(this.cluster).subscribe(
       response => {
         const data: Cluster = response.data;
         if (data.metaData) {
@@ -131,19 +144,28 @@ export class ListPodComponent implements OnDestroy {
     }, 5000);
   }
 
-  refresh() {
-    this.podClient.listByResouce(this.appId, this.currentCluster, this.cacheService.kubeNamespace, this.Type, this.resourceName).subscribe(
-      response => {
-        const pods = response.data;
-        this.inventory.size = pods.length;
-        this.inventory.reset(pods);
-        this.pods = this.inventory.all;
-      },
-      error => {
-        this.pods = null;
-        this.messageHandlerService.handleError(error);
-      }
-    );
+  refresh(state?: ClrDatagridStateInterface) {
+    if (!this.cluster) {
+      return;
+    }
+    if (state) {
+      this.state = state;
+      this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
+    }
+    this.podClient.listPageByResouce(this.pageState, this.cluster, this.cacheService.kubeNamespace, this.resourceType,
+      this.resourceName, this.appId)
+      .subscribe(
+        response => {
+          const data = response.data;
+          this.pods = data.list;
+          this.pageState.page.totalPage = data.totalPage;
+          this.pageState.page.totalCount = data.totalCount;
+        },
+        error => {
+          this.pods = null;
+          this.messageHandlerService.handleError(error);
+        }
+      );
   }
 
   deletePod(pod: Pod) {
@@ -160,8 +182,8 @@ export class ListPodComponent implements OnDestroy {
 
   enterContainer(pod: Pod): void {
     const appId = this.route.parent.snapshot.params['id'];
-    const url = `portal/namespace/${this.cacheService.namespaceId}/app/${appId}/${this.Type}` +
-      `/${this.resourceName}/pod/${pod.name}/terminal/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
+    const url = `portal/namespace/${this.cacheService.namespaceId}/app/${appId}/${this.resourceType}` +
+      `/${this.resourceName}/pod/${pod.name}/terminal/${this.cluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 
@@ -177,7 +199,7 @@ export class ListPodComponent implements OnDestroy {
       this.messageHandlerService.showInfo('缺少机房信息，请联系管理员');
     }
     const kubeToolCmd = `kubetool log --source ${this.logSource === undefined ? '' : this.logSource} ` +
-      ` --${this.Type} ${this.resourceName} --pod=${pod.name} --layout=log`;
+      ` --${this.resourceType} ${this.resourceName} --pod=${pod.name} --layout=log`;
     this.copyService.copy(kubeToolCmd);
     this.switchCopyButton();
   }
@@ -185,8 +207,8 @@ export class ListPodComponent implements OnDestroy {
 
   podLog(pod: Pod): void {
     const appId = this.route.parent.snapshot.params['id'];
-    const url = `portal/logging/namespace/${this.cacheService.namespaceId}/app/${appId}/${this.Type}/${this.resourceName}` +
-      `/pod/${pod.name}/${this.currentCluster}/${this.cacheService.kubeNamespace}`;
+    const url = `portal/logging/namespace/${this.cacheService.namespaceId}/app/${appId}/${this.resourceType}/${this.resourceName}` +
+      `/pod/${pod.name}/${this.cluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 }
