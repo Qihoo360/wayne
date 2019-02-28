@@ -6,6 +6,7 @@ import {
   ConfirmationButtons,
   ConfirmationState,
   ConfirmationTargets,
+  KubeResourceDaemonSet,
   ResourcesActionType,
   TemplateState
 } from '../../../shared/shared.const';
@@ -172,7 +173,7 @@ export class ListDaemonSetComponent implements OnInit, OnDestroy {
 
   listPod(status: TemplateStatus, tpl: DaemonSetTemplate) {
     if (status.cluster && status.state !== TemplateState.NOT_FOUND) {
-      this.listPodComponent.openModal(status.cluster, tpl.name);
+      this.listPodComponent.openModal(status.cluster, tpl.name, KubeResourceDaemonSet);
     }
   }
 
