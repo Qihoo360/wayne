@@ -385,6 +385,30 @@
     "DELETE": "删除加密字典",
     "EDIT": "编辑加密字典"
   },
+  "SERVICE": {
+    "CREATE_EDIT_TEMPLATE": {
+      "CREATE_SERVICE_TEMPLATE": "创建负载均衡模版",
+      "RELEASE_DECLARE": "发布说明",
+      "USE_OUTER_IP": "启用外部IP",
+      "USE_OUTER_IP_DESCRIPTION": "如需在集群外部访问请勾选此选项,分配LVS会自动勾选此选项",
+      "USE_CONFIGMAP_IP": "启用集群IP",
+      "USE_CONFIGMAP_IP_DESCRIPTION": "如需启用内部集群DNS或者集启用外部IP请勾选此选项",
+      "PORT": "端口",
+      "TARGET_PORT": "目标端口",
+      "DELETE_PORT": "删除端口",
+      "ADD_PORT": "添加端口",
+      "PROTOCOL_TYPE": "协议类型",
+      "ALLOT_LVS": "分配LVS",
+      "LVS_PRICE": "金额: {{value}} 元",
+      "RELATE_LABEL": "关联标签",
+      "SELECTOR_NAME": "selector名称",
+      "SELECTOR_VALUE": "selector值",
+      "DELETE_LABEL": "删除标签",
+      "ADD_LABEL": "添加标签",
+      "TOTAL_PRICE": "费用总计：{{value}} 元/月",
+      "CREATE_SUCCESS": "创建负载均衡模版成功！"
+    }
+  },
   "SHARED": {
     "DIFF": {
       "CHECK_DATA": "请检查数据",
