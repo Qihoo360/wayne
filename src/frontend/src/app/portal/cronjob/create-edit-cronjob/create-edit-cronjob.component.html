@@ -1,22 +1,22 @@
 <clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'lg'">
   <h3 class="modal-title">{{title}}</h3>
   <div class="modal-body">
-    <form #cronjobForm="ngForm" style="padding-right: 30px;width: 100%">
+    <form #ngForm="ngForm" style="padding-right: 30px;width: 100%">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="cronjob_name"
+          <label for="name"
                  class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
-          <label for="cronjob_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
+          <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <label *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</label>
-            <input type="text" id="cronjob_name" [(ngModel)]="cronjob.name"
-                   name="cronjob_name" size="40"
+            <input type="text" id="name" [(ngModel)]="resource.name"
+                   name="name" size="40"
                    required
                    [readonly]="actionType==1"
                    [placeholder]="'PLACEHOLDER.APP_NAME' | translate"
                    pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
                    maxlength="64"
-                   (keyup)='handleValidation()'>
+                   (keyup)='checkNameValid()'>
             <span class="tooltip-content">
               {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
         </span>
@@ -39,7 +39,7 @@
         <div class="form-group" style="padding-left: 135px;">
           <label for="cronjob_description"
                  class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
-          <textarea id="cronjob_description" [(ngModel)]="cronjob.description"
+          <textarea id="cronjob_description" [(ngModel)]="resource.description"
                     name="cronjob_description"
                     rows="3">
           </textarea>

@@ -244,10 +244,10 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
   }
 
   openModal(): void {
-    this.createEdit.newOrEdit(this.app);
+    this.createEdit.newOrEditResource(this.app, []);
   }
 
   editPvc() {
-    this.createEdit.newOrEdit(this.app, this.pvcId);
+    this.createEdit.newOrEditResource(this.app, [], this.pvcId);
   }
 }

@@ -315,12 +315,12 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
 
   // 点击创建守护进程集
   createDaemonSet(): void {
-    this.createEditDaemonSet.newOrEdit(this.app, this.filterCluster());
+    this.createEditDaemonSet.newOrEditResource(this.app, this.filterCluster());
   }
 
   // 点击编辑守护进程集
   editDaemonSet() {
-    this.createEditDaemonSet.newOrEdit(this.app, this.filterCluster(), this.daemonSetId);
+    this.createEditDaemonSet.newOrEditResource(this.app, this.filterCluster(), this.daemonSetId);
   }
 
   filterCluster(): Cluster[] {

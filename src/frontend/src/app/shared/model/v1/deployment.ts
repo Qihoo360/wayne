@@ -102,16 +102,6 @@ export class Deployment {
   description: string;
 }
 
-export class ClusterMeta {
-  constructor(checked?: boolean) {
-    this.checked = checked;
-    this.value = 0;
-  }
-
-  checked: boolean;
-  value: number;
-}
-
 export class WeightedPodAffinityTerm {
   weight: number;
   podAffinityTerm: PodAffinityTerm;
