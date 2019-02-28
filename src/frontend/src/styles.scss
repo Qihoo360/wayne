@@ -220,8 +220,13 @@ a {
   width: 100% !important;
   height: 100% !important;
   overflow-y: auto;
+  .modal-content-wrapper{
+    padding: 20px;
+  }
   .modal-content{
-    height: 100vh !important;
+    height: calc(100vh - 40px) !important;
+    border-radius: 10px !important;
+    overflow: auto;
   }
 }
 .modal-content .modal-body {
