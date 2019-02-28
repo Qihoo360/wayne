@@ -25,9 +25,9 @@ export class Cluster {
 }
 
 export class ClusterMeta {
-  constructor(checked?: boolean) {
+  constructor(checked: boolean, value = 0) {
     this.checked = checked;
-    this.value = 0;
+    this.value = value;
   }
 
   checked: boolean;

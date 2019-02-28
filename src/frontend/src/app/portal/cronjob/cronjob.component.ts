@@ -344,12 +344,12 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
 
   // 点击创建部署
   createCronjob(): void {
-    this.createEditCronjob.newOrEditCronjob(this.app, this.filterCluster());
+    this.createEditCronjob.newOrEditResource(this.app, this.filterCluster());
   }
 
   // 点击编辑部署
   editCronjob() {
-    this.createEditCronjob.newOrEditCronjob(this.app, this.filterCluster(), this.cronjobId);
+    this.createEditCronjob.newOrEditResource(this.app, this.filterCluster(), this.cronjobId);
   }
 
   filterCluster(): Cluster[] {
