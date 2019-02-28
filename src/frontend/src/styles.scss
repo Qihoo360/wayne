@@ -220,8 +220,10 @@ a {
   width: 100% !important;
   height: 100% !important;
   overflow-y: auto;
+  .modal-content{
+    height: 100vh !important;
+  }
 }
-
 .modal-content .modal-body {
   max-height: 80vh;
 }
