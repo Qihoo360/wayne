@@ -336,12 +336,12 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
 
   // 点击创建部署
   createDeployment(): void {
-    this.createEditDeployment.newOrEditDeployment(this.app, this.filterCluster());
+    this.createEditDeployment.newOrEditResource(this.app, this.filterCluster());
   }
 
   // 点击编辑部署
   editDeployment() {
-    this.createEditDeployment.newOrEditDeployment(this.app, this.filterCluster(), this.deploymentId);
+    this.createEditDeployment.newOrEditResource(this.app, this.filterCluster(), this.deploymentId);
   }
 
   filterCluster(): Cluster[] {

@@ -323,12 +323,12 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
 
   // 点击创建状态副本集
   createStatefulset(): void {
-    this.createEditStatefulset.newOrEdit(this.app, this.filterCluster());
+    this.createEditStatefulset.newOrEditResource(this.app, this.filterCluster());
   }
 
   // 点击编辑状态副本集
   editStatefulset() {
-    this.createEditStatefulset.newOrEdit(this.app, this.filterCluster(), this.statefulsetId);
+    this.createEditStatefulset.newOrEditResource(this.app, this.filterCluster(), this.statefulsetId);
   }
 
   filterCluster(): Cluster[] {

@@ -391,10 +391,10 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
   }
 
   openModal(): void {
-    this.createEdit.newOrEditSecret(this.app);
+    this.createEdit.newOrEditResource(this.app, []);
   }
 
   editSecret() {
-    this.createEdit.newOrEditSecret(this.app, this.secretId);
+    this.createEdit.newOrEditResource(this.app, [], this.secretId);
   }
 }
