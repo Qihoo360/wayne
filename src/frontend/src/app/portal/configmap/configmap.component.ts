@@ -396,11 +396,11 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
   }
 
   openModal(): void {
-    this.createEdit.newOrEditConfigMap(this.app);
+    this.createEdit.newOrEditResource(this.app, []);
   }
 
 
   editConfigMap() {
-    this.createEdit.newOrEditConfigMap(this.app, this.configMapId);
+    this.createEdit.newOrEditResource(this.app, [], this.configMapId);
   }
 }

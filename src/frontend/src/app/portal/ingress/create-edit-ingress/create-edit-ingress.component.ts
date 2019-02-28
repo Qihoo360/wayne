@@ -24,7 +24,6 @@ export class CreateEditIngressComponent extends CreateEditResource implements On
   }
 
   ngOnInit(): void {
-
   }
 }
 
