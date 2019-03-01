@@ -3,10 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Terminal } from 'xterm';
 import * as webLinks from 'xterm/lib/addons/webLinks/webLinks';
 import * as winptyCompat from 'xterm/lib/addons/winptyCompat/winptyCompat';
-import { ContainerStatus, Pod } from '../../shared/model/v1/kubernetes/pod';
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
 import { PodClient } from '../../shared/client/v1/kubernetes/pod';
 import * as SockJS from 'sockjs-client';
+import { Container, KubePod } from '../../shared/model/v1/kubernetes/kubepod';
+import { PageState } from '../../shared/page/page-state';
 
 @Component({
   selector: 'pod-terminal',
@@ -18,13 +19,13 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
   cluster: string;
   nid: string;
   namespace: string;
-  selectedPod: Pod = new Pod();
+  selectedPod = new KubePod();
   selectedContainer: string;
-  containers: ContainerStatus[];
+  containers: Container[];
   log: string;
   resourceName: string;
   resourceType: string;
-  pods: Pod[];
+  pods: KubePod[];
   @ViewChild('terminal')
   terminal: ElementRef;
   xterm: Terminal;
@@ -49,14 +50,16 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
     this.nid = this.route.snapshot.params['nid'];
     this.resourceName = this.route.snapshot.params['resourceName'];
     this.resourceType = this.route.snapshot.params['resourceType'];
-    this.podClient.listByResouce(this.appId, this.cluster, this.namespace, this.resourceType, this.resourceName).subscribe(
+    const pageState = new PageState();
+    pageState.page.pageSize = 1000;
+    this.podClient.listPageByResouce(pageState, this.cluster, this.namespace, this.resourceType, this.resourceName, this.appId).subscribe(
       response => {
-        this.pods = response.data;
+        this.pods = response.data.list;
         if (this.pods && this.pods.length > 0) {
           const pod = this.getPodByName(podName);
           if (!pod) {
             const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}` +
-              `/${this.resourceName}/pod/${this.pods[0].name}/terminal/${this.cluster}/${this.namespace}`;
+              `/${this.resourceName}/pod/${this.pods[0].metadata.name}/terminal/${this.cluster}/${this.namespace}`;
             this.router.navigateByUrl(url);
           }
           this.selectedPod = pod;
@@ -70,7 +73,7 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
   }
 
   initContainer(container: string) {
-    this.containers = this.selectedPod.containerStatus;
+    this.containers = this.selectedPod.spec.containers;
     for (const con of this.containers) {
       if (container === con.name) {
         this.selectedContainer = container;
@@ -84,7 +87,8 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
 
   containerChange() {
     const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}` +
-      `/${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/terminal/${this.cluster}/${this.namespace}`;
+      `/${this.resourceName}/pod/${this.selectedPod.metadata.name}/container/${this.selectedContainer}` +
+      `/terminal/${this.cluster}/${this.namespace}`;
     this.router.navigateByUrl(url);
   }
 
@@ -92,7 +96,7 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
   getPodByName(podName: string) {
     if (podName) {
       for (const pod of this.pods) {
-        if (pod.name === podName) {
+        if (pod.metadata.name === podName) {
           return pod;
         }
       }
@@ -102,10 +106,10 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
 
 
   podChange() {
-    this.containers = this.selectedPod.containerStatus;
+    this.containers = this.selectedPod.spec.containers;
     this.selectedContainer = this.containers[0].name;
     const url = `portal/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/${this.resourceName}` +
-      `/pod/${this.selectedPod.name}/container/${this.selectedContainer}/terminal/${this.cluster}/${this.namespace}`;
+      `/pod/${this.selectedPod.metadata.name}/container/${this.selectedContainer}/terminal/${this.cluster}/${this.namespace}`;
     this.router.navigateByUrl(url);
   }
 
@@ -129,19 +133,20 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
   }
 
   connect() {
-    this.podClient.createTerminal(this.appId, this.cluster, this.namespace, this.selectedPod.name, this.selectedContainer).subscribe(
-      response => {
-        const session = response.data.sessionId;
-        const url = `/ws/pods/exec?${session}`;
-        this.socket = new SockJS(url);
-        this.socket.onopen = this.onConnectionOpen.bind(this, response.data);
-        this.socket.onmessage = this.onConnectionMessage.bind(this);
-        this.socket.onclose = this.onConnectionClose.bind(this);
-      },
-      error => {
-        this.messageHandlerService.handleError(error);
-      }
-    );
+    this.podClient.createTerminal(this.appId, this.cluster, this.namespace, this.selectedPod.metadata.name, this.selectedContainer)
+      .subscribe(
+        response => {
+          const session = response.data.sessionId;
+          const url = `/ws/pods/exec?${session}`;
+          this.socket = new SockJS(url);
+          this.socket.onopen = this.onConnectionOpen.bind(this, response.data);
+          this.socket.onmessage = this.onConnectionMessage.bind(this);
+          this.socket.onclose = this.onConnectionClose.bind(this);
+        },
+        error => {
+          this.messageHandlerService.handleError(error);
+        }
+      );
   }
 
   // 连接建立成功后的挂载操作

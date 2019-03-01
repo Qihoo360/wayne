@@ -4,7 +4,6 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../message-handler/message-handler.service';
-import { Pod } from '../model/v1/kubernetes/pod';
 import { PodClient } from '../client/v1/kubernetes/pod';
 import { PublicService } from '../client/v1/public.service';
 import { CacheService } from '../auth/cache.service';
@@ -33,7 +32,7 @@ export class ListPodComponent implements OnDestroy {
   checkOnGoing = false;
   isSubmitOnGoing = false;
   modalOpened: boolean;
-  pods: Pod[];
+  pods: KubePod[];
   cluster: string;
   resourceName: string;
   logSource: string;
@@ -73,9 +72,9 @@ export class ListPodComponent implements OnDestroy {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.POD) {
-        const pod: Pod = message.data;
+        const pod: KubePod = message.data;
         this.podClient
-          .deleteByName(this.appId, this.cluster, pod.namespace, pod.name)
+          .deleteByName(this.appId, this.cluster, pod.metadata.namespace, pod.metadata.name)
           .subscribe(
             response => {
               this.refresh();
@@ -168,10 +167,10 @@ export class ListPodComponent implements OnDestroy {
 
   }
 
-  deletePod(pod: Pod) {
+  deletePod(pod: KubePod) {
     const deletionMessage = new ConfirmationMessage(
       '删除实例确认',
-      `是否确认删除实例 ${pod.name}`,
+      `是否确认删除实例 ${pod.metadata.name}`,
       pod,
       ConfirmationTargets.POD,
       ConfirmationButtons.DELETE_CANCEL
@@ -180,10 +179,10 @@ export class ListPodComponent implements OnDestroy {
   }
 
 
-  enterContainer(pod: Pod): void {
+  enterContainer(pod: KubePod): void {
     const appId = this.route.parent.snapshot.params['id'];
     const url = `portal/namespace/${this.cacheService.namespaceId}/app/${appId}/${this.resourceType}` +
-      `/${this.resourceName}/pod/${pod.name}/terminal/${this.cluster}/${this.cacheService.kubeNamespace}`;
+      `/${this.resourceName}/pod/${pod.metadata.name}/terminal/${this.cluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 
@@ -194,21 +193,21 @@ export class ListPodComponent implements OnDestroy {
     }, 3000);
   }
 
-  copyLogCommand(pod: Pod): void {
+  copyLogCommand(pod: KubePod): void {
     if (this.logSource === undefined) {
       this.messageHandlerService.showInfo('缺少机房信息，请联系管理员');
     }
     const kubeToolCmd = `kubetool log --source ${this.logSource === undefined ? '' : this.logSource} ` +
-      ` --${this.resourceType} ${this.resourceName} --pod=${pod.name} --layout=log`;
+      ` --${this.resourceType} ${this.resourceName} --pod=${pod.metadata.name} --layout=log`;
     this.copyService.copy(kubeToolCmd);
     this.switchCopyButton();
   }
 
 
-  podLog(pod: Pod): void {
+  podLog(pod: KubePod): void {
     const appId = this.route.parent.snapshot.params['id'];
     const url = `portal/logging/namespace/${this.cacheService.namespaceId}/app/${appId}/${this.resourceType}/${this.resourceName}` +
-      `/pod/${pod.name}/${this.cluster}/${this.cacheService.kubeNamespace}`;
+      `/pod/${pod.metadata.name}/${this.cluster}/${this.cacheService.kubeNamespace}`;
     window.open(url, '_blank');
   }
 }

@@ -3,6 +3,7 @@ import { KubernetesListResource } from '../../../../shared/base/kubernetes-names
 import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.service';
 import { KubePod } from '../../../../shared/model/v1/kubernetes/kubepod';
 import { KubePodUtil } from '../../../../shared/utils';
+import { KubeResourcePod } from '../../../../shared/shared.const';
 
 
 @Component({
@@ -20,13 +21,13 @@ export class ListPodComponent extends KubernetesListResource {
   }
 
   enterContainer(pod: KubePod): void {
-    const url = `portal/namespace/0/app/0/pod` +
+    const url = `portal/namespace/0/app/0/${KubeResourcePod}` +
       `/${pod.metadata.name}/pod/${pod.metadata.name}/terminal/${this.cluster}/${pod.metadata.namespace}`;
     window.open(url, '_blank');
   }
 
   podLog(pod: KubePod): void {
-    const url = `portal/logging/namespace/0/app/0/pod/${pod.metadata.name}` +
+    const url = `portal/logging/namespace/0/app/0/${KubeResourcePod}/${pod.metadata.name}` +
       `/pod/${pod.metadata.name}/${this.cluster}/${pod.metadata.namespace}`;
     window.open(url, '_blank');
   }
