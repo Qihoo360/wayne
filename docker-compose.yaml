@@ -24,6 +24,9 @@ services:
       - "3306:3306"
   wayne:
     image: 360cloud/wayne:latest
+    depends_on:
+      - rabbitmq
+      - mysql
     command: /opt/wayne/backend apiserver
     environment:
       GOPATH: "/go"
