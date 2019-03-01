@@ -56,21 +56,6 @@ func GetPodCounts(indexer *client.CacheFactory) (int, error) {
 	return length, nil
 }
 
-func ListPod(indexer *client.CacheFactory, namespace string, label map[string]string) ([]*Pod, error) {
-	podList, err := ListKubePod(indexer, namespace, label)
-	if err != nil {
-		return nil, err
-	}
-	pods := make([]*Pod, 0)
-	for _, pod := range podList {
-		pods = append(pods, &Pod{
-			Labels: pod.Labels,
-			PodIp:  pod.Status.PodIP,
-		})
-	}
-	return pods, nil
-}
-
 func ListKubePod(indexer *client.CacheFactory, namespace string, label map[string]string) ([]*v1.Pod, error) {
 	pods, err := indexer.PodLister().Pods(namespace).List(labels.SelectorFromSet(label))
 	if err != nil {
@@ -95,16 +80,6 @@ func ListPodByLabelKey(indexer *client.CacheFactory, namespace string, label str
 		}
 	}
 	return pods, nil
-}
-
-func GetPodsByStatefulset(indexer *client.CacheFactory, namespace, name string) ([]*Pod, error) {
-	podSelector := map[string]string{"app": name}
-	pods, err := ListKubePod(indexer, namespace, podSelector)
-	if err != nil {
-		return nil, err
-	}
-	filteredPod := filterPodByApiType(pods, models.KubeApiTypeStatefulSet)
-	return toPods(filteredPod), nil
 }
 
 func filterPodByApiType(pods []*v1.Pod, apiType models.KubeApiType) []*v1.Pod {
@@ -159,20 +134,27 @@ func GetPodsByDeploymentPage(kubeClient client.ResourceHandler, namespace, name 
 	return pageResult(relatePod, q), nil
 }
 
+func GetPodPage(kubeClient client.ResourceHandler, namespace, resourceName string, q *common.QueryParam) (*common.Page, error) {
+	obj, err := kubeClient.Get(api.ResourceNamePod, namespace, resourceName)
+	if err != nil {
+		return nil, err
+	}
+	pod, ok := obj.(*v1.Pod)
+	if !ok {
+		return nil, fmt.Errorf("Convert pod obj (%v) error. ", obj)
+	}
+	relatePod := []*v1.Pod{
+		pod,
+	}
+	return pageResult(relatePod, q), nil
+}
+
 func GetRelatedPodByType(kubeClient client.ResourceHandler, namespace, resourceName string, resourceType api.ResourceName, q *common.QueryParam) (*common.Page, error) {
 	var objs = make([]runtime.Object, 0)
 	var err error
-	if resourceType == api.ResourceNamePod {
-		pod, err := kubeClient.Get(api.ResourceNamePod, namespace, resourceName)
-		if err != nil {
-			return nil, err
-		}
-		objs = append(objs, pod)
-	} else {
-		objs, err = kubeClient.List(api.ResourceNamePod, namespace, labels.Everything().String())
-		if err != nil {
-			return nil, err
-		}
+	objs, err = kubeClient.List(api.ResourceNamePod, namespace, labels.Everything().String())
+	if err != nil {
+		return nil, err
 	}
 
 	relatePod := make([]*v1.Pod, 0)
@@ -209,17 +191,6 @@ func pageResult(relatePod []*v1.Pod, q *common.QueryParam) *common.Page {
 	return dataselector.DataSelectPage(commonObjs, q)
 }
 
-func GetPodsByDaemonSet(indexer *client.CacheFactory, namespace, name string) ([]*Pod, error) {
-	podSelector := map[string]string{"app": name}
-	pods, err := ListKubePod(indexer, namespace, podSelector)
-	if err != nil {
-		return nil, err
-	}
-	filteredPod := filterPodByApiType(pods, models.KubeApiTypeDaemonSet)
-
-	return toPods(filteredPod), nil
-}
-
 func GetPodsByDeployment(indexer *client.CacheFactory, namespace, name string) ([]*Pod, error) {
 	podSelector := map[string]string{"app": name}
 	pods, err := ListKubePod(indexer, namespace, podSelector)
@@ -229,16 +200,6 @@ func GetPodsByDeployment(indexer *client.CacheFactory, namespace, name string) (
 	filteredPod := filterPodByApiType(pods, models.KubeApiTypeReplicaSet)
 
 	return toPods(filteredPod), nil
-}
-
-func GetPodsByJob(indexer *client.CacheFactory, namespace, name string) ([]*Pod, error) {
-	podSelector := map[string]string{"job-name": name}
-	pods, err := ListKubePod(indexer, namespace, podSelector)
-	if err != nil {
-		return nil, err
-	}
-
-	return toPods(pods), nil
 }
 
 func GetPodByName(cli *kubernetes.Clientset, namespace, name string) (*Pod, error) {

@@ -103,8 +103,8 @@ func (c *KubePodController) PodStatistics() {
 // @Param	type		query 	string	true		"the query type. deployment, statefulset, daemonSet, job, pod"
 // @Param	name		query 	string	true		"the query resource name."
 // @Success 200 {object} models.Deployment success
-// @router /namespaces/:namespace/clusters/:cluster/page [get]
-func (c *KubePodController) ListPage() {
+// @router /namespaces/:namespace/clusters/:cluster [get]
+func (c *KubePodController) List() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	resourceType := c.Input().Get("type")
@@ -123,7 +123,7 @@ func (c *KubePodController) ListPage() {
 	case api.ResourceNameJob:
 		result, err = pod.GetRelatedPodByType(manager.KubeClient, namespace, resourceName, api.ResourceNameJob, param)
 	case api.ResourceNamePod:
-		result, err = pod.GetRelatedPodByType(manager.KubeClient, namespace, resourceName, api.ResourceNamePod, param)
+		result, err = pod.GetPodPage(manager.KubeClient, namespace, resourceName, param)
 	default:
 		err = &erroresult.ErrorResult{
 			Code: http.StatusBadRequest,
@@ -136,50 +136,6 @@ func (c *KubePodController) ListPage() {
 		return
 	}
 	c.Success(result)
-}
-
-// @Title List
-// @Description find pods by deployment
-// @Param	deployment		query 	string	true		"the deployment name."
-// @Param	statefulset		query 	string	true		"the statefulset name."
-// @Success 200 {object} models.Deployment success
-// @router /namespaces/:namespace/clusters/:cluster [get]
-func (c *KubePodController) List() {
-	cluster := c.Ctx.Input.Param(":cluster")
-	namespace := c.Ctx.Input.Param(":namespace")
-	deployment := c.Input().Get("deployment")
-	statefulset := c.Input().Get("statefulset")
-	daemonSet := c.Input().Get("daemonSet")
-	podName := c.Input().Get("pod")
-	job := c.Input().Get("job")
-	manager, err := client.Manager(cluster)
-	if err == nil {
-		var result interface{}
-		var err error
-		if deployment != "" {
-			result, err = pod.GetPodsByDeployment(manager.CacheFactory, namespace, deployment)
-		} else if statefulset != "" {
-			result, err = pod.GetPodsByStatefulset(manager.CacheFactory, namespace, statefulset)
-		} else if daemonSet != "" {
-			result, err = pod.GetPodsByDaemonSet(manager.CacheFactory, namespace, daemonSet)
-		} else if job != "" {
-			result, err = pod.GetPodsByJob(manager.CacheFactory, namespace, job)
-		} else if podName != "" {
-			var podInfo *pod.Pod
-			podInfo, err = pod.GetPodByName(manager.Client, namespace, podName)
-			result = []*pod.Pod{podInfo}
-		} else {
-			err = fmt.Errorf("unknown resource type. ")
-		}
-		if err != nil {
-			logs.Error("get kubernetes pod error.", cluster, namespace, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
-	}
 }
 
 // @Title Get

@@ -18,14 +18,6 @@ export class PodClient {
       .catch(error => throwError(error));
   }
 
-  listByResouce(appId: number, cluster: string, namespace: string, resouceType: string, name: string): Observable<any> {
-    let params = new HttpParams();
-    params = params.set(resouceType, name);
-    return this.http
-      .get(`/api/v1/kubernetes/apps/${appId}/pods/namespaces/${namespace}/clusters/${cluster}`, {params: params})
-      .catch(error => throwError(error));
-  }
-
   listPageByResouce(pageState: PageState, cluster: string, namespace: string, resouceType: string,
                     name: string, appId?: number): Observable<any> {
     let params = BaseClient.buildParam(pageState);
@@ -35,7 +27,7 @@ export class PodClient {
     params = params.set('type', resouceType);
     params = params.set('name', name);
     return this.http
-      .get(`/api/v1/kubernetes/apps/${appId}/pods/namespaces/${namespace}/clusters/${cluster}/page`, {params: params})
+      .get(`/api/v1/kubernetes/apps/${appId}/pods/namespaces/${namespace}/clusters/${cluster}`, {params: params})
       .catch(error => throwError(error));
   }
 

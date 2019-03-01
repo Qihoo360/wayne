@@ -149,6 +149,19 @@
           </div>
         </div>
         <div class="container-box">
+          <div class="form-group form-group-padding">
+            <label style="color: #007cbb" class="label-level2" [id]="i ? '镜像拉取策略' + i : '镜像拉取策略'">镜像拉取策略
+            </label>
+            <div class="select">
+              <select [(ngModel)]="container.imagePullPolicy" name="imagePullPolicy_{{i}}">
+                <option value="IfNotPresent">IfNotPresent</option>
+                <option value="Always">Always</option>
+                <option value="Never">Never</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="container-box">
           <label class="label-level2" [id]="i ? '启动参数' + i : '启动参数'">启动参数
             <button (click)="onAddContainerArgs(i)" style="margin-left: 10px;" class="wayne-button primary">
               <clr-icon shape="add-text"></clr-icon>

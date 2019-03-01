@@ -39,12 +39,4 @@ func init() {
 			MethodParams:     param.Make(),
 			Params:           nil})
 
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pod:KubePodController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pod:KubePodController"],
-		beego.ControllerComments{
-			Method:           "ListPage",
-			Router:           `/namespaces/:namespace/clusters/:cluster/page`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams:     param.Make(),
-			Params:           nil})
-
 }
