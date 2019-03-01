@@ -1,5 +1,19 @@
 # Change Log
 
+## [v1.4.3](https://github.com/Qihoo360/wayne/tree/v1.4.3) (2019-03-01)
+[Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.4.2...v1.4.3)
+
+**Fixed bugs:**
+
+- frontend: update zh-Hans [\#325](https://github.com/Qihoo360/wayne/pull/325) ([BennieMeng](https://github.com/BennieMeng))
+
+## [v1.4.2](https://github.com/Qihoo360/wayne/tree/v1.4.2) (2019-02-25)
+[Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.4.1...v1.4.2)
+
+**Fixed bugs:**
+
+- Fix list pvs status error [\#306](https://github.com/Qihoo360/wayne/pull/306) ([wilhelmguo](https://github.com/wilhelmguo))
+
 ## [v1.4.1](https://github.com/Qihoo360/wayne/tree/v1.4.1) (2019-02-18)
 [Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.4.0...v1.4.1)
 
