@@ -246,7 +246,8 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
     return this.currentForm &&
       this.currentForm.valid &&
       !this.isSubmitOnGoing &&
-      !this.checkOnGoing;
+      !this.checkOnGoing &&
+      this.accessModesValid;
   }
 
   buildLabels(labels: {}) {
@@ -257,6 +258,10 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
     labels[this.authService.config[namespaceLabelKey]] = this.cacheService.currentNamespace.name;
     labels['app'] = this.pvc.name;
     return labels;
+  }
+
+  get accessModesValid(): boolean {
+    return this.currentForm.value.readWriteOnce || this.currentForm.value.readOnlyMany || this.currentForm.value.readWriteMany;
   }
 
   getKubePvcByForm() {
