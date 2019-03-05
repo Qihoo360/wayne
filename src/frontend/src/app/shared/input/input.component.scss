@@ -18,7 +18,8 @@ $hover-color: #999;
     color: #222;
     letter-spacing: 0.54px;
     min-width: auto !important;
-
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
     &:hover {
       border-color: $hover-color;
     }
