@@ -10,4 +10,7 @@ const (
 	CreationTimestampProperty PropertyName = "creationTimestamp"
 	NamespaceProperty         PropertyName = "namespace"
 	StatusProperty            PropertyName = "status"
+
+	// Pod Property
+	PodIPProperty PropertyName = "podIP"
 )
