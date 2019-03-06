@@ -19,7 +19,7 @@
       {{'ADMIN.KUBERNETES.POD.LIST.STATUS' | translate}}
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column>
+  <clr-dg-column [clrDgField]="'podIP'">
     <ng-container *clrDgHideableColumn="showState['podIP']">
       {{'ADMIN.KUBERNETES.POD.LIST.PODIP' | translate}}
     </ng-container>
