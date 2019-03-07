@@ -27,8 +27,8 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
   resourceType: string;
   kubeResource: KubeResourcesName;
 
-  namespaces: string[];
-  namespace: string;
+  namespaces = Array<string>();
+  namespace = '';
 
   constructor(public kubernetesClient: KubernetesClient,
               public route: ActivatedRoute,
@@ -40,18 +40,13 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initShow();
-    const cluster = this.route.snapshot.params['cluster'];
     this.clusterService.getNames().subscribe(
       response => {
         const data = response.data;
         this.clusters = data.map(item => item.name);
-        if (data && data.length > 0 && !cluster) {
-          this.router.navigateByUrl(`admin/kubernetes/${this.resourceType}/${data[0].name}`);
-          return;
-        }
-        if (cluster) {
-          this.jumpToHref(cluster);
-        }
+        this.cluster = data[0].name;
+        this.jumpToHref(this.cluster);
+
       },
       error => this.messageHandlerService.handleError(error)
     );
@@ -191,17 +186,15 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
     }
   }
 
-  jumpToHref(cluster) {
+  jumpToHref(cluster: string) {
     this.cluster = cluster;
-    this.router.navigateByUrl(`admin/kubernetes/${this.resourceType}/${cluster}`);
-    this.kubernetesClient.getNames(cluster, KubeResourceNamespace).subscribe(
+    this.kubernetesClient.getNames(this.cluster, KubeResourceNamespace).subscribe(
       resp => {
+        this.namespace = '';
         this.namespaces = Array<string>();
-        const namespaces: Array<any> = resp.data;
-        namespaces.map(ns => {
+        resp.data.map(ns => {
           this.namespaces.push(ns.name);
         });
-        this.namespace = this.namespaces && this.namespaces.length > 0 ? this.namespaces[0] : 'default';
         this.retrieveResource();
       },
       error => this.messageHandlerService.handleError(error)

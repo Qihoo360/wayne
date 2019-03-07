@@ -614,8 +614,10 @@
         "ENTER_CONTAINER": "进入容器",
         "LOG": "查看日志"
       },
+      "NAMESPACE_ALL": "全部",
       "LABEL": {
-        "NAMESPACE": "命名空间:"
+        "NAMESPACE": "命名空间:",
+        "CLUSTER": "当前集群:"
       },
       "TITLE": {
         "DETAIL": "详情"
@@ -629,6 +631,7 @@
         "CREATE": "创建 Pod",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "LABEL": "标签",
           "IMAGES": "镜像",
           "STATUS": "状态",
