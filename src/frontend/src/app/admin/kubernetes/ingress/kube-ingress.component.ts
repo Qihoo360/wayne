@@ -13,6 +13,7 @@ import { ListIngressComponent } from './list-ingress/list-ingress.component';
 
 const showState = {
   'name': {hidden: false},
+  'namespace': {hidden: false},
   'label': {hidden: false},
   'age': {hidden: false},
 };

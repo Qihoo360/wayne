@@ -13,6 +13,7 @@ import { ListCronjobComponent } from './list-cronjob/list-cronjob.component';
 
 const showState = {
   'name': {hidden: false},
+  'namespace': {hidden: false},
   'label': {hidden: false},
   'schedule': {hidden: false},
   'suspend': {hidden: false},

@@ -13,6 +13,7 @@ import { ListSecretComponent } from './list-secret/list-secret.component';
 
 const showState = {
   'name': {hidden: false},
+  'namespace': {hidden: false},
   'type': {hidden: false},
   'label': {hidden: false},
   'clusterIP': {hidden: false},

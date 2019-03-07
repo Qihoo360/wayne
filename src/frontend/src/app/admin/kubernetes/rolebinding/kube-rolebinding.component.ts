@@ -12,6 +12,7 @@ import { ListRolebindingComponent } from './list-rolebinding/list-rolebinding.co
 
 const showState = {
   'name': {hidden: false},
+  'namespace': {hidden: false},
   'label': {hidden: false},
   'age': {hidden: false},
 };

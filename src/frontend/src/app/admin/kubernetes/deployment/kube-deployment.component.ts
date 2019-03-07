@@ -13,6 +13,7 @@ import { ListDeploymentComponent } from './list-deployment/list-deployment.compo
 
 const showState = {
   'name': {hidden: false},
+  'namespace': {hidden: false},
   'label': {hidden: false},
   'containers': {hidden: false},
   'status': {hidden: false},

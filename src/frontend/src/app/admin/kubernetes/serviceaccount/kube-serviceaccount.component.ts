@@ -12,6 +12,7 @@ import { ListServiceaccountComponent } from './list-serviceaccount/list-servicea
 
 const showState = {
   'name': {hidden: false},
+  'namespace': {hidden: false},
   'label': {hidden: false},
   'age': {hidden: false},
 };

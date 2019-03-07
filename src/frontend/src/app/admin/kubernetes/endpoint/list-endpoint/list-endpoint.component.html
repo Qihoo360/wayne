@@ -4,6 +4,11 @@
       {{'ADMIN.KUBERNETES.ENDPOINT.LIST.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
+  <clr-dg-column [clrDgField]="'namespace'">
+    <ng-container *clrDgHideableColumn="showState['namespace']">
+      {{'ADMIN.KUBERNETES.ENDPOINT.LIST.NAMESPACE' | translate}}
+    </ng-container>
+  </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['port']">
       {{'ADMIN.KUBERNETES.ENDPOINT.LIST.PORT' | translate}}
@@ -27,6 +32,7 @@
       <button class="action-item" (click)="onDeleteEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell> {{ obj.metadata.name }} </clr-dg-cell>
+    <clr-dg-cell> {{ obj.metadata.namespace }} </clr-dg-cell>
     <clr-dg-cell>
       <div *ngFor="let subset of obj.subsets">
         <div *ngFor="let port of subset.ports">
