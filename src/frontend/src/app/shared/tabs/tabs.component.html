@@ -1,4 +1,5 @@
-<div class="tabs-box">
+<div class="tabs-box" [ngStyle]="{paddingLeft: tabsNum >= 5 ? '22px' : 0}">
+  <wayne-search-section *ngIf="tabsNum >= 5" [(ngModel)]="searchContent"></wayne-search-section>
   <div class="tabs-box-inner" [style.margin]="showViewPager ? '0 22px' : '0'">
     <div class="tabs-content">
       <ng-container *ngIf="showViewPager">

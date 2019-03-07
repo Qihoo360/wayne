@@ -24,7 +24,10 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
   prevDisabled = true;
   nextDisabled = false;
   dragSubscribe: Array<any> = new Array();
-  eventList: Array<any> = new Array();
+  eventList: Array<Function> = new Array();
+  clickList: Array<Function> = new Array();
+  _searchContent: string;
+  _tabs: QueryList<any>;
 
   constructor(
     private el: ElementRef,
@@ -50,10 +53,37 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
     );
   }
 
+  get tabsNum(): number {
+    return this._tabs.length;
+  }
+
+  get searchContent() {
+    return this._searchContent;
+  }
+
+  set searchContent(value: string) {
+    if (value !== this._searchContent) {
+      this._searchContent = value;
+      this.filtertabs();
+    }
+  }
+
+  filtertabs() {
+    this._tabs.forEach(item => {
+      const el = item.el.nativeElement;
+      el.classList.remove('hide');
+      if (el.innerText.indexOf(this.searchContent) === -1) {
+        el.classList.add('hide');
+      }
+      this.boxResize();
+    });
+  }
+
   ngOnDestroy() {
     this.dragSubscribe.forEach(subscribe => {
       subscribe.unsubscribe();
     });
+    this.removeClickEvent();
     this.eventList.forEach(event => {
       event();
     });
@@ -61,6 +91,8 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
   }
 
   @ContentChildren(TabComponent) set tabs(tabs: QueryList<any>) {
+    this._tabs = tabs;
+    this.removeClickEvent();
     this.addClickEvent(tabs);
     this.setActive(tabs);
     if (!this.firstEnter) { this.boxResize(); }
@@ -95,9 +127,17 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
     return this.listStyle.translateX ? `translateX(${this.listStyle.translateX}px)` : '';
   }
 
+  removeClickEvent() {
+    this.clickList.forEach(func => {
+      func();
+    });
+  }
+
   addClickEvent(tmpList: QueryList<any>) {
     tmpList.forEach((template, index) => {
-      this.eventManager.addEventListener(template.el.nativeElement, 'click', this.setActive.bind(this, tmpList));
+      this.clickList.push(
+        this.eventManager.addEventListener(template.el.nativeElement, 'click', this.setActive.bind(this, tmpList))
+      );
     });
   }
 
