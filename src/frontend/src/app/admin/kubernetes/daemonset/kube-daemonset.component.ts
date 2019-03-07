@@ -13,6 +13,7 @@ import { ListDaemonsetComponent } from './list-daemonset/list-daemonset.componen
 
 const showState = {
   'name': {hidden: false},
+  'namespace': {hidden: false},
   'label': {hidden: false},
   'containers': {hidden: false},
   'status': {hidden: false},

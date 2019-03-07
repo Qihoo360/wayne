@@ -12,6 +12,7 @@ import { ListRoleComponent } from './list-role/list-role.component';
 
 const showState = {
   'name': {hidden: false},
+  'namespace': {hidden: false},
   'label': {hidden: false},
   'age': {hidden: false},
 };
