@@ -12,6 +12,7 @@ import { ListEndpointComponent } from './list-endpoint/list-endpoint.component';
 
 const showState = {
   'name': {hidden: false},
+  'namespace': {hidden: false},
   'port': {hidden: false},
   'ip': {hidden: false},
   'age': {hidden: false},

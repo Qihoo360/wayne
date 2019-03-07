@@ -4,6 +4,11 @@
       {{'ADMIN.KUBERNETES.STATEFULSET.LIST.NAME' | translate}}
     </ng-container>
   </clr-dg-column>
+  <clr-dg-column [clrDgField]="'namespace'">
+    <ng-container *clrDgHideableColumn="showState['namespace']">
+      {{'ADMIN.KUBERNETES.STATEFULSET.LIST.NAMESPACE' | translate}}
+    </ng-container>
+  </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['label']">
       {{'ADMIN.KUBERNETES.STATEFULSET.LIST.LABEL' | translate}}
@@ -33,6 +38,7 @@
       <button class="action-item" (click)="migrationResource(obj)">{{'ADMIN.KUBERNETES.ACTION.MIGRATION' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-app-name"> {{ obj.metadata.name }} </clr-dg-cell>
+    <clr-dg-cell> {{ obj.metadata.namespace }} </clr-dg-cell>
     <clr-dg-cell>
       <div *ngFor="let label of obj.metadata.labels | keyvalue" class="version-text">
         <a href="javascript:" (click)="versionDetail(label.key + ': ' + label.value)">{{label.key}}: {{label.value}}</a>

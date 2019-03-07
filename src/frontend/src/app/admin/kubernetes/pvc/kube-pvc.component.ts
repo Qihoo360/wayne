@@ -13,6 +13,7 @@ import { ListPvcComponent } from './list-pvc/list-pvc.component';
 
 const showState = {
   'name': {hidden: false},
+  'namespace': {hidden: false},
   'label': {hidden: false},
   'status': {hidden: false},
   'storage': {hidden: false},

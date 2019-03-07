@@ -645,6 +645,7 @@
         "CREATE": "创建 Service",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "TYPE": "类型",
           "LABEL": "标签",
           "CLUSTERIP": "集群 IP",
@@ -657,6 +658,7 @@
         "CREATE": "创建 Endpoint",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "PORT": "端口",
           "IP": "IP",
           "AGE": "启动时间"
@@ -666,6 +668,7 @@
         "CREATE": "创建 ConfigMap",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "LABEL": "标签",
           "AGE": "启动时间"
         }
@@ -674,6 +677,7 @@
         "CREATE": "创建 Secret",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "TYPE": "类型",
           "LABEL": "标签",
           "AGE": "启动时间"
@@ -683,6 +687,7 @@
         "CREATE": "创建 Ingress",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "LABEL": "标签",
           "AGE": "启动时间"
         }
@@ -691,6 +696,7 @@
         "CREATE": "创建 Deployment",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "LABEL": "标签",
           "AGE": "启动时间",
           "IMAGES": "镜像",
@@ -701,6 +707,7 @@
         "CREATE": "创建 StatefulSet",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "LABEL": "标签",
           "AGE": "启动时间",
           "IMAGES": "镜像",
@@ -711,6 +718,7 @@
         "CREATE": "创建 DaemonSet",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "LABEL": "标签",
           "AGE": "启动时间",
           "IMAGES": "镜像",
@@ -721,6 +729,7 @@
         "CREATE": "创建 CronJob",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "LABEL": "标签",
           "AGE": "启动时间",
           "IMAGES": "镜像",
@@ -735,6 +744,7 @@
         "CREATE": "创建 Job",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "LABEL": "标签",
           "AGE": "启动时间",
           "IMAGES": "镜像",
@@ -745,6 +755,7 @@
         "CREATE": "创建 PVC",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "LABEL": "标签",
           "AGE": "启动时间",
           "STATUS": "状态",
@@ -758,6 +769,7 @@
         "CREATE": "创建 ReplicaSet",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "LABEL": "标签",
           "AGE": "启动时间",
           "IMAGES": "镜像",
@@ -779,6 +791,7 @@
         "CREATE": "创建 HPA",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "LABEL": "标签",
           "REFERENCE": "作用对象",
           "TARGETS": "目标值",
@@ -792,6 +805,7 @@
         "CREATE": "创建 Role",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "LABEL": "标签",
           "AGE": "启动时间"
         }
@@ -800,6 +814,7 @@
         "CREATE": "创建 RoleBinding",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "LABEL": "标签",
           "AGE": "启动时间"
         }
@@ -808,6 +823,7 @@
         "CREATE": "创建 ServiceAccount",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "命名空间",
           "LABEL": "标签",
           "AGE": "启动时间",
           "SECRET": "秘钥列表"

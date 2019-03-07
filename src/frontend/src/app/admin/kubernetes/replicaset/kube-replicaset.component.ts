@@ -12,6 +12,7 @@ import { ListReplicasetComponent } from './list-replicaset/list-replicaset.compo
 
 const showState = {
   'name': {hidden: false},
+  'namespace': {hidden: false},
   'label': {hidden: false},
   'containers': {hidden: false},
   'status': {hidden: false},
