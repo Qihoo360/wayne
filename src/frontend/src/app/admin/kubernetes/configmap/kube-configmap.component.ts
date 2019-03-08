@@ -13,6 +13,7 @@ import { ListConfigmapComponent } from './list-configmap/list-configmap.componen
 
 const showState = {
   'name': {hidden: false},
+  'namespace': {hidden: false},
   'label': {hidden: false},
   'age': {hidden: false},
 };

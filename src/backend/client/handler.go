@@ -142,9 +142,26 @@ func (h *resourceHandler) List(kind string, namespace string, labelSelector stri
 	}
 
 	lister := genericInformer.Lister()
+	var objs []runtime.Object
 	if resource.Namespaced {
-		return lister.ByNamespace(namespace).List(selectors)
+		objs, err = lister.ByNamespace(namespace).List(selectors)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		objs, err = lister.List(selectors)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	return lister.List(selectors)
+	for i := range objs {
+		objs[i].GetObjectKind().SetGroupVersionKind(schema.GroupVersionKind{
+			Group:   resource.GroupVersionResourceKind.Group,
+			Version: resource.GroupVersionResourceKind.Version,
+			Kind:    resource.GroupVersionResourceKind.Kind,
+		})
+	}
+
+	return objs, nil
 }

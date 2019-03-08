@@ -13,6 +13,7 @@ import { ListHpaComponent } from './list-hpa/list-hpa.component';
 
 const showState = {
   'name': {hidden: false},
+  'namespace': {hidden: false},
   'label': {hidden: false},
   'reference': {hidden: false},
   'targets': {hidden: false},

@@ -11,6 +11,7 @@
         <wayne-filter-box (confirm)="onConfirmEvent()" (cancel)="onCancelEvent()">
           <wayne-checkbox-group [(ngModel)]="showList">
             <wayne-checkbox value="name">{{'ADMIN.KUBERNETES.SERVICE.LIST.NAME' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="namespace">{{'ADMIN.KUBERNETES.SERVICE.LIST.NAMESPACE' | translate}}</wayne-checkbox>
             <wayne-checkbox value="type">{{'ADMIN.KUBERNETES.SERVICE.LIST.TYPE' | translate}}</wayne-checkbox>
             <wayne-checkbox value="label">{{'ADMIN.KUBERNETES.SERVICE.LIST.LABEL' | translate}}</wayne-checkbox>
             <wayne-checkbox value="clusterIP">{{'ADMIN.KUBERNETES.SERVICE.LIST.CLUSTERIP' | translate}}</wayne-checkbox>
@@ -19,12 +20,15 @@
             <wayne-checkbox value="age">{{'ADMIN.KUBERNETES.SERVICE.LIST.AGE' | translate}}</wayne-checkbox>
           </wayne-checkbox-group>
         </wayne-filter-box>
+        <label class="clr-col-md-3">{{'ADMIN.KUBERNETES.LABEL.CLUSTER' | translate}}</label>
+        {{cluster}}
         <label for="namespace_name" class="clr-col-md-3">{{'ADMIN.KUBERNETES.LABEL.NAMESPACE' | translate}}</label>
         <wayne-select [(ngModel)]="namespace" (change)="retrieveResource()"
                       searchable
                       name="namespace_name"
                       [placeholder]="'PLACEHOLDER.CHOOSE' | translate"
                       style="margin-left: 12px;">
+          <wayne-option value="">ALL</wayne-option>
           <wayne-option *ngFor="let ns of namespaces" [value]="ns">{{ns}}</wayne-option>
         </wayne-select>
       </div>

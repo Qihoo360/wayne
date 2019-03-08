@@ -12,8 +12,9 @@ import { DeletionDialogComponent } from '../../../shared/deletion-dialog/deletio
 
 const showState = {
   'name': {hidden: false},
+  'namespace': {hidden: false},
   'label': {hidden: false},
-  'images': {hidden: false},
+  'images': {hidden: true},
   'status': {hidden: false},
   'podIP': {hidden: false},
   'node': {hidden: false},

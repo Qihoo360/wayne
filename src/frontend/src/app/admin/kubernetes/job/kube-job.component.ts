@@ -12,6 +12,7 @@ import { ListJobComponent } from './list-job/list-job.component';
 
 const showState = {
   'name': {hidden: false},
+  'namespace': {hidden: false},
   'label': {hidden: false},
   'containers': {hidden: false},
   'status': {hidden: false},

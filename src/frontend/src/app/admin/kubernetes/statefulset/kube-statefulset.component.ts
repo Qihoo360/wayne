@@ -13,6 +13,7 @@ import { ListStatefulsetComponent } from './list-statefulset/list-statefulset.co
 
 const showState = {
   'name': {hidden: false},
+  'namespace': {hidden: false},
   'label': {hidden: false},
   'containers': {hidden: false},
   'status': {hidden: false},
