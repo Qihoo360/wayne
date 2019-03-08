@@ -53,6 +53,7 @@ import { EchartsModule } from './echarts/echars.module';
 import { ListPodComponent } from './list-pod/list-pod.component';
 import { ListEventComponent } from './list-event/list-event.component';
 import { SideNavService } from './client/v1/sidenav.service';
+import { SearchSectionComponent } from './tabs/search-section/search-section.component';
 
 @NgModule({
   imports: [
@@ -96,7 +97,8 @@ import { SideNavService } from './client/v1/sidenav.service';
     RelativeTimeFilterPipe,
     DiffComponent,
     ListPodComponent,
-    ListEventComponent
+    ListEventComponent,
+    SearchSectionComponent
   ],
   exports: [
     BrowserAnimationsModule,
@@ -136,7 +138,8 @@ import { SideNavService } from './client/v1/sidenav.service';
     TranslateModule,
     DiffComponent,
     ListPodComponent,
-    ListEventComponent
+    ListEventComponent,
+    SearchSectionComponent
   ],
   providers: [
     SideNavService,

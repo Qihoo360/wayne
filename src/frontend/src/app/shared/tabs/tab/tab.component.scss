@@ -1,5 +1,8 @@
 :host {
   display: inline-block;
+  &.hide {
+    display: none;
+  }
 }
 
 .tabs-item {
