@@ -53,6 +53,10 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
     );
   }
 
+  get tabsNum(): number {
+    return this._tabs.length;
+  }
+
   get searchContent() {
     return this._searchContent;
   }
