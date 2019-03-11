@@ -19,6 +19,7 @@ type Statefulset struct {
 	Pods       common.PodInfo    `json:"pods"`
 }
 
+// GetStatefulsetResource get StatefulSet resource statistics
 func GetStatefulsetResource(cli client.ResourceHandler, statefulSet *v1beta1.StatefulSet) (*common.ResourceList, error) {
 	obj, err := cli.Get(api.ResourceNameStatefulSet, statefulSet.Namespace, statefulSet.Name)
 	old := obj.(*v1beta1.StatefulSet)

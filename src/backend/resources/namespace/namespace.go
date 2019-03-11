@@ -32,6 +32,7 @@ func CreateNotExitNamespace(cli *kubernetes.Clientset, ns *v1.Namespace) (*v1.Na
 	return nil, nil
 }
 
+// ResourcesUsageByNamespace Count resource usage for a namespace
 func ResourcesUsageByNamespace(cli client.ResourceHandler, namespace, selector string) (*common.ResourceList, error) {
 	objs, err := cli.List(api.ResourceNamePod, namespace, selector)
 	if err != nil {

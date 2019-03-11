@@ -114,21 +114,21 @@ func (c *KubeStatefulsetController) Deploy() {
 		logs.Error("deploy statefulset error.%v", err)
 		c.HandleError(err)
 		return
-	} else {
-		publishHistory.Status = models.ReleaseSuccess
-		err = addDeployStatus(statefulsetId, tplId, cluster)
-		if err != nil {
-			logs.Error("add statefulset deploy status error.%v", err)
-			c.HandleError(err)
-			return
-		}
-		err = updateMetadata(*kubeStatefulset.Spec.Replicas, statefulsetModel, cluster)
-		if err != nil {
-			logs.Error("update statefulset metadata error.%v", err)
-			c.HandleError(err)
-			return
-		}
 	}
+	publishHistory.Status = models.ReleaseSuccess
+	err = addDeployStatus(statefulsetId, tplId, cluster)
+	if err != nil {
+		logs.Error("add statefulset deploy status error.%v", err)
+		c.HandleError(err)
+		return
+	}
+	err = updateMetadata(*kubeStatefulset.Spec.Replicas, statefulsetModel, cluster)
+	if err != nil {
+		logs.Error("update statefulset metadata error.%v", err)
+		c.HandleError(err)
+		return
+	}
+
 	c.Success("ok")
 
 }

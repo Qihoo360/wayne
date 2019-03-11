@@ -163,7 +163,19 @@ func (c *KubeDeploymentController) Deploy() {
 		User:         c.User.Name,
 	}
 
-	defer models.PublishHistoryModel.Add(publishHistory)
+	defer func() {
+		models.PublishHistoryModel.Add(publishHistory)
+		webhook.PublishEventDeployment(c.NamespaceId, c.AppId, c.User.Name, c.Ctx.Input.IP(), webhook.UpgradeDeployment, response.Resource{
+			Type:         publishHistory.Type,
+			ResourceId:   publishHistory.ResourceId,
+			ResourceName: publishHistory.ResourceName,
+			TemplateId:   publishHistory.TemplateId,
+			Cluster:      publishHistory.Cluster,
+			Status:       publishHistory.Status,
+			Message:      publishHistory.Message,
+			Object:       kubeDeployment,
+		})
+	}()
 
 	err = checkResourceAvailable(namespaceModel, cli.KubeClient, &kubeDeployment, cluster)
 	if err != nil {
@@ -181,33 +193,23 @@ func (c *KubeDeploymentController) Deploy() {
 		logs.Error("deploy deployment error.%v", err)
 		c.HandleError(err)
 		return
-	} else {
-		publishHistory.Status = models.ReleaseSuccess
-		err = models.PublishStatusModel.Add(deploymentId, tplId, cluster, models.PublishTypeDeployment)
-		// 添加发布状态
-		if err != nil {
-			logs.Error("add deployment deploy status error.%v", err)
-			c.HandleError(err)
-			return
-		}
-
-		err = models.DeploymentModel.Update(*kubeDeployment.Spec.Replicas, deploymentModel, cluster)
-		if err != nil {
-			logs.Error("update deployment metadata error.%v", err)
-			c.HandleError(err)
-			return
-		}
 	}
-	webhook.PublishEventDeployment(c.NamespaceId, c.AppId, c.User.Name, c.Ctx.Input.IP(), webhook.UpgradeDeployment, response.Resource{
-		Type:         publishHistory.Type,
-		ResourceId:   publishHistory.ResourceId,
-		ResourceName: publishHistory.ResourceName,
-		TemplateId:   publishHistory.TemplateId,
-		Cluster:      publishHistory.Cluster,
-		Status:       publishHistory.Status,
-		Message:      publishHistory.Message,
-		Object:       kubeDeployment,
-	})
+	publishHistory.Status = models.ReleaseSuccess
+	err = models.PublishStatusModel.Add(deploymentId, tplId, cluster, models.PublishTypeDeployment)
+	// 添加发布状态
+	if err != nil {
+		logs.Error("add deployment deploy status error.%v", err)
+		c.HandleError(err)
+		return
+	}
+
+	err = models.DeploymentModel.Update(*kubeDeployment.Spec.Replicas, deploymentModel, cluster)
+	if err != nil {
+		logs.Error("update deployment metadata error.%v", err)
+		c.HandleError(err)
+		return
+	}
+
 	c.Success("ok")
 }
 
