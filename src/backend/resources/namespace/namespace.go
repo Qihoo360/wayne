@@ -54,6 +54,7 @@ func ResourcesUsageByNamespace(cli client.ResourceHandler, namespace, selector s
 	}, nil
 }
 
+// ResourcesOfAppByNamespace Count resource usage for a namespace
 func ResourcesOfAppByNamespace(cli client.ResourceHandler, namespace, selector string) (map[string]*common.ResourceApp, error) {
 	objs, err := cli.List(api.ResourceNamePod, namespace, selector)
 	if err != nil {
