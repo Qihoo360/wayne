@@ -29,7 +29,7 @@
       {{'ADMIN.KUBERNETES.POD.LIST.PODIP' | translate}}
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column>
+  <clr-dg-column [clrDgField]="'nodeName'">
     <ng-container *clrDgHideableColumn="showState['node']">
       {{'ADMIN.KUBERNETES.POD.LIST.NODE' | translate}}
     </ng-container>
