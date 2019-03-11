@@ -24,12 +24,6 @@ export class NamespaceClient {
       .catch(error => throwError(error));
   }
 
-  getNamespaceDetail(cluster: string, namespace: string): Observable<any> {
-    return this.http
-      .get(`/api/v1/kubernetes/namespaces/${namespace}/clusters/${cluster}`)
-      .catch(error => throwError(error));
-  }
-
   update(ns: KubeNamespace, cluster: string): Observable<any> {
     return this.http
       .put(`/api/v1/kubernetes/namespaces/${ns.metadata.name}/clusters/${cluster}`, ns)
