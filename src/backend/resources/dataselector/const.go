@@ -12,5 +12,6 @@ const (
 	StatusProperty            PropertyName = "status"
 
 	// Pod Property
-	PodIPProperty PropertyName = "podIP"
+	PodIPProperty    PropertyName = "podIP"
+	NodeNameProperty PropertyName = "nodeName"
 )
