@@ -258,7 +258,7 @@ export class CreateEditNamespaceComponent {
               Object.getOwnPropertyNames(this.clusterMetas).map(cluster => {
                 const clusterMeta = this.clusterMetas[cluster];
                 if (clusterMeta && clusterMeta.checked) {
-                  this.namespaceClient.create(this.ns.metaDataObj.namespace, cluster).subscribe(
+                  this.namespaceClient.create(this.ns.kubeNamespace, cluster).subscribe(
                     next => {
                       if (next.data == null) {
                         this.messageHandlerService.showSuccess(`集群 ${cluster} 已存在对应的 kubernetes namespace！`);
@@ -292,7 +292,7 @@ export class CreateEditNamespaceComponent {
               Object.getOwnPropertyNames(this.clusterMetas).map(cluster => {
                 const clusterMeta = this.clusterMetas[cluster];
                 if (clusterMeta && clusterMeta.checked) {
-                  this.namespaceClient.create(this.ns.metaDataObj.namespace, cluster).subscribe(
+                  this.namespaceClient.create(this.ns.kubeNamespace, cluster).subscribe(
                     next => {
                       if (next.data == null) {
                         this.messageHandlerService.showSuccess(`集群 ${cluster} 已存在对应的 kubernetes namespace！`);
