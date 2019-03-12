@@ -183,7 +183,7 @@
               <clr-icon shape="add"></clr-icon>
               {{'TEMPLATE.ADD_ONE' | translate}}</button>
           </label>
-          <div *ngFor="let envFrom of container.envFrom; let j = index">
+          <div *ngFor="let envFrom of container.envFrom; let j = index; trackBy:trackByFn">
             <div class="form-group form-group-padding">
               <label for="envFromType-{{i}}-{{j}}"
                      class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.LOAD_GROUP' | translate}}
@@ -222,7 +222,7 @@
 
           </div>
 
-          <div *ngFor="let env of container.env; let j = index">
+          <div *ngFor="let env of container.env; let j = index; trackBy:trackByFn">
             <div class="form-group form-group-padding">
               <label for="envType-{{i}}-{{j}}"
                      class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.ADD_ONE' | translate}}
