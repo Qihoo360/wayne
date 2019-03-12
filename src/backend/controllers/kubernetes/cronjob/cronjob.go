@@ -79,7 +79,7 @@ func (c *KubeCronjobController) Suspend() {
 		defer models.PublishHistoryModel.Add(publishHistory)
 
 		// 更新Suspend状态为挂起
-		err = cronjob.SuspendCronjob(cli, cronjobModel.Name, namespaceModel.MetaDataObj.Namespace)
+		err = cronjob.SuspendCronjob(cli, cronjobModel.Name, namespaceModel.KubeNamespace)
 
 		if err != nil {
 			publishHistory.Status = models.ReleaseFailure

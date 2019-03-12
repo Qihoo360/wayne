@@ -74,7 +74,7 @@ func cronjobPreDeploy(kubeCronJob *batchv1beta1.CronJob, cronjob *models.Cronjob
 		kubeCronJob.Spec.JobTemplate.Spec.Template.Spec.Containers[i].SecurityContext.Privileged = privileged
 	}
 	// step 5 set namespace
-	kubeCronJob.Namespace = namespace.MetaDataObj.Namespace
+	kubeCronJob.Namespace = namespace.KubeNamespace
 
 	// step 6
 	if kubeCronJob.Spec.JobTemplate.Spec.Template.Annotations == nil {
