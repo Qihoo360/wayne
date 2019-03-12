@@ -164,7 +164,7 @@ func checkResourceAvailable(ns *models.Namespace, cli client.ResourceHandler, ku
 	selector := labels.SelectorFromSet(map[string]string{
 		util.NamespaceLabelKey: ns.Name,
 	})
-	namespaceResourceUsed, err := namespace.ResourcesUsageByNamespace(cli, ns.MetaDataObj.Namespace, selector.String())
+	namespaceResourceUsed, err := namespace.ResourcesUsageByNamespace(cli, ns.KubeNamespace, selector.String())
 
 	requestResourceList, err := statefulset.GetStatefulsetResource(cli, kubeStatefulset)
 	if err != nil {

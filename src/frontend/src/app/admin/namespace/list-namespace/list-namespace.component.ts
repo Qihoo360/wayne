@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { Namespace } from '../../../shared/model/v1/namespace';
 import { Page } from '../../../shared/page/page-state';
+import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 
 @Component({
   selector: 'list-namespace',
@@ -20,7 +22,9 @@ export class ListNamespaceComponent {
   @Output() delete = new EventEmitter<Namespace>();
   @Output() edit = new EventEmitter<Namespace>();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+              private aceEditorService: AceEditorService) {
+  }
 
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;
@@ -52,5 +56,9 @@ export class ListNamespaceComponent {
         break;
     }
     this.router.navigateByUrl(linkUrl);
+  }
+
+  detailMetaDataTpl(tpl: string) {
+    this.aceEditorService.announceMessage(AceEditorMsg.Instance(tpl, false, '元数据查看'));
   }
 }

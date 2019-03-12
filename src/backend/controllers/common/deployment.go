@@ -74,7 +74,7 @@ func DeploymentPreDeploy(kubeDeployment *v1beta1.Deployment, deploy *models.Depl
 		kubeDeployment.Spec.Template.Spec.Containers[i].SecurityContext.Privileged = privileged
 	}
 	// step 5 set namespace
-	kubeDeployment.Namespace = namespace.MetaDataObj.Namespace
+	kubeDeployment.Namespace = namespace.KubeNamespace
 
 	// step 6
 	if kubeDeployment.Spec.Template.Annotations == nil {

@@ -163,7 +163,7 @@ func (c *OpenAPIController) GetDeploymentStatus() {
 	}
 	manager, err := client.Manager(param.Cluster)
 	if err == nil {
-		deployInfo, err := resdeployment.GetDeploymentDetail(manager.Client, manager.CacheFactory, param.Deployment, ns.MetaDataObj.Namespace)
+		deployInfo, err := resdeployment.GetDeploymentDetail(manager.Client, manager.CacheFactory, param.Deployment, ns.KubeNamespace)
 		if err != nil {
 			logs.Error("Failed to get  k8s deployment state: %s", err.Error())
 			c.AddErrorAndResponse("", http.StatusInternalServerError)
@@ -186,7 +186,7 @@ func (c *OpenAPIController) GetDeploymentStatus() {
 		for _, e := range deployInfo.Pods.Warnings {
 			result.Body.DeploymentStatus.Deployment.PodsState.Warnings = append(result.Body.DeploymentStatus.Deployment.PodsState.Warnings, fmt.Sprint(e))
 		}
-		podInfo, err := pod.GetPodsByDeployment(manager.CacheFactory, ns.MetaDataObj.Namespace, param.Deployment)
+		podInfo, err := pod.GetPodsByDeployment(manager.CacheFactory, ns.KubeNamespace, param.Deployment)
 		if err != nil {
 			logs.Error("Failed to get k8s pod state: %s", err.Error())
 			c.AddErrorAndResponse("", http.StatusInternalServerError)
@@ -280,7 +280,7 @@ func (c *OpenAPIController) RestartDeployment() {
 		return
 	}
 
-	deployObj, err := resdeployment.GetDeployment(cli, param.Deployment, ns.MetaDataObj.Namespace)
+	deployObj, err := resdeployment.GetDeployment(cli, param.Deployment, ns.KubeNamespace)
 	if err != nil {
 		logs.Error("Failed to get deployment from k8s client", err.Error())
 		c.AddErrorAndResponse(fmt.Sprintf("Failed to get deployment from k8s client on %s!", param.Cluster), http.StatusInternalServerError)
@@ -549,7 +549,7 @@ func (c *OpenAPIController) ScaleDeployment() {
 		return
 	}
 
-	deployObj, err := resdeployment.GetDeployment(cli, param.Deployment, ns.MetaDataObj.Namespace)
+	deployObj, err := resdeployment.GetDeployment(cli, param.Deployment, ns.KubeNamespace)
 	if err != nil {
 		logs.Error("Failed to get deployment from k8s client", err.Error())
 		c.AddErrorAndResponse(fmt.Sprintf("Failed to get deployment from k8s client on %s!", param.Cluster), http.StatusInternalServerError)
@@ -625,7 +625,7 @@ func getOnlineDeploymenetInfo(deployment, namespace, cluster string, templateId 
 	if namespace != app.Namespace.Name {
 		return nil, fmt.Errorf("Invalid namespace parameter(should be the namespace of the application)")
 	}
-	deployObj.Namespace = app.Namespace.MetaDataObj.Namespace
+	deployObj.Namespace = app.Namespace.KubeNamespace
 
 	// 拼凑副本数量参数
 	err = json.Unmarshal([]byte(deployResource.MetaData), &deployResource.MetaDataObj)
