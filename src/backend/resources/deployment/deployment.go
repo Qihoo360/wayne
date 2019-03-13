@@ -41,13 +41,14 @@ func GetDeploymentList(indexer *client.CacheFactory, namespace string) ([]*v1bet
 // GetDeploymentResource get deployment resource statistics
 func GetDeploymentResource(cli client.ResourceHandler, deployment *v1beta1.Deployment) (*common.ResourceList, error) {
 	obj, err := cli.Get(api.ResourceNameDeployment, deployment.Namespace, deployment.Name)
-	old := obj.(*v1beta1.Deployment)
+
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return common.DeploymentResourceList(deployment), nil
 		}
 		return nil, err
 	}
+	old := obj.(*v1beta1.Deployment)
 	oldResourceList := common.DeploymentResourceList(old)
 	newResourceList := common.DeploymentResourceList(deployment)
 

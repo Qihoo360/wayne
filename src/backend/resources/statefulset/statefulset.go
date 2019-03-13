@@ -22,13 +22,13 @@ type Statefulset struct {
 // GetStatefulsetResource get StatefulSet resource statistics
 func GetStatefulsetResource(cli client.ResourceHandler, statefulSet *v1beta1.StatefulSet) (*common.ResourceList, error) {
 	obj, err := cli.Get(api.ResourceNameStatefulSet, statefulSet.Namespace, statefulSet.Name)
-	old := obj.(*v1beta1.StatefulSet)
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return common.StatefulsetResourceList(statefulSet), nil
 		}
 		return nil, err
 	}
+	old := obj.(*v1beta1.StatefulSet)
 	oldResourceList := common.StatefulsetResourceList(old)
 	newResourceList := common.StatefulsetResourceList(statefulSet)
 
