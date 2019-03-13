@@ -2,11 +2,14 @@ package proxy
 
 import (
 	"encoding/json"
+	"fmt"
 	"strconv"
+	"strings"
 
 	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 
+	"github.com/Qihoo360/wayne/src/backend/client/api"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/resources/proxy"
@@ -35,13 +38,21 @@ func (c *KubeProxyController) Prepare() {
 	switch method {
 	case "Get", "List", "GetNames":
 		perAction = models.PermissionRead
-	case "Create", "Update":
-		perAction = models.PermissionDeploy
+	case "Create":
+		perAction = models.PermissionCreate
+	case "Update":
+		perAction = models.PermissionUpdate
 	case "Delete":
-		perAction = models.PermissionOffline
+		perAction = models.PermissionDelete
 	}
+	kind := c.Ctx.Input.Param(":kind")
+	resourceMap, ok := api.KindToResourceMap[kind]
+	if !ok {
+		c.AbortBadRequest(fmt.Sprintf("Request resource kind (%s) not supported!", kind))
+	}
+
 	if perAction != "" {
-		c.CheckPermission(models.PermissionTypeDeployment, perAction)
+		c.CheckPermission(fmt.Sprintf("KUBE%s", strings.ToUpper(resourceMap.GroupVersionResourceKind.Kind)), perAction)
 	}
 
 }
@@ -72,6 +83,9 @@ func (c *KubeProxyController) Get() {
 
 // @Title Get all resource names
 // @Description get all names
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace		path 	string	true		"the namespace name"
+// @Param	kind		path 	string	true		"the resource kind"
 // @Success 200 {object} []response.NamesObject success
 // @router /names [get]
 func (c *KubeProxyController) GetNames() {

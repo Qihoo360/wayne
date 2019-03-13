@@ -62,7 +62,7 @@ func (c *APIController) CheckPermission(perType string, perAction string) {
 			return
 		} else if err != nil && err != orm.ErrNoRows {
 			logs.Info("Check app permission error.%v", err)
-			c.AbortInternalServerError("Check app permission error.")
+			c.AbortForbidden("Check app permission error.")
 		}
 	}
 
@@ -73,7 +73,7 @@ func (c *APIController) CheckPermission(perType string, perAction string) {
 			return
 		} else {
 			logs.Info("Check namespace permission error.%v", err)
-			c.AbortInternalServerError("Check namespace permission error.")
+			c.AbortForbidden("Check namespace permission error.")
 		}
 	}
 

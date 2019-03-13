@@ -35,6 +35,32 @@ const (
 	PermissionTypeIngress               = "INGRESS"
 	PermissionTypeHPA                   = "HPA"
 	PermissionBlank                     = "_"
+
+	// Kubernetes resource permission
+	PermissionTypeKubeConfigMap               = "KUBECONFIGMAP"
+	PermissionTypeKubeDaemonSet               = "KUBEDAEMONSET"
+	PermissionTypeKubeDeployment              = "KUBEDEPLOYMENT"
+	PermissionTypeKubeEvent                   = "KUBEEVENT"
+	PermissionTypeKubeHorizontalPodAutoscaler = "KUBEHORIZONTALPODAUTOSCALER"
+	PermissionTypeKubeIngress                 = "KUBEINGRESS"
+	PermissionTypeKubeJob                     = "KUBEJOB"
+	PermissionTypeKubeCronJob                 = "KUBECRONJOB"
+	PermissionTypeKubeNamespace               = "KUBENAMESPACE"
+	PermissionTypeKubeNode                    = "KUBENODE"
+	PermissionTypeKubePersistentVolumeClaim   = "KUBEPERSISTENTVOLUMECLAIM"
+	PermissionTypeKubePersistentVolume        = "KUBEPERSISTENTVOLUME"
+	PermissionTypeKubePod                     = "KUBEPOD"
+	PermissionTypeKubeReplicaSet              = "KUBEREPLICASET"
+	PermissionTypeKubeSecret                  = "KUBESECRET"
+	PermissionTypeKubeService                 = "KUBESERVICE"
+	PermissionTypeKubeStatefulSet             = "KUBESTATEFULSET"
+	PermissionTypeKubeEndpoint                = "KUBEENDPOINTS"
+	PermissionTypeKubeStorageClass            = "KUBESTORAGECLASS"
+	PermissionTypeKubeRole                    = "KUBEROLE"
+	PermissionTypeKubeRoleBinding             = "KUBEROLEBINDING"
+	PermissionTypeKubeClusterRole             = "KUBECLUSTERROLE"
+	PermissionTypeKubeClusterRoleBinding      = "KUBECLUSTERROLEBINDING"
+	PermissionTypeKubeServiceAccount          = "KUBESERVICEACCOUNT"
 )
 
 type permissionModel struct{}
@@ -68,6 +94,32 @@ type TypePermission struct {
 	PermissionTypeBILL                  ActionPermission `json:"bill" mapstructure:"BILL"`
 	PermissionIngress                   ActionPermission `json:"ingress" mapstructure:"INGRESS"`
 	PermissionHPA                       ActionPermission `json:"hpa" mapstructure:"HPA"`
+
+	// Kubernetes resource permission
+	PermissionTypeKubeConfigMap               ActionPermission `json:"kubeConfigMap" mapstructure:"KUBECONFIGMAP"`
+	PermissionTypeKubeDaemonSet               ActionPermission `json:"kubeDaemonSet" mapstructure:"KUBEDAEMONSET"`
+	PermissionTypeKubeDeployment              ActionPermission `json:"kubeDeployment" mapstructure:"KUBEDEPLOYMENT"`
+	PermissionTypeKubeEvent                   ActionPermission `json:"kubeEvent" mapstructure:"KUBEEVENT"`
+	PermissionTypeKubeHorizontalPodAutoscaler ActionPermission `json:"kubeHorizontalPodAutoscaler" mapstructure:"KUBEHORIZONTALPODAUTOSCALER"`
+	PermissionTypeKubeIngress                 ActionPermission `json:"kubeIngress" mapstructure:"KUBEINGRESS"`
+	PermissionTypeKubeJob                     ActionPermission `json:"kubeJob" mapstructure:"KUBEJOB"`
+	PermissionTypeKubeCronJob                 ActionPermission `json:"kubeCronJob" mapstructure:"KUBECRONJOB"`
+	PermissionTypeKubeNamespace               ActionPermission `json:"kubeNamespace" mapstructure:"KUBENAMESPACE"`
+	PermissionTypeKubeNode                    ActionPermission `json:"kubeNode" mapstructure:"KUBENODE"`
+	PermissionTypeKubePersistentVolumeClaim   ActionPermission `json:"kubePersistentVolumeClaim" mapstructure:"KUBEPERSISTENTVOLUMECLAIM"`
+	PermissionTypeKubePersistentVolume        ActionPermission `json:"kubePersistentVolume" mapstructure:"KUBEPERSISTENTVOLUME"`
+	PermissionTypeKubePod                     ActionPermission `json:"kubePod" mapstructure:"KUBEPOD"`
+	PermissionTypeKubeReplicaSet              ActionPermission `json:"kubeReplicaSet" mapstructure:"KUBEREPLICASET"`
+	PermissionTypeKubeSecret                  ActionPermission `json:"kubeSecret" mapstructure:"KUBESECRET"`
+	PermissionTypeKubeService                 ActionPermission `json:"kubeService" mapstructure:"KUBESERVICE"`
+	PermissionTypeKubeStatefulSet             ActionPermission `json:"kubeStatefulSet" mapstructure:"KUBESTATEFULSET"`
+	PermissionTypeKubeEndpoint                ActionPermission `json:"kubeEndpoints" mapstructure:"KUBEENDPOINTS"`
+	PermissionTypeKubeStorageClass            ActionPermission `json:"kubeStorageClass" mapstructure:"KUBESTORAGECLASS"`
+	PermissionTypeKubeRole                    ActionPermission `json:"kubeRole" mapstructure:"KUBEROLE"`
+	PermissionTypeKubeRoleBinding             ActionPermission `json:"kubeRoleBinding" mapstructure:"KUBEROLEBINDING"`
+	PermissionTypeKubeClusterRole             ActionPermission `json:"kubeClusterRole" mapstructure:"KUBECLUSTERROLE"`
+	PermissionTypeKubeClusterRoleBinding      ActionPermission `json:"kubeClusterRoleBinding" mapstructure:"KUBECLUSTERROLEBINDING"`
+	PermissionTypeKubeServiceAccount          ActionPermission `json:"kubeServiceAccount" mapstructure:"KUBESERVICEACCOUNT"`
 }
 
 type ActionPermission struct {
@@ -138,28 +190,4 @@ func (*permissionModel) SplitName(name string) (paction string, ptype string, er
 func (*permissionModel) MergeName(perType string, perAction string) (perName string) {
 	perName = perType + PermissionBlank + perAction
 	return perName
-}
-
-/*
- * 根据publishType获取权限类别
- */
-func (*permissionModel) GetPermissionTypeByPublishType(pType PublishType) (perType string) {
-	perType = ""
-	switch pType {
-	case PublishTypeDeployment:
-		perType = PermissionTypeDeployment
-	case PublishTypeService:
-		perType = PermissionTypeService
-	case PublishTypeConfigMap:
-		perType = PermissionTypeConfigMap
-	case PublishTypeSecret:
-		perType = PermissionTypeSecret
-	case PublishTypePersistentVolumeClaim:
-		perType = PermissionTypePersistentVolumeClaim
-	case PublishTypeCronJob:
-		perType = PermissionTypeCronjob
-	case PublishTypeIngress:
-		perType = PermissionTypeIngress
-	}
-	return perType
 }

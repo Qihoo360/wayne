@@ -41,7 +41,7 @@ func (c *KubeDeploymentController) Prepare() {
 	perAction := ""
 	_, method := c.GetControllerAndAction()
 	switch method {
-	case "Get":
+	case "Get", "GetDetail":
 		perAction = models.PermissionRead
 	case "Deploy":
 		perAction = models.PermissionDeploy
@@ -49,7 +49,7 @@ func (c *KubeDeploymentController) Prepare() {
 		perAction = models.PermissionOffline
 	}
 	if perAction != "" {
-		c.CheckPermission(models.PermissionTypeDeployment, perAction)
+		c.CheckPermission(models.PermissionTypeKubeDeployment, perAction)
 	}
 }
 
