@@ -202,7 +202,7 @@ func (c *KubeNamespaceController) Resources() {
 				selectorMap[util.AppLabelKey] = appName
 			}
 			selector := labels.SelectorFromSet(selectorMap)
-			resourceUsage, err := namespace.ResourcesUsageByNamespace(m.Client, namespaceMetaData.Namespace, selector.String())
+			resourceUsage, err := namespace.ResourcesUsageByNamespace(m.KubeClient, ns.KubeNamespace, selector.String())
 			if err != nil {
 				logs.Error("get (%s) k8s resource usage error. %v", m.Cluster.Name, err.Error())
 				errs = append(errs, err)
@@ -274,7 +274,7 @@ func (c *KubeNamespaceController) Statistics() {
 				selectorMap[util.AppLabelKey] = appName
 			}
 			selector := labels.SelectorFromSet(selectorMap)
-			resourceUsage, err := namespace.ResourcesOfAppByNamespace(m.Client, namespaceMetaData.Namespace, selector.String())
+			resourceUsage, err := namespace.ResourcesOfAppByNamespace(m.KubeClient, ns.KubeNamespace, selector.String())
 			if err != nil {
 				logs.Error("get (%s) k8s resource usage error. %v", m.Cluster.Name, err.Error())
 				errs = append(errs, err)

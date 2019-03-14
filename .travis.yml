@@ -29,5 +29,5 @@ matrix:
         - cd src/frontend && npm install
       script:
         - # npm run test Wayne 前端测试尚未编排
-        - npm run build
-        - npm run lint
+        - travis_wait 30 npm run build
+        - travis_wait 30 npm run lint
