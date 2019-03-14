@@ -58,7 +58,6 @@ export class BaseComponent implements OnInit, OnDestroy {
     this.authService.setAppPermissionById(this.appId);
     this.routerEvent = this.router.events.subscribe(events => {
       if (events instanceof NavigationStart) {
-        console.log(events);
         if (/tpl/g.test(events.url)) {
           this.showBox = false;
         } else {
