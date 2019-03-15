@@ -29,7 +29,7 @@
         {{'BUTTON.HISTORY' | translate}}
       </button>
       <button (click)="deleteConfigMap()" class="wayne-button normal"
-              *ngIf="authService.currentAppPermission.configmap.offline || authService.currentUser.admin">
+              *ngIf="authService.currentAppPermission.configmap.delete || authService.currentUser.admin">
         {{'CONFIGMAP.DELETE' | translate}}
       </button>
       <button class="wayne-button normal" (click)="diffTpl()">{{'BUTTON.COMPARE_TEMPLATES' | translate}}</button>

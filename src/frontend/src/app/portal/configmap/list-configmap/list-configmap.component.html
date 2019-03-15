@@ -60,7 +60,7 @@
     <clr-dg-cell class="col-operate">
       <button class="wayne-button text"
               (click)="publishConfigMapTpl(configMapTpl)"
-              *ngIf="authService.currentAppPermission.configmap.deploy || authService.currentUser.admin">
+              *ngIf="authService.currentAppPermission.kubeConfigMap.create || authService.currentUser.admin">
         {{'BUTTON.RELEASE' | translate}}</button>
       <button class="wayne-button text"
               (click)="detailConfigMapTpl(configMapTpl)"
@@ -76,7 +76,7 @@
         {{'BUTTON.DELETE' | translate}}</button>
       <button class="wayne-button text"
               (click)="offlineConfigMapTpl(configMapTpl)"
-              *ngIf="configMapTpl.status && (authService.currentAppPermission.configmap.offline || authService.currentUser.admin)">
+              *ngIf="configMapTpl.status && (authService.currentAppPermission.kubeConfigMap.delete || authService.currentUser.admin)">
         {{'BUTTON.DROP' | translate}}</button>
     </clr-dg-cell>
   </clr-dg-row>

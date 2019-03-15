@@ -3,7 +3,7 @@ import { TabDragService } from '../../client/v1/tab-drag.service';
 import { OrderItem } from '../../model/v1/order';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, ElementRef } from '@angular/core';
 import { Cluster } from '../../model/v1/cluster';
 import { ClusterService } from '../../client/v1/cluster.service';
 import { AppService } from '../../client/v1/app.service';
@@ -21,6 +21,7 @@ import {
   ConfirmationState,
   ConfirmationTargets,
   httpStatusCode,
+  KubeResourcesName,
   PublishType,
   TemplateState
 } from '../../shared.const';
@@ -28,6 +29,7 @@ import { combineLatest } from 'rxjs';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { CreateEditResource } from './create-edit-resource';
 import { ListResource } from './list-resource';
+import { KubernetesClient } from '../../client/v1/kubernetes/kubernetes';
 
 export class Resource {
   createEditResourceComponent: CreateEditResource;
@@ -57,9 +59,11 @@ export class Resource {
   publishType: PublishType;
   confirmationTarget: ConfirmationTargets;
 
+  kubeResource: KubeResourcesName;
+
   constructor(public resourceService: any,
               public templateService: any,
-              public resourceClient: any,
+              public kubernetesClient: KubernetesClient,
               public publishHistoryService: PublishHistoryService,
               public route: ActivatedRoute,
               public router: Router,
@@ -80,6 +84,10 @@ export class Resource {
     });
   }
 
+  registKubeResource(kubeResource: string) {
+    this.kubeResource = kubeResource;
+  }
+
   registResourceType(resourceType: string) {
     this.resourceType = resourceType;
   }
@@ -91,12 +99,13 @@ export class Resource {
   registConfirmationTarget(confirmationTarget: ConfirmationTargets) {
     this.confirmationTarget = confirmationTarget;
   }
+
   registShowState(showState: object) {
     this.showState = showState;
 
   }
 
-  registSubscription( msg: string) {
+  registSubscription(msg: string) {
     this.subscription = this.deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
@@ -128,7 +137,7 @@ export class Resource {
   }
 
   // 删除资源的动作
-  deleteResource(title: string , message: string, warningMessage: string) {
+  deleteResource(title: string, message: string, warningMessage: string) {
     if (this.publishStatus && this.publishStatus.length > 0) {
       this.messageHandlerService.warning(warningMessage);
     } else {
@@ -234,7 +243,8 @@ export class Resource {
             if (status.errNum > 2) {
               continue;
             }
-            this.resourceClient.get(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
+            this.kubernetesClient.get(status.cluster, this.kubeResource, tpl.name,
+              this.cacheService.kubeNamespace, this.appId.toString()).subscribe(
               response => {
                 const code = response.statusCode || response.status;
                 if (code === httpStatusCode.NoContent) {

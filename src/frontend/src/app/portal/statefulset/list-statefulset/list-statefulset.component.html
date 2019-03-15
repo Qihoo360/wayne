@@ -74,7 +74,7 @@
     <clr-dg-cell class="col-operate">
       <button class="wayne-button text"
               (click)="publishTpl(statefulsetTpl)"
-              *ngIf="authService.currentAppPermission.statefulset?.deploy || authService.currentUser.admin">
+              *ngIf="authService.currentAppPermission.kubeStatefulSet?.create || authService.currentUser.admin">
         {{'BUTTON.RELEASE' | translate}}</button>
       <button class="wayne-button text"
               (click)="statefulsetTplDetail(statefulsetTpl)"
@@ -90,7 +90,7 @@
         {{'BUTTON.DELETE' | translate}}</button>
       <button class="wayne-button text"
               (click)="offlineStatefulset(statefulsetTpl)"
-              *ngIf="statefulsetTpl.status && (authService.currentAppPermission.statefulset.offline || authService.currentUser.admin)">
+              *ngIf="statefulsetTpl.status && (authService.currentAppPermission.kubeStatefulSet.delete || authService.currentUser.admin)">
         {{'BUTTON.DROP' | translate}}</button>
     </clr-dg-cell>
   </clr-dg-row>

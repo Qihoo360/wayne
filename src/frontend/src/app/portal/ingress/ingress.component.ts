@@ -8,7 +8,7 @@ import { ClusterService } from '../../shared/client/v1/cluster.service';
 import { CacheService } from '../../shared/auth/cache.service';
 import { PublishHistoryService } from '../common/publish-history/publish-history.service';
 import {
-  ConfirmationTargets,
+  ConfirmationTargets, KubeResourceIngress,
   PublishType,
 } from '../../shared/shared.const';
 import { AuthService } from '../../shared/auth/auth.service';
@@ -21,6 +21,7 @@ import { IngressTplService } from '../../shared/client/v1/ingresstpl.service';
 import { KubeIngress } from '../../shared/model/v1/kubernetes/ingress';
 import { IngressClient } from '../../shared/client/v1/kubernetes/ingress';
 import { Resource } from '../../shared/base/resource/resource';
+import { KubernetesClient } from '../../shared/client/v1/kubernetes/kubernetes';
 
 const showState = {
   '创建时间': {hidden: false},
@@ -43,7 +44,7 @@ export class IngressComponent extends Resource implements OnInit, OnDestroy, Aft
 
   constructor(public ingressService: IngressService,
               public ingressTplService: IngressTplService,
-              public ingressClient: IngressClient,
+              public kubernetesClient: KubernetesClient,
               public publishHistoryService: PublishHistoryService,
               public route: ActivatedRoute,
               public router: Router,
@@ -60,7 +61,7 @@ export class IngressComponent extends Resource implements OnInit, OnDestroy, Aft
     super(
       ingressService,
       ingressTplService,
-      ingressClient,
+      kubernetesClient,
       publishHistoryService,
       route,
       router,
@@ -75,6 +76,7 @@ export class IngressComponent extends Resource implements OnInit, OnDestroy, Aft
       el,
       messageHandlerService
     );
+    super.registKubeResource(KubeResourceIngress);
     super.registResourceType('ingress');
     super.registPublishType(PublishType.INGRESS);
     super.registConfirmationTarget(ConfirmationTargets.INGRESS);

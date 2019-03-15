@@ -12,6 +12,7 @@ import {
   ConfirmationButtons,
   ConfirmationState,
   ConfirmationTargets,
+  KubeResourcesName,
   ResourcesActionType,
   TemplateState
 } from '../../shared.const';
@@ -30,7 +31,7 @@ export class ListResource {
   @Input() page: Page;
   @Input() appId: number;
   @Input() resourceId: number;
-
+  @Input() kubeResource: KubeResourcesName;
   @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() serviceTab = new EventEmitter<number>();
   @Output() cloneTemplate = new EventEmitter<any>();
@@ -80,10 +81,10 @@ export class ListResource {
   }
 
   // 监听删除模板的事件
-  onDeleteTemplate(title: string, message: string, template: any ): void {
+  onDeleteTemplate(title: string, message: string, template: any): void {
     const deletionMessage = new ConfirmationMessage(
       title,
-      message +  template.name,
+      message + template.name,
       template.id,
       this.confirmationTarget,
       ConfirmationButtons.DELETE_CANCEL
@@ -141,7 +142,7 @@ export class ListResource {
   // 查看资源线上状态
   showResourceState(status: PublishStatus, tpl: any) {
     if (status.cluster && status.state !== TemplateState.NOT_FOUND) {
-      this.resourceStatusComponent.newResourceStatus(status.cluster, tpl);
+      this.resourceStatusComponent.newResourceStatus(status.cluster, tpl, this.kubeResource);
     }
 
   }

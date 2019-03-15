@@ -29,7 +29,7 @@
         {{'BUTTON.HISTORY' | translate}}
       </button>
       <button (click)="deleteCronjob()" class="wayne-button normal"
-              *ngIf="authService.currentAppPermission.cronjob.offline || authService.currentUser.admin">
+              *ngIf="authService.currentAppPermission.cronjob.delete || authService.currentUser.admin">
         {{'CRONJOB.DELETE' | translate}}
       </button>
       <button class="wayne-button normal" (click)="diffTpl()">{{'BUTTON.COMPARE_TEMPLATES' | translate}}</button>

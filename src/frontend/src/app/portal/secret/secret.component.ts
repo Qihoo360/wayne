@@ -6,6 +6,7 @@ import {
   ConfirmationState,
   ConfirmationTargets,
   httpStatusCode,
+  KubeResourceSecret,
   PublishType,
   syncStatusInterval,
   TemplateState
@@ -33,6 +34,7 @@ import { PageState } from '../../shared/page/page-state';
 import { TabDragService } from '../../shared/client/v1/tab-drag.service';
 import { OrderItem } from '../../shared/model/v1/order';
 import { TranslateService } from '@ngx-translate/core';
+import { KubernetesClient } from '../../shared/client/v1/kubernetes/kubernetes';
 
 const showState = {
   'create_time': {hidden: false},
@@ -74,6 +76,7 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
               private publishService: PublishService,
               private appService: AppService,
               private secretClient: SecretClient,
+              private kubernetesClient: KubernetesClient,
               private publishHistoryService: PublishHistoryService,
               public authService: AuthService,
               private deletionDialogService: ConfirmationDialogService,
@@ -85,7 +88,9 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
               public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
     this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
-      if (over) { this.tabChange(); }
+      if (over) {
+        this.tabChange();
+      }
     });
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
@@ -119,7 +124,9 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) { this.showList.push(key); }
+      if (!this.showState[key].hidden) {
+        this.showList.push(key);
+      }
     });
   }
 
@@ -144,7 +151,9 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
         order: index
       };
     });
-    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) { return; }
+    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) {
+      return;
+    }
     this.secretService.updateOrder(this.app.id, orderList).subscribe(
       response => {
         if (response.data === 'ok!') {
@@ -193,8 +202,11 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
         if (tpl.status && tpl.status.length > 0) {
           for (let j = 0; j < tpl.status.length; j++) {
             const status = tpl.status[j];
-            if (status.errNum > 2)  { continue; }
-            this.secretClient.get(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
+            if (status.errNum > 2) {
+              continue;
+            }
+            this.kubernetesClient.get(status.cluster, KubeResourceSecret, tpl.name,
+              this.cacheService.kubeNamespace, this.appId.toString()).subscribe(
               response => {
                 const code = response.statusCode || response.status;
                 if (code === httpStatusCode.NoContent) {

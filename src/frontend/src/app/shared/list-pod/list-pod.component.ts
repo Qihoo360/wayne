@@ -4,10 +4,9 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../message-handler/message-handler.service';
-import { PodClient } from '../client/v1/kubernetes/pod';
 import { PublicService } from '../client/v1/public.service';
 import { CacheService } from '../auth/cache.service';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets, KubeResourcesName } from '../shared.const';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets, KubeResourcePod, KubeResourcesName } from '../shared.const';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationMessage } from '../confirmation-dialog/confirmation-message';
@@ -20,6 +19,8 @@ import { AuthService } from '../auth/auth.service';
 import { PageState } from '../page/page-state';
 import { KubePod } from '../model/v1/kubernetes/kubepod';
 import { KubePodUtil } from '../utils';
+import { KubernetesClient } from '../client/v1/kubernetes/kubernetes';
+import { PodClient } from '../client/v1/kubernetes/pod';
 
 @Component({
   selector: 'list-pod',
@@ -60,12 +61,13 @@ export class ListPodComponent implements OnDestroy {
   constructor(private router: Router,
               private deletionDialogService: ConfirmationDialogService,
               private route: ActivatedRoute,
+              private podClient: PodClient,
               @Inject(DOCUMENT) private document: any,
               public cacheService: CacheService,
               private publicService: PublicService,
               private clusterService: ClusterService,
               private messageHandlerService: MessageHandlerService,
-              private podClient: PodClient,
+              private kubernetesClient: KubernetesClient,
               private copyService: CopyService,
               public authService: AuthService) {
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
@@ -73,8 +75,8 @@ export class ListPodComponent implements OnDestroy {
         message.state === ConfirmationState.CONFIRMED &&
         message.source === ConfirmationTargets.POD) {
         const pod: KubePod = message.data;
-        this.podClient
-          .deleteByName(this.appId, this.cluster, pod.metadata.namespace, pod.metadata.name)
+        this.kubernetesClient
+          .delete(this.cluster, KubeResourcePod, false, pod.metadata.name, pod.metadata.namespace, this.appId.toString())
           .subscribe(
             response => {
               this.refresh();

@@ -14,10 +14,11 @@ import { AutoscaleService } from '../../shared/client/v1/autoscale.service';
 import { AutoscaleTplService } from '../../shared/client/v1/autoscaletpl.service';
 import { AutoscaleClient } from '../../shared/client/v1/kubernetes/autoscale';
 import { CreateEditAutoscaleComponent } from './create-edit-autoscale/create-edit-autoscale.component';
-import { ConfirmationTargets, PublishType } from '../../shared/shared.const';
+import { ConfirmationTargets, KubeResourceHorizontalPodAutoscaler, PublishType } from '../../shared/shared.const';
 import { HorizontalPodAutoscaler } from '../../shared/model/v1/kubernetes/autoscale';
 import { PublishStatus } from '../../shared/model/v1/publish-status';
 import { ListAutoscaleComponent } from './list-autoscale/list-autoscale.component';
+import { KubernetesClient } from '../../shared/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'wayne-autoscale',
@@ -32,7 +33,7 @@ export class AutoscaleComponent extends Resource implements OnInit, AfterContent
 
   constructor(public autoscaleService: AutoscaleService,
               public autoscaleTplService: AutoscaleTplService,
-              public autoscaleClient: AutoscaleClient,
+              public kubernetesClient: KubernetesClient,
               public publishHistoryService: PublishHistoryService,
               public route: ActivatedRoute,
               public router: Router,
@@ -49,7 +50,7 @@ export class AutoscaleComponent extends Resource implements OnInit, AfterContent
     super(
       autoscaleService,
       autoscaleTplService,
-      autoscaleClient,
+      kubernetesClient,
       publishHistoryService,
       route,
       router,
@@ -65,9 +66,10 @@ export class AutoscaleComponent extends Resource implements OnInit, AfterContent
       messageHandlerService
     );
     super.registResourceType('autoscale');
+    super.registKubeResource(KubeResourceHorizontalPodAutoscaler);
     super.registPublishType(PublishType.AUTOSCALE);
     super.registConfirmationTarget(ConfirmationTargets.AUTOSCALE);
-    super.registSubscription( 'autoscale 删除成功！');
+    super.registSubscription('autoscale 删除成功！');
     super.registShowState({
       'id': {hidden: false},
       'createTime': {hidden: false},
@@ -100,11 +102,11 @@ export class AutoscaleComponent extends Resource implements OnInit, AfterContent
     if (templatedata && templatedata.length > 0) {
       for (let i = 0; i < templatedata.length; i++) {
         const hpa: HorizontalPodAutoscaler = JSON.parse(templatedata[i].template);
-          const publishStatus = tplStatusMap[templatedata[i].id];
-          if (publishStatus && publishStatus.length > 0) {
-            templatedata[i].status = publishStatus;
-          }
+        const publishStatus = tplStatusMap[templatedata[i].id];
+        if (publishStatus && publishStatus.length > 0) {
+          templatedata[i].status = publishStatus;
         }
+      }
     }
     this.templates = templatedata;
   }

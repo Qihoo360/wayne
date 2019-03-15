@@ -74,7 +74,7 @@
     <clr-dg-cell>
       <button class="wayne-button text"
               (click)="publishTpl(daemonSetTpl)"
-              *ngIf="authService.currentAppPermission.daemonSet?.deploy || authService.currentUser.admin">
+              *ngIf="authService.currentAppPermission.kubeDaemonSet?.create || authService.currentUser.admin">
         {{'BUTTON.RELEASE' | translate}}</button>
       <button class="wayne-button text"
               (click)="daemonSetTplDetail(daemonSetTpl)"
@@ -90,7 +90,7 @@
         {{'BUTTON.DELETE' | translate}}</button>
       <button class="wayne-button text"
               (click)="offlineDaemonSet(daemonSetTpl)"
-              *ngIf="daemonSetTpl.status && (authService.currentAppPermission.daemonSet?.offline || authService.currentUser.admin)">
+              *ngIf="daemonSetTpl.status && (authService.currentAppPermission.kubeDaemonSet?.delete || authService.currentUser.admin)">
         {{'BUTTON.DROP' | translate}}</button>
     </clr-dg-cell>
   </clr-dg-row>

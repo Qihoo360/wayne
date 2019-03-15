@@ -10,8 +10,6 @@ export class ActionPermission {
   create = false;
   update = false;
   delete = false;
-  deploy = false;
-  offline = false;
 }
 
 export class TypePermission {

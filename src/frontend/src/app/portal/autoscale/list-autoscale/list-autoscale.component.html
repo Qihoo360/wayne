@@ -49,7 +49,7 @@
     <clr-dg-cell class="col-operate">
       <button class="wayne-button text"
               (click)="onPublishResourceTemplate(template)"
-              *ngIf="authService.currentAppPermission.hpa.deploy || authService.currentUser.admin">
+              *ngIf="authService.currentAppPermission.kubeHorizontalPodAutoscaler.create || authService.currentUser.admin">
         {{'BUTTON.RELEASE' | translate}}</button>
       <button class="wayne-button text"
               (click)="onViewTemplate(template)"
@@ -65,7 +65,7 @@
         {{'BUTTON.DELETE' | translate}}</button>
       <button class="wayne-button text"
               (click)="onOfflineResourceTemplate(template)"
-              *ngIf="template.status && (authService.currentAppPermission.hpa.offline || authService.currentUser.admin)">
+              *ngIf="template.status && (authService.currentAppPermission.kubeHorizontalPodAutoscaler.delete || authService.currentUser.admin)">
         {{'BUTTON.DROP' | translate}}</button>
 
     </clr-dg-cell>

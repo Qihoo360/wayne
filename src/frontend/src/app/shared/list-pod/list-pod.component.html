@@ -66,10 +66,10 @@
         </clr-dg-cell>
         <clr-dg-cell>{{pod.metadata.creationTimestamp | relativeTime}}</clr-dg-cell>
         <clr-dg-cell>
-          <button class="wayne-button text" (click)="enterContainer(pod)"> {{'POD.ENTER_CONTAINER' | translate}}</button>
+          <button *ngIf="authService.currentAppPermission.kubePod.read || authService.currentUser.admin" class="wayne-button text" (click)="enterContainer(pod)"> {{'POD.ENTER_CONTAINER' | translate}}</button>
           <button *ngIf="logSource" class="wayne-button text" (click)="copyLogCommand(pod)">{{'POD.LOG_COMMAND' | translate}}</button>
-          <button class="wayne-button text" (click)="podLog(pod)"> {{'POD.LOG' | translate}}</button>
-          <button class="wayne-button text" (click)="deletePod(pod)">{{'BUTTON.DELETE' | translate}}</button>
+          <button *ngIf="authService.currentAppPermission.kubePod.read || authService.currentUser.admin" class="wayne-button text" (click)="podLog(pod)"> {{'POD.LOG' | translate}}</button>
+          <button *ngIf="authService.currentAppPermission.kubePod.delete || authService.currentUser.admin" class="wayne-button text" (click)="deletePod(pod)">{{'BUTTON.DELETE' | translate}}</button>
         </clr-dg-cell>
       </clr-dg-row>
       <clr-dg-footer>

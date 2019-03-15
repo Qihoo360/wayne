@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
 import { CacheService } from '../../../shared/auth/cache.service';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { AppService } from '../../../shared/client/v1/app.service';
 import * as echarts from 'echarts';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { NamespaceService } from '../../../shared/client/v1/namespace.service';
 import ECharts = echarts.ECharts;
 import EChartOption = echarts.EChartOption;
 
@@ -24,7 +24,7 @@ export class HistoryComponent implements OnInit, AfterViewInit {
   dataDone: boolean;
   historys: any;
 
-  constructor(private namespaceClient: NamespaceClient,
+  constructor(private namespaceService: NamespaceService,
               private router: Router,
               private appService: AppService,
               public cacheService: CacheService,
@@ -48,7 +48,7 @@ export class HistoryComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     const namespaceId = this.cacheService.namespaceId;
     this.basicChart = echarts.init(this.elementBasicView.nativeElement, 'macarons');
-    this.namespaceClient.getHistory(namespaceId).subscribe(
+    this.namespaceService.getHistory(namespaceId).subscribe(
       response => {
         this.historys = response.data;
         this.initHistoryOptions();

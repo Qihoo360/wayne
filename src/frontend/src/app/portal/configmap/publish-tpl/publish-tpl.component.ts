@@ -8,11 +8,12 @@ import { ConfigMapTpl } from '../../../shared/model/v1/configmaptpl';
 import { Cluster } from '../../../shared/model/v1/cluster';
 import { KubeConfigMap } from '../../../shared/model/v1/kubernetes/configmap';
 import { CacheService } from '../../../shared/auth/cache.service';
-import { ResourcesActionType } from '../../../shared/shared.const';
+import { KubeResourceConfigMap, ResourcesActionType } from '../../../shared/shared.const';
 import { PublishStatus } from '../../../shared/model/v1/publish-status';
 import { ConfigMapClient } from '../../../shared/client/v1/kubernetes/configmap';
 import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
 import { ActivatedRoute } from '@angular/router';
+import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'publish-tpl',
@@ -35,6 +36,7 @@ export class PublishConfigMapTplComponent {
 
   constructor(public cacheService: CacheService,
               private configMapClient: ConfigMapClient,
+              private kubernetesClient: KubernetesClient,
               private route: ActivatedRoute,
               private publishStatusService: PublishStatusService,
               private messageHandlerService: MessageHandlerService) {
@@ -117,7 +119,8 @@ export class PublishConfigMapTplComponent {
 
   offline(cluster: Cluster) {
     const state = this.getStatusByCluster(this.configMapTpl.status, cluster.name);
-    this.configMapClient.deleteByName(this.appId, cluster.name, this.cacheService.kubeNamespace, this.configMapTpl.name).subscribe(
+    this.kubernetesClient.delete(cluster.name, KubeResourceConfigMap, false,
+      this.configMapTpl.name, this.cacheService.kubeNamespace, this.appId.toString()).subscribe(
       response => {
         this.deletePublishStatus(state.id);
       },

@@ -19,7 +19,7 @@
       <button (click)="publishHistory()" class="wayne-button normal" *ngIf="authService.currentAppPermission.pvc.read || authService.currentUser.admin">
         {{'BUTTON.HISTORY' | translate}}
       </button>
-      <button (click)="deletePvc()" class="wayne-button normal" *ngIf="authService.currentAppPermission.pvc.offline || authService.currentUser.admin">
+      <button (click)="deletePvc()" class="wayne-button normal" *ngIf="authService.currentAppPermission.pvc.delete || authService.currentUser.admin">
         {{'PVC.DELETE' | translate}}
       </button>
       <button class="wayne-button normal" (click)="diffTpl()">{{'BUTTON.COMPARE_TEMPLATES' | translate}}</button>
