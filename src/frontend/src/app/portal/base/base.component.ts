@@ -1,7 +1,8 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { AuthService } from '../../shared/auth/auth.service';
 import { App } from '../../shared/model/v1/app';
 import { AppService } from '../../shared/client/v1/app.service';
@@ -12,9 +13,10 @@ import { CacheService } from '../../shared/auth/cache.service';
   templateUrl: 'base.component.html',
   styleUrls: ['base.scss']
 })
-export class BaseComponent implements OnInit {
+export class BaseComponent implements OnInit, OnDestroy {
   appId: number;
-
+  showBox = false;
+  routerEvent: Subscription;
   @HostBinding('class.content-container') field = true;
 
   constructor(public authService: AuthService,
@@ -52,7 +54,21 @@ export class BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showBox = /tpl/g.test(this.router.url) ? false : true;
     this.authService.setAppPermissionById(this.appId);
+    this.routerEvent = this.router.events.subscribe(events => {
+      if (events instanceof NavigationStart) {
+        if (/tpl/g.test(events.url)) {
+          this.showBox = false;
+        } else {
+          this.showBox = true;
+        }
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.routerEvent.unsubscribe();
   }
 
   appBetaMode(metaData: string) {
