@@ -35,7 +35,6 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { TabDragService } from './client/v1/tab-drag.service';
 import { SelectCopyService } from './client/v1/select-copy.service';
 import { CardComponent } from './card/card.compontent';
-import { BoxComponent } from './box/box.component';
 import { InputComponent } from './input/input.component';
 import { SelectComponent } from './select/select.component';
 import { OptionComponent } from './select/option/option.component';
@@ -54,7 +53,7 @@ import { ListPodComponent } from './list-pod/list-pod.component';
 import { ListEventComponent } from './list-event/list-event.component';
 import { SideNavService } from './client/v1/sidenav.service';
 import { SearchSectionComponent } from './tabs/search-section/search-section.component';
-
+import { CollapseModule } from './collapse/collapse.module';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -66,6 +65,7 @@ import { SearchSectionComponent } from './tabs/search-section/search-section.com
     HttpClientModule,
     EchartsModule,
     ClarityModule,
+    CollapseModule
   ],
   declarations: [
     PageNotFoundComponent,
@@ -85,7 +85,6 @@ import { SearchSectionComponent } from './tabs/search-section/search-section.com
     TipDirective,
     NavigationComponent,
     CardComponent,
-    BoxComponent,
     InputComponent,
     SelectComponent,
     OptionComponent,
@@ -125,7 +124,6 @@ import { SearchSectionComponent } from './tabs/search-section/search-section.com
     TipDirective,
     NavigationComponent,
     CardComponent,
-    BoxComponent,
     InputComponent,
     SelectComponent,
     OptionComponent,
@@ -139,7 +137,8 @@ import { SearchSectionComponent } from './tabs/search-section/search-section.com
     DiffComponent,
     ListPodComponent,
     ListEventComponent,
-    SearchSectionComponent
+    SearchSectionComponent,
+    CollapseModule
   ],
   providers: [
     SideNavService,

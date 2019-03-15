@@ -1,5 +1,5 @@
 <div class="content-area" style="position: relative;padding: .75rem .75rem .75rem .75rem;">
-  <wayne-box style="padding: 15px;">
+  <wayne-box [disabled]="!showBox" [ngStyle]="{padding: showBox ? '15px' : 0}">
     <router-outlet></router-outlet>
   </wayne-box>
 </div>
