@@ -136,27 +136,18 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
   }
 
   onSaveResourceEvent(obj: any) {
-    this.kubernetesClient.get(this.cluster, this.kubeResource, obj.metadata.name, obj.metadata.namespace).subscribe(
-      resp => {
-        const respObj = resp.data;
-        respObj.spec = obj.spec;
-        respObj.metadata.labels = obj.metadata.labels;
-        respObj.metadata.annotations = obj.metadata.annotations;
-        this.kubernetesClient.update(respObj, this.cluster, this.kubeResource, obj.metadata.name, obj.metadata.namespace).subscribe(
-          resp2 => {
-            this.messageHandlerService.showSuccess('ADMIN.KUBERNETES.MESSAGE.UPDATE');
-            this.retrieveResource();
-          },
-          error => {
-            this.messageHandlerService.handleError(error);
-          }
-        );
+    // set resourceVersion to undefined prevent updates from failing
+    obj.metadata.resourceVersion = undefined;
+    obj.metadata.creationTimestamp = undefined;
+    this.kubernetesClient.update(obj, this.cluster, this.kubeResource, obj.metadata.name, obj.metadata.namespace).subscribe(
+      () => {
+        this.messageHandlerService.showSuccess('ADMIN.KUBERNETES.MESSAGE.UPDATE');
+        this.retrieveResource();
       },
       error => {
         this.messageHandlerService.handleError(error);
       }
     );
-
   }
 
   initShow() {

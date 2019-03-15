@@ -12,6 +12,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
+	"github.com/Qihoo360/wayne/src/backend/client/api"
 	erroresult "github.com/Qihoo360/wayne/src/backend/models/response/errors"
 	"github.com/Qihoo360/wayne/src/backend/resources/common"
 	"github.com/Qihoo360/wayne/src/backend/resources/event"
@@ -37,14 +38,17 @@ func GetDeploymentList(indexer *client.CacheFactory, namespace string) ([]*v1bet
 	return deployments, nil
 }
 
-func GetDeploymentResource(cli *kubernetes.Clientset, deployment *v1beta1.Deployment) (*common.ResourceList, error) {
-	old, err := cli.AppsV1beta1().Deployments(deployment.Namespace).Get(deployment.Name, metaV1.GetOptions{})
+// GetDeploymentResource get deployment resource statistics
+func GetDeploymentResource(cli client.ResourceHandler, deployment *v1beta1.Deployment) (*common.ResourceList, error) {
+	obj, err := cli.Get(api.ResourceNameDeployment, deployment.Namespace, deployment.Name)
+
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return common.DeploymentResourceList(deployment), nil
 		}
 		return nil, err
 	}
+	old := obj.(*v1beta1.Deployment)
 	oldResourceList := common.DeploymentResourceList(old)
 	newResourceList := common.DeploymentResourceList(deployment)
 

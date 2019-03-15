@@ -7,6 +7,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
+	"github.com/Qihoo360/wayne/src/backend/client/api"
 	"github.com/Qihoo360/wayne/src/backend/resources/common"
 	"github.com/Qihoo360/wayne/src/backend/resources/event"
 	"github.com/Qihoo360/wayne/src/backend/resources/pod"
@@ -18,14 +19,16 @@ type Statefulset struct {
 	Pods       common.PodInfo    `json:"pods"`
 }
 
-func GetStatefulsetResource(cli *kubernetes.Clientset, statefulSet *v1beta1.StatefulSet) (*common.ResourceList, error) {
-	old, err := cli.AppsV1beta1().StatefulSets(statefulSet.Namespace).Get(statefulSet.Name, metaV1.GetOptions{})
+// GetStatefulsetResource get StatefulSet resource statistics
+func GetStatefulsetResource(cli client.ResourceHandler, statefulSet *v1beta1.StatefulSet) (*common.ResourceList, error) {
+	obj, err := cli.Get(api.ResourceNameStatefulSet, statefulSet.Namespace, statefulSet.Name)
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return common.StatefulsetResourceList(statefulSet), nil
 		}
 		return nil, err
 	}
+	old := obj.(*v1beta1.StatefulSet)
 	oldResourceList := common.StatefulsetResourceList(old)
 	newResourceList := common.StatefulsetResourceList(statefulSet)
 

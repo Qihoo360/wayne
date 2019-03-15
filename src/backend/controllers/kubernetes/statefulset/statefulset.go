@@ -7,7 +7,6 @@ import (
 
 	"k8s.io/api/apps/v1beta1"
 	"k8s.io/apimachinery/pkg/labels"
-	"k8s.io/client-go/kubernetes"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
@@ -66,74 +65,72 @@ func (c *KubeStatefulsetController) Deploy() {
 	}
 
 	cluster := c.Ctx.Input.Param(":cluster")
-	cli, err := client.Client(cluster)
-	if err == nil {
-		namespaceModel, err := getNamespace(c.AppId)
-		if err != nil {
-			logs.Error("get getNamespaceMetaData error.%v", err)
-			c.HandleError(err)
-			return
-		}
-		clusterModel, err := models.ClusterModel.GetParsedMetaDataByName(cluster)
-		if err != nil {
-			logs.Error("get cluster error.%v", err)
-			c.HandleError(err)
-			return
-		}
-		statefulsetModel, err := models.StatefulsetModel.GetParseMetaDataById(int64(statefulsetId))
-		if err != nil {
-			logs.Error("get statefulset error.%v", err)
-			c.HandleError(err)
-			return
-		}
-		statefulsetPreDeploy(&kubeStatefulset, statefulsetModel, clusterModel, namespaceModel)
+	cli := c.Manager(cluster)
 
-		publishHistory := &models.PublishHistory{
-			Type:         models.PublishTypeStatefulSet,
-			ResourceId:   int64(statefulsetId),
-			ResourceName: kubeStatefulset.Name,
-			TemplateId:   int64(tplId),
-			Cluster:      cluster,
-			User:         c.User.Name,
-		}
-
-		defer models.PublishHistoryModel.Add(publishHistory)
-
-		err = checkResourceAvailable(namespaceModel, cli, &kubeStatefulset, cluster)
-		if err != nil {
-			publishHistory.Status = models.ReleaseFailure
-			publishHistory.Message = err.Error()
-			c.HandleError(err)
-			return
-		}
-
-		// 发布资源到k8s平台
-		_, err = statefulset.CreateOrUpdateStatefulset(cli, &kubeStatefulset)
-		if err != nil {
-			publishHistory.Status = models.ReleaseFailure
-			publishHistory.Message = err.Error()
-			logs.Error("deploy statefulset error.%v", err)
-			c.HandleError(err)
-			return
-		} else {
-			publishHistory.Status = models.ReleaseSuccess
-			err = addDeployStatus(statefulsetId, tplId, cluster)
-			if err != nil {
-				logs.Error("add statefulset deploy status error.%v", err)
-				c.HandleError(err)
-				return
-			}
-			err = updateMetadata(*kubeStatefulset.Spec.Replicas, statefulsetModel, cluster)
-			if err != nil {
-				logs.Error("update statefulset metadata error.%v", err)
-				c.HandleError(err)
-				return
-			}
-		}
-		c.Success("ok")
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	namespaceModel, err := getNamespace(c.AppId)
+	if err != nil {
+		logs.Error("get getNamespaceMetaData error.%v", err)
+		c.HandleError(err)
+		return
 	}
+	clusterModel, err := models.ClusterModel.GetParsedMetaDataByName(cluster)
+	if err != nil {
+		logs.Error("get cluster error.%v", err)
+		c.HandleError(err)
+		return
+	}
+	statefulsetModel, err := models.StatefulsetModel.GetParseMetaDataById(int64(statefulsetId))
+	if err != nil {
+		logs.Error("get statefulset error.%v", err)
+		c.HandleError(err)
+		return
+	}
+	statefulsetPreDeploy(&kubeStatefulset, statefulsetModel, clusterModel, namespaceModel)
+
+	publishHistory := &models.PublishHistory{
+		Type:         models.PublishTypeStatefulSet,
+		ResourceId:   int64(statefulsetId),
+		ResourceName: kubeStatefulset.Name,
+		TemplateId:   int64(tplId),
+		Cluster:      cluster,
+		User:         c.User.Name,
+	}
+
+	defer models.PublishHistoryModel.Add(publishHistory)
+
+	err = checkResourceAvailable(namespaceModel, cli.KubeClient, &kubeStatefulset, cluster)
+	if err != nil {
+		publishHistory.Status = models.ReleaseFailure
+		publishHistory.Message = err.Error()
+		c.HandleError(err)
+		return
+	}
+
+	// 发布资源到k8s平台
+	_, err = statefulset.CreateOrUpdateStatefulset(cli.Client, &kubeStatefulset)
+	if err != nil {
+		publishHistory.Status = models.ReleaseFailure
+		publishHistory.Message = err.Error()
+		logs.Error("deploy statefulset error.%v", err)
+		c.HandleError(err)
+		return
+	}
+	publishHistory.Status = models.ReleaseSuccess
+	err = addDeployStatus(statefulsetId, tplId, cluster)
+	if err != nil {
+		logs.Error("add statefulset deploy status error.%v", err)
+		c.HandleError(err)
+		return
+	}
+	err = updateMetadata(*kubeStatefulset.Spec.Replicas, statefulsetModel, cluster)
+	if err != nil {
+		logs.Error("update statefulset metadata error.%v", err)
+		c.HandleError(err)
+		return
+	}
+
+	c.Success("ok")
+
 }
 
 func addDeployStatus(statefulsetId int64, tplId int64, cluster string) error {
@@ -152,7 +149,7 @@ func addDeployStatus(statefulsetId int64, tplId int64, cluster string) error {
 	return nil
 }
 
-func checkResourceAvailable(ns *models.Namespace, cli *kubernetes.Clientset, kubeStatefulset *v1beta1.StatefulSet, cluster string) error {
+func checkResourceAvailable(ns *models.Namespace, cli client.ResourceHandler, kubeStatefulset *v1beta1.StatefulSet, cluster string) error {
 	// this namespace can't use current cluster.
 	clusterMetas, ok := ns.MetaDataObj.ClusterMetas[cluster]
 	if !ok {
@@ -167,7 +164,7 @@ func checkResourceAvailable(ns *models.Namespace, cli *kubernetes.Clientset, kub
 	selector := labels.SelectorFromSet(map[string]string{
 		util.NamespaceLabelKey: ns.Name,
 	})
-	namespaceResourceUsed, err := namespace.ResourcesUsageByNamespace(cli, ns.MetaDataObj.Namespace, selector.String())
+	namespaceResourceUsed, err := namespace.ResourcesUsageByNamespace(cli, ns.KubeNamespace, selector.String())
 
 	requestResourceList, err := statefulset.GetStatefulsetResource(cli, kubeStatefulset)
 	if err != nil {

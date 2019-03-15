@@ -1,5 +1,4 @@
 export class NamespaceMetaData {
-  namespace: string;
   clusterMeta: { [key: string]: ClusterMeta };
   imagePullSecrets: LocalObjectReference[];
   env: EnvVar[];
@@ -18,6 +17,7 @@ export class NamespaceMetaData {
 export class Namespace {
   id: number;
   name: string;
+  kubeNamespace: string;
   deleted: boolean;
   metaData: string;
   metaDataObj: NamespaceMetaData;

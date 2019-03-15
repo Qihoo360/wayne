@@ -74,7 +74,7 @@ func statefulsetPreDeploy(kubeStatefulSet *v1beta1.StatefulSet, statefulSet *mod
 		kubeStatefulSet.Spec.Template.Spec.Containers[i].SecurityContext.Privileged = privileged
 	}
 	// step 5 set namespace
-	kubeStatefulSet.Namespace = namespace.MetaDataObj.Namespace
+	kubeStatefulSet.Namespace = namespace.KubeNamespace
 
 	// step 6
 	if kubeStatefulSet.Spec.Template.Annotations == nil {

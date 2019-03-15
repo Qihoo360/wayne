@@ -7,7 +7,6 @@ import (
 
 	"k8s.io/api/apps/v1beta1"
 	"k8s.io/apimachinery/pkg/labels"
-	"k8s.io/client-go/kubernetes"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
@@ -130,75 +129,42 @@ func (c *KubeDeploymentController) Deploy() {
 	}
 
 	cluster := c.Ctx.Input.Param(":cluster")
-	cli, err := client.Client(cluster)
-	if err == nil {
-		namespaceModel, err := models.NamespaceModel.GetNamespaceByAppId(c.AppId)
-		if err != nil {
-			logs.Error("get getNamespaceMetaData error.%v", err)
-			c.HandleError(err)
-			return
-		}
+	cli := c.Manager(cluster)
 
-		clusterModel, err := models.ClusterModel.GetParsedMetaDataByName(cluster)
-		if err != nil {
-			logs.Error("get cluster error.%v", err)
-			c.HandleError(err)
-			return
-		}
+	namespaceModel, err := models.NamespaceModel.GetNamespaceByAppId(c.AppId)
+	if err != nil {
+		logs.Error("get getNamespaceMetaData error.%v", err)
+		c.HandleError(err)
+		return
+	}
 
-		deploymentModel, err := models.DeploymentModel.GetParseMetaDataById(int64(deploymentId))
-		if err != nil {
-			logs.Error("get deployment error.%v", err)
-			c.HandleError(err)
-			return
-		}
+	clusterModel, err := models.ClusterModel.GetParsedMetaDataByName(cluster)
+	if err != nil {
+		logs.Error("get cluster error.%v", err)
+		c.HandleError(err)
+		return
+	}
 
-		common.DeploymentPreDeploy(&kubeDeployment, deploymentModel, clusterModel, namespaceModel)
+	deploymentModel, err := models.DeploymentModel.GetParseMetaDataById(int64(deploymentId))
+	if err != nil {
+		logs.Error("get deployment error.%v", err)
+		c.HandleError(err)
+		return
+	}
 
-		publishHistory := &models.PublishHistory{
-			Type:         models.PublishTypeDeployment,
-			ResourceId:   int64(deploymentId),
-			ResourceName: kubeDeployment.Name,
-			TemplateId:   int64(tplId),
-			Cluster:      cluster,
-			User:         c.User.Name,
-		}
+	common.DeploymentPreDeploy(&kubeDeployment, deploymentModel, clusterModel, namespaceModel)
 
-		defer models.PublishHistoryModel.Add(publishHistory)
+	publishHistory := &models.PublishHistory{
+		Type:         models.PublishTypeDeployment,
+		ResourceId:   int64(deploymentId),
+		ResourceName: kubeDeployment.Name,
+		TemplateId:   int64(tplId),
+		Cluster:      cluster,
+		User:         c.User.Name,
+	}
 
-		err = checkResourceAvailable(namespaceModel, cli, &kubeDeployment, cluster)
-		if err != nil {
-			publishHistory.Status = models.ReleaseFailure
-			publishHistory.Message = err.Error()
-			c.HandleError(err)
-			return
-		}
-
-		// 发布资源到k8s平台
-		_, err = deployment.CreateOrUpdateDeployment(cli, &kubeDeployment)
-		if err != nil {
-			publishHistory.Status = models.ReleaseFailure
-			publishHistory.Message = err.Error()
-			logs.Error("deploy deployment error.%v", err)
-			c.HandleError(err)
-			return
-		} else {
-			publishHistory.Status = models.ReleaseSuccess
-			err = models.PublishStatusModel.Add(deploymentId, tplId, cluster, models.PublishTypeDeployment)
-			// 添加发布状态
-			if err != nil {
-				logs.Error("add deployment deploy status error.%v", err)
-				c.HandleError(err)
-				return
-			}
-
-			err = models.DeploymentModel.Update(*kubeDeployment.Spec.Replicas, deploymentModel, cluster)
-			if err != nil {
-				logs.Error("update deployment metadata error.%v", err)
-				c.HandleError(err)
-				return
-			}
-		}
+	defer func() {
+		models.PublishHistoryModel.Add(publishHistory)
 		webhook.PublishEventDeployment(c.NamespaceId, c.AppId, c.User.Name, c.Ctx.Input.IP(), webhook.UpgradeDeployment, response.Resource{
 			Type:         publishHistory.Type,
 			ResourceId:   publishHistory.ResourceId,
@@ -209,13 +175,45 @@ func (c *KubeDeploymentController) Deploy() {
 			Message:      publishHistory.Message,
 			Object:       kubeDeployment,
 		})
-		c.Success("ok")
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	}()
+
+	err = checkResourceAvailable(namespaceModel, cli.KubeClient, &kubeDeployment, cluster)
+	if err != nil {
+		publishHistory.Status = models.ReleaseFailure
+		publishHistory.Message = err.Error()
+		c.HandleError(err)
+		return
 	}
+
+	// 发布资源到k8s平台
+	_, err = deployment.CreateOrUpdateDeployment(cli.Client, &kubeDeployment)
+	if err != nil {
+		publishHistory.Status = models.ReleaseFailure
+		publishHistory.Message = err.Error()
+		logs.Error("deploy deployment error.%v", err)
+		c.HandleError(err)
+		return
+	}
+	publishHistory.Status = models.ReleaseSuccess
+	err = models.PublishStatusModel.Add(deploymentId, tplId, cluster, models.PublishTypeDeployment)
+	// 添加发布状态
+	if err != nil {
+		logs.Error("add deployment deploy status error.%v", err)
+		c.HandleError(err)
+		return
+	}
+
+	err = models.DeploymentModel.Update(*kubeDeployment.Spec.Replicas, deploymentModel, cluster)
+	if err != nil {
+		logs.Error("update deployment metadata error.%v", err)
+		c.HandleError(err)
+		return
+	}
+
+	c.Success("ok")
 }
 
-func checkResourceAvailable(ns *models.Namespace, cli *kubernetes.Clientset, kubeDeployment *v1beta1.Deployment, cluster string) error {
+func checkResourceAvailable(ns *models.Namespace, cli client.ResourceHandler, kubeDeployment *v1beta1.Deployment, cluster string) error {
 	// this namespace can't use current cluster.
 	clusterMetas, ok := ns.MetaDataObj.ClusterMetas[cluster]
 	if !ok {
@@ -231,7 +229,7 @@ func checkResourceAvailable(ns *models.Namespace, cli *kubernetes.Clientset, kub
 	selector := labels.SelectorFromSet(map[string]string{
 		util.NamespaceLabelKey: ns.Name,
 	})
-	namespaceResourceUsed, err := namespace.ResourcesUsageByNamespace(cli, ns.MetaDataObj.Namespace, selector.String())
+	namespaceResourceUsed, err := namespace.ResourcesUsageByNamespace(cli, ns.KubeNamespace, selector.String())
 
 	requestResourceList, err := deployment.GetDeploymentResource(cli, kubeDeployment)
 	if err != nil {

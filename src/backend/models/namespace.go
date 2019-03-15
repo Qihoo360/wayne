@@ -20,16 +20,15 @@ const (
 type namespaceModel struct{}
 
 type Namespace struct {
-	Id   int64  `orm:"auto" json:"id,omitempty"`
-	Name string `orm:"index;unique;size(128)" json:"name,omitempty"`
-	// 配置对应Kubernetes的namespace  {"namespace":"default"}
-	// 配置对应namespace可使用的集群  {"clusters":"K8S"}
-	MetaData    string            `orm:"type(text)" json:"metaData,omitempty"`
-	MetaDataObj NamespaceMetaData `orm:"-" json:"-"`
-	CreateTime  *time.Time        `orm:"auto_now_add;type(datetime)" json:"createTime,omitempty"`
-	UpdateTime  *time.Time        `orm:"auto_now;type(datetime)" json:"updateTime,omitempty"`
-	User        string            `orm:"size(128)" json:"user,omitempty"`
-	Deleted     bool              `orm:"default(false)" json:"deleted,omitempty"`
+	Id            int64             `orm:"auto" json:"id,omitempty"`
+	Name          string            `orm:"index;unique;size(128)" json:"name,omitempty"`
+	KubeNamespace string            `orm:"index;size(128)" json:"kubeNamespace,omitempty"`
+	MetaData      string            `orm:"type(text)" json:"metaData,omitempty"`
+	MetaDataObj   NamespaceMetaData `orm:"-" json:"-"`
+	CreateTime    *time.Time        `orm:"auto_now_add;type(datetime)" json:"createTime,omitempty"`
+	UpdateTime    *time.Time        `orm:"auto_now;type(datetime)" json:"updateTime,omitempty"`
+	User          string            `orm:"size(128)" json:"user,omitempty"`
+	Deleted       bool              `orm:"default(false)" json:"deleted,omitempty"`
 
 	// 用于权限的关联查询
 	NamespaceUsers []*NamespaceUser `orm:"reverse(many)" json:"-"`
@@ -44,8 +43,6 @@ func (*Namespace) TableName() string {
 }
 
 type NamespaceMetaData struct {
-	// kubernetes' namespace
-	Namespace string `json:"namespace,omitempty"`
 	// key is cluster name, if the key not exist on clusterMeta
 	// means this namespace could't use the cluster
 	ClusterMetas map[string]ClusterMeta `json:"clusterMeta,omitempty"`
