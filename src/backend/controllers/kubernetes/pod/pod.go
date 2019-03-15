@@ -20,26 +20,22 @@ type KubePodController struct {
 }
 
 func (c *KubePodController) URLMapping() {
-	c.Mapping("Get", c.Get)
-	c.Mapping("Delete", c.Delete)
+	c.Mapping("PodStatistics", c.PodStatistics)
 	c.Mapping("List", c.List)
+	c.Mapping("Terminal", c.Terminal)
 }
 
 func (c *KubePodController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
 
-	perAction := ""
+	methodActionMap := map[string]string{
+		"PodStatistics": models.PermissionRead,
+		"List":          models.PermissionRead,
+		"Terminal":      models.PermissionRead,
+	}
 	_, method := c.GetControllerAndAction()
-	switch method {
-	case "Get", "List":
-		perAction = models.PermissionRead
-	case "Delete":
-		perAction = models.PermissionDelete
-	}
-	if perAction != "" {
-		c.CheckPermission(models.PermissionTypeDeployment, perAction)
-	}
+	c.PreparePermission(methodActionMap, method, models.PermissionTypeKubePod)
 }
 
 // @Title kubernetes pod statistics
@@ -136,51 +132,4 @@ func (c *KubePodController) List() {
 		return
 	}
 	c.Success(result)
-}
-
-// @Title Get
-// @Description find Deployment by cluster
-// @Success 200 {object} models.Deployment success
-// @router /:pod/namespaces/:namespace/clusters/:cluster [get]
-func (c *KubePodController) Get() {
-	cluster := c.Ctx.Input.Param(":cluster")
-	namespace := c.Ctx.Input.Param(":namespace")
-	name := c.Ctx.Input.Param(":pod")
-	cli, err := client.Client(cluster)
-	if err == nil {
-		result, err := pod.GetPodByName(cli, namespace, name)
-		if err != nil {
-			logs.Error("get kubernetes pod detail error.", cluster, namespace, name, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
-	}
-}
-
-// @Title Delete
-// @Description delete the Pod
-// @Param	cluster		path 	string	true		"the cluster want to delete"
-// @Param	namespace		path 	string	true		"the namespace want to delete"
-// @Param	pod		path 	string	true		"the pod name want to delete"
-// @Success 200 {string} delete success!
-// @router /:pod/namespaces/:namespace/clusters/:cluster [delete]
-func (c *KubePodController) Delete() {
-	cluster := c.Ctx.Input.Param(":cluster")
-	namespace := c.Ctx.Input.Param(":namespace")
-	name := c.Ctx.Input.Param(":pod")
-	cli, err := client.Client(cluster)
-	if err == nil {
-		err := pod.DeletePod(cli, name, namespace)
-		if err != nil {
-			logs.Error("delete pod (%s) by cluster (%s) error.%v", name, cluster, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success("ok!")
-	} else {
-		c.AbortBadRequestFormat("Cluster")
-	}
 }

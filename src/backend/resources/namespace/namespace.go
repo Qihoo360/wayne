@@ -13,14 +13,6 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/util"
 )
 
-func UpdateNamespace(cli *kubernetes.Clientset, ns *v1.Namespace) (*v1.Namespace, error) {
-	newNS, err := cli.CoreV1().Namespaces().Update(ns)
-	if err != nil {
-		return nil, err
-	}
-	return newNS, nil
-}
-
 func CreateNotExitNamespace(cli *kubernetes.Clientset, ns *v1.Namespace) (*v1.Namespace, error) {
 	_, err := cli.CoreV1().Namespaces().Get(ns.Name, metaV1.GetOptions{})
 	if err != nil {

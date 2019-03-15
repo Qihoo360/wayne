@@ -9,6 +9,7 @@ import (
 
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
+	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/resources/node"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
@@ -21,15 +22,22 @@ func (c *KubeNodeController) URLMapping() {
 	c.Mapping("NodeStatistics", c.NodeStatistics)
 	c.Mapping("List", c.List)
 	c.Mapping("Update", c.Update)
+	c.Mapping("Get", c.Get)
 	c.Mapping("Delete", c.Delete)
 }
 
 func (c *KubeNodeController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
-	if !c.User.Admin {
-		c.AbortForbidden("Operation need admin permission..")
+	methodActionMap := map[string]string{
+		"NodeStatistics": models.PermissionRead,
+		"List":           models.PermissionRead,
+		"Get":            models.PermissionRead,
+		"Update":         models.PermissionUpdate,
+		"Delete":         models.PermissionDelete,
 	}
+	_, method := c.GetControllerAndAction()
+	c.PreparePermission(methodActionMap, method, models.PermissionTypeKubeNode)
 }
 
 // @Title kubernetes node statistics

@@ -23,15 +23,11 @@ func (c *KubeLogController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
 
-	perAction := ""
+	methodActionMap := map[string]string{
+		"List": models.PermissionRead,
+	}
 	_, method := c.GetControllerAndAction()
-	switch method {
-	case "List":
-		perAction = models.PermissionRead
-	}
-	if perAction != "" {
-		c.CheckPermission(models.PermissionTypeDeployment, perAction)
-	}
+	c.PreparePermission(methodActionMap, method, models.PermissionTypeKubePod)
 }
 
 // @Title log

@@ -191,141 +191,341 @@ var InitialData = []string{
 	`INSERT INTO  .group  ( id,  name,  comment,  type,  create_time,  update_time ) VALUES ('10', '项目负责人', '项目负责人', '0', now(), now());`,
 	`INSERT INTO  .group  ( id,  name,  comment,  type,  create_time,  update_time ) VALUES ('11', '项目开发', '项目开发', '0', now(), now());`,
 	`INSERT INTO  .group  ( id,  name,  comment,  type,  create_time,  update_time ) VALUES ('12', '项目测试', '项目测试', '0', now(), now());`,
-	`INSERT INTO  .group  ( id,  name,  comment,  type,  create_time,  update_time ) VALUES ('20', '项目运维', '运维相关负责人', '0', now(), now());`,
 	`INSERT INTO  .group  ( id,  name,  comment,  type,  create_time,  update_time ) VALUES ('21', 'API_VIEWER', 'API只读权限', '2', now(), now());`,
 	`INSERT INTO  .group  ( id,  name,  comment,  type,  create_time,  update_time ) VALUES ('22', 'API_EDITOR', 'API读写权限', '2', now(), now());`,
 
-	// -- group_permissions
+	// 项目负责人 -- group_permissions
+	// APPUSER
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '46');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '47');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '48');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '49');`,
+	// DEPLOYMENT
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '54');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '55');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '56');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '57');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '140');`,
+	// SERVICE
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '59');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '60');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '61');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '62');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '192');`,
+	// CONFIGMAP
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '64');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '65');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '66');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '67');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '132');`,
+	// PVC
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '69');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '70');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '71');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '72');`,
+	// SECRET
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '79');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '80');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '81');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '82');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '188');`,
+	// CRONJOB
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '90');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '91');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '92');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '93');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '160');`,
+	// WEBHOOK
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '95');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '96');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '97');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '98');`,
+	// APIKEY
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '100');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '101');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '102');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '103');`,
+	// STATEFULSET
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '104');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '105');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '106');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '107');`,
+	// INGRESS
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '122');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '123');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '124');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '125');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '152');`,
+	// HPA
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '127');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '128');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '129');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '130');`,
+
+	// Kubernetes resource
+	// Deployment
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '140');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '142');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '143');`,
+	// StatefulSet
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '196');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '198');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '199');`,
+	// CronJob
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '160');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '162');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '163');`,
+	// Job
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '158');`,
+	// HPA
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '148');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '150');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '151');`,
+	// Service
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '192');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '194');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '195');`,
+	// Ingress
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '152');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '154');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '155');`,
+	// ConfigMap
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '133');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '134');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '135');`,
+	// Secret
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '188');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '190');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '191');`,
+	// PVC
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '172');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '174');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '175');`,
+	// POD
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '182');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('10', '183');`,
+
+	// 项目开发 -- group_permissions
+	// APPUSER
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '48');`,
+
+	// DEPLOYMENT
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '54');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '55');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '56');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '140');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '57');`,
+	// SERVICE
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '59');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '60');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '61');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '192');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '62');`,
+	// CONFIGMAP
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '64');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '65');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '66');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '132');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '67');`,
+	// PVC
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '69');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '70');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '71');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '74');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '75');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '76');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '72');`,
+	// SECRET
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '79');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '80');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '81');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '188');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '84');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '85');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '86');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '172');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '82');`,
+	// CRONJOB
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '90');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '91');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '92');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '160');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '96');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '93');`,
+	// WEBHOOK
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '97');`,
+	// APIKEY
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '100');`,
+	// STATEFULSET
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '104');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '105');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '106');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '107');`,
+	// INGRESS
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '122');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '123');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '124');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '152');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '125');`,
+	// HPA
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '127');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '128');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '129');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '130');`,
+
+	// Kubernetes resource
+	// Deployment
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '140');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '142');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '143');`,
+	// StatefulSet
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '196');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '198');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '199');`,
+	// CronJob
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '160');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '162');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '163');`,
+	// Job
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '158');`,
+	// HPA
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '148');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '150');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '151');`,
+	// Service
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '192');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '194');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '195');`,
+	// Ingress
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '152');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '154');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '155');`,
+	// ConfigMap
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '133');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '134');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '135');`,
+	// Secret
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '188');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '190');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '191');`,
+	// PVC
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '172');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '174');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '175');`,
+	// POD
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '182');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('11', '183');`,
+
+	// 项目测试 -- group_permissions
+	// APPUSER
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '48');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '54');`,
+
+	// DEPLOYMENT
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '56');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '140');`,
+	// SERVICE
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '61');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '192');`,
+	// CONFIGMAP
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '66');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '132');`,
+	// PVC
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '71');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '76');`,
+	// SECRET
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '81');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '188');`,
+	// CRONJOB
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '92');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '160');`,
+	// WEBHOOK
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '97');`,
+	// APIKEY
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '100');`,
+	// STATEFULSET
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '104');`,
+	// INGRESS
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '124');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '152');`,
+	// HPA
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '129');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '148');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('20', '92');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '56');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '61');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '66');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '71');`,
+
+	// Kubernetes resource
+	// Deployment
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '142');`,
+	// StatefulSet
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '198');`,
+	// CronJob
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '162');`,
+	// Job
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '158');`,
+	// HPA
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '150');`,
+	// Service
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '194');`,
+	// Ingress
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '154');`,
+	// ConfigMap
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '134');`,
+	// Secret
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '190');`,
+	// PVC
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '174');`,
+	// POD
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('12', '182');`,
+
+	// 访客 -- group_permissions
+	// APP
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '76');`,
+	// DEPLOYMENT
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '56');`,
+	// SERVICE
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '61');`,
+	// CONFIGMAP
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '66');`,
+	// PVC
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '71');`,
+	// SECRET
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '81');`,
+	// NAMESPACE
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '86');`,
+	// CRONJOB
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '92');`,
+	// STATEFULSET
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '104');`,
+	// INGRESS
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '124');`,
+	// HPA
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '129');`,
+
+	// Kubernetes resource
+	// Deployment
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '142');`,
+	// StatefulSet
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '198');`,
+	// CronJob
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '162');`,
+	// Job
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '158');`,
+	// HPA
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '150');`,
+	// Service
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '194');`,
+	// Ingress
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '154');`,
+	// ConfigMap
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '134');`,
+	// Secret
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '190');`,
+	// PVC
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '174');`,
+	// POD
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '182');`,
+
+	// 组管理员
+	// APPUSER
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '46');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '47');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '48');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '49');`,
+	// NAMESPACEUSER
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '50');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '51');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '52');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '53');`,
+	// APP
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '74');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '75');`,
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '76');`,
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '77');`,
+	// NAMESPACE
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '86');`,
+	// WEBHOOK
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '97');`,
+	// APIKEY
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '100');`,
+	// 组成员
+	// APPUSER
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('9', '48');`,
+	// APP
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('9', '76');`,
+	// NAMESPACE
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('9', '86');`,
+	// WEBHOOK
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('9', '97');`,
-	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('1', '52');`,
+	// APIKEY
+	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '100');`,
 }

@@ -10,12 +10,10 @@ import (
 const (
 	TableNamePermission = "permission"
 
-	PermissionCreate  = "CREATE"
-	PermissionUpdate  = "UPDATE"
-	PermissionRead    = "READ"
-	PermissionDelete  = "DELETE"
-	PermissionDeploy  = "DEPLOY"
-	PermissionOffline = "OFFLINE"
+	PermissionCreate = "CREATE"
+	PermissionUpdate = "UPDATE"
+	PermissionRead   = "READ"
+	PermissionDelete = "DELETE"
 
 	PermissionTypeApp                   = "APP"
 	PermissionTypeAppUser               = "APPUSER"
@@ -123,12 +121,10 @@ type TypePermission struct {
 }
 
 type ActionPermission struct {
-	PermissionRead    bool `json:"read" mapstructure:"READ"`
-	PermissionCreate  bool `json:"create" mapstructure:"CREATE"`
-	PermissionUpdate  bool `json:"update" mapstructure:"UPDATE"`
-	PermissionDelete  bool `json:"delete" mapstructure:"DELETE"`
-	PermissionDeploy  bool `json:"deploy" mapstructure:"DEPLOY"`
-	PermissionOffline bool `json:"offline" mapstructure:"OFFLINE"`
+	PermissionRead   bool `json:"read" mapstructure:"READ"`
+	PermissionCreate bool `json:"create" mapstructure:"CREATE"`
+	PermissionUpdate bool `json:"update" mapstructure:"UPDATE"`
+	PermissionDelete bool `json:"delete" mapstructure:"DELETE"`
 }
 
 func (*Permission) TableName() string {

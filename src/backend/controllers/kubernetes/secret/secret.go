@@ -17,28 +17,18 @@ type KubeSecretController struct {
 }
 
 func (c *KubeSecretController) URLMapping() {
-	c.Mapping("Get", c.Get)
-	c.Mapping("Offline", c.Offline)
-	c.Mapping("Deploy", c.Deploy)
+	c.Mapping("Create", c.Create)
 }
 
 func (c *KubeSecretController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
 
-	perAction := ""
+	methodActionMap := map[string]string{
+		"Create": models.PermissionCreate,
+	}
 	_, method := c.GetControllerAndAction()
-	switch method {
-	case "Get":
-		perAction = models.PermissionRead
-	case "Deploy":
-		perAction = models.PermissionDeploy
-	case "Offline":
-		perAction = models.PermissionOffline
-	}
-	if perAction != "" {
-		c.CheckPermission(models.PermissionTypeSecret, perAction)
-	}
+	c.PreparePermission(methodActionMap, method, models.PermissionTypeKubeSecret)
 }
 
 // @Title deploy
@@ -46,7 +36,7 @@ func (c *KubeSecretController) Prepare() {
 // @Param	body	body 	string	true	"The tpl content"
 // @Success 200 return ok success
 // @router /:secretId/tpls/:tplId/clusters/:cluster [post]
-func (c *KubeSecretController) Deploy() {
+func (c *KubeSecretController) Create() {
 	secretId := c.GetIntParamFromURL(":secretId")
 	tplId := c.GetIntParamFromURL(":tplId")
 	var kubeSecret kapi.Secret
@@ -93,55 +83,6 @@ func (c *KubeSecretController) Deploy() {
 		}
 
 		c.Success("ok")
-	} else {
-		c.AbortBadRequestFormat("Cluster")
-	}
-}
-
-// @Title Get
-// @Description find Secret by cluster
-// @Success 200 {object} models.Secret success
-// @router /:secret/namespaces/:namespace/clusters/:cluster [get]
-func (c *KubeSecretController) Get() {
-	cluster := c.Ctx.Input.Param(":cluster")
-	namespace := c.Ctx.Input.Param(":namespace")
-	name := c.Ctx.Input.Param(":secret")
-	cli, err := client.Client(cluster)
-	if err == nil {
-		result, err := secret.GetSecretDetail(cli, name, namespace)
-
-		if err != nil {
-			logs.Error("get kubernetes secret detail error.", cluster, namespace, name, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
-	}
-}
-
-// @Title Delete
-// @Description delete the secret
-// @Param	cluster		path 	string	true		"the cluster want to delete"
-// @Param	namespace		path 	string	true		"the namespace want to delete"
-// @Param	secret		path 	string	true		"the secret name want to delete"
-// @Success 200 {string} delete success!
-// @router /:secret/namespaces/:namespace/clusters/:cluster [delete]
-func (c *KubeSecretController) Offline() {
-	cluster := c.Ctx.Input.Param(":cluster")
-	namespace := c.Ctx.Input.Param(":namespace")
-	name := c.Ctx.Input.Param(":secret")
-	cli, err := client.Client(cluster)
-	if err == nil {
-		err := secret.DeleteSecret(cli, name, namespace)
-		if err != nil {
-			logs.Error("delete secret (%s) by cluster (%s) error.%v", name, cluster, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success("ok!")
-		return
 	} else {
 		c.AbortBadRequestFormat("Cluster")
 	}

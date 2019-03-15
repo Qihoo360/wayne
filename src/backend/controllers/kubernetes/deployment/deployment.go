@@ -28,29 +28,22 @@ type KubeDeploymentController struct {
 func (c *KubeDeploymentController) URLMapping() {
 	c.Mapping("List", c.List)
 	c.Mapping("Get", c.Get)
-	c.Mapping("Update", c.Update)
-	c.Mapping("GetDetail", c.GetDetail)
-	c.Mapping("Offline", c.Offline)
-	c.Mapping("Deploy", c.Deploy)
+	c.Mapping("Delete", c.Delete)
+	c.Mapping("Create", c.Create)
 }
 
 func (c *KubeDeploymentController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
 
-	perAction := ""
+	methodActionMap := map[string]string{
+		"List":   models.PermissionRead,
+		"Get":    models.PermissionRead,
+		"Delete": models.PermissionDelete,
+		"Create": models.PermissionCreate,
+	}
 	_, method := c.GetControllerAndAction()
-	switch method {
-	case "Get", "GetDetail":
-		perAction = models.PermissionRead
-	case "Deploy":
-		perAction = models.PermissionDeploy
-	case "Offline":
-		perAction = models.PermissionOffline
-	}
-	if perAction != "" {
-		c.CheckPermission(models.PermissionTypeKubeDeployment, perAction)
-	}
+	c.PreparePermission(methodActionMap, method, models.PermissionTypeKubeDeployment)
 }
 
 // @Title List deployment
@@ -82,42 +75,12 @@ func (c *KubeDeploymentController) List() {
 	}
 }
 
-// @Title Update
-// @Description update the Deployment
-// @Param	id		path 	int	true		"The id you want to update"
-// @Param	body		body 	models.App	true		"The body"
-// @Success 200 models.Namespace success
-// @router /:deployment/namespaces/:namespace/clusters/:cluster [put]
-func (c *KubeDeploymentController) Update() {
-	cluster := c.Ctx.Input.Param(":cluster")
-	namespace := c.Ctx.Input.Param(":namespace")
-	name := c.Ctx.Input.Param(":deployment")
-	var obj v1beta1.Deployment
-	err := json.Unmarshal(c.Ctx.Input.RequestBody, &obj)
-	if err != nil {
-		logs.Error("Invalid param body.%v", err)
-		c.AbortBadRequestFormat("Deployment")
-	}
-	cli, err := client.Client(cluster)
-	if err == nil {
-		result, err := deployment.UpdateDeployment(cli, &obj)
-		if err != nil {
-			logs.Error("update kubernetes deployment error.", cluster, namespace, name, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
-	}
-}
-
 // @Title deploy
 // @Description deploy tpl
 // @Param	body	body 	string	true	"The tpl content"
 // @Success 200 return ok success
 // @router /:deploymentId([0-9]+)/tpls/:tplId([0-9]+)/clusters/:cluster [post]
-func (c *KubeDeploymentController) Deploy() {
+func (c *KubeDeploymentController) Create() {
 	deploymentId := c.GetIntParamFromURL(":deploymentId")
 	tplId := c.GetIntParamFromURL(":tplId")
 
@@ -264,7 +227,7 @@ func checkResourceAvailable(ns *models.Namespace, cli client.ResourceHandler, ku
 // @Param	namespace		path 	string	true		"the namespace name"
 // @Success 200 {object} models.Deployment success
 // @router /:deployment/detail/namespaces/:namespace/clusters/:cluster [get]
-func (c *KubeDeploymentController) GetDetail() {
+func (c *KubeDeploymentController) Get() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":deployment")
@@ -282,30 +245,6 @@ func (c *KubeDeploymentController) GetDetail() {
 	}
 }
 
-// @Title Get
-// @Description find Deployment by cluster
-// @Param	cluster		path 	string	true		"the cluster name"
-// @Param	namespace		path 	string	true		"the namespace name"
-// @Success 200 {object} models.Deployment success
-// @router /:deployment/namespaces/:namespace/clusters/:cluster [get]
-func (c *KubeDeploymentController) Get() {
-	cluster := c.Ctx.Input.Param(":cluster")
-	namespace := c.Ctx.Input.Param(":namespace")
-	name := c.Ctx.Input.Param(":deployment")
-	manager, err := client.Manager(cluster)
-	if err == nil {
-		result, err := deployment.GetDeployment(manager.Client, name, namespace)
-		if err != nil {
-			logs.Error("get kubernetes deployment error.", cluster, namespace, name, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
-	}
-}
-
 // @Title Delete
 // @Description delete the Deployment
 // @Param	cluster		path 	string	true		"the cluster want to delete"
@@ -313,7 +252,7 @@ func (c *KubeDeploymentController) Get() {
 // @Param	deployment		path 	string	true		"the deployment name want to delete"
 // @Success 200 {string} delete success!
 // @router /:deployment/namespaces/:namespace/clusters/:cluster [delete]
-func (c *KubeDeploymentController) Offline() {
+func (c *KubeDeploymentController) Delete() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":deployment")

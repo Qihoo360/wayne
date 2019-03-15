@@ -21,7 +21,6 @@ type ClusterJob struct {
 }
 
 func (c *KubeJobController) URLMapping() {
-	c.Mapping("ListByCronjob", c.ListByCronjob)
 	c.Mapping("ListAllClusterByCronjob", c.ListAllClusterByCronjob)
 	c.Mapping("GetPodsEvent", c.GetPodsEvent)
 }
@@ -29,28 +28,13 @@ func (c *KubeJobController) URLMapping() {
 func (c *KubeJobController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
-}
 
-// @Title Get
-// @Description find Job by cluster
-// @Success 200 {object} models.Job success
-// @router /listByCronjob/:cronjob/namespaces/:namespace/clusters/:cluster [get]
-func (c *KubeJobController) ListByCronjob() {
-	cluster := c.Ctx.Input.Param(":cluster")
-	namespace := c.Ctx.Input.Param(":namespace")
-	cronjobName := c.Ctx.Input.Param(":cronjob")
-	cli, err := client.Client(cluster)
-	if err == nil {
-		jobs, err := job.GetJobsByCronjobName(cli, namespace, cronjobName)
-		if err != nil {
-			logs.Error("get job by cronjob (%s) and cluster (%s) error.%v", cronjobName, cluster, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(jobs)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	methodActionMap := map[string]string{
+		"ListAllClusterByCronjob": models.PermissionRead,
+		"GetPodsEvent":            models.PermissionRead,
 	}
+	_, method := c.GetControllerAndAction()
+	c.PreparePermission(methodActionMap, method, models.PermissionTypeKubeJob)
 }
 
 // @Title Get

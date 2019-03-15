@@ -19,8 +19,8 @@ type KubeCronjobController struct {
 
 func (c *KubeCronjobController) URLMapping() {
 	c.Mapping("Get", c.Get)
-	c.Mapping("Offline", c.Offline)
-	c.Mapping("Deploy", c.Deploy)
+	c.Mapping("Delete", c.Delete)
+	c.Mapping("Create", c.Create)
 	c.Mapping("Suspend", c.Suspend)
 }
 
@@ -28,19 +28,14 @@ func (c *KubeCronjobController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
 
-	perAction := ""
+	methodActionMap := map[string]string{
+		"Get":     models.PermissionRead,
+		"Delete":  models.PermissionDelete,
+		"Create":  models.PermissionCreate,
+		"Suspend": models.PermissionCreate,
+	}
 	_, method := c.GetControllerAndAction()
-	switch method {
-	case "Get":
-		perAction = models.PermissionRead
-	case "Deploy", "Suspend":
-		perAction = models.PermissionDeploy
-	case "Offline":
-		perAction = models.PermissionOffline
-	}
-	if perAction != "" {
-		c.CheckPermission(models.PermissionTypeCronjob, perAction)
-	}
+	c.PreparePermission(methodActionMap, method, models.PermissionTypeKubeCronJob)
 }
 
 // @Title Suspend CronJob
@@ -108,7 +103,7 @@ func (c *KubeCronjobController) Suspend() {
 // @Param	body	body 	string	true	"The tpl content"
 // @Success 200 return ok success
 // @router /:cronjobId/tpls/:tplId/clusters/:cluster [post]
-func (c *KubeCronjobController) Deploy() {
+func (c *KubeCronjobController) Create() {
 	cronjobId := c.GetIntParamFromURL(":cronjobId")
 	tplId := c.GetIntParamFromURL(":tplId")
 	var kubeCronJob v1beta1.CronJob
@@ -217,21 +212,6 @@ func getNamespace(appId int64) (*models.Namespace, error) {
 	return ns, nil
 }
 
-func updateMetadata(suspend bool, cronjob *models.Cronjob, cluster string) (err error) {
-	cronjob.MetaDataObj.Suspends[cluster] = suspend
-	newMetaData, err := json.Marshal(&cronjob.MetaDataObj)
-	if err != nil {
-		logs.Error("cronjob metadata unmarshal error.%v", err)
-		return
-	}
-	cronjob.MetaData = string(newMetaData)
-	err = models.CronjobModel.UpdateById(cronjob)
-	if err != nil {
-		logs.Error("cronjob metadata update error.%v", err)
-	}
-	return
-}
-
 // @Title Get
 // @Description find Cronjob by cluster
 // @Success 200 {object} models.Cronjob success
@@ -262,7 +242,7 @@ func (c *KubeCronjobController) Get() {
 // @Param	cronjob		path 	string	true		"the cronjob name want to delete"
 // @Success 200 {string} delete success!
 // @router /:cronjob/namespaces/:namespace/clusters/:cluster [delete]
-func (c *KubeCronjobController) Offline() {
+func (c *KubeCronjobController) Delete() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":cronjob")

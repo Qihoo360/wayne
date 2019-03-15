@@ -19,27 +19,21 @@ type KubeDaemonSetController struct {
 
 func (c *KubeDaemonSetController) URLMapping() {
 	c.Mapping("Get", c.Get)
-	c.Mapping("Offline", c.Offline)
-	c.Mapping("Deploy", c.Deploy)
+	c.Mapping("Delete", c.Delete)
+	c.Mapping("Create", c.Create)
 }
 
 func (c *KubeDaemonSetController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
 
-	perAction := ""
+	methodActionMap := map[string]string{
+		"Get":    models.PermissionRead,
+		"Delete": models.PermissionDelete,
+		"Create": models.PermissionCreate,
+	}
 	_, method := c.GetControllerAndAction()
-	switch method {
-	case "Get":
-		perAction = models.PermissionRead
-	case "Deploy":
-		perAction = models.PermissionDeploy
-	case "Offline":
-		perAction = models.PermissionOffline
-	}
-	if perAction != "" {
-		c.CheckPermission(models.PermissionTypeDaemonSet, perAction)
-	}
+	c.PreparePermission(methodActionMap, method, models.PermissionTypeKubeDaemonSet)
 }
 
 // @Title deploy
@@ -47,7 +41,7 @@ func (c *KubeDaemonSetController) Prepare() {
 // @Param	body	body 	string	true	"The tpl content"
 // @Success 200 return ok success
 // @router /:daemonSetId([0-9]+)/tpls/:tplId([0-9]+)/clusters/:cluster [post]
-func (c *KubeDaemonSetController) Deploy() {
+func (c *KubeDaemonSetController) Create() {
 	daemonSetId := c.GetIntParamFromURL(":daemonSetId")
 	tplId := c.GetIntParamFromURL(":tplId")
 
@@ -182,7 +176,7 @@ func (c *KubeDaemonSetController) Get() {
 // @Param	daemonSet		path 	string	true		"the daemonSet name want to delete"
 // @Success 200 {string} delete success!
 // @router /:daemonSet/namespaces/:namespace/clusters/:cluster [delete]
-func (c *KubeDaemonSetController) Offline() {
+func (c *KubeDaemonSetController) Delete() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":daemonSet")

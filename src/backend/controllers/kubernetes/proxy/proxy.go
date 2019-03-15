@@ -33,28 +33,21 @@ func (c *KubeProxyController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
 
-	perAction := ""
-	_, method := c.GetControllerAndAction()
-	switch method {
-	case "Get", "List", "GetNames":
-		perAction = models.PermissionRead
-	case "Create":
-		perAction = models.PermissionCreate
-	case "Update":
-		perAction = models.PermissionUpdate
-	case "Delete":
-		perAction = models.PermissionDelete
+	methodActionMap := map[string]string{
+		"Get":      models.PermissionRead,
+		"List":     models.PermissionRead,
+		"GetNames": models.PermissionRead,
+		"Create":   models.PermissionCreate,
+		"Update":   models.PermissionUpdate,
+		"Delete":   models.PermissionDelete,
 	}
+	_, method := c.GetControllerAndAction()
 	kind := c.Ctx.Input.Param(":kind")
 	resourceMap, ok := api.KindToResourceMap[kind]
 	if !ok {
 		c.AbortBadRequest(fmt.Sprintf("Request resource kind (%s) not supported!", kind))
 	}
-
-	if perAction != "" {
-		c.CheckPermission(fmt.Sprintf("KUBE%s", strings.ToUpper(resourceMap.GroupVersionResourceKind.Kind)), perAction)
-	}
-
+	c.PreparePermission(methodActionMap, method, fmt.Sprintf("KUBE%s", strings.ToUpper(resourceMap.GroupVersionResourceKind.Kind)))
 }
 
 // @Title Get

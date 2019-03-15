@@ -41,19 +41,21 @@ func (c *RobinPersistentVolumeClaimController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
 
-	perAction := ""
+	methodActionMap := map[string]string{
+		"GetPvcStatus":      models.PermissionRead,
+		"ActiveImage":       models.PermissionRead,
+		"InActiveImage":     models.PermissionRead,
+		"OfflineImageUser":  models.PermissionRead,
+		"LoginInfo":         models.PermissionRead,
+		"Verify":            models.PermissionRead,
+		"ListSnapshot":      models.PermissionRead,
+		"CreateSnapshot":    models.PermissionRead,
+		"DeleteAllSnapshot": models.PermissionRead,
+		"DeleteSnapshot":    models.PermissionRead,
+		"RollbackSnapshot":  models.PermissionRead,
+	}
 	_, method := c.GetControllerAndAction()
-	switch method {
-	case "Get":
-		perAction = models.PermissionRead
-	case "Deploy":
-		perAction = models.PermissionDeploy
-	case "Delete":
-		perAction = models.PermissionDelete
-	}
-	if perAction != "" {
-		c.CheckPermission(models.PermissionTypePersistentVolumeClaim, perAction)
-	}
+	c.PreparePermission(methodActionMap, method, models.PermissionTypeKubePersistentVolumeClaim)
 }
 
 // @Title Get pvc status

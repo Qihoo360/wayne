@@ -9,23 +9,7 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pvc:KubePersistentVolumeClaimController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pvc:KubePersistentVolumeClaimController"],
 		beego.ControllerComments{
-			Method:           "Get",
-			Router:           `/:pvc/namespaces/:namespace/clusters/:cluster`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams:     param.Make(),
-			Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pvc:KubePersistentVolumeClaimController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pvc:KubePersistentVolumeClaimController"],
-		beego.ControllerComments{
-			Method:           "Offline",
-			Router:           `/:pvc/namespaces/:namespace/clusters/:cluster`,
-			AllowHTTPMethods: []string{"delete"},
-			MethodParams:     param.Make(),
-			Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pvc:KubePersistentVolumeClaimController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pvc:KubePersistentVolumeClaimController"],
-		beego.ControllerComments{
-			Method:           "Deploy",
+			Method:           "Create",
 			Router:           `/:pvcId/tpls/:tplId/clusters/:cluster`,
 			AllowHTTPMethods: []string{"post"},
 			MethodParams:     param.Make(),
