@@ -3,7 +3,7 @@
     <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
       <div class="clr-row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
         <div class="cluster-outline" style="display: flex; flex-wrap: wrap;width: 100%;">
-          <wayne-card (click)="openModal()" style="cursor: pointer;">
+          <wayne-card *ngIf="authService.currentNamespacePermission.app.create || authService.currentUser.admin" (click)="openModal()" style="cursor: pointer;">
             <div
               style="flex: 1;display: flex; justify-content: center; align-items: center; color: #377aec; font-size: 20px;">
               <svg style="width: 16px; height: 16px;fill: #377aec; margin-right: 5px;" viewBox="0, 0, 40 , 40"

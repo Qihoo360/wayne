@@ -25,110 +25,25 @@ type KubeNamespaceController struct {
 
 func (c *KubeNamespaceController) URLMapping() {
 	c.Mapping("Resources", c.Resources)
-	c.Mapping("List", c.List)
-	c.Mapping("GetNames", c.GetNames)
+	c.Mapping("Statistics", c.Statistics)
+	c.Mapping("Create", c.Create)
 }
 
 func (c *KubeNamespaceController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
-}
 
-// @Title List namespace
-// @Description get all namespace by page
-// @Param	cluster		path 	string	true		"the cluster name"
-// @Success 200 {object} common.Page success
-// @router /clusters/:cluster [get]
-func (c *KubeNamespaceController) List() {
-	param := c.BuildQueryParam()
-	cluster := c.Ctx.Input.Param(":cluster")
-
-	cli, err := client.Client(cluster)
-	if err == nil {
-		result, err := namespace.GetNamespacePage(cli, param)
-		if err != nil {
-			logs.Error("list kubernetes namespaces error.", cluster, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	methodActionMap := map[string]string{
+		"Resources":  models.PermissionRead,
+		"Statistics": models.PermissionRead,
+		"Create":     models.PermissionCreate,
 	}
-}
-
-// @Title List all namespace name
-// @Description get all namespace name
-// @Param	cluster		path 	string	true		"the cluster name"
-// @router /clusters/:cluster/names [get]
-func (c *KubeNamespaceController) GetNames() {
-	cluster := c.Ctx.Input.Param(":cluster")
-
-	cli, err := client.Client(cluster)
-	if err == nil {
-		result, err := namespace.GetAllNamespaceName(cli)
-		if err != nil {
-			logs.Error("list all kubernetes namespace names error.", cluster, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
-	}
-
-}
-
-// @Title Get namespace info
-// @Description get one namespace detail
-// @Param	cluster		path 	string	true		"the cluster name"
-// @Param	namespace	path 	string	true		"the namespace name"
-// @Success 200 {object} common.Page success
-// @router /:name/clusters/:cluster [get]
-func (c *KubeNamespaceController) Get() {
-	cluster := c.Ctx.Input.Param(":cluster")
-	ns := c.Ctx.Input.Param(":name")
-
-	cli, err := client.Client(cluster)
-	if err == nil {
-		result, err := namespace.GetNamespace(cli, ns)
-		if err != nil {
-			logs.Error("get kubernetes namespaces error.", cluster, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
-	}
-}
-
-// @Title Update
-// @Description update the Namespace
-// @router /:name/clusters/:cluster [put]
-func (c *KubeNamespaceController) Update() {
-	cluster := c.Ctx.Input.Param(":cluster")
-	name := c.Ctx.Input.Param(":name")
-	var tpl v1.Namespace
-	err := json.Unmarshal(c.Ctx.Input.RequestBody, &tpl)
-	if err != nil {
-		c.AbortBadRequestFormat("Namespace")
-	}
-	if name != tpl.Name {
-		c.AbortBadRequestFormat("Name")
-	}
-
-	cli, err := client.Client(cluster)
-	if err == nil {
-		result, err := namespace.UpdateNamespace(cli, &tpl)
-		if err != nil {
-			logs.Error("update namespace (%v) by cluster (%s) error.%v", tpl, cluster, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	_, method := c.GetControllerAndAction()
+	switch method {
+	case "Resources", "Statistics":
+		c.PreparePermission(methodActionMap, method, models.PermissionTypeNamespace)
+	case "Create":
+		c.PreparePermission(methodActionMap, method, models.PermissionTypeKubeNamespace)
 	}
 }
 
@@ -141,19 +56,15 @@ func (c *KubeNamespaceController) Create() {
 	tpl := new(v1.Namespace)
 	tpl.Name = name
 
-	cli, err := client.Client(cluster)
-	if err == nil {
-		// If the namespace does not exist, the value of result is nil.
-		result, err := namespace.CreateNotExitNamespace(cli, tpl)
-		if err != nil {
-			logs.Error("create namespace (%v) by cluster (%s) error.%v", tpl, cluster, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	cli := c.Client(cluster)
+	// If the namespace does not exist, the value of result is nil.
+	result, err := namespace.CreateNotExitNamespace(cli, tpl)
+	if err != nil {
+		logs.Error("create namespace (%v) by cluster (%s) error.%v", tpl, cluster, err)
+		c.HandleError(err)
+		return
 	}
+	c.Success(result)
 }
 
 // @Title Get namespace resource statistics
@@ -161,10 +72,10 @@ func (c *KubeNamespaceController) Create() {
 // @Param	app	query 	string	false	"The app Name"
 // @Param	nid	path 	string	true	"The namespace id"
 // @Success 200 return ok success
-// @router /:id([0-9]+)/resources [get]
+// @router /:namespaceid([0-9]+)/resources [get]
 func (c *KubeNamespaceController) Resources() {
 	appName := c.Input().Get("app")
-	id := c.GetIDFromURL()
+	id := c.GetIntParamFromURL(":namespaceid")
 	ns, err := models.NamespaceModel.GetById(int64(id))
 	if err != nil {
 		logs.Warning("get namespace by id (%d) error. %v", id, err)
@@ -240,10 +151,10 @@ func (c *KubeNamespaceController) Resources() {
 // @Param	app	query 	string	false	"The app Name"
 // @Param	nid	path 	string	true	"The namespace id"
 // @Success 200 return ok success
-// @router /:id([0-9]+)/statistics [get]
+// @router /:namespaceid([0-9]+)/statistics [get]
 func (c *KubeNamespaceController) Statistics() {
 	appName := c.Input().Get("app")
-	id := c.GetIDFromURL()
+	id := c.GetIntParamFromURL(":namespaceid")
 	ns, err := models.NamespaceModel.GetById(int64(id))
 	if err != nil {
 		logs.Warning("get namespace by id (%d) error. %v", id, err)

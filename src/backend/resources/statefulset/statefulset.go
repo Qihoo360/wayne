@@ -82,10 +82,3 @@ func GetStatefulsetDetail(cli *kubernetes.Clientset, indexer *client.CacheFactor
 
 	return result, nil
 }
-
-func DeleteStatefulset(cli *kubernetes.Clientset, name, namespace string) error {
-	deletionPropagation := metaV1.DeletePropagationBackground
-	return cli.AppsV1beta1().
-		StatefulSets(namespace).
-		Delete(name, &metaV1.DeleteOptions{PropagationPolicy: &deletionPropagation})
-}

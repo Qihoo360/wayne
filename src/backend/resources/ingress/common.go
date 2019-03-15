@@ -29,11 +29,3 @@ func toCells(std []Ingress) []dataselector.DataCell {
 	}
 	return cells
 }
-
-func fromCells(cells []dataselector.DataCell) []Ingress {
-	std := make([]Ingress, len(cells))
-	for i := range std {
-		std[i] = Ingress(cells[i].(IngressCell))
-	}
-	return std
-}

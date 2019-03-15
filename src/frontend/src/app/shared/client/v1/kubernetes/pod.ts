@@ -10,14 +10,6 @@ export class PodClient {
   constructor(private http: HttpClient) {
   }
 
-  list(appId: number, cluster: string, namespace: string, deployment: string): Observable<any> {
-    let params = new HttpParams();
-    params = params.set('deployment', deployment);
-    return this.http
-      .get(`/api/v1/kubernetes/apps/${appId}/pods/namespaces/${namespace}/clusters/${cluster}`, {params: params})
-      .catch(error => throwError(error));
-  }
-
   listPageByResouce(pageState: PageState, cluster: string, namespace: string, resouceType: string,
                     name: string, appId?: number): Observable<any> {
     let params = BaseClient.buildParam(pageState);
@@ -28,18 +20,6 @@ export class PodClient {
     params = params.set('name', name);
     return this.http
       .get(`/api/v1/kubernetes/apps/${appId}/pods/namespaces/${namespace}/clusters/${cluster}`, {params: params})
-      .catch(error => throwError(error));
-  }
-
-  get(appId: number, cluster: string, namespace: string, pod: string): Observable<any> {
-    return this.http
-      .get(`/api/v1/kubernetes/apps/${appId}/pods/${pod}/namespaces/${namespace}/clusters/${cluster}`)
-      .catch(error => throwError(error));
-  }
-
-  deleteByName(appId: number, cluster: string, namespace: string, name: string): Observable<any> {
-    return this.http
-      .delete(`/api/v1/kubernetes/apps/${appId}/pods/${name}/namespaces/${namespace}/clusters/${cluster}`)
       .catch(error => throwError(error));
   }
 

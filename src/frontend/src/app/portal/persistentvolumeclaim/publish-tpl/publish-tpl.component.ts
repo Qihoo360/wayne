@@ -5,12 +5,13 @@ import { NgForm } from '@angular/forms';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { Cluster } from '../../../shared/model/v1/cluster';
 import { CacheService } from '../../../shared/auth/cache.service';
-import { ResourcesActionType } from '../../../shared/shared.const';
+import { KubeResourcePersistentVolumeClaim, ResourcesActionType } from '../../../shared/shared.const';
 import { PersistentVolumeClaimTpl } from '../../../shared/model/v1/persistentvolumeclaimtpl';
 import { PublishStatus } from '../../../shared/model/v1/publish-status';
 import { PersistentVolumeClaimClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims';
 import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
 import { ActivatedRoute } from '@angular/router';
+import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'publish-tpl',
@@ -34,6 +35,7 @@ export class PublishPersistentVolumeClaimTplComponent {
   constructor(public cacheService: CacheService,
               private route: ActivatedRoute,
               private publishStatusService: PublishStatusService,
+              private kubernetesClient: KubernetesClient,
               private persistentVolumeClaimClient: PersistentVolumeClaimClient,
               private messageHandlerService: MessageHandlerService) {
   }
@@ -114,7 +116,8 @@ export class PublishPersistentVolumeClaimTplComponent {
 
   offline(cluster: Cluster) {
     const state = this.getStatusByCluster(this.pvcTpl.status, cluster.name);
-    this.persistentVolumeClaimClient.deleteByName(this.appId, cluster.name, this.cacheService.kubeNamespace, this.pvcTpl.name).subscribe(
+    this.kubernetesClient.delete(cluster.name, KubeResourcePersistentVolumeClaim, false,
+      this.pvcTpl.name, this.cacheService.kubeNamespace, this.appId.toString()).subscribe(
       response => {
         this.deletePublishStatus(state.id);
       },

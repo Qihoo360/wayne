@@ -46,13 +46,13 @@ export class AuthService {
 
   setNamespacePermissionById(id: number) {
     return this.http.get(`/api/v1/namespaces/${id}/users/permissions/${id}`).toPromise().then((response: any) => {
-      this.currentNamespacePermission.deserialize(response.data);
+      this.currentNamespacePermission = response.data;
     }).catch(error => this.handleError(error));
   }
 
   setAppPermissionById(id: number) {
     return this.http.get(`/api/v1/apps/${id}/users/permissions/${id}`).toPromise().then((response: any) => {
-      this.currentAppPermission.deserialize(response.data);
+      this.currentAppPermission = response.data;
     }).catch(error => this.handleError(error));
   }
 

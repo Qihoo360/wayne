@@ -3,7 +3,7 @@ import { CacheService } from '../../../shared/auth/cache.service';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ActivatedRoute } from '@angular/router';
 import { ResourceStatus } from '../../../shared/base/resource/resource-status';
-import { AutoscaleClient } from '../../../shared/client/v1/kubernetes/autoscale';
+import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'wayne-status',
@@ -12,9 +12,9 @@ import { AutoscaleClient } from '../../../shared/client/v1/kubernetes/autoscale'
 })
 export class StatusComponent extends ResourceStatus {
   constructor(public messageHandlerService: MessageHandlerService,
-    public autoscaleClient: AutoscaleClient,
-    public route: ActivatedRoute,
-    public cacheService: CacheService) {
-    super(messageHandlerService, autoscaleClient, route, cacheService);
+              public kubernetesClient: KubernetesClient,
+              public route: ActivatedRoute,
+              public cacheService: CacheService) {
+    super(messageHandlerService, kubernetesClient, route, cacheService);
   }
 }

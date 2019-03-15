@@ -17,7 +17,7 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/cronjob:KubeCronjobController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/cronjob:KubeCronjobController"],
 		beego.ControllerComments{
-			Method:           "Offline",
+			Method:           "Delete",
 			Router:           `/:cronjob/namespaces/:namespace/clusters/:cluster`,
 			AllowHTTPMethods: []string{"delete"},
 			MethodParams:     param.Make(),
@@ -25,7 +25,7 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/cronjob:KubeCronjobController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/cronjob:KubeCronjobController"],
 		beego.ControllerComments{
-			Method:           "Deploy",
+			Method:           "Create",
 			Router:           `/:cronjobId/tpls/:tplId/clusters/:cluster`,
 			AllowHTTPMethods: []string{"post"},
 			MethodParams:     param.Make(),

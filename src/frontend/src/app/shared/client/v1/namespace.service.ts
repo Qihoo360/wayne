@@ -99,4 +99,15 @@ export class NamespaceService {
 
       .catch(error => throwError(error));
   }
+
+
+  getHistory(namespaceId: number, appName?: string): Observable<any> {
+    let params = new HttpParams();
+    if (appName) {
+      params = params.set('app', appName);
+    }
+    return this.http
+      .get(`/api/v1/namespaces/${namespaceId}/history`, {params: params})
+      .catch(error => throwError(error));
+  }
 }

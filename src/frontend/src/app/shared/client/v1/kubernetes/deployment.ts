@@ -34,18 +34,6 @@ export class DeploymentClient {
       .catch(error => throwError(error));
   }
 
-  get(appId: number, cluster: string, namespace: string, name: string): Observable<any> {
-    return this.http
-      .get(`/api/v1/kubernetes/apps/${appId}/deployments/${name}/namespaces/${namespace}/clusters/${cluster}`)
-      .catch(error => throwError(error));
-  }
-
-  update(appId: number, cluster: string, namespace: string, name: string, obj: KubeDeployment): Observable<any> {
-    return this.http
-      .put(`/api/v1/kubernetes/apps/${appId}/deployments/${name}/namespaces/${namespace}/clusters/${cluster}`, obj)
-      .catch(error => throwError(error));
-  }
-
   deleteByName(appId: number, cluster: string, namespace: string, name: string): Observable<any> {
     return this.http
       .delete(`/api/v1/kubernetes/apps/${appId}/deployments/${name}/namespaces/${namespace}/clusters/${cluster}`)

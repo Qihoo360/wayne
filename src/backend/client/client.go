@@ -166,7 +166,6 @@ func Client(cluster string) (*kubernetes.Clientset, error) {
 
 func Manager(cluster string) (*ClusterManager, error) {
 	managerInterface, exist := clusterManagerSets.Load(cluster)
-	manager := managerInterface.(*ClusterManager)
 	// 如果不存在，则重新获取一次集群信息
 	if !exist {
 		BuildApiserverClient()
@@ -175,6 +174,7 @@ func Manager(cluster string) (*ClusterManager, error) {
 			return nil, ErrNotExist
 		}
 	}
+	manager := managerInterface.(*ClusterManager)
 	if manager.Cluster.Status == models.ClusterStatusMaintaining {
 		return nil, ErrMaintaining
 	}

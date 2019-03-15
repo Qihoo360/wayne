@@ -29,7 +29,7 @@
         {{'BUTTON.HISTORY' | translate}}
       </button>
       <button class="wayne-button normal" (click)="deleteDeployment()"
-              *ngIf="authService.currentAppPermission.deployment.offline || authService.currentUser.admin">
+              *ngIf="authService.currentAppPermission.deployment.delete || authService.currentUser.admin">
         {{'DEPLOYMENT.DELETE' | translate}}
       </button>
       <button class="wayne-button normal" (click)="diffTpl()">{{'BUTTON.COMPARE_TEMPLATES' | translate}}</button>

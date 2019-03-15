@@ -8,11 +8,12 @@ import { SecretTpl } from '../../../shared/model/v1/secrettpl';
 import { Cluster } from '../../../shared/model/v1/cluster';
 import { KubeSecret } from '../../../shared/model/v1/kubernetes/secret';
 import { CacheService } from '../../../shared/auth/cache.service';
-import { ResourcesActionType } from '../../../shared/shared.const';
+import { KubeResourceSecret, ResourcesActionType } from '../../../shared/shared.const';
 import { PublishStatus } from '../../../shared/model/v1/publish-status';
 import { SecretClient } from '../../../shared/client/v1/kubernetes/secret';
 import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
 import { ActivatedRoute } from '@angular/router';
+import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'publish-tpl',
@@ -37,6 +38,7 @@ export class PublishSecretTplComponent {
               public cacheService: CacheService,
               private route: ActivatedRoute,
               private secretClient: SecretClient,
+              private kubernetesClient: KubernetesClient,
               private publishStatusService: PublishStatusService) {
   }
 
@@ -116,7 +118,8 @@ export class PublishSecretTplComponent {
 
   offline(cluster: Cluster) {
     const state = this.getStatusByCluster(this.secretTpl.status, cluster.name);
-    this.secretClient.deleteByName(this.appId, cluster.name, this.cacheService.kubeNamespace, this.secretTpl.name).subscribe(
+    this.kubernetesClient.delete(cluster.name, KubeResourceSecret, false, this.secretTpl.name,
+      this.cacheService.kubeNamespace, this.appId.toString()).subscribe(
       response => {
         this.deletePublishStatus(state.id);
       },

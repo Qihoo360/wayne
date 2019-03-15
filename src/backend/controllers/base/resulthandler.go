@@ -85,7 +85,7 @@ func (c *ResultHandlerController) HandleError(err error) int {
 			errorResult.Code = http.StatusNotFound
 		}
 		errorResult.SubCode = errorResult.Code
-		errorResult.Msg = http.StatusText(errorResult.Code)
+		errorResult.Msg = err.Error()
 	}
 
 	if errorResult.Code >= http.StatusInternalServerError {

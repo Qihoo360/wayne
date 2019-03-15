@@ -1,4 +1,4 @@
-<button (click)="createResource()" class="wayne-button primary" *ngIf="authService.currentAppPermission.autoscale.create || authService.currentUser.admin">
+<button (click)="createResource()" class="wayne-button primary" *ngIf="authService.currentAppPermission.hpa.create || authService.currentUser.admin">
   {{'HPA.CREATE' | translate}}
 </button>
 <wayne-create-edit-autoscale (create)="onResourceCreatedEvent($event)"></wayne-create-edit-autoscale>
@@ -16,19 +16,20 @@
   <div class="table-search">
     <div class="table-search-left">
       <button (click)="createTemplate()" class="wayne-button normal"
-              *ngIf="template?.length <= 0 && (authService.currentAppPermission.autoscale.create || authService.currentUser.admin)">
+              *ngIf="template?.length <= 0 && (authService.currentAppPermission.hpa.create || authService.currentUser.admin)">
         {{'HPA.CREATE_TEMPLATE' | translate}}
       </button>
       <button class="wayne-button normal" (click)="onShowDiffEvent()">{{'BUTTON.COMPARE_TEMPLATES' | translate}}</button>
       <button (click)="editResource()" class="wayne-button normal"
-              *ngIf="authService.currentAppPermission.autoscale.update || authService.currentUser.admin">
+              *ngIf="authService.currentAppPermission.hpa.update || authService.currentUser.admin">
         {{'HPA.EDIT' | translate}}
       </button>
       <button (click)="listPublishHistory()" class="wayne-button normal"
-              *ngIf="authService.currentAppPermission.autoscale.read || authService.currentUser.admin">
+              *ngIf="authService.currentAppPermission.hpa.read || authService.currentUser.admin">
         {{'BUTTON.HISTORY' | translate}}
       </button>
-      <button (click)="deleteResource('删除 HPA','是否确定删除 HPA','已上线 HPA 禁止直接删除！')" class="wayne-button normal" *ngIf="authService.currentAppPermission.autoscale.offline || authService.currentUser.admin">
+      <button (click)="deleteResource('删除 HPA','是否确定删除 HPA','已上线 HPA 禁止直接删除！')" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.hpa.delete || authService.currentUser.admin">
         {{'HPA.DELETE' | translate}}
       </button>
 
@@ -55,6 +56,7 @@
     [templates]="templates"
     [appId]="appId"
     [resourceId] = "resourceId"
+    [kubeResource] = "kubeResource"
     [showState]="showState"
     [page]="pageState.page"
     (paginate)="retrieveTemplates($event)"

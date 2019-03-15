@@ -5,7 +5,6 @@ import (
 
 	kapiv1beta1 "k8s.io/api/extensions/v1beta1"
 
-	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/controllers/common"
 	"github.com/Qihoo360/wayne/src/backend/models"
@@ -20,56 +19,17 @@ type KubeIngressController struct {
 }
 
 func (c *KubeIngressController) URLMapping() {
-	c.Mapping("Get", c.Get)
-	c.Mapping("Offline", c.Offline)
-	c.Mapping("Deploy", c.Deploy)
-	c.Mapping("List", c.List)
-	c.Mapping("GetDetail", c.GetDetail)
+	c.Mapping("Create", c.Create)
 }
 
 func (c *KubeIngressController) Prepare() {
 	c.APIController.Prepare()
-	perAction := ""
+
+	methodActionMap := map[string]string{
+		"Create": models.PermissionCreate,
+	}
 	_, method := c.GetControllerAndAction()
-	switch method {
-	case "Get":
-		perAction = models.PermissionRead
-	case "Deploy":
-		perAction = models.PermissionDeploy
-	case "offline":
-		perAction = models.PermissionOffline
-	}
-	if perAction != "" {
-		c.CheckPermission(models.PermissionTypeService, perAction)
-	}
-}
-
-// @Title List ingress
-// @Description get all ingress in a kubernetes cluster
-// @Param	pageNo		query 	int	false		"the page current no"
-// @Param	pageSize		query 	int	false		"the page size"
-// @Param	filter		query 	string	false		"column filter, ex. filter=name=test"
-// @Param	sortby		query 	string	false		"column sorted by, ex. sortby=-id, '-' representation desc, and sortby=id representation asc"
-// @Param	cluster		path 	string	true		"the cluster name"
-// @Param	namespace		path 	string	true		"the namespace name"
-// @Success 200 {object} common.Page success
-// @router /namespaces/:namespace/clusters/:cluster [get]
-func (c *KubeIngressController) List() {
-	param := c.BuildQueryParam()
-	cluster := c.Ctx.Input.Param(":cluster")
-	namespace := c.Ctx.Input.Param(":namespace")
-
-	k8sClient, err := client.Client(cluster)
-	if err != nil {
-		c.AbortBadRequestFormat("Cluster")
-	}
-	res, err := ingress.GetIngressPage(k8sClient, namespace, param)
-	if err != nil {
-		logs.Error("list kubernetes(%s) namespace(%s) ingresses error %v", cluster, namespace, err)
-		c.HandleError(err)
-		return
-	}
-	c.Success(res)
+	c.PreparePermission(methodActionMap, method, models.PermissionTypeKubeIngress)
 }
 
 // @Title deploy
@@ -77,7 +37,7 @@ func (c *KubeIngressController) List() {
 // @Param	body	body 	string	true	"The tpl content"
 // @Success 200 return ok success
 // @router /:ingressId([0-9]+)/tpls/:tplId([0-9]+)/clusters/:cluster [post]
-func (c *KubeIngressController) Deploy() {
+func (c *KubeIngressController) Create() {
 	ingressId := c.GetIntParamFromURL(":ingressId")
 	tplId := c.GetIntParamFromURL(":tplId")
 	var kubeIngress kapiv1beta1.Ingress
@@ -88,11 +48,7 @@ func (c *KubeIngressController) Deploy() {
 		return
 	}
 	clusterName := c.Ctx.Input.Param(":cluster")
-	k8sClient, err := client.Client(clusterName)
-	if err != nil {
-		c.AbortBadRequestFormat("Cluster")
-		return
-	}
+	k8sClient := c.Client(clusterName)
 
 	namespaceModel, err := models.NamespaceModel.GetNamespaceByAppId(c.AppId)
 	if err != nil {
@@ -158,82 +114,4 @@ func (c *KubeIngressController) Deploy() {
 		Object:       kubeIngress,
 	})
 	c.Success("ok")
-}
-
-// @Title GetDetail
-// @Description find ingress detail in kubernetes
-// @Param ingress path string true "the ingress name"
-// @Param	cluster		path 	string	true		"the cluster name"
-// @Param	namespace		path 	string	true		"the namespace name"
-// @Success 200 {object} ingress.Ingress success
-// @router /:ingress/detail/namespaces/:namespace/clusters/:cluster [get]
-
-func (c *KubeIngressController) GetDetail() {
-	cluster := c.Ctx.Input.Param(":cluster")
-	namespace := c.Ctx.Input.Param(":namespace")
-	name := c.Ctx.Input.Param(":ingress")
-	k8sClient, err := client.Client(cluster)
-	if err != nil {
-		c.AbortBadRequest("Cluster")
-	}
-	res, err := ingress.GetIngressDetail(k8sClient, name, namespace)
-	if err != nil {
-		logs.Error("get kubernetes ingress detail err %v", err)
-		c.HandleError(err)
-		return
-	}
-	c.Success(res)
-}
-
-// @Title Get
-// @Description find Deployment by cluster
-// @Param	cluster		path 	string	true		"the cluster name"
-// @Param	namespace		path 	string	true		"the namespace name"
-// @Success 200 {object} models.Deployment success
-// @router /:ingress/namespaces/:namespace/clusters/:cluster [get]
-func (c *KubeIngressController) Get() {
-	cluster := c.Ctx.Input.Param(":cluster")
-	namespace := c.Ctx.Input.Param(":namespace")
-	name := c.Ctx.Input.Param(":ingress")
-	k8sClient, err := client.Client(cluster)
-	if err != nil {
-		c.AbortBadRequestFormat("Cluster")
-		return
-	}
-	res, err := ingress.GetIngress(k8sClient, name, namespace)
-	if err != nil {
-		logs.Error("get ingress error cluster: %s, namespace: %s", cluster, namespace)
-		c.HandleError(err)
-		return
-	}
-	c.Success(res)
-}
-
-// @Title Delete
-// @Description delete the Ingress
-// @Param	cluster		path 	string	true		"the cluster want to delete"
-// @Param	namespace		path 	string	true		"the namespace want to delete"
-// @Param	deployment		path 	string	true		"the deployment name want to delete"
-// @Success 200 {string} delete success!
-// @router /:ingress/namespaces/:namespace/clusters/:cluster [delete]
-func (c *KubeIngressController) Offline() {
-	cluster := c.Ctx.Input.Param(":cluster")
-	namespace := c.Ctx.Input.Param(":namespace")
-	name := c.Ctx.Input.Param(":ingress")
-	k8sClient, err := client.Client(cluster)
-	if err != nil {
-		c.AbortBadRequestFormat("Cluster")
-		return
-	}
-	if err = ingress.DeleteIngress(k8sClient, name, namespace); err != nil {
-		logs.Error("delete ingress: %s in namespace: %s, error: %s", name, namespace, err.Error())
-		c.HandleError(err)
-		return
-	}
-	webhook.PublishEventIngress(c.NamespaceId, c.AppId, c.User.Name, c.Ctx.Input.IP(), webhook.OfflineIngress, response.Resource{
-		Type:         models.PublishTypeIngress,
-		ResourceName: name,
-		Cluster:      cluster,
-	})
-	c.Success("OK")
 }

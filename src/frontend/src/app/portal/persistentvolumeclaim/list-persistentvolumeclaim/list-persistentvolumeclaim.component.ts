@@ -6,6 +6,7 @@ import {
   ConfirmationState,
   ConfirmationTargets,
   httpStatusCode,
+  KubeResourcePersistentVolumeClaim,
   PublishType,
   ResourcesActionType,
   syncStatusInterval,
@@ -19,7 +20,6 @@ import { AuthService } from '../../../shared/auth/auth.service';
 import { PersistentVolumeClaimTplService } from '../../../shared/client/v1/persistentvolumeclaimtpl.service';
 import { PersistentVolumeClaimTpl } from '../../../shared/model/v1/persistentvolumeclaimtpl';
 import { PublishPersistentVolumeClaimTplComponent } from '../publish-tpl/publish-tpl.component';
-import { PersistentVolumeClaimClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims';
 import { CacheService } from '../../../shared/auth/cache.service';
 import { PublishStatus } from '../../../shared/model/v1/publish-status';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -35,6 +35,7 @@ import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service'
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { PersistentVolumeClaimRobinClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims-robin';
 import { DiffService } from '../../../shared/diff/diff.service';
+import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'list-persistentvolumeclaim',
@@ -75,7 +76,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
               private appService: AppService,
               private diffService: DiffService,
               private pvcService: PersistentVolumeClaimService,
-              private pvcClient: PersistentVolumeClaimClient,
+              private kubernetesClient: KubernetesClient,
               private persistentVolumeClaimRobinClient: PersistentVolumeClaimRobinClient,
               public cacheService: CacheService,
               private messageHandlerService: MessageHandlerService,
@@ -125,7 +126,8 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
         if (tpl.status && tpl.status.length > 0) {
           for (let j = 0; j < tpl.status.length; j++) {
             const status = tpl.status[j];
-            this.pvcClient.get(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
+            this.kubernetesClient.get(status.cluster, KubeResourcePersistentVolumeClaim, tpl.name,
+              this.cacheService.kubeNamespace, this.appId.toString()).subscribe(
               response => {
                 const code = response.statusCode || response.status;
                 if (code === httpStatusCode.NoContent) {

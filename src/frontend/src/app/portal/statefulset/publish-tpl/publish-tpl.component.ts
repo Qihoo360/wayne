@@ -7,15 +7,15 @@ import { MessageHandlerService } from '../../../shared/message-handler/message-h
 
 import { KubeStatefulSet } from '../../../shared/model/v1/kubernetes/statefulset';
 import { CacheService } from '../../../shared/auth/cache.service';
-import { defaultResources, ResourcesActionType } from '../../../shared/shared.const';
+import { defaultResources, KubeResourceStatefulSet, ResourcesActionType } from '../../../shared/shared.const';
 import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
 import { StatefulsetClient } from '../../../shared/client/v1/kubernetes/statefulset';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 import { Statefulset } from '../../../shared/model/v1/statefulset';
 import { StatefulsetTemplate } from '../../../shared/model/v1/statefulsettpl';
 import { TemplateStatus } from '../../../shared/model/v1/status';
 import { ClusterMeta } from '../../../shared/model/v1/cluster';
+import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'statefulset-publish-tpl',
@@ -42,6 +42,7 @@ export class PublishStatefulsetTplComponent {
               public cacheService: CacheService,
               private route: ActivatedRoute,
               private publishStatusService: PublishStatusService,
+              private kubernetesClient: KubernetesClient,
               private statefulsetClient: StatefulsetClient) {
   }
 
@@ -171,7 +172,8 @@ export class PublishStatefulsetTplComponent {
     Object.getOwnPropertyNames(this.clusterMetas).map(cluster => {
       if (this.clusterMetas[cluster].checked) {
         const state = this.getStatusByCluster(this.statefulsetTpl.status, cluster);
-        this.statefulsetClient.deleteByName(this.appId, cluster, this.cacheService.kubeNamespace, this.statefulset.name).subscribe(
+        this.kubernetesClient.delete(cluster, KubeResourceStatefulSet, false, this.statefulset.name,
+          this.cacheService.kubeNamespace, this.appId.toString()).subscribe(
           response => {
             this.deletePublishStatus(state.id);
           },

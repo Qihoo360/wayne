@@ -49,23 +49,23 @@
     <clr-dg-cell class="col-operate">
       <button class="wayne-button text"
               (click)="onPublishResourceTemplate(template)"
-              *ngIf="authService.currentAppPermission.autoscale.deploy || authService.currentUser.admin">
+              *ngIf="authService.currentAppPermission.kubeHorizontalPodAutoscaler.create || authService.currentUser.admin">
         {{'BUTTON.RELEASE' | translate}}</button>
       <button class="wayne-button text"
               (click)="onViewTemplate(template)"
-              *ngIf="authService.currentAppPermission.autoscale.read || authService.currentUser.admin">
+              *ngIf="authService.currentAppPermission.hpa.read || authService.currentUser.admin">
         {{'BUTTON.DETAIL' | translate}}</button>
       <button class="wayne-button text"
               (click)="oncloneTemplate(template)"
-              *ngIf="authService.currentAppPermission.autoscale.create || authService.currentUser.admin">
+              *ngIf="authService.currentAppPermission.hpa.create || authService.currentUser.admin">
         {{'BUTTON.CLONE' | translate}}</button>
       <button class="wayne-button text"
-              *ngIf="!template.status && (authService.currentAppPermission.autoscale.delete || authService.currentUser.admin)"
+              *ngIf="!template.status && (authService.currentAppPermission.hpa.delete || authService.currentUser.admin)"
               (click)="onDeleteTemplate('删除 HPA 模版确认', '你确认删除 HPA 模版', template)">
         {{'BUTTON.DELETE' | translate}}</button>
       <button class="wayne-button text"
               (click)="onOfflineResourceTemplate(template)"
-              *ngIf="template.status && (authService.currentAppPermission.autoscale.offline || authService.currentUser.admin)">
+              *ngIf="template.status && (authService.currentAppPermission.kubeHorizontalPodAutoscaler.delete || authService.currentUser.admin)">
         {{'BUTTON.DROP' | translate}}</button>
 
     </clr-dg-cell>

@@ -6,6 +6,7 @@ import { MessageHandlerService } from '../../../shared/message-handler/message-h
 import { ActivatedRoute } from '@angular/router';
 import { IngressClient } from '../../../shared/client/v1/kubernetes/ingress';
 import { ResourceStatus } from '../../../shared/base/resource/resource-status';
+import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'status',
@@ -15,10 +16,10 @@ import { ResourceStatus } from '../../../shared/base/resource/resource-status';
 
 export class IngressStatusComponent extends ResourceStatus {
   constructor(public messageHandlerService: MessageHandlerService,
-              public ingressClient: IngressClient,
+              public kubernetesClient: KubernetesClient,
               public route: ActivatedRoute,
               public cacheService: CacheService) {
-    super(messageHandlerService, ingressClient, route, cacheService);
+    super(messageHandlerService, kubernetesClient, route, cacheService);
   }
 }
 

@@ -28,19 +28,3 @@ func CreateOrUpdateConfigMap(cli *kubernetes.Clientset, configMap *kapi.ConfigMa
 
 	return cli.CoreV1().ConfigMaps(configMap.Namespace).Update(old)
 }
-
-func GetConfigMapDetail(cli *kubernetes.Clientset, name, namespace string) (*ConfigMap, error) {
-	configmap, err := cli.CoreV1().ConfigMaps(namespace).Get(name, metaV1.GetOptions{})
-	if err != nil {
-		return nil, err
-	}
-
-	return &ConfigMap{
-		ObjectMeta: common.NewObjectMeta(configmap.ObjectMeta),
-		Data:       configmap.Data,
-	}, nil
-}
-
-func DeleteConfigMap(cli *kubernetes.Clientset, name, namespace string) error {
-	return cli.CoreV1().ConfigMaps(namespace).Delete(name, &metaV1.DeleteOptions{})
-}

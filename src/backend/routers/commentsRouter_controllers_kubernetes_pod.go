@@ -9,22 +9,6 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pod:KubePodController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pod:KubePodController"],
 		beego.ControllerComments{
-			Method:           "Get",
-			Router:           `/:pod/namespaces/:namespace/clusters/:cluster`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams:     param.Make(),
-			Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pod:KubePodController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pod:KubePodController"],
-		beego.ControllerComments{
-			Method:           "Delete",
-			Router:           `/:pod/namespaces/:namespace/clusters/:cluster`,
-			AllowHTTPMethods: []string{"delete"},
-			MethodParams:     param.Make(),
-			Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pod:KubePodController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pod:KubePodController"],
-		beego.ControllerComments{
 			Method:           "Terminal",
 			Router:           `/:pod/terminal/namespaces/:namespace/clusters/:cluster`,
 			AllowHTTPMethods: []string{"post"},

@@ -25,27 +25,19 @@ type KubeStatefulsetController struct {
 
 func (c *KubeStatefulsetController) URLMapping() {
 	c.Mapping("Get", c.Get)
-	c.Mapping("Offline", c.Offline)
-	c.Mapping("Deploy", c.Deploy)
+	c.Mapping("Create", c.Create)
 }
 
 func (c *KubeStatefulsetController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
 
-	perAction := ""
+	methodActionMap := map[string]string{
+		"Create": models.PermissionCreate,
+		"Get":    models.PermissionRead,
+	}
 	_, method := c.GetControllerAndAction()
-	switch method {
-	case "Get":
-		perAction = models.PermissionRead
-	case "Deploy":
-		perAction = models.PermissionDeploy
-	case "Offline":
-		perAction = models.PermissionOffline
-	}
-	if perAction != "" {
-		c.CheckPermission(models.PermissionTypeStatefulset, perAction)
-	}
+	c.PreparePermission(methodActionMap, method, models.PermissionTypeKubeStatefulSet)
 }
 
 // @Title deploy
@@ -53,7 +45,7 @@ func (c *KubeStatefulsetController) Prepare() {
 // @Param	body	body 	string	true	"The tpl content"
 // @Success 200 return ok success
 // @router /:statefulsetId([0-9]+)/tpls/:tplId([0-9]+)/clusters/:cluster [post]
-func (c *KubeStatefulsetController) Deploy() {
+func (c *KubeStatefulsetController) Create() {
 	statefulsetId := c.GetIntParamFromURL(":statefulsetId")
 	tplId := c.GetIntParamFromURL(":tplId")
 
@@ -237,41 +229,12 @@ func (c *KubeStatefulsetController) Get() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":statefulset")
-	manager, err := client.Manager(cluster)
-	if err == nil {
-		result, err := statefulset.GetStatefulsetDetail(manager.Client, manager.CacheFactory, name, namespace)
-		if err != nil {
-			logs.Error("get kubernetes statefulset detail error.", cluster, namespace, name, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	manager := c.Manager(cluster)
+	result, err := statefulset.GetStatefulsetDetail(manager.Client, manager.CacheFactory, name, namespace)
+	if err != nil {
+		logs.Error("get kubernetes statefulset detail error.", cluster, namespace, name, err)
+		c.HandleError(err)
+		return
 	}
-}
-
-// @Title Delete
-// @Description delete the Statefulset
-// @Param	cluster		path 	string	true		"the cluster want to delete"
-// @Param	namespace		path 	string	true		"the namespace want to delete"
-// @Param	statefulset		path 	string	true		"the statefulset name want to delete"
-// @Success 200 {string} delete success!
-// @router /:statefulset/namespaces/:namespace/clusters/:cluster [delete]
-func (c *KubeStatefulsetController) Offline() {
-	cluster := c.Ctx.Input.Param(":cluster")
-	namespace := c.Ctx.Input.Param(":namespace")
-	name := c.Ctx.Input.Param(":statefulset")
-	cli, err := client.Client(cluster)
-	if err == nil {
-		err := statefulset.DeleteStatefulset(cli, name, namespace)
-		if err != nil {
-			logs.Error("delete statefulset (%s) by cluster (%s) error.%v", name, cluster, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success("ok!")
-	} else {
-		c.AbortBadRequestFormat("Cluster")
-	}
+	c.Success(result)
 }
