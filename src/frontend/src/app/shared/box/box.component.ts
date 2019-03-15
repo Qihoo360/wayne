@@ -15,7 +15,7 @@ export class BoxComponent {
   }
   @HostBinding('style.boxShadow')
   get shadow() {
-    return this.enter ? '0px 4px 8px 0px #ccc' : '0px 0px 1px 0px #ccc';
+    return this.disabled ? '' : this.enter ? '0px 4px 8px 0px #ccc' : '0px 0px 1px 0px #ccc';
   }
   @HostListener('mouseenter')
   enterEvent() {

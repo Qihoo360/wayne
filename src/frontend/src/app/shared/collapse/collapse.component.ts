@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
@@ -13,7 +13,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         animate('100ms 0s ease-in-out', style({ height: 0 }))
       ]),
       transition('void => *', [
-        style({ height: 0}),
+        style({ height: 0 }),
         animate('150ms 0s ease-in-out', style({ height: '*' }))
       ])
     ])
@@ -21,4 +21,5 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class CollapseComponent {
   show = true;
+  @Input() disabled: boolean;
 }
