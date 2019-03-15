@@ -56,19 +56,15 @@ func (c *KubeNamespaceController) Create() {
 	tpl := new(v1.Namespace)
 	tpl.Name = name
 
-	cli, err := client.Client(cluster)
-	if err == nil {
-		// If the namespace does not exist, the value of result is nil.
-		result, err := namespace.CreateNotExitNamespace(cli, tpl)
-		if err != nil {
-			logs.Error("create namespace (%v) by cluster (%s) error.%v", tpl, cluster, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	cli := c.Client(cluster)
+	// If the namespace does not exist, the value of result is nil.
+	result, err := namespace.CreateNotExitNamespace(cli, tpl)
+	if err != nil {
+		logs.Error("create namespace (%v) by cluster (%s) error.%v", tpl, cluster, err)
+		c.HandleError(err)
+		return
 	}
+	c.Success(result)
 }
 
 // @Title Get namespace resource statistics

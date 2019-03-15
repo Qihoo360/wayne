@@ -61,18 +61,15 @@ func (c *KubeDeploymentController) List() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 
-	manager, err := client.Manager(cluster)
-	if err == nil {
-		result, err := deployment.GetDeploymentPage(manager.CacheFactory, namespace, param)
-		if err != nil {
-			logs.Error("list kubernetes deployments error.", cluster, namespace, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	manager := c.Manager(cluster)
+
+	result, err := deployment.GetDeploymentPage(manager.CacheFactory, namespace, param)
+	if err != nil {
+		logs.Error("list kubernetes deployments error.", cluster, namespace, err)
+		c.HandleError(err)
+		return
 	}
+	c.Success(result)
 }
 
 // @Title deploy
@@ -231,18 +228,14 @@ func (c *KubeDeploymentController) Get() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":deployment")
-	manager, err := client.Manager(cluster)
-	if err == nil {
-		result, err := deployment.GetDeploymentDetail(manager.Client, manager.CacheFactory, name, namespace)
-		if err != nil {
-			logs.Error("get kubernetes deployment detail error.", cluster, namespace, name, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	manager := c.Manager(cluster)
+	result, err := deployment.GetDeploymentDetail(manager.Client, manager.CacheFactory, name, namespace)
+	if err != nil {
+		logs.Error("get kubernetes deployment detail error.", cluster, namespace, name, err)
+		c.HandleError(err)
+		return
 	}
+	c.Success(result)
 }
 
 // @Title Delete
@@ -256,21 +249,18 @@ func (c *KubeDeploymentController) Delete() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":deployment")
-	cli, err := client.Client(cluster)
-	if err == nil {
-		err := deployment.DeleteDeployment(cli, name, namespace)
-		if err != nil {
-			logs.Error("delete deployment (%s) by cluster (%s) error.%v", name, cluster, err)
-			c.HandleError(err)
-			return
-		}
-		webhook.PublishEventDeployment(c.NamespaceId, c.AppId, c.User.Name, c.Ctx.Input.IP(), webhook.DeleteDeployment, response.Resource{
-			Type:         models.PublishTypeDeployment,
-			ResourceName: name,
-			Cluster:      cluster,
-		})
-		c.Success("ok!")
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	cli := c.Client(cluster)
+
+	err := deployment.DeleteDeployment(cli, name, namespace)
+	if err != nil {
+		logs.Error("delete deployment (%s) by cluster (%s) error.%v", name, cluster, err)
+		c.HandleError(err)
+		return
 	}
+	webhook.PublishEventDeployment(c.NamespaceId, c.AppId, c.User.Name, c.Ctx.Input.IP(), webhook.DeleteDeployment, response.Resource{
+		Type:         models.PublishTypeDeployment,
+		ResourceName: name,
+		Cluster:      cluster,
+	})
+	c.Success("ok!")
 }

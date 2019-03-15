@@ -5,7 +5,6 @@ import (
 
 	kapi "k8s.io/api/core/v1"
 
-	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/resources/secret"
@@ -47,43 +46,39 @@ func (c *KubeSecretController) Create() {
 	}
 
 	cluster := c.Ctx.Input.Param(":cluster")
-	cli, err := client.Client(cluster)
-	if err == nil {
-		publishHistory := &models.PublishHistory{
-			Type:         models.PublishTypeSecret,
-			ResourceId:   int64(secretId),
-			ResourceName: kubeSecret.Name,
-			TemplateId:   int64(tplId),
-			Cluster:      cluster,
-			User:         c.User.Name,
+	cli := c.Client(cluster)
+	publishHistory := &models.PublishHistory{
+		Type:         models.PublishTypeSecret,
+		ResourceId:   int64(secretId),
+		ResourceName: kubeSecret.Name,
+		TemplateId:   int64(tplId),
+		Cluster:      cluster,
+		User:         c.User.Name,
+	}
+	defer models.PublishHistoryModel.Add(publishHistory)
+	// 发布资源到k8s平台
+	_, err = secret.CreateOrUpdateSecret(cli, &kubeSecret)
+	if err != nil {
+		publishHistory.Status = models.ReleaseFailure
+		publishHistory.Message = err.Error()
+		c.HandleError(err)
+		return
+	} else {
+		publishHistory.Status = models.ReleaseSuccess
+		// 添加发布状态
+		publishStatus := models.PublishStatus{
+			ResourceId: int64(secretId),
+			TemplateId: int64(tplId),
+			Type:       models.PublishTypeSecret,
+			Cluster:    cluster,
 		}
-		defer models.PublishHistoryModel.Add(publishHistory)
-		// 发布资源到k8s平台
-		_, err = secret.CreateOrUpdateSecret(cli, &kubeSecret)
+		err = models.PublishStatusModel.Publish(&publishStatus)
 		if err != nil {
-			publishHistory.Status = models.ReleaseFailure
-			publishHistory.Message = err.Error()
+			logs.Error("publish publishStatus (%v) to db error.%v", publishStatus, err)
 			c.HandleError(err)
 			return
-		} else {
-			publishHistory.Status = models.ReleaseSuccess
-			// 添加发布状态
-			publishStatus := models.PublishStatus{
-				ResourceId: int64(secretId),
-				TemplateId: int64(tplId),
-				Type:       models.PublishTypeSecret,
-				Cluster:    cluster,
-			}
-			err = models.PublishStatusModel.Publish(&publishStatus)
-			if err != nil {
-				logs.Error("publish publishStatus (%v) to db error.%v", publishStatus, err)
-				c.HandleError(err)
-				return
-			}
 		}
-
-		c.Success("ok")
-	} else {
-		c.AbortBadRequestFormat("Cluster")
 	}
+
+	c.Success("ok")
 }

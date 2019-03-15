@@ -5,7 +5,6 @@ import (
 
 	kapiv1beta1 "k8s.io/api/extensions/v1beta1"
 
-	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/controllers/common"
 	"github.com/Qihoo360/wayne/src/backend/models"
@@ -49,11 +48,7 @@ func (c *KubeIngressController) Create() {
 		return
 	}
 	clusterName := c.Ctx.Input.Param(":cluster")
-	k8sClient, err := client.Client(clusterName)
-	if err != nil {
-		c.AbortBadRequestFormat("Cluster")
-		return
-	}
+	k8sClient := c.Client(clusterName)
 
 	namespaceModel, err := models.NamespaceModel.GetNamespaceByAppId(c.AppId)
 	if err != nil {

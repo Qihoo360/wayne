@@ -3,7 +3,6 @@ package log
 import (
 	"k8s.io/api/core/v1"
 
-	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/resources/log"
@@ -49,16 +48,13 @@ func (c *KubeLogController) List() {
 		Container: container,
 		TailLines: &tailLines,
 	}
-	cli, err := client.Client(cluster)
-	if err == nil {
-		result, err := log.GetLogsByPod(cli, namespace, pod, opt)
-		if err != nil {
-			logs.Info("get kubernetes log by pod error.", cluster, namespace, pod, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(hack.String(result))
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	cli := c.Client(cluster)
+
+	result, err := log.GetLogsByPod(cli, namespace, pod, opt)
+	if err != nil {
+		logs.Info("get kubernetes log by pod error.", cluster, namespace, pod, err)
+		c.HandleError(err)
+		return
 	}
+	c.Success(hack.String(result))
 }

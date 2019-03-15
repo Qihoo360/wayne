@@ -3,7 +3,6 @@ package hpa
 import (
 	"encoding/json"
 
-	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/resources/hpa"
@@ -42,11 +41,7 @@ func (c *KubeHPAController) Create() {
 		return
 	}
 	clusterName := c.Ctx.Input.Param(":cluster")
-	k8sClient, err := client.Client(clusterName)
-	if err != nil {
-		c.AbortBadRequestFormat("Cluster")
-		return
-	}
+	k8sClient := c.Client(clusterName)
 	publishHistory := &models.PublishHistory{
 		Type:         models.PublishTypeHPA,
 		ResourceId:   int64(hpaId),

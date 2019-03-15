@@ -4,7 +4,6 @@ import (
 	batchv1 "k8s.io/api/batch/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 
-	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/resources/job"
@@ -52,26 +51,23 @@ func (c *KubeJobController) ListAllClusterByCronjob() {
 	}
 	var allJobs []ClusterJob
 	for _, cluster := range clusters {
-		cli, err := client.Client(cluster.Name)
-		if err == nil {
-			jobs, err := job.GetJobsByCronjobName(cli, namespace, cronjobName)
-			if err != nil {
-				if errors.IsNotFound(err) {
-					continue
-				}
-				logs.Error("get job by cronjob (%s) and cluster (%s) error.%v", cronjobName, cluster, err)
-				c.HandleError(err)
-				return
+		cli := c.Client(cluster.Name)
+
+		jobs, err := job.GetJobsByCronjobName(cli, namespace, cronjobName)
+		if err != nil {
+			if errors.IsNotFound(err) {
+				continue
 			}
-			for _, job := range jobs {
-				oneJob := ClusterJob{
-					Job:     job,
-					Cluster: cluster.Name,
-				}
-				allJobs = append(allJobs, oneJob)
+			logs.Error("get job by cronjob (%s) and cluster (%s) error.%v", cronjobName, cluster, err)
+			c.HandleError(err)
+			return
+		}
+		for _, job := range jobs {
+			oneJob := ClusterJob{
+				Job:     job,
+				Cluster: cluster.Name,
 			}
-		} else {
-			c.AbortBadRequestFormat("Cluster")
+			allJobs = append(allJobs, oneJob)
 		}
 	}
 	c.Success(allJobs)
@@ -86,16 +82,14 @@ func (c *KubeJobController) GetPodsEvent() {
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":job")
 	cronjobName := c.Ctx.Input.Param(":cronjob")
-	manager, err := client.Manager(cluster)
-	if err == nil {
-		result, err := job.GetPodsEvent(manager.Client, manager.CacheFactory, namespace, name, cronjobName)
-		if err != nil {
-			logs.Error("get kubernetes job pods event error.", cluster, namespace, name, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	manager := c.Manager(cluster)
+
+	result, err := job.GetPodsEvent(manager.Client, manager.CacheFactory, namespace, name, cronjobName)
+	if err != nil {
+		logs.Error("get kubernetes job pods event error.", cluster, namespace, name, err)
+		c.HandleError(err)
+		return
 	}
+	c.Success(result)
+
 }

@@ -5,7 +5,6 @@ import (
 
 	"k8s.io/api/core/v1"
 
-	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/controllers/common"
 	"github.com/Qihoo360/wayne/src/backend/models"
@@ -46,10 +45,7 @@ func (c *KubeServiceController) Get() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":service")
-	manager, err := client.Manager(cluster)
-	if err != nil {
-		c.AbortBadRequestFormat("Cluster")
-	}
+	manager := c.Manager(cluster)
 	serviceDetail, err := service.GetServiceDetail(manager.Client, manager.CacheFactory, namespace, name)
 	if err != nil {
 		logs.Error("get kubernetes(%s) namespace(%s) service(%s) detail error: %s", cluster, namespace, name, err.Error())
@@ -74,72 +70,68 @@ func (c *KubeServiceController) Create() {
 	}
 
 	cluster := c.Ctx.Input.Param(":cluster")
-	cli, err := client.Client(cluster)
-	if err == nil {
-		namespaceModel, err := models.NamespaceModel.GetNamespaceByAppId(c.AppId)
-		if err != nil {
-			logs.Error("get getNamespaceMetaData error.%v", err)
-			c.HandleError(err)
-			return
-		}
-
-		clusterModel, err := models.ClusterModel.GetParsedMetaDataByName(cluster)
-		if err != nil {
-			logs.Error("get cluster error.%v", err)
-			c.HandleError(err)
-			return
-		}
-
-		// add service predeploy
-		common.ServicePreDeploy(&kubeService, clusterModel, namespaceModel)
-
-		publishHistory := &models.PublishHistory{
-			Type:         models.PublishTypeService,
-			ResourceId:   int64(serviceId),
-			ResourceName: kubeService.Name,
-			TemplateId:   int64(tplId),
-			Cluster:      cluster,
-			User:         c.User.Name,
-		}
-		defer models.PublishHistoryModel.Add(publishHistory)
-		// 发布资源到k8s平台
-		_, err = service.CreateOrUpdateService(cli, &kubeService)
-
-		if err != nil {
-			publishHistory.Status = models.ReleaseFailure
-			publishHistory.Message = err.Error()
-			logs.Error("deploy service error.%v", err)
-			c.HandleError(err)
-			return
-		} else {
-			publishHistory.Status = models.ReleaseSuccess
-			// 添加发布状态
-			publishStatus := models.PublishStatus{
-				ResourceId: int64(serviceId),
-				TemplateId: int64(tplId),
-				Type:       models.PublishTypeService,
-				Cluster:    cluster,
-			}
-			err = models.PublishStatusModel.Publish(&publishStatus)
-			if err != nil {
-				logs.Error("publish publishStatus (%v) to db error.%v", publishStatus, err)
-				c.HandleError(err)
-				return
-			}
-		}
-		webhook.PublishEventService(c.NamespaceId, c.AppId, c.User.Name, c.Ctx.Input.IP(), webhook.OnlineService, response.Resource{
-			Type:         publishHistory.Type,
-			ResourceId:   publishHistory.ResourceId,
-			ResourceName: publishHistory.ResourceName,
-			TemplateId:   publishHistory.TemplateId,
-			Cluster:      publishHistory.Cluster,
-			Status:       publishHistory.Status,
-			Message:      publishHistory.Message,
-			Object:       kubeService,
-		})
-
-		c.Success("ok")
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	cli := c.Client(cluster)
+	namespaceModel, err := models.NamespaceModel.GetNamespaceByAppId(c.AppId)
+	if err != nil {
+		logs.Error("get getNamespaceMetaData error.%v", err)
+		c.HandleError(err)
+		return
 	}
+
+	clusterModel, err := models.ClusterModel.GetParsedMetaDataByName(cluster)
+	if err != nil {
+		logs.Error("get cluster error.%v", err)
+		c.HandleError(err)
+		return
+	}
+
+	// add service predeploy
+	common.ServicePreDeploy(&kubeService, clusterModel, namespaceModel)
+
+	publishHistory := &models.PublishHistory{
+		Type:         models.PublishTypeService,
+		ResourceId:   int64(serviceId),
+		ResourceName: kubeService.Name,
+		TemplateId:   int64(tplId),
+		Cluster:      cluster,
+		User:         c.User.Name,
+	}
+	defer models.PublishHistoryModel.Add(publishHistory)
+	// 发布资源到k8s平台
+	_, err = service.CreateOrUpdateService(cli, &kubeService)
+
+	if err != nil {
+		publishHistory.Status = models.ReleaseFailure
+		publishHistory.Message = err.Error()
+		logs.Error("deploy service error.%v", err)
+		c.HandleError(err)
+		return
+	} else {
+		publishHistory.Status = models.ReleaseSuccess
+		// 添加发布状态
+		publishStatus := models.PublishStatus{
+			ResourceId: int64(serviceId),
+			TemplateId: int64(tplId),
+			Type:       models.PublishTypeService,
+			Cluster:    cluster,
+		}
+		err = models.PublishStatusModel.Publish(&publishStatus)
+		if err != nil {
+			logs.Error("publish publishStatus (%v) to db error.%v", publishStatus, err)
+			c.HandleError(err)
+			return
+		}
+	}
+	webhook.PublishEventService(c.NamespaceId, c.AppId, c.User.Name, c.Ctx.Input.IP(), webhook.OnlineService, response.Resource{
+		Type:         publishHistory.Type,
+		ResourceId:   publishHistory.ResourceId,
+		ResourceName: publishHistory.ResourceName,
+		TemplateId:   publishHistory.TemplateId,
+		Cluster:      publishHistory.Cluster,
+		Status:       publishHistory.Status,
+		Message:      publishHistory.Message,
+		Object:       kubeService,
+	})
+
+	c.Success("ok")
 }

@@ -229,16 +229,12 @@ func (c *KubeStatefulsetController) Get() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":statefulset")
-	manager, err := client.Manager(cluster)
-	if err == nil {
-		result, err := statefulset.GetStatefulsetDetail(manager.Client, manager.CacheFactory, name, namespace)
-		if err != nil {
-			logs.Error("get kubernetes statefulset detail error.", cluster, namespace, name, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	manager := c.Manager(cluster)
+	result, err := statefulset.GetStatefulsetDetail(manager.Client, manager.CacheFactory, name, namespace)
+	if err != nil {
+		logs.Error("get kubernetes statefulset detail error.", cluster, namespace, name, err)
+		c.HandleError(err)
+		return
 	}
+	c.Success(result)
 }
