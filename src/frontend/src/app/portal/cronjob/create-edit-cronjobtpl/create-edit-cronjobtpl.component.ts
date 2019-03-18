@@ -318,14 +318,16 @@ export class CreateEditCronjobTplComponent extends ContainerTpl implements OnIni
     this.initNavList();
   }
 
-  onAddEnv(index: number) {
+  onAddEnv(index: number, event: Event) {
+    event.stopPropagation();
     if (!this.kubeResource.spec.jobTemplate.spec.template.spec.containers[index].env) {
       this.kubeResource.spec.jobTemplate.spec.template.spec.containers[index].env = [];
     }
     this.kubeResource.spec.jobTemplate.spec.template.spec.containers[index].env.push(this.defaultEnv(0));
   }
 
-  onAddEnvFrom(index: number) {
+  onAddEnvFrom(index: number, event: Event) {
+    event.stopPropagation();
     if (!this.kubeResource.spec.jobTemplate.spec.template.spec.containers[index].envFrom) {
       this.kubeResource.spec.jobTemplate.spec.template.spec.containers[index].envFrom = [];
     }

@@ -255,14 +255,16 @@ export class CreateEditDaemonSetTplComponent extends ContainerTpl implements OnI
     this.kubeResource.spec.template.spec.containers.push(this.defaultContainer());
   }
 
-  onAddEnv(index: number) {
+  onAddEnv(index: number, event: Event) {
+    event.stopPropagation();
     if (!this.kubeResource.spec.template.spec.containers[index].env) {
       this.kubeResource.spec.template.spec.containers[index].env = [];
     }
     this.kubeResource.spec.template.spec.containers[index].env.push(this.defaultEnv(0));
   }
 
-  onAddEnvFrom(index: number) {
+  onAddEnvFrom(index: number, event: Event) {
+    event.stopPropagation();
     if (!this.kubeResource.spec.template.spec.containers[index].envFrom) {
       this.kubeResource.spec.template.spec.containers[index].envFrom = [];
     }

@@ -1,4 +1,4 @@
-$padding: 16px;
+$padding: 20px;
 $margin: 15px;
 :host {
   display: block;
@@ -20,4 +20,5 @@ $margin: 15px;
 }
 .content {
   overflow: hidden;
+  padding-left: 20px;
 }
