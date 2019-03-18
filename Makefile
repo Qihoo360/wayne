@@ -9,7 +9,7 @@ UI_BUILD_VERSION :=v1.0.1
 SERVER_BUILD_VERSION :=v1.0.0
 
 
-release: build-release-image push-image
+release: build-release-image push-image build-eks-release-image push-eks-image
 
 update-version:
 	./hack/updateversion.sh
@@ -48,6 +48,14 @@ build-release-image:
 
 push-image:
 	docker push $(REGISTRY_URI)/wayne:$(RELEASE_VERSION)
+
+# release, requiring Docker 17.05 or higher on the daemon and client
+build-eks-release-image:
+	@echo "version: $(RELEASE_VERSION)"
+	docker build --no-cache --build-arg RAVEN_DSN=$(RAVEN_DSN) -t $(REGISTRY_URI)/wayne-eks:$(RELEASE_VERSION) -f Dockerfile.eks .
+
+push-eks-image:
+	docker push $(REGISTRY_URI)/wayne-eks:$(RELEASE_VERSION)
 
 
 ## server builder image
