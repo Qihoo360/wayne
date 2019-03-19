@@ -8,7 +8,7 @@ var InitialData = []string{
 	// -- user
 	`INSERT INTO  user  ( id, name, email, display, comment, type, deleted, admin, last_login, last_ip, create_time, update_time, password, salt ) VALUES (1,'admin','admin@gmail.com','管理员','',0,0,1,now(),'127.0.0.1',now(),now(),'e7cadd50397b88397045bf1b7f406b34dc8dc6b8f79d470c0a80cf7aad08690748bf5e6c2d0881bb8bb9c96045b08318fa2b','BZoWKqwaQ6');`,
 	// -- namespace
-	`INSERT INTO  namespace  ( id, name, meta_data, create_time, update_time, user, deleted ) VALUES (1,'demo','{\"namespace\":\"default\"}',now(),now(),'admin',0);`,
+	`INSERT INTO  namespace  ( id, name, kube_namespace, meta_data, create_time, update_time, user, deleted ) VALUES (1,'demo','demo','{\"namespace\":\"default\"}',now(),now(),'admin',0);`,
 	// -- permission
 	`INSERT INTO  permission  ( id,  name,  comment,  create_time,  update_time ) VALUES ('46', 'APPUSER_CREATE', '', now(), now());`,
 	`INSERT INTO  permission  ( id,  name,  comment,  create_time,  update_time ) VALUES ('47', 'APPUSER_UPDATE', '', now(), now());`,

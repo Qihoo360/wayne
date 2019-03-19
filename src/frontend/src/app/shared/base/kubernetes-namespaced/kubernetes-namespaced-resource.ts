@@ -42,14 +42,27 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
     this.initShow();
     this.clusterService.getNames().subscribe(
       response => {
-        const data = response.data;
-        this.clusters = data.map(item => item.name);
-        this.cluster = data[0].name;
-        this.jumpToHref(this.cluster);
+        this.clusters = response.data.map(item => item.name);
+        const initCluster = this.getCluster();
+        this.setCluster(initCluster);
+        this.jumpToHref(initCluster);
 
       },
       error => this.messageHandlerService.handleError(error)
     );
+  }
+
+  setCluster(cluster?: string) {
+    this.cluster = cluster;
+    localStorage.setItem('cluster', cluster);
+  }
+
+  getCluster() {
+    const localStorageCluster = localStorage.getItem('cluster');
+    if (localStorageCluster && this.clusters.indexOf(localStorageCluster.toString()) > -1) {
+        return localStorageCluster.toString();
+    }
+    return this.clusters[0];
   }
 
   registResourceType(resourceType: string) {
@@ -178,7 +191,7 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
   }
 
   jumpToHref(cluster: string) {
-    this.cluster = cluster;
+    this.setCluster(cluster);
     this.kubernetesClient.getNames(this.cluster, KubeResourceNamespace).subscribe(
       resp => {
         this.namespace = '';

@@ -1,7 +1,7 @@
 {
   "version": 0,
   "go_install": true,
-  "watch_ext": [],
+  "watch_ext": ["go"],
   "dir_structure": {
     "watch_all": false,
     "controllers": "",
