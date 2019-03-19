@@ -36,5 +36,5 @@
 </div>
 <wayne-float-window value="{{cluster}}">
   <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster"
-                           (click)="jumpTo(cluster)"></wayne-float-window-item>
+                           (click)="jumpToHref(cluster)"></wayne-float-window-item>
 </wayne-float-window>
