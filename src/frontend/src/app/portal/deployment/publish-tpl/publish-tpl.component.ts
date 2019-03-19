@@ -13,7 +13,6 @@ import { defaultResources, ResourcesActionType } from '../../../shared/shared.co
 import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
 import { DeploymentClient } from '../../../shared/client/v1/kubernetes/deployment';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'publish-tpl',
