@@ -37,6 +37,49 @@ export const containerDom = {
 
 export class ContainerTpl {
   kubeResource: any = {};
+  naviList = JSON.stringify(templateDom);
+  // navgation
+  get containersLength(): number {
+    try {
+      return this.kubeResource.spec.template.spec.containers.length;
+    } catch (error) {
+      return 0;
+    }
+  }
+
+  get containers(): any {
+    try {
+      return this.kubeResource.spec.template.spec.containers;
+    } catch (error) {
+      return [];
+    }
+  }
+
+  containerNameChange() {
+    this.initNavList();
+  }
+
+  setContainDom(i) {
+    const dom = JSON.parse(JSON.stringify(containerDom));
+    if (dom.id === '容器配置') {
+      dom.text = this.containers[i].name ? this.containers[i].name : '容器配置';
+    }
+    dom.id += i ? i : '';
+    dom.child.forEach(item => {
+      item.text = item.id;
+      item.id += i ? i : '';
+    });
+    return dom;
+  }
+
+  initNavList() {
+    this.naviList = null;
+    const naviList = JSON.parse(JSON.stringify(templateDom));
+    for (let key = 0; key < this.containersLength; key++) {
+      naviList[0].child.push(this.setContainDom(key));
+    }
+    this.naviList = JSON.stringify(naviList);
+  }
 
   onAddContainerCommand(index: number) {
     if (!this.kubeResource.spec.template.spec.containers[index].command) {

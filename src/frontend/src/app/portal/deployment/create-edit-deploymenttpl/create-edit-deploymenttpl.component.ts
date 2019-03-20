@@ -67,7 +67,6 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
   memoryUnitPrice = 10;
   top: number;
   box: HTMLElement;
-  naviList = JSON.stringify(templateDom);
   eventList: any[] = Array();
   defaultSafeExecCommand = 'sleep\n30';
 
@@ -165,14 +164,6 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
     return cpuLimit;
   }
 
-  get containersLength(): number {
-    try {
-      return this.kubeResource.spec.template.spec.containers.length;
-    } catch (error) {
-      return 0;
-    }
-  }
-
   initDefault() {
     this.kubeResource = JSON.parse(defaultDeployment);
     this.kubeResource.spec.template.spec.containers.push(this.defaultContainer());
@@ -185,26 +176,6 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
     container.env = [];
     container.envFrom = [];
     return container;
-  }
-
-  // 初始化navigation数据
-
-  setContainDom(i) {
-    const dom = JSON.parse(JSON.stringify(containerDom));
-    dom.id += i ? i : '';
-    dom.child.forEach(item => {
-      item.id += i ? i : '';
-    });
-    return dom;
-  }
-
-  initNavList() {
-    this.naviList = null;
-    const naviList = JSON.parse(JSON.stringify(templateDom));
-    for (let key = 0; key < this.containersLength; key++) {
-      naviList[0].child.push(this.setContainDom(key));
-    }
-    this.naviList = JSON.stringify(naviList);
   }
 
   ngOnInit(): void {
