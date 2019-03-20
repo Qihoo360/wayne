@@ -83,7 +83,7 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
               private messageHandlerService: MessageHandlerService,
               @Inject(DOCUMENT) private document: any,
               private eventManager: EventManager) {
-    super();
+    super(templateDom, containerDom);
   }
 
   formValid(field: string): boolean {

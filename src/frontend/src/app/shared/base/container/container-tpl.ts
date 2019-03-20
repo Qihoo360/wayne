@@ -35,9 +35,42 @@ export const containerDom = {
   ]
 };
 
+export const CronjobTemplateDom = [
+  {
+    id: '创建计划任务模版',
+    child: [
+      {
+        id: '发布信息',
+      },
+      {
+        id: '计划任务配置'
+      }
+    ]
+  }
+];
+
+export const CronjobContainerDom = {
+  id: '容器配置',
+  child: [
+    {
+      id: '镜像配置'
+    },
+    {
+      id: '环境变量配置'
+    }
+  ]
+};
+
 export class ContainerTpl {
   kubeResource: any = {};
-  naviList = JSON.stringify(templateDom);
+  naviList: string;
+
+  constructor(
+    private template: any,
+    private container: any
+  ) {
+    this.naviList = JSON.stringify(template);
+  }
   // navgation
   get containersLength(): number {
     try {
@@ -60,7 +93,7 @@ export class ContainerTpl {
   }
 
   setContainDom(i) {
-    const dom = JSON.parse(JSON.stringify(containerDom));
+    const dom = JSON.parse(JSON.stringify(this.container));
     if (dom.id === '容器配置') {
       dom.text = this.containers[i].name ? this.containers[i].name : '容器配置';
     }

@@ -59,7 +59,6 @@ export class CreateEditStatefulsettplComponent extends ContainerTpl implements O
   statefulset: Statefulset;
   top: number;
   box: HTMLElement;
-  naviList = JSON.stringify(templateDom);
   cpuUnitPrice = 30;
   memoryUnitPrice = 10;
   eventList: any[] = Array();
@@ -77,7 +76,7 @@ export class CreateEditStatefulsettplComponent extends ContainerTpl implements O
               private messageHandlerService: MessageHandlerService,
               @Inject(DOCUMENT) private document: any,
               private eventManager: EventManager) {
-    super();
+    super(templateDom, containerDom);
   }
 
   ngAfterViewInit() {
