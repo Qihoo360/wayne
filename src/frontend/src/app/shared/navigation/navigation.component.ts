@@ -111,7 +111,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   scrollEvent(event?: any) {
-    if (this.jumpTo) {
+    if (this.jumpTo && event) {
       if (this.jumpTo === event.target.scrollTop) {
         this.jumpTo = 0;
       }
@@ -164,7 +164,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   setActive(top: number): void {
     if (this.allNodeOffset) {
       for (let key = 0; key < this.allNodeOffset.length; key++) {
-        if (this.allNodeOffset[key].offset >= top + this.boxOffset) {
+        if (this.allNodeOffset[key].offset > top + this.boxOffset) {
           const nodeId = this.allNodeOffset[key ? key - 1 : 0].id;
           if (!this.isActive(nodeId)) {
             this.removeActive();
