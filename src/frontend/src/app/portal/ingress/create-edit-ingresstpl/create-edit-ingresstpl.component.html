@@ -30,7 +30,7 @@
           <div *ngFor="let path of kubeResource.spec.rules[i].http.paths; let j = index">
             <div class="form-group form-group-padding" >
               <label class="clr-col-md-3 form-group-label-override required">负载均衡名称</label>
-              <wayne-select style="margin-top: 6px;" [direction]="bottom" inputable name="svc_name" [(ngModel)]="kubeResource.spec.rules[i].http.paths[j].backend.serviceName"
+              <wayne-select style="margin-top: 6px;" inputable name="svc_name" [(ngModel)]="kubeResource.spec.rules[i].http.paths[j].backend.serviceName"
                             searchable
                             [placeholder]="'PLACEHOLDER.CHOOSE' | translate">
                 <wayne-option *ngFor="let svc of svcs" [value]="svc.name">{{svc.name}}</wayne-option>
