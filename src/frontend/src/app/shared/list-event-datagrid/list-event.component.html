@@ -20,7 +20,7 @@
       {{'EVENT.ERROR_MESSAGE' | translate}}
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column [clrDgField]="'firstSeen'" [clrDgSortBy]="timeComparator" [(clrDgSortOrder)]="sortOrder">
+  <clr-dg-column [clrDgSortBy]="'creationTimestamp'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       {{'TITLE.START_TIME' | translate}}
     </ng-container>
