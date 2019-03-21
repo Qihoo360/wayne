@@ -31,12 +31,16 @@
         </label>
         <label aria-haspopup="true" role="tooltip" [class.invalid]="!isScheduleValid"
                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-          <input type="text" name="schedule"
-                  [(ngModel)]="kubeResource.spec.schedule"
-                  size="40"
-                  required
-                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left"
-                  [placeholder]="'CRONJOB.EXPRESSION' | translate">
+          <wayne-select [(ngModel)]="kubeResource.spec.schedule"
+                        inputable
+                        name="schedule"
+                        [placeholder]="'PLACEHOLDER.CHOOSE' | translate">
+            <wayne-option value="*/1 * * * *">*/1 * * * *(每分钟)</wayne-option>
+            <wayne-option value="0 * * * *">0 * * * *(每小时)</wayne-option>
+            <wayne-option value="0 0 * * *">0 0 * * *(每天)</wayne-option>
+            <wayne-option value="0 0 * * 0">0 0 * * 0(每周)</wayne-option>
+            <wayne-option value="0 0 1 * *">0 0 1 * *(每月)</wayne-option>
+          </wayne-select>
           <span class="tooltip-content">
             {{'CRONJOB.EXPRESSION_MESSAGE' | translate}}
           </span>
@@ -61,19 +65,42 @@
         </label>
       </div>
       <div class="form-group form-group-padding">
-        <label class="clr-col-md-3 form-group-label-override required">{{'CRONJOB.MAX_EXECUTE_TIME' | translate}}
+        <label class="clr-col-md-3 form-group-label-override">失败重试次数
+          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
+            <clr-icon shape="info-circle" size="24"></clr-icon>
+            <span class="tooltip-content">失败尝试次数，若失败次数超过该值，则任务不会继续尝试工作</span>
+          </a>
+        </label>
+        <input type="number" name="backoffLimit"
+               [(ngModel)]="kubeResource.spec.jobTemplate.spec.backoffLimit">
+        <label class="clr-col-md-3 form-group-label-override" style="color: #000">运行成功限制
+          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
+            <clr-icon shape="info-circle" size="24"></clr-icon>
+            <span class="tooltip-content">标志任务结束需要成功运行的容器组个数</span>
+          </a>
+        </label>
+        <input type="text" name="completions"
+               [(ngModel)]="kubeResource.spec.jobTemplate.spec.completions">
+      </div>
+      <div class="form-group form-group-padding">
+        <label class="clr-col-md-3 form-group-label-override">允许并发数
+          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
+            <clr-icon shape="info-circle" size="24"></clr-icon>
+            <span class="tooltip-content">标志并行运行的容器组的个数</span>
+          </a>
+        </label>
+        <input type="number" name="parallelism"
+               [(ngModel)]="kubeResource.spec.jobTemplate.spec.parallelism">
+        <label class="clr-col-md-3 form-group-label-override" style="color: #000">{{'CRONJOB.MAX_EXECUTE_TIME' | translate}}
           <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
             <clr-icon shape="info-circle" size="24"></clr-icon>
             <span class="tooltip-content">{{'CRONJOB.MAX_EXECUTE_TIME_MESSAGE' | translate}}</span>
           </a>
         </label>
-        <label aria-haspopup="true" role="tooltip" [class.invalid]="formValid('activeDeadlineSeconds')"
-                class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-          <input type="number" name="activeDeadlineSeconds"
-                  [(ngModel)]="kubeResource.spec.jobTemplate.spec.activeDeadlineSeconds" size="45" required
-                  [placeholder]="'CRONJOB.MAX_EXECUTE_TIME' | translate">{{'UNIT.SECOND' | translate}}
-        </label>
+        <input type="text" name="activeDeadlineSeconds"
+               [(ngModel)]="kubeResource.spec.jobTemplate.spec.activeDeadlineSeconds">
       </div>
+
     </wayne-collapse>
     <wayne-collapse *ngFor="let container of kubeResource.spec.jobTemplate.spec.template.spec.containers; let i = index">
       <label class="label-level1" [id]="i ? '容器配置' + i : '容器配置'">{{'TEMPLATE.CONTAINER_CONFIG' | translate}}

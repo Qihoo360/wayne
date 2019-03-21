@@ -82,7 +82,7 @@ export class CreateEditCronjobTplComponent extends ContainerTpl implements OnIni
   top: number;
   box: HTMLElement;
   naviList = JSON.stringify(templateDom);
-  eventList: any = new Array();
+  eventList: any = Array();
 
   constructor(private cronjobTplService: CronjobTplService,
               private fb: FormBuilder,
