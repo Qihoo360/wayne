@@ -7,9 +7,9 @@ import (
 
 func init() {
 
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/job:KubeJobController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/job:KubeJobController"],
+	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/event:KubeEventController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/event:KubeEventController"],
 		beego.ControllerComments{
-			Method:           "ListJobByCronJob",
+			Method:           "List",
 			Router:           `/namespaces/:namespace/clusters/:cluster`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams:     param.Make(),
