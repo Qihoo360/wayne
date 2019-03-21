@@ -1,13 +1,12 @@
-package pod
+package event
 
 import (
-	"k8s.io/api/core/v1"
-
+	"github.com/Qihoo360/wayne/src/backend/resources/common"
 	"github.com/Qihoo360/wayne/src/backend/resources/dataselector"
 )
 
 // implements dataselector.DataCell
-type ObjectCell v1.Pod
+type ObjectCell common.Event
 
 // implements dataselector.DataCell
 func (cell ObjectCell) GetProperty(name dataselector.PropertyName) dataselector.ComparableValue {
@@ -18,10 +17,6 @@ func (cell ObjectCell) GetProperty(name dataselector.PropertyName) dataselector.
 		return dataselector.StdComparableTime(cell.ObjectMeta.CreationTimestamp.Time)
 	case dataselector.NamespaceProperty:
 		return dataselector.StdComparableString(cell.ObjectMeta.Namespace)
-	case dataselector.StatusProperty:
-		return dataselector.StdComparableString(cell.Status.Phase)
-	case "podIP":
-		return dataselector.StdComparableString(cell.Status.PodIP)
 	default:
 		// if name is not supported then just return a constant dummy value, sort will have no effect.
 		return nil

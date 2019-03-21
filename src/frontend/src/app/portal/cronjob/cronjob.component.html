@@ -61,13 +61,4 @@
                 [showState]="showState"
                 [page]="pageState.page"></list-cronjob>
 </div>
-<div *ngIf="cronjobName && cronjobs?.length">
-  <div class="clr-row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
-    <h2 class="header-title">{{'CRONJOB.JOB' | translate}}</h2>
-  </div>
-  <list-job [jobs]="changedJobs"
-            [currentCronjobName]="cronjobName"
-            (paginate)="retrieveJob($event)"
-            [page]="jobPageState.page"
-  ></list-job>
-</div>
+

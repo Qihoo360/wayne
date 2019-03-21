@@ -1,0 +1,77 @@
+<div class="datagrid-row-flex datagrid-row-detail datagrid-container ng-star-inserted">
+  <div class="datagrid-expandable-caret datagrid-fixed-column datagrid-cell ng-star-inserted"></div>
+  <clr-datagrid style="width: 100%">
+    <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
+    <clr-dg-column [clrDgField]="'name'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        {{'TITLE.NAME' | translate}}
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgSortBy]="'status'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        {{'TITLE.STATUS' | translate}}
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'podIP'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        PODIP
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column *ngIf="authService.currentUser.admin">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        NodeName
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        {{'POD.RESTART_NUM' | translate}}
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgSortBy]="'creationTimestamp'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Age
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        {{'TITLE.ACTION' | translate}}
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-row  *ngFor="let pod of pods" [clrDgItem]="pod">
+      <clr-dg-cell class="copy">{{pod.metadata.name}}</clr-dg-cell>
+      <clr-dg-cell>
+          <span class="label label-light-blue"
+                [class.label-danger]="getPodStatus(pod)!=='Running' && getPodStatus(pod)!=='Pending' && getPodStatus(pod)!=='Succeeded'"
+                [class.label-success]="getPodStatus(pod)==='Running' || getPodStatus(pod)==='Succeeded'"
+                [class.label-warning]="getPodStatus(pod)==='Pending'">{{getPodStatus(pod)}}</span>
+      </clr-dg-cell>
+      <clr-dg-cell>{{pod.status.podIP}}</clr-dg-cell>
+      <clr-dg-cell *ngIf="authService.currentUser.admin">{{pod.spec.nodeName}}</clr-dg-cell>
+      <clr-dg-cell>
+          <span *ngFor="let state of pod.status.containerStatuses" class="label label-light-blue"
+                [class.label-danger]="state.restartCount > 10"
+                [class.label-success]="state.restartCount === 0"
+                [class.label-warning]="state.restartCount > 0 && state.restartCount <= 10">
+            {{state.name}} : {{state.restartCount}}
+          </span>
+      </clr-dg-cell>
+      <clr-dg-cell>{{pod.metadata.creationTimestamp | relativeTime}}</clr-dg-cell>
+      <clr-dg-cell>
+        <button *ngIf="authService.currentAppPermission.kubePod.read || authService.currentUser.admin"
+                class="wayne-button text" (click)="enterContainer(pod)"> {{'POD.ENTER_CONTAINER' | translate}}</button>
+        <button *ngIf="authService.currentAppPermission.kubePod.read || authService.currentUser.admin"
+                class="wayne-button text" (click)="podLog(pod)"> {{'POD.LOG' | translate}}</button>
+        <button *ngIf="authService.currentAppPermission.kubePod.delete || authService.currentUser.admin"
+                class="wayne-button text" (click)="deletePod(pod)">{{'BUTTON.DELETE' | translate}}</button>
+      </clr-dg-cell>
+    </clr-dg-row>
+    <clr-dg-footer>
+      <wayne-paginate
+        [(currentPage)]="currentPage"
+        [total]="pageState.page.totalCount"
+        [pageSizes]="[10, 20, 50]"
+        (sizeChange)="pageSizeChange($event)">
+      </wayne-paginate>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>

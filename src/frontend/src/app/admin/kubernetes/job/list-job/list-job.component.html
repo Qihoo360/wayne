@@ -49,7 +49,7 @@
       </div>
     </clr-dg-cell>
     <clr-dg-cell>
-      {{obj.status.succeeded ? obj.status.succeeded : 0}}/{{obj.spec.completions }}
+      {{obj.status.succeeded ? obj.status.succeeded : 0}}/{{ obj.spec.completions ? obj.spec.completions : 1 }}
       <clr-icon style="color: #FF3434" shape="exclamation-triangle" *ngIf="!isReady(obj)"
                 class="is-solid"></clr-icon>
       <clr-icon style="color: green" shape="success-standard" *ngIf="isReady(obj)"
