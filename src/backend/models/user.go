@@ -162,8 +162,8 @@ func (*userModel) GetUserById(id int64) (v *User, err error) {
 
 func (*userModel) GetUserByName(name string) (v *User, err error) {
 	v = &User{Name: name}
-	if err = Ormer().Read(v, "Name"); err == nil {
-		return v, nil
+	if err = Ormer().Read(v, "Name"); err != nil {
+		return nil, err
 	}
 	return v, nil
 }
