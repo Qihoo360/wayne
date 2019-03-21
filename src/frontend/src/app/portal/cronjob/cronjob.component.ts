@@ -2,11 +2,9 @@ import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, 
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListCronjobComponent } from './list-cronjob/list-cronjob.component';
-import { ListJobComponent } from './list-job/list-job.component';
 import { CreateEditCronjobComponent } from './create-edit-cronjob/create-edit-cronjob.component';
 import { combineLatest } from 'rxjs';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { CronjobClient } from '../../shared/client/v1/kubernetes/cronjob';
 import { CronjobStatus, CronjobTpl } from '../../shared/model/v1/cronjobtpl';
 import { App } from '../../shared/model/v1/app';
 import { Cluster } from '../../shared/model/v1/cluster';
@@ -19,7 +17,6 @@ import { KubeCronJob } from '../../shared/model/v1/kubernetes/cronjob';
 import { CacheService } from '../../shared/auth/cache.service';
 import { PublishHistoryService } from '../common/publish-history/publish-history.service';
 import { JobClient } from '../../shared/client/v1/kubernetes/job';
-import { Job } from '../../shared/model/v1/job';
 import { TabDragService } from '../../shared/client/v1/tab-drag.service';
 import { OrderItem } from '../../shared/model/v1/order';
 import {
@@ -27,6 +24,7 @@ import {
   ConfirmationState,
   ConfirmationTargets,
   httpStatusCode,
+  KubeResourceCronJob,
   PublishType,
   TemplateState
 } from '../../shared/shared.const';
@@ -38,6 +36,7 @@ import { ConfirmationDialogService } from '../../shared/confirmation-dialog/conf
 import { Subscription } from 'rxjs/Subscription';
 import { PageState } from '../../shared/page/page-state';
 import { TranslateService } from '@ngx-translate/core';
+import { KubernetesClient } from '../../shared/client/v1/kubernetes/kubernetes';
 
 const showState = {
   'create_time': {hidden: false},
@@ -57,16 +56,12 @@ const showState = {
 export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
   @ViewChild(ListCronjobComponent)
   listCronjob: ListCronjobComponent;
-  @ViewChild(ListJobComponent)
-  listJob: ListJobComponent;
+
   @ViewChild(CreateEditCronjobComponent)
   createEditCronjob: CreateEditCronjobComponent;
 
   pageState: PageState = new PageState();
   isOnline = false;
-
-  jobPageState: PageState = new PageState();
-  changedJobs: Job[];
 
   currentCronjob: Cronjob;
   changedCronjobTpls: CronjobTpl[];
@@ -80,7 +75,6 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
   publishStatus: PublishStatus[];
   subscription: Subscription;
   componentName = '计划任务';
-  jobComponentName = '任务';
   tabScription: Subscription;
   orderCache: Array<OrderItem>;
   showList: any[] = new Array();
@@ -89,7 +83,7 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
   constructor(private cronjobService: CronjobService,
               private publishHistoryService: PublishHistoryService,
               private cronjobTplService: CronjobTplService,
-              private cronjobClient: CronjobClient,
+              private kubernetesClient: KubernetesClient,
               private jobClient: JobClient,
               private route: ActivatedRoute,
               private router: Router,
@@ -105,7 +99,9 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
               public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
     this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
-      if (over) { this.tabChange(); }
+      if (over) {
+        this.tabChange();
+      }
     });
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
@@ -139,7 +135,9 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) { this.showList.push(key); }
+      if (!this.showState[key].hidden) {
+        this.showList.push(key);
+      }
     });
   }
 
@@ -170,7 +168,9 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
         order: index
       };
     });
-    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) { return; }
+    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) {
+      return;
+    }
     this.cronjobService.updateOrder(this.appId, orderList).subscribe(
       response => {
         if (response.data === 'ok!') {
@@ -212,17 +212,20 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
         const tpl = this.changedCronjobTpls[i];
         if (tpl.status && tpl.status.length > 0) {
           // 定时自动刷新获取Job列表
-          this.retrieveJob();
           for (let j = 0; j < tpl.status.length; j++) {
             const status = tpl.status[j];
-            if (status.errNum > 2)  { continue; }
-            this.cronjobClient.get(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
+            if (status.errNum > 2) {
+              continue;
+            }
+            this.kubernetesClient.get(status.cluster, KubeResourceCronJob, tpl.name, this.cacheService.kubeNamespace,
+              this.appId.toString()).subscribe(
               response => {
                 const code = response.statusCode || response.status;
                 if (code === httpStatusCode.NoContent) {
                   this.changedCronjobTpls[i].status[j].state = TemplateState.NOT_FOUND;
                   return;
                 }
+                this.changedCronjobTpls[i].status[j].kubeObj = response.data;
                 // 防止切换tab tpls数据发生变化导致报错
                 // let podInfo = response.data.pods;
                 if (this.changedCronjobTpls &&
@@ -426,55 +429,6 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
         this.pageState.page.totalCount = tpls.totalCount;
         this.changedCronjobTpls = this.buildTplList(tpls.list, status);
         this.syncStatus();
-        this.retrieveJob();
-      },
-      error => this.messageHandlerService.handleError(error)
-    );
-  }
-
-  // 刷新job列表
-  retrieveJob(state?: ClrDatagridStateInterface): void {
-    if (!this.cronjobName) {
-      return;
-    }
-    if (state) {
-      this.jobPageState = PageState.fromState(state, {
-        totalPage: this.jobPageState.page.totalPage,
-        totalCount: this.jobPageState.page.totalCount
-      });
-    }
-    combineLatest(
-      this.jobClient.listAllClusterByCronjobName(this.appId, this.cacheService.kubeNamespace, this.cronjobName)
-    ).subscribe(
-      response => {
-        const result = response[0];
-        if (result == null) {
-          this.jobPageState.page.totalPage = 0;
-          this.jobPageState.page.totalCount = 0;
-          this.changedJobs = [];
-        } else {
-          let jobs = Array<Job>();
-          jobs = result.data;
-          if (jobs) {
-            this.jobPageState.page.totalPage = Math.ceil(jobs.length / this.jobPageState.page.pageSize);
-            this.jobPageState.page.totalCount = jobs.length;
-            for (const x in jobs) {
-              // conditions有可能不存在
-              if (jobs[x]['kubeJob']['status']['conditions'] &&
-                jobs[x]['kubeJob']['status']['conditions'][0]['type']) {
-                jobs[x]['kubeJob']['status']['detail'] = jobs[x]['kubeJob']['status']['conditions'][0]['type'];
-              } else if (jobs[x]['kubeJob']['status']['active'] &&
-                jobs[x]['kubeJob']['status']['active'] === jobs[x]['kubeJob']['spec']['parallelism']) {
-                jobs[x]['kubeJob']['status']['detail'] = 'active';
-              }
-            }
-            this.changedJobs = jobs;
-          } else {
-            this.jobPageState.page.totalPage = 0;
-            this.jobPageState.page.totalCount = 0;
-            this.changedJobs = jobs;
-          }
-        }
       },
       error => this.messageHandlerService.handleError(error)
     );

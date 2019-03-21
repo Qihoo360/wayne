@@ -14,6 +14,9 @@ import { CronjobTplService } from '../../shared/client/v1/cronjobtpl.service';
 import { PodClient } from '../../shared/client/v1/kubernetes/pod';
 import { PublicService } from '../../shared/client/v1/public.service';
 import { LogClient } from '../../shared/client/v1/kubernetes/log';
+import { ListPodComponent } from './list-pod/list-pod.component';
+import { ListEventDatagridComponent } from '../../shared/list-event-datagrid/list-event.component';
+import { EventClient } from '../../shared/client/v1/kubernetes/event';
 
 @NgModule({
   imports: [
@@ -28,6 +31,7 @@ import { LogClient } from '../../shared/client/v1/kubernetes/log';
     PublicService,
     PodClient,
     LogClient,
+    EventClient
   ],
   exports: [
     CronjobComponent
@@ -36,6 +40,8 @@ import { LogClient } from '../../shared/client/v1/kubernetes/log';
     CronjobComponent,
     ListCronjobComponent,
     ListJobComponent,
+    ListPodComponent,
+    ListEventDatagridComponent,
     CreateEditCronjobComponent,
     CreateEditCronjobTplComponent,
     PublishCronjobTplComponent,
