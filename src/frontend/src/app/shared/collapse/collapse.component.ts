@@ -13,7 +13,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         animate('100ms 0s ease-in-out', style({ height: 0 }))
       ]),
       transition('void => *', [
-        style({ height: 0, overflow: 'auto' }),
+        style({ height: 0, overflow: 'hidden' }),
         animate('150ms 0s ease-in-out', style({ height: '*' }))
       ])
     ])
