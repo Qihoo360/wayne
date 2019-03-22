@@ -1,11 +1,12 @@
 import { PublishStatusService } from '../../client/v1/publishstatus.service';
 import { CacheService } from '../../auth/cache.service';
 import { MessageHandlerService } from '../../message-handler/message-handler.service';
-import { ResourcesActionType } from '../../shared.const';
+import { KubeResourcesName, ResourcesActionType } from '../../shared.const';
 import { Cluster } from '../../model/v1/cluster';
 import { EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PublishStatus } from '../../model/v1/publish-status';
+import { KubernetesClient } from '../../client/v1/kubernetes/kubernetes';
 
 export class PublishTemplate {
   @Output() published = new EventEmitter<boolean>();
@@ -22,11 +23,13 @@ export class PublishTemplate {
   actionType: ResourcesActionType;
 
   resourceType: string;
+  kubeResource: KubeResourcesName;
 
   constructor(public messageHandlerService: MessageHandlerService,
               public cacheService: CacheService,
               public resourceService: any,
               public resourceClient: any,
+              public kubernetesClient: KubernetesClient,
               public publishStatusService: PublishStatusService) {
   }
 
@@ -65,6 +68,10 @@ export class PublishTemplate {
       }
     }
 
+  }
+
+  registKubeResource(kubeResource: string) {
+    this.kubeResource = kubeResource;
   }
 
   onCancel() {
@@ -108,7 +115,8 @@ export class PublishTemplate {
 
   offline(cluster: Cluster) {
     const state = this.getStatusByCluster(this.template.status, cluster.name);
-    this.resourceClient.deleteByName(this.appId, cluster.name, this.cacheService.kubeNamespace, this.template.name).subscribe(
+    this.kubernetesClient.delete(cluster.name, this.kubeResource, false,
+      this.template.name, this.cacheService.kubeNamespace, this.appId.toString()).subscribe(
       response => {
         this.deletePublishStatus(state.id);
       },

@@ -5,6 +5,8 @@ import { MessageHandlerService } from '../../../shared/message-handler/message-h
 import { PublishTemplate } from '../../../shared/base/resource/publish-template';
 import { AutoscaleService } from '../../../shared/client/v1/autoscale.service';
 import { AutoscaleClient } from '../../../shared/client/v1/kubernetes/autoscale';
+import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
+import { KubeResourceHorizontalPodAutoscaler } from '../../../shared/shared.const';
 
 @Component({
   selector: 'wayne-publish-tpl',
@@ -17,9 +19,11 @@ export class PublishTplComponent extends PublishTemplate {
               public cacheService: CacheService,
               public autoscaleService: AutoscaleService,
               public autoscaleClient: AutoscaleClient,
+              public kubernetesClient: KubernetesClient,
               public publishStatusService: PublishStatusService) {
-    super(messageHandlerService, cacheService, autoscaleService, autoscaleClient, publishStatusService);
+    super(messageHandlerService, cacheService, autoscaleService, autoscaleClient, kubernetesClient, publishStatusService);
     super.registResourceType('HPA');
+    super.registKubeResource(KubeResourceHorizontalPodAutoscaler);
   }
 
   public getResourceId() {

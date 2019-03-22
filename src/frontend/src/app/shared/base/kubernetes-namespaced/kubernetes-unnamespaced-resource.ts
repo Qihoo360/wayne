@@ -37,21 +37,28 @@ export class KubernetesUnNamespacedResource implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initShow();
-    const cluster = this.route.snapshot.params['cluster'];
     this.clusterService.getNames().subscribe(
       response => {
-        const data = response.data;
-        this.clusters = data.map(item => item.name);
-        if (data && data.length > 0 && !cluster) {
-          this.router.navigateByUrl(`admin/kubernetes/${this.resourceType}/${data[0].name}`);
-          return;
-        }
-        if (cluster) {
-          this.jumpToHref(cluster);
-        }
+        this.clusters = response.data.map(item => item.name);
+        const initCluster = this.getCluster();
+        this.setCluster(initCluster);
+        this.jumpToHref(initCluster);
       },
       error => this.messageHandlerService.handleError(error)
     );
+  }
+
+  setCluster(cluster?: string) {
+    this.cluster = cluster;
+    localStorage.setItem('cluster', cluster);
+  }
+
+  getCluster() {
+    const localStorageCluster = localStorage.getItem('cluster');
+    if (localStorageCluster && this.clusters.indexOf(localStorageCluster.toString()) > -1) {
+      return localStorageCluster.toString();
+    }
+    return this.clusters[0];
   }
 
   registResourceType(resourceType: string) {
@@ -191,8 +198,7 @@ export class KubernetesUnNamespacedResource implements OnInit, OnDestroy {
   }
 
   jumpToHref(cluster) {
-    this.cluster = cluster;
-    this.router.navigateByUrl(`admin/kubernetes/${this.resourceType}/${cluster}`);
+    this.setCluster(cluster);
     this.retrieveResource();
   }
 

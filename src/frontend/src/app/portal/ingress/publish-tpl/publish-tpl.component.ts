@@ -8,6 +8,8 @@ import { IngressService } from '../../../shared/client/v1/ingress.service';
 import { IngressClient } from '../../../shared/client/v1/kubernetes/ingress';
 import { Ingress } from '../../../shared/model/v1/ingress';
 import { PublishTemplate } from '../../../shared/base/resource/publish-template';
+import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
+import { KubeResourceIngress } from '../../../shared/shared.const';
 
 @Component({
   selector: 'publish-tpl',
@@ -19,9 +21,11 @@ export class PublishIngressTplComponent extends PublishTemplate {
               public cacheService: CacheService,
               public ingressService: IngressService,
               public ingressClient: IngressClient,
+              public kubernetesClient: KubernetesClient,
               public publishStatusService: PublishStatusService) {
-    super(messageHandlerService, cacheService, ingressService, ingressClient, publishStatusService);
+    super(messageHandlerService, cacheService, ingressService, ingressClient, kubernetesClient, publishStatusService);
     super.registResourceType('Ingress');
+    super.registKubeResource(KubeResourceIngress);
   }
 
   public getResourceId() {

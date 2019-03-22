@@ -43,7 +43,7 @@
                   class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" class="clr-col-sm-12" size="90" required name="container.name_{{i}}"
                     pattern="[a-z]([-a-z0-9]*[a-z0-9])?" [(ngModel)]="container.name"
-                    [placeholder]="'RULE.CONTAINER' | translate">
+                    [placeholder]="'RULE.CONTAINER' | translate" (input)="containerNameChange()"  (compositionend)="containerNameChange()">
             <span class="tooltip-content">
               {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
             </span>

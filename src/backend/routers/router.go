@@ -29,6 +29,7 @@ import (
 	kcronjob "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/cronjob"
 	kdaemonset "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/daemonset"
 	kdeployment "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/deployment"
+	kevent "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/event"
 	khpa "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/hpa"
 	kingress "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/ingress"
 	kjob "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/job"
@@ -278,6 +279,10 @@ func init() {
 		beego.NSNamespace("/kubernetes/apps/:appid([0-9]+)/pods",
 			beego.NSInclude(
 				&kpod.KubePodController{}),
+		),
+		beego.NSNamespace("/kubernetes/apps/:appid([0-9]+)/events",
+			beego.NSInclude(
+				&kevent.KubeEventController{}),
 		),
 		beego.NSNamespace("/kubernetes/apps/:appid([0-9]+)/podlogs",
 			beego.NSInclude(

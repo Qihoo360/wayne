@@ -14,15 +14,21 @@ const adminSideNav: any[] = [
   { type: SideNavType.NormalLink, a: { link: 'reportform/overview', title: 'MENU.PLATFORM_OVERVIEW', text: 'MENU.PLATFORM_OVERVIEW', icon: { shape: 'help-info' } } },
   { type: SideNavType.Divider },
   {
+    type: SideNavType.GroupLink, icon: { title: 'MENU.CLUSTER', shape: 'cloud-scale' }, text: 'MENU.CLUSTER', child: [
+      { a: { link: 'cluster', text: 'MENU.LIST', options: { exact: true } } },
+      { a: { link: 'cluster/trash', text: 'MENU.RECYCLED', options: { exact: true } } },
+    ]
+  },
+  {
     type: SideNavType.GroupLink, icon: { shape: 'world', title: 'Kubernetes', solid: true }, text: 'Kubernetes', child: [
+      { a: { link: 'kubernetes/node', text: 'Node', options: {exact: false}, icon: { shape: 'devices', solid: false } } },
+      { a: { link: 'kubernetes/namespace', text: 'Namespace', options: {exact: false}, icon: { shape: 'vmw-app', solid: true } } },
+      { type: SideNavType.Divider },
       { a: { link: 'kubernetes/role', text: 'Role', options: {exact: false}, icon: { shape: 'assign-user' } } },
       { a: { link: 'kubernetes/clusterrole', text: 'ClusterRole', options: {exact: false}, icon: { shape: 'assign-user', solid: true } } },
       { a: { link: 'kubernetes/rolebinding', text: 'RoleBinding', options: {exact: false}, icon: { shape: 'administrator', solid: false } } },
       { a: { link: 'kubernetes/clusterrolebinding', text: 'ClusterRoleBinding', options: {exact: false}, icon: { shape: 'administrator', solid: true } } },
       { a: { link: 'kubernetes/serviceaccount', text: 'ServiceAccount', options: { exact: false }, icon: { shape: 'user', solid: false } } },
-      { type: SideNavType.Divider },
-      { a: { link: 'kubernetes/namespace', text: 'Namespace', options: {exact: false}, icon: { shape: 'vmw-app', solid: true } } },
-      { a: { link: 'kubernetes/node', text: 'Node', options: {exact: false}, icon: { shape: 'devices', solid: false } } },
       { type: SideNavType.Divider },
       { a: { link: 'kubernetes/deployment', text: 'Deployment', options: { exact: false }, icon: { shape: 'event', solid: false } } },
       { a: { link: 'kubernetes/replicaset', text: 'ReplicaSet', options: { exact: false }, icon: { shape: 'box-plot', solid: false } } },
@@ -66,12 +72,6 @@ const adminSideNav: any[] = [
     ]
   },
   { type: SideNavType.Divider },
-  {
-    type: SideNavType.GroupLink, icon: { title: 'MENU.CLUSTER', shape: 'cloud-scale' }, text: 'MENU.CLUSTER', child: [
-      { a: { link: 'cluster', text: 'MENU.LIST', options: { exact: true } } },
-      { a: { link: 'cluster/trash', text: 'MENU.RECYCLED', options: { exact: true } } },
-    ]
-  },
   {
     type: SideNavType.GroupLink, icon: { title: 'MENU.NAMESPACE', shape: 'vmw-app' }, text: 'MENU.NAMESPACE', child: [
       { a: { link: 'namespace', text: 'MENU.LIST', options: { exact: true } } },

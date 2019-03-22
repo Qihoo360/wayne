@@ -106,22 +106,30 @@ export class NodesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initShow();
-    let cluster = this.route.snapshot.params['cluster'];
     this.clusterService.getNames().subscribe(
       resp => {
-        const data = resp.data;
-        if (data) {
-          this.clusters = data.map(item => item.name);
-          if (data.length > 0 && !this.cluster || this.clusters.indexOf(this.cluster) === -1) {
-            cluster = cluster ? cluster : data[0].name;
-          }
-          this.jumpTo(cluster);
-        }
+        this.clusters = resp.data.map(item => item.name);
+        const initCluster = this.getCluster();
+        this.setCluster(initCluster);
+        this.jumpToHref(initCluster);
       },
       error => {
         this.messageHandlerService.handleError(error);
       }
     );
+  }
+
+  setCluster(cluster?: string) {
+    this.cluster = cluster;
+    localStorage.setItem('cluster', cluster);
+  }
+
+  getCluster() {
+    const localStorageCluster = localStorage.getItem('cluster');
+    if (localStorageCluster && this.clusters.indexOf(localStorageCluster.toString()) > -1) {
+      return localStorageCluster.toString();
+    }
+    return this.clusters[0];
   }
 
   ngOnDestroy(): void {
@@ -203,9 +211,8 @@ export class NodesComponent implements OnInit, OnDestroy {
     this.deletionDialogService.openComfirmDialog(deletionMessage);
   }
 
-  jumpTo(cluster: string) {
-    this.cluster = cluster;
-    this.router.navigateByUrl(`admin/kubernetes/node/${cluster}`);
+  jumpToHref(cluster: string) {
+    this.setCluster(cluster);
     this.retrieve();
   }
 
