@@ -329,6 +329,7 @@ export class CreateEditStatefulsettplComponent extends ContainerTpl implements O
     container.resources.limits = {'memory': '', 'cpu': ''};
     container.env = [];
     container.envFrom = [];
+    container.imagePullPolicy = 'IfNotPresent';
     return container;
   }
 
