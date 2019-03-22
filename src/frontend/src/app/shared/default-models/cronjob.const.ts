@@ -10,19 +10,26 @@ export const defaultCronJob = `{
         }
       },
       "spec": {
+        "activeDeadlineSeconds": 30,
+        "parallelism": 1,
+        "completions": 1,
+        "backoffLimit": 6,
         "template": {
           "metadata": {
             "labels": {
             }
           },
           "spec": {
-            "restartPolicy":"Never",
+            "restartPolicy": "Never",
             "containers": []
           }
         }
       }
     },
     "concurrencyPolicy": "Allow",
-    "schedule": "*/1 * * * *"
+    "schedule": "*/1 * * * *",
+    "successfulJobsHistoryLimit": 3,
+    "failedJobsHistoryLimit": 1
   }
-}`;
+}
+`;

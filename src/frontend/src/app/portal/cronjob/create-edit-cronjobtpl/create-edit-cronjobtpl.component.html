@@ -65,6 +65,25 @@
         </label>
       </div>
       <div class="form-group form-group-padding">
+        <label class="clr-col-md-3 form-group-label-override">保留成功 Job 数
+          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
+            <clr-icon shape="info-circle" size="24"></clr-icon>
+            <span class="tooltip-content">允许保留的成功的任务个数</span>
+          </a>
+        </label>
+        <input type="number" name="successfulJobsHistoryLimit"
+               [(ngModel)]="kubeResource.spec.successfulJobsHistoryLimit">
+        <label class="clr-col-md-3 form-group-label-override" style="color: #000">保留失败 Job 数
+          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
+            <clr-icon shape="info-circle" size="24"></clr-icon>
+            <span class="tooltip-content">允许保留的失败的任务个数</span>
+          </a>
+        </label>
+        <input type="number" name="failedJobsHistoryLimit"
+               [(ngModel)]="kubeResource.spec.failedJobsHistoryLimit">
+      </div>
+
+      <div class="form-group form-group-padding">
         <label class="clr-col-md-3 form-group-label-override">失败重试次数
           <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
             <clr-icon shape="info-circle" size="24"></clr-icon>
@@ -79,9 +98,11 @@
             <span class="tooltip-content">标志任务结束需要成功运行的容器组个数</span>
           </a>
         </label>
-        <input type="text" name="completions"
+        <input type="number" name="completions"
                [(ngModel)]="kubeResource.spec.jobTemplate.spec.completions">
       </div>
+
+
       <div class="form-group form-group-padding">
         <label class="clr-col-md-3 form-group-label-override">允许并发数
           <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
@@ -97,7 +118,7 @@
             <span class="tooltip-content">{{'CRONJOB.MAX_EXECUTE_TIME_MESSAGE' | translate}}</span>
           </a>
         </label>
-        <input type="text" name="activeDeadlineSeconds"
+        <input type="number" name="activeDeadlineSeconds"
                [(ngModel)]="kubeResource.spec.jobTemplate.spec.activeDeadlineSeconds">
       </div>
 
