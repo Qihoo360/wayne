@@ -344,6 +344,7 @@ export class CreateEditDaemonSetTplComponent extends ContainerTpl implements OnI
     container.resources.limits = {'memory': '', 'cpu': ''};
     container.env = [];
     container.envFrom = [];
+    container.imagePullPolicy = 'IfNotPresent';
     return container;
   }
 

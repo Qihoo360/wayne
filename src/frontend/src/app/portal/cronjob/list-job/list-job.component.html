@@ -45,14 +45,6 @@
               </div>
               <div class="clr-row group">
                 <div class="clr-col-sm-3" style="font-weight:600">
-                  执行中的任务数
-                </div>
-                <div class="clr-col-sm-9">
-                  {{kubeObj.status.active?.lenght}}
-                </div>
-              </div>
-              <div class="clr-row group">
-                <div class="clr-col-sm-3" style="font-weight:600">
                   最大执行时间
                 </div>
                 <div class="clr-col-sm-9">
@@ -85,10 +77,18 @@
               </div>
               <div class="clr-row group">
                 <div class="clr-col-sm-3" style="font-weight:600">
+                  已激活任务数
+                </div>
+                <div class="clr-col-sm-9">
+                  {{ kubeObj.status.active?.length }}
+                </div>
+              </div>
+              <div class="clr-row group">
+                <div class="clr-col-sm-3" style="font-weight:600">
                   最后调度时间
                 </div>
                 <div class="clr-col-sm-9">
-                  {{kubeObj.status.lastScheduleTime}}
+                  {{kubeObj.status.lastScheduleTime | date:'yyyy-MM-dd HH:mm:ss' }}
                 </div>
               </div>
             </section>

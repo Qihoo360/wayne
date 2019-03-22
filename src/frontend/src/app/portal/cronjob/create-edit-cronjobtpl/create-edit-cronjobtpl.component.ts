@@ -215,6 +215,7 @@ export class CreateEditCronjobTplComponent extends ContainerTpl implements OnIni
     container.resources.limits = {'memory': '', 'cpu': ''};
     container.env = [];
     container.envFrom = [];
+    container.imagePullPolicy = 'IfNotPresent';
     return container;
   }
 

@@ -175,6 +175,7 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
     container.resources.limits = {'memory': '', 'cpu': ''};
     container.env = [];
     container.envFrom = [];
+    container.imagePullPolicy = 'IfNotPresent';
     return container;
   }
 
