@@ -19,6 +19,7 @@ import { ServiceService } from '../../../../../lib/shared/client/v1/service.serv
 import { Service } from '../../../../../lib/shared/model/service';
 import { SecretService } from '../../../shared/client/v1/secret.service';
 import { Secret } from '../../../shared/model/v1/secret';
+import { IngressBackend, IngressPath, IngressRule } from '../../../shared/model/v1/kubernetes/ingress';
 
 
 @Component({
@@ -160,19 +161,52 @@ export class CreateEditIngressTplComponent extends CreateEditResourceTemplate im
   }
 
   onAddPath(idx: number) {
-    this.kubeResource.spec.rules[idx].http.paths.push({backend: {serviceName: '', servicePort: 80}, path: '/'});
+    this.kubeResource.spec.rules[idx].http.paths.push(this.defaultIngressPath());
+  }
+
+  defaultIngressPath() {
+    const ingressPath = new IngressPath();
+    ingressPath.path = '/';
+    ingressPath.backend = new IngressBackend();
+    ingressPath.backend.servicePort = 80;
+    return ingressPath;
   }
 
   onDeletePath(i: number, j: number) {
     this.kubeResource.spec.rules[i].http.paths.splice(j, 1);
   }
 
-  onAddTLS() {
+  onAddTLS(event: Event) {
+    event.stopPropagation();
     this.kubeResource.spec.tls.push({hosts: [''], secretName: ''});
   }
 
   onDeleteTLS(i: number) {
     this.kubeResource.spec.tls.splice(i, 1);
+  }
+
+  onDeleteHost(i: number, j: number) {
+    this.kubeResource.spec.tls[i].hosts.splice(j, 1);
+  }
+
+  onAddHost(i: number) {
+    this.kubeResource.spec.tls[i].hosts.push('');
+  }
+
+  onAddRule(event: Event) {
+    event.stopPropagation();
+    const cngressRule = IngressRule.emptyObject();
+    cngressRule.http.paths = [];
+    cngressRule.http.paths.push(this.defaultIngressPath());
+    this.kubeResource.spec.rules.push(cngressRule);
+  }
+
+  onDeleteRule(i: number) {
+    this.kubeResource.spec.rules.splice(i, 1);
+  }
+
+  trackByFn(index, item) {
+    return index;
   }
 }
 
