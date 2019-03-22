@@ -275,6 +275,16 @@
             <label class="clr-col-md-3 form-group-label-override">{{'TEMPLATE.FAIL_NUM' | translate}}</label>
             <input type="number" required name="container.readinessProbe.failureThreshold{{i}}"
                     [(ngModel)]="container.readinessProbe.failureThreshold">
+            <label class="clr-col-md-3 form-group-label-override">{{'TEMPLATE.CHECK_DELAY' | translate}}
+              <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
+                <clr-icon shape="info-circle" size="24"></clr-icon>
+                <span class="tooltip-content">{{'TEMPLATE.CHECK_DELAY_MESSAGE' | translate}}</span>
+              </a>
+            </label>
+            <input type="number" required name="container.readinessProbe.initialDelaySeconds{{i}}"
+                   [(ngModel)]="container.readinessProbe.initialDelaySeconds"
+                   [placeholder]="'PLACEHOLDER.SECOND' | translate">
+
           </div>
 
           <div class="form-group form-group-padding">

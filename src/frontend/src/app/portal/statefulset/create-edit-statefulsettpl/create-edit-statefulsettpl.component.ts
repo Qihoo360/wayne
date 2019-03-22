@@ -268,6 +268,7 @@ export class CreateEditStatefulsettplComponent extends ContainerTpl implements O
       probe.httpGet = new HTTPGetAction();
       probe.timeoutSeconds = 1;
       probe.periodSeconds = 10;
+      probe.initialDelaySeconds = 30;
       probe.failureThreshold = 10;
     }
     this.kubeResource.spec.template.spec.containers[i].readinessProbe = probe;
