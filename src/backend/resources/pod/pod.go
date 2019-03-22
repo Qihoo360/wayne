@@ -184,8 +184,8 @@ func pageResult(relatePod []*v1.Pod, q *common.QueryParam) *common.Page {
 	}
 
 	sort.Slice(commonObjs, func(i, j int) bool {
-		return commonObjs[j].GetProperty(dataselector.CreationTimestampProperty).
-			Compare(commonObjs[i].GetProperty(dataselector.CreationTimestampProperty)) == -1
+		return commonObjs[j].GetProperty(dataselector.NameProperty).
+			Compare(commonObjs[i].GetProperty(dataselector.NameProperty)) == -1
 	})
 
 	return dataselector.DataSelectPage(commonObjs, q)
