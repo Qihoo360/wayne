@@ -2,7 +2,6 @@ package job
 
 import (
 	batchv1 "k8s.io/api/batch/v1"
-	"k8s.io/apimachinery/pkg/api/errors"
 
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
@@ -20,8 +19,7 @@ type ClusterJob struct {
 }
 
 func (c *KubeJobController) URLMapping() {
-	c.Mapping("ListAllClusterByCronjob", c.ListAllClusterByCronjob)
-	c.Mapping("GetPodsEvent", c.GetPodsEvent)
+	c.Mapping("ListJobByCronJob", c.ListJobByCronJob)
 }
 
 func (c *KubeJobController) Prepare() {
@@ -29,67 +27,33 @@ func (c *KubeJobController) Prepare() {
 	c.APIController.Prepare()
 
 	methodActionMap := map[string]string{
-		"ListAllClusterByCronjob": models.PermissionRead,
-		"GetPodsEvent":            models.PermissionRead,
+		"ListJobByCronJob": models.PermissionRead,
+		"GetEvent":         models.PermissionRead,
 	}
 	_, method := c.GetControllerAndAction()
 	c.PreparePermission(methodActionMap, method, models.PermissionTypeKubeJob)
 }
 
-// @Title Get
-// @Description find Job by cluster
-// @Success 200 {object} models.Job success
-// @router /listAllClusterByCronjob/:cronjob/namespaces/:namespace [get]
-func (c *KubeJobController) ListAllClusterByCronjob() {
-	namespace := c.Ctx.Input.Param(":namespace")
-	cronjobName := c.Ctx.Input.Param(":cronjob")
-	clusters, err := models.ClusterModel.GetNames(false)
-	if err != nil {
-		logs.Error("get cluster error. %v", err)
-		c.HandleError(err)
-		return
-	}
-	var allJobs []ClusterJob
-	for _, cluster := range clusters {
-		cli := c.Client(cluster.Name)
-
-		jobs, err := job.GetJobsByCronjobName(cli, namespace, cronjobName)
-		if err != nil {
-			if errors.IsNotFound(err) {
-				continue
-			}
-			logs.Error("get job by cronjob (%s) and cluster (%s) error.%v", cronjobName, cluster, err)
-			c.HandleError(err)
-			return
-		}
-		for _, job := range jobs {
-			oneJob := ClusterJob{
-				Job:     job,
-				Cluster: cluster.Name,
-			}
-			allJobs = append(allJobs, oneJob)
-		}
-	}
-	c.Success(allJobs)
-}
-
-// @Title Get
-// @Description find job by cluster
-// @Success 200 {object} models.Job success
-// @router /getPodsEvent/:job/:cronjob/namespaces/:namespace/clusters/:cluster [get]
-func (c *KubeJobController) GetPodsEvent() {
+// @Title ListJobByCronJob
+// @Description find jobs by cronjob
+// @Param	pageNo		query 	int	false		"the page current no"
+// @Param	pageSize		query 	int	false		"the page size"
+// @Param	name		query 	string	true		"the cronjob name."
+// @Param	cluster		query 	string	true		"the cluster name."
+// @Success 200 {object} models.Deployment success
+// @router /namespaces/:namespace/clusters/:cluster [get]
+func (c *KubeJobController) ListJobByCronJob() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
-	name := c.Ctx.Input.Param(":job")
-	cronjobName := c.Ctx.Input.Param(":cronjob")
+	cronJob := c.Input().Get("name")
+	param := c.BuildKubernetesQueryParam()
 	manager := c.Manager(cluster)
+	result, err := job.GetRelatedJobByCronJob(manager.KubeClient, namespace, cronJob, param)
 
-	result, err := job.GetPodsEvent(manager.Client, manager.CacheFactory, namespace, name, cronjobName)
 	if err != nil {
-		logs.Error("get kubernetes job pods event error.", cluster, namespace, name, err)
+		logs.Error("Get kubernetes Job by CronJob error.", cluster, namespace, cronJob, err)
 		c.HandleError(err)
 		return
 	}
 	c.Success(result)
-
 }

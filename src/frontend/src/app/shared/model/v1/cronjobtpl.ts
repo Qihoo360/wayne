@@ -30,6 +30,8 @@ export class CronjobStatus {
   warnings: Event[];
   errNum: number;
 
+  kubeObj: any;
+
   constructor() {
     this.errNum = 0;
   }

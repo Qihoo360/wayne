@@ -18,6 +18,9 @@ export class ListJobComponent extends KubernetesListResource {
   isReady(obj: any): boolean {
     const readyNumber = obj.status.succeeded ? obj.status.succeeded : 0;
     const desiredNumber = obj.spec.completions;
+    if (!desiredNumber && readyNumber > 0) {
+      return true;
+    }
     return readyNumber === desiredNumber;
   }
 
