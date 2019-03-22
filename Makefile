@@ -39,7 +39,7 @@ initdata:
 	go run src/backend/database/generatedata/main.go > _dev/wayne-data.sql
 
 swagger-openapi:
-	cd src/backend && swagger generate spec -o openapi.swagger.json
+	cd src/backend && swagger generate spec -o ./swagger/openapi.swagger.json
 
 # release, requiring Docker 17.05 or higher on the daemon and client
 build-release-image:

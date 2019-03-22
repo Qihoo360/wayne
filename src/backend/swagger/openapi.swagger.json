@@ -1,0 +1,713 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "wayne 开放 API （以下简称 openapi）是一组便于开发者调试、第三方工具开发和 CI/CD 的开放数据接口。\nopenapi 虽然格式上满足 Restful，但是并不是单一接口只针对特定资源的操作，在大部分时候单一接口会操作一组资源；\n同时，虽然 openapi 下只允许通过 GET 请求访问，但是并不意味着 GET 操作代表着 Restful 中对 GET 的用法定义；\nopenapi 的路径格式：/openapi/v1/gateway/action/:action，:action 代表特定操作，例如： get_vip_info、upgrade_deployment。\n\nopenapi 所操作的 action 必须搭配具有该 action 权限的 APIKey 使用（作为一个命名为 apikey 的 GET 请求参数），\n而对应的 apikey 需要具备 action 对应的权限（例如：action 对应 get_pod_info 的时候，apikey 需要具备 OPENAPI_GET_POD_INFO 权限），\n同时，受限于某些action的使用场景，可能强制要求附加的 APIKey 的使用范围，目前APIKey的适用范围包括三种，App 级别、Namespace 级别 以及 全局级别。",
+    "title": "Wayne OpenAPI Document",
+    "version": "1.5.0"
+  },
+  "host": "localhost",
+  "basePath": "/openapi/v1/gateway/action",
+  "paths": {
+    "/get_deployment_status": {
+      "get": {
+        "description": "重点关注 kubernetes 集群内状态而非描述信息，当然也可以只关注 healthz 字段。\n该接口可以使用所有种类的 apikey",
+        "tags": [
+          "deploy"
+        ],
+        "summary": "该接口用于返回特定部署的状态信息",
+        "operationId": "DeploymentStatusParam",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Deployment",
+            "name": "deployment",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Namespace",
+            "name": "namespace",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Cluster",
+            "description": "和升级部署存在差别，不允许同时填写多个 cluster",
+            "name": "cluster",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/respdeploymentstatus"
+          },
+          "400": {
+            "$ref": "#/responses/responseState"
+          },
+          "401": {
+            "$ref": "#/responses/responseState"
+          },
+          "500": {
+            "$ref": "#/responses/responseState"
+          }
+        }
+      }
+    },
+    "/get_pod_info": {
+      "get": {
+        "description": "返回 每个 pod 的 pod IP 和 所有 label 列表。\n需要绑定全局 apikey 使用。该接口的权限控制为只能使用全局 apikey 的原因是查询条件为 labelSelector ，是对所有 app 的 条件过滤。",
+        "tags": [
+          "pod"
+        ],
+        "summary": "用于获取线上所有 pod 中包含请求条件中 labelSelector 指定的特定 label 的 pod",
+        "operationId": "PodInfoParam",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "LabelSelector",
+            "name": "labelSelector",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Cluster",
+            "name": "cluster",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/resppodlist"
+          },
+          "401": {
+            "$ref": "#/responses/responseState"
+          },
+          "500": {
+            "$ref": "#/responses/responseState"
+          }
+        }
+      }
+    },
+    "/get_pod_info_from_ip": {
+      "get": {
+        "description": "返回 每个 pod 的 pod IP 和 所有 label 列表。\n需要绑定全局 apikey 使用。该接口的权限控制为只能使用全局 apikey 的原因是查询条件为 IP ，是对所有 app 的 条件过滤。",
+        "tags": [
+          "pod"
+        ],
+        "summary": "用于通过线上 kubernetes Pod IP 反查对应 Pod 信息的接口",
+        "operationId": "PodInfoFromIPParam",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "IPS",
+            "name": "ips",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Cluster",
+            "name": "cluster",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/resppodlist"
+          },
+          "401": {
+            "$ref": "#/responses/responseState"
+          },
+          "500": {
+            "$ref": "#/responses/responseState"
+          }
+        }
+      }
+    },
+    "/get_resource_info": {
+      "get": {
+        "description": "因为查询范围是对所有的服务进行的，因此需要绑定 全局 apikey 使用。",
+        "tags": [
+          "resource"
+        ],
+        "summary": "通过给定的资源类型和资源名称反查出资源所属的 app 和 用户信息",
+        "operationId": "ResourceInfoParam",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "ResourceType",
+            "name": "type",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "name": "name",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/respresourceinfo"
+          },
+          "400": {
+            "$ref": "#/responses/responseState"
+          },
+          "500": {
+            "$ref": "#/responses/responseState"
+          }
+        }
+      }
+    },
+    "/restart_deployment": {
+      "get": {
+        "description": "该接口只能使用 app 级别的 apikey，这样做的目的主要是防止 apikey 的滥用",
+        "tags": [
+          "deploy"
+        ],
+        "summary": "用于用户调用以实现强制重启部署",
+        "operationId": "RestartDeploymentParam",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Deployment",
+            "name": "deployment",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Namespace",
+            "name": "namespace",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Cluster",
+            "description": "和升级部署存在差别，不允许同时填写多个 cluster",
+            "name": "cluster",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/responseSuccess"
+          },
+          "400": {
+            "$ref": "#/responses/responseState"
+          },
+          "401": {
+            "$ref": "#/responses/responseState"
+          },
+          "500": {
+            "$ref": "#/responses/responseState"
+          }
+        }
+      }
+    },
+    "/scale_deployment": {
+      "get": {
+        "description": "副本数量范围为0-32\n该接口只能使用 app 级别的 apikey，这样做的目的主要是防止 apikey 的滥用",
+        "tags": [
+          "deploy"
+        ],
+        "summary": "用于 CI/CD 中的部署水平扩容/缩容",
+        "operationId": "ScaleDeploymentParam",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Deployment",
+            "name": "deployment",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Namespace",
+            "name": "namespace",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Cluster",
+            "description": "和升级部署存在差别，不允许同时填写多个 cluster",
+            "name": "cluster",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Replicas",
+            "description": "期望调度到的副本数量，范围：(0,32]",
+            "name": "replicas",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/responseSuccess"
+          },
+          "400": {
+            "$ref": "#/responses/responseState"
+          },
+          "401": {
+            "$ref": "#/responses/responseState"
+          },
+          "500": {
+            "$ref": "#/responses/responseState"
+          }
+        }
+      }
+    },
+    "/upgrade_deployment": {
+      "get": {
+        "description": "该接口只能使用 app 级别的 apikey，这样做的目的主要是防止 apikey 的滥用。\n目前用户可以选择两种用法，第一种是默认的，会根据请求的 images 和 environments 对特定部署线上模板进行修改并创建新模板，然后使用新模板进行升级；\n需要说明的是，environments 列表会对 deployment 内所有容器中包含指定环境变量 key 的环境变量进行更新，如不包含，则不更新。\n第二种是通过指定 publish=false 来关掉直接上线，这种条件下会根据 images 和 environments 字段创建新的模板，并返回新模板id，用户可以选择去平台上手动上线或者通过本接口指定template_id参数上线。\ncluster 字段可以选择单个机房也可以选择多个机房，对于创建模板并上线的用法，会根据指定的机房之前的模板进行分类（如果机房 a 和机房 b 使用同一个模板，那么调用以后仍然共用一个新模板）\n而对于指定 template_id 来上线的形式，则会忽略掉所有检查，直接使用特定模板上线到所有机房。",
+        "tags": [
+          "deploy"
+        ],
+        "summary": "用于 CI/CD 中的集成升级部署",
+        "operationId": "UpgradeDeploymentParam",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Deployment",
+            "name": "deployment",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Namespace",
+            "name": "namespace",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Cluster",
+            "description": "支持同时填写多个 Cluster，只需要在 cluster 之间使用英文半角的逗号分隔即可",
+            "name": "cluster",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "TemplateId",
+            "name": "template_id",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "x-go-name": "Publish",
+            "description": "该字段为 true 的时候，会自动使用新生成的配置模板上线，否则会只创建对应的模板，并且将模板 ID 返回（用于敏感的需要手动操作的上线环境）",
+            "name": "publish",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "Description",
+            "description": "升级的描述",
+            "name": "description",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "Images",
+            "description": "该字段为扁平化为字符串的 key-value 字典，填写格式为 容器名1=镜像名1,容器名2=镜像名2 (即:多个容器之间使用英文半角的逗号分隔）",
+            "name": "images",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "Environments",
+            "description": "该字段为扁平化为字符串的 key-value 字典，填写格式为 环境变量1=值1,环境变量2=值2 (即:多个环境变量之间使用英文半角的逗号分隔）",
+            "name": "environments",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/responseSuccess"
+          },
+          "400": {
+            "$ref": "#/responses/responseState"
+          },
+          "401": {
+            "$ref": "#/responses/responseState"
+          },
+          "500": {
+            "$ref": "#/responses/responseState"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "App": {
+      "type": "object",
+      "properties": {
+        "createTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreateTime"
+        },
+        "deleted": {
+          "type": "boolean",
+          "x-go-name": "Deleted"
+        },
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Id"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "namespace": {
+          "type": "string",
+          "x-go-name": "Namespace"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdateTime"
+        },
+        "user": {
+          "type": "string",
+          "x-go-name": "User"
+        }
+      },
+      "x-go-package": "github.com/Qihoo360/wayne/src/backend/models/response"
+    },
+    "ContainerStatus": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "restartCount": {
+          "type": "integer",
+          "format": "int32",
+          "x-go-name": "RestartCount"
+        }
+      },
+      "x-go-package": "github.com/Qihoo360/wayne/src/backend/models/response"
+    },
+    "Deployment": {
+      "type": "object",
+      "properties": {
+        "createTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreateTime"
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "Labels"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "namespace": {
+          "type": "string",
+          "x-go-name": "Namespace"
+        },
+        "podState": {
+          "$ref": "#/definitions/PodInfo"
+        }
+      },
+      "x-go-package": "github.com/Qihoo360/wayne/src/backend/models/response"
+    },
+    "Pod": {
+      "type": "object",
+      "properties": {
+        "containerStatus": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContainerStatus"
+          },
+          "x-go-name": "ContainerStatus"
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "Labels"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "namespace": {
+          "type": "string",
+          "x-go-name": "Namespace"
+        },
+        "nodeName": {
+          "type": "string",
+          "x-go-name": "NodeName"
+        },
+        "podIp": {
+          "type": "string",
+          "x-go-name": "PodIp"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "StartTime"
+        },
+        "state": {
+          "type": "string",
+          "x-go-name": "State"
+        }
+      },
+      "x-go-package": "github.com/Qihoo360/wayne/src/backend/models/response"
+    },
+    "PodInfo": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32",
+          "x-go-name": "Current"
+        },
+        "desired": {
+          "type": "integer",
+          "format": "int32",
+          "x-go-name": "Desired"
+        },
+        "failed": {
+          "type": "integer",
+          "format": "int32",
+          "x-go-name": "Failed"
+        },
+        "pending": {
+          "type": "integer",
+          "format": "int32",
+          "x-go-name": "Pending"
+        },
+        "running": {
+          "type": "integer",
+          "format": "int32",
+          "x-go-name": "Running"
+        },
+        "succeeded": {
+          "type": "integer",
+          "format": "int32",
+          "x-go-name": "Succeeded"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Warnings"
+        }
+      },
+      "x-go-package": "github.com/Qihoo360/wayne/src/backend/models/response"
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "display": {
+          "type": "string",
+          "x-go-name": "Display"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Roles"
+        }
+      },
+      "x-go-package": "github.com/Qihoo360/wayne/src/backend/models/response"
+    },
+    "deploymentstatus": {
+      "type": "object",
+      "required": [
+        "pods",
+        "deployment",
+        "healthz"
+      ],
+      "properties": {
+        "deployment": {
+          "$ref": "#/definitions/Deployment"
+        },
+        "healthz": {
+          "type": "boolean",
+          "x-go-name": "Healthz"
+        },
+        "pods": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Pod"
+          },
+          "x-go-name": "Pods"
+        }
+      },
+      "x-go-name": "DeploymentStatus",
+      "x-go-package": "github.com/Qihoo360/wayne/src/backend/controllers/openapi"
+    },
+    "resourceInfo": {
+      "type": "object",
+      "required": [
+        "app",
+        "users"
+      ],
+      "properties": {
+        "app": {
+          "$ref": "#/definitions/App"
+        },
+        "users": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/User"
+          },
+          "x-go-name": "Users"
+        }
+      },
+      "x-go-package": "github.com/Qihoo360/wayne/src/backend/controllers/openapi"
+    }
+  },
+  "responses": {
+    "respdeploymentstatus": {
+      "description": "重点关注 kubernetes 集群内状态而非描述信息，当然也可以只关注 healthz 字段",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Code"
+          },
+          "status": {
+            "$ref": "#/definitions/deploymentstatus"
+          }
+        }
+      }
+    },
+    "responseState": {
+      "description": "OpenAPI 通用 失败 返回接口",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Code"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "x-go-name": "Errors"
+          }
+        }
+      }
+    },
+    "responseSuccess": {
+      "description": "OpenAPI 通用 成功 返回接口",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Code"
+          }
+        }
+      }
+    },
+    "resppodlist": {
+      "description": "An array of the pod.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Code"
+          },
+          "pods": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Pod"
+            },
+            "x-go-name": "Pods"
+          }
+        }
+      }
+    },
+    "respresourceinfo": {
+      "description": "resource info include app info and users info.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Code"
+          },
+          "resource": {
+            "$ref": "#/definitions/resourceInfo"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "api_key": []
+    }
+  ]
+}
