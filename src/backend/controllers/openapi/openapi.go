@@ -51,6 +51,7 @@ const (
 	UpgradeDeploymentAction   = "UPGRADE_DEPLOYMENT"
 	ScaleDeploymentAction     = "SCALE_DEPLOYMENT"
 	RestartDeploymentAction   = "RESTART_DEPLOYMENT"
+	GetPodListAction          = "GET_POD_LIST"
 	PermissionPrefix          = "OPENAPI_"
 )
 

@@ -1,16 +1,11 @@
 package pod
 
 import (
-	"fmt"
-	"net/http"
 	"sync"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
-	"github.com/Qihoo360/wayne/src/backend/client/api"
-	"github.com/Qihoo360/wayne/src/backend/common"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
-	erroresult "github.com/Qihoo360/wayne/src/backend/models/response/errors"
 	"github.com/Qihoo360/wayne/src/backend/resources/pod"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
@@ -23,7 +18,6 @@ func (c *KubePodController) URLMapping() {
 	c.Mapping("PodStatistics", c.PodStatistics)
 	c.Mapping("List", c.List)
 	c.Mapping("Terminal", c.Terminal)
-	c.Mapping("GetEvent", c.GetEvent)
 }
 
 func (c *KubePodController) Prepare() {
@@ -108,65 +102,7 @@ func (c *KubePodController) List() {
 	resourceName := c.Input().Get("name")
 	param := c.BuildKubernetesQueryParam()
 	manager := c.Manager(cluster)
-	var result *common.Page
-	var err error
-	switch resourceType {
-	case api.ResourceNameDeployment:
-		result, err = pod.GetPodsByDeploymentPage(manager.KubeClient, namespace, resourceName, param)
-	case api.ResourceNameStatefulSet:
-		result, err = pod.GetRelatedPodByType(manager.KubeClient, namespace, resourceName, api.ResourceNameStatefulSet, param)
-	case api.ResourceNameDaemonSet:
-		result, err = pod.GetRelatedPodByType(manager.KubeClient, namespace, resourceName, api.ResourceNameDaemonSet, param)
-	case api.ResourceNameJob:
-		result, err = pod.GetRelatedPodByType(manager.KubeClient, namespace, resourceName, api.ResourceNameJob, param)
-	case api.ResourceNamePod:
-		result, err = pod.GetPodPage(manager.KubeClient, namespace, resourceName, param)
-	default:
-		err = &erroresult.ErrorResult{
-			Code: http.StatusBadRequest,
-			Msg:  fmt.Sprintf("Unsupported resource type (%s). ", resourceType),
-		}
-	}
-	if err != nil {
-		logs.Error("Get kubernetes pod by type error.", cluster, namespace, resourceType, resourceName, err)
-		c.HandleError(err)
-		return
-	}
-	c.Success(result)
-}
-
-// @Title GetPodEvent
-// @Description Get Pod Event by resource type and name
-// @Param	pageNo		query 	int	false		"the page current no"
-// @Param	pageSize		query 	int	false		"the page size"
-// @Param	type		query 	string	true		"the query type. deployments, statefulsets, daemonsets,cronjobs"
-// @Param	name		query 	string	true		"the query resource name."
-// @Success 200 {object} models.Deployment success
-// @router /events/namespaces/:namespace/clusters/:cluster [get]
-func (c *KubePodController) GetEvent() {
-	cluster := c.Ctx.Input.Param(":cluster")
-	namespace := c.Ctx.Input.Param(":namespace")
-	resourceType := c.Input().Get("type")
-	resourceName := c.Input().Get("name")
-	param := c.BuildKubernetesQueryParam()
-	manager := c.Manager(cluster)
-	var result *common.Page
-	var err error
-	switch resourceType {
-	case api.ResourceNameDeployment:
-		result, err = pod.GetPodsByDeploymentPage(manager.KubeClient, namespace, resourceName, param)
-	case api.ResourceNameStatefulSet:
-		result, err = pod.GetRelatedPodByType(manager.KubeClient, namespace, resourceName, api.ResourceNameStatefulSet, param)
-	case api.ResourceNameDaemonSet:
-		result, err = pod.GetRelatedPodByType(manager.KubeClient, namespace, resourceName, api.ResourceNameDaemonSet, param)
-	case api.ResourceNameCronJob:
-		result, err = pod.GetRelatedPodByType(manager.KubeClient, namespace, resourceName, api.ResourceNameJob, param)
-	default:
-		err = &erroresult.ErrorResult{
-			Code: http.StatusBadRequest,
-			Msg:  fmt.Sprintf("Unsupported resource type (%s). ", resourceType),
-		}
-	}
+	result, err := pod.GetPodListPageByType(manager.KubeClient, namespace, resourceName, resourceType, param)
 	if err != nil {
 		logs.Error("Get kubernetes pod by type error.", cluster, namespace, resourceType, resourceName, err)
 		c.HandleError(err)
