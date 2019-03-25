@@ -4,10 +4,15 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
+
+	"k8s.io/apimachinery/pkg/labels"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
+	"github.com/Qihoo360/wayne/src/backend/client/api"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/models/response"
+	"github.com/Qihoo360/wayne/src/backend/resources/common"
 	"github.com/Qihoo360/wayne/src/backend/resources/pod"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
@@ -42,6 +47,50 @@ type PodInfoFromIPParam struct {
 	ips map[string]bool
 	// Required: true
 	Cluster string `json:"cluster"`
+}
+
+// swagger:parameters PodListParam
+type PodListParam struct {
+	// Wayne 的 namespace 名称，必须与 Name 同时存在或者不存在
+	// in: query
+	// Required: false
+	Namespace string `json:"namespace"`
+	// 资源名称，必须与 Namespace 同时存在或者不存在
+	// in: query
+	// Required: false
+	Name string `json:"name"`
+	// 资源类型:daemonsets,deployments,cronjobs,statefulsets
+	// in: query
+	// Required: true
+	Type api.ResourceName `json:"type"`
+}
+
+// An array of the pod.
+// swagger:response respPodInfoList
+type respPodInfoList struct {
+	// in: body
+	// Required: true
+	Body struct {
+		response.ResponseBase
+		RespListInfo []*respListInfo `json:"list"`
+	}
+}
+
+type respListInfo struct {
+	Cluster      string `json:"cluster,omitempty"`
+	ResourceName string `json:"resourceName,omitempty"`
+	// Wayne namespace 名称
+	Namespace string        `json:"namespace,omitempty"`
+	Pods      []respPodInfo `json:"pods"`
+}
+
+type respPodInfo struct {
+	Name      string    `json:"name,omitempty"`
+	Namespace string    `json:"namespace,omitempty"`
+	NodeName  string    `json:"nodeName,omitempty"`
+	PodIp     string    `json:"podIp,omitempty"`
+	State     string    `json:"state,omitempty"`
+	StartTime time.Time `json:"startTime,omitempty"`
 }
 
 // swagger:route GET /get_pod_info pod PodInfoParam
@@ -138,4 +187,118 @@ func (c *OpenAPIController) GetPodInfoFromIP() {
 	}
 	c.HandleResponse(podList.Body)
 
+}
+
+// swagger:route GET /get_pod_list pod PodListParam
+//
+// 用于根据资源类型获取所有机房Pod列表
+//
+// 返回 Pod 信息
+// 需要绑定全局 apikey 使用。
+//
+//     Responses:
+//       200: respPodInfoList
+//       401: responseState
+//       500: responseState
+// @router /get_pod_list [get]
+func (c *OpenAPIController) GetPodList() {
+	if !c.CheckoutRoutePermission(GetPodListAction) {
+		return
+	}
+	if c.APIKey.Type != models.GlobalAPIKey {
+		c.AddErrorAndResponse("You can only use global APIKey in this action!", http.StatusUnauthorized)
+		return
+	}
+	podList := respPodInfoList{}
+	podList.Body.Code = http.StatusOK
+	params := PodListParam{c.GetString("namespace"), c.GetString("name"), c.GetString("type")}
+	if params.Type == "" {
+		c.AddErrorAndResponse("Invalid type parameter:must required!", http.StatusBadRequest)
+		return
+	}
+	if (params.Name == "" && params.Namespace != "") || (params.Name != "" && params.Namespace == "") {
+		c.AddErrorAndResponse("Namespace and Name must exist or not exist at the same time!", http.StatusBadRequest)
+		return
+	}
+	var ns *models.Namespace
+	var err error
+	if params.Namespace != "" {
+		ns, err = models.NamespaceModel.GetByName(params.Namespace)
+		if err != nil {
+			c.AddErrorAndResponse(fmt.Sprintf("Get Namespace by name (%s) error!%v", params.Namespace, err), http.StatusBadRequest)
+			return
+		}
+	}
+
+	managers := client.Managers()
+	managers.Range(func(key, value interface{}) bool {
+		manager := value.(*client.ClusterManager)
+		// if Name and Namespace empty,return all pods
+		if params.Name == "" && params.Namespace == "" {
+			objs, err := manager.KubeClient.List(params.Type, "", labels.Everything().String())
+			if err != nil {
+				c.AddError(fmt.Sprintf("List all resource error.cluster:%s,type:%s, %v",
+					manager.Cluster.Name, params.Type, err))
+				return true
+			}
+
+			for _, obj := range objs {
+				commonObj, err := common.ToBaseObject(obj)
+				if err != nil {
+					c.AddError(fmt.Sprintf("ToBaseObject error.cluster:%s,type:%s, %v",
+						manager.Cluster.Name, params.Type, err))
+					return true
+				}
+				podListResp, err := buildPodListResp(manager, params.Namespace, commonObj.Namespace, commonObj.Name, params.Type)
+				if err != nil {
+					c.AddError(fmt.Sprintf("buildPodListResp error.cluster:%s,type:%s, %v",
+						manager.Cluster.Name, params.Type, err))
+					return true
+				}
+				if len(podListResp.Pods) > 0 {
+					podList.Body.RespListInfo = append(podList.Body.RespListInfo, podListResp)
+				}
+			}
+			return true
+		}
+
+		podListResp, err := buildPodListResp(manager, params.Namespace, ns.KubeNamespace, params.Name, params.Type)
+		if err != nil {
+			c.AddError(fmt.Sprintf("buildPodListResp error.cluster:%s,type:%s,namespace:%s,name:%s %v",
+				manager.Cluster.Name, ns.KubeNamespace, params.Name, params.Type, err))
+			return true
+		}
+		if len(podListResp.Pods) > 0 {
+			podList.Body.RespListInfo = append(podList.Body.RespListInfo, podListResp)
+		}
+
+		return true
+	})
+
+	c.HandleResponse(podList.Body)
+}
+
+func buildPodListResp(manager *client.ClusterManager, namespace, kubeNamespace, resourceName string, resourceType api.ResourceName) (*respListInfo, error) {
+	pods, err := pod.GetPodListByType(manager.KubeClient, kubeNamespace, resourceName, resourceType)
+	if err != nil {
+		return nil, err
+	}
+
+	listInfo := &respListInfo{
+		Cluster:      manager.Cluster.Name,
+		ResourceName: resourceName,
+		Namespace:    namespace,
+	}
+
+	for _, kubePod := range pods {
+		listInfo.Pods = append(listInfo.Pods, respPodInfo{
+			Name:      kubePod.Name,
+			Namespace: kubePod.Namespace,
+			NodeName:  kubePod.Spec.NodeName,
+			PodIp:     kubePod.Status.PodIP,
+			State:     pod.GetPodStatus(kubePod),
+			StartTime: kubePod.CreationTimestamp.Time,
+		})
+	}
+	return listInfo, nil
 }

@@ -139,6 +139,51 @@
         }
       }
     },
+    "/get_pod_list": {
+      "get": {
+        "description": "返回 Pod 信息\n需要绑定全局 apikey 使用。",
+        "tags": [
+          "pod"
+        ],
+        "summary": "用于根据资源类型获取所有机房Pod列表",
+        "operationId": "PodListParam",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Namespace",
+            "description": "Wayne 的 namespace 名称，必须与 Name 同时存在或者不存在",
+            "name": "namespace",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "description": "资源名称，必须与 Namespace 同时存在或者不存在",
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "Type",
+            "description": "资源类型:daemonsets,deployments,cronjobs,statefulsets",
+            "name": "type",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/respPodInfoList"
+          },
+          "401": {
+            "$ref": "#/responses/responseState"
+          },
+          "500": {
+            "$ref": "#/responses/responseState"
+          }
+        }
+      }
+    },
     "/get_resource_info": {
       "get": {
         "description": "因为查询范围是对所有的服务进行的，因此需要绑定 全局 apikey 使用。",
@@ -609,9 +654,86 @@
         }
       },
       "x-go-package": "github.com/Qihoo360/wayne/src/backend/controllers/openapi"
+    },
+    "respListInfo": {
+      "type": "object",
+      "properties": {
+        "cluster": {
+          "type": "string",
+          "x-go-name": "Cluster"
+        },
+        "namespace": {
+          "description": "Wayne namespace 名称",
+          "type": "string",
+          "x-go-name": "Namespace"
+        },
+        "pods": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/respPodInfo"
+          },
+          "x-go-name": "Pods"
+        },
+        "resourceName": {
+          "type": "string",
+          "x-go-name": "ResourceName"
+        }
+      },
+      "x-go-package": "github.com/Qihoo360/wayne/src/backend/controllers/openapi"
+    },
+    "respPodInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "namespace": {
+          "type": "string",
+          "x-go-name": "Namespace"
+        },
+        "nodeName": {
+          "type": "string",
+          "x-go-name": "NodeName"
+        },
+        "podIp": {
+          "type": "string",
+          "x-go-name": "PodIp"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "StartTime"
+        },
+        "state": {
+          "type": "string",
+          "x-go-name": "State"
+        }
+      },
+      "x-go-package": "github.com/Qihoo360/wayne/src/backend/controllers/openapi"
     }
   },
   "responses": {
+    "respPodInfoList": {
+      "description": "An array of the pod.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Code"
+          },
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/respListInfo"
+            },
+            "x-go-name": "RespListInfo"
+          }
+        }
+      }
+    },
     "respdeploymentstatus": {
       "description": "重点关注 kubernetes 集群内状态而非描述信息，当然也可以只关注 healthz 字段",
       "schema": {
