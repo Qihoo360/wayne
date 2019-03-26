@@ -311,7 +311,7 @@
                   <span class="tooltip-content">{{'TEMPLATE.CHECK_DELAY_MESSAGE' | translate}}</span>
                 </a>
               </label>
-              <input type="number" required name="container.readinessProbe.initialDelaySeconds{{i}}"
+              <input type="number" name="container.readinessProbe.initialDelaySeconds{{i}}"
                      [(ngModel)]="container.readinessProbe.initialDelaySeconds"
                      [placeholder]="'PLACEHOLDER.SECOND' | translate">
             </div>
@@ -399,7 +399,7 @@
                   <span class="tooltip-content">{{'TEMPLATE.CHECK_DELAY_MESSAGE' | translate}}</span>
                 </a>
               </label>
-              <input type="number" required name="container.livenessProbe.initialDelaySeconds{{i}}"
+              <input type="number" name="container.livenessProbe.initialDelaySeconds{{i}}"
                      [(ngModel)]="container.livenessProbe.initialDelaySeconds"
                      [placeholder]="'PLACEHOLDER.SECOND' | translate">
             </div>
