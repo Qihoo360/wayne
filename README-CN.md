@@ -16,6 +16,10 @@ Wayne已大规模服务于360搜索，承载了内部绝大部分业务，稳定
 
 ![控制面板](https://360yun.org/wayne/images/dashboard-ui.png)
 
+## 演示
+
+[https://demo.360yun.org](https://demo.360yun.org)
+
 ## Features
 
 - 基于 RBAC（Role based access control）的权限管理：用户通过角色与部门和项目关联，拥有部门角色允许操作部门资源，拥有项目角色允许操作项目资源，更加适合多租户场景。

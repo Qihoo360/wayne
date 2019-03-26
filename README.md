@@ -16,6 +16,10 @@ Wayne has been serving [360 search](https://www.so.com/?src=wayne) on a large sc
 
 ![Dashboard](https://360yun.org/wayne/images/dashboard-ui.png)
 
+## Demo
+
+[https://demo.360yun.org](https://demo.360yun.org)
+
 ## Features
 
 - Permissions management based on RBAC (Role based access control): Users are associated with departments and projects through roles, and department roles allow operations department resources, and project roles allow operation of project resources, which is more suitable for multi-tenant scenarios.
