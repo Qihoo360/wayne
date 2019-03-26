@@ -14,7 +14,7 @@
 //     Schemes: https
 //     Host: localhost
 //     BasePath: /openapi/v1/gateway/action
-//     Version: 1.5.0
+//     Version: 1.6.0
 //
 //     Consumes:
 //     - application/json
