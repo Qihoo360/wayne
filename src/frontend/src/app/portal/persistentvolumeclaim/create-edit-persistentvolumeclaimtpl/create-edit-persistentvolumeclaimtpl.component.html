@@ -47,11 +47,16 @@
             <label>ReadWriteMany</label>
           </clr-checkbox-wrapper>
       </div>
+      <label class="label-level2">关联标签
+        <button (click)="onAddSelector()" style="margin-left: 10px;" class="wayne-button primary">
+          <clr-icon shape="add-text"></clr-icon>
+          添加</button>
+      </label>
       <div formArrayName="selectors">
         <div *ngFor="let selector of selectors.controls; let i = index"
              [formGroupName]="i"
              class="form-group form-group-padding">
-          <label class="clr-col-md-3 form-group-label-override required">{{'PVC.ASSOCIATED_LABEL' | translate}}</label>
+          <label class="clr-col-md-3 form-group-label-override">{{'PVC.ASSOCIATED_LABEL' | translate}}</label>
           <input type="text" style="width: 300px"
                  formControlName="key"
                  required
@@ -65,7 +70,7 @@
                       shape="trash" [title]="'PVC.DELETE_LABEL' | translate" class="is-solid clr-icon"></clr-icon>
           </a>
           <a href="javascript:void(0)">
-            <clr-icon (click)="onAddSelector(i)"
+            <clr-icon (click)="onAddSelector()"
                       shape="plus-circle" [title]="'PVC.ADD_LABEL' | translate" class="is-solid clr-icon"></clr-icon>
           </a>
         </div>
