@@ -20,6 +20,7 @@ import { AuthService } from '../auth/auth.service';
 import { PageState } from '../page/page-state';
 import { KubePod } from '../model/v1/kubernetes/kubepod';
 import { KubePodUtil } from '../utils';
+import { KubeResourceDeployment } from '../../shared/shared.const';
 
 @Component({
   selector: 'list-pod',
@@ -36,6 +37,7 @@ export class ListPodComponent implements OnDestroy {
   cluster: string;
   resourceName: string;
   logSource: string;
+  logELK: string;
   timer: any;
   whetherHotReflash = true;
   isCopied = false;
@@ -58,16 +60,16 @@ export class ListPodComponent implements OnDestroy {
   }
 
   constructor(private router: Router,
-              private deletionDialogService: ConfirmationDialogService,
-              private route: ActivatedRoute,
-              @Inject(DOCUMENT) private document: any,
-              public cacheService: CacheService,
-              private publicService: PublicService,
-              private clusterService: ClusterService,
-              private messageHandlerService: MessageHandlerService,
-              private podClient: PodClient,
-              private copyService: CopyService,
-              public authService: AuthService) {
+    private deletionDialogService: ConfirmationDialogService,
+    private route: ActivatedRoute,
+    @Inject(DOCUMENT) private document: any,
+    public cacheService: CacheService,
+    private publicService: PublicService,
+    private clusterService: ClusterService,
+    private messageHandlerService: MessageHandlerService,
+    private podClient: PodClient,
+    private copyService: CopyService,
+    public authService: AuthService) {
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
@@ -114,6 +116,12 @@ export class ListPodComponent implements OnDestroy {
           if (metaData.logSource) {
             this.logSource = metaData.logSource;
           }
+          if (this.resourceType === KubeResourceDeployment) {
+            //暂时仅支持deployments的elk日志
+            if (metaData.logELK) {
+              this.logELK = metaData.logELK;
+            }
+          }
         }
         this.keepUpdate();
         this.refresh();
@@ -146,7 +154,7 @@ export class ListPodComponent implements OnDestroy {
   refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
-      this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
+      this.pageState = PageState.fromState(state, { totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount });
     }
     if (this.cluster) {
       this.podClient.listPageByResouce(this.pageState, this.cluster, this.cacheService.kubeNamespace, this.resourceType,
@@ -203,6 +211,17 @@ export class ListPodComponent implements OnDestroy {
     this.switchCopyButton();
   }
 
+  openlogELK(pod: KubePod): void {
+    if (this.logELK === undefined) {
+      this.messageHandlerService.showInfo('缺少ELK信息，请联系管理员');
+    }
+    let k8s_deployment = this.resourceName
+    let k8s_pod = pod.metadata.name
+    let url = this.logELK
+    url = url.replace(/\$\{k8s_deployment\}/gi, k8s_deployment)
+    url = url.replace(/\$\{k8s_pod\}/gi, k8s_pod)
+    window.open(url, '_blank');
+  }
 
   podLog(pod: KubePod): void {
     const appId = this.route.parent.snapshot.params['id'];
