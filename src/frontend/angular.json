@@ -31,7 +31,7 @@
               "node_modules/@clr/icons/clr-icons.min.css",
               "node_modules/prismjs/themes/prism-solarizedlight.css",
               "node_modules/diff2html/dist/diff2html.min.css",
-              "src/theme/theme.scss"
+              "node_modules/wayne-ui/lib/index.css"
             ],
             "stylePreprocessorOptions": {
               "includePaths": ["node_modules"]
