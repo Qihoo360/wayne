@@ -30,11 +30,11 @@ export const containerDom = {
       text: 'TEMPLATE.ENVIRONMENT_VAR'
     },
     {
-      id: 'usable-check',
+      id: 'readiness-check',
       text: 'TEMPLATE.READINESS_PROBE'
     },
     {
-      id: 'live-check',
+      id: 'liveness-check',
       text: 'TEMPLATE.LIVENESS_PROBE_CHECK'
     },
     {

@@ -237,7 +237,7 @@
         <div class="toggle-switch">
           <input type="checkbox" [checked]="container.readinessProbe" (change)="readinessProbeChange(i)"
                   id="readinessProbe{{i}}">
-          <label class="label-level2" [id]="i ? 'usable-check' + i : 'usable-check'"
+          <label class="label-level2" [id]="i ? 'readiness-check' + i : 'readiness-check'"
                   for="readinessProbe{{i}}">{{'TEMPLATE.READINESS_CHECK' | translate}}
             <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
               <clr-icon shape="info-circle" size="24"></clr-icon>
@@ -325,7 +325,7 @@
         <div class="toggle-switch">
           <input type="checkbox" [checked]="container.livenessProbe" (change)="livenessProbeChange(i)"
                   id="livenessProbe{{i}}">
-          <label class="label-level2" for="livenessProbe{{i}}" [id]="i ? 'live-check' + i : 'live-check'">
+          <label class="label-level2" for="livenessProbe{{i}}" [id]="i ? 'liveness-check' + i : 'liveness-check'">
             {{'TEMPLATE.LIVENESS_PROBE_CHECK' | translate}}
             <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
               <clr-icon shape="info-circle" size="24"></clr-icon>
