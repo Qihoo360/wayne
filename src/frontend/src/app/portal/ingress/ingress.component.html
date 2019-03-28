@@ -16,7 +16,7 @@
   <div class="table-search">
     <div class="table-search-left">
       <button (click)="createTemplate()" class="wayne-button normal"
-              *ngIf="template?.length <= 0 && (authService.currentAppPermission.ingress.create || authService.currentUser.admin)">
+              *ngIf="templates?.length <= 0 && (authService.currentAppPermission.ingress.create || authService.currentUser.admin)">
         创建 ingress 模版
       </button>
       <button (click)="editResource()" class="wayne-button normal"
