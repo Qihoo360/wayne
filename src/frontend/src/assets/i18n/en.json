@@ -131,6 +131,17 @@
   "RULE": {
     "REGEXT": ""
   },
+  "TEMPLATE": {
+    "CREATE_TMP": "Template Create",
+    "RELEASE_MESSAGE": "Message Release",
+    "UPDATE_STRATEGY": "Strategy Update",
+    "CONTAINER_CONFIG": "Container Config",
+    "IMAGE_CONFIG": "Image Config",
+    "ENVIRONMENT_VAR": "Environment Variable",
+    "READINESS_PROBE": "Readiness Probe",
+    "LIVENESS_PROBE_CHECK": "Liveness Probe",
+    "LIFE_CYCLE": "Life Cycle"
+  },
   "TITLE": {
     "ACTION": "Action",
     "ALL_CONTENT": "All Content",
