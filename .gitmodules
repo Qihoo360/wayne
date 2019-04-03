@@ -4,6 +4,3 @@
 [submodule "src/frontend/lib"]
 	path = src/frontend/lib
 	url = https://github.com/Qihoo360/wayne-frontend-plugins.git
-[submodule "src/frontend/library"]
-	path = src/frontend/library
-	url = git@github.com:360yun/wayne-ui-library.git
