@@ -1,13 +1,13 @@
 <div class="clr-row tpl-container">
   <div class="clr-row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
-    <h3 class="header-title" id="创建计划任务模版">{{'CRONJOB.CREATE_TMP' | translate}}</h3>
+    <h3 class="header-title" id="create-tmp">{{'CRONJOB.CREATE_TMP' | translate}}</h3>
   </div>
   <div class="tpl-nav">
     <wayne-navigation container=".content-area" [node]="naviList"></wayne-navigation>
   </div>
   <form #ngForm="ngForm" style="padding-right: 30px;width: 100%">
     <wayne-collapse>
-      <label class="label-level1" id="发布信息">{{'TEMPLATE.RELEASE_MESSAGE' | translate}}</label>
+      <label class="label-level1" id="release-message">{{'TEMPLATE.RELEASE_MESSAGE' | translate}}</label>
       <div class="form-group form-group-padding">
         <label class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.RELEASE_EXPLAIN' | translate}}</label>
         <textarea name="description" [(ngModel)]="cronjobTpl.description" rows="3" style="width: 65%" required>
@@ -15,7 +15,7 @@
       </div>
     </wayne-collapse>
     <wayne-collapse>
-      <label class="label-level1" id="计划任务配置">{{'CRONJOB.CONFIG' | translate}}</label>
+      <label class="label-level1" id="config">{{'CRONJOB.CONFIG' | translate}}</label>
       <div style="padding-top:10px">
         <label class="clr-col-md-12 form-group-label-override required">
           <span class="tooltip" style="color:red;" [innerHTML]="'CRONJOB.CONFIG_MESSAGE' | translate">
@@ -124,11 +124,11 @@
 
     </wayne-collapse>
     <wayne-collapse *ngFor="let container of kubeResource.spec.jobTemplate.spec.template.spec.containers; let i = index">
-      <label class="label-level1" [id]="i ? '容器配置' + i : '容器配置'">{{'TEMPLATE.CONTAINER_CONFIG' | translate}}
+      <label class="label-level1" [id]="i ? 'container-config' + i : 'container-config'">{{'TEMPLATE.CONTAINER_CONFIG' | translate}}
         <clr-icon (click)="onDeleteContainer(i)" shape="trash" title="删除容器" class="is-solid"></clr-icon>
       </label>
       <div class="container-box">
-        <label class="label-level2" [id]="i ? '镜像配置' + i : '镜像配置'">{{'TEMPLATE.IMAGE_CONFIG' | translate}}</label>
+        <label class="label-level2" [id]="i ? 'image-config' + i : 'image-config'">{{'TEMPLATE.IMAGE_CONFIG' | translate}}</label>
         <div class="form-group form-group-padding">
           <label class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.CONTAINER_NAME' | translate}}</label>
           <label aria-haspopup="true" role="tooltip" [class.invalid]="containerIsInvalid(i,'container.name_')"
@@ -229,7 +229,7 @@
       </div>
 
       <wayne-collapse disabled="true" style="margin-left: -28px;margin-bottom: -20px;">
-        <label for="a" class="label-level2" [id]="i ? '环境变量配置' + i : '环境变量配置'">{{'TEMPLATE.ENVIRONMENT_VAR' | translate}}
+        <label for="a" class="label-level2" [id]="i ? 'environment-var' + i : 'environment-var'">{{'TEMPLATE.ENVIRONMENT_VAR' | translate}}
           <button (click)="onAddEnvFrom(i, $event)" style="margin-left: 10px;" class="wayne-button primary">
             <clr-icon shape="add-text"></clr-icon>
             {{'TEMPLATE.ADD_GROUP' | translate}}</button>
