@@ -1,8 +1,9 @@
-import { Component, ContentChildren, ElementRef, HostListener, Inject, Input, QueryList } from '@angular/core';
+import { Component, ContentChildren, HostBinding, ElementRef, HostListener, Inject, Input, QueryList, AfterViewInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FloatWindowItemComponent } from './float-window-item/float-window-item.component';
 import { EventManager } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
+import { StorageService } from '../client/v1/storage.service';
 
 @Component({
   selector: 'wayne-float-window',
@@ -31,11 +32,14 @@ import { DOCUMENT } from '@angular/common';
  <wayne-float-window-item value='4'></wayne-float-window-item>
  </wayne-float-window>
  */
-export class FloatWindowComponent {
+export class FloatWindowComponent implements AfterViewInit {
+  @HostBinding('style.left') left: string;
+  @HostBinding('style.top') top: string;
   constructor(
     private el: ElementRef,
     private eventManager: EventManager,
-    @Inject(DOCUMENT) private document: any
+    @Inject(DOCUMENT) private document: any,
+    private storage: StorageService
   ) {
     el.nativeElement.setAttribute('draggable', 'false');
   }
@@ -53,19 +57,30 @@ export class FloatWindowComponent {
     });
   }
 
+  ngAfterViewInit() {
+    const local = this.storage.get('float-local');
+    if (local) {
+      const localParse = JSON.parse(local);
+      setTimeout(() => {
+        this.left = localParse.left;
+        this.top = localParse.top;
+      }, 0);
+    }
+  }
+
   @HostListener('mousedown', ['$event'])
   downEvent(evt) {
+    const target = this.getBox(evt.target);
     const pos = {
-      left: evt.offsetX,
+      left: evt.offsetX + evt.target.getBoundingClientRect().left - target.getBoundingClientRect().left,
       top: evt.offsetY
     };
-    const target = this.getBox(evt.target);
     const shadow = this.document.createElement('div');
     shadow.style.cssText = 'position: fixed;width: 100%; height:100vh; z-index: 2; top: 0;';
     this.document.body.appendChild(shadow);
     this.eventList.push(
       this.eventManager.addGlobalEventListener('document', 'mousemove', this.moveEvent.bind(this, target, pos)),
-      this.eventManager.addGlobalEventListener('document', 'mouseup', this.upEvent.bind(this, shadow))
+      this.eventManager.addGlobalEventListener('document', 'mouseup', this.upEvent.bind(this, target, shadow))
     );
   }
 
@@ -78,8 +93,8 @@ export class FloatWindowComponent {
   }
 
   moveEvent(target, pos, evt) {
-    target.style.left = evt.clientX - pos.left + 'px';
-    target.style.top = evt.clientY - pos.top + 'px';
+    this.left = evt.clientX - pos.left + 'px';
+    this.top = evt.clientY - pos.top + 'px';
   }
 
   @HostListener('mouseleave')
@@ -98,7 +113,11 @@ export class FloatWindowComponent {
     return element;
   }
 
-  upEvent(shadow: HTMLElement) {
+  upEvent(target: HTMLElement, shadow: HTMLElement) {
+    this.storage.save('float-local', {
+      left: target.style.left,
+      top: target.style.top
+    });
     this.eventList.forEach(item => {
       item();
     });
