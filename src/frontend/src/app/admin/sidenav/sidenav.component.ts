@@ -4,6 +4,7 @@ import { AuthService } from '../../shared/auth/auth.service';
 import { SideNavService } from '../../shared/client/v1/sidenav.service';
 import { adminSideNav } from '../../shared/sidenav.const';
 import { SideNavExpand } from '../../shared/base/side-nav/side-nav-expand';
+import { StorageService } from '../../shared/client/v1/storage.service';
 
 @Component({
   selector: 'wayne-sidenav',
@@ -16,9 +17,10 @@ export class SidenavComponent extends SideNavExpand {
     public authService: AuthService,
     public sideNavService: SideNavService,
     public router: Router,
-    public cr: ChangeDetectorRef
+    public cr: ChangeDetectorRef,
+    public storage: StorageService
   ) {
     // 最后添加 admin 前缀确保完全匹配
-    super(adminSideNav, sideNavService, router, cr, '/admin/');
+    super(adminSideNav, sideNavService, router, cr, storage, '/admin/');
   }
 }

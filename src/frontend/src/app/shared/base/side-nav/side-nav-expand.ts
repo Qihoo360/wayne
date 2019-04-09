@@ -3,8 +3,10 @@ import { Router } from '@angular/router';
 import { SideNavService } from '../../client/v1/sidenav.service';
 import { Subscription } from 'rxjs';
 import { SideNavType } from '../../sidenav.const';
+import { SideNavCollapse } from './side-nav-collapse';
+import { SideNavCollapseStorage } from '../../../shared/sidenav.const';
 
-export class SideNavExpand implements OnInit, OnDestroy {
+export class SideNavExpand extends SideNavCollapse implements OnInit, OnDestroy {
   sideNavSub: Subscription;
   currentUrl = this.router.url;
   public adminSideNav: any[];
@@ -14,12 +16,15 @@ export class SideNavExpand implements OnInit, OnDestroy {
     public sideNavService: SideNavService,
     public router: Router,
     public cr: ChangeDetectorRef,
+    public storage: any,
     public prefix: string
   ) {
+    super(storage);
     this.adminSideNav = this.addMathLinks(sideNav);
   }
 
   ngOnInit() {
+    this._collapsed = this.storage.get(SideNavCollapseStorage) === 'false' ? false : true;
     this.sideNavSub = this.sideNavService.routerChange.subscribe(
       url => {
         this.currentUrl = url.split('?')[0];

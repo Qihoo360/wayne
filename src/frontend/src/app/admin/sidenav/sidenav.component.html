@@ -1,4 +1,4 @@
-<clr-vertical-nav [clrVerticalNavCollapsible]="true">
+<clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed">
   <ng-container *ngFor="let item of adminSideNav">
     <a
       *ngIf="item.type === sideNavType.NormalLink"

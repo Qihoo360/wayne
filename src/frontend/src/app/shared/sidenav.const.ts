@@ -10,6 +10,8 @@ enum SideNavType {
   NormalLink, GroupLink, Divider
 }
 
+const SideNavCollapseStorage = 'nav-collapse';
+
 const adminSideNav: any[] = [
   { type: SideNavType.NormalLink, a: { link: 'reportform/overview', title: 'MENU.PLATFORM_OVERVIEW', text: 'MENU.PLATFORM_OVERVIEW', icon: { shape: 'help-info' } } },
   { type: SideNavType.Divider },
@@ -183,4 +185,4 @@ const adminSideNav: any[] = [
     ]
   },
 ];
-export { adminSideNav, SideNavType };
+export { adminSideNav, SideNavType, SideNavCollapseStorage };
