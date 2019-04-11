@@ -23,12 +23,12 @@
           <label class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.UPDATE_WAY' | translate}}</label>
           <div class="radio-inline">
             <input type="radio" name="statefulSetStrategyType" id="statefulSetStrategyType1" value="RollingUpdate"
-                   [(ngModel)]="kubeResource.spec.strategy.type" checked>
+                   [(ngModel)]="kubeResource.spec.strategy.type" checked (change)="strategyTypeChange()">
             <label for="statefulSetStrategyType1">{{'TEMPLATE.SCROLL_UPDATE' | translate}}</label>
           </div>
           <div class="radio-inline">
             <input type="radio" name="statefulSetStrategyType" id="statefulSetStrategyType2" value="Recreate"
-                   [(ngModel)]="kubeResource.spec.strategy.type">
+                   [(ngModel)]="kubeResource.spec.strategy.type" (change)="strategyTypeChange()">
             <label for="statefulSetStrategyType2">{{'TEMPLATE.REBUILD' | translate}}</label>
           </div>
         </div>
