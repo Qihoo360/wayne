@@ -2,7 +2,7 @@
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['name']">{{'TITLE.NAME' | translate}}</ng-container>
   </clr-dg-column>
-  <clr-dg-column>
+  <clr-dg-column [clrDgField]="'description'">
     <ng-container *clrDgHideableColumn="showState['description']">{{'TITLE.DESCRIPTION' | translate}}</ng-container>
   </clr-dg-column>
   <clr-dg-column class="col-time">
