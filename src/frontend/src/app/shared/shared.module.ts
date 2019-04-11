@@ -13,8 +13,7 @@ import { ClarityModule } from '@clr/angular';
 import { PublishService } from './client/v1/publish.service';
 import { UnauthorizedModule } from './unauthorized/unauthorized.module';
 import { StorageService } from './client/v1/storage.service';
-import { TabsComponent } from './tabs/tabs.component';
-import { TabComponent } from './tabs/tab/tab.component';
+import { TabModule } from './tabs/index';
 import { PaginateComponent } from './paginate/paginate.component';
 import { BreadcrumbService } from './client/v1/breadcrumb.service';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
@@ -50,8 +49,8 @@ import { EchartsModule } from './echarts/echars.module';
 import { ListPodComponent } from './list-pod/list-pod.component';
 import { ListEventComponent } from './list-event/list-event.component';
 import { SideNavService } from './client/v1/sidenav.service';
-import { SearchSectionComponent } from './tabs/search-section/search-section.component';
 import { CollapseModule } from './collapse/collapse.module';
+import { ServiceModule } from './client/v1/index';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -66,8 +65,6 @@ import { CollapseModule } from './collapse/collapse.module';
     CollapseModule
   ],
   declarations: [
-    TabsComponent,
-    TabComponent,
     PaginateComponent,
     BreadcrumbComponent,
     AceEditorComponent,
@@ -76,7 +73,6 @@ import { CollapseModule } from './collapse/collapse.module';
     ProgressComponent,
     FloatWindowComponent,
     FloatWindowItemComponent,
-    TipDirective,
     NavigationComponent,
     CardComponent,
     InputComponent,
@@ -90,8 +86,7 @@ import { CollapseModule } from './collapse/collapse.module';
     RelativeTimeFilterPipe,
     DiffComponent,
     ListPodComponent,
-    ListEventComponent,
-    SearchSectionComponent
+    ListEventComponent
   ],
   exports: [
     BrowserAnimationsModule,
@@ -100,8 +95,6 @@ import { CollapseModule } from './collapse/collapse.module';
     FormsModule,
     EchartsModule,
     ClarityModule,
-    TabsComponent,
-    TabComponent,
     BreadcrumbComponent,
     PaginateComponent,
     DualListBoxModule,
@@ -111,7 +104,6 @@ import { CollapseModule } from './collapse/collapse.module';
     ProgressComponent,
     FloatWindowComponent,
     FloatWindowItemComponent,
-    TipDirective,
     NavigationComponent,
     CardComponent,
     InputComponent,
@@ -127,12 +119,13 @@ import { CollapseModule } from './collapse/collapse.module';
     DiffComponent,
     ListPodComponent,
     ListEventComponent,
-    SearchSectionComponent,
     CollapseModule,
     PageNotFoundModule,
     UnauthorizedModule,
     MessageModule,
-    ConfirmationDialogModule
+    ConfirmationDialogModule,
+    TabModule,
+    ServiceModule
   ],
   providers: [
     SideNavService,
