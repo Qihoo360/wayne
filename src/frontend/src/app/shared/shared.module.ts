@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundModule } from './not-found/not-found.module';
-import { MessageModule } from './global-message/message.module';
-import { MessageService } from './global-message/message.service';
+import { MessageModule, MessageService } from './global-message/index';
 import { MessageHandlerService } from './message-handler/message-handler.service';
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
-import { ConfirmationDialogService } from './confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationDialogModule, ConfirmationDialogService } from './confirmation-dialog/index';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
@@ -68,7 +66,6 @@ import { CollapseModule } from './collapse/collapse.module';
     CollapseModule
   ],
   declarations: [
-    ConfirmationDialogComponent,
     TabsComponent,
     TabComponent,
     PaginateComponent,
@@ -108,7 +105,6 @@ import { CollapseModule } from './collapse/collapse.module';
     BreadcrumbComponent,
     PaginateComponent,
     DualListBoxModule,
-    ConfirmationDialogComponent,
     AceEditorComponent,
     AceEditorBoxComponent,
     ModalOperateComponent,
@@ -135,7 +131,8 @@ import { CollapseModule } from './collapse/collapse.module';
     CollapseModule,
     PageNotFoundModule,
     UnauthorizedModule,
-    MessageModule
+    MessageModule,
+    ConfirmationDialogModule
   ],
   providers: [
     SideNavService,
