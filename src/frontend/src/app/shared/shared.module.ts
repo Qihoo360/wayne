@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PageNotFoundComponent } from './not-found/not-found.component';
+import { PageNotFoundModule } from './not-found/not-found.module';
 import { MessageComponent } from './global-message/message.component';
 import { MessageService } from './global-message/message.service';
 import { MessageHandlerService } from './message-handler/message-handler.service';
@@ -68,7 +68,6 @@ import { CollapseModule } from './collapse/collapse.module';
     CollapseModule
   ],
   declarations: [
-    PageNotFoundComponent,
     UnauthorizedComponent,
     MessageComponent,
     ConfirmationDialogComponent,
@@ -107,7 +106,6 @@ import { CollapseModule } from './collapse/collapse.module';
     EchartsModule,
     ClarityModule,
     UnauthorizedComponent,
-    PageNotFoundComponent,
     MessageComponent,
     TabsComponent,
     TabComponent,
@@ -138,7 +136,8 @@ import { CollapseModule } from './collapse/collapse.module';
     ListPodComponent,
     ListEventComponent,
     SearchSectionComponent,
-    CollapseModule
+    CollapseModule,
+    PageNotFoundModule
   ],
   providers: [
     SideNavService,
