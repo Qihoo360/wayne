@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundModule } from './not-found/not-found.module';
-import { MessageComponent } from './global-message/message.component';
+import { MessageModule } from './global-message/message.module';
 import { MessageService } from './global-message/message.service';
 import { MessageHandlerService } from './message-handler/message-handler.service';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
@@ -44,7 +44,7 @@ import { CheckboxGroupComponent } from './checkbox-group/checkbox-group.componen
 import { DropDownComponent } from './dropdown/dropdown.component';
 import { DropdownItemComponent } from './dropdown/item/dropdown-item.component';
 import { RelativeTimeFilterPipe } from './pipe/relative-time.filter.pipe';
-import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { DiffComponent } from './diff/diff.component';
 import { DiffService } from './diff/diff.service';
 import { ResourceLimitModule } from './component/resource-limit/resource-limit.module';
@@ -68,7 +68,6 @@ import { CollapseModule } from './collapse/collapse.module';
     CollapseModule
   ],
   declarations: [
-    MessageComponent,
     ConfirmationDialogComponent,
     TabsComponent,
     TabComponent,
@@ -104,7 +103,6 @@ import { CollapseModule } from './collapse/collapse.module';
     FormsModule,
     EchartsModule,
     ClarityModule,
-    MessageComponent,
     TabsComponent,
     TabComponent,
     BreadcrumbComponent,
@@ -136,7 +134,8 @@ import { CollapseModule } from './collapse/collapse.module';
     SearchSectionComponent,
     CollapseModule,
     PageNotFoundModule,
-    UnauthorizedModule
+    UnauthorizedModule,
+    MessageModule
   ],
   providers: [
     SideNavService,
