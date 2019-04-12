@@ -14,7 +14,7 @@ import { PublishService } from './client/v1/publish.service';
 import { UnauthorizedModule } from './unauthorized/unauthorized.module';
 import { StorageService } from './client/v1/storage.service';
 import { TabModule } from './tabs/index';
-import { PaginateComponent } from './paginate/paginate.component';
+import { PaginateModule, PaginateComponent } from './paginate/index';
 import { BreadcrumbService } from './client/v1/breadcrumb.service';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { AceEditorComponent } from './ace-editor/ace-editor.component';
@@ -25,16 +25,14 @@ import { ProgressComponent } from './progress/progress.component';
 import { FloatWindowComponent } from './float-window/float-window.component';
 import { FloatWindowItemComponent } from './float-window/float-window-item/float-window-item.component';
 import { TipService } from './client/v1/tip.service';
-import { TipDirective } from './client/v1/tip.directive';
+import { SelectModule } from './select/index';
 import { ScrollBarService } from './client/v1/scrollBar.service';
 import { CopyService } from './client/v1/copy.service';
 import { NavigationComponent } from './navigation/navigation.component';
 import { TabDragService } from './client/v1/tab-drag.service';
 import { SelectCopyService } from './client/v1/select-copy.service';
 import { CardComponent } from './card/card.compontent';
-import { InputComponent } from './input/input.component';
-import { SelectComponent } from './select/select.component';
-import { OptionComponent } from './select/option/option.component';
+import { InputModule } from './input/index';
 import { FilterBoxComponent } from './filter-box/filter-box.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { CheckboxGroupComponent } from './checkbox-group/checkbox-group.component';
@@ -65,7 +63,6 @@ import { ServiceModule } from './client/v1/index';
     CollapseModule
   ],
   declarations: [
-    PaginateComponent,
     BreadcrumbComponent,
     AceEditorComponent,
     AceEditorBoxComponent,
@@ -75,9 +72,6 @@ import { ServiceModule } from './client/v1/index';
     FloatWindowItemComponent,
     NavigationComponent,
     CardComponent,
-    InputComponent,
-    SelectComponent,
-    OptionComponent,
     FilterBoxComponent,
     CheckboxComponent,
     CheckboxGroupComponent,
@@ -89,6 +83,7 @@ import { ServiceModule } from './client/v1/index';
     ListEventComponent
   ],
   exports: [
+    PaginateModule,
     BrowserAnimationsModule,
     BrowserModule,
     ResourceLimitModule,
@@ -96,7 +91,6 @@ import { ServiceModule } from './client/v1/index';
     EchartsModule,
     ClarityModule,
     BreadcrumbComponent,
-    PaginateComponent,
     DualListBoxModule,
     AceEditorComponent,
     AceEditorBoxComponent,
@@ -106,9 +100,6 @@ import { ServiceModule } from './client/v1/index';
     FloatWindowItemComponent,
     NavigationComponent,
     CardComponent,
-    InputComponent,
-    SelectComponent,
-    OptionComponent,
     FilterBoxComponent,
     CheckboxComponent,
     CheckboxGroupComponent,
@@ -125,6 +116,8 @@ import { ServiceModule } from './client/v1/index';
     MessageModule,
     ConfirmationDialogModule,
     TabModule,
+    SelectModule,
+    InputModule,
     ServiceModule
   ],
   providers: [
