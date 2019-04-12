@@ -38,8 +38,7 @@ import { DropDownComponent } from './dropdown/dropdown.component';
 import { DropdownItemComponent } from './dropdown/item/dropdown-item.component';
 import { PipeModule } from './pipe/index';
 import { TranslateModule } from '@ngx-translate/core';
-import { DiffComponent } from './diff/diff.component';
-import { DiffService } from './diff/diff.service';
+import { DiffModule } from './diff/index';
 import { ResourceLimitModule } from './component/resource-limit/resource-limit.module';
 import { EchartsModule } from './echarts/echars.module';
 import { ListPodModule } from './list-pod/index';
@@ -72,7 +71,6 @@ import { ServiceModule } from './client/v1/index';
     CheckboxGroupComponent,
     DropDownComponent,
     DropdownItemComponent,
-    DiffComponent,
     ListEventComponent
   ],
   exports: [
@@ -96,7 +94,6 @@ import { ServiceModule } from './client/v1/index';
     DropDownComponent,
     DropdownItemComponent,
     TranslateModule,
-    DiffComponent,
     ListEventComponent,
     CollapseModule,
     PageNotFoundModule,
@@ -109,6 +106,7 @@ import { ServiceModule } from './client/v1/index';
     ListPodModule,
     ModalOperateModule,
     AceEditorModule,
+    DiffModule,
     PipeModule,
     ServiceModule
   ],
@@ -124,8 +122,7 @@ import { ServiceModule } from './client/v1/index';
     ScrollBarService,
     CopyService,
     TabDragService,
-    SelectCopyService,
-    DiffService
+    SelectCopyService
   ]
 })
 export class SharedModule {
