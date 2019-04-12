@@ -46,6 +46,8 @@ import { ListEventComponent } from './list-event/list-event.component';
 import { SideNavService } from './client/v1/sidenav.service';
 import { CollapseModule } from './collapse/collapse.module';
 import { ServiceModule } from './client/v1/index';
+import { ListEventDatagridModule } from './list-event-datagrid';
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -107,6 +109,7 @@ import { ServiceModule } from './client/v1/index';
     ModalOperateModule,
     AceEditorModule,
     DiffModule,
+    ListEventDatagridModule,
     PipeModule,
     ServiceModule
   ],
