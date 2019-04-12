@@ -1,6 +1,6 @@
 <clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'xl'" #modal>
   <h3 class="modal-title">
-    发布详情<wayne-modal-operate [modal]="modal" *ngIf="modalOpened"></wayne-modal-operate>
+    <!-- 发布详情<wayne-modal-operate [modal]="modal" *ngIf="modalOpened"></wayne-modal-operate> -->
   </h3>
 
   <div class="modal-body">
@@ -73,12 +73,12 @@
         </clr-dg-cell>
       </clr-dg-row>
       <clr-dg-footer>
-        <!-- <wayne-paginate
+        <wayne-paginate
           [(currentPage)]="currentPage"
           [total]="pageState.page.totalCount"
           [pageSizes]="[5, 10, 20, 50]"
           (sizeChange)="pageSizeChange($event)">
-        </wayne-paginate> -->
+        </wayne-paginate>
       </clr-dg-footer>
     </clr-datagrid>
 

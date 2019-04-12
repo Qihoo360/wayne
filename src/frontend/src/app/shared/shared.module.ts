@@ -44,7 +44,7 @@ import { DiffComponent } from './diff/diff.component';
 import { DiffService } from './diff/diff.service';
 import { ResourceLimitModule } from './component/resource-limit/resource-limit.module';
 import { EchartsModule } from './echarts/echars.module';
-import { ListPodComponent } from './list-pod/list-pod.component';
+import { ListPodModule } from './list-pod/index';
 import { ListEventComponent } from './list-event/list-event.component';
 import { SideNavService } from './client/v1/sidenav.service';
 import { CollapseModule } from './collapse/collapse.module';
@@ -79,7 +79,6 @@ import { ServiceModule } from './client/v1/index';
     DropdownItemComponent,
     RelativeTimeFilterPipe,
     DiffComponent,
-    ListPodComponent,
     ListEventComponent
   ],
   exports: [
@@ -108,7 +107,6 @@ import { ServiceModule } from './client/v1/index';
     RelativeTimeFilterPipe,
     TranslateModule,
     DiffComponent,
-    ListPodComponent,
     ListEventComponent,
     CollapseModule,
     PageNotFoundModule,
@@ -118,6 +116,7 @@ import { ServiceModule } from './client/v1/index';
     TabModule,
     SelectModule,
     InputModule,
+    ListPodModule,
     ServiceModule
   ],
   providers: [
