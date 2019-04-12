@@ -17,9 +17,7 @@ import { TabModule } from './tabs/index';
 import { PaginateModule } from './paginate/index';
 import { BreadcrumbService } from './client/v1/breadcrumb.service';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
-import { AceEditorComponent } from './ace-editor/ace-editor.component';
-import { AceEditorBoxComponent } from './ace-editor/ace-editor-box/ace-editor-box.component';
-import { AceEditorService } from './ace-editor/ace-editor.service';
+import { AceEditorModule } from './ace-editor/index';
 import { ModalOperateModule } from './modal-operate/index';
 import { ProgressComponent } from './progress/progress.component';
 import { FloatWindowComponent } from './float-window/float-window.component';
@@ -64,8 +62,6 @@ import { ServiceModule } from './client/v1/index';
   ],
   declarations: [
     BreadcrumbComponent,
-    AceEditorComponent,
-    AceEditorBoxComponent,
     ProgressComponent,
     FloatWindowComponent,
     FloatWindowItemComponent,
@@ -89,8 +85,6 @@ import { ServiceModule } from './client/v1/index';
     ClarityModule,
     BreadcrumbComponent,
     DualListBoxModule,
-    AceEditorComponent,
-    AceEditorBoxComponent,
     ProgressComponent,
     FloatWindowComponent,
     FloatWindowItemComponent,
@@ -114,6 +108,7 @@ import { ServiceModule } from './client/v1/index';
     InputModule,
     ListPodModule,
     ModalOperateModule,
+    AceEditorModule,
     PipeModule,
     ServiceModule
   ],
@@ -127,7 +122,6 @@ import { ServiceModule } from './client/v1/index';
     ConfirmationDialogService,
     BreadcrumbService,
     ScrollBarService,
-    AceEditorService,
     CopyService,
     TabDragService,
     SelectCopyService,
