@@ -14,13 +14,13 @@ import { PublishService } from './client/v1/publish.service';
 import { UnauthorizedModule } from './unauthorized/unauthorized.module';
 import { StorageService } from './client/v1/storage.service';
 import { TabModule } from './tabs/index';
-import { PaginateModule, PaginateComponent } from './paginate/index';
+import { PaginateModule } from './paginate/index';
 import { BreadcrumbService } from './client/v1/breadcrumb.service';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { AceEditorComponent } from './ace-editor/ace-editor.component';
 import { AceEditorBoxComponent } from './ace-editor/ace-editor-box/ace-editor-box.component';
 import { AceEditorService } from './ace-editor/ace-editor.service';
-import { ModalOperateComponent } from './modal-operate/modal-operate.component';
+import { ModalOperateModule } from './modal-operate/index';
 import { ProgressComponent } from './progress/progress.component';
 import { FloatWindowComponent } from './float-window/float-window.component';
 import { FloatWindowItemComponent } from './float-window/float-window-item/float-window-item.component';
@@ -66,7 +66,6 @@ import { ServiceModule } from './client/v1/index';
     BreadcrumbComponent,
     AceEditorComponent,
     AceEditorBoxComponent,
-    ModalOperateComponent,
     ProgressComponent,
     FloatWindowComponent,
     FloatWindowItemComponent,
@@ -92,7 +91,6 @@ import { ServiceModule } from './client/v1/index';
     DualListBoxModule,
     AceEditorComponent,
     AceEditorBoxComponent,
-    ModalOperateComponent,
     ProgressComponent,
     FloatWindowComponent,
     FloatWindowItemComponent,
@@ -115,6 +113,7 @@ import { ServiceModule } from './client/v1/index';
     SelectModule,
     InputModule,
     ListPodModule,
+    ModalOperateModule,
     PipeModule,
     ServiceModule
   ],
