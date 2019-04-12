@@ -38,7 +38,7 @@ import { CheckboxComponent } from './checkbox/checkbox.component';
 import { CheckboxGroupComponent } from './checkbox-group/checkbox-group.component';
 import { DropDownComponent } from './dropdown/dropdown.component';
 import { DropdownItemComponent } from './dropdown/item/dropdown-item.component';
-import { RelativeTimeFilterPipe } from './pipe/relative-time.filter.pipe';
+import { PipeModule } from './pipe/index';
 import { TranslateModule } from '@ngx-translate/core';
 import { DiffComponent } from './diff/diff.component';
 import { DiffService } from './diff/diff.service';
@@ -77,7 +77,6 @@ import { ServiceModule } from './client/v1/index';
     CheckboxGroupComponent,
     DropDownComponent,
     DropdownItemComponent,
-    RelativeTimeFilterPipe,
     DiffComponent,
     ListEventComponent
   ],
@@ -104,7 +103,6 @@ import { ServiceModule } from './client/v1/index';
     CheckboxGroupComponent,
     DropDownComponent,
     DropdownItemComponent,
-    RelativeTimeFilterPipe,
     TranslateModule,
     DiffComponent,
     ListEventComponent,
@@ -117,6 +115,7 @@ import { ServiceModule } from './client/v1/index';
     SelectModule,
     InputModule,
     ListPodModule,
+    PipeModule,
     ServiceModule
   ],
   providers: [
