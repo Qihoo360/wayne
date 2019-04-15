@@ -33,14 +33,13 @@ import { FilterBoxModule } from './filter-box';
 import { CheckboxModule } from './checkbox';
 import { CheckboxGroupModule } from './checkbox-group';
 import { DropDownModule } from './dropdown';
-import { DropdownItemComponent } from './dropdown/item/dropdown-item.component';
 import { PipeModule } from './pipe/index';
 import { TranslateModule } from '@ngx-translate/core';
 import { DiffModule } from './diff/index';
 import { ResourceLimitModule } from './component/resource-limit/resource-limit.module';
 import { EchartsModule } from './echarts/echars.module';
 import { ListPodModule } from './list-pod/index';
-import { ListEventComponent } from './list-event/list-event.component';
+import { ListEventModule } from './list-event';
 import { SideNavService } from './client/v1/sidenav.service';
 import { CollapseModule } from './collapse';
 import { ServiceModule } from './client/v1/index';
@@ -61,8 +60,6 @@ import { BoxModule } from './box';
     CollapseModule
   ],
   declarations: [
-    DropdownItemComponent,
-    ListEventComponent
   ],
   exports: [
     BoxModule,
@@ -78,9 +75,8 @@ import { BoxModule } from './box';
     CheckboxModule,
     CheckboxGroupModule,
     DropDownModule,
-    DropdownItemComponent,
     TranslateModule,
-    ListEventComponent,
+    ListEventModule,
     CollapseModule,
     PageNotFoundModule,
     UnauthorizedModule,
