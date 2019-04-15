@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CollapseComponent } from './collapse.component';
-import { BoxComponent } from '../box/box.component';
+import { BoxModule } from '../box';
 import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   imports: [
-    BrowserModule
+    BrowserModule,
+    BoxModule
   ],
   declarations: [
-    BoxComponent,
     CollapseComponent
   ],
   exports: [
-    BoxComponent,
     CollapseComponent
   ],
   providers: [

@@ -45,6 +45,7 @@ import { SideNavService } from './client/v1/sidenav.service';
 import { CollapseModule } from './collapse/collapse.module';
 import { ServiceModule } from './client/v1/index';
 import { ListEventDatagridModule } from './list-event-datagrid';
+import { BoxModule } from './box';
 
 @NgModule({
   imports: [
@@ -67,6 +68,7 @@ import { ListEventDatagridModule } from './list-event-datagrid';
     ListEventComponent
   ],
   exports: [
+    BoxModule,
     PaginateModule,
     BrowserAnimationsModule,
     BrowserModule,
