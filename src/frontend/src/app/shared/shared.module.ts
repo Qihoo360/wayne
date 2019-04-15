@@ -27,9 +27,9 @@ import { CopyService } from './client/v1/copy.service';
 import { NavigationModule } from './navigation';
 import { TabDragService } from './client/v1/tab-drag.service';
 import { SelectCopyService } from './client/v1/select-copy.service';
-import { CardComponent } from './card/card.compontent';
+import { CardModule } from './card';
 import { InputModule } from './input/index';
-import { FilterBoxComponent } from './filter-box/filter-box.component';
+import { FilterBoxModule } from './filter-box';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { CheckboxGroupComponent } from './checkbox-group/checkbox-group.component';
 import { DropDownComponent } from './dropdown/dropdown.component';
@@ -60,8 +60,6 @@ import { ListEventDatagridModule } from './list-event-datagrid';
     CollapseModule
   ],
   declarations: [
-    CardComponent,
-    FilterBoxComponent,
     CheckboxComponent,
     CheckboxGroupComponent,
     DropDownComponent,
@@ -77,8 +75,7 @@ import { ListEventDatagridModule } from './list-event-datagrid';
     EchartsModule,
     ClarityModule,
     DualListBoxModule,
-    CardComponent,
-    FilterBoxComponent,
+    FilterBoxModule,
     CheckboxComponent,
     CheckboxGroupComponent,
     DropDownComponent,
@@ -99,6 +96,7 @@ import { ListEventDatagridModule } from './list-event-datagrid';
     AceEditorModule,
     DiffModule,
     BreadcrumbModule,
+    CardModule,
     ListEventDatagridModule,
     FloatWindowModule,
     ProgressModule,
