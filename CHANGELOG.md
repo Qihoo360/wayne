@@ -1,5 +1,13 @@
 # Change Log
 
+## [v1.6.1](https://github.com/Qihoo360/wayne/tree/v1.6.1) (2019-04-15)
+[Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.6.0...v1.6.1)
+
+**Merged pull requests:**
+
+- fix: deployment strategy changeto rollingupdate error [\#395](https://github.com/Qihoo360/wayne/pull/395) ([BennieMeng](https://github.com/BennieMeng))
+
+
 ## [v1.6.0](https://github.com/Qihoo360/wayne/tree/v1.6.0) (2019-03-26)
 
 [Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.5.0...v1.6.0)
