@@ -32,7 +32,7 @@ import { InputModule } from './input/index';
 import { FilterBoxModule } from './filter-box';
 import { CheckboxModule } from './checkbox';
 import { CheckboxGroupModule } from './checkbox-group';
-import { DropDownComponent } from './dropdown/dropdown.component';
+import { DropDownModule } from './dropdown';
 import { DropdownItemComponent } from './dropdown/item/dropdown-item.component';
 import { PipeModule } from './pipe/index';
 import { TranslateModule } from '@ngx-translate/core';
@@ -61,7 +61,6 @@ import { BoxModule } from './box';
     CollapseModule
   ],
   declarations: [
-    DropDownComponent,
     DropdownItemComponent,
     ListEventComponent
   ],
@@ -78,7 +77,7 @@ import { BoxModule } from './box';
     FilterBoxModule,
     CheckboxModule,
     CheckboxGroupModule,
-    DropDownComponent,
+    DropDownModule,
     DropdownItemComponent,
     TranslateModule,
     ListEventComponent,
