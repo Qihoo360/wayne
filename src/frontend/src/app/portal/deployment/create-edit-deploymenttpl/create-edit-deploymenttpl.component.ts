@@ -164,6 +164,14 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
     return cpuLimit;
   }
 
+  strategyTypeChange() {
+    if (this.kubeResource.spec.strategy.type === 'RollingUpdate' && !this.kubeResource.spec.strategy.rollingUpdate) {
+      this.kubeResource.spec.strategy.rollingUpdate = new RollingUpdateDeployment();
+      this.kubeResource.spec.strategy.rollingUpdate.maxSurge = '20%';
+      this.kubeResource.spec.strategy.rollingUpdate.maxUnavailable = 1;
+    }
+  }
+
   initDefault() {
     this.kubeResource = JSON.parse(defaultDeployment);
     this.kubeResource.spec.template.spec.containers.push(this.defaultContainer());
