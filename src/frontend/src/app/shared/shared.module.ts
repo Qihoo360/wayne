@@ -18,14 +18,13 @@ import { PaginateModule } from './paginate/index';
 import { BreadcrumbModule } from './breadcrumb';
 import { AceEditorModule } from './ace-editor/index';
 import { ModalOperateModule } from './modal-operate/index';
-import { ProgressComponent } from './progress/progress.component';
-import { FloatWindowComponent } from './float-window/float-window.component';
-import { FloatWindowItemComponent } from './float-window/float-window-item/float-window-item.component';
+import { ProgressModule } from './progress';
+import { FloatWindowModule } from './float-window';
 import { TipService } from './client/v1/tip.service';
 import { SelectModule } from './select/index';
 import { ScrollBarService } from './client/v1/scrollBar.service';
 import { CopyService } from './client/v1/copy.service';
-import { NavigationComponent } from './navigation/navigation.component';
+import { NavigationModule } from './navigation';
 import { TabDragService } from './client/v1/tab-drag.service';
 import { SelectCopyService } from './client/v1/select-copy.service';
 import { CardComponent } from './card/card.compontent';
@@ -61,10 +60,6 @@ import { ListEventDatagridModule } from './list-event-datagrid';
     CollapseModule
   ],
   declarations: [
-    ProgressComponent,
-    FloatWindowComponent,
-    FloatWindowItemComponent,
-    NavigationComponent,
     CardComponent,
     FilterBoxComponent,
     CheckboxComponent,
@@ -82,10 +77,6 @@ import { ListEventDatagridModule } from './list-event-datagrid';
     EchartsModule,
     ClarityModule,
     DualListBoxModule,
-    ProgressComponent,
-    FloatWindowComponent,
-    FloatWindowItemComponent,
-    NavigationComponent,
     CardComponent,
     FilterBoxComponent,
     CheckboxComponent,
@@ -104,10 +95,13 @@ import { ListEventDatagridModule } from './list-event-datagrid';
     InputModule,
     ListPodModule,
     ModalOperateModule,
+    NavigationModule,
     AceEditorModule,
     DiffModule,
     BreadcrumbModule,
     ListEventDatagridModule,
+    FloatWindowModule,
+    ProgressModule,
     PipeModule,
     ServiceModule
   ],
