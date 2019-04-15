@@ -66,7 +66,7 @@ func (c *KubeProxyController) Get() {
 	kubeClient := c.KubeClient(cluster)
 	result, err := kubeClient.Get(kind, namespace, name)
 	if err != nil {
-		logs.Error("Get kubernetes resource (%s:%s:%s) from cluster (%s) error. %v", kind, namespace, name, cluster, err)
+		logs.Info("Get kubernetes resource (%s:%s:%s) from cluster (%s) error. %v", kind, namespace, name, cluster, err)
 		c.HandleError(err)
 		return
 	}
@@ -88,7 +88,7 @@ func (c *KubeProxyController) GetNames() {
 	kubeClient := c.KubeClient(cluster)
 	result, err := proxy.GetNames(kubeClient, kind, namespace)
 	if err != nil {
-		logs.Error("Get kubernetes resource names (%s:%s) from cluster (%s) error. %v", kind, namespace, cluster, err)
+		logs.Info("Get kubernetes resource names (%s:%s) from cluster (%s) error. %v", kind, namespace, cluster, err)
 		c.HandleError(err)
 		return
 	}

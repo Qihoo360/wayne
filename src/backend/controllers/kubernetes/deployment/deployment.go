@@ -231,7 +231,7 @@ func (c *KubeDeploymentController) Get() {
 	manager := c.Manager(cluster)
 	result, err := deployment.GetDeploymentDetail(manager.Client, manager.CacheFactory, name, namespace)
 	if err != nil {
-		logs.Error("get kubernetes deployment detail error.", cluster, namespace, name, err)
+		logs.Info("get kubernetes deployment detail error.", cluster, namespace, name, err)
 		c.HandleError(err)
 		return
 	}
@@ -253,7 +253,7 @@ func (c *KubeDeploymentController) Delete() {
 
 	err := deployment.DeleteDeployment(cli, name, namespace)
 	if err != nil {
-		logs.Error("delete deployment (%s) by cluster (%s) error.%v", name, cluster, err)
+		logs.Info("Delete deployment (%s) by cluster (%s) error.%v", name, cluster, err)
 		c.HandleError(err)
 		return
 	}

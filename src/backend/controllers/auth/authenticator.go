@@ -164,7 +164,7 @@ func (c *AuthController) CurrentUser() {
 
 	kv := strings.Split(authString, " ")
 	if len(kv) != 2 || kv[0] != "Bearer" {
-		logs.Error("AuthString invalid:", authString)
+		logs.Info("AuthString invalid:", authString)
 		c.CustomAbort(http.StatusUnauthorized, "Token Invalid ! ")
 	}
 	tokenString := kv[1]
