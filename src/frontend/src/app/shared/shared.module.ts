@@ -31,7 +31,7 @@ import { CardModule } from './card';
 import { InputModule } from './input/index';
 import { FilterBoxModule } from './filter-box';
 import { CheckboxModule } from './checkbox';
-import { CheckboxGroupComponent } from './checkbox-group/checkbox-group.component';
+import { CheckboxGroupModule } from './checkbox-group';
 import { DropDownComponent } from './dropdown/dropdown.component';
 import { DropdownItemComponent } from './dropdown/item/dropdown-item.component';
 import { PipeModule } from './pipe/index';
@@ -61,7 +61,6 @@ import { BoxModule } from './box';
     CollapseModule
   ],
   declarations: [
-    CheckboxGroupComponent,
     DropDownComponent,
     DropdownItemComponent,
     ListEventComponent
@@ -78,7 +77,7 @@ import { BoxModule } from './box';
     DualListBoxModule,
     FilterBoxModule,
     CheckboxModule,
-    CheckboxGroupComponent,
+    CheckboxGroupModule,
     DropDownComponent,
     DropdownItemComponent,
     TranslateModule,
