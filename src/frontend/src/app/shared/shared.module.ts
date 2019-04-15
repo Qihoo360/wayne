@@ -42,7 +42,7 @@ import { EchartsModule } from './echarts/echars.module';
 import { ListPodModule } from './list-pod/index';
 import { ListEventComponent } from './list-event/list-event.component';
 import { SideNavService } from './client/v1/sidenav.service';
-import { CollapseModule } from './collapse/collapse.module';
+import { CollapseModule } from './collapse';
 import { ServiceModule } from './client/v1/index';
 import { ListEventDatagridModule } from './list-event-datagrid';
 import { BoxModule } from './box';
