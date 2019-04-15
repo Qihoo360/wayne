@@ -39,12 +39,12 @@
     <clr-dg-cell>{{event.lastSeen | date: "yyyy-MM-dd HH:mm:ss"}}</clr-dg-cell>
   </clr-dg-row>
   <clr-dg-footer>
-    <!-- <wayne-paginate
+    <wayne-paginate
       [(currentPage)]="currentPage"
       [total]="pageState.page.totalCount"
       [pageSizes]="[10, 20, 50]"
       (sizeChange)="pageSizeChange($event)">
-    </wayne-paginate> -->
+    </wayne-paginate>
   </clr-dg-footer>
 </clr-datagrid>
 

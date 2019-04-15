@@ -15,8 +15,7 @@ import { UnauthorizedModule } from './unauthorized/unauthorized.module';
 import { StorageService } from './client/v1/storage.service';
 import { TabModule } from './tabs/index';
 import { PaginateModule } from './paginate/index';
-import { BreadcrumbService } from './client/v1/breadcrumb.service';
-import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { BreadcrumbModule } from './breadcrumb';
 import { AceEditorModule } from './ace-editor/index';
 import { ModalOperateModule } from './modal-operate/index';
 import { ProgressComponent } from './progress/progress.component';
@@ -38,8 +37,7 @@ import { DropDownComponent } from './dropdown/dropdown.component';
 import { DropdownItemComponent } from './dropdown/item/dropdown-item.component';
 import { PipeModule } from './pipe/index';
 import { TranslateModule } from '@ngx-translate/core';
-import { DiffComponent } from './diff/diff.component';
-import { DiffService } from './diff/diff.service';
+import { DiffModule } from './diff/index';
 import { ResourceLimitModule } from './component/resource-limit/resource-limit.module';
 import { EchartsModule } from './echarts/echars.module';
 import { ListPodModule } from './list-pod/index';
@@ -47,6 +45,8 @@ import { ListEventComponent } from './list-event/list-event.component';
 import { SideNavService } from './client/v1/sidenav.service';
 import { CollapseModule } from './collapse/collapse.module';
 import { ServiceModule } from './client/v1/index';
+import { ListEventDatagridModule } from './list-event-datagrid';
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -61,7 +61,6 @@ import { ServiceModule } from './client/v1/index';
     CollapseModule
   ],
   declarations: [
-    BreadcrumbComponent,
     ProgressComponent,
     FloatWindowComponent,
     FloatWindowItemComponent,
@@ -72,7 +71,6 @@ import { ServiceModule } from './client/v1/index';
     CheckboxGroupComponent,
     DropDownComponent,
     DropdownItemComponent,
-    DiffComponent,
     ListEventComponent
   ],
   exports: [
@@ -83,7 +81,6 @@ import { ServiceModule } from './client/v1/index';
     FormsModule,
     EchartsModule,
     ClarityModule,
-    BreadcrumbComponent,
     DualListBoxModule,
     ProgressComponent,
     FloatWindowComponent,
@@ -96,7 +93,6 @@ import { ServiceModule } from './client/v1/index';
     DropDownComponent,
     DropdownItemComponent,
     TranslateModule,
-    DiffComponent,
     ListEventComponent,
     CollapseModule,
     PageNotFoundModule,
@@ -109,6 +105,9 @@ import { ServiceModule } from './client/v1/index';
     ListPodModule,
     ModalOperateModule,
     AceEditorModule,
+    DiffModule,
+    BreadcrumbModule,
+    ListEventDatagridModule,
     PipeModule,
     ServiceModule
   ],
@@ -120,12 +119,10 @@ import { ServiceModule } from './client/v1/index';
     PublishService,
     MessageHandlerService,
     ConfirmationDialogService,
-    BreadcrumbService,
     ScrollBarService,
     CopyService,
     TabDragService,
-    SelectCopyService,
-    DiffService
+    SelectCopyService
   ]
 })
 export class SharedModule {
