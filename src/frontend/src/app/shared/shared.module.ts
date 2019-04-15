@@ -30,7 +30,7 @@ import { SelectCopyService } from './client/v1/select-copy.service';
 import { CardModule } from './card';
 import { InputModule } from './input/index';
 import { FilterBoxModule } from './filter-box';
-import { CheckboxComponent } from './checkbox/checkbox.component';
+import { CheckboxModule } from './checkbox';
 import { CheckboxGroupComponent } from './checkbox-group/checkbox-group.component';
 import { DropDownComponent } from './dropdown/dropdown.component';
 import { DropdownItemComponent } from './dropdown/item/dropdown-item.component';
@@ -61,7 +61,6 @@ import { BoxModule } from './box';
     CollapseModule
   ],
   declarations: [
-    CheckboxComponent,
     CheckboxGroupComponent,
     DropDownComponent,
     DropdownItemComponent,
@@ -78,7 +77,7 @@ import { BoxModule } from './box';
     ClarityModule,
     DualListBoxModule,
     FilterBoxModule,
-    CheckboxComponent,
+    CheckboxModule,
     CheckboxGroupComponent,
     DropDownComponent,
     DropdownItemComponent,
