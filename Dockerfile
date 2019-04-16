@@ -18,7 +18,7 @@ RUN cd /workspace && \
        npm run build
 
 # build server
-FROM 360cloud/wayne-server-builder:v1.0.0 as backend
+FROM 360cloud/wayne-server-builder:v1.0.1 as backend
 
 COPY src/vendor /go/src/github.com/Qihoo360/wayne/src/vendor
 
