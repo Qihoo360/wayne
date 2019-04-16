@@ -5,9 +5,7 @@ matrix:
         - linux
         - osx
       go:
-        - 1.9.x
-        - 1.10.x
-        - 1.11.x
+        - 1.12.x
       env:
         - DB_USER=root DB_PASSWD=''  DB_TNS='tcp(127.0.0.1:3306)'
       service:
