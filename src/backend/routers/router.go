@@ -26,6 +26,7 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/controllers/hpa"
 	"github.com/Qihoo360/wayne/src/backend/controllers/ingress"
 	kconfigmap "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/configmap"
+	kcrd "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd"
 	kcronjob "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/cronjob"
 	kdaemonset "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/daemonset"
 	kdeployment "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/deployment"
@@ -210,6 +211,11 @@ func init() {
 		beego.NSNamespace("/kubernetes/nodes",
 			beego.NSInclude(
 				&knode.KubeNodeController{},
+			),
+		),
+		beego.NSNamespace("/kubernetes/customresourcedefinitions",
+			beego.NSInclude(
+				&kcrd.KubeCRDController{},
 			),
 		),
 	)
