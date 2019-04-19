@@ -5,6 +5,8 @@ import { KubeCrdComponent } from './kube-crd.component';
 import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
 import { DeletionDialogModule } from '../../../shared/deletion-dialog/deletion-dialog.module';
 import { ListCrdComponent } from './list-crd/list-crd.component';
+import { CRDDgRowDetailComponent } from './crd-dg-row-detail/crd-dg-row-detail.component';
+import { CustomCRDClient } from '../../../shared/client/v1/kubernetes/crd';
 
 @NgModule({
   imports: [
@@ -13,12 +15,14 @@ import { ListCrdComponent } from './list-crd/list-crd.component';
     DeletionDialogModule
   ],
   providers: [
-    KubernetesClient
+    KubernetesClient,
+    CustomCRDClient
   ],
   exports: [],
   declarations: [
     KubeCrdComponent,
-    ListCrdComponent
+    ListCrdComponent,
+    CRDDgRowDetailComponent
   ]
 })
 

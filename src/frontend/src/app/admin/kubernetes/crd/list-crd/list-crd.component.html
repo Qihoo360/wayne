@@ -10,6 +10,11 @@
     </ng-container>
   </clr-dg-column>
   <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['kind']">
+      {{'ADMIN.KUBERNETES.CRD.LIST.KIND' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
     <ng-container *clrDgHideableColumn="showState['group']">
       {{'ADMIN.KUBERNETES.CRD.LIST.GROUP' | translate}}
     </ng-container>
@@ -36,9 +41,12 @@
         <a href="javascript:" (click)="versionDetail(label.key + ': ' + label.value)">{{label.key}}: {{label.value}}</a>
       </div>
     </clr-dg-cell>
+    <clr-dg-cell> {{ obj.spec.names.kind }} </clr-dg-cell>
     <clr-dg-cell> {{ obj.spec.group }} </clr-dg-cell>
     <clr-dg-cell> {{ obj.spec.version }} </clr-dg-cell>
     <clr-dg-cell> {{ obj.metadata.creationTimestamp | relativeTime}} </clr-dg-cell>
+    <crd-detail *clrIfExpanded [obj]="obj" [cluster]="cluster" ngProjectAs="clr-dg-row-detail">
+    </crd-detail>
   </clr-dg-row>
   <clr-dg-footer>
     <wayne-paginate

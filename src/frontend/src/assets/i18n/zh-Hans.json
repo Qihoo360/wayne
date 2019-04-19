@@ -860,10 +860,12 @@
         "CREATE": "创建 CRD",
         "LIST": {
           "NAME": "名称",
+          "NAMESPACE": "名称",
           "LABEL": "标签",
           "AGE": "启动时间",
           "GROUP": "资源组",
-          "VERSION": "版本"
+          "VERSION": "版本",
+          "KIND": "类型"
         }
       }
     }
