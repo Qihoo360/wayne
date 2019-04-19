@@ -55,6 +55,12 @@ export class CRDDgRowDetailComponent implements OnInit {
 
   }
 
+  pageSizeChange(pageSize: number) {
+    this.state.page.to = pageSize - 1;
+    this.state.page.size = pageSize;
+    this.currentPage = 1;
+  }
+
   refresh(state?: ClrDatagridStateInterface): void {
     this.state = state;
     if (state) {
