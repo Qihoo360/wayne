@@ -36,7 +36,6 @@ export class ListAppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.authService.currentUser);
   }
 
   pageSizeChange(pageSize: number) {
