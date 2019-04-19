@@ -26,13 +26,8 @@ export class SidenavComponent extends SideNavCollapse {
   }
 
   getMonitorUri() {
-    try {
-      const namespaceId = parseInt(localStorage.getItem('namespace'), 10);
-      return this.authService.currentUser.namespaces.filter(namespace => namespace.id === namespaceId)[0].metaDataObj['system.monitor-url']
+    return this.cacheService.currentNamespace.metaDataObj['system.monitor-url']
         || this.authService.config['system.monitor-uri'];
-    } catch {
-      return this.authService.config['system.monitor-uri'];
-    }
   }
 
 }
