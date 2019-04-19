@@ -404,6 +404,16 @@ func init() {
 				&kcrd.KubeCRDController{},
 			),
 		),
+		beego.NSNamespace("/apps/:appid([0-9]+)/_proxy/clusters/:cluster/apis/:group/:version/namespaces/:namespace/:kind",
+			beego.NSInclude(
+				&kcrd.KubeCustomCRDController{},
+			),
+		),
+		beego.NSNamespace("/apps/:appid([0-9]+)/_proxy/clusters/:cluster/apis/:group/:version/:kind",
+			beego.NSInclude(
+				&kcrd.KubeCustomCRDController{},
+			),
+		),
 		beego.NSNamespace("/apps/:appid([0-9]+)/_proxy/clusters/:cluster/:kind",
 			beego.NSInclude(
 				&proxy.KubeProxyController{},

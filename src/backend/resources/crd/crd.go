@@ -21,7 +21,7 @@ func GetCRDPage(cli *clientset.Clientset, q *common.QueryParam) (*common.Page, e
 func toCells(deploy []apiextensions.CustomResourceDefinition) []dataselector.DataCell {
 	cells := make([]dataselector.DataCell, len(deploy))
 	for i := range deploy {
-		cells[i] = ObjectCell(deploy[i])
+		cells[i] = CRDCell(deploy[i])
 	}
 	return cells
 }
