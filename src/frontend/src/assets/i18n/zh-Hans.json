@@ -855,6 +855,16 @@
           "AGE": "启动时间",
           "STATUS": "状态"
         }
+      },
+      "CRD": {
+        "CREATE": "创建 CRD",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "GROUP": "资源组",
+          "VERSION": "版本"
+        }
       }
     }
   }
