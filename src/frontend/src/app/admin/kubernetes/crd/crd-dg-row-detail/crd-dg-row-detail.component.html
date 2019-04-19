@@ -4,23 +4,24 @@
       <div class="table-search">
         <div class="table-search-left">
           <button class="wayne-button normal" (click)="createResource()">
-            {{'ADMIN.KUBERNETES.CRD.CREATE' | translate}}
+            {{'ADMIN.KUBERNETES.CRD.CREATE_CUSTOM' | translate}}
           </button>
           <button class="wayne-button normal" (click)="refresh()">
             {{'ADMIN.KUBERNETES.ACTION.REFRESH' | translate}}
           </button>
+          <label class="clr-col-md-3">{{'ADMIN.KUBERNETES.LABEL.CLUSTER' | translate}}</label>
+          {{cluster}}
+          <label for="namespace_name" class="clr-col-md-3">{{'ADMIN.KUBERNETES.LABEL.NAMESPACE' | translate}}</label>
+          <wayne-select [(ngModel)]="namespace" (change)="refresh()"
+                        searchable
+                        name="namespace_name"
+                        [placeholder]="'PLACEHOLDER.CHOOSE' | translate"
+                        style="margin-left: 12px;">
+            <wayne-option value="">ALL</wayne-option>
+            <wayne-option *ngFor="let ns of namespaces" [value]="ns">{{ns}}</wayne-option>
+          </wayne-select>
         </div>
-        <label class="clr-col-md-3">{{'ADMIN.KUBERNETES.LABEL.CLUSTER' | translate}}</label>
-        {{cluster}}
-        <label for="namespace_name" class="clr-col-md-3">{{'ADMIN.KUBERNETES.LABEL.NAMESPACE' | translate}}</label>
-        <wayne-select [(ngModel)]="namespace" (change)="refresh()"
-                      searchable
-                      name="namespace_name"
-                      [placeholder]="'PLACEHOLDER.CHOOSE' | translate"
-                      style="margin-left: 12px;">
-          <wayne-option value="">ALL</wayne-option>
-          <wayne-option *ngFor="let ns of namespaces" [value]="ns">{{ns}}</wayne-option>
-        </wayne-select>
+
       </div>
 
       <clr-datagrid style="width: 100%" (clrDgRefresh)="refresh($event)">

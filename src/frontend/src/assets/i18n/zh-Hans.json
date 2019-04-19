@@ -858,6 +858,7 @@
       },
       "CRD": {
         "CREATE": "创建 CRD",
+        "CREATE_CUSTOM": "创建自定义 CRD",
         "LIST": {
           "NAME": "名称",
           "NAMESPACE": "名称",
