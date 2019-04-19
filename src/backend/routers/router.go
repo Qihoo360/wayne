@@ -213,11 +213,6 @@ func init() {
 				&knode.KubeNodeController{},
 			),
 		),
-		beego.NSNamespace("/kubernetes/customresourcedefinitions",
-			beego.NSInclude(
-				&kcrd.KubeCRDController{},
-			),
-		),
 	)
 
 	nsWithKubernetesApp := beego.NewNamespace("/api/v1",
@@ -402,6 +397,11 @@ func init() {
 		beego.NSNamespace("/apps/:appid([0-9]+)/_proxy/clusters/:cluster/namespaces/:namespace/:kind",
 			beego.NSInclude(
 				&proxy.KubeProxyController{},
+			),
+		),
+		beego.NSNamespace("/apps/:appid([0-9]+)/_proxy/clusters/:cluster/customresourcedefinitions",
+			beego.NSInclude(
+				&kcrd.KubeCRDController{},
 			),
 		),
 		beego.NSNamespace("/apps/:appid([0-9]+)/_proxy/clusters/:cluster/:kind",

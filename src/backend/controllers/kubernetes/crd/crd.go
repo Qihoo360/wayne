@@ -8,6 +8,7 @@ import (
 
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
+	"github.com/Qihoo360/wayne/src/backend/resources/crd"
 	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
 
@@ -40,22 +41,23 @@ func (c *KubeCRDController) Prepare() {
 
 // @Title List CRD
 // @Description find CRD by cluster
-// @router /clusters/:cluster [get]
+// @router / [get]
 func (c *KubeCRDController) List() {
 	cluster := c.Ctx.Input.Param(":cluster")
+	param := c.BuildKubernetesQueryParam()
 	cli := c.ApiextensionsClient(cluster)
-	result, err := cli.ApiextensionsV1beta1().CustomResourceDefinitions().List(metaV1.ListOptions{})
+	result, err := crd.GetCRDPage(cli, param)
 	if err != nil {
 		logs.Error("list CRD by cluster (%s) error.%v", cluster, err)
 		c.HandleError(err)
 		return
 	}
-	c.Success(result.Items)
+	c.Success(result)
 }
 
 // @Title get CRD
 // @Description find CRD by cluster
-// @router /:name/clusters/:cluster [get]
+// @router /:name [get]
 func (c *KubeCRDController) Get() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	name := c.Ctx.Input.Param(":name")
@@ -72,7 +74,7 @@ func (c *KubeCRDController) Get() {
 
 // @Title Create
 // @Description create CustomResourceDefinition
-// @router /clusters/:cluster [post]
+// @router / [post]
 func (c *KubeCRDController) Create() {
 	var tpl apiextensions.CustomResourceDefinition
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &tpl)
@@ -92,7 +94,7 @@ func (c *KubeCRDController) Create() {
 
 // @Title Update
 // @Description update the CustomResourceDefinition
-// @router /:name/clusters/:cluster [put]
+// @router /:name [put]
 func (c *KubeCRDController) Update() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	name := c.Ctx.Input.Param(":name")
@@ -118,7 +120,7 @@ func (c *KubeCRDController) Update() {
 // @Title Delete
 // @Description delete the CustomResourceDefinition
 // @Success 200 {string} delete success!
-// @router /:name/clusters/:cluster [delete]
+// @router /:name [delete]
 func (c *KubeCRDController) Delete() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	name := c.Ctx.Input.Param(":name")
