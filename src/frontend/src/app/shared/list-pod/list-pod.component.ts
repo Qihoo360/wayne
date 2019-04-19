@@ -105,6 +105,7 @@ export class ListPodComponent implements OnDestroy {
     this.resourceType = resourceType;
     this.resourceName = resourceName;
     this.pods = null;
+    this.currentPage = 1;
     this.logSource = null;
     this.modalOpened = true;
     this.whetherHotReflash = true;
