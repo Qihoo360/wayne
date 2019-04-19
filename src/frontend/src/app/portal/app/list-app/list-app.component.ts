@@ -36,6 +36,7 @@ export class ListAppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.authService.currentUser);
   }
 
   pageSizeChange(pageSize: number) {
@@ -50,7 +51,13 @@ export class ListAppComponent implements OnInit {
   }
 
   getMonitorUri() {
-    return this.authService.config['system.monitor-uri'];
+    try {
+      const namespaceId = parseInt(localStorage.getItem('namespace'), 10);
+      return this.authService.currentUser.namespaces.filter(namespace => namespace.id === namespaceId)[0].metaDataObj['system.monitor-url']
+        || this.authService.config['system.monitor-uri'];
+    } catch {
+      return this.authService.config['system.monitor-uri'];
+    }
   }
 
   refresh(state?: ClrDatagridStateInterface) {
