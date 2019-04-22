@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  height: 25px;
+  line-height: 25px;
+  text-align: left;
+  padding: 0 30px 0 6px;
+  cursor: pointer;
+  font-family: monospace;
+  position: relative;
+
+  &.active:after{
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30px;
+    height: 100%;
+    background: center / 50% no-repeat url('data:image/svg+xml;utf8,%3Csvg%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22none%22%20viewBox%3D%220%2C%200%2C%2030%2C%2030%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%20%20%20%20%20%20%3Crect%20width%3D%2230%22%20height%3D%2230%22%3E%3C%2Frect%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M%205%2015%20L%209%2020%20Q%2010.5%2022%2C%2011%2021%20L%2025%205%22%20stroke%3D%22%23377aec%22%20stroke-width%3D%223%22%2F%3E%20%20%20%20%20%20%3Ccircle%20cx%3D%225%22%20cy%3D%2215%22%20r%3D%221.5%22%3E%3C%2Fcircle%3E%20%20%20%20%20%20%3Ccircle%20cx%3D%2225%22%20cy%3D%225%22%20r%3D%221.5%22%3E%3C%2Fcircle%3E%20%20%20%20%3C%2Fsvg%3E');
+  }
+  &.hide{
+    display: none;
+  }
+  &:hover {
+    background: rgba(232, 237, 246, .45);
+  }
+}

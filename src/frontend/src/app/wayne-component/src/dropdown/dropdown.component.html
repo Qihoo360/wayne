@@ -1,0 +1,12 @@
+<div class="item" [style.opacity]="showContent ? 1 : 0.7">
+  <ng-content></ng-content>
+</div>
+<div *ngIf="showContent" @contentState class="content" [class.nowrap]="size === 'small'" [style.width.px]="width"
+     [style.right.px]="right" [style.maxHeight.px]="maxHeight" (mouseenter)="enterEvent()" (mouseleave)="leaveEvent()">
+  <div class="scrollContent" [style.marginRight.px]="marginRight" [style.maxHeight.px]="maxHeight"
+       (scroll)="scrollEvent($event)">
+    <ng-content select="wayne-dropdown-item"></ng-content>
+    <div class="scrollBar" [@barState]="barState" [style.transform]="translateY" [style.height.px]="barStyle.height"
+         (mousedown)="downEvent($event)"></div>
+  </div>
+</div>

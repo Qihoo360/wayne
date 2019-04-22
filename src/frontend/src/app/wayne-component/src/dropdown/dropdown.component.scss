@@ -1,0 +1,37 @@
+:host {
+  display: inline-block;
+  height: 60px;
+  position: relative;
+
+  .item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    cursor: pointer;
+  }
+
+  .content {
+    position: absolute;
+    z-index: 999;
+    top: 60px;
+    background: #303457;
+    overflow: hidden;
+    min-width: 110px;
+
+    .scrollContent {
+      padding: 20px;
+      overflow-y: scroll;
+    }
+
+    .scrollBar {
+      position: absolute;
+      right: 0;
+      top: 0px;
+      width: 5px;
+      height: 50px;
+      background: #ccc;
+      border-radius: 5px;
+    }
+  }
+}

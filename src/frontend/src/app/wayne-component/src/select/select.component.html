@@ -1,0 +1,13 @@
+<wayne-input [(ngModel)]="value" style="width: 100%; height: 100%;" [placeholder]="placeholder" (click)="inputClickEvent($event)"
+  (input)="inputEvent($event)" [readonly]="read" [cursor]="cursor"></wayne-input>
+<svg xmlns="http://www.w3.org/2000/svg" (click)="inputClickEvent($event)" viewBox="0, 0, 10, 5">
+  <polygon points="0,0 10,0 5,5"></polygon>
+</svg>
+<div class="select-box" *ngIf="showBox" @boxState [ngStyle]="{top: dire === 'top' ? 'auto' : 'calc(100% + 5px)', bottom: dire === 'top' ? 'calc(100% + 5px)' : 'auto', paddingTop: search ? '33px' : '5px'}" (mouseenter)="barState = 'show'" (mouseleave)="barState = 'hide'">
+  <div class="option-box" [style.margin-right.px]="marginRight" (scroll)="scrollEvent($event)">
+    <wayne-input *ngIf="search" [(ngModel)]="filterValue" style="width: 100%; padding: 0 6px 3px; height: 26px; position: absolute; top: 5px;" placeholder="filter..."></wayne-input>
+    <ng-content select="wayne-option"></ng-content>
+  </div>
+  <div class="scroll-bar" [@barState]="barState" (mousedown)="mouseDownEvent($event)" [style.transform]="barTop"
+    [style.height.px]="barHeight"></div>
+</div>

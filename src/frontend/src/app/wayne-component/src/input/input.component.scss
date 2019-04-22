@@ -1,0 +1,43 @@
+$hover-color: #999;
+:host {
+  display: block;
+  position: relative;
+  width: 240px;
+  height: 30px;
+
+  input {
+    background: #ffffff;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #cccccc;
+    border-radius: 2px;
+    width: 100%;
+    height: 100%;
+    padding-right: 34px;
+    font-size: 12px;
+    color: #222;
+    letter-spacing: 0.54px;
+    min-width: auto !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    &:hover {
+      border-color: $hover-color;
+    }
+
+    &:not([readonly]):focus {
+      border-color: #999;
+      box-shadow: 0 1px 5px 1px #dee6f3;
+    }
+
+  }
+
+  svg {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    fill: #a0a0a0;
+    stroke: #a0a0a0;
+  }
+}

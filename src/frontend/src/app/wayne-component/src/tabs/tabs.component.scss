@@ -1,0 +1,59 @@
+:host {
+  display: block;
+  margin: 15px 0 5px;
+}
+
+.tabs-box {
+  position: relative;
+  min-height: 22px;
+}
+
+.tabs-box-inner {
+  position: relative;
+}
+
+.tabs-content {
+  overflow: hidden;
+}
+
+.tabs-prev, .tabs-next {
+  position: absolute;
+  display: block;
+  width: 22px;
+  height: 22px;
+  opacity: .8;
+  line-height: 22px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: #909399;
+  user-select: none;
+  box-shadow: 0 0 2px 0 #fff;
+}
+
+.tabs-prev {
+  left: -22px;
+  background: url(left.svg);
+  background-size: cover;
+}
+
+.tabs-next {
+  right: -22px;
+  background: url(right.svg);
+  background-size: cover;
+}
+
+.tabs-list {
+  position: relative;
+  font-size: 0;
+  line-height: normal;
+  -webkit-text-size-adjust: none;
+  white-space: nowrap;
+  transition: all .3s ease-in-out;
+  float: left;
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: .5;
+}

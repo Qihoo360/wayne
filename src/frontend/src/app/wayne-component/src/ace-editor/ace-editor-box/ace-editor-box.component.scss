@@ -1,0 +1,48 @@
+div.aceeditor {
+  color: #1A1A1A;
+  border: 1px solid #007cbb;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 0;
+  line-height: 100%;
+}
+
+div.aceeditor-menu {
+  width: 100%;
+  height: 35px;
+  padding: 2px;
+  margin: 0;
+  box-sizing: border-box;
+  color: white;
+  background-color: #007cbb;
+  border-bottom: 1px solid #007cbb;
+}
+
+.ace-select {
+  background-color: #007cbb;
+  border: none;
+  color: #ffffff;
+  margin-left: 8px;
+  margin-top: 5px;
+}
+
+:host {
+  width: 100%;
+  min-height: 535px;
+}
+
+.select-box {
+  display: inline-block;
+  position: relative;
+
+  .select-mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+  }
+}

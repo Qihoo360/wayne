@@ -1,0 +1,23 @@
+$padding: 20px;
+$margin: 15px;
+:host {
+  display: block;
+  margin-bottom: $margin;
+}
+.collapse-box {
+  padding: $padding;
+}
+.collapse-header {
+  position: relative;
+  padding-left: 7px;
+  svg {
+    margin-left: 3px;
+    transition: transform 250ms ease-in-out;
+    position: absolute;
+    top: calc(50% - 8px);
+    left: -15px;
+  }
+}
+.content {
+  padding-left: 20px;
+}

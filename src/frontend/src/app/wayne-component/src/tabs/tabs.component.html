@@ -1,0 +1,17 @@
+<div class="tabs-box" [ngStyle]="{paddingLeft: tabsNum >= 5 ? '22px' : 0}">
+  <wayne-search-section *ngIf="tabsNum >= 5" [(ngModel)]="searchContent"></wayne-search-section>
+  <div class="tabs-box-inner" [style.margin]="showViewPager ? '0 22px' : '0'">
+    <div class="tabs-content">
+      <ng-container *ngIf="showViewPager">
+        <span class="tabs-prev" [class.disabled]="prevDisabled" (mouseenter)="prevEnter()" (mouseleave)="prevLeave()"
+              (click)="prev()"></span>
+        <span class="tabs-next" [class.disabled]="nextDisabled" (mouseenter)="nextEnter()" (mouseleave)="nextLeave()"
+              (click)="next()"></span>
+      </ng-container>
+      <div class="tabs-list" [style.transform]="listTransform">
+        <!-- <div class="tabs-active-bar" [style.left.px]="barStyle.left" [style.width.px]="barStyle.width"></div> -->
+        <ng-content select="wayne-tab"></ng-content>
+      </div>
+    </div>
+  </div>
+</div>

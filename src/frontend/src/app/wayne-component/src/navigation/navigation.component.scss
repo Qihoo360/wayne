@@ -1,0 +1,47 @@
+ul {
+  list-style: none;
+
+  li {
+    padding-left: 12px;
+
+    & > a {
+      cursor: pointer;
+      font-size: 14px;
+      height: 20px;
+      line-height: 20px;
+      color: #222;
+
+      &:visited, &:active {
+        color: #222;
+      }
+
+      &:hover {
+        color: #4a87ee;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+li > ul {
+  margin-left: 0;
+}
+
+li.active {
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 60%;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background: #4a87ee;
+  }
+
+  a {
+    color: #4a87ee !important;
+  }
+} 

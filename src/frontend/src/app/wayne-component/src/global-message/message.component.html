@@ -1,0 +1,30 @@
+<div class="message-box" *ngIf="infoList.length !== 0" [style.right.px]="posiRight">
+  <div *ngFor="let item of infoList; let i = index" class="message-item" (mouseenter)="enterEvent(i)"
+       (mouseleave)="leaveEvent(i)" [@showState]="item.state">
+    <div class="message-header">
+      <ng-container [ngSwitch]="item.alertType">
+        <ng-template [ngSwitchCase]="0">
+          <clr-icon shape="times-circle" size="20" class="is-error is-solid"></clr-icon>
+        </ng-template>
+        <ng-template [ngSwitchCase]="2">
+          <clr-icon shape="info-standard" size="20" class="is-highlight is-solid"></clr-icon>
+        </ng-template>
+        <ng-template [ngSwitchCase]="3">
+          <clr-icon shape="success-standard" size="20" class="is-success is-solid"></clr-icon>
+        </ng-template>
+        <ng-template [ngSwitchCase]="1">
+          <clr-icon shape="warning-standard" size="20" class="is-warning is-solid"></clr-icon>
+        </ng-template>
+      </ng-container>
+      <div class="message-title">
+        {{item.title}}
+      </div>
+      <div class="message-close" (click)="closeEvent(i)">
+        <clr-icon size="20" shape="window-close"></clr-icon>
+      </div>
+    </div>
+    <div class="message-body">
+      {{item.message | translate}}
+    </div>
+  </div>
+</div>

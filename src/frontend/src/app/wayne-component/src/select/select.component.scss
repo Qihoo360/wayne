@@ -1,0 +1,48 @@
+:host {
+  width: 240px;
+  height: 26px;
+  position: relative;
+  display: inline-block;
+  font-size: 0;
+  cursor: pointer;
+
+  .select-box {
+    overflow: hidden;
+    position: absolute;
+    max-height: 200px;
+    font-size: 12px;
+    left: 0;
+    // bottom: calc(100% + 5px);
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    width: 100%;
+    padding: 5px 0;
+    background: #fff;
+    z-index: 999;
+    .option-box {
+      // margin-right: -17px;
+      max-height: 190px;
+      overflow-y: scroll;
+    }
+
+    .scroll-bar {
+      position: absolute;
+      right: 0;
+      top: 5px;
+      width: 5px;
+      height: 50px;
+      background: rgba(83, 83, 83, .45);
+      border-radius: 5px;
+    }
+  }
+
+  svg {
+    fill: #ccc;
+    width: 10px;
+    height: 5px;
+    position: absolute;
+    top: calc(50% - 2.5px);
+    transition: transform 200ms ease-in-out;
+    right: 10px;
+  }
+}

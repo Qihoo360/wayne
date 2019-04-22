@@ -1,0 +1,15 @@
+<button class="wayne-button normal" (click)="open()" [class.active]="show">{{'TITLE.SHOW_COLUMN' | translate}}</button>
+<ng-container *ngIf="show">
+  <wayne-box class="filter-box">
+    <div class="filter-header">
+      {{'ACTION.CHOOSE_SHOW_COLUMN' | translate}}
+    </div>
+    <div class="filter-body">
+      <ng-content></ng-content>
+    </div>
+    <div class="filter-footer">
+      <button class="wayne-button default" (click)="_cancel()">{{'BUTTON.CANCEL' | translate}}</button>
+      <button class="wayne-button primary" (click)="_confirm()">{{'BUTTON.CONFIRM' | translate}}</button>
+    </div>
+  </wayne-box>
+</ng-container>

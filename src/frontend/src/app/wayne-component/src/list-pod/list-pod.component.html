@@ -1,0 +1,105 @@
+<clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'xl'" #modal>
+  <h3 class="modal-title">
+    发布详情<wayne-modal-operate [modal]="modal" *ngIf="modalOpened"></wayne-modal-operate>
+  </h3>
+
+  <div class="modal-body">
+    <hr>
+    <div class="toggle-switch">
+      <input type="checkbox" id="toggle_4" [(ngModel)]="whetherHotReflash">
+      <label for="toggle_4">{{'POD.DATA_UPDATE' | translate}}</label>
+    </div>
+    <clr-datagrid (clrDgRefresh)="refresh($event)">
+      <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
+      <clr-dg-column [clrDgField]="'name'">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'TITLE.NAME' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgSortBy]="'status'">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'TITLE.STATUS' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgField]="'podIP'">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          PODIP
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column *ngIf="authService.currentUser.admin">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          NodeName
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'POD.RESTART_NUM' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgSortBy]="'creationTimestamp'">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          Age
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'TITLE.ACTION' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-row  *ngFor="let pod of pods" [clrDgItem]="pod">
+        <clr-dg-cell class="copy">{{pod.metadata.name}}</clr-dg-cell>
+        <clr-dg-cell>
+          <span class="label label-light-blue"
+                [class.label-danger]="getPodStatus(pod)!=='Running' && getPodStatus(pod)!=='Pending'"
+                [class.label-success]="getPodStatus(pod)==='Running'"
+                [class.label-warning]="getPodStatus(pod)==='Pending'">{{getPodStatus(pod)}}</span>
+        </clr-dg-cell>
+        <clr-dg-cell>{{pod.status.podIP}}</clr-dg-cell>
+        <clr-dg-cell *ngIf="authService.currentUser.admin">{{pod.spec.nodeName}}</clr-dg-cell>
+        <clr-dg-cell>
+          <span *ngFor="let state of pod.status.containerStatuses" class="label label-light-blue"
+                [class.label-danger]="state.restartCount > 10"
+                [class.label-success]="state.restartCount === 0"
+                [class.label-warning]="state.restartCount > 0 && state.restartCount <= 10">
+            {{state.name}} : {{state.restartCount}}
+          </span>
+        </clr-dg-cell>
+        <clr-dg-cell>{{pod.metadata.creationTimestamp | relativeTime}}</clr-dg-cell>
+        <clr-dg-cell>
+          <button *ngIf="authService.currentAppPermission.kubePod.read || authService.currentUser.admin" class="wayne-button text" (click)="enterContainer(pod)"> {{'POD.ENTER_CONTAINER' | translate}}</button>
+          <button *ngIf="logSource" class="wayne-button text" (click)="copyLogCommand(pod)">{{'POD.LOG_COMMAND' | translate}}</button>
+          <button *ngIf="authService.currentAppPermission.kubePod.read || authService.currentUser.admin" class="wayne-button text" (click)="podLog(pod)"> {{'POD.LOG' | translate}}</button>
+          <button *ngIf="authService.currentAppPermission.kubePod.delete || authService.currentUser.admin" class="wayne-button text" (click)="deletePod(pod)">{{'BUTTON.DELETE' | translate}}</button>
+        </clr-dg-cell>
+      </clr-dg-row>
+      <clr-dg-footer>
+        <wayne-paginate
+          [(currentPage)]="currentPage"
+          [total]="pageState.page.totalCount"
+          [pageSizes]="[5, 10, 20, 50]"
+          (sizeChange)="pageSizeChange($event)">
+        </wayne-paginate>
+      </clr-dg-footer>
+    </clr-datagrid>
+
+    <!--<clr-tabs>
+      <clr-tab>
+        <button clrTabLink>容器列表</button>
+        <ng-template [(clrIfActive)]="dashboardActive">
+      <clr-tab-content>
+
+      </clr-tab-content>
+    </ng-template>
+      </clr-tab>
+      <clr-tab>
+        <button clrTabLink>事件</button>
+        <ng-template [(clrIfActive)]="infrastructureActive">
+          <clr-tab-content>
+            ...
+          </clr-tab-content>
+        </ng-template>
+      </clr-tab>
+    </clr-tabs>-->
+
+  </div>
+</clr-modal>

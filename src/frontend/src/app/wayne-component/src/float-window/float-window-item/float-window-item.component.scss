@@ -1,0 +1,16 @@
+.float-item {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgb(250, 250, 250);
+  line-height: 60px;
+  text-align: center;
+  user-select: none;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-right: 10px;
+  font-size: 14px;
+  transition: all .3s cubic-bezier(0.55, 0, 0.55, 0.2);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}

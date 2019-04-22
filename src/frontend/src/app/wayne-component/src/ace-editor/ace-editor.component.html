@@ -1,0 +1,26 @@
+<clr-modal [clrModalSize]="'lg'" [(clrModalOpen)]="modalOpened" #modal>
+  <h3 class="modal-title">{{title | translate}}
+    <wayne-modal-operate [modal]="modal" *ngIf="modalOpened"></wayne-modal-operate>
+  </h3>
+
+  <div class="modal-body">
+    <div class="alert alert-warning" style="margin-bottom:10px" *ngIf="warningMsg">
+      <div class="alert-items">
+        <div class="alert-item static">
+          <div class="alert-icon-wrapper">
+            <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+          </div>
+          <span class="alert-text">
+             {{warningMsg}}
+          </span>
+        </div>
+      </div>
+    </div>
+    <wayne-ace-editor-box (modalChange)="modalInfo($event)"></wayne-ace-editor-box>
+  </div>
+  <div [hidden]="hiddenFooter" class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">保存</button>
+  </div>
+</clr-modal>
+

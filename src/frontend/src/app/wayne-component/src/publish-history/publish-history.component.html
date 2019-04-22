@@ -1,0 +1,51 @@
+<clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'xl'">
+  <h3 class="modal-title">{{'BUTTON.HISTORY' | translate}} - {{ resourceName }}</h3>
+  <div class="modal-body">
+    <hr>
+    <clr-datagrid (clrDgRefresh)="refresh($event)">
+      <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'HISTORY.RELEASE_TIME' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'HISTORY.RELEASE_USER' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'HISTORY.TMP_ID' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'TITLE.CLUSTER' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          {{'TITLE.STATUS' | translate}}
+        </ng-container>
+      </clr-dg-column>
+      <clr-dg-row *ngFor="let history of publishHistories" [clrDgItem]="history">
+        <clr-dg-cell>{{history.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
+        <clr-dg-cell>{{history.user}}</clr-dg-cell>
+        <clr-dg-cell>{{history.templateId}}</clr-dg-cell>
+        <clr-dg-cell>{{history.cluster}}</clr-dg-cell>
+        <clr-dg-cell>{{history.status == 1 ? 'success' : history.message}}</clr-dg-cell>
+      </clr-dg-row>
+      <clr-dg-footer>
+        <wayne-paginate
+          [(currentPage)]="currentPage"
+          [total]="pageState.page.totalCount"
+          [pageSizes]="[10, 20, 50]"
+          (sizeChange)="pageSizeChange($event)"
+        >
+        </wayne-paginate>
+      </clr-dg-footer>
+    </clr-datagrid>
+  </div>
+</clr-modal>
+

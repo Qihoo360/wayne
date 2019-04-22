@@ -1,0 +1,5 @@
+<ul class="breadcrumb">
+  <li class="item" *ngFor="let url of urls; let last = last;" [class.active]="last || !friendlyName(url).avail">
+    <a href="javascript:;" (click)="navigateTo(url, friendlyName(url).avail)">{{friendlyName(url).name}}</a>
+  </li>
+</ul>

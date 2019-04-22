@@ -1,0 +1,15 @@
+{
+  "name": "wayne-component",
+  "version": "0.2.0",
+  "description": "conponent for wayne",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "wayne",
+    "component"
+  ],
+  "author": "BennieMeng",
+  "license": "ISC"
+}

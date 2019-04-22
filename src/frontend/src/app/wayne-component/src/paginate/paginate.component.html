@@ -1,0 +1,16 @@
+<ng-container *ngIf="total && showSize">
+  <wayne-select [(ngModel)]="size" style="width: 50px; height: 24px;margin-left: 12px;" inputable
+                  direction="top">
+    <wayne-option *ngFor="let pagesize of pageSizes" [value]="pagesize">{{pagesize}}</wayne-option>
+  </wayne-select>
+</ng-container>
+<span style="margin-left:5px;" [translate]="'PAGE.TOTAL'" [translateParams]="{value: total ? total : 0}"></span>
+<!-- <ng-container *ngIf="total && total > size">
+  <wayne-select [(ngModel)]="current" [placeholder]="'PLACEHOLDER.CHOOSE' | translate"
+                style="width: 40px; height: 24px;margin-left: 12px;" direction="top">
+    <wayne-option *ngFor="let i of pageList" [value]="i">{{i}}</wayne-option>
+  </wayne-select>
+  / {{lastPage}} {{'PAGE.PAGE' | translate}}
+</ng-container> -->
+<clr-dg-pagination #pagination [(clrDgPage)]="current" [clrDgPageSize]="size" [clrDgLastPage]="lastPage"
+                    [clrDgTotalItems]="total"></clr-dg-pagination>

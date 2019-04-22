@@ -1,0 +1,49 @@
+.list-box {
+  min-height: 200px;
+  width: 100%;
+}
+
+.top100 {
+  margin-top: 100px;
+}
+
+.top80 {
+  margin-top: 80px;
+}
+
+.bottom10 {
+  margin-bottom: 10px;
+}
+
+.vertical-spacing-5 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.center-block {
+  min-height: 50px;
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width: 768px) {
+  .sm-spacing {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+/* Tablets in portrait */
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+  .sm-spacing {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width: 480px) {
+  .sm-spacing {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}

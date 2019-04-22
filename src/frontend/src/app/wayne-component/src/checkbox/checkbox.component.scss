@@ -1,0 +1,35 @@
+:host {
+  display: flex;
+  width: 100%;
+  align-items: center;
+
+  .check-box {
+    background: #ffffff;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 2px;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+
+    &.checked {
+      border-color: #377aec;
+      background: no-repeat url('check.svg');
+      background-size: cover;
+    }
+  }
+
+  label {
+    position: relative;
+
+    input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
+  }
+}

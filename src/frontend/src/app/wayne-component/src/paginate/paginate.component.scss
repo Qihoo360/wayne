@@ -1,0 +1,24 @@
+.page-button {
+  border: 1px solid #ccc;
+  color: #ccc;
+  background: #fff;
+  height: 27px;
+  line-height: 27px;
+  padding: 0 5px;
+  margin: 0 2px;
+  border-radius: 4px;
+  letter-spacing: .4px;
+  outline: none;
+  min-width: 27px;
+}
+
+.page-button.active, .page-button:hover {
+  color: #fff;
+  background: #ccc;
+}
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

@@ -1,0 +1,10 @@
+<input [(ngModel)]="value" #input [placeholder]="placeholder" [readonly]="readOnly" [style.cursor]="cursor"
+       [type]="type" (focus)="focusState = true;" (blur)="focusState = false;" (input)="inputEvent($event)"
+       (change)="changeEvent($event)" [style.padding-right.px]="showSearch ? 34 : 6">
+<svg *ngIf="showSearch" width="16" height="16"
+     [ngStyle]="{'fill': focusState ? '#222' : '#666', 'stroke': focusState ? '#222' : '#666'}"
+     xmlns="http://www.w3.org/2000/svg" viewBox="0, 0, 100, 100">
+  <circle cx="40" cy="45" r="35" stroke-width="10" fill="#fff"></circle>
+  <line x1="70" y1="65" x2="95" y2="85" stroke-width="10"></line>
+  <circle cx="95" cy="85" r="4"></circle>
+</svg>

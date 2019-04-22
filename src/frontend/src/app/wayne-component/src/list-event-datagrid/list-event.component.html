@@ -1,0 +1,50 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)">
+  <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      {{'TITLE.NAME' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      {{'CRONJOB.TIMER' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      {{'CRONJOB.ERROR_REASON' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      {{'EVENT.ERROR_MESSAGE' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgSortBy]="'creationTimestamp'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      {{'TITLE.START_TIME' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      {{'EVENT.FINISH_CHECK_TIME' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-row *ngFor="let event of events" [clrDgItem]="event">
+    <clr-dg-cell class="copy">{{event.name}}</clr-dg-cell>
+    <clr-dg-cell>{{event.count}}</clr-dg-cell>
+    <clr-dg-cell>{{event.reason}}</clr-dg-cell>
+    <clr-dg-cell>{{event.message}}</clr-dg-cell>
+    <clr-dg-cell>{{event.firstSeen | date: "yyyy-MM-dd HH:mm:ss"}}</clr-dg-cell>
+    <clr-dg-cell>{{event.lastSeen | date: "yyyy-MM-dd HH:mm:ss"}}</clr-dg-cell>
+  </clr-dg-row>
+  <clr-dg-footer>
+    <wayne-paginate
+      [(currentPage)]="currentPage"
+      [total]="pageState.page.totalCount"
+      [pageSizes]="[10, 20, 50]"
+      (sizeChange)="pageSizeChange($event)">
+    </wayne-paginate>
+  </clr-dg-footer>
+</clr-datagrid>
+

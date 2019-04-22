@@ -1,0 +1,36 @@
+:host {
+  display: block;
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+
+  .item-box {
+    position: absolute;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row-reverse;
+    right: 60px;
+    top: 0;
+  }
+
+  .float-item {
+    color: #fff;
+    background: rgb(76, 175, 80);
+    right: 0px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    line-height: 60px;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    font-size: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+

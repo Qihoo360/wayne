@@ -1,0 +1,26 @@
+.breadcrumb {
+  padding: 8px 15px;
+  list-style: none;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.breadcrumb li.item {
+  display: inline-block;
+}
+
+.breadcrumb li.item > a {
+  color: #0275d8;
+}
+
+.breadcrumb li.active > a {
+  color: #777;
+  text-decoration: none;
+  cursor: default;
+}
+
+.breadcrumb > li:nth-child(n+2):before {
+  padding: 0 5px;
+  color: #ccc;
+  content: "/\00a0";
+}

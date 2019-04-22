@@ -1,0 +1,49 @@
+.message-box {
+  position: fixed;
+  width: 270px;
+  top: 75px;
+  right: 23px;
+  max-height: 80vh;
+  z-index: 1051;
+
+  .message-item {
+    position: relative;
+    border: 1px solid #ccc;
+    left: 350px;
+    width: 270px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 5px 12px 0px rgba(0, 0, 0, 0.3);
+
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .message-title {
+        font-size: 16px;
+        font-weight: 800;
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-left: 3px;
+        padding-right: 15px;
+      }
+
+      .message-close {
+        cursor: pointer;
+      }
+    }
+
+    .message-body {
+      margin-top: 5px;
+      letter-spacing: 1.4px;
+      line-height: 1.4;
+      word-break: break-all;
+      white-space: pre-wrap;
+    }
+  }
+}

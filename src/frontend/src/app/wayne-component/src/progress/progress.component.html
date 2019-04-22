@@ -1,0 +1,11 @@
+<div class="progress-bar">
+  <span *ngIf="label" [title]="label">{{label}}</span>
+  <div class="progress-box" (mouseenter)="enterEvent()" (mouseleave)="leaveEvent()" #box>
+    <div class="progress-inner" [ngStyle]="{'background': endColor, 'width': showPercent}">
+      <!-- <div *ngIf="text" class="progress-text flex flex-center">
+          {{count}}
+      </div> -->
+    </div>
+  </div>
+  <span class="num">{{percent}}</span>
+</div>
