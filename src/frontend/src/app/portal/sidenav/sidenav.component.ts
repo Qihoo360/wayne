@@ -26,7 +26,8 @@ export class SidenavComponent extends SideNavCollapse {
   }
 
   getMonitorUri() {
-    return this.authService.config['system.monitor-uri'];
+    return this.cacheService.currentNamespace.metaDataObj['system.monitor-url']
+        || this.authService.config['system.monitor-uri'];
   }
 
 }
