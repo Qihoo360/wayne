@@ -25,6 +25,7 @@ const adminSideNav: any[] = [
     type: SideNavType.GroupLink, icon: { shape: 'world', title: 'Kubernetes', solid: true }, text: 'Kubernetes', child: [
       { a: { link: 'kubernetes/node', text: 'Node', options: {exact: false}, icon: { shape: 'devices', solid: false } } },
       { a: { link: 'kubernetes/namespace', text: 'Namespace', options: {exact: false}, icon: { shape: 'vmw-app', solid: true } } },
+      { a: { link: 'kubernetes/customresourcedefinition', text: 'CRD', options: {exact: false}, icon: { shape: 'plugin', solid: true } } },
       { type: SideNavType.Divider },
       { a: { link: 'kubernetes/role', text: 'Role', options: {exact: false}, icon: { shape: 'assign-user' } } },
       { a: { link: 'kubernetes/clusterrole', text: 'ClusterRole', options: {exact: false}, icon: { shape: 'assign-user', solid: true } } },

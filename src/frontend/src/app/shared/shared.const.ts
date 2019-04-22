@@ -34,6 +34,7 @@ export const KubeResourceRoleBinding: KubeResourcesName = 'rolebindings';
 export const KubeResourceClusterRole: KubeResourcesName = 'clusterroles';
 export const KubeResourceClusterRoleBinding: KubeResourcesName = 'clusterrolebindings';
 export const KubeResourceServiceAccount: KubeResourcesName = 'serviceaccounts';
+export const KubeResourceCustomResourceDefinition: KubeResourcesName = 'customresourcedefinitions';
 
 export const LoginTokenKey = 'wayne_token';
 

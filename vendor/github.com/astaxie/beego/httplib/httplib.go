@@ -37,7 +37,6 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"encoding/xml"
-	"gopkg.in/yaml.v2"
 	"io"
 	"io/ioutil"
 	"log"
@@ -51,6 +50,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"gopkg.in/yaml.v2"
 )
 
 var defaultSetting = BeegoHTTPSettings{

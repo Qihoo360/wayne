@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	"k8s.io/client-go/kubernetes"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
@@ -88,6 +89,18 @@ func (c *APIController) CheckPermission(perType string, perAction string) {
 	}
 
 	c.AbortForbidden("Permission error")
+}
+
+func (c *APIController) ApiextensionsClient(cluster string) *clientset.Clientset {
+	manager, err := client.Manager(cluster)
+	if err != nil {
+		c.AbortBadRequestFormat(fmt.Sprintf("Get cluster (%s) manager error. %v", cluster, err))
+	}
+	cli, err := clientset.NewForConfig(manager.Config)
+	if err != nil {
+		c.AbortBadRequestFormat(fmt.Sprintf("Create (%s) apiextensions client error. %v", cluster, err))
+	}
+	return cli
 }
 
 func (c *APIController) Client(cluster string) *kubernetes.Clientset {
