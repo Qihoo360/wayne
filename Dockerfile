@@ -20,7 +20,7 @@ RUN cd /workspace && \
 # build server
 FROM 360cloud/wayne-server-builder:v1.0.1 as backend
 
-COPY src/vendor /go/src/github.com/Qihoo360/wayne/src/vendor
+COPY vendor /go/src/github.com/Qihoo360/wayne/vendor
 
 COPY src/backend /go/src/github.com/Qihoo360/wayne/src/backend
 
