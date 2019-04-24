@@ -1,6 +1,6 @@
 {
   "name": "wayne-component",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "conponent for wayne",
   "main": "index.js",
   "scripts": {

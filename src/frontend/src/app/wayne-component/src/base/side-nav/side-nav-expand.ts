@@ -4,7 +4,7 @@ import { SideNavService } from '../../client/v1/sidenav.service';
 import { Subscription } from 'rxjs';
 import { SideNavType } from '../../sidenav.const';
 import { SideNavCollapse } from './side-nav-collapse';
-import { SideNavCollapseStorage } from '../../../shared/sidenav.const';
+import { SideNavCollapseStorage } from '../../sidenav.const';
 
 export class SideNavExpand extends SideNavCollapse implements OnInit, OnDestroy {
   sideNavSub: Subscription;

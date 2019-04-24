@@ -1,7 +1,7 @@
 import { EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { BreadcrumbService } from '../../client/v1/breadcrumb.service';
 import { Page } from '../../page/page-state';
 import { AceEditorService } from '../../ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../ace-editor/ace-editor';

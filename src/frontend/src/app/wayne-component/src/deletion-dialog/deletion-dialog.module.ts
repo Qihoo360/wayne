@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { DeletionDialogComponent } from './deletion-dialog.component';
-import { SharedModule } from '../shared.module';
+import { ClarityModule } from '@clr/angular';
 
 @NgModule({
   imports: [
-    SharedModule
+    ClarityModule
   ],
   providers: [],
   declarations: [DeletionDialogComponent],

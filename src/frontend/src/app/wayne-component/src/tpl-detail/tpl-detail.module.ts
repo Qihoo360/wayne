@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { TplDetailComponent } from './tpl-detail.component';
-import { SharedModule } from '../shared.module';
+import { ClarityModule } from '@clr/angular';
 
 @NgModule({
   imports: [
-    SharedModule,
+    ClarityModule
   ],
   providers: [],
   exports: [TplDetailComponent],
