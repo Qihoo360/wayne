@@ -10,7 +10,7 @@ var PROXY_CONFIG = [
       "/healthz",
       "/session"
     ],
-    target: "http://localhost:8080",
+    target: "http://test.qihoo.cloud",
     secure: false,
     changeOrigin: true
   }
