@@ -48,7 +48,6 @@
     "rxjs-compat": "^6.2.1",
     "sockjs-client": "^1.1.4",
     "tslib": "^1.9.0",
-    "wayne-component": "^0.2.1",
     "wayne-ui": "^0.1.0",
     "xterm": "^3.11.0",
     "zone.js": "^0.8.29"
@@ -83,6 +82,7 @@
     "ts-node": "~5.0.1",
     "tslint": "^5.9.1",
     "typescript": "~3.2.4",
+    "wayne-component": "^0.2.3",
     "webpack": "^4.29.0"
   }
 }
