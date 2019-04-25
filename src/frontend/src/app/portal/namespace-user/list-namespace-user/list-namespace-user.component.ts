@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { NamespaceUser } from '../../../shared/model/v1/namespace-user';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { Page } from '../../../shared/page/page-state';
+import { NamespaceUser } from 'wayne-component/lib/model/v1/namespace-user';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { Page } from 'wayne-component/lib/page/page-state';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

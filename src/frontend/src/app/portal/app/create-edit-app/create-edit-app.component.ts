@@ -3,11 +3,11 @@ import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ActionType } from '../../../shared/shared.const';
-import { App } from '../../../shared/model/v1/app';
-import { AppService } from '../../../shared/client/v1/app.service';
-import { CacheService } from '../../../shared/auth/cache.service';
+import { MessageHandlerService } from 'wayne-component';
+import { ActionType } from 'wayne-component/lib/shared.const';
+import { App } from 'wayne-component/lib/model/v1/app';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

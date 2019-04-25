@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { PersistentVolumeClaimClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { PersistentVolumeClaimClient } from 'wayne-component/lib/client/v1/kubernetes/persistentvolumeclaims';
+import { MessageHandlerService } from 'wayne-component';
 import { NgForm } from '@angular/forms';
-import { PublishStatus } from '../../../shared/model/v1/publish-status';
+import { PublishStatus } from 'wayne-component/lib/model/v1/publish-status';
 import { ActivatedRoute } from '@angular/router';
-import { PersistentVolumeClaimRobinClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims-robin';
+import { PersistentVolumeClaimRobinClient } from 'wayne-component/lib/client/v1/kubernetes/persistentvolumeclaims-robin';
 
 @Component({
   selector: 'create-snapshot',

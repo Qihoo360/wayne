@@ -1,19 +1,19 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
+import { BreadcrumbService } from 'wayne-component/lib/client/v1/breadcrumb.service';
 import { ActivatedRoute } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { ListNamespaceUserComponent } from './list-namespace-user/list-namespace-user.component';
 import { CreateEditNamespaceUserComponent } from './create-edit-namespace-user/create-edit-namespace-user.component';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { NamespaceUser } from '../../shared/model/v1/namespace-user';
-import { AuthService } from '../../shared/auth/auth.service';
-import { NamespaceUserService } from '../../shared/client/v1/namespace-user.service';
-import { CacheService } from '../../shared/auth/cache.service';
-import { PageState } from '../../shared/page/page-state';
+import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { NamespaceUser } from 'wayne-component/lib/model/v1/namespace-user';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { NamespaceUserService } from 'wayne-component/lib/client/v1/namespace-user.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
 import { TranslateService } from '@ngx-translate/core';
 
 const showState = {

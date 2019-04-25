@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { AppUser } from '../../../shared/model/v1/app-user';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { Page } from '../../../shared/page/page-state';
+import { AppUser } from 'wayne-component/lib/model/v1/app-user';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { Page } from 'wayne-component/lib/page/page-state';
 
 @Component({
   selector: 'list-app-user',

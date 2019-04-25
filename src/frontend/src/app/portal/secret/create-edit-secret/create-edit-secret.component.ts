@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { Secret } from '../../../shared/model/v1/secret';
-import { SecretService } from '../../../shared/client/v1/secret.service';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { CreateEditResource } from '../../../shared/base/resource/create-edit-resource';
+import { MessageHandlerService } from 'wayne-component';
+import { Secret } from 'wayne-component/lib/model/v1/secret';
+import { SecretService } from 'wayne-component/lib/client/v1/secret.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { CreateEditResource } from 'wayne-component/lib/base/resource/create-edit-resource';
 
 @Component({
   selector: 'create-edit-secret',

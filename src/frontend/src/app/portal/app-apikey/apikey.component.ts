@@ -1,16 +1,16 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { apiKeyTypeApp, ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { apiKeyTypeApp, ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { AuthService } from '../../shared/auth/auth.service';
-import { PageState } from '../../shared/page/page-state';
+import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
 import { ListApiKeyComponent } from './list-apikey/list-apikey.component';
 import { CreateEditApiKeyComponent } from './create-edit-apikey/create-edit-apikey.component';
-import { ApiKey } from '../../shared/model/v1/apikey';
-import { ApiKeyService } from '../../shared/client/v1/apikey.service';
+import { ApiKey } from 'wayne-component/lib/model/v1/apikey';
+import { ApiKeyService } from 'wayne-component/lib/client/v1/apikey.service';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 

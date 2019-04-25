@@ -1,24 +1,24 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Resource } from '../../shared/base/resource/resource';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { Resource } from 'wayne-component/lib/base/resource/resource';
+import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TabDragService } from '../../shared/client/v1/tab-drag.service';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { PublishService } from '../../shared/client/v1/publish.service';
-import { AuthService } from '../../shared/auth/auth.service';
-import { AppService } from '../../shared/client/v1/app.service';
+import { TabDragService } from 'wayne-component/lib/client/v1/tab-drag.service';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { PublishService } from 'wayne-component/lib/client/v1/publish.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
 import { PublishHistoryService } from '../common/publish-history/publish-history.service';
-import { ClusterService } from '../../shared/client/v1/cluster.service';
-import { CacheService } from '../../shared/auth/cache.service';
-import { AutoscaleService } from '../../shared/client/v1/autoscale.service';
-import { AutoscaleTplService } from '../../shared/client/v1/autoscaletpl.service';
-import { AutoscaleClient } from '../../shared/client/v1/kubernetes/autoscale';
+import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { AutoscaleService } from 'wayne-component/lib/client/v1/autoscale.service';
+import { AutoscaleTplService } from 'wayne-component/lib/client/v1/autoscaletpl.service';
+import { AutoscaleClient } from 'wayne-component/lib/client/v1/kubernetes/autoscale';
 import { CreateEditAutoscaleComponent } from './create-edit-autoscale/create-edit-autoscale.component';
-import { ConfirmationTargets, KubeResourceHorizontalPodAutoscaler, PublishType } from '../../shared/shared.const';
-import { HorizontalPodAutoscaler } from '../../shared/model/v1/kubernetes/autoscale';
-import { PublishStatus } from '../../shared/model/v1/publish-status';
+import { ConfirmationTargets, KubeResourceHorizontalPodAutoscaler, PublishType } from 'wayne-component/lib/shared.const';
+import { HorizontalPodAutoscaler } from 'wayne-component/lib/model/v1/kubernetes/autoscale';
+import { PublishStatus } from 'wayne-component/lib/model/v1/publish-status';
 import { ListAutoscaleComponent } from './list-autoscale/list-autoscale.component';
-import { KubernetesClient } from '../../shared/client/v1/kubernetes/kubernetes';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'wayne-autoscale',

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ConfigMap } from '../../../shared/model/v1/configmap';
-import { ConfigMapService } from '../../../shared/client/v1/configmap.service';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { CreateEditResource } from '../../../shared/base/resource/create-edit-resource';
+import { MessageHandlerService } from 'wayne-component';
+import { ConfigMap } from 'wayne-component/lib/model/v1/configmap';
+import { ConfigMapService } from 'wayne-component/lib/client/v1/configmap.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { CreateEditResource } from 'wayne-component/lib/base/resource/create-edit-resource';
 @Component({
   selector: 'create-edit-configmap',
   templateUrl: 'create-edit-configmap.component.html',

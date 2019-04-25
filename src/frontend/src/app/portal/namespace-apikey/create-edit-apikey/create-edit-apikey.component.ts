@@ -2,14 +2,14 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ActionType, apiKeyTypeNamespace } from '../../../shared/shared.const';
+import { MessageHandlerService } from 'wayne-component';
+import { ActionType, apiKeyTypeNamespace } from 'wayne-component/lib/shared.const';
 import { ApiKey } from 'app/shared/model/v1/apikey';
-import { ApiKeyService } from '../../../shared/client/v1/apikey.service';
-import { GroupService } from '../../../shared/client/v1/group.service';
-import { Group } from '../../../shared/model/v1/group';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { PageState } from '../../../shared/page/page-state';
+import { ApiKeyService } from 'wayne-component/lib/client/v1/apikey.service';
+import { GroupService } from 'wayne-component/lib/client/v1/group.service';
+import { Group } from 'wayne-component/lib/model/v1/group';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
 
 @Component({
   selector: 'create-edit-apikey',

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../shared/auth/auth.service';
-import { AppService } from '../../shared/client/v1/app.service';
-import { CacheService } from '../../shared/auth/cache.service';
-import { StorageService } from '../../shared/client/v1/storage.service';
-import { SideNavCollapse } from '../../shared/base/side-nav/side-nav-collapse';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { StorageService } from 'wayne-component/lib/client/v1/storage.service';
+import { SideNavCollapse } from 'wayne-component/lib/base/side-nav/side-nav-collapse';
 @Component({
   selector: 'wayne-sidenav',
   templateUrl: './sidenav.component.html',

@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { AppService } from '../../../shared/client/v1/app.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { MessageHandlerService } from 'wayne-component';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
 import * as echarts from 'echarts';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { NamespaceService } from '../../../shared/client/v1/namespace.service';
+import { NamespaceService } from 'wayne-component/lib/client/v1/namespace.service';
 import ECharts = echarts.ECharts;
 import EChartOption = echarts.EChartOption;
 

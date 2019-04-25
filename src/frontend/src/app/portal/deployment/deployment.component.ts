@@ -1,20 +1,20 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListDeploymentComponent } from './list-deployment/list-deployment.component';
 import { CreateEditDeploymentComponent } from './create-edit-deployment/create-edit-deployment.component';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { DeploymentClient } from '../../shared/client/v1/kubernetes/deployment';
-import { DeploymentStatus, DeploymentTpl } from '../../shared/model/v1/deploymenttpl';
-import { App } from '../../shared/model/v1/app';
-import { Cluster } from '../../shared/model/v1/cluster';
-import { Deployment } from '../../shared/model/v1/deployment';
-import { DeploymentService } from '../../shared/client/v1/deployment.service';
-import { DeploymentTplService } from '../../shared/client/v1/deploymenttpl.service';
-import { AppService } from '../../shared/client/v1/app.service';
-import { ClusterService } from '../../shared/client/v1/cluster.service';
-import { KubeDeployment } from '../../shared/model/v1/kubernetes/deployment';
-import { CacheService } from '../../shared/auth/cache.service';
+import { DeploymentClient } from 'wayne-component/lib/client/v1/kubernetes/deployment';
+import { DeploymentStatus, DeploymentTpl } from 'wayne-component/lib/model/v1/deploymenttpl';
+import { App } from 'wayne-component/lib/model/v1/app';
+import { Cluster } from 'wayne-component/lib/model/v1/cluster';
+import { Deployment } from 'wayne-component/lib/model/v1/deployment';
+import { DeploymentService } from 'wayne-component/lib/client/v1/deployment.service';
+import { DeploymentTplService } from 'wayne-component/lib/client/v1/deploymenttpl.service';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';
+import { KubeDeployment } from 'wayne-component/lib/model/v1/kubernetes/deployment';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
 import { PublishHistoryService } from '../common/publish-history/publish-history.service';
 import {
   ConfirmationButtons,
@@ -23,17 +23,17 @@ import {
   httpStatusCode,
   PublishType,
   TemplateState
-} from '../../shared/shared.const';
-import { AuthService } from '../../shared/auth/auth.service';
-import { PublishService } from '../../shared/client/v1/publish.service';
-import { PublishStatus } from '../../shared/model/v1/publish-status';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+} from 'wayne-component/lib/shared.const';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { PublishService } from 'wayne-component/lib/client/v1/publish.service';
+import { PublishStatus } from 'wayne-component/lib/model/v1/publish-status';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
 import { combineLatest } from 'rxjs';
-import { PageState } from '../../shared/page/page-state';
-import { TabDragService } from '../../shared/client/v1/tab-drag.service';
-import { OrderItem } from '../../shared/model/v1/order';
+import { PageState } from 'wayne-component/lib/page/page-state';
+import { TabDragService } from 'wayne-component/lib/client/v1/tab-drag.service';
+import { OrderItem } from 'wayne-component/lib/model/v1/order';
 import { TranslateService } from '@ngx-translate/core';
 
 const showState = {

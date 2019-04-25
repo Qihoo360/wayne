@@ -3,16 +3,16 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ActionType, groupType } from '../../../shared/shared.const';
-import { AppUser } from '../../../shared/model/v1/app-user';
-import { Group } from '../../../shared/model/v1/group';
-import { User } from '../../../shared/model/v1/user';
-import { UserService } from '../../../shared/client/v1/user.service';
-import { GroupService } from '../../../shared/client/v1/group.service';
-import { AppUserService } from '../../../shared/client/v1/app-user.service';
-import { App } from '../../../shared/model/v1/app';
-import { PageState } from '../../../shared/page/page-state';
+import { MessageHandlerService } from 'wayne-component';
+import { ActionType, groupType } from 'wayne-component/lib/shared.const';
+import { AppUser } from 'wayne-component/lib/model/v1/app-user';
+import { Group } from 'wayne-component/lib/model/v1/group';
+import { User } from 'wayne-component/lib/model/v1/user';
+import { UserService } from 'wayne-component/lib/client/v1/user.service';
+import { GroupService } from 'wayne-component/lib/client/v1/group.service';
+import { AppUserService } from 'wayne-component/lib/client/v1/app-user.service';
+import { App } from 'wayne-component/lib/model/v1/app';
+import { PageState } from 'wayne-component/lib/page/page-state';
 
 @Component({
   selector: 'create-edit-app-user',

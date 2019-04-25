@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { AppService } from '../../../shared/client/v1/app.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { MessageHandlerService } from 'wayne-component';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
 import {
   KubeApiTypeConfigMap,
   KubeApiTypeCronJob,
@@ -11,9 +11,9 @@ import {
   KubeApiTypeSecret,
   KubeApiTypeService,
   KubeApiTypeStatefulSet
-} from '../../../shared/shared.const';
+} from 'wayne-component/lib/shared.const';
 import { Cluster } from '../../app/list-cluster/cluster';
-import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
+import { NamespaceClient } from 'wayne-component/lib/client/v1/kubernetes/namespace';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

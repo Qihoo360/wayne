@@ -1,17 +1,17 @@
 import { OnInit, Component, OnDestroy, ViewChild } from '@angular/core';
-import { IngressService } from '../../../shared/client/v1/ingress.service';
-import { IngressTplService } from '../../../shared/client/v1/ingresstpl.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { IngressService } from 'wayne-component/lib/client/v1/ingress.service';
+import { IngressTplService } from 'wayne-component/lib/client/v1/ingresstpl.service';
+import { MessageHandlerService } from 'wayne-component';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
 import { PublishIngressTplComponent } from '../publish-tpl/publish-tpl.component';
 import { IngressStatusComponent } from '../status/status.component';
-import { ConfirmationTargets } from '../../../shared/shared.const';
-import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
-import { ListResource } from '../../../shared/base/resource/list-resource';
-import { DiffService } from '../../../shared/diff/diff.service';
+import { ConfirmationTargets } from 'wayne-component/lib/shared.const';
+import { TplDetailService } from 'wayne-component/lib/tpl-detail/tpl-detail.service';
+import { ListResource } from 'wayne-component/lib/base/resource/list-resource';
+import { DiffService } from 'wayne-component/lib/diff/diff.service';
 
 @Component({
   selector: 'list-ingress',

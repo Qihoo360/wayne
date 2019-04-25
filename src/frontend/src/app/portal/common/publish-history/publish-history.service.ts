@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { PublishHistory } from '../../../shared/model/v1/publish-history';
-import { PublishType } from '../../../shared/shared.const';
+import { PublishHistory } from 'wayne-component/lib/model/v1/publish-history';
+import { PublishType } from 'wayne-component/lib/shared.const';
 
 @Injectable()
 export class PublishHistoryService {

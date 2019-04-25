@@ -1,31 +1,31 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { MessageHandlerService } from 'wayne-component';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
 import {
   ConfirmationButtons,
   ConfirmationState,
   ConfirmationTargets,
   KubeResourceCronJob,
   ResourcesActionType,
-} from '../../../shared/shared.const';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+} from 'wayne-component/lib/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
 import { PublishCronjobTplComponent } from '../publish-tpl/publish-tpl.component';
-import { CronjobStatus, CronjobTpl } from '../../../shared/model/v1/cronjobtpl';
-import { CronjobService } from '../../../shared/client/v1/cronjob.service';
-import { CronjobTplService } from '../../../shared/client/v1/cronjobtpl.service';
-import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
-import { AuthService } from '../../../shared/auth/auth.service';
+import { CronjobStatus, CronjobTpl } from 'wayne-component/lib/model/v1/cronjobtpl';
+import { CronjobService } from 'wayne-component/lib/client/v1/cronjob.service';
+import { CronjobTplService } from 'wayne-component/lib/client/v1/cronjobtpl.service';
+import { TplDetailService } from 'wayne-component/lib/tpl-detail/tpl-detail.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Page } from '../../../shared/page/page-state';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { Page } from 'wayne-component/lib/page/page-state';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
 import { TranslateService } from '@ngx-translate/core';
-import { DiffService } from '../../../shared/diff/diff.service';
+import { DiffService } from 'wayne-component/lib/diff/diff.service';
 import { ListJobComponent } from '../list-job/list-job.component';
-import { KubeCronJob } from '../../../shared/model/v1/kubernetes/cronjob';
-import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
+import { KubeCronJob } from 'wayne-component/lib/model/v1/kubernetes/cronjob';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'list-cronjob',

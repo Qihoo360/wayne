@@ -1,18 +1,18 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
+import { BreadcrumbService } from 'wayne-component/lib/client/v1/breadcrumb.service';
 import { ActivatedRoute } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { ListAppUserComponent } from './list-app-user/list-app-user.component';
 import { CreateEditAppUserComponent } from './create-edit-app-user/create-edit-app-user.component';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { AppUser } from '../../shared/model/v1/app-user';
-import { AppUserService } from '../../shared/client/v1/app-user.service';
-import { AuthService } from '../../shared/auth/auth.service';
-import { PageState } from '../../shared/page/page-state';
+import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { AppUser } from 'wayne-component/lib/model/v1/app-user';
+import { AppUserService } from 'wayne-component/lib/client/v1/app-user.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
 
 const showState = {
   'user_name': {hidden: false},

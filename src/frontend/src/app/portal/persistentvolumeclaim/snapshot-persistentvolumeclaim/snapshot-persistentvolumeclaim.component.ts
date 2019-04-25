@@ -1,14 +1,14 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { PublishStatus } from '../../../shared/model/v1/publish-status';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets, TemplateState } from '../../../shared/shared.const';
-import { PersistentVolumeClaimClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { PublishStatus } from 'wayne-component/lib/model/v1/publish-status';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets, TemplateState } from 'wayne-component/lib/shared.const';
+import { PersistentVolumeClaimClient } from 'wayne-component/lib/client/v1/kubernetes/persistentvolumeclaims';
+import { MessageHandlerService } from 'wayne-component';
 import { CreateSnapshotComponent } from '../create-snapshot/create-snapshot.component';
-import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
-import { PersistentVolumeClaimRobinClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims-robin';
+import { PersistentVolumeClaimRobinClient } from 'wayne-component/lib/client/v1/kubernetes/persistentvolumeclaims-robin';
 
 @Component({
   selector: 'snapshot-persistentvolumeclaim',

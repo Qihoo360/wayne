@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { MessageHandlerService } from 'wayne-component';
 import { ActivatedRoute } from '@angular/router';
-import { ResourceStatus } from '../../../shared/base/resource/resource-status';
-import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
+import { ResourceStatus } from 'wayne-component/lib/base/resource/resource-status';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'wayne-status',

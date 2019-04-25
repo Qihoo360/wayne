@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from 'wayne-component/lib/shared.module';
 import { CreateEditSecretComponent } from './create-edit-secret/create-edit-secret.component';
 import { SecretComponent } from './secret.component';
 import { ListSecretComponent } from './list-secret/list-secret.component';
 import { CreateEditSecretTplComponent } from './create-edit-secrettpl/create-edit-secrettpl.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PublishSecretTplComponent } from './publish-tpl/publish-tpl.component';
-import { SecretClient } from '../../shared/client/v1/kubernetes/secret';
-import { SecretService } from '../../shared/client/v1/secret.service';
-import { SecretTplService } from '../../shared/client/v1/secrettpl.service';
+import { SecretClient } from 'wayne-component/lib/client/v1/kubernetes/secret';
+import { SecretService } from 'wayne-component/lib/client/v1/secret.service';
+import { SecretTplService } from 'wayne-component/lib/client/v1/secrettpl.service';
 
 @NgModule({
   imports: [

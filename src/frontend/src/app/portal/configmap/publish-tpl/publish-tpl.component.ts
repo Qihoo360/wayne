@@ -3,17 +3,17 @@ import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ConfigMapTpl } from '../../../shared/model/v1/configmaptpl';
-import { Cluster } from '../../../shared/model/v1/cluster';
-import { KubeConfigMap } from '../../../shared/model/v1/kubernetes/configmap';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { KubeResourceConfigMap, ResourcesActionType } from '../../../shared/shared.const';
-import { PublishStatus } from '../../../shared/model/v1/publish-status';
-import { ConfigMapClient } from '../../../shared/client/v1/kubernetes/configmap';
-import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
+import { MessageHandlerService } from 'wayne-component';
+import { ConfigMapTpl } from 'wayne-component/lib/model/v1/configmaptpl';
+import { Cluster } from 'wayne-component/lib/model/v1/cluster';
+import { KubeConfigMap } from 'wayne-component/lib/model/v1/kubernetes/configmap';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { KubeResourceConfigMap, ResourcesActionType } from 'wayne-component/lib/shared.const';
+import { PublishStatus } from 'wayne-component/lib/model/v1/publish-status';
+import { ConfigMapClient } from 'wayne-component/lib/client/v1/kubernetes/configmap';
+import { PublishStatusService } from 'wayne-component/lib/client/v1/publishstatus.service';
 import { ActivatedRoute } from '@angular/router';
-import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'publish-tpl',

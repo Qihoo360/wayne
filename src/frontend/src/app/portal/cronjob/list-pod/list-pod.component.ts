@@ -4,26 +4,26 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-import { KubePod } from '../../../shared/model/v1/kubernetes/kubepod';
-import { PageState } from '../../../shared/page/page-state';
+import { KubePod } from 'wayne-component/lib/model/v1/kubernetes/kubepod';
+import { PageState } from 'wayne-component/lib/page/page-state';
 import { Subscription } from 'rxjs';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import { PodClient } from '../../../shared/client/v1/kubernetes/pod';
-import { ClusterService } from '../../../shared/client/v1/cluster.service';
-import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { KubePodUtil } from '../../../shared/utils';
-import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { PodClient } from 'wayne-component/lib/client/v1/kubernetes/pod';
+import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { KubePodUtil } from 'wayne-component/lib/utils';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
 import {
   ConfirmationButtons,
   ConfirmationState,
   ConfirmationTargets,
   KubeResourceJob,
   KubeResourcePod
-} from '../../../shared/shared.const';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { PublicService } from '../../../shared/client/v1/public.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+} from 'wayne-component/lib/shared.const';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { PublicService } from 'wayne-component/lib/client/v1/public.service';
+import { MessageHandlerService } from 'wayne-component';
 
 @Component({
   selector: 'list-dg-row-pod',

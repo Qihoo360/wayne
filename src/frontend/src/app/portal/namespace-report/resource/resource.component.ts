@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { NamespaceClient } from 'wayne-component/lib/client/v1/kubernetes/namespace';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { MessageHandlerService } from 'wayne-component';
 import { AppResource } from './resource';
 import * as echarts from 'echarts';
 import { TranslateService } from '@ngx-translate/core';

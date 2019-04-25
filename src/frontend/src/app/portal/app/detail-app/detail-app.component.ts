@@ -2,16 +2,16 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { App } from '../../../shared/model/v1/app';
-import { AppService } from '../../../shared/client/v1/app.service';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
+import { MessageHandlerService } from 'wayne-component';
+import { App } from 'wayne-component/lib/model/v1/app';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { NamespaceClient } from 'wayne-component/lib/client/v1/kubernetes/namespace';
 import { Cluster } from '../list-cluster/cluster';
 import { ListClusterComponent } from '../list-cluster/list-cluster.component';
-import { RedDot } from '../../../shared/model/v1/red-dot';
-import { StorageService } from '../../../shared/client/v1/storage.service';
+import { RedDot } from 'wayne-component/lib/model/v1/red-dot';
+import { StorageService } from 'wayne-component/lib/client/v1/storage.service';
 import {
   KubeApiTypeConfigMap,
   KubeApiTypeCronJob,
@@ -21,7 +21,7 @@ import {
   KubeApiTypeSecret,
   KubeApiTypeService,
   KubeApiTypeStatefulSet
-} from '../../../shared/shared.const';
+} from 'wayne-component/lib/shared.const';
 import { EventManager } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { CreateEditAppComponent } from '../create-edit-app/create-edit-app.component';

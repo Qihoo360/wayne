@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { PodClient } from '../../shared/client/v1/kubernetes/pod';
-import { LogClient } from '../../shared/client/v1/kubernetes/log';
-import { ClusterService } from '../../shared/client/v1/cluster.service';
-import { Cluster } from '../../shared/model/v1/cluster';
-import { CopyService } from '../../shared/client/v1/copy.service';
-import { PageState } from '../../shared/page/page-state';
-import { Container, KubePod } from '../../shared/model/v1/kubernetes/kubepod';
+import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { PodClient } from 'wayne-component/lib/client/v1/kubernetes/pod';
+import { LogClient } from 'wayne-component/lib/client/v1/kubernetes/log';
+import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';
+import { Cluster } from 'wayne-component/lib/model/v1/cluster';
+import { CopyService } from 'wayne-component/lib/client/v1/copy.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
+import { Container, KubePod } from 'wayne-component/lib/model/v1/kubernetes/kubepod';
 
 @Component({
   selector: 'pod-logging',

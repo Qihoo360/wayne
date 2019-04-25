@@ -2,14 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { PublishHistory } from '../../../shared/model/v1/publish-history';
-import { PublishType } from '../../../shared/shared.const';
-import { PublishService } from '../../../shared/client/v1/publish.service';
+import { MessageHandlerService } from 'wayne-component';
+import { PublishHistory } from 'wayne-component/lib/model/v1/publish-history';
+import { PublishType } from 'wayne-component/lib/shared.const';
+import { PublishService } from 'wayne-component/lib/client/v1/publish.service';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { PublishHistoryService } from './publish-history.service';
 import { Subscription } from 'rxjs/Subscription';
-import { PageState } from '../../../shared/page/page-state';
+import { PageState } from 'wayne-component/lib/page/page-state';
 
 @Component({
   selector: 'publish-history',

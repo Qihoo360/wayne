@@ -3,11 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Terminal } from 'xterm';
 import * as webLinks from 'xterm/lib/addons/webLinks/webLinks';
 import * as winptyCompat from 'xterm/lib/addons/winptyCompat/winptyCompat';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { PodClient } from '../../shared/client/v1/kubernetes/pod';
+import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { PodClient } from 'wayne-component/lib/client/v1/kubernetes/pod';
 import * as SockJS from 'sockjs-client';
-import { Container, KubePod } from '../../shared/model/v1/kubernetes/kubepod';
-import { PageState } from '../../shared/page/page-state';
+import { Container, KubePod } from 'wayne-component/lib/model/v1/kubernetes/kubepod';
+import { PageState } from 'wayne-component/lib/page/page-state';
 
 @Component({
   selector: 'pod-terminal',

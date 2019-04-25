@@ -3,19 +3,19 @@ import { forkJoin } from 'rxjs';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 
-import { KubeStatefulSet } from '../../../shared/model/v1/kubernetes/statefulset';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { defaultResources, KubeResourceStatefulSet, ResourcesActionType } from '../../../shared/shared.const';
-import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
-import { StatefulsetClient } from '../../../shared/client/v1/kubernetes/statefulset';
+import { KubeStatefulSet } from 'wayne-component/lib/model/v1/kubernetes/statefulset';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { defaultResources, KubeResourceStatefulSet, ResourcesActionType } from 'wayne-component/lib/shared.const';
+import { PublishStatusService } from 'wayne-component/lib/client/v1/publishstatus.service';
+import { StatefulsetClient } from 'wayne-component/lib/client/v1/kubernetes/statefulset';
 import { ActivatedRoute } from '@angular/router';
-import { Statefulset } from '../../../shared/model/v1/statefulset';
-import { StatefulsetTemplate } from '../../../shared/model/v1/statefulsettpl';
-import { TemplateStatus } from '../../../shared/model/v1/status';
-import { ClusterMeta } from '../../../shared/model/v1/cluster';
-import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
+import { Statefulset } from 'wayne-component/lib/model/v1/statefulset';
+import { StatefulsetTemplate } from 'wayne-component/lib/model/v1/statefulsettpl';
+import { TemplateStatus } from 'wayne-component/lib/model/v1/status';
+import { ClusterMeta } from 'wayne-component/lib/model/v1/cluster';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'statefulset-publish-tpl',

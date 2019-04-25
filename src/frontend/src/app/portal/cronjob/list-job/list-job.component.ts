@@ -1,16 +1,16 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { JobClient } from '../../../shared/client/v1/kubernetes/job';
+import { MessageHandlerService } from 'wayne-component';
+import { JobClient } from 'wayne-component/lib/client/v1/kubernetes/job';
 import { ActivatedRoute } from '@angular/router';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { PageState } from '../../../shared/page/page-state';
-import { KubeJob } from '../../../shared/model/v1/kubernetes/job';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
+import { KubeJob } from 'wayne-component/lib/model/v1/kubernetes/job';
 import { ListPodComponent } from '../list-pod/list-pod.component';
-import { ListEventDatagridComponent } from '../../../shared/list-event-datagrid/list-event.component';
-import { KubeCronJob } from '../../../shared/model/v1/kubernetes/cronjob';
+import { ListEventDatagridComponent } from 'wayne-component/lib/list-event-datagrid/list-event.component';
+import { KubeCronJob } from 'wayne-component/lib/model/v1/kubernetes/cronjob';
 
 @Component({
   selector: 'list-job',

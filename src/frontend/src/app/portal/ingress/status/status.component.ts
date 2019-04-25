@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { MessageHandlerService } from 'wayne-component';
 import { ActivatedRoute } from '@angular/router';
-import { IngressClient } from '../../../shared/client/v1/kubernetes/ingress';
-import { ResourceStatus } from '../../../shared/base/resource/resource-status';
-import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
+import { IngressClient } from 'wayne-component/lib/client/v1/kubernetes/ingress';
+import { ResourceStatus } from 'wayne-component/lib/base/resource/resource-status';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'status',

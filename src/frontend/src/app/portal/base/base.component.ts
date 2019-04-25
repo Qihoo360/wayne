@@ -3,10 +3,10 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
-import { AuthService } from '../../shared/auth/auth.service';
-import { App } from '../../shared/model/v1/app';
-import { AppService } from '../../shared/client/v1/app.service';
-import { CacheService } from '../../shared/auth/cache.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { App } from 'wayne-component/lib/model/v1/app';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
 
 @Component({
   selector: 'base',

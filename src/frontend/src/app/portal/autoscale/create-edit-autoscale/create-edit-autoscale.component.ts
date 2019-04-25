@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { CreateEditResource } from '../../../shared/base/resource/create-edit-resource';
-import { AutoscaleService } from '../../../shared/client/v1/autoscale.service';
-import { Autoscale } from '../../../shared/model/v1/autoscale';
+import { MessageHandlerService } from 'wayne-component';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { CreateEditResource } from 'wayne-component/lib/base/resource/create-edit-resource';
+import { AutoscaleService } from 'wayne-component/lib/client/v1/autoscale.service';
+import { Autoscale } from 'wayne-component/lib/model/v1/autoscale';
 
 @Component({
   selector: 'wayne-create-edit-autoscale',

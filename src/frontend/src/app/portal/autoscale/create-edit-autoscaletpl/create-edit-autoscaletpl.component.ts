@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '../../../shared/client/v1/app.service';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { CreateEditResourceTemplate } from '../../../shared/base/resource/create-edit-resource-template';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { CreateEditResourceTemplate } from 'wayne-component/lib/base/resource/create-edit-resource-template';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { defaultAutoscale } from '../../../shared/default-models/autoscale.const';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { defaultAutoscale } from 'wayne-component/lib/default-models/autoscale.const';
 import { Location } from '@angular/common';
-import { ActionType } from '../../../shared/shared.const';
+import { ActionType } from 'wayne-component/lib/shared.const';
 import { combineLatest } from 'rxjs';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AutoscaleTplService } from '../../../shared/client/v1/autoscaletpl.service';
-import { AutoscaleService } from '../../../shared/client/v1/autoscale.service';
-import { AutoscaleTpl } from '../../../shared/model/v1/autoscaletpl';
-import { DeploymentService } from '../../../shared/client/v1/deployment.service';
-import { Deployment } from '../../../shared/model/v1/deployment';
+import { MessageHandlerService } from 'wayne-component';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AutoscaleTplService } from 'wayne-component/lib/client/v1/autoscaletpl.service';
+import { AutoscaleService } from 'wayne-component/lib/client/v1/autoscale.service';
+import { AutoscaleTpl } from 'wayne-component/lib/model/v1/autoscaletpl';
+import { DeploymentService } from 'wayne-component/lib/client/v1/deployment.service';
+import { Deployment } from 'wayne-component/lib/model/v1/deployment';
 
 @Component({
   selector: 'wayne-create-edit-autoscaletpl',

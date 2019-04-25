@@ -10,31 +10,31 @@ import {
   PublishType,
   syncStatusInterval,
   TemplateState
-} from '../../shared/shared.const';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+} from 'wayne-component/lib/shared.const';
+import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
 import { ListSecretComponent } from './list-secret/list-secret.component';
 import { CreateEditSecretComponent } from './create-edit-secret/create-edit-secret.component';
 import { combineLatest } from 'rxjs';
-import { SecretClient } from '../../shared/client/v1/kubernetes/secret';
-import { AppService } from '../../shared/client/v1/app.service';
-import { SecretService } from '../../shared/client/v1/secret.service';
-import { SecretTplService } from '../../shared/client/v1/secrettpl.service';
-import { Secret } from '../../shared/model/v1/secret';
-import { SecretTpl } from '../../shared/model/v1/secrettpl';
-import { App } from '../../shared/model/v1/app';
-import { CacheService } from '../../shared/auth/cache.service';
+import { SecretClient } from 'wayne-component/lib/client/v1/kubernetes/secret';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { SecretService } from 'wayne-component/lib/client/v1/secret.service';
+import { SecretTplService } from 'wayne-component/lib/client/v1/secrettpl.service';
+import { Secret } from 'wayne-component/lib/model/v1/secret';
+import { SecretTpl } from 'wayne-component/lib/model/v1/secrettpl';
+import { App } from 'wayne-component/lib/model/v1/app';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
 import { PublishHistoryService } from '../common/publish-history/publish-history.service';
-import { AuthService } from '../../shared/auth/auth.service';
-import { PublishService } from '../../shared/client/v1/publish.service';
-import { PublishStatus } from '../../shared/model/v1/publish-status';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { PublishService } from 'wayne-component/lib/client/v1/publish.service';
+import { PublishStatus } from 'wayne-component/lib/model/v1/publish-status';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
-import { PageState } from '../../shared/page/page-state';
-import { TabDragService } from '../../shared/client/v1/tab-drag.service';
-import { OrderItem } from '../../shared/model/v1/order';
+import { PageState } from 'wayne-component/lib/page/page-state';
+import { TabDragService } from 'wayne-component/lib/client/v1/tab-drag.service';
+import { OrderItem } from 'wayne-component/lib/model/v1/order';
 import { TranslateService } from '@ngx-translate/core';
-import { KubernetesClient } from '../../shared/client/v1/kubernetes/kubernetes';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
 
 const showState = {
   'create_time': {hidden: false},

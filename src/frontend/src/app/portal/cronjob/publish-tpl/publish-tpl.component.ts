@@ -3,15 +3,15 @@ import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { Cronjob } from '../../../shared/model/v1/cronjob';
-import { ClusterMeta } from '../../../shared/model/v1/cluster';
-import { CronjobStatus, CronjobTpl } from '../../../shared/model/v1/cronjobtpl';
-import { KubeCronJob } from '../../../shared/model/v1/kubernetes/cronjob';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { ResourcesActionType } from '../../../shared/shared.const';
-import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
-import { CronjobClient } from '../../../shared/client/v1/kubernetes/cronjob';
+import { MessageHandlerService } from 'wayne-component';
+import { Cronjob } from 'wayne-component/lib/model/v1/cronjob';
+import { ClusterMeta } from 'wayne-component/lib/model/v1/cluster';
+import { CronjobStatus, CronjobTpl } from 'wayne-component/lib/model/v1/cronjobtpl';
+import { KubeCronJob } from 'wayne-component/lib/model/v1/kubernetes/cronjob';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { ResourcesActionType } from 'wayne-component/lib/shared.const';
+import { PublishStatusService } from 'wayne-component/lib/client/v1/publishstatus.service';
+import { CronjobClient } from 'wayne-component/lib/client/v1/kubernetes/cronjob';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

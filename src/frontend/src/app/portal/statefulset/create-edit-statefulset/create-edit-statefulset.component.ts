@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import 'rxjs/add/observable/combineLatest';
-import { StatefulsetService } from '../../../shared/client/v1/statefulset.service';
-import { Statefulset } from '../../../shared/model/v1/statefulset';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { CreateEditLimitResource } from '../../../shared/base/resource/create-edit-limit-resource';
+import { StatefulsetService } from 'wayne-component/lib/client/v1/statefulset.service';
+import { Statefulset } from 'wayne-component/lib/model/v1/statefulset';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { CreateEditLimitResource } from 'wayne-component/lib/base/resource/create-edit-limit-resource';
 
 @Component({
   selector: 'create-edit-statefulset',

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import 'rxjs/add/observable/combineLatest';
-import { Deployment } from '../../../shared/model/v1/deployment';
-import { DeploymentService } from '../../../shared/client/v1/deployment.service';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { CreateEditLimitResource } from '../../../shared/base/resource/create-edit-limit-resource';
+import { Deployment } from 'wayne-component/lib/model/v1/deployment';
+import { DeploymentService } from 'wayne-component/lib/client/v1/deployment.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { CreateEditLimitResource } from 'wayne-component/lib/base/resource/create-edit-limit-resource';
 
 @Component({
   selector: 'create-edit-deployment',

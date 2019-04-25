@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { App } from '../../../shared/model/v1/app';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { Page } from '../../../shared/page/page-state';
-import { AppStarredService } from '../../../shared/client/v1/appstarred.service';
-import { AppStarred } from '../../../shared/model/v1/app-starred';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { CacheService } from '../../../shared/auth/cache.service';
+import { App } from 'wayne-component/lib/model/v1/app';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { Page } from 'wayne-component/lib/page/page-state';
+import { AppStarredService } from 'wayne-component/lib/client/v1/appstarred.service';
+import { AppStarred } from 'wayne-component/lib/model/v1/app-starred';
+import { MessageHandlerService } from 'wayne-component';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

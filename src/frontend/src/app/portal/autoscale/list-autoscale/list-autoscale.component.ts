@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ListResource } from '../../../shared/base/resource/list-resource';
-import { DiffService } from '../../../shared/diff/diff.service';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ListResource } from 'wayne-component/lib/base/resource/list-resource';
+import { DiffService } from 'wayne-component/lib/diff/diff.service';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { MessageHandlerService } from 'wayne-component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { ConfirmationTargets } from '../../../shared/shared.const';
-import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AutoscaleTplService } from '../../../shared/client/v1/autoscaletpl.service';
-import { AutoscaleService } from '../../../shared/client/v1/autoscale.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { ConfirmationTargets } from 'wayne-component/lib/shared.const';
+import { TplDetailService } from 'wayne-component/lib/tpl-detail/tpl-detail.service';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AutoscaleTplService } from 'wayne-component/lib/client/v1/autoscaletpl.service';
+import { AutoscaleService } from 'wayne-component/lib/client/v1/autoscale.service';
 import { PublishTplComponent } from '../publish-tpl/publish-tpl.component';
 import { StatusComponent } from '../status/status.component';
 

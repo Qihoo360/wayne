@@ -1,19 +1,19 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
+import { BreadcrumbService } from 'wayne-component/lib/client/v1/breadcrumb.service';
 import { ActivatedRoute } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { ListAppWebHookComponent } from './list-app-webhook/list-app-webhook.component';
 import { CreateEditAppWebHookComponent } from './create-edit-app-webhook/create-edit-app-webhook.component';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { WebHook } from '../../shared/model/v1/webhook';
-import { WebHookService } from '../../shared/client/v1/webhook.service';
-import { AuthService } from '../../shared/auth/auth.service';
-import { CacheService } from '../../shared/auth/cache.service';
-import { PageState } from '../../shared/page/page-state';
+import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { WebHook } from 'wayne-component/lib/model/v1/webhook';
+import { WebHookService } from 'wayne-component/lib/client/v1/webhook.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
 
 const showState = {
   'name': {hidden: false},

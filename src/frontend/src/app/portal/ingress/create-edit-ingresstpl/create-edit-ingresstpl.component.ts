@@ -2,24 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ActionType } from '../../../shared/shared.const';
+import { MessageHandlerService } from 'wayne-component';
+import { ActionType } from 'wayne-component/lib/shared.const';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { AppService } from '../../../shared/client/v1/app.service';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { defaultIngress } from '../../../shared/default-models/ingress.const';
-import { IngressTpl } from '../../../shared/model/v1/ingresstpl';
-import { IngressService } from '../../../shared/client/v1/ingress.service';
-import { IngressTplService } from '../../../shared/client/v1/ingresstpl.service';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { CreateEditResourceTemplate } from '../../../shared/base/resource/create-edit-resource-template';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { defaultIngress } from 'wayne-component/lib/default-models/ingress.const';
+import { IngressTpl } from 'wayne-component/lib/model/v1/ingresstpl';
+import { IngressService } from 'wayne-component/lib/client/v1/ingress.service';
+import { IngressTplService } from 'wayne-component/lib/client/v1/ingresstpl.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { CreateEditResourceTemplate } from 'wayne-component/lib/base/resource/create-edit-resource-template';
 import { ServiceService } from '../../../../../lib/shared/client/v1/service.service';
 import { Service } from '../../../../../lib/shared/model/service';
-import { SecretService } from '../../../shared/client/v1/secret.service';
-import { Secret } from '../../../shared/model/v1/secret';
-import { IngressBackend, IngressPath, IngressRule } from '../../../shared/model/v1/kubernetes/ingress';
+import { SecretService } from 'wayne-component/lib/client/v1/secret.service';
+import { Secret } from 'wayne-component/lib/model/v1/secret';
+import { IngressBackend, IngressPath, IngressRule } from 'wayne-component/lib/model/v1/kubernetes/ingress';
 
 
 @Component({

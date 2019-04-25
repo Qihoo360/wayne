@@ -3,15 +3,15 @@ import { forkJoin } from 'rxjs';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { Deployment } from '../../../shared/model/v1/deployment';
-import { ClusterMeta } from '../../../shared/model/v1/cluster';
-import { DeploymentStatus, DeploymentTpl } from '../../../shared/model/v1/deploymenttpl';
-import { KubeDeployment } from '../../../shared/model/v1/kubernetes/deployment';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { defaultResources, ResourcesActionType } from '../../../shared/shared.const';
-import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
-import { DeploymentClient } from '../../../shared/client/v1/kubernetes/deployment';
+import { MessageHandlerService } from 'wayne-component';
+import { Deployment } from 'wayne-component/lib/model/v1/deployment';
+import { ClusterMeta } from 'wayne-component/lib/model/v1/cluster';
+import { DeploymentStatus, DeploymentTpl } from 'wayne-component/lib/model/v1/deploymenttpl';
+import { KubeDeployment } from 'wayne-component/lib/model/v1/kubernetes/deployment';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { defaultResources, ResourcesActionType } from 'wayne-component/lib/shared.const';
+import { PublishStatusService } from 'wayne-component/lib/client/v1/publishstatus.service';
+import { DeploymentClient } from 'wayne-component/lib/client/v1/kubernetes/deployment';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

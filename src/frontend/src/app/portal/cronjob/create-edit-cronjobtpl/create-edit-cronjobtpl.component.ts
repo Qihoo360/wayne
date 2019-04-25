@@ -3,7 +3,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { DOCUMENT, Location } from '@angular/common';
 import { FormBuilder, NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import {
   ConfigMapEnvSource,
   ConfigMapKeySelector,
@@ -15,27 +15,27 @@ import {
   ResourceRequirements,
   SecretEnvSource,
   SecretKeySelector,
-} from '../../../shared/model/v1/kubernetes/cronjob';
+} from 'wayne-component/lib/model/v1/kubernetes/cronjob';
 import { EventManager } from '@angular/platform-browser';
 import 'rxjs/add/observable/combineLatest';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CronjobTpl } from '../../../shared/model/v1/cronjobtpl';
-import { App } from '../../../shared/model/v1/app';
-import { Cronjob } from '../../../shared/model/v1/cronjob';
-import { CronjobTplService } from '../../../shared/client/v1/cronjobtpl.service';
-import { CronjobService } from '../../../shared/client/v1/cronjob.service';
-import { AppService } from '../../../shared/client/v1/app.service';
-import { ActionType, appLabelKey, defaultResources, namespaceLabelKey } from '../../../shared/shared.const';
-import { mergeDeep, ResourceUnitConvertor } from '../../../shared/utils';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
-import { defaultCronJob } from '../../../shared/default-models/cronjob.const';
+import { CronjobTpl } from 'wayne-component/lib/model/v1/cronjobtpl';
+import { App } from 'wayne-component/lib/model/v1/app';
+import { Cronjob } from 'wayne-component/lib/model/v1/cronjob';
+import { CronjobTplService } from 'wayne-component/lib/client/v1/cronjobtpl.service';
+import { CronjobService } from 'wayne-component/lib/client/v1/cronjob.service';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { ActionType, appLabelKey, defaultResources, namespaceLabelKey } from 'wayne-component/lib/shared.const';
+import { mergeDeep, ResourceUnitConvertor } from 'wayne-component/lib/utils';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
+import { defaultCronJob } from 'wayne-component/lib/default-models/cronjob.const';
 import { combineLatest } from 'rxjs';
 import * as cron from 'cron-parser';
-import { ObjectMeta } from '../../../shared/model/v1/kubernetes/deployment';
-import { CronjobTemplateDom, CronjobContainerDom, ContainerTpl } from '../../../shared/base/container/container-tpl';
+import { ObjectMeta } from 'wayne-component/lib/model/v1/kubernetes/deployment';
+import { CronjobTemplateDom, CronjobContainerDom, ContainerTpl } from 'wayne-component/lib/base/container/container-tpl';
 
 @Component({
   selector: 'create-edit-cronjobtpl',

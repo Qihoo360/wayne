@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { Page } from '../../../shared/page/page-state';
-import { ApiKey } from '../../../shared/model/v1/apikey';
+import { Page } from 'wayne-component/lib/page/page-state';
+import { ApiKey } from 'wayne-component/lib/model/v1/apikey';
 import { TokenDetailComponent } from '../token-detail/token-detail';
-import { AuthService } from '../../../shared/auth/auth.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
 
 @Component({
   selector: 'list-apikey',

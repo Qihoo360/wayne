@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { MessageHandlerService } from 'wayne-component';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
 import {
   ConfirmationButtons,
   ConfirmationState,
@@ -9,24 +9,24 @@ import {
   KubeResourceDaemonSet,
   ResourcesActionType,
   TemplateState
-} from '../../../shared/shared.const';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+} from 'wayne-component/lib/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
 import { PublishDaemonSetTplComponent } from '../publish-tpl/publish-tpl.component';
-import { ListEventComponent } from '../../../shared/list-event/list-event.component';
-import { ListPodComponent } from '../../../shared/list-pod/list-pod.component';
-import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
-import { AuthService } from '../../../shared/auth/auth.service';
+import { ListEventComponent } from 'wayne-component/lib/list-event/list-event.component';
+import { ListPodComponent } from 'wayne-component/lib/list-pod/list-pod.component';
+import { TplDetailService } from 'wayne-component/lib/tpl-detail/tpl-detail.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Page } from '../../../shared/page/page-state';
-import { Event } from '../../../shared/model/v1/event';
-import { TemplateStatus } from '../../../shared/model/v1/status';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
-import { DaemonSetTemplate } from '../../../shared/model/v1/daemonsettpl';
-import { DaemonSetService } from '../../../shared/client/v1/daemonset.service';
-import { DaemonSetTplService } from '../../../shared/client/v1/daemonsettpl.service';
-import { DiffService } from '../../../shared/diff/diff.service';
+import { Page } from 'wayne-component/lib/page/page-state';
+import { Event } from 'wayne-component/lib/model/v1/event';
+import { TemplateStatus } from 'wayne-component/lib/model/v1/status';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
+import { DaemonSetTemplate } from 'wayne-component/lib/model/v1/daemonsettpl';
+import { DaemonSetService } from 'wayne-component/lib/client/v1/daemonset.service';
+import { DaemonSetTplService } from 'wayne-component/lib/client/v1/daemonsettpl.service';
+import { DiffService } from 'wayne-component/lib/diff/diff.service';
 
 @Component({
   selector: 'list-daemonset',

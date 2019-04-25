@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PersistentVolumeClaimLoginInfo } from '../../../shared/model/v1/persistentvolumeclaim';
+import { PersistentVolumeClaimLoginInfo } from 'wayne-component/lib/model/v1/persistentvolumeclaim';
 
 @Component({
   selector: 'user-info',

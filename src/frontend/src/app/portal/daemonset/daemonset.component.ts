@@ -3,25 +3,25 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { combineLatest } from 'rxjs';
 import { Subscription } from 'rxjs/Subscription';
-import { AuthService } from '../../shared/auth/auth.service';
-import { CacheService } from '../../shared/auth/cache.service';
-import { AppService } from '../../shared/client/v1/app.service';
-import { ClusterService } from '../../shared/client/v1/cluster.service';
-import { DaemonSetService } from '../../shared/client/v1/daemonset.service';
-import { DaemonSetTplService } from '../../shared/client/v1/daemonsettpl.service';
-import { DaemonSetClient } from '../../shared/client/v1/kubernetes/daemonset';
-import { PublishService } from '../../shared/client/v1/publish.service';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { App } from '../../shared/model/v1/app';
-import { Cluster } from '../../shared/model/v1/cluster';
-import { DaemonSet } from '../../shared/model/v1/daemonset';
-import { DaemonSetTemplate } from '../../shared/model/v1/daemonsettpl';
-import { KubeDaemonSet } from '../../shared/model/v1/kubernetes/daemonset';
-import { PublishStatus } from '../../shared/model/v1/publish-status';
-import { TemplateStatus } from '../../shared/model/v1/status';
-import { PageState } from '../../shared/page/page-state';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';
+import { DaemonSetService } from 'wayne-component/lib/client/v1/daemonset.service';
+import { DaemonSetTplService } from 'wayne-component/lib/client/v1/daemonsettpl.service';
+import { DaemonSetClient } from 'wayne-component/lib/client/v1/kubernetes/daemonset';
+import { PublishService } from 'wayne-component/lib/client/v1/publish.service';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { App } from 'wayne-component/lib/model/v1/app';
+import { Cluster } from 'wayne-component/lib/model/v1/cluster';
+import { DaemonSet } from 'wayne-component/lib/model/v1/daemonset';
+import { DaemonSetTemplate } from 'wayne-component/lib/model/v1/daemonsettpl';
+import { KubeDaemonSet } from 'wayne-component/lib/model/v1/kubernetes/daemonset';
+import { PublishStatus } from 'wayne-component/lib/model/v1/publish-status';
+import { TemplateStatus } from 'wayne-component/lib/model/v1/status';
+import { PageState } from 'wayne-component/lib/page/page-state';
 import {
   ConfirmationButtons,
   ConfirmationState,
@@ -29,12 +29,12 @@ import {
   httpStatusCode,
   PublishType,
   TemplateState
-} from '../../shared/shared.const';
+} from 'wayne-component/lib/shared.const';
 import { PublishHistoryService } from '../common/publish-history/publish-history.service';
 import { CreateEditDaemonSetComponent } from './create-edit-daemonset/create-edit-daemonset.component';
 import { ListDaemonSetComponent } from './list-daemonset/list-daemonset.component';
-import { TabDragService } from '../../shared/client/v1/tab-drag.service';
-import { OrderItem } from '../../shared/model/v1/order';
+import { TabDragService } from 'wayne-component/lib/client/v1/tab-drag.service';
+import { OrderItem } from 'wayne-component/lib/model/v1/order';
 import { TranslateService } from '@ngx-translate/core';
 
 const showState = {

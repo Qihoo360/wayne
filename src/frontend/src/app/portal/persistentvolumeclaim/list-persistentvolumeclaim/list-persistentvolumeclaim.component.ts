@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
 import {
   ConfirmationButtons,
   ConfirmationState,
@@ -11,31 +11,31 @@ import {
   ResourcesActionType,
   syncStatusInterval,
   TemplateState
-} from '../../../shared/shared.const';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+} from 'wayne-component/lib/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { PersistentVolumeClaimTplService } from '../../../shared/client/v1/persistentvolumeclaimtpl.service';
-import { PersistentVolumeClaimTpl } from '../../../shared/model/v1/persistentvolumeclaimtpl';
+import { MessageHandlerService } from 'wayne-component';
+import { TplDetailService } from 'wayne-component/lib/tpl-detail/tpl-detail.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { PersistentVolumeClaimTplService } from 'wayne-component/lib/client/v1/persistentvolumeclaimtpl.service';
+import { PersistentVolumeClaimTpl } from 'wayne-component/lib/model/v1/persistentvolumeclaimtpl';
 import { PublishPersistentVolumeClaimTplComponent } from '../publish-tpl/publish-tpl.component';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { PublishStatus } from '../../../shared/model/v1/publish-status';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { PublishStatus } from 'wayne-component/lib/model/v1/publish-status';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PersistentVolumeClaimService } from '../../../shared/client/v1/persistentvolumeclaim.service';
-import { AppService } from '../../../shared/client/v1/app.service';
+import { PersistentVolumeClaimService } from 'wayne-component/lib/client/v1/persistentvolumeclaim.service';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
 import { combineLatest } from 'rxjs';
-import { PageState } from '../../../shared/page/page-state';
-import { PublishService } from '../../../shared/client/v1/publish.service';
-import { isArrayEmpty, isArrayNotEmpty } from '../../../shared/utils';
+import { PageState } from 'wayne-component/lib/page/page-state';
+import { PublishService } from 'wayne-component/lib/client/v1/publish.service';
+import { isArrayEmpty, isArrayNotEmpty } from 'wayne-component/lib/utils';
 import { UserInfoComponent } from '../user-info/user-info.component';
-import { PersistentVolumeClaimFileSystemStatus } from '../../../shared/model/v1/persistentvolumeclaim';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
-import { PersistentVolumeClaimRobinClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims-robin';
-import { DiffService } from '../../../shared/diff/diff.service';
-import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
+import { PersistentVolumeClaimFileSystemStatus } from 'wayne-component/lib/model/v1/persistentvolumeclaim';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
+import { PersistentVolumeClaimRobinClient } from 'wayne-component/lib/client/v1/kubernetes/persistentvolumeclaims-robin';
+import { DiffService } from 'wayne-component/lib/diff/diff.service';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'list-persistentvolumeclaim',

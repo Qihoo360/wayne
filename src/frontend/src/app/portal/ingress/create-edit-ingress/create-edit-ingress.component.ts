@@ -1,12 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import 'rxjs/add/observable/combineLatest';
-import { Ingress } from '../../../shared/model/v1/ingress';
-import { IngressService } from '../../../shared/client/v1/ingress.service';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { CreateEditResource } from '../../../shared/base/resource/create-edit-resource';
+import { Ingress } from 'wayne-component/lib/model/v1/ingress';
+import { IngressService } from 'wayne-component/lib/client/v1/ingress.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { CreateEditResource } from 'wayne-component/lib/base/resource/create-edit-resource';
 
 @Component({
   selector: 'create-edit-ingress',

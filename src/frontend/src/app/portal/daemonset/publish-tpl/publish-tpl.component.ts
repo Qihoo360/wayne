@@ -3,18 +3,18 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { forkJoin } from 'rxjs';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { ResourcesActionType } from '../../../shared/shared.const';
-import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
-import { DaemonSetClient } from '../../../shared/client/v1/kubernetes/daemonset';
+import { MessageHandlerService } from 'wayne-component';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { ResourcesActionType } from 'wayne-component/lib/shared.const';
+import { PublishStatusService } from 'wayne-component/lib/client/v1/publishstatus.service';
+import { DaemonSetClient } from 'wayne-component/lib/client/v1/kubernetes/daemonset';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { DaemonSet } from '../../../shared/model/v1/daemonset';
-import { TemplateStatus } from '../../../shared/model/v1/status';
-import { Cluster } from '../../../shared/model/v1/cluster';
-import { DaemonSetTemplate } from '../../../shared/model/v1/daemonsettpl';
-import { KubeDaemonSet } from '../../../shared/model/v1/kubernetes/daemonset';
+import { DaemonSet } from 'wayne-component/lib/model/v1/daemonset';
+import { TemplateStatus } from 'wayne-component/lib/model/v1/status';
+import { Cluster } from 'wayne-component/lib/model/v1/cluster';
+import { DaemonSetTemplate } from 'wayne-component/lib/model/v1/daemonsettpl';
+import { KubeDaemonSet } from 'wayne-component/lib/model/v1/kubernetes/daemonset';
 
 @Component({
   selector: 'daemonset-publish-tpl',

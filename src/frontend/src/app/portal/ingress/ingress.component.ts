@@ -1,27 +1,27 @@
 import { OnInit, ChangeDetectorRef, Component, OnDestroy, AfterContentInit, ViewChild, ElementRef } from '@angular/core';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreateEditIngressComponent } from './create-edit-ingress/create-edit-ingress.component';
-import { IngressService } from '../../shared/client/v1/ingress.service';
-import { AppService } from '../../shared/client/v1/app.service';
-import { ClusterService } from '../../shared/client/v1/cluster.service';
-import { CacheService } from '../../shared/auth/cache.service';
+import { IngressService } from 'wayne-component/lib/client/v1/ingress.service';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
 import { PublishHistoryService } from '../common/publish-history/publish-history.service';
 import {
   ConfirmationTargets, KubeResourceIngress,
   PublishType,
-} from '../../shared/shared.const';
-import { AuthService } from '../../shared/auth/auth.service';
-import { PublishService } from '../../shared/client/v1/publish.service';
-import { PublishStatus } from '../../shared/model/v1/publish-status';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { TabDragService } from '../../shared/client/v1/tab-drag.service';
+} from 'wayne-component/lib/shared.const';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { PublishService } from 'wayne-component/lib/client/v1/publish.service';
+import { PublishStatus } from 'wayne-component/lib/model/v1/publish-status';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { TabDragService } from 'wayne-component/lib/client/v1/tab-drag.service';
 import { ListIngressComponent } from './list-ingress/list-ingress.component';
-import { IngressTplService } from '../../shared/client/v1/ingresstpl.service';
-import { KubeIngress } from '../../shared/model/v1/kubernetes/ingress';
-import { IngressClient } from '../../shared/client/v1/kubernetes/ingress';
-import { Resource } from '../../shared/base/resource/resource';
-import { KubernetesClient } from '../../shared/client/v1/kubernetes/kubernetes';
+import { IngressTplService } from 'wayne-component/lib/client/v1/ingresstpl.service';
+import { KubeIngress } from 'wayne-component/lib/model/v1/kubernetes/ingress';
+import { IngressClient } from 'wayne-component/lib/client/v1/kubernetes/ingress';
+import { Resource } from 'wayne-component/lib/base/resource/resource';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
 
 const showState = {
   '创建时间': {hidden: false},

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { PublishTemplate } from '../../../shared/base/resource/publish-template';
-import { AutoscaleService } from '../../../shared/client/v1/autoscale.service';
-import { AutoscaleClient } from '../../../shared/client/v1/kubernetes/autoscale';
-import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
-import { KubeResourceHorizontalPodAutoscaler } from '../../../shared/shared.const';
+import { PublishStatusService } from 'wayne-component/lib/client/v1/publishstatus.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { MessageHandlerService } from 'wayne-component';
+import { PublishTemplate } from 'wayne-component/lib/base/resource/publish-template';
+import { AutoscaleService } from 'wayne-component/lib/client/v1/autoscale.service';
+import { AutoscaleClient } from 'wayne-component/lib/client/v1/kubernetes/autoscale';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
+import { KubeResourceHorizontalPodAutoscaler } from 'wayne-component/lib/shared.const';
 
 @Component({
   selector: 'wayne-publish-tpl',

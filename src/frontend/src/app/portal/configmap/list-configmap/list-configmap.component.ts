@@ -1,21 +1,21 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets, ResourcesActionType } from '../../../shared/shared.const';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets, ResourcesActionType } from 'wayne-component/lib/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { PublishConfigMapTplComponent } from '../publish-tpl/publish-tpl.component';
-import { ConfigMap } from '../../../shared/model/v1/configmap';
-import { ConfigMapTpl } from '../../../shared/model/v1/configmaptpl';
-import { ConfigMapTplService } from '../../../shared/client/v1/configmaptpl.service';
-import { TplDetailService } from '../../../shared/tpl-detail/tpl-detail.service';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { App } from '../../../shared/model/v1/app';
-import { Page } from '../../../shared/page/page-state';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
-import { DiffService } from '../../../shared/diff/diff.service';
+import { ConfigMap } from 'wayne-component/lib/model/v1/configmap';
+import { ConfigMapTpl } from 'wayne-component/lib/model/v1/configmaptpl';
+import { ConfigMapTplService } from 'wayne-component/lib/client/v1/configmaptpl.service';
+import { TplDetailService } from 'wayne-component/lib/tpl-detail/tpl-detail.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { App } from 'wayne-component/lib/model/v1/app';
+import { Page } from 'wayne-component/lib/page/page-state';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
+import { DiffService } from 'wayne-component/lib/diff/diff.service';
 
 @Component({
   selector: 'list-configmap',

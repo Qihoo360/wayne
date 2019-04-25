@@ -2,16 +2,16 @@ import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { Cluster } from '../../../shared/model/v1/cluster';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { KubeResourcePersistentVolumeClaim, ResourcesActionType } from '../../../shared/shared.const';
-import { PersistentVolumeClaimTpl } from '../../../shared/model/v1/persistentvolumeclaimtpl';
-import { PublishStatus } from '../../../shared/model/v1/publish-status';
-import { PersistentVolumeClaimClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims';
-import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
+import { MessageHandlerService } from 'wayne-component';
+import { Cluster } from 'wayne-component/lib/model/v1/cluster';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { KubeResourcePersistentVolumeClaim, ResourcesActionType } from 'wayne-component/lib/shared.const';
+import { PersistentVolumeClaimTpl } from 'wayne-component/lib/model/v1/persistentvolumeclaimtpl';
+import { PublishStatus } from 'wayne-component/lib/model/v1/publish-status';
+import { PersistentVolumeClaimClient } from 'wayne-component/lib/client/v1/kubernetes/persistentvolumeclaims';
+import { PublishStatusService } from 'wayne-component/lib/client/v1/publishstatus.service';
 import { ActivatedRoute } from '@angular/router';
-import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'publish-tpl',

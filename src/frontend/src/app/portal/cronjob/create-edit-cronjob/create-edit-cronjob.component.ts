@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import 'rxjs/add/observable/combineLatest';
-import { Cronjob } from '../../../shared/model/v1/cronjob';
-import { CronjobService } from '../../../shared/client/v1/cronjob.service';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { CreateEditLimitResource } from '../../../shared/base/resource/create-edit-limit-resource';
+import { Cronjob } from 'wayne-component/lib/model/v1/cronjob';
+import { CronjobService } from 'wayne-component/lib/client/v1/cronjob.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { CreateEditLimitResource } from 'wayne-component/lib/base/resource/create-edit-limit-resource';
 
 @Component({
   selector: 'create-edit-cronjob',

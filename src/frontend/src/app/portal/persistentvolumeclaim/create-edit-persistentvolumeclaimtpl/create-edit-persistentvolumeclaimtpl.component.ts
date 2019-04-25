@@ -3,30 +3,30 @@ import { DOCUMENT, Location } from '@angular/common';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ActionType, appLabelKey, namespaceLabelKey } from '../../../shared/shared.const';
+import { MessageHandlerService } from 'wayne-component';
+import { ActionType, appLabelKey, namespaceLabelKey } from 'wayne-component/lib/shared.const';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { EventManager } from '@angular/platform-browser';
-import { App } from '../../../shared/model/v1/app';
-import { AppService } from '../../../shared/client/v1/app.service';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { Cluster } from '../../../shared/model/v1/cluster';
-import { ClusterService } from '../../../shared/client/v1/cluster.service';
-import { PersistentVolumeClaim } from '../../../shared/model/v1/persistentvolumeclaim';
-import { PersistentVolumeClaimTpl } from '../../../shared/model/v1/persistentvolumeclaimtpl';
-import { PersistentVolumeClaimTplService } from '../../../shared/client/v1/persistentvolumeclaimtpl.service';
-import { PersistentVolumeClaimService } from '../../../shared/client/v1/persistentvolumeclaim.service';
+import { App } from 'wayne-component/lib/model/v1/app';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { Cluster } from 'wayne-component/lib/model/v1/cluster';
+import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';
+import { PersistentVolumeClaim } from 'wayne-component/lib/model/v1/persistentvolumeclaim';
+import { PersistentVolumeClaimTpl } from 'wayne-component/lib/model/v1/persistentvolumeclaimtpl';
+import { PersistentVolumeClaimTplService } from 'wayne-component/lib/client/v1/persistentvolumeclaimtpl.service';
+import { PersistentVolumeClaimService } from 'wayne-component/lib/client/v1/persistentvolumeclaim.service';
 import {
   KubePersistentVolumeClaim,
   LabelSelector,
   ObjectMeta,
   PersistentVolumeClaimSpec,
   ResourceRequirements
-} from '../../../shared/model/v1/kubernetes/persistentvolumeclaim';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
-import { AuthService } from '../../../shared/auth/auth.service';
+} from 'wayne-component/lib/model/v1/kubernetes/persistentvolumeclaim';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
 
 @Component({
   selector: 'create-edit-persistentvolumeclaimtpl',

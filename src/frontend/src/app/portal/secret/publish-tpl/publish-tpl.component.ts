@@ -3,17 +3,17 @@ import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { SecretTpl } from '../../../shared/model/v1/secrettpl';
-import { Cluster } from '../../../shared/model/v1/cluster';
-import { KubeSecret } from '../../../shared/model/v1/kubernetes/secret';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { KubeResourceSecret, ResourcesActionType } from '../../../shared/shared.const';
-import { PublishStatus } from '../../../shared/model/v1/publish-status';
-import { SecretClient } from '../../../shared/client/v1/kubernetes/secret';
-import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
+import { MessageHandlerService } from 'wayne-component';
+import { SecretTpl } from 'wayne-component/lib/model/v1/secrettpl';
+import { Cluster } from 'wayne-component/lib/model/v1/cluster';
+import { KubeSecret } from 'wayne-component/lib/model/v1/kubernetes/secret';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { KubeResourceSecret, ResourcesActionType } from 'wayne-component/lib/shared.const';
+import { PublishStatus } from 'wayne-component/lib/model/v1/publish-status';
+import { SecretClient } from 'wayne-component/lib/client/v1/kubernetes/secret';
+import { PublishStatusService } from 'wayne-component/lib/client/v1/publishstatus.service';
 import { ActivatedRoute } from '@angular/router';
-import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'publish-tpl',

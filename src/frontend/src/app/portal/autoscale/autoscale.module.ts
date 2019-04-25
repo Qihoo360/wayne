@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { AutoscaleComponent } from './autoscale.component';
-import { ClusterService } from '../../shared/client/v1/cluster.service';
-import { SharedModule } from '../../shared/shared.module';
+import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';
+import { SharedModule } from 'wayne-component/lib/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateEditAutoscaleComponent } from './create-edit-autoscale/create-edit-autoscale.component';
 import { CreateEditAutoscaletplComponent } from './create-edit-autoscaletpl/create-edit-autoscaletpl.component';
 import { ListAutoscaleComponent } from './list-autoscale/list-autoscale.component';
-import { AutoscaleService } from '../../shared/client/v1/autoscale.service';
-import { AutoscaleTplService } from '../../shared/client/v1/autoscaletpl.service';
-import { AutoscaleClient } from '../../shared/client/v1/kubernetes/autoscale';
+import { AutoscaleService } from 'wayne-component/lib/client/v1/autoscale.service';
+import { AutoscaleTplService } from 'wayne-component/lib/client/v1/autoscaletpl.service';
+import { AutoscaleClient } from 'wayne-component/lib/client/v1/kubernetes/autoscale';
 import { PublishTplComponent } from './publish-tpl/publish-tpl.component';
 import { StatusComponent } from './status/status.component';
 

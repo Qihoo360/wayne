@@ -4,7 +4,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { DOCUMENT, Location } from '@angular/common';
 import { EventManager } from '@angular/platform-browser';
 import { FormBuilder, NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import {
   ConfigMapEnvSource,
   ConfigMapKeySelector,
@@ -22,25 +22,25 @@ import {
   SecretEnvSource,
   SecretKeySelector,
   TCPSocketAction
-} from '../../../shared/model/v1/kubernetes/daemonset';
+} from 'wayne-component/lib/model/v1/kubernetes/daemonset';
 import 'rxjs/add/observable/combineLatest';
 import { ActivatedRoute, Router } from '@angular/router';
-import { App } from '../../../shared/model/v1/app';
-import { AppService } from '../../../shared/client/v1/app.service';
-import { ActionType, appLabelKey, defaultResources, namespaceLabelKey } from '../../../shared/shared.const';
-import { CacheService } from '../../../shared/auth/cache.service';
+import { App } from 'wayne-component/lib/model/v1/app';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { ActionType, appLabelKey, defaultResources, namespaceLabelKey } from 'wayne-component/lib/shared.const';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
 import { combineLatest } from 'rxjs';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
-import { DaemonSetTemplate } from '../../../shared/model/v1/daemonsettpl';
-import { DaemonSet } from '../../../shared/model/v1/daemonset';
-import { DaemonSetService } from '../../../shared/client/v1/daemonset.service';
-import { DaemonSetTplService } from '../../../shared/client/v1/daemonsettpl.service';
-import { defaultDaemonSet } from '../../../shared/default-models/daemonset.const';
-import { ResourceUnitConvertor } from '../../../shared/utils';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
+import { DaemonSetTemplate } from 'wayne-component/lib/model/v1/daemonsettpl';
+import { DaemonSet } from 'wayne-component/lib/model/v1/daemonset';
+import { DaemonSetService } from 'wayne-component/lib/client/v1/daemonset.service';
+import { DaemonSetTplService } from 'wayne-component/lib/client/v1/daemonsettpl.service';
+import { defaultDaemonSet } from 'wayne-component/lib/default-models/daemonset.const';
+import { ResourceUnitConvertor } from 'wayne-component/lib/utils';
 import { TranslateService } from '@ngx-translate/core';
-import { containerDom, ContainerTpl, templateDom } from '../../../shared/base/container/container-tpl';
+import { containerDom, ContainerTpl, templateDom } from 'wayne-component/lib/base/container/container-tpl';
 
 @Component({
   selector: 'create-edit-daemonsettpl',

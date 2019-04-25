@@ -4,7 +4,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { DOCUMENT, Location } from '@angular/common';
 import { FormBuilder, NgForm } from '@angular/forms';
 import { EventManager } from '@angular/platform-browser';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import {
   ConfigMapEnvSource,
   ConfigMapKeySelector,
@@ -22,24 +22,24 @@ import {
   SecretKeySelector,
   StatefulSetUpdateStrategy,
   TCPSocketAction
-} from '../../../shared/model/v1/kubernetes/statefulset';
+} from 'wayne-component/lib/model/v1/kubernetes/statefulset';
 import 'rxjs/add/observable/combineLatest';
 import { ActivatedRoute, Router } from '@angular/router';
-import { App } from '../../../shared/model/v1/app';
-import { StatefulsetService } from '../../../shared/client/v1/statefulset.service';
-import { AppService } from '../../../shared/client/v1/app.service';
-import { ActionType, appLabelKey, defaultResources, namespaceLabelKey } from '../../../shared/shared.const';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { Statefulset } from '../../../shared/model/v1/statefulset';
-import { StatefulsetTplService } from '../../../shared/client/v1/statefulsettpl.service';
-import { StatefulsetTemplate } from '../../../shared/model/v1/statefulsettpl';
-import { defaultStatefulset } from '../../../shared/default-models/statefulset.const';
+import { App } from 'wayne-component/lib/model/v1/app';
+import { StatefulsetService } from 'wayne-component/lib/client/v1/statefulset.service';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { ActionType, appLabelKey, defaultResources, namespaceLabelKey } from 'wayne-component/lib/shared.const';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { Statefulset } from 'wayne-component/lib/model/v1/statefulset';
+import { StatefulsetTplService } from 'wayne-component/lib/client/v1/statefulsettpl.service';
+import { StatefulsetTemplate } from 'wayne-component/lib/model/v1/statefulsettpl';
+import { defaultStatefulset } from 'wayne-component/lib/default-models/statefulset.const';
 import { combineLatest } from 'rxjs';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
-import { ResourceUnitConvertor } from '../../../shared/utils';
-import { containerDom, ContainerTpl, templateDom } from '../../../shared/base/container/container-tpl';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
+import { ResourceUnitConvertor } from 'wayne-component/lib/utils';
+import { containerDom, ContainerTpl, templateDom } from 'wayne-component/lib/base/container/container-tpl';
 
 @Component({
   selector: 'create-edit-statefulsettpl',

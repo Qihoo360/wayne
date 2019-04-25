@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { DaemonSet } from '../../../shared/model/v1/daemonset';
-import { DaemonSetService } from '../../../shared/client/v1/daemonset.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { AuthService } from '../../../shared/auth/auth.service';
+import { DaemonSet } from 'wayne-component/lib/model/v1/daemonset';
+import { DaemonSetService } from 'wayne-component/lib/client/v1/daemonset.service';
+import { MessageHandlerService } from 'wayne-component';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ClusterMeta } from '../../../shared/model/v1/cluster';
-import { CreateEditLimitResource } from '../../../shared/base/resource/create-edit-limit-resource';
+import { ClusterMeta } from 'wayne-component/lib/model/v1/cluster';
+import { CreateEditLimitResource } from 'wayne-component/lib/base/resource/create-edit-limit-resource';
 
 @Component({
   selector: 'create-edit-daemonset',

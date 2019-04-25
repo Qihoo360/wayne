@@ -1,24 +1,24 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListCronjobComponent } from './list-cronjob/list-cronjob.component';
 import { CreateEditCronjobComponent } from './create-edit-cronjob/create-edit-cronjob.component';
 import { combineLatest } from 'rxjs';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { CronjobStatus, CronjobTpl } from '../../shared/model/v1/cronjobtpl';
-import { App } from '../../shared/model/v1/app';
-import { Cluster } from '../../shared/model/v1/cluster';
-import { Cronjob } from '../../shared/model/v1/cronjob';
-import { CronjobService } from '../../shared/client/v1/cronjob.service';
-import { CronjobTplService } from '../../shared/client/v1/cronjobtpl.service';
-import { AppService } from '../../shared/client/v1/app.service';
-import { ClusterService } from '../../shared/client/v1/cluster.service';
-import { KubeCronJob } from '../../shared/model/v1/kubernetes/cronjob';
-import { CacheService } from '../../shared/auth/cache.service';
+import { CronjobStatus, CronjobTpl } from 'wayne-component/lib/model/v1/cronjobtpl';
+import { App } from 'wayne-component/lib/model/v1/app';
+import { Cluster } from 'wayne-component/lib/model/v1/cluster';
+import { Cronjob } from 'wayne-component/lib/model/v1/cronjob';
+import { CronjobService } from 'wayne-component/lib/client/v1/cronjob.service';
+import { CronjobTplService } from 'wayne-component/lib/client/v1/cronjobtpl.service';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';
+import { KubeCronJob } from 'wayne-component/lib/model/v1/kubernetes/cronjob';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
 import { PublishHistoryService } from '../common/publish-history/publish-history.service';
-import { JobClient } from '../../shared/client/v1/kubernetes/job';
-import { TabDragService } from '../../shared/client/v1/tab-drag.service';
-import { OrderItem } from '../../shared/model/v1/order';
+import { JobClient } from 'wayne-component/lib/client/v1/kubernetes/job';
+import { TabDragService } from 'wayne-component/lib/client/v1/tab-drag.service';
+import { OrderItem } from 'wayne-component/lib/model/v1/order';
 import {
   ConfirmationButtons,
   ConfirmationState,
@@ -27,16 +27,16 @@ import {
   KubeResourceCronJob,
   PublishType,
   TemplateState
-} from '../../shared/shared.const';
-import { AuthService } from '../../shared/auth/auth.service';
-import { PublishService } from '../../shared/client/v1/publish.service';
-import { PublishStatus } from '../../shared/model/v1/publish-status';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
+} from 'wayne-component/lib/shared.const';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { PublishService } from 'wayne-component/lib/client/v1/publish.service';
+import { PublishStatus } from 'wayne-component/lib/model/v1/publish-status';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
-import { PageState } from '../../shared/page/page-state';
+import { PageState } from 'wayne-component/lib/page/page-state';
 import { TranslateService } from '@ngx-translate/core';
-import { KubernetesClient } from '../../shared/client/v1/kubernetes/kubernetes';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
 
 const showState = {
   'create_time': {hidden: false},

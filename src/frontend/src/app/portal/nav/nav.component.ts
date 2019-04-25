@@ -1,16 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Namespace } from '../../shared/model/v1/namespace';
+import { Namespace } from 'wayne-component/lib/model/v1/namespace';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../shared/auth/auth.service';
-import { CacheService } from '../../shared/auth/cache.service';
-import { AuthoriseService } from '../../shared/client/v1/auth.service';
-import { NotificationService } from '../../shared/client/v1/notification.service';
-import { Notification, NotificationLog } from '../../shared/model/v1/notification';
-import { PageState } from '../../shared/page/page-state';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { LoginTokenKey } from '../../shared/shared.const';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { AuthoriseService } from 'wayne-component/lib/client/v1/auth.service';
+import { NotificationService } from 'wayne-component/lib/client/v1/notification.service';
+import { Notification, NotificationLog } from 'wayne-component/lib/model/v1/notification';
+import { PageState } from 'wayne-component/lib/page/page-state';
+import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { LoginTokenKey } from 'wayne-component/lib/shared.const';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
-import { StorageService } from '../../shared/client/v1/storage.service';
+import { StorageService } from 'wayne-component/lib/client/v1/storage.service';
 
 @Component({
   selector: 'wayne-nav',
