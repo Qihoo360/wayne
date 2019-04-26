@@ -13,7 +13,7 @@ import { DaemonSetClient } from 'wayne-component/lib/client/v1/kubernetes/daemon
 import { PublishService } from 'wayne-component/lib/client/v1/publish.service';
 import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
-import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { App } from 'wayne-component/lib/model/v1/app';
 import { Cluster } from 'wayne-component/lib/model/v1/cluster';
 import { DaemonSet } from 'wayne-component/lib/model/v1/daemonset';

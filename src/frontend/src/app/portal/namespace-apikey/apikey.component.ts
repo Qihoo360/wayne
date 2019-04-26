@@ -4,7 +4,7 @@ import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dial
 import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
 import { apiKeyTypeNamespace, ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { CacheService } from 'wayne-component/lib/auth/cache.service';
 import { AuthService } from 'wayne-component/lib/auth/auth.service';
 import { PageState } from 'wayne-component/lib/page/page-state';

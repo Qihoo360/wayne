@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NamespaceClient } from 'wayne-component/lib/client/v1/kubernetes/namespace';
 import { CacheService } from 'wayne-component/lib/auth/cache.service';
-import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import * as echarts from 'echarts';
 
 import { HistoryComponent } from './history/history.component';

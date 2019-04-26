@@ -1,5 +1,5 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListCronjobComponent } from './list-cronjob/list-cronjob.component';
 import { CreateEditCronjobComponent } from './create-edit-cronjob/create-edit-cronjob.component';

@@ -11,7 +11,7 @@ import {
   syncStatusInterval,
   TemplateState
 } from 'wayne-component/lib/shared.const';
-import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { ListSecretComponent } from './list-secret/list-secret.component';
 import { CreateEditSecretComponent } from './create-edit-secret/create-edit-secret.component';
 import { combineLatest } from 'rxjs';

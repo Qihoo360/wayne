@@ -1,5 +1,5 @@
 import { OnInit, ChangeDetectorRef, Component, OnDestroy, AfterContentInit, ViewChild, ElementRef } from '@angular/core';
-import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreateEditIngressComponent } from './create-edit-ingress/create-edit-ingress.component';
 import { IngressService } from 'wayne-component/lib/client/v1/ingress.service';

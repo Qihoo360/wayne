@@ -1,6 +1,6 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Resource } from 'wayne-component/lib/base/resource/resource';
-import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabDragService } from 'wayne-component/lib/client/v1/tab-drag.service';
 import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';

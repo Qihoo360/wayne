@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets, PublishType } from 'wayne-component/lib/shared.const';
-import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { combineLatest } from 'rxjs';
 import { AppService } from 'wayne-component/lib/client/v1/app.service';
 import { App } from 'wayne-component/lib/model/v1/app';

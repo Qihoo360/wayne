@@ -8,7 +8,7 @@ import { BreadcrumbService } from 'wayne-component/lib/client/v1/breadcrumb.serv
 import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
-import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { WebHook } from 'wayne-component/lib/model/v1/webhook';
 import { WebHookService } from 'wayne-component/lib/client/v1/webhook.service';
 import { AuthService } from 'wayne-component/lib/auth/auth.service';

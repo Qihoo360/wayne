@@ -11,7 +11,7 @@ import {
   syncStatusInterval,
   TemplateState
 } from 'wayne-component/lib/shared.const';
-import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { ListConfigMapComponent } from './list-configmap/list-configmap.component';
 import { CreateEditConfigMapComponent } from './create-edit-configmap/create-edit-configmap.component';
 import { combineLatest } from 'rxjs';

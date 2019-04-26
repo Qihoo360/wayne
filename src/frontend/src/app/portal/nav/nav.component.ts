@@ -7,7 +7,7 @@ import { AuthoriseService } from 'wayne-component/lib/client/v1/auth.service';
 import { NotificationService } from 'wayne-component/lib/client/v1/notification.service';
 import { Notification, NotificationLog } from 'wayne-component/lib/model/v1/notification';
 import { PageState } from 'wayne-component/lib/page/page-state';
-import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { LoginTokenKey } from 'wayne-component/lib/shared.const';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { StorageService } from 'wayne-component/lib/client/v1/storage.service';

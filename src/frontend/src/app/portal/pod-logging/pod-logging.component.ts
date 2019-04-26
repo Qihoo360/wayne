@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { PodClient } from 'wayne-component/lib/client/v1/kubernetes/pod';
 import { LogClient } from 'wayne-component/lib/client/v1/kubernetes/log';
 import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';

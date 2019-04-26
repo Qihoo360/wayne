@@ -8,7 +8,7 @@ import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dial
 import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { AppUser } from 'wayne-component/lib/model/v1/app-user';
 import { AppUserService } from 'wayne-component/lib/client/v1/app-user.service';
 import { AuthService } from 'wayne-component/lib/auth/auth.service';

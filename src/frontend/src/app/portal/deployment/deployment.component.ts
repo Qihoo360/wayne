@@ -1,5 +1,5 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MessageHandlerService } from 'wayne-component/lib/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListDeploymentComponent } from './list-deployment/list-deployment.component';
 import { CreateEditDeploymentComponent } from './create-edit-deployment/create-edit-deployment.component';
