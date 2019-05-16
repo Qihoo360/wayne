@@ -7,9 +7,9 @@ services:
       RABBITMQ_DEFAULT_PASS: "guest"
     image: rabbitmq:3.7.8-management
     networks:
-    - default
+      - default
     ports:
-    - "5672:5672"
+      - "5672:5672"
   mysql:
     image: mysql:5.6.41
     environment:
