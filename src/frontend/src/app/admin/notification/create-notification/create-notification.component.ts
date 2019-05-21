@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Notification } from '../../../shared/model/v1/notification';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { NotificationService } from '../../../shared/client/v1/notification.service';
+import { Notification } from 'wayne-component/lib/model/v1/notification';
+import { MessageHandlerService } from 'wayne-component';
+import { NotificationService } from 'wayne-component/lib/client/v1/notification.service';
 
 @Component({
   selector: 'wayne-create-notification',

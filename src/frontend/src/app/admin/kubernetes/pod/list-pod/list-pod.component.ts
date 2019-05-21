@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { KubernetesListResource } from '../../../../shared/base/kubernetes-namespaced/kubernetes-list-resource';
-import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.service';
-import { KubePod } from '../../../../shared/model/v1/kubernetes/kubepod';
-import { KubePodUtil } from '../../../../shared/utils';
-import { KubeResourcePod } from '../../../../shared/shared.const';
+import { KubernetesListResource } from 'wayne-component/lib/base/kubernetes-namespaced/kubernetes-list-resource';
+import { TplDetailService } from 'wayne-component/lib/tpl-detail/tpl-detail.service';
+import { KubePod } from 'wayne-component/lib/model/v1/kubernetes/kubepod';
+import { KubePodUtil } from 'wayne-component/lib/utils';
+import { KubeResourcePod } from 'wayne-component/lib/shared.const';
 
 
 @Component({

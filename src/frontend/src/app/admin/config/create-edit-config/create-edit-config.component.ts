@@ -3,10 +3,10 @@ import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ActionType } from '../../../shared/shared.const';
-import { ConfigService } from '../../../shared/client/v1/config.service';
-import { Config } from '../../../shared/model/v1/config';
+import { MessageHandlerService } from 'wayne-component';
+import { ActionType } from 'wayne-component/lib/shared.const';
+import { ConfigService } from 'wayne-component/lib/client/v1/config.service';
+import { Config } from 'wayne-component/lib/model/v1/config';
 
 @Component({
   selector: 'create-edit-config',

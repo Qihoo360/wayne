@@ -3,14 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { ListUserComponent } from './list-user/list-user.component';
 import { CreateEditUserComponent } from './create-edit-user/create-edit-user.component';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { User } from '../../shared/model/v1/user';
-import { UserService } from '../../shared/client/v1/user.service';
-import { PageState } from '../../shared/page/page-state';
+import { MessageHandlerService } from 'wayne-component';
+import { User } from 'wayne-component/lib/model/v1/user';
+import { UserService } from 'wayne-component/lib/client/v1/user.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
 
 @Component({
   selector: 'wayne-user',

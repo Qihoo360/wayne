@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { BreadcrumbService } from 'wayne-component/lib/client/v1/breadcrumb.service';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
 import { Router } from '@angular/router';
-import { ListResourceTemplateComponent } from '../../../shared/base/admin-resource/list-resource-template';
+import { ListResourceTemplateComponent } from 'wayne-component/lib/base/admin-resource/list-resource-template';
 
 @Component({
   selector: 'wayne-list-autoscaletpl',

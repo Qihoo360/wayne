@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { DeploymentTpl } from '../../../shared/model/v1/deploymenttpl';
-import { Page } from '../../../shared/page/page-state';
+import { DeploymentTpl } from 'wayne-component/lib/model/v1/deploymenttpl';
+import { Page } from 'wayne-component/lib/page/page-state';
 
 @Component({
   selector: 'list-deploymenttpl',

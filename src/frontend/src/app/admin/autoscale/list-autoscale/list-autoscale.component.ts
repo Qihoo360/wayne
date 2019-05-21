@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ListResourceComponent } from '../../../shared/base/admin-resource/list-resource';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { ListResourceComponent } from 'wayne-component/lib/base/admin-resource/list-resource';
+import { BreadcrumbService } from 'wayne-component/lib/client/v1/breadcrumb.service';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
 import { Router } from '@angular/router';
 
 @Component({

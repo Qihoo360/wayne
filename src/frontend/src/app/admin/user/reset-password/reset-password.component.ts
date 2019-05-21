@@ -3,9 +3,9 @@ import { Component, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { User } from '../../../shared/model/v1/user';
-import { UserService } from '../../../shared/client/v1/user.service';
+import { MessageHandlerService } from 'wayne-component';
+import { User } from 'wayne-component/lib/model/v1/user';
+import { UserService } from 'wayne-component/lib/client/v1/user.service';
 
 @Component({
   selector: 'reset-password',

@@ -2,14 +2,14 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { ListPermissionComponent } from './list-permission/list-permission.component';
 import { CreateEditPermissionComponent } from './create-edit-permission/create-edit-permission.component';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { Permission } from '../../shared/model/v1/permission';
-import { PermissionService } from '../../shared/client/v1/permission.service';
-import { PageState } from '../../shared/page/page-state';
+import { MessageHandlerService } from 'wayne-component';
+import { Permission } from 'wayne-component/lib/model/v1/permission';
+import { PermissionService } from 'wayne-component/lib/client/v1/permission.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
 
 @Component({
   selector: 'wayne-permission',

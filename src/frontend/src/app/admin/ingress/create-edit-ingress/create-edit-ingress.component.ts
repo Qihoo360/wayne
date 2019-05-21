@@ -2,15 +2,15 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { ActionType } from '../../../shared/shared.const';
-import { Ingress } from '../../../shared/model/v1/ingress';
-import { App } from '../../../shared/model/v1/app';
-import { IngressService } from '../../../shared/client/v1/ingress.service';
-import { AppService } from '../../../shared/client/v1/app.service';
-import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ActionType } from 'wayne-component/lib/shared.const';
+import { Ingress } from 'wayne-component/lib/model/v1/ingress';
+import { App } from 'wayne-component/lib/model/v1/app';
+import { IngressService } from 'wayne-component/lib/client/v1/ingress.service';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { AceEditorBoxComponent } from 'wayne-component/lib/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
+import { MessageHandlerService } from 'wayne-component';
 
 @Component({
   selector: 'create-edit-ingress',

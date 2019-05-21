@@ -3,16 +3,16 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { ActionType } from '../../../shared/shared.const';
+import { ActionType } from 'wayne-component/lib/shared.const';
 import { isUndefined } from 'util';
-import { PersistentVolumeClaimTpl } from '../../../shared/model/v1/persistentvolumeclaimtpl';
-import { PersistentVolumeClaim } from '../../../shared/model/v1/persistentvolumeclaim';
-import { PersistentVolumeClaimTplService } from '../../../shared/client/v1/persistentvolumeclaimtpl.service';
-import { PersistentVolumeClaimService } from '../../../shared/client/v1/persistentvolumeclaim.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { PersistentVolumeClaimTpl } from 'wayne-component/lib/model/v1/persistentvolumeclaimtpl';
+import { PersistentVolumeClaim } from 'wayne-component/lib/model/v1/persistentvolumeclaim';
+import { PersistentVolumeClaimTplService } from 'wayne-component/lib/client/v1/persistentvolumeclaimtpl.service';
+import { PersistentVolumeClaimService } from 'wayne-component/lib/client/v1/persistentvolumeclaim.service';
+import { MessageHandlerService } from 'wayne-component';
+import { AceEditorBoxComponent } from 'wayne-component/lib/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
 
 @Component({
   selector: 'create-edit-persistentvolumeclaimtpl',

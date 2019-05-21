@@ -2,15 +2,15 @@ import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ActionType } from '../../../shared/shared.const';
-import { ClusterMeta, Namespace } from '../../../shared/model/v1/namespace';
-import { NamespaceService } from '../../../shared/client/v1/namespace.service';
-import { Cluster } from '../../../shared/model/v1/cluster';
-import { NamespaceClient } from '../../../shared/client/v1/kubernetes/namespace';
-import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { MessageHandlerService } from 'wayne-component';
+import { ActionType } from 'wayne-component/lib/shared.const';
+import { ClusterMeta, Namespace } from 'wayne-component/lib/model/v1/namespace';
+import { NamespaceService } from 'wayne-component/lib/client/v1/namespace.service';
+import { Cluster } from 'wayne-component/lib/model/v1/cluster';
+import { NamespaceClient } from 'wayne-component/lib/client/v1/kubernetes/namespace';
+import { AceEditorBoxComponent } from 'wayne-component/lib/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
 
 class Annotation {
   key: string;

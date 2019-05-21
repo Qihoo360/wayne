@@ -4,7 +4,7 @@ import { CronjobComponent } from './cronjob.component';
 import { ListCronjobComponent } from './list-cronjob/list-cronjob.component';
 import { CreateEditCronjobComponent } from './create-edit-cronjob/create-edit-cronjob.component';
 import { TrashCronjobComponent } from './trash-cronjob/trash-cronjob.component';
-import { CronjobService } from '../../shared/client/v1/cronjob.service';
+import { CronjobService } from 'wayne-component/lib/client/v1/cronjob.service';
 
 @NgModule({
   imports: [

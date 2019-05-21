@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
-import { StatefulsetTplService } from '../../shared/client/v1/statefulsettpl.service';
+import { StatefulsetTplService } from 'wayne-component/lib/client/v1/statefulsettpl.service';
 import { ListStatefulsettplComponent } from './list-statefulsettpl/list-statefulsettpl.component';
 import { CreateEditStatefulsettplComponent } from './create-edit-statefulsettpl/create-edit-statefulsettpl.component';
 import { TrashStatefulsettplComponent } from './trash-statefulsettpl/trash-statefulsettpl.component';

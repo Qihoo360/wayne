@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { PageState } from '../../shared/page/page-state';
-import { AuditLogService } from '../../shared/client/v1/auditlog.service';
-import { AuditLog } from '../../shared/model/v1/auditlog';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
+import { AuditLogService } from 'wayne-component/lib/client/v1/auditlog.service';
+import { AuditLog } from 'wayne-component/lib/model/v1/auditlog';
+import { MessageHandlerService } from 'wayne-component';
 
 @Component({
   selector: 'wayne-auditlog',

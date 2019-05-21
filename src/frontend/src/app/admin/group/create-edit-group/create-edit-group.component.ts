@@ -3,13 +3,13 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ActionType, groupType } from '../../../shared/shared.const';
-import { Group } from '../../../shared/model/v1/group';
-import { Permission } from '../../../shared/model/v1/permission';
-import { GroupService } from '../../../shared/client/v1/group.service';
-import { PermissionService } from '../../../shared/client/v1/permission.service';
-import { PageState } from '../../../shared/page/page-state';
+import { MessageHandlerService } from 'wayne-component';
+import { ActionType, groupType } from 'wayne-component/lib/shared.const';
+import { Group } from 'wayne-component/lib/model/v1/group';
+import { Permission } from 'wayne-component/lib/model/v1/permission';
+import { GroupService } from 'wayne-component/lib/client/v1/group.service';
+import { PermissionService } from 'wayne-component/lib/client/v1/permission.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
 
 @Component({
   selector: 'create-edit-group',

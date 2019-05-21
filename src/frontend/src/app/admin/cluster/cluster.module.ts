@@ -4,7 +4,7 @@ import { ListClusterComponent } from './list-cluster/list-cluster.component';
 import { ClusterComponent } from './cluster.component';
 import { CreateEditClusterComponent } from './create-edit-cluster/create-edit-cluster.component';
 import { TrashClusterComponent } from './trash-cluster/trash-cluster.component';
-import { ClusterService } from '../../shared/client/v1/cluster.service';
+import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';
 
 @NgModule({
   imports: [

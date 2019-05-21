@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { Cluster } from '../../../shared/model/v1/cluster';
-import { Page } from '../../../shared/page/page-state';
+import { Cluster } from 'wayne-component/lib/model/v1/cluster';
+import { Page } from 'wayne-component/lib/page/page-state';
 import { clusterStatus } from 'app/shared/shared.const';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
 
 @Component({
   selector: 'list-cluster',

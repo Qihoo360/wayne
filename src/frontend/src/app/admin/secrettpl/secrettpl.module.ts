@@ -4,7 +4,7 @@ import { CreateEditSecretTplComponent } from './create-edit-secrettpl/create-edi
 import { ListSecretTplComponent } from './list-secrettpl/list-secrettpl.component';
 import { TrashSecretTplComponent } from './trash-secrettpl/trash-secrettpl.component';
 import { SharedModule } from '../../shared/shared.module';
-import { SecretTplService } from '../../shared/client/v1/secrettpl.service';
+import { SecretTplService } from 'wayne-component/lib/client/v1/secrettpl.service';
 
 @NgModule({
   imports: [

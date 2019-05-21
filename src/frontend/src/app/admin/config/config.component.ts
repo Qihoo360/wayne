@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { ListConfigComponent } from './list-config/list-config.component';
 import { CreateEditConfigComponent } from './create-edit-config/create-edit-config.component';
-import { PageState } from '../../shared/page/page-state';
-import { Config } from '../../shared/model/v1/config';
-import { ConfigService } from '../../shared/client/v1/config.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
+import { Config } from 'wayne-component/lib/model/v1/config';
+import { ConfigService } from 'wayne-component/lib/client/v1/config.service';
 
 @Component({
   selector: 'wayne-config',

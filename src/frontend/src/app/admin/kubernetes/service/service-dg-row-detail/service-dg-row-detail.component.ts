@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { KubernetesClient } from '../../../../shared/client/v1/kubernetes/kubernetes';
-import { KubeResourceEndpoint } from '../../../../shared/shared.const';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
+import { KubeResourceEndpoint } from 'wayne-component/lib/shared.const';
 
 @Component({
   selector: 'service-detail',

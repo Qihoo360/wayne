@@ -5,7 +5,7 @@ import { PersistentVolumeClaimTplComponent } from './persistentvolumeclaimtpl.co
 import {
   CreateEditPersistentVolumeClaimTplComponent
 } from './create-edit-persistentvolumeclaimtpl/create-edit-persistentvolumeclaimtpl.component';
-import { PersistentVolumeClaimTplService } from '../../shared/client/v1/persistentvolumeclaimtpl.service';
+import { PersistentVolumeClaimTplService } from 'wayne-component/lib/client/v1/persistentvolumeclaimtpl.service';
 import { TrashPersistentVolumeClaimTplComponent } from './trash-persistentvolumeclaimtpl/trash-persistentvolumeclaimtpl.component';
 
 @NgModule({

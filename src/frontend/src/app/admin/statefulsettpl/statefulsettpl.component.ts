@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { PageState } from '../../shared/page/page-state';
+import { MessageHandlerService } from 'wayne-component';
+import { PageState } from 'wayne-component/lib/page/page-state';
 import { ListStatefulsettplComponent } from './list-statefulsettpl/list-statefulsettpl.component';
 import { CreateEditStatefulsettplComponent } from './create-edit-statefulsettpl/create-edit-statefulsettpl.component';
-import { StatefulsetTplService } from '../../shared/client/v1/statefulsettpl.service';
-import { StatefulsetTemplate } from '../../shared/model/v1/statefulsettpl';
-import { isNotEmpty } from '../../shared/utils';
+import { StatefulsetTplService } from 'wayne-component/lib/client/v1/statefulsettpl.service';
+import { StatefulsetTemplate } from 'wayne-component/lib/model/v1/statefulsettpl';
+import { isNotEmpty } from 'wayne-component/lib/utils';
 
 @Component({
   selector: 'wayne-statefulsettpl',

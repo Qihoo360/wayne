@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { Namespace } from '../../../shared/model/v1/namespace';
-import { Page } from '../../../shared/page/page-state';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
+import { Namespace } from 'wayne-component/lib/model/v1/namespace';
+import { Page } from 'wayne-component/lib/page/page-state';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
 
 @Component({
   selector: 'list-namespace',

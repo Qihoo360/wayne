@@ -1,18 +1,18 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ClusterService } from '../../../shared/client/v1/cluster.service';
-import { AuthService } from '../../../shared/auth/auth.service';
+import { MessageHandlerService } from 'wayne-component';
+import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
 import { ListNodesComponent } from './list-nodes/list-nodes.component';
-import { Node } from '../../../shared/model/v1/kubernetes/node-list';
-import { NodeClient } from '../../../shared/client/v1/kubernetes/node';
+import { Node } from 'wayne-component/lib/model/v1/kubernetes/node-list';
+import { NodeClient } from 'wayne-component/lib/client/v1/kubernetes/node';
 import { Inventory } from './list-nodes/inventory';
-import { KubeNode, NodeSummary } from '../../../shared/model/v1/kubernetes/node';
-import { AceEditorComponent } from '../../../shared/ace-editor/ace-editor.component';
+import { KubeNode, NodeSummary } from 'wayne-component/lib/model/v1/kubernetes/node';
+import { AceEditorComponent } from 'wayne-component/lib/ace-editor/ace-editor.component';
 
 const showState = {
   'name': {hidden: false},

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { KubernetesListResource } from '../../../../shared/base/kubernetes-namespaced/kubernetes-list-resource';
-import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.service';
+import { KubernetesListResource } from 'wayne-component/lib/base/kubernetes-namespaced/kubernetes-list-resource';
+import { TplDetailService } from 'wayne-component/lib/tpl-detail/tpl-detail.service';
 
 @Component({
   selector: 'wayne-list-hpa',

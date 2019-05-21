@@ -4,7 +4,7 @@ import { DeploymentTplComponent } from './deploymenttpl.component';
 import { ListDeploymentTplComponent } from './list-deploymenttpl/list-deploymenttpl.component';
 import { CreateEditDeploymentTplComponent } from './create-edit-deploymenttpl/create-edit-deploymenttpl.component';
 import { TrashDeploymentTplComponent } from './trash-deploymenttpl/trash-deploymenttpl.component';
-import { DeploymentTplService } from '../../shared/client/v1/deploymenttpl.service';
+import { DeploymentTplService } from 'wayne-component/lib/client/v1/deploymenttpl.service';
 
 @NgModule({
   imports: [

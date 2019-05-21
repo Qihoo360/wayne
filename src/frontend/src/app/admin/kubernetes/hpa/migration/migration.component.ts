@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '../../../../shared/client/v1/app.service';
-import { AceEditorService } from '../../../../shared/ace-editor/ace-editor.service';
-import { MessageHandlerService } from '../../../../shared/message-handler/message-handler.service';
-import { MigrationResource } from '../../../../shared/base/kubernetes-namespaced/migration-resource';
-import { KubernetesClient } from '../../../../shared/client/v1/kubernetes/kubernetes';
-import { KubeResourceHorizontalPodAutoscaler } from '../../../../shared/shared.const';
-import { AutoscaleService } from '../../../../shared/client/v1/autoscale.service';
-import { AutoscaleTplService } from '../../../../shared/client/v1/autoscaletpl.service';
-import { AutoscaleTpl } from '../../../../shared/model/v1/autoscaletpl';
-import { Autoscale } from '../../../../shared/model/v1/autoscale';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { MessageHandlerService } from 'wayne-component';
+import { MigrationResource } from 'wayne-component/lib/base/kubernetes-namespaced/migration-resource';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
+import { KubeResourceHorizontalPodAutoscaler } from 'wayne-component/lib/shared.const';
+import { AutoscaleService } from 'wayne-component/lib/client/v1/autoscale.service';
+import { AutoscaleTplService } from 'wayne-component/lib/client/v1/autoscaletpl.service';
+import { AutoscaleTpl } from 'wayne-component/lib/model/v1/autoscaletpl';
+import { Autoscale } from 'wayne-component/lib/model/v1/autoscale';
 
 @Component({
   selector: 'kube-migration',

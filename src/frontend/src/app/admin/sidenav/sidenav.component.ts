@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../shared/auth/auth.service';
-import { SideNavService } from '../../shared/client/v1/sidenav.service';
-import { adminSideNav } from '../../shared/sidenav.const';
-import { SideNavExpand } from '../../shared/base/side-nav/side-nav-expand';
-import { StorageService } from '../../shared/client/v1/storage.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { SideNavService } from 'wayne-component/lib/client/v1/sidenav.service';
+import { adminSideNav } from 'wayne-component/lib/sidenav.const';
+import { SideNavExpand } from 'wayne-component/lib/base/side-nav/side-nav-expand';
+import { StorageService } from 'wayne-component/lib/client/v1/storage.service';
 
 @Component({
   selector: 'wayne-sidenav',

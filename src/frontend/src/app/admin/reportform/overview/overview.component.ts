@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { AppService } from '../../../shared/client/v1/app.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { UserService } from '../../../shared/client/v1/user.service';
-import { PodClient } from '../../../shared/client/v1/kubernetes/pod';
-import { NodeClient } from '../../../shared/client/v1/kubernetes/node';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { MessageHandlerService } from 'wayne-component';
+import { UserService } from 'wayne-component/lib/client/v1/user.service';
+import { PodClient } from 'wayne-component/lib/client/v1/kubernetes/pod';
+import { NodeClient } from 'wayne-component/lib/client/v1/kubernetes/node';
 
 interface Summary {
   appTotal: number;

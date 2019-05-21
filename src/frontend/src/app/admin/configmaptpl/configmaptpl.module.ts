@@ -4,7 +4,7 @@ import { ConfigMapTplComponent } from './configmaptpl.component';
 import { ListConfigMapTplComponent } from './list-configmaptpl/list-configmaptpl.component';
 import { CreateEditConfigMapTplComponent } from './create-edit-configmaptpl/create-edit-configmaptpl.component';
 import { TrashConfigMapTplComponent } from './trash-configmaptpl/trash-configmaptpl.component';
-import { ConfigMapTplService } from '../../shared/client/v1/configmaptpl.service';
+import { ConfigMapTplService } from 'wayne-component/lib/client/v1/configmaptpl.service';
 
 @NgModule({
   imports: [

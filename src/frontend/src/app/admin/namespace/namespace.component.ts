@@ -2,16 +2,16 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { ListNamespaceComponent } from './list-namespace/list-namespace.component';
 import { CreateEditNamespaceComponent } from './create-edit-namespace/create-edit-namespace.component';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { Namespace } from '../../shared/model/v1/namespace';
-import { NamespaceService } from '../../shared/client/v1/namespace.service';
-import { PageState } from '../../shared/page/page-state';
-import { ClusterService } from '../../shared/client/v1/cluster.service';
-import { Cluster } from '../../shared/model/v1/cluster';
+import { MessageHandlerService } from 'wayne-component';
+import { Namespace } from 'wayne-component/lib/model/v1/namespace';
+import { NamespaceService } from 'wayne-component/lib/client/v1/namespace.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
+import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';
+import { Cluster } from 'wayne-component/lib/model/v1/cluster';
 
 @Component({
   selector: 'wayne-namespace',

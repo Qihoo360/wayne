@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { Page } from '../../../shared/page/page-state';
-import { StatefulsetTemplate } from '../../../shared/model/v1/statefulsettpl';
+import { Page } from 'wayne-component/lib/page/page-state';
+import { StatefulsetTemplate } from 'wayne-component/lib/model/v1/statefulsettpl';
 
 @Component({
   selector: 'list-statefulsettpl',

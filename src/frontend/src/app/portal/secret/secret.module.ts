@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from 'wayne-component/lib/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { CreateEditSecretComponent } from './create-edit-secret/create-edit-secret.component';
 import { SecretComponent } from './secret.component';
 import { ListSecretComponent } from './list-secret/list-secret.component';

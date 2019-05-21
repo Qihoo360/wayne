@@ -3,16 +3,16 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ActionType } from '../../../shared/shared.const';
+import { MessageHandlerService } from 'wayne-component';
+import { ActionType } from 'wayne-component/lib/shared.const';
 import { isUndefined } from 'util';
-import { DeploymentTpl } from '../../../shared/model/v1/deploymenttpl';
-import { Deployment } from '../../../shared/model/v1/deployment';
-import { DeploymentTplService } from '../../../shared/client/v1/deploymenttpl.service';
-import { DeploymentService } from '../../../shared/client/v1/deployment.service';
-import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { DeploymentTpl } from 'wayne-component/lib/model/v1/deploymenttpl';
+import { Deployment } from 'wayne-component/lib/model/v1/deployment';
+import { DeploymentTplService } from 'wayne-component/lib/client/v1/deploymenttpl.service';
+import { DeploymentService } from 'wayne-component/lib/client/v1/deployment.service';
+import { AceEditorBoxComponent } from 'wayne-component/lib/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
 
 @Component({
   selector: 'create-edit-deploymenttpl',

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { CreateEditResourceComponent } from '../../../shared/base/admin-resource/create-edit-resource';
-import { AppService } from '../../../shared/client/v1/app.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AutoscaleService } from '../../../shared/client/v1/autoscale.service';
-import { Autoscale } from '../../../shared/model/v1/autoscale';
+import { CreateEditResourceComponent } from 'wayne-component/lib/base/admin-resource/create-edit-resource';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { MessageHandlerService } from 'wayne-component';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AutoscaleService } from 'wayne-component/lib/client/v1/autoscale.service';
+import { Autoscale } from 'wayne-component/lib/model/v1/autoscale';
 
 @Component({
   selector: 'wayne-create-edit-autoscale',

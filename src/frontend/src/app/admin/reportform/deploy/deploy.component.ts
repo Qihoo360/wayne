@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { PublishService } from '../../../shared/client/v1/publish.service';
+import { MessageHandlerService } from 'wayne-component';
+import { PublishService } from 'wayne-component/lib/client/v1/publish.service';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import * as moment from 'moment';
 

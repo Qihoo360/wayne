@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import * as echarts from 'echarts';
-import { AppService } from '../../../shared/client/v1/app.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { MessageHandlerService } from 'wayne-component';
 import ECharts = echarts.ECharts;
 import EChartOption = echarts.EChartOption;
 

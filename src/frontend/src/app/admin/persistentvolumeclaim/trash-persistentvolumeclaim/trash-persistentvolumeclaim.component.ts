@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { PersistentVolumeClaimService } from '../../../shared/client/v1/persistentvolumeclaim.service';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import { PersistentVolumeClaim } from '../../../shared/model/v1/persistentvolumeclaim';
-import { PageState } from '../../../shared/page/page-state';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { MessageHandlerService } from 'wayne-component';
+import { PersistentVolumeClaimService } from 'wayne-component/lib/client/v1/persistentvolumeclaim.service';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { PersistentVolumeClaim } from 'wayne-component/lib/model/v1/persistentvolumeclaim';
+import { PageState } from 'wayne-component/lib/page/page-state';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
 
 @Component({
   selector: 'trash-persistentvolumeclaim',

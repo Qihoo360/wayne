@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '../../../../shared/client/v1/app.service';
-import { AceEditorService } from '../../../../shared/ace-editor/ace-editor.service';
-import { MessageHandlerService } from '../../../../shared/message-handler/message-handler.service';
-import { MigrationResource } from '../../../../shared/base/kubernetes-namespaced/migration-resource';
-import { KubernetesClient } from '../../../../shared/client/v1/kubernetes/kubernetes';
-import { KubeResourcePersistentVolumeClaim } from '../../../../shared/shared.const';
-import { PersistentVolumeClaimService } from '../../../../shared/client/v1/persistentvolumeclaim.service';
-import { PersistentVolumeClaimTplService } from '../../../../shared/client/v1/persistentvolumeclaimtpl.service';
-import { PersistentVolumeClaim } from '../../../../shared/model/v1/persistentvolumeclaim';
-import { PersistentVolumeClaimTpl } from '../../../../shared/model/v1/persistentvolumeclaimtpl';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { MessageHandlerService } from 'wayne-component';
+import { MigrationResource } from 'wayne-component/lib/base/kubernetes-namespaced/migration-resource';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
+import { KubeResourcePersistentVolumeClaim } from 'wayne-component/lib/shared.const';
+import { PersistentVolumeClaimService } from 'wayne-component/lib/client/v1/persistentvolumeclaim.service';
+import { PersistentVolumeClaimTplService } from 'wayne-component/lib/client/v1/persistentvolumeclaimtpl.service';
+import { PersistentVolumeClaim } from 'wayne-component/lib/model/v1/persistentvolumeclaim';
+import { PersistentVolumeClaimTpl } from 'wayne-component/lib/model/v1/persistentvolumeclaimtpl';
 
 @Component({
   selector: 'kube-migration',

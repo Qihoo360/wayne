@@ -48,7 +48,7 @@ import { BoxModule, WayneModule } from 'wayne-component';
     FormsModule,
     HttpClientModule,
     ClarityModule,
-    // WayneModule,
+    WayneModule,
     // ResourceLimitModule,
     // EchartsModule,
     // CollapseModule,

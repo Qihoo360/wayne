@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { NamespaceReportComponent } from './namespace-report.component';
-import { SharedModule } from 'wayne-component/lib/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { HistoryComponent } from './history/history.component';
 import { ResourceComponent } from './resource/resource.component';
 import { SidenavNamespaceModule } from '../sidenav-namespace/sidenav-namespace.module';

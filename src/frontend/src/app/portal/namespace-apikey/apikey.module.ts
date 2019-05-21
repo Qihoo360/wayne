@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from 'wayne-component/lib/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { ApiKeyService } from 'wayne-component/lib/client/v1/apikey.service';
 import { CreateEditApiKeyComponent } from './create-edit-apikey/create-edit-apikey.component';
 import { ListApiKeyComponent } from './list-apikey/list-apikey.component';

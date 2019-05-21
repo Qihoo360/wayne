@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '../../../../shared/client/v1/app.service';
-import { AceEditorService } from '../../../../shared/ace-editor/ace-editor.service';
-import { MessageHandlerService } from '../../../../shared/message-handler/message-handler.service';
-import { MigrationResource } from '../../../../shared/base/kubernetes-namespaced/migration-resource';
-import { KubernetesClient } from '../../../../shared/client/v1/kubernetes/kubernetes';
-import { KubeResourceConfigMap } from '../../../../shared/shared.const';
-import { ConfigMapService } from '../../../../shared/client/v1/configmap.service';
-import { ConfigMapTplService } from '../../../../shared/client/v1/configmaptpl.service';
-import { ConfigMap } from '../../../../shared/model/v1/configmap';
-import { ConfigMapTpl } from '../../../../shared/model/v1/configmaptpl';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { MessageHandlerService } from 'wayne-component';
+import { MigrationResource } from 'wayne-component/lib/base/kubernetes-namespaced/migration-resource';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
+import { KubeResourceConfigMap } from 'wayne-component/lib/shared.const';
+import { ConfigMapService } from 'wayne-component/lib/client/v1/configmap.service';
+import { ConfigMapTplService } from 'wayne-component/lib/client/v1/configmaptpl.service';
+import { ConfigMap } from 'wayne-component/lib/model/v1/configmap';
+import { ConfigMapTpl } from 'wayne-component/lib/model/v1/configmaptpl';
 
 @Component({
   selector: 'kube-migration',

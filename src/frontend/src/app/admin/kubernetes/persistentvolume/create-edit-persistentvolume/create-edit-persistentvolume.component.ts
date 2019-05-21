@@ -3,16 +3,16 @@ import { Location } from '@angular/common';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { MessageHandlerService } from '../../../../shared/message-handler/message-handler.service';
-import { ActionType } from '../../../../shared/shared.const';
-import { CephFSVolumeSource, PersistentVolume, RBDVolumeSource } from '../../../../shared/model/v1/kubernetes/persistentvolume';
-import { PersistentVolumeClient } from '../../../../shared/client/v1/kubernetes/persistentvolume';
+import { MessageHandlerService } from 'wayne-component';
+import { ActionType } from 'wayne-component/lib/shared.const';
+import { CephFSVolumeSource, PersistentVolume, RBDVolumeSource } from 'wayne-component/lib/model/v1/kubernetes/persistentvolume';
+import { PersistentVolumeClient } from 'wayne-component/lib/client/v1/kubernetes/persistentvolume';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClusterService } from '../../../../shared/client/v1/cluster.service';
+import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';
 import { combineLatest } from 'rxjs';
-import { Cluster } from '../../../../shared/model/v1/cluster';
-import { AceEditorMsg } from '../../../../shared/ace-editor/ace-editor';
-import { AceEditorService } from '../../../../shared/ace-editor/ace-editor.service';
+import { Cluster } from 'wayne-component/lib/model/v1/cluster';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
 
 @Component({
   selector: 'create-edit-persistentvolume',

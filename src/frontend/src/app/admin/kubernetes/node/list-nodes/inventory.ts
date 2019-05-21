@@ -1,5 +1,5 @@
 import { ClrDatagridComparatorInterface, ClrDatagridStringFilterInterface } from '@clr/angular';
-import { Node } from '../../../../shared/model/v1/kubernetes/node-list';
+import { Node } from 'wayne-component/lib/model/v1/kubernetes/node-list';
 
 export class Inventory {
   public size = 10;

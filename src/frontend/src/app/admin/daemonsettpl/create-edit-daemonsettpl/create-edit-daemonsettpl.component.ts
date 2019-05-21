@@ -3,16 +3,16 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ActionType } from '../../../shared/shared.const';
+import { MessageHandlerService } from 'wayne-component';
+import { ActionType } from 'wayne-component/lib/shared.const';
 import { isUndefined } from 'util';
-import { DaemonSetTemplate } from '../../../shared/model/v1/daemonsettpl';
-import { DaemonSet } from '../../../shared/model/v1/daemonset';
-import { DaemonSetTplService } from '../../../shared/client/v1/daemonsettpl.service';
-import { DaemonSetService } from '../../../shared/client/v1/daemonset.service';
-import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { DaemonSetTemplate } from 'wayne-component/lib/model/v1/daemonsettpl';
+import { DaemonSet } from 'wayne-component/lib/model/v1/daemonset';
+import { DaemonSetTplService } from 'wayne-component/lib/client/v1/daemonsettpl.service';
+import { DaemonSetService } from 'wayne-component/lib/client/v1/daemonset.service';
+import { AceEditorBoxComponent } from 'wayne-component/lib/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
 
 @Component({
   selector: 'create-edit-daemonsettpl',

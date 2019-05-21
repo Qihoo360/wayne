@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from 'wayne-component/lib/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { SidenavComponent } from './sidenav.component';
-import { FooterModule } from 'wayne-component/lib/footer/footer.module';
+import { FooterModule } from '../../shared/footer/footer.module';
 
 @NgModule({
   imports: [

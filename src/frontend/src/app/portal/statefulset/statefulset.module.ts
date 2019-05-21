@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from 'wayne-component/lib/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PodClient } from 'wayne-component/lib/client/v1/kubernetes/pod';
 import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';

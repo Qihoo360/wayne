@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TrashResourceTemplateComponent } from '../../../shared/base/admin-resource/trash-resource-template';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { ConfirmationTargets } from '../../../shared/shared.const';
-import { AutoscaleTplService } from '../../../shared/client/v1/autoscaletpl.service';
+import { TrashResourceTemplateComponent } from 'wayne-component/lib/base/admin-resource/trash-resource-template';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { MessageHandlerService } from 'wayne-component';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { ConfirmationTargets } from 'wayne-component/lib/shared.const';
+import { AutoscaleTplService } from 'wayne-component/lib/client/v1/autoscaletpl.service';
 
 @Component({
   selector: 'wayne-trash-autoscaletpl',

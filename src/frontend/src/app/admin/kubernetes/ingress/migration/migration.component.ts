@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '../../../../shared/client/v1/app.service';
-import { AceEditorService } from '../../../../shared/ace-editor/ace-editor.service';
-import { MessageHandlerService } from '../../../../shared/message-handler/message-handler.service';
-import { MigrationResource } from '../../../../shared/base/kubernetes-namespaced/migration-resource';
-import { KubernetesClient } from '../../../../shared/client/v1/kubernetes/kubernetes';
-import { KubeResourceIngress } from '../../../../shared/shared.const';
-import { Ingress } from '../../../../shared/model/v1/ingress';
-import { IngressTpl } from '../../../../shared/model/v1/ingresstpl';
-import { IngressService } from '../../../../shared/client/v1/ingress.service';
-import { IngressTplService } from '../../../../shared/client/v1/ingresstpl.service';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { MessageHandlerService } from 'wayne-component';
+import { MigrationResource } from 'wayne-component/lib/base/kubernetes-namespaced/migration-resource';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
+import { KubeResourceIngress } from 'wayne-component/lib/shared.const';
+import { Ingress } from 'wayne-component/lib/model/v1/ingress';
+import { IngressTpl } from 'wayne-component/lib/model/v1/ingresstpl';
+import { IngressService } from 'wayne-component/lib/client/v1/ingress.service';
+import { IngressTplService } from 'wayne-component/lib/client/v1/ingresstpl.service';
 
 @Component({
   selector: 'kube-migration',

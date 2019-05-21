@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Page } from '../../../shared/page/page-state';
-import { Notification } from '../../../shared/model/v1/notification';
-import { AuthService } from '../../../shared/auth/auth.service';
+import { Page } from 'wayne-component/lib/page/page-state';
+import { Notification } from 'wayne-component/lib/model/v1/notification';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { NotificationService } from '../../../shared/client/v1/notification.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { NotificationService } from 'wayne-component/lib/client/v1/notification.service';
+import { MessageHandlerService } from 'wayne-component';
 
 @Component({
   selector: 'wayne-list-notification',

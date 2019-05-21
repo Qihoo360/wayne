@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { Page } from '../../../shared/page/page-state';
-import { Config } from '../../../shared/model/v1/config';
+import { Page } from 'wayne-component/lib/page/page-state';
+import { Config } from 'wayne-component/lib/model/v1/config';
 
 @Component({
   selector: 'list-config',

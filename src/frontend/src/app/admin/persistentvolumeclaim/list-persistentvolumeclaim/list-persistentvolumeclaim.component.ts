@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { PersistentVolumeClaim } from '../../../shared/model/v1/persistentvolumeclaim';
-import { Page } from '../../../shared/page/page-state';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
-import { Statefulset } from '../../../shared/model/v1/statefulset';
+import { PersistentVolumeClaim } from 'wayne-component/lib/model/v1/persistentvolumeclaim';
+import { Page } from 'wayne-component/lib/page/page-state';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
+import { Statefulset } from 'wayne-component/lib/model/v1/statefulset';
 import { Router } from '@angular/router';
 
 @Component({

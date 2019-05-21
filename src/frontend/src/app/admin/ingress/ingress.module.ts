@@ -4,7 +4,7 @@ import { CreateEditIngressComponent } from './create-edit-ingress/create-edit-in
 import { IngressComponent } from './ingress.component';
 import { ListIngressComponent } from './list-ingress/list-ingress.component';
 import { TrashIngressComponent } from './trash-ingress/trash-ingress.component';
-import { IngressService } from '../../shared/client/v1/ingress.service';
+import { IngressService } from 'wayne-component/lib/client/v1/ingress.service';
 
 @NgModule({
   imports: [

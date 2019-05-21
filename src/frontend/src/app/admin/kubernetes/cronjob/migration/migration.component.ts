@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '../../../../shared/client/v1/app.service';
-import { AceEditorService } from '../../../../shared/ace-editor/ace-editor.service';
-import { MessageHandlerService } from '../../../../shared/message-handler/message-handler.service';
-import { MigrationResource } from '../../../../shared/base/kubernetes-namespaced/migration-resource';
-import { KubernetesClient } from '../../../../shared/client/v1/kubernetes/kubernetes';
-import { KubeResourceCronJob } from '../../../../shared/shared.const';
-import { CronjobService } from '../../../../shared/client/v1/cronjob.service';
-import { CronjobTplService } from '../../../../shared/client/v1/cronjobtpl.service';
-import { Cronjob } from '../../../../shared/model/v1/cronjob';
-import { CronjobTpl } from '../../../../shared/model/v1/cronjobtpl';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { MessageHandlerService } from 'wayne-component';
+import { MigrationResource } from 'wayne-component/lib/base/kubernetes-namespaced/migration-resource';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
+import { KubeResourceCronJob } from 'wayne-component/lib/shared.const';
+import { CronjobService } from 'wayne-component/lib/client/v1/cronjob.service';
+import { CronjobTplService } from 'wayne-component/lib/client/v1/cronjobtpl.service';
+import { Cronjob } from 'wayne-component/lib/model/v1/cronjob';
+import { CronjobTpl } from 'wayne-component/lib/model/v1/cronjobtpl';
 
 @Component({
   selector: 'kube-migration',

@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { PageState } from '../../shared/page/page-state';
+import { MessageHandlerService } from 'wayne-component';
+import { PageState } from 'wayne-component/lib/page/page-state';
 import { ListDaemonsettplComponent } from './list-daemonsettpl/list-daemonsettpl.component';
 import { CreateEditDaemonsettplComponent } from './create-edit-daemonsettpl/create-edit-daemonsettpl.component';
-import { DaemonSetTplService } from '../../shared/client/v1/daemonsettpl.service';
-import { DaemonSetTemplate } from '../../shared/model/v1/daemonsettpl';
-import { isNotEmpty } from '../../shared/utils';
+import { DaemonSetTplService } from 'wayne-component/lib/client/v1/daemonsettpl.service';
+import { DaemonSetTemplate } from 'wayne-component/lib/model/v1/daemonsettpl';
+import { isNotEmpty } from 'wayne-component/lib/utils';
 
 @Component({
   selector: 'wayne-daemonsettpl',

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { TrashResourceComponent } from '../../../shared/base/admin-resource/trash-resource';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { ConfirmationTargets } from '../../../shared/shared.const';
-import { AutoscaleService } from '../../../shared/client/v1/autoscale.service';
+import { TrashResourceComponent } from 'wayne-component/lib/base/admin-resource/trash-resource';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { MessageHandlerService } from 'wayne-component';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { ConfirmationTargets } from 'wayne-component/lib/shared.const';
+import { AutoscaleService } from 'wayne-component/lib/client/v1/autoscale.service';
 
 @Component({
   selector: 'wayne-trash-autoscale',

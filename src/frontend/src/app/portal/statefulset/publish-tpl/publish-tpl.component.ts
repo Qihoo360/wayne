@@ -7,7 +7,8 @@ import { MessageHandlerService } from 'wayne-component';
 
 import { KubeStatefulSet } from 'wayne-component/lib/model/v1/kubernetes/statefulset';
 import { CacheService } from 'wayne-component/lib/auth/cache.service';
-import { defaultResources, KubeResourceStatefulSet, ResourcesActionType } from 'wayne-component/lib/shared.const';
+import { KubeResourceStatefulSet, ResourcesActionType } from 'wayne-component/lib/shared.const';
+import { defaultResources } from 'wayne-component';
 import { PublishStatusService } from 'wayne-component/lib/client/v1/publishstatus.service';
 import { StatefulsetClient } from 'wayne-component/lib/client/v1/kubernetes/statefulset';
 import { ActivatedRoute } from '@angular/router';

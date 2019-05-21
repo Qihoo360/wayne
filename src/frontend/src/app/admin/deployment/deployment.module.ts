@@ -4,7 +4,7 @@ import { CreateEditDeploymentComponent } from './create-edit-deployment/create-e
 import { ListDeploymentComponent } from './list-deployment/list-deployment.component';
 import { SharedModule } from '../../shared/shared.module';
 import { TrashDeploymentComponent } from './trash-deployment/trash-deployment.component';
-import { DeploymentService } from '../../shared/client/v1/deployment.service';
+import { DeploymentService } from 'wayne-component/lib/client/v1/deployment.service';
 
 @NgModule({
   imports: [

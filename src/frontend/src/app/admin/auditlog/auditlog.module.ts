@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
-import { AuditLogService } from '../../shared/client/v1/auditlog.service';
+import { AuditLogService } from 'wayne-component/lib/client/v1/auditlog.service';
 import { AuditLogComponent } from './auditlog.component';
 
 @NgModule({

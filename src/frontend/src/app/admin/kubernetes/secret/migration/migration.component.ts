@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '../../../../shared/client/v1/app.service';
-import { AceEditorService } from '../../../../shared/ace-editor/ace-editor.service';
-import { MessageHandlerService } from '../../../../shared/message-handler/message-handler.service';
-import { MigrationResource } from '../../../../shared/base/kubernetes-namespaced/migration-resource';
-import { KubernetesClient } from '../../../../shared/client/v1/kubernetes/kubernetes';
-import { KubeResourceSecret } from '../../../../shared/shared.const';
-import { SecretService } from '../../../../shared/client/v1/secret.service';
-import { SecretTplService } from '../../../../shared/client/v1/secrettpl.service';
-import { Secret } from '../../../../shared/model/v1/secret';
-import { SecretTpl } from '../../../../shared/model/v1/secrettpl';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { MessageHandlerService } from 'wayne-component';
+import { MigrationResource } from 'wayne-component/lib/base/kubernetes-namespaced/migration-resource';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
+import { KubeResourceSecret } from 'wayne-component/lib/shared.const';
+import { SecretService } from 'wayne-component/lib/client/v1/secret.service';
+import { SecretTplService } from 'wayne-component/lib/client/v1/secrettpl.service';
+import { Secret } from 'wayne-component/lib/model/v1/secret';
+import { SecretTpl } from 'wayne-component/lib/model/v1/secrettpl';
 
 @Component({
   selector: 'kube-migration',

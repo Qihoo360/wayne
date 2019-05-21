@@ -1,16 +1,16 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { ListIngressComponent } from './list-ingress/list-ingress.component';
 import { CreateEditIngressComponent } from './create-edit-ingress/create-edit-ingress.component';
-import { Ingress } from '../../shared/model/v1/ingress';
-import { IngressService } from '../../shared/client/v1/ingress.service';
-import { PageState } from '../../shared/page/page-state';
+import { Ingress } from 'wayne-component/lib/model/v1/ingress';
+import { IngressService } from 'wayne-component/lib/client/v1/ingress.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
 
 @Component({
   selector: 'wayne-ingress',

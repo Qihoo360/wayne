@@ -1,16 +1,16 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { ListStatefulsetComponent } from './list-statefulset/list-statefulset.component';
 import { CreateEditStatefulsetComponent } from './create-edit-statefulset/create-edit-statefulset.component';
-import { Statefulset } from '../../shared/model/v1/statefulset';
-import { StatefulsetService } from '../../shared/client/v1/statefulset.service';
-import { PageState } from '../../shared/page/page-state';
+import { Statefulset } from 'wayne-component/lib/model/v1/statefulset';
+import { StatefulsetService } from 'wayne-component/lib/client/v1/statefulset.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
 
 
 @Component({

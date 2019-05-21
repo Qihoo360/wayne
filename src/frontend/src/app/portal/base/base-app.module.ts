@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from 'wayne-component/lib/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { RouterModule } from '@angular/router';
-import { FooterModule } from 'wayne-component/lib/footer/footer.module';
+import { FooterModule } from '../../shared/footer/footer.module';
 import { SidenavModule } from '../sidenav/sidenav.module';
 import { BaseComponent } from './base.component';
 import { PublishHistoryModule } from '../common/publish-history/publish-history.module';

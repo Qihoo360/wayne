@@ -1,19 +1,19 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { ListPersistentVolumeComponent } from './list-persistentvolume/list-persistentvolume.component';
-import { PersistentVolume } from '../../../shared/model/v1/kubernetes/persistentvolume';
-import { PersistentVolumeClient } from '../../../shared/client/v1/kubernetes/persistentvolume';
-import { ClusterService } from '../../../shared/client/v1/cluster.service';
+import { PersistentVolume } from 'wayne-component/lib/model/v1/kubernetes/persistentvolume';
+import { PersistentVolumeClient } from 'wayne-component/lib/client/v1/kubernetes/persistentvolume';
+import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';
 import { Inventory } from './list-persistentvolume/inventory';
 import { CreateEditPersistentVolumeComponent } from './create-edit-persistentvolume/create-edit-persistentvolume.component';
-import { isArrayNotEmpty, isNotEmpty } from '../../../shared/utils';
-import { AuthService } from '../../../shared/auth/auth.service';
-import { PersistentVolumeRobinClient } from '../../../shared/client/v1/kubernetes/persistentvolume-robin';
+import { isArrayNotEmpty, isNotEmpty } from 'wayne-component/lib/utils';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { PersistentVolumeRobinClient } from 'wayne-component/lib/client/v1/kubernetes/persistentvolume-robin';
 
 const showState = {
   '名称': {hidden: false},

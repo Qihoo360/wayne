@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
-import { DaemonSetTplService } from '../../shared/client/v1/daemonsettpl.service';
+import { DaemonSetTplService } from 'wayne-component/lib/client/v1/daemonsettpl.service';
 import { ListDaemonsettplComponent } from './list-daemonsettpl/list-daemonsettpl.component';
 import { CreateEditDaemonsettplComponent } from './create-edit-daemonsettpl/create-edit-daemonsettpl.component';
 import { TrashDaemonsettplComponent } from './trash-daemonsettpl/trash-daemonsettpl.component';

@@ -4,17 +4,17 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
 import { NameComparator, NameFilter, PvcFilter, RbdImageNameFilter, TimeComparator } from './inventory';
 import { ClrDatagridSortOrder } from '@clr/angular';
-import { PersistentVolume } from '../../../../shared/model/v1/kubernetes/persistentvolume';
-import { isEmpty } from '../../../../shared/utils';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../../shared/shared.const';
-import { ConfirmationMessage } from '../../../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationDialogService } from '../../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { PersistentVolume } from 'wayne-component/lib/model/v1/kubernetes/persistentvolume';
+import { isEmpty } from 'wayne-component/lib/utils';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
 import { Subscription } from 'rxjs/Subscription';
-import { PersistentVolumeClient } from '../../../../shared/client/v1/kubernetes/persistentvolume';
-import { MessageHandlerService } from '../../../../shared/message-handler/message-handler.service';
-import { AuthService } from '../../../../shared/auth/auth.service';
-import { PersistentVolumeRobinClient } from '../../../../shared/client/v1/kubernetes/persistentvolume-robin';
-import { StorageService } from '../../../../shared/client/v1/storage.service';
+import { PersistentVolumeClient } from 'wayne-component/lib/client/v1/kubernetes/persistentvolume';
+import { MessageHandlerService } from 'wayne-component';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { PersistentVolumeRobinClient } from 'wayne-component/lib/client/v1/kubernetes/persistentvolume-robin';
+import { StorageService } from 'wayne-component/lib/client/v1/storage.service';
 
 @Component({
   selector: 'list-persistentvolume',

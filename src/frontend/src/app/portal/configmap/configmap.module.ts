@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from 'wayne-component/lib/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { CreateEditConfigMapComponent } from './create-edit-configmap/create-edit-configmap.component';
 import { ConfigMapComponent } from './configmap.component';
 import { ListConfigMapComponent } from './list-configmap/list-configmap.component';

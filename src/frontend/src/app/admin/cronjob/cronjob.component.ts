@@ -1,16 +1,16 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { CreateEditCronjobComponent } from './create-edit-cronjob/create-edit-cronjob.component';
 import { ListCronjobComponent } from './list-cronjob/list-cronjob.component';
-import { Cronjob } from '../../shared/model/v1/cronjob';
-import { CronjobService } from '../../shared/client/v1/cronjob.service';
-import { PageState } from '../../shared/page/page-state';
+import { Cronjob } from 'wayne-component/lib/model/v1/cronjob';
+import { CronjobService } from 'wayne-component/lib/client/v1/cronjob.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { CreateEditResourceTemplateComponent } from '../../../shared/base/admin-resource/create-edit-resource-template';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AutoscaleTplService } from '../../../shared/client/v1/autoscaletpl.service';
-import { AutoscaleService } from '../../../shared/client/v1/autoscale.service';
-import { defaultAutoscale } from '../../../shared/default-models/autoscale.const';
-import { AutoscaleTpl } from '../../../shared/model/v1/autoscaletpl';
+import { CreateEditResourceTemplateComponent } from 'wayne-component/lib/base/admin-resource/create-edit-resource-template';
+import { MessageHandlerService } from 'wayne-component';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AutoscaleTplService } from 'wayne-component/lib/client/v1/autoscaletpl.service';
+import { AutoscaleService } from 'wayne-component/lib/client/v1/autoscale.service';
+import { defaultAutoscale } from 'wayne-component/lib/default-models/autoscale.const';
+import { AutoscaleTpl } from 'wayne-component/lib/model/v1/autoscaletpl';
 
 @Component({
   selector: 'wayne-create-edit-autoscaletpl',

@@ -3,16 +3,16 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ActionType } from '../../../shared/shared.const';
+import { MessageHandlerService } from 'wayne-component';
+import { ActionType } from 'wayne-component/lib/shared.const';
 import { isUndefined } from 'util';
-import { StatefulsetTemplate } from '../../../shared/model/v1/statefulsettpl';
-import { Statefulset } from '../../../shared/model/v1/statefulset';
-import { StatefulsetTplService } from '../../../shared/client/v1/statefulsettpl.service';
-import { StatefulsetService } from '../../../shared/client/v1/statefulset.service';
-import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box/ace-editor-box.component';
-import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
-import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
+import { StatefulsetTemplate } from 'wayne-component/lib/model/v1/statefulsettpl';
+import { Statefulset } from 'wayne-component/lib/model/v1/statefulset';
+import { StatefulsetTplService } from 'wayne-component/lib/client/v1/statefulsettpl.service';
+import { StatefulsetService } from 'wayne-component/lib/client/v1/statefulset.service';
+import { AceEditorBoxComponent } from 'wayne-component/lib/ace-editor/ace-editor-box/ace-editor-box.component';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { AceEditorMsg } from 'wayne-component/lib/ace-editor/ace-editor';
 
 @Component({
   selector: 'create-edit-statefulsettpl',

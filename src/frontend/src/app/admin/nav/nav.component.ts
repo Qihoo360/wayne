@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../shared/auth/auth.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
 import { Router } from '@angular/router';
-import { AuthoriseService } from '../../shared/client/v1/auth.service';
-import { LoginTokenKey } from '../../shared/shared.const';
+import { AuthoriseService } from 'wayne-component/lib/client/v1/auth.service';
+import { LoginTokenKey } from 'wayne-component/lib/shared.const';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
-import { StorageService } from '../../shared/client/v1/storage.service';
+import { StorageService } from 'wayne-component/lib/client/v1/storage.service';
 
 @Component({
   selector: 'wayne-nav',

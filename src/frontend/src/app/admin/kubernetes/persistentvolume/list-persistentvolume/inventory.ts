@@ -1,5 +1,5 @@
 import { ClrDatagridComparatorInterface, ClrDatagridStringFilterInterface } from '@clr/angular';
-import { PersistentVolume } from '../../../../shared/model/v1/kubernetes/persistentvolume';
+import { PersistentVolume } from 'wayne-component/lib/model/v1/kubernetes/persistentvolume';
 
 export class Inventory {
   public size = 10;

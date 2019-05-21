@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '../../../../shared/client/v1/app.service';
-import { AceEditorService } from '../../../../shared/ace-editor/ace-editor.service';
-import { MessageHandlerService } from '../../../../shared/message-handler/message-handler.service';
-import { MigrationResource } from '../../../../shared/base/kubernetes-namespaced/migration-resource';
-import { KubernetesClient } from '../../../../shared/client/v1/kubernetes/kubernetes';
-import { KubeResourceDeployment } from '../../../../shared/shared.const';
-import { DeploymentService } from '../../../../shared/client/v1/deployment.service';
-import { DeploymentTplService } from '../../../../shared/client/v1/deploymenttpl.service';
-import { Deployment } from '../../../../shared/model/v1/deployment';
-import { DeploymentTpl } from '../../../../shared/model/v1/deploymenttpl';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { MessageHandlerService } from 'wayne-component';
+import { MigrationResource } from 'wayne-component/lib/base/kubernetes-namespaced/migration-resource';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
+import { KubeResourceDeployment } from 'wayne-component/lib/shared.const';
+import { DeploymentService } from 'wayne-component/lib/client/v1/deployment.service';
+import { DeploymentTplService } from 'wayne-component/lib/client/v1/deploymenttpl.service';
+import { Deployment } from 'wayne-component/lib/model/v1/deployment';
+import { DeploymentTpl } from 'wayne-component/lib/model/v1/deploymenttpl';
 
 @Component({
   selector: 'kube-migration',

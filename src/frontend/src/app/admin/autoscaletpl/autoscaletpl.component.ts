@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { ResourceTemplateComponent } from '../../shared/base/admin-resource/resource-template';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { ResourceTemplateComponent } from 'wayne-component/lib/base/admin-resource/resource-template';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { BreadcrumbService } from 'wayne-component/lib/client/v1/breadcrumb.service';
+import { MessageHandlerService } from 'wayne-component';
 import { ActivatedRoute } from '@angular/router';
-import { ConfirmationTargets } from '../../shared/shared.const';
-import { AutoscaleTplService } from '../../shared/client/v1/autoscaletpl.service';
+import { ConfirmationTargets } from 'wayne-component/lib/shared.const';
+import { AutoscaleTplService } from 'wayne-component/lib/client/v1/autoscaletpl.service';
 import { ListAutoscaletplComponent } from './list-autoscaletpl/list-autoscaletpl.component';
 import { CreateEditAutoscaletplComponent } from './create-edit-autoscaletpl/create-edit-autoscaletpl.component';
 

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import { Subscription } from 'rxjs/Subscription';
-import { ConfigService } from '../../../shared/client/v1/config.service';
+import { ConfigService } from 'wayne-component/lib/client/v1/config.service';
 
 @Component({
   selector: 'config-system',

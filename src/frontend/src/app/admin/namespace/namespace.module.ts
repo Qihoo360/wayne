@@ -4,7 +4,7 @@ import { CreateEditNamespaceComponent } from './create-edit-namespace/create-edi
 import { ListNamespaceComponent } from './list-namespace/list-namespace.component';
 import { TrashNamespaceComponent } from './trash-namespace/trash-namespace.component';
 import { SharedModule } from '../../shared/shared.module';
-import { NamespaceService } from '../../shared/client/v1/namespace.service';
+import { NamespaceService } from 'wayne-component/lib/client/v1/namespace.service';
 
 @NgModule({
   imports: [

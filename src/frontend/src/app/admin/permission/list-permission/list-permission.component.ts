@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { Permission } from '../../../shared/model/v1/permission';
-import { PermissionService } from '../../../shared/client/v1/permission.service';
-import { Page } from '../../../shared/page/page-state';
+import { MessageHandlerService } from 'wayne-component';
+import { Permission } from 'wayne-component/lib/model/v1/permission';
+import { PermissionService } from 'wayne-component/lib/client/v1/permission.service';
+import { Page } from 'wayne-component/lib/page/page-state';
 
 @Component({
   selector: 'list-permission',

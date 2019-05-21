@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IngressComponent } from './ingress.component';
-import { SharedModule } from 'wayne-component/lib/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { ListIngressComponent } from './list-ingress/list-ingress.component';
 import { CreateEditIngressComponent } from './create-edit-ingress/create-edit-ingress.component';
 import { ReactiveFormsModule } from '@angular/forms';

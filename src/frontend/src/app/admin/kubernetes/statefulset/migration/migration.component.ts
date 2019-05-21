@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '../../../../shared/client/v1/app.service';
-import { AceEditorService } from '../../../../shared/ace-editor/ace-editor.service';
-import { MessageHandlerService } from '../../../../shared/message-handler/message-handler.service';
-import { MigrationResource } from '../../../../shared/base/kubernetes-namespaced/migration-resource';
-import { KubernetesClient } from '../../../../shared/client/v1/kubernetes/kubernetes';
-import { KubeResourceStatefulSet } from '../../../../shared/shared.const';
-import { StatefulsetService } from '../../../../shared/client/v1/statefulset.service';
-import { StatefulsetTplService } from '../../../../shared/client/v1/statefulsettpl.service';
-import { Statefulset } from '../../../../shared/model/v1/statefulset';
-import { StatefulsetTemplate } from '../../../../shared/model/v1/statefulsettpl';
+import { AppService } from 'wayne-component/lib/client/v1/app.service';
+import { AceEditorService } from 'wayne-component/lib/ace-editor/ace-editor.service';
+import { MessageHandlerService } from 'wayne-component';
+import { MigrationResource } from 'wayne-component/lib/base/kubernetes-namespaced/migration-resource';
+import { KubernetesClient } from 'wayne-component/lib/client/v1/kubernetes/kubernetes';
+import { KubeResourceStatefulSet } from 'wayne-component/lib/shared.const';
+import { StatefulsetService } from 'wayne-component/lib/client/v1/statefulset.service';
+import { StatefulsetTplService } from 'wayne-component/lib/client/v1/statefulsettpl.service';
+import { Statefulset } from 'wayne-component/lib/model/v1/statefulset';
+import { StatefulsetTemplate } from 'wayne-component/lib/model/v1/statefulsettpl';
 
 @Component({
   selector: 'kube-migration',

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GlobalState } from '../../../../shared/global.state';
+import { GlobalState } from 'wayne-component/lib/global.state';
 
 interface Summary {
   Total: number;

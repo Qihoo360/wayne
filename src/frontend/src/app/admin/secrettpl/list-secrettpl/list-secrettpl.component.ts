@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { SecretTpl } from '../../../shared/model/v1/secrettpl';
-import { SecretTplService } from '../../../shared/client/v1/secrettpl.service';
-import { Page } from '../../../shared/page/page-state';
+import { MessageHandlerService } from 'wayne-component';
+import { SecretTpl } from 'wayne-component/lib/model/v1/secrettpl';
+import { SecretTplService } from 'wayne-component/lib/client/v1/secrettpl.service';
+import { Page } from 'wayne-component/lib/page/page-state';
 
 @Component({
   selector: 'list-secrettpl',

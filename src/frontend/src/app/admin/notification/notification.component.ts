@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NotificationService } from '../../shared/client/v1/notification.service';
+import { NotificationService } from 'wayne-component/lib/client/v1/notification.service';
 import { ListNotificationComponent } from './list-notification/list-notification.component';
-import { AuthService } from '../../shared/auth/auth.service';
-import { PageState } from '../../shared/page/page-state';
-import { CacheService } from '../../shared/auth/cache.service';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { AuthService } from 'wayne-component/lib/auth/auth.service';
+import { PageState } from 'wayne-component/lib/page/page-state';
+import { CacheService } from 'wayne-component/lib/auth/cache.service';
+import { MessageHandlerService } from 'wayne-component';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { Notification } from '../../shared/model/v1/notification';
+import { Notification } from 'wayne-component/lib/model/v1/notification';
 import { CreateNotificationComponent } from './create-notification/create-notification.component';
 
 @Component({

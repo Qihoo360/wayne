@@ -1,8 +1,8 @@
 import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
-import { ClusterService } from '../../../shared/client/v1/cluster.service';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ClusterService } from 'wayne-component/lib/client/v1/cluster.service';
+import { MessageHandlerService } from 'wayne-component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Cluster } from '../../../shared/model/v1/cluster';
+import { Cluster } from 'wayne-component/lib/model/v1/cluster';
 import { DomSanitizer, EventManager } from '@angular/platform-browser';
 
 @Pipe({name: 'safe'})

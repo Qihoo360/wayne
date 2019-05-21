@@ -1,19 +1,19 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
-import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
+import { ConfirmationDialogService } from 'wayne-component/lib/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationMessage } from 'wayne-component/lib/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from 'wayne-component/lib/shared.const';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
+import { MessageHandlerService } from 'wayne-component';
 import {
   CreateEditPersistentVolumeClaimTplComponent
 } from './create-edit-persistentvolumeclaimtpl/create-edit-persistentvolumeclaimtpl.component';
-import { PersistentVolumeClaimTplService } from '../../shared/client/v1/persistentvolumeclaimtpl.service';
+import { PersistentVolumeClaimTplService } from 'wayne-component/lib/client/v1/persistentvolumeclaimtpl.service';
 import { ListPersistentVolumeClaimTplComponent } from './list-persistentvolumeclaimtpl/list-persistentvolumeclaimtpl.component';
-import { PersistentVolumeClaimTpl } from '../../shared/model/v1/persistentvolumeclaimtpl';
-import { PageState } from '../../shared/page/page-state';
-import { isNotEmpty } from '../../shared/utils';
+import { PersistentVolumeClaimTpl } from 'wayne-component/lib/model/v1/persistentvolumeclaimtpl';
+import { PageState } from 'wayne-component/lib/page/page-state';
+import { isNotEmpty } from 'wayne-component/lib/utils';
 
 @Component({
   selector: 'wayne-persistentvolumeclaimtpl',

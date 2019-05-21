@@ -173,7 +173,7 @@ export class Resource {
 
   // 展示发布历史
   listPublishHistory() {
-    this.publishHistoryService.openModal(this.publishType, this.resourceId);
+    // this.publishHistoryService.openModal(this.publishType, this.resourceId);
   }
 
   // 创建操作执行后重新加载数据
