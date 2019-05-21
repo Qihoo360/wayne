@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, HostBinding } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ListAppComponent } from './list-app/list-app.component';
 import { CreateEditAppComponent } from './create-edit-app/create-edit-app.component';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -17,10 +17,10 @@ import { ActivatedRoute } from '@angular/router';
 import { NamespaceClient } from '../../shared/client/v1/kubernetes/namespace';
 import { StorageService } from '../../shared/client/v1/storage.service';
 import { RedDot } from '../../shared/model/v1/red-dot';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { TranslateService } from '@ngx-translate/core';
-
+import { DOCUMENT } from '@angular/common';
 class ClusterCard {
   name: string;
   state: boolean;
@@ -213,13 +213,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  // 处理回车事件也可以搜索
-  keyDownFunction(event: KeyboardEvent) {
-    if (event.keyCode === 13) {
-      this.searchApp();
-    }
-  }
-
   searchApp() {
     this.retrieve();
   }
@@ -239,7 +232,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (!this.cacheService.currentNamespace) {
       return;
     }

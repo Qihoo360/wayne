@@ -1,0 +1,63 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)">
+  <clr-dg-column [clrDgField]="'id'" class="col-query-id">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      ID
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'name'" class="col-app-name">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      {{'TITLE.NAME' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'app.name'" class="col-namespace">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      {{'TITLE.BELONG_APP' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column class="col-metadata">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      {{'TITLE.METADATA' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'description'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      {{'TITLE.DESCRIPTION' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'user'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      {{'TITLE.CREATE_USER' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgSortBy]="'createTime'" class="col-time">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      {{'TITLE.CREATE_TIME' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-row *ngFor="let resource of resources" [clrDgItem]="resource">
+    <clr-dg-action-overflow >
+      <button class="action-item" (click)="editResource(resource)" >{{'BUTTON.EDIT' | translate}}</button>
+      <button class="action-item" (click)="deleteResource(resource)">{{'BUTTON.DELETE' | translate}}</button>
+    </clr-dg-action-overflow>
+    <clr-dg-cell class="col-query-id">{{resource.id}}</clr-dg-cell>
+    <clr-dg-cell class="col-app-name copy"><a href="javascript:void(0)" (click)="goToLink(resource, 'tpl')">{{resource.name}}</a></clr-dg-cell>
+    <clr-dg-cell class="col-namespace"><a href="javascript:void(0)" (click)="goToLink(resource, 'app')">{{resource.app.name}}</a></clr-dg-cell>
+    <clr-dg-cell class="col-metadata">
+      <div class="text-overflow">
+        <a href="javascript:void(0);" (click)="viewMetaDataTemplate(resource.metaData)">{{resource.metaData}}</a>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell>{{resource.description}}</clr-dg-cell>
+    <clr-dg-cell>{{resource.user}}</clr-dg-cell>
+    <clr-dg-cell class="col-time">{{resource.createTime | date:'yyyy-MM-dd HH:mm'}}</clr-dg-cell>
+  </clr-dg-row>
+  <clr-dg-footer>
+    <wayne-paginate
+      [(currentPage)]="currentPage"
+      [total]="page.totalCount"
+      [pageSizes]="[10, 20, 50]"
+      (sizeChange)="pageSizeChange($event)"
+    >
+    </wayne-paginate>
+  </clr-dg-footer>
+</clr-datagrid>

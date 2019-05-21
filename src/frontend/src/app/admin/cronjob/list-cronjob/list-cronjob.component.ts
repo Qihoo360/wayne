@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { Cronjob } from '../../../shared/model/v1/cronjob';
 import { Page } from '../../../shared/page/page-state';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
@@ -11,30 +10,21 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
   selector: 'list-cronjob',
   templateUrl: 'list-cronjob.component.html'
 })
-export class ListCronjobComponent implements OnInit {
+export class ListCronjobComponent {
 
   @Input() cronjobs: Cronjob[];
 
   @Input() page: Page;
   currentPage = 1;
-  state: State;
+  state: ClrDatagridStateInterface;
 
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<Cronjob>();
   @Output() edit = new EventEmitter<Cronjob>();
 
 
-  constructor(
-    private breadcrumbService: BreadcrumbService,
-    private router: Router,
-    private aceEditorService: AceEditorService
-  ) {
-    breadcrumbService.hideRoute('/admin/cronjob/relate-tpl');
-    breadcrumbService.hideRoute('/admin/cronjob/app');
-  }
+  constructor( private router: Router, private aceEditorService: AceEditorService) {}
 
-  ngOnInit(): void {
-  }
 
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;
@@ -44,7 +34,7 @@ export class ListCronjobComponent implements OnInit {
   }
 
 
-  refresh(state: State) {
+  refresh(state: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }
@@ -57,21 +47,19 @@ export class ListCronjobComponent implements OnInit {
     this.edit.emit(cronjob);
   }
 
-  goToLink(cronjob: Cronjob, gate: string) {
-    let linkUrl = new Array();
+  goToLink(obj: Cronjob, gate: string) {
+    let linkUrl = '';
     switch (gate) {
       case 'tpl':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/cronjob/relate-tpl/[0-9]*', '[' + cronjob.name + ']模板列表');
-        linkUrl = ['admin', 'cronjob', 'relate-tpl', cronjob.id];
+        linkUrl = `/admin/cronjob/tpl?cronjobId=${obj.id}`;
         break;
       case 'app':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/cronjob/app/[0-9]*', '[' + cronjob.app.name + ']项目详情');
-        linkUrl = ['admin', 'cronjob', 'app', cronjob.app.id];
+        linkUrl = `admin/app?id=${obj.app.id}`;
         break;
       default:
         break;
     }
-    this.router.navigate(linkUrl);
+    this.router.navigateByUrl(linkUrl);
   }
 
   detailMetaDataTpl(tpl: string) {

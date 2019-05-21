@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
 import { NodeOffset } from './nodeOffset';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'wayne-navigation',
@@ -110,7 +111,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   scrollEvent(event?: any) {
-    if (this.jumpTo) {
+    if (this.jumpTo && event) {
       if (this.jumpTo === event.target.scrollTop) {
         this.jumpTo = 0;
       }
@@ -163,7 +164,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   setActive(top: number): void {
     if (this.allNodeOffset) {
       for (let key = 0; key < this.allNodeOffset.length; key++) {
-        if (this.allNodeOffset[key].offset >= top + this.boxOffset) {
+        if (this.allNodeOffset[key].offset > top + this.boxOffset) {
           const nodeId = this.allNodeOffset[key ? key - 1 : 0].id;
           if (!this.isActive(nodeId)) {
             this.removeActive();
@@ -222,7 +223,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   * @param 获取element相对于body的偏移量
+   * @return 获取element相对于body的偏移量
    */
 
   getOffset(element: any | null): number {

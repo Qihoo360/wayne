@@ -7,10 +7,13 @@ import (
 	batchv1beta1 "k8s.io/api/batch/v1beta1"
 	corev1 "k8s.io/api/core/v1"
 	extensionsv1beta1 "k8s.io/api/extensions/v1beta1"
+	rbacv1 "k8s.io/api/rbac/v1"
+	storagev1 "k8s.io/api/storage/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
 type ResourceName = string
+type KindName = string
 
 const (
 	ResourceNameConfigMap               ResourceName = "configmaps"
@@ -31,156 +34,315 @@ const (
 	ResourceNameService                 ResourceName = "services"
 	ResourceNameStatefulSet             ResourceName = "statefulsets"
 	ResourceNameEndpoint                ResourceName = "endpoints"
+	ResourceNameStorageClass            ResourceName = "storageclasses"
+	ResourceNameRole                    ResourceName = "roles"
+	ResourceNameRoleBinding             ResourceName = "rolebindings"
+	ResourceNameClusterRole             ResourceName = "clusterroles"
+	ResourceNameClusterRoleBinding      ResourceName = "clusterrolebindings"
+	ResourceNameServiceAccount          ResourceName = "serviceaccounts"
+)
+
+const (
+	KindNameConfigMap               KindName = "ConfigMap"
+	KindNameDaemonSet               KindName = "DaemonSet"
+	KindNameDeployment              KindName = "Deployment"
+	KindNameEvent                   KindName = "Event"
+	KindNameHorizontalPodAutoscaler KindName = "HorizontalPodAutoscaler"
+	KindNameIngress                 KindName = "Ingress"
+	KindNameJob                     KindName = "Job"
+	KindNameCronJob                 KindName = "CronJob"
+	KindNameNamespace               KindName = "Namespace"
+	KindNameNode                    KindName = "Node"
+	KindNamePersistentVolumeClaim   KindName = "PersistentVolumeClaim"
+	KindNamePersistentVolume        KindName = "PersistentVolume"
+	KindNamePod                     KindName = "Pod"
+	KindNameReplicaSet              KindName = "ReplicaSet"
+	KindNameSecret                  KindName = "Secret"
+	KindNameService                 KindName = "Service"
+	KindNameStatefulSet             KindName = "StatefulSet"
+	KindNameEndpoint                KindName = "Endpoints"
+	KindNameStorageClass            KindName = "StorageClass"
+	KindNameRole                    KindName = "Role"
+	KindNameRoleBinding             KindName = "RoleBinding"
+	KindNameClusterRole             KindName = "ClusterRole"
+	KindNameClusterRoleBinding      KindName = "ClusterRoleBinding"
+	KindNameServiceAccount          KindName = "ServiceAccount"
 )
 
 type ResourceMap struct {
-	GroupVersionResource schema.GroupVersionResource
-	Namespaced           bool
+	GroupVersionResourceKind GroupVersionResourceKind
+	Namespaced               bool
+}
+
+type GroupVersionResourceKind struct {
+	schema.GroupVersionResource
+	Kind string
 }
 
 var KindToResourceMap = map[string]ResourceMap{
 	ResourceNameConfigMap: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    corev1.GroupName,
-			Version:  corev1.SchemeGroupVersion.Version,
-			Resource: ResourceNameConfigMap,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    corev1.GroupName,
+				Version:  corev1.SchemeGroupVersion.Version,
+				Resource: ResourceNameConfigMap,
+			},
+			Kind: KindNameConfigMap,
 		},
 		Namespaced: true,
 	},
 	ResourceNameDaemonSet: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    extensionsv1beta1.GroupName,
-			Version:  extensionsv1beta1.SchemeGroupVersion.Version,
-			Resource: ResourceNameDaemonSet,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    extensionsv1beta1.GroupName,
+				Version:  extensionsv1beta1.SchemeGroupVersion.Version,
+				Resource: ResourceNameDaemonSet,
+			},
+			Kind: KindNameDaemonSet,
 		},
 		Namespaced: true,
 	},
 	ResourceNameDeployment: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    appsv1beta1.GroupName,
-			Version:  appsv1beta1.SchemeGroupVersion.Version,
-			Resource: ResourceNameDeployment,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    appsv1beta1.GroupName,
+				Version:  appsv1beta1.SchemeGroupVersion.Version,
+				Resource: ResourceNameDeployment,
+			},
+			Kind: KindNameDeployment,
 		},
 		Namespaced: true,
 	},
 	ResourceNameEvent: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    corev1.GroupName,
-			Version:  corev1.SchemeGroupVersion.Version,
-			Resource: ResourceNameEvent,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    corev1.GroupName,
+				Version:  corev1.SchemeGroupVersion.Version,
+				Resource: ResourceNameEvent,
+			},
+			Kind: KindNameEvent,
 		},
 		Namespaced: true,
 	},
 
 	ResourceNameHorizontalPodAutoscaler: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    autoscalingv1.GroupName,
-			Version:  autoscalingv1.SchemeGroupVersion.Version,
-			Resource: ResourceNameHorizontalPodAutoscaler,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    autoscalingv1.GroupName,
+				Version:  autoscalingv1.SchemeGroupVersion.Version,
+				Resource: ResourceNameHorizontalPodAutoscaler,
+			},
+			Kind: KindNameHorizontalPodAutoscaler,
 		},
 		Namespaced: true,
 	},
 	ResourceNameIngress: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    extensionsv1beta1.GroupName,
-			Version:  extensionsv1beta1.SchemeGroupVersion.Version,
-			Resource: ResourceNameIngress,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    extensionsv1beta1.GroupName,
+				Version:  extensionsv1beta1.SchemeGroupVersion.Version,
+				Resource: ResourceNameIngress,
+			},
+			Kind: KindNameIngress,
 		},
 		Namespaced: true,
 	},
 	ResourceNameJob: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    batchv1.GroupName,
-			Version:  batchv1.SchemeGroupVersion.Version,
-			Resource: ResourceNameJob,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    batchv1.GroupName,
+				Version:  batchv1.SchemeGroupVersion.Version,
+				Resource: ResourceNameJob,
+			},
+			Kind: KindNameJob,
 		},
 		Namespaced: true,
 	},
 	ResourceNameCronJob: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    batchv1beta1.GroupName,
-			Version:  batchv1beta1.SchemeGroupVersion.Version,
-			Resource: ResourceNameCronJob,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    batchv1beta1.GroupName,
+				Version:  batchv1beta1.SchemeGroupVersion.Version,
+				Resource: ResourceNameCronJob,
+			},
+			Kind: KindNameCronJob,
 		},
 		Namespaced: true,
 	},
 	ResourceNameNamespace: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    corev1.GroupName,
-			Version:  corev1.SchemeGroupVersion.Version,
-			Resource: ResourceNameNamespace,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    corev1.GroupName,
+				Version:  corev1.SchemeGroupVersion.Version,
+				Resource: ResourceNameNamespace,
+			},
+			Kind: KindNameNamespace,
 		},
 		Namespaced: false,
 	},
 	ResourceNameNode: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    corev1.GroupName,
-			Version:  corev1.SchemeGroupVersion.Version,
-			Resource: ResourceNameNode,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    corev1.GroupName,
+				Version:  corev1.SchemeGroupVersion.Version,
+				Resource: ResourceNameNode,
+			},
+			Kind: KindNameNode,
 		},
 		Namespaced: false,
 	},
 	ResourceNamePersistentVolumeClaim: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    corev1.GroupName,
-			Version:  corev1.SchemeGroupVersion.Version,
-			Resource: ResourceNamePersistentVolumeClaim,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    corev1.GroupName,
+				Version:  corev1.SchemeGroupVersion.Version,
+				Resource: ResourceNamePersistentVolumeClaim,
+			},
+			Kind: KindNamePersistentVolumeClaim,
 		},
 		Namespaced: true,
 	},
 	ResourceNamePersistentVolume: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    corev1.GroupName,
-			Version:  corev1.SchemeGroupVersion.Version,
-			Resource: ResourceNamePersistentVolume,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    corev1.GroupName,
+				Version:  corev1.SchemeGroupVersion.Version,
+				Resource: ResourceNamePersistentVolume,
+			},
+			Kind: KindNamePersistentVolume,
 		},
 		Namespaced: false,
 	},
 	ResourceNamePod: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    corev1.GroupName,
-			Version:  corev1.SchemeGroupVersion.Version,
-			Resource: ResourceNamePod,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    corev1.GroupName,
+				Version:  corev1.SchemeGroupVersion.Version,
+				Resource: ResourceNamePod,
+			},
+			Kind: KindNamePod,
 		},
 		Namespaced: true,
 	},
 	ResourceNameReplicaSet: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    extensionsv1beta1.GroupName,
-			Version:  extensionsv1beta1.SchemeGroupVersion.Version,
-			Resource: ResourceNameReplicaSet,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    extensionsv1beta1.GroupName,
+				Version:  extensionsv1beta1.SchemeGroupVersion.Version,
+				Resource: ResourceNameReplicaSet,
+			},
+			Kind: KindNameReplicaSet,
 		},
 		Namespaced: true,
 	},
 	ResourceNameSecret: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    corev1.GroupName,
-			Version:  corev1.SchemeGroupVersion.Version,
-			Resource: ResourceNameSecret,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    corev1.GroupName,
+				Version:  corev1.SchemeGroupVersion.Version,
+				Resource: ResourceNameSecret,
+			},
+			Kind: KindNameSecret,
 		},
 		Namespaced: true,
 	},
 	ResourceNameService: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    corev1.GroupName,
-			Version:  corev1.SchemeGroupVersion.Version,
-			Resource: ResourceNameService,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    corev1.GroupName,
+				Version:  corev1.SchemeGroupVersion.Version,
+				Resource: ResourceNameService,
+			},
+			Kind: KindNameService,
 		},
 		Namespaced: true,
 	},
 	ResourceNameStatefulSet: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    appsv1beta1.GroupName,
-			Version:  appsv1beta1.SchemeGroupVersion.Version,
-			Resource: ResourceNameStatefulSet,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    appsv1beta1.GroupName,
+				Version:  appsv1beta1.SchemeGroupVersion.Version,
+				Resource: ResourceNameStatefulSet,
+			},
+			Kind: KindNameStatefulSet,
 		},
 		Namespaced: true,
 	},
 	ResourceNameEndpoint: {
-		GroupVersionResource: schema.GroupVersionResource{
-			Group:    corev1.GroupName,
-			Version:  corev1.SchemeGroupVersion.Version,
-			Resource: ResourceNameEndpoint,
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    corev1.GroupName,
+				Version:  corev1.SchemeGroupVersion.Version,
+				Resource: ResourceNameEndpoint,
+			},
+			Kind: KindNameEndpoint,
+		},
+		Namespaced: true,
+	},
+	ResourceNameStorageClass: {
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    storagev1.GroupName,
+				Version:  storagev1.SchemeGroupVersion.Version,
+				Resource: ResourceNameStorageClass,
+			},
+			Kind: KindNameStorageClass,
+		},
+		Namespaced: false,
+	},
+
+	ResourceNameRole: {
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    rbacv1.GroupName,
+				Version:  rbacv1.SchemeGroupVersion.Version,
+				Resource: ResourceNameRole,
+			},
+			Kind: KindNameRole,
+		},
+		Namespaced: true,
+	},
+	ResourceNameRoleBinding: {
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    rbacv1.GroupName,
+				Version:  rbacv1.SchemeGroupVersion.Version,
+				Resource: ResourceNameRoleBinding,
+			},
+			Kind: KindNameRoleBinding,
+		},
+		Namespaced: true,
+	},
+	ResourceNameClusterRole: {
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    rbacv1.GroupName,
+				Version:  rbacv1.SchemeGroupVersion.Version,
+				Resource: ResourceNameClusterRole,
+			},
+			Kind: KindNameClusterRole,
+		},
+		Namespaced: false,
+	},
+	ResourceNameClusterRoleBinding: {
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    rbacv1.GroupName,
+				Version:  rbacv1.SchemeGroupVersion.Version,
+				Resource: ResourceNameClusterRoleBinding,
+			},
+			Kind: KindNameClusterRoleBinding,
+		},
+		Namespaced: false,
+	},
+	ResourceNameServiceAccount: {
+		GroupVersionResourceKind: GroupVersionResourceKind{
+			GroupVersionResource: schema.GroupVersionResource{
+				Group:    corev1.GroupName,
+				Version:  corev1.SchemeGroupVersion.Version,
+				Resource: ResourceNameServiceAccount,
+			},
+			Kind: KindNameServiceAccount,
 		},
 		Namespaced: true,
 	},

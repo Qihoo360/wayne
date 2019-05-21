@@ -72,11 +72,11 @@
     <clr-dg-cell class="col-operate">
       <button class="wayne-button text"
               (click)="publishTpl(deploymentTpl)"
-              *ngIf="authService.currentAppPermission.deployment.deploy || authService.currentUser.admin">
+              *ngIf="authService.currentAppPermission.kubeDeployment.create || authService.currentUser.admin">
         {{'BUTTON.RELEASE' | translate}}</button>
       <button class="wayne-button text"
               (click)="restartDeployment(deploymentTpl)"
-              *ngIf="deploymentTpl.status && (authService.currentAppPermission.deployment.deploy || authService.currentUser.admin)">
+              *ngIf="deploymentTpl.status && (authService.currentAppPermission.kubeDeployment.create || authService.currentUser.admin)">
         {{'BUTTON.RESTART' | translate}}</button>
       <button class="wayne-button text"
               (click)="deploymentTplDetail(deploymentTpl)"
@@ -92,19 +92,20 @@
         {{'BUTTON.DELETE' | translate}}</button>
       <button class="wayne-button text"
               (click)="offlineDeployment(deploymentTpl)"
-              *ngIf="deploymentTpl.status && (authService.currentAppPermission.deployment.offline || authService.currentUser.admin)">
+              *ngIf="deploymentTpl.status && (authService.currentAppPermission.kubeDeployment.delete || authService.currentUser.admin)">
         {{'BUTTON.DROP' | translate}}</button>
     </clr-dg-cell>
   </clr-dg-row>
 
-
-  <wayne-paginate
-    [(currentPage)]="currentPage"
-    [total]="page.totalCount"
-    [pageSizes]="[10, 20, 50]"
-    (sizeChange)="pageSizeChange($event)"
-  >
-  </wayne-paginate>
+  <clr-dg-footer>
+    <wayne-paginate
+      [(currentPage)]="currentPage"
+      [total]="page.totalCount"
+      [pageSizes]="[10, 20, 50]"
+      (sizeChange)="pageSizeChange($event)"
+    >
+    </wayne-paginate>
+  </clr-dg-footer>
 </clr-datagrid>
 <list-event></list-event>
 <list-pod></list-pod>

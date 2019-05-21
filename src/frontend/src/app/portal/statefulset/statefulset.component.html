@@ -29,7 +29,7 @@
         {{'BUTTON.HISTORY' | translate}}
       </button>
       <button (click)="deleteStatefulset()" class="wayne-button normal"
-              *ngIf="authService.currentAppPermission.statefulset.offline || authService.currentUser.admin">
+              *ngIf="authService.currentAppPermission.statefulset.delete || authService.currentUser.admin">
         {{'STATEFULSET.DELETE' | translate}}
       </button>
       <button class="wayne-button normal" (click)="diffTpl()">{{'BUTTON.COMPARE_TEMPLATES' | translate}}</button>

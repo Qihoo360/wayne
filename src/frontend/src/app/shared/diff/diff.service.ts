@@ -33,8 +33,8 @@ export class DiffService {
       diffTpl = {
         oldStr: selected[1][tmpPropName],
         newStr: selected[0][tmpPropName],
-        oldHeader: `${selected[1][namePropName]}`,
-        newHeader: `${selected[0][namePropName]}`
+        oldHeader: `${selected[0][namePropName]}`,
+        newHeader: `${selected[1][namePropName]}`
       };
       if (length > 2) {
         this.messageHandlerService.showInfo('SHARED.DIFF.TMP_MORE');

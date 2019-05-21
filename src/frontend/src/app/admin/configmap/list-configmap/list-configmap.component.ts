@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfigMap } from '../../../shared/model/v1/configmap';
 import { Page } from '../../../shared/page/page-state';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
@@ -11,30 +10,21 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
   selector: 'list-configmap',
   templateUrl: 'list-configmap.component.html'
 })
-export class ListConfigMapComponent implements OnInit {
+export class ListConfigMapComponent {
 
   @Input() configMaps: ConfigMap[];
 
   @Input() page: Page;
-  state: State;
+  state: ClrDatagridStateInterface;
   currentPage = 1;
 
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<ConfigMap>();
   @Output() edit = new EventEmitter<ConfigMap>();
 
 
-  constructor(
-    private breadcrumbService: BreadcrumbService,
-    private router: Router,
-    private aceEditorService: AceEditorService
-  ) {
-    breadcrumbService.hideRoute('/admin/configmap/relate-tpl');
-    breadcrumbService.hideRoute('/admin/configmap/app');
-  }
+  constructor( private router: Router, private aceEditorService: AceEditorService) {}
 
-  ngOnInit(): void {
-  }
 
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;
@@ -44,7 +34,7 @@ export class ListConfigMapComponent implements OnInit {
   }
 
 
-  refresh(state: State) {
+  refresh(state: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }
@@ -57,21 +47,19 @@ export class ListConfigMapComponent implements OnInit {
     this.edit.emit(configMap);
   }
 
-  goToLink(configmap: ConfigMap, gate: string) {
-    let linkUrl = new Array();
+  goToLink(obj: ConfigMap, gate: string) {
+    let linkUrl = '';
     switch (gate) {
       case 'tpl':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/configmap/relate-tpl/[0-9]*', '[' + configmap.name + ']模板列表');
-        linkUrl = ['admin', 'configmap', 'relate-tpl', configmap.id];
+        linkUrl = `/admin/configmap/tpl?configMapId=${obj.id}`;
         break;
       case 'app':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/configmap/app/[0-9]*', '[' + configmap.app.name + ']项目详情');
-        linkUrl = ['admin', 'configmap', 'app', configmap.app.id];
+        linkUrl = `admin/app?id=${obj.app.id}`;
         break;
       default:
         break;
     }
-    this.router.navigate(linkUrl);
+    this.router.navigateByUrl(linkUrl);
   }
 
   detailMetaDataTpl(tpl: string) {

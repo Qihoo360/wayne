@@ -1,5 +1,6 @@
 // 判断某对象为空..返回true 否则 false
 import { configKeyApiNameGenerateRule, defaultApiNameGenerateRule } from './shared.const';
+import { KubePod } from './model/v1/kubernetes/kubepod';
 
 export const isEmpty = function (obj: any): boolean {
   if (obj === false) {
@@ -25,7 +26,6 @@ export const isArrayEmpty = function (obj: any): boolean {
 
 /**
  * Simple object check.
- * @param item
  * @returns  boolean
  */
 export function isObject(item) {
@@ -35,8 +35,6 @@ export function isObject(item) {
 /**
  * Deep merge two objects.
  * refer to https://stackoverflow.com/questions/27936772/how-to-deep-merge-instead-of-shallow-merge
- * @param target
- * @param ...sources
  */
 export function mergeDeep(target, ...sources) {
   if (!sources.length) {
@@ -117,5 +115,44 @@ export class ResourceUnitConvertor {
     return parseFloat(memory);
   }
 
+}
+
+export class KubePodUtil {
+  // getPodStatus returns the pod state
+  static getPodStatus(pod: KubePod): string {
+    // Terminating
+    if (pod.metadata.deletionTimestamp) {
+      return 'Terminating';
+    }
+
+    // not running
+    if (pod.status.phase !== 'Running') {
+      return pod.status.phase;
+    }
+
+    let ready = false;
+    let notReadyReason = '';
+    for (const c of pod.status.conditions) {
+      if (c.type === 'Ready') {
+        ready = c.status === 'True';
+        notReadyReason = c.reason;
+      }
+    }
+
+    if (pod.status.reason) {
+      return pod.status.reason;
+    }
+
+    if (notReadyReason) {
+      return notReadyReason;
+    }
+
+    if (ready) {
+      return 'Running';
+    }
+
+    // Unknown?
+    return 'Unknown';
+  }
 }
 

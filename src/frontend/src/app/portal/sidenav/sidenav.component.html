@@ -1,4 +1,4 @@
-<clr-vertical-nav [clrVerticalNavCollapsible]="true">
+<clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed">
   <a
     clrVerticalNavLink
     [title]="'MENU.APP_OVERVIEW' | translate"
@@ -54,11 +54,11 @@
     [title]="'MENU.AUTO_POD_SCALE' | translate"
     routerLink="autoscale"
     routerLinkActive="active"
-    *ngIf="authService.currentAppPermission.autoscale.read || authService.currentUser.admin">
+    *ngIf="authService.currentAppPermission.hpa.read || authService.currentUser.admin">
     <clr-icon clrVerticalNavIcon shape="cloud-scale"></clr-icon>
     {{'MENU.AUTO_POD_SCALE' | translate}}
   </a>
-  <div class="nav-divider" *ngIf="authService.currentAppPermission.autoscale.read ||
+  <div class="nav-divider" *ngIf="authService.currentAppPermission.hpa.read ||
                                   authService.currentUser.admin"></div>
   <a
     clrVerticalNavLink

@@ -1,0 +1,75 @@
+<div class="datagrid-row-flex datagrid-row-detail datagrid-container ng-star-inserted">
+  <div class="datagrid-expandable-caret datagrid-fixed-column datagrid-cell ng-star-inserted"></div>
+  <div style="width: 100%">
+      <div class="table-search">
+        <div class="table-search-left">
+          <button class="wayne-button normal" (click)="createResource()">
+            {{'ADMIN.KUBERNETES.CRD.CREATE_CUSTOM' | translate}}
+          </button>
+          <button class="wayne-button normal" (click)="refresh()">
+            {{'ADMIN.KUBERNETES.ACTION.REFRESH' | translate}}
+          </button>
+          <label class="clr-col-md-3">{{'ADMIN.KUBERNETES.LABEL.CLUSTER' | translate}}</label>
+          {{cluster}}
+          <label for="namespace_name" class="clr-col-md-3">{{'ADMIN.KUBERNETES.LABEL.NAMESPACE' | translate}}</label>
+          <wayne-select [(ngModel)]="namespace" (change)="refresh()"
+                        searchable
+                        name="namespace_name"
+                        [placeholder]="'PLACEHOLDER.CHOOSE' | translate"
+                        style="margin-left: 12px;">
+            <wayne-option value="">ALL</wayne-option>
+            <wayne-option *ngFor="let ns of namespaces" [value]="ns">{{ns}}</wayne-option>
+          </wayne-select>
+        </div>
+
+      </div>
+
+      <clr-datagrid style="width: 100%" (clrDgRefresh)="refresh($event)">
+        <clr-dg-column class="col-app-name" [clrDgField]="'name'">
+          <ng-container>
+            {{'ADMIN.KUBERNETES.CRD.LIST.NAME' | translate}}
+          </ng-container>
+        </clr-dg-column>
+        <clr-dg-column [clrDgField]="'namespace'">
+          <ng-container>
+            {{'ADMIN.KUBERNETES.CRD.LIST.NAMESPACE' | translate}}
+          </ng-container>
+        </clr-dg-column>
+        <clr-dg-column>
+          <ng-container>
+            {{'ADMIN.KUBERNETES.CRD.LIST.LABEL' | translate}}
+          </ng-container>
+        </clr-dg-column>
+        <clr-dg-column [clrDgField]="'creationTimestamp'">
+          <ng-container>
+            {{'ADMIN.KUBERNETES.CRD.LIST.AGE' | translate}}
+          </ng-container>
+        </clr-dg-column>
+
+        <clr-dg-row *ngFor="let obj of resources" [clrDgItem]="obj">
+          <clr-dg-action-overflow>
+            <button class="action-item" (click)="onEditEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.EDIT' | translate}}</button>
+            <button class="action-item" (click)="onDeleteEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.DELETE' | translate}}</button>
+          </clr-dg-action-overflow>
+          <clr-dg-cell class="col-app-name"> {{ obj.metadata.name }} </clr-dg-cell>
+          <clr-dg-cell> {{ obj.metadata.namespace }} </clr-dg-cell>
+          <clr-dg-cell>
+            <div *ngFor="let label of obj.metadata.labels | keyvalue" class="version-text">
+              <a href="javascript:" (click)="versionDetail(label.key + ': ' + label.value)">{{label.key}}: {{label.value}}</a>
+            </div>
+          </clr-dg-cell>
+          <clr-dg-cell> {{ obj.metadata.creationTimestamp | relativeTime}} </clr-dg-cell>
+        </clr-dg-row>
+        <clr-dg-footer>
+          <wayne-paginate
+            [(currentPage)]="currentPage"
+            [total]="pageState.page.totalCount"
+            [pageSizes]="[10, 20, 50]"
+            (sizeChange)="pageSizeChange($event)">
+          </wayne-paginate>
+        </clr-dg-footer>
+      </clr-datagrid>
+  </div>
+</div>
+<wayne-ace-editor (createOutputObj)="onCreateEvent($event)" (outputObj)="onSaveEvent($event)"></wayne-ace-editor>
+<deletion-dialog (outputObj)="confirmDeleteEvent($event)"></deletion-dialog>

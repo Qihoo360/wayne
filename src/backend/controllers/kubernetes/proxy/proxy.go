@@ -2,10 +2,14 @@ package proxy
 
 import (
 	"encoding/json"
+	"fmt"
+	"strconv"
+	"strings"
 
 	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 
+	"github.com/Qihoo360/wayne/src/backend/client/api"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/resources/proxy"
@@ -29,20 +33,21 @@ func (c *KubeProxyController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
 
-	perAction := ""
+	methodActionMap := map[string]string{
+		"Get":      models.PermissionRead,
+		"List":     models.PermissionRead,
+		"GetNames": models.PermissionRead,
+		"Create":   models.PermissionCreate,
+		"Update":   models.PermissionUpdate,
+		"Delete":   models.PermissionDelete,
+	}
 	_, method := c.GetControllerAndAction()
-	switch method {
-	case "Get", "List", "GetNames":
-		perAction = models.PermissionRead
-	case "Create", "Update":
-		perAction = models.PermissionDeploy
-	case "Delete":
-		perAction = models.PermissionOffline
+	kind := c.Ctx.Input.Param(":kind")
+	resourceMap, ok := api.KindToResourceMap[kind]
+	if !ok {
+		c.AbortBadRequest(fmt.Sprintf("Request resource kind (%s) not supported!", kind))
 	}
-	if perAction != "" {
-		c.CheckPermission(models.PermissionTypeDeployment, perAction)
-	}
-
+	c.PreparePermission(methodActionMap, method, fmt.Sprintf("KUBE%s", strings.ToUpper(resourceMap.GroupVersionResourceKind.Kind)))
 }
 
 // @Title Get
@@ -61,7 +66,7 @@ func (c *KubeProxyController) Get() {
 	kubeClient := c.KubeClient(cluster)
 	result, err := kubeClient.Get(kind, namespace, name)
 	if err != nil {
-		logs.Error("Get kubernetes resource (%s:%s:%s) from cluster (%s) error. %v", kind, namespace, name, cluster, err)
+		logs.Info("Get kubernetes resource (%s:%s:%s) from cluster (%s) error. %v", kind, namespace, name, cluster, err)
 		c.HandleError(err)
 		return
 	}
@@ -71,6 +76,9 @@ func (c *KubeProxyController) Get() {
 
 // @Title Get all resource names
 // @Description get all names
+// @Param	cluster		path 	string	true		"the cluster name"
+// @Param	namespace		path 	string	true		"the namespace name"
+// @Param	kind		path 	string	true		"the resource kind"
 // @Success 200 {object} []response.NamesObject success
 // @router /names [get]
 func (c *KubeProxyController) GetNames() {
@@ -80,7 +88,7 @@ func (c *KubeProxyController) GetNames() {
 	kubeClient := c.KubeClient(cluster)
 	result, err := proxy.GetNames(kubeClient, kind, namespace)
 	if err != nil {
-		logs.Error("Get kubernetes resource names (%s:%s) from cluster (%s) error. %v", kind, namespace, cluster, err)
+		logs.Info("Get kubernetes resource names (%s:%s) from cluster (%s) error. %v", kind, namespace, cluster, err)
 		c.HandleError(err)
 		return
 	}
@@ -100,7 +108,7 @@ func (c *KubeProxyController) GetNames() {
 // @Success 200 {object}  success
 // @router / [get]
 func (c *KubeProxyController) List() {
-	param := c.BuildQueryParam()
+	param := c.BuildKubernetesQueryParam()
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	kind := c.Ctx.Input.Param(":kind")
@@ -179,7 +187,7 @@ func (c *KubeProxyController) Update() {
 // @Param	kind		path 	string	true		"the resource kind"
 // @Param	namespace		path 	string	true		"the namespace want to delete"
 // @Param	name		path 	string	true		"the name want to delete"
-// @Param	deleteOptions		body 	string	false		"the kubernetes delete options"
+// @Param	force		query 	bool	false		"force to delete the resource from etcd."
 // @Success 200 {string} delete success!
 // @router /:name [delete]
 func (c *KubeProxyController) Delete() {
@@ -187,13 +195,23 @@ func (c *KubeProxyController) Delete() {
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":name")
 	kind := c.Ctx.Input.Param(":kind")
-	var deleteOptions meta_v1.DeleteOptions
-	err := json.Unmarshal(c.Ctx.Input.RequestBody, &deleteOptions)
-	if err != nil {
-		c.AbortBadRequestFormat("deleteOptions")
+	force := c.Input().Get("force")
+	defaultPropagationPolicy := meta_v1.DeletePropagationBackground
+	defaultDeleteOptions := meta_v1.DeleteOptions{
+		PropagationPolicy: &defaultPropagationPolicy,
+	}
+	if force != "" {
+		forceBool, err := strconv.ParseBool(force)
+		if err != nil {
+			c.AbortBadRequestFormat("force")
+		}
+		if forceBool {
+			var gracePeriodSeconds int64 = 0
+			defaultDeleteOptions.GracePeriodSeconds = &gracePeriodSeconds
+		}
 	}
 	kubeClient := c.KubeClient(cluster)
-	err = kubeClient.Delete(kind, namespace, name, &deleteOptions)
+	err := kubeClient.Delete(kind, namespace, name, &defaultDeleteOptions)
 	if err != nil {
 		logs.Error("Delete kubernetes resource (%s:%s:%s) from cluster (%s) error. %v", kind, namespace, name, cluster, err)
 		c.HandleError(err)

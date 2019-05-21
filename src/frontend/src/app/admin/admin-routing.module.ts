@@ -64,6 +64,30 @@ import { IngressTplComponent } from './ingresstpl/ingresstpl.component';
 import { TrashIngressTplComponent } from './ingresstpl/trash-ingresstpl/trash-ingresstpl.component';
 import { KubeDeploymentComponent } from './kubernetes/deployment/kube-deployment.component';
 import { KubeNamespaceComponent } from './kubernetes/namespace/kube-namespace.component';
+import { AutoscaleComponent } from './autoscale/autoscale.component';
+import { TrashAutoscaleComponent } from './autoscale/trash-autoscale/trash-autoscale.component';
+import { AutoscaletplComponent } from './autoscaletpl/autoscaletpl.component';
+import { TrashAutoscaletplComponent } from './autoscaletpl/trash-autoscaletpl/trash-autoscaletpl.component';
+import { KubePodComponent } from './kubernetes/pod/kube-pod.component';
+import { KubeServiceComponent } from './kubernetes/service/kube-service.component';
+import { KubeEndpointComponent } from './kubernetes/endpoint/kube-endpoint.component';
+import { KubeConfigmapComponent } from './kubernetes/configmap/kube-configmap.component';
+import { KubeSecretComponent } from './kubernetes/secret/kube-secret.component';
+import { KubeIngressComponent } from './kubernetes/ingress/kube-ingress.component';
+import { KubeStatefulsetComponent } from './kubernetes/statefulset/kube-statefulset.component';
+import { KubeDaemonsetComponent } from './kubernetes/daemonset/kube-daemonset.component';
+import { KubeCronjobComponent } from './kubernetes/cronjob/kube-cronjob.component';
+import { KubeJobComponent } from './kubernetes/job/kube-job.component';
+import { KubePvcComponent } from './kubernetes/pvc/kube-pvc.component';
+import { KubeReplicasetComponent } from './kubernetes/replicaset/kube-replicaset.component';
+import { KubeStorageclassComponent } from './kubernetes/storageclass/kube-storageclass.component';
+import { KubeHpaComponent } from './kubernetes/hpa/kube-hpa.component';
+import { KubeRoleComponent } from './kubernetes/role/kube-role.component';
+import { KubeRolebindingComponent } from './kubernetes/rolebinding/kube-rolebinding.component';
+import { KubeServiceaccountComponent } from './kubernetes/serviceaccount/kube-serviceaccount.component';
+import { KubeClusterroleComponent } from './kubernetes/clusterrole/kube-clusterrole.component';
+import { KubeClusterrolebindingComponent } from './kubernetes/clusterrolebinding/kube-clusterrolebinding.component';
+import { KubeCrdComponent } from './kubernetes/crd/kube-crd.component';
 
 
 const routes: Routes = [
@@ -87,29 +111,18 @@ const routes: Routes = [
       {path: 'cluster/trash', component: TrashClusterComponent},
       {path: 'app', component: AppComponent},
       {path: 'app/trash', component: TrashAppComponent},
-      {path: 'app/deployment/:aid', component: DeploymentComponent},
-      {path: 'app/secret/:aid', component: SecretComponent},
-      {path: 'app/configmap/:aid', component: ConfigMapComponent},
-      {path: 'app/cronjob/:aid', component: CronjobComponent},
       {path: 'deployment', component: DeploymentComponent},
-      {path: 'deployment/app/:aid', component: AppComponent},
       {path: 'deployment/trash', component: TrashDeploymentComponent},
-      {path: 'deployment/relate-tpl/:did', component: DeploymentTplComponent},
       {path: 'deployment/tpl', component: DeploymentTplComponent},
       {path: 'deployment/tpl/trash', component: TrashDeploymentTplComponent},
       {path: 'namespace', component: NamespaceComponent},
       {path: 'namespace/trash', component: TrashNamespaceComponent},
-      {path: 'namespace/app/:nid', component: AppComponent},
       {path: 'configmap', component: ConfigMapComponent},
-      {path: 'configmap/app/:aid', component: AppComponent},
       {path: 'configmap/trash', component: TrashConfigMapComponent},
-      {path: 'configmap/relate-tpl/:cid', component: ConfigMapTplComponent},
       {path: 'configmap/tpl', component: ConfigMapTplComponent},
       {path: 'configmap/tpl/trash', component: TrashConfigMapTplComponent},
       {path: 'cronjob', component: CronjobComponent},
-      {path: 'cronjob/app/:aid', component: AppComponent},
       {path: 'cronjob/trash', component: TrashCronjobComponent},
-      {path: 'cronjob/relate-tpl/:cid', component: CronjobTplComponent},
       {path: 'cronjob/tpl', component: CronjobTplComponent},
       {path: 'cronjob/tpl/trash', component: TrashCronjobTplComponent},
       {path: 'system/user', component: UserComponent},
@@ -117,9 +130,7 @@ const routes: Routes = [
       {path: 'system/group', component: GroupComponent},
       {path: 'system/permission', component: PermissionComponent},
       {path: 'secret', component: SecretComponent},
-      {path: 'secret/app/:aid', component: AppComponent},
       {path: 'secret/trash', component: TrashSecretComponent},
-      {path: 'secret/relate-tpl/:sid', component: SecretTplComponent},
       {path: 'secret/tpl', component: SecretTplComponent},
       {path: 'secret/tpl/trash', component: TrashSecretTplComponent},
       {path: 'persistentvolumeclaim', component: PersistentVolumeClaimComponent},
@@ -149,12 +160,54 @@ const routes: Routes = [
       {path: 'ingress/trash', component: TrashIngressComponent},
       {path: 'ingress/tpl', component: IngressTplComponent},
       {path: 'ingress/tpl/trash', component: TrashIngressTplComponent},
-      {path: 'ingress/relate-tpl/:gid', component: IngressTplComponent},
-      {path: 'ingress/app/:aid', component: AppComponent},
+      {path: 'hpa', component: AutoscaleComponent},
+      {path: 'hpa/trash', component: TrashAutoscaleComponent},
+      {path: 'hpa/tpl', component: AutoscaletplComponent},
+      {path: 'hpa/tpl/trash', component: TrashAutoscaletplComponent},
       {path: 'kubernetes/deployment', component: KubeDeploymentComponent},
       {path: 'kubernetes/deployment/:cluster', component: KubeDeploymentComponent},
       {path: 'kubernetes/namespace', component: KubeNamespaceComponent},
       {path: 'kubernetes/namespace/:cluster', component: KubeNamespaceComponent},
+      {path: 'kubernetes/pod', component: KubePodComponent},
+      {path: 'kubernetes/pod/:cluster', component: KubePodComponent},
+      {path: 'kubernetes/service', component: KubeServiceComponent},
+      {path: 'kubernetes/service/:cluster', component: KubeServiceComponent},
+      {path: 'kubernetes/endpoint', component: KubeEndpointComponent},
+      {path: 'kubernetes/endpoint/:cluster', component: KubeEndpointComponent},
+      {path: 'kubernetes/configmap', component: KubeConfigmapComponent},
+      {path: 'kubernetes/configmap/:cluster', component: KubeConfigmapComponent},
+      {path: 'kubernetes/secret', component: KubeSecretComponent},
+      {path: 'kubernetes/secret/:cluster', component: KubeSecretComponent},
+      {path: 'kubernetes/ingress', component: KubeIngressComponent},
+      {path: 'kubernetes/ingress/:cluster', component: KubeIngressComponent},
+      {path: 'kubernetes/statefulset', component: KubeStatefulsetComponent},
+      {path: 'kubernetes/statefulset/:cluster', component: KubeStatefulsetComponent},
+      {path: 'kubernetes/daemonset', component: KubeDaemonsetComponent},
+      {path: 'kubernetes/daemonset/:cluster', component: KubeDaemonsetComponent},
+      {path: 'kubernetes/cronjob', component: KubeCronjobComponent},
+      {path: 'kubernetes/cronjob/:cluster', component: KubeCronjobComponent},
+      {path: 'kubernetes/job', component: KubeJobComponent},
+      {path: 'kubernetes/job/:cluster', component: KubeJobComponent},
+      {path: 'kubernetes/persistentvolumeclaim', component: KubePvcComponent},
+      {path: 'kubernetes/persistentvolumeclaim/:cluster', component: KubePvcComponent},
+      {path: 'kubernetes/replicaset', component: KubeReplicasetComponent},
+      {path: 'kubernetes/replicaset/:cluster', component: KubeReplicasetComponent},
+      {path: 'kubernetes/storageclass', component: KubeStorageclassComponent},
+      {path: 'kubernetes/storageclass/:cluster', component: KubeStorageclassComponent},
+      {path: 'kubernetes/horizontalpodautoscaler', component: KubeHpaComponent},
+      {path: 'kubernetes/horizontalpodautoscaler/:cluster', component: KubeHpaComponent},
+      {path: 'kubernetes/role', component: KubeRoleComponent},
+      {path: 'kubernetes/role/:cluster', component: KubeRoleComponent},
+      {path: 'kubernetes/rolebinding', component: KubeRolebindingComponent},
+      {path: 'kubernetes/rolebinding/:cluster', component: KubeRolebindingComponent},
+      {path: 'kubernetes/serviceaccount', component: KubeServiceaccountComponent},
+      {path: 'kubernetes/serviceaccount/:cluster', component: KubeServiceaccountComponent},
+      {path: 'kubernetes/clusterrole', component: KubeClusterroleComponent},
+      {path: 'kubernetes/clusterrole/:cluster', component: KubeClusterroleComponent},
+      {path: 'kubernetes/clusterrolebinding', component: KubeClusterrolebindingComponent},
+      {path: 'kubernetes/clusterrolebinding/:cluster', component: KubeClusterrolebindingComponent},
+      {path: 'kubernetes/customresourcedefinition', component: KubeCrdComponent},
+      {path: 'kubernetes/customresourcedefinition/:cluster', component: KubeCrdComponent},
       ...ADMINROUTES
     ]
   }

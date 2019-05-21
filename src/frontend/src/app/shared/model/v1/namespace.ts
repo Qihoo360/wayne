@@ -1,19 +1,23 @@
 export class NamespaceMetaData {
-  namespace: string;
   clusterMeta: { [key: string]: ClusterMeta };
   imagePullSecrets: LocalObjectReference[];
   env: EnvVar[];
+  serviceAnnotations: {[key: string]: string};
+  ingressAnnotations: {[key: string]: string};
 
   constructor() {
     this.imagePullSecrets = [];
     this.env = [];
     this.clusterMeta = {};
+    this.ingressAnnotations = {};
+    this.serviceAnnotations = {};
   }
 }
 
 export class Namespace {
   id: number;
   name: string;
+  kubeNamespace: string;
   deleted: boolean;
   metaData: string;
   metaDataObj: NamespaceMetaData;

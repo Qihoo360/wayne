@@ -74,7 +74,7 @@ func daemonSetPreDeploy(kubeDaemonSet *v1beta1.DaemonSet, daemonSet *models.Daem
 		kubeDaemonSet.Spec.Template.Spec.Containers[i].SecurityContext.Privileged = privileged
 	}
 	// step 5 set namespace
-	kubeDaemonSet.Namespace = namespace.MetaDataObj.Namespace
+	kubeDaemonSet.Namespace = namespace.KubeNamespace
 
 	// step 6
 	if kubeDaemonSet.Spec.Template.Annotations == nil {

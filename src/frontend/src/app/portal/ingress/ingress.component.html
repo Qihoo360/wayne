@@ -16,7 +16,7 @@
   <div class="table-search">
     <div class="table-search-left">
       <button (click)="createTemplate()" class="wayne-button normal"
-              *ngIf="template?.length <= 0 && (authService.currentAppPermission.ingress.create || authService.currentUser.admin)">
+              *ngIf="templates?.length <= 0 && (authService.currentAppPermission.ingress.create || authService.currentUser.admin)">
         创建 ingress 模版
       </button>
       <button (click)="editResource()" class="wayne-button normal"
@@ -27,7 +27,8 @@
               *ngIf="authService.currentAppPermission.ingress.read || authService.currentUser.admin">
         发布历史
       </button>
-      <button (click)="deleteResource('删除 Ingress','是否确定删除 Ingress','已上线 Ingress 禁止直接删除！')" class="wayne-button normal" *ngIf="authService.currentAppPermission.ingress.offline || authService.currentUser.admin">
+      <button (click)="deleteResource('删除 Ingress','是否确定删除 Ingress','已上线 Ingress 禁止直接删除！')" class="wayne-button normal"
+              *ngIf="authService.currentAppPermission.ingress.delete || authService.currentUser.admin">
         删除 ingress
       </button>
       <button class="wayne-button normal" (click)="onShowDiffEvent()">{{'BUTTON.COMPARE_TEMPLATES' | translate}}</button>
@@ -53,6 +54,7 @@
     [templates]="templates"
     [appId]="appId"
     [resourceId] = "resourceId"
+    [kubeResource] = "kubeResource"
     [showState]="showState"
     [page]="pageState.page"
     (paginate)="retrieveTemplates($event)"

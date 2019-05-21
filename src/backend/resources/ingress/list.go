@@ -2,12 +2,8 @@ package ingress
 
 import (
 	extensions "k8s.io/api/extensions/v1beta1"
-	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/kubernetes"
 
-	backendCommon "github.com/Qihoo360/wayne/src/backend/common"
 	"github.com/Qihoo360/wayne/src/backend/resources/common"
-	"github.com/Qihoo360/wayne/src/backend/resources/dataselector"
 )
 
 type Ingress struct {
@@ -34,16 +30,4 @@ func toIngress(ingress *extensions.Ingress) *Ingress {
 		Endpoints:  getEndpoints(ingress),
 	}
 	return modelIngress
-}
-
-func GetIngressPage(cli *kubernetes.Clientset, namespace string, q *backendCommon.QueryParam) (page *backendCommon.Page, err error) {
-	ingressPtrs, err := GetIngressList(cli, namespace, metaV1.ListOptions{})
-	if err != nil {
-		return nil, err
-	}
-	ingresses := make([]Ingress, len(ingressPtrs))
-	for i := range ingressPtrs {
-		ingresses[i] = *ingressPtrs[i]
-	}
-	return dataselector.DataSelectPage(toCells(ingresses), q), nil
 }

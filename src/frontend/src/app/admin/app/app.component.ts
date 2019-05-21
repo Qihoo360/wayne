@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
 import { ActivatedRoute } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ListAppComponent } from './list-app/list-app.component';
 import { CreateEditAppComponent } from './create-edit-app/create-edit-app.component';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -13,6 +13,7 @@ import { App } from '../../shared/model/v1/app';
 import { AppService } from '../../shared/client/v1/app.service';
 import { NamespaceService } from '../../shared/client/v1/namespace.service';
 import { PageState } from '../../shared/page/page-state';
+import { isNotEmpty } from '../../shared/utils';
 
 @Component({
   selector: 'wayne-app',
@@ -26,7 +27,6 @@ export class AppComponent implements OnInit, OnDestroy {
   createEditApp: CreateEditAppComponent;
 
   namespaceId: string;
-  idFilterInit = '';
   changedApps: App[];
   pageState: PageState = new PageState();
   subscription: Subscription;
@@ -57,15 +57,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.namespaceId = params['nid'];
-      if (typeof (this.namespaceId) === 'undefined') {
-        this.namespaceId = '';
-      }
-      if (typeof (params['aid']) !== 'undefined') {
-        this.idFilterInit = params['aid'];
-      }
-    });
   }
 
   ngOnDestroy(): void {
@@ -74,12 +65,24 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.pageState.params['deleted'] = false;
     this.pageState.params['relate'] = 'namespace';
+    if (this.route.snapshot.queryParams) {
+      Object.getOwnPropertyNames(this.route.snapshot.queryParams).map(key => {
+        const value = this.route.snapshot.queryParams[key];
+        if (isNotEmpty(value)) {
+          if (key === 'namespaceId') {
+            this.namespaceId = value;
+          } else {
+            this.pageState.filters[key] = value;
+          }
+        }
+      });
+    }
     this.appService.listPage(this.pageState, this.namespaceId)
       .subscribe(
         response => {

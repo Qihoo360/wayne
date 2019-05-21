@@ -4,18 +4,18 @@
     <form #ngForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
+          <label for="name" class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <label *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</label>
-            <input type="text" [(ngModel)]="daemonSet.name"
+            <input type="text" [(ngModel)]="resource.name"
                    name="name"
                    required
                    [placeholder]="'PLACEHOLDER.APP_NAME' | translate"
                    [readonly]="actionType==1"
                    maxlength="64"
                    pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
-                   (keyup)='handleValidation()'>
+                   (keyup)='checkNameValid()'>
             <span class="tooltip-content">
               {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
             </span>
@@ -23,10 +23,10 @@
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label class="col-md-3 form-group-label-override required">{{'TITLE.CLUSTER' | translate}}</label>
+          <label class="clr-col-md-3 form-group-label-override required">{{'TITLE.CLUSTER' | translate}}</label>
           <span class="warning-text" *ngIf="!clusters || clusters && clusters.length === 0">{{'DAEMONSET.CREATE_EDIT.CLUSTER_MESSAGE' | translate}}</span>
           <div *ngFor="let cluster of clusters" style="padding-right: 15px" class="checkbox-inline">
-            <input [(ngModel)]="cluster['checked']"
+            <input [(ngModel)]="clusterMetas[cluster.name].checked"
                    type="checkbox"
                    id="{{cluster.name}}-check"
                    name="{{cluster.name}}-check">
@@ -35,13 +35,13 @@
         </div>
         <div class="form-group" style="padding-left: 135px;">
           <label for="description"
-                 class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
-          <textarea id="description" [(ngModel)]="daemonSet.description"
+                 class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
+          <textarea id="description" [(ngModel)]="resource.description"
                     name="description"
                     rows="3">
           </textarea>
         </div>
-        <resource-limit *ngIf="authService.currentUser.admin"></resource-limit>
+        <resource-limit [style.display]="authService.currentUser.admin ? 'block' : 'none'"></resource-limit>
       </section>
     </form>
   </div>

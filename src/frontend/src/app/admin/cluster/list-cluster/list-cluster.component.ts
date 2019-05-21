@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { Cluster } from '../../../shared/model/v1/cluster';
 import { Page } from '../../../shared/page/page-state';
 import { clusterStatus } from 'app/shared/shared.const';
@@ -17,9 +17,9 @@ export class ListClusterComponent implements OnInit {
 
   @Input() page: Page;
   currentPage = 1;
-  state: State;
+  state: ClrDatagridStateInterface;
 
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<Cluster>();
   @Output() edit = new EventEmitter<Cluster>();
 
@@ -38,7 +38,7 @@ export class ListClusterComponent implements OnInit {
     this.paginate.emit(this.state);
   }
 
-  refresh(state: State) {
+  refresh(state: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }

@@ -213,7 +213,6 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
 
   /**
    * Move single item from available to selected
-   * @param item
    */
   moveAvailableItemToSelected(item: IListBoxItem): void {
 
@@ -230,7 +229,6 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
 
   /**
    * Move single item from selected to available
-   * @param item
    */
   moveSelectedItemToAvailable(item: IListBoxItem): void {
 
@@ -248,8 +246,8 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
   /**
    * Function to pass to ngFor to improve performance, tracks items
    * by the value field
-   * @param index
-   * @param item
+   * @param index number
+   * @param item object
    * @returns any
    */
   trackByValue(index: number, item: {}): string {

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'wayne-filter-box',

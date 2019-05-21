@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { throwError } from 'rxjs';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
@@ -58,31 +59,31 @@ export class AppUserService {
     }
     return this.http.get(`/api/v1/apps/${appId}/users`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(appUser: AppUser): Observable<any> {
     return this.http.post(`/api/v1/apps/${appUser.app.id}/users`, appUser, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(appUser: AppUser): Observable<any> {
     return this.http.put(`/api/v1/apps/${appUser.app.id}/users/${appUser.id}`, appUser, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, appId: number): Observable<any> {
     const options: any = {};
     return this.http.delete(`/api/v1/apps/${appId}/users/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, appId: number): Observable<any> {
     return this.http.get(`/api/v1/apps/${appId}/users/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

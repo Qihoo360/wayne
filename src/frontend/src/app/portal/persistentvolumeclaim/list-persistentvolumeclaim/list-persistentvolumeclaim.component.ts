@@ -1,11 +1,12 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import {
   ConfirmationButtons,
   ConfirmationState,
   ConfirmationTargets,
   httpStatusCode,
+  KubeResourcePersistentVolumeClaim,
   PublishType,
   ResourcesActionType,
   syncStatusInterval,
@@ -19,13 +20,12 @@ import { AuthService } from '../../../shared/auth/auth.service';
 import { PersistentVolumeClaimTplService } from '../../../shared/client/v1/persistentvolumeclaimtpl.service';
 import { PersistentVolumeClaimTpl } from '../../../shared/model/v1/persistentvolumeclaimtpl';
 import { PublishPersistentVolumeClaimTplComponent } from '../publish-tpl/publish-tpl.component';
-import { PersistentVolumeClaimClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims';
 import { CacheService } from '../../../shared/auth/cache.service';
 import { PublishStatus } from '../../../shared/model/v1/publish-status';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersistentVolumeClaimService } from '../../../shared/client/v1/persistentvolumeclaim.service';
 import { AppService } from '../../../shared/client/v1/app.service';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { PageState } from '../../../shared/page/page-state';
 import { PublishService } from '../../../shared/client/v1/publish.service';
 import { isArrayEmpty, isArrayNotEmpty } from '../../../shared/utils';
@@ -35,6 +35,7 @@ import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service'
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { PersistentVolumeClaimRobinClient } from '../../../shared/client/v1/kubernetes/persistentvolumeclaims-robin';
 import { DiffService } from '../../../shared/diff/diff.service';
+import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernetes';
 
 @Component({
   selector: 'list-persistentvolumeclaim',
@@ -49,7 +50,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   userInfoComponent: UserInfoComponent;
   appId: number;
   pvcId: number;
-  state: State;
+  state: ClrDatagridStateInterface;
   currentPage = 1;
   pageState: PageState = new PageState();
   isOnline = false;
@@ -75,7 +76,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
               private appService: AppService,
               private diffService: DiffService,
               private pvcService: PersistentVolumeClaimService,
-              private pvcClient: PersistentVolumeClaimClient,
+              private kubernetesClient: KubernetesClient,
               private persistentVolumeClaimRobinClient: PersistentVolumeClaimRobinClient,
               public cacheService: CacheService,
               private messageHandlerService: MessageHandlerService,
@@ -125,7 +126,8 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
         if (tpl.status && tpl.status.length > 0) {
           for (let j = 0; j < tpl.status.length; j++) {
             const status = tpl.status[j];
-            this.pvcClient.get(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
+            this.kubernetesClient.get(status.cluster, KubeResourcePersistentVolumeClaim, tpl.name,
+              this.cacheService.kubeNamespace, this.appId.toString()).subscribe(
               response => {
                 const code = response.statusCode || response.status;
                 if (code === httpStatusCode.NoContent) {
@@ -363,7 +365,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
     this.deletionDialogService.openComfirmDialog(deletionMessage);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
@@ -373,7 +375,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
     this.pageState.params['isOnline'] = this.isOnline;
     this.pageState.sort.by = 'id';
     this.pageState.sort.reverse = true;
-    Observable.combineLatest(
+    combineLatest(
       this.pvcTplService.listPage(this.pageState, this.appId),
       this.publishService.listStatus(PublishType.PERSISTENT_VOLUME_CLAIM, this.pvcId)
     ).subscribe(
@@ -386,7 +388,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
             if (!tplStatusMap[stat.templateId]) {
               tplStatusMap[stat.templateId] = Array<PublishStatus>();
             }
-            tplStatusMap[stat.templateId].push(state);
+            tplStatusMap[stat.templateId].push(stat);
           }
         }
         this.tplStatusMap = tplStatusMap;

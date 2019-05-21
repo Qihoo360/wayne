@@ -10,44 +10,50 @@ export class ActionPermission {
   create = false;
   update = false;
   delete = false;
-  deploy = false;
-  offline = false;
 }
 
 export class TypePermission {
-  app: ActionPermission = new ActionPermission();
-  appUser: ActionPermission = new ActionPermission();
-  namespace: ActionPermission = new ActionPermission();
-  namespaceUser: ActionPermission = new ActionPermission();
-  deployment: ActionPermission = new ActionPermission();
-  secret: ActionPermission = new ActionPermission();
-  service: ActionPermission = new ActionPermission();
-  ingress: ActionPermission = new ActionPermission();
-  pvc: ActionPermission = new ActionPermission();
-  configmap: ActionPermission = new ActionPermission();
-  cronjob: ActionPermission = new ActionPermission();
-  webHook: ActionPermission = new ActionPermission();
-  statefulset: ActionPermission = new ActionPermission();
-  apiKey: ActionPermission = new ActionPermission();
-  daemonSet: ActionPermission = new ActionPermission();
-  autoscale: ActionPermission = new ActionPermission();
+  app = new ActionPermission();
+  appUser = new ActionPermission();
+  namespace = new ActionPermission();
+  namespaceUser = new ActionPermission();
+  deployment = new ActionPermission();
+  secret = new ActionPermission();
+  service = new ActionPermission();
+  ingress = new ActionPermission();
+  pvc = new ActionPermission();
+  configmap = new ActionPermission();
+  cronjob = new ActionPermission();
+  webHook = new ActionPermission();
+  statefulset = new ActionPermission();
+  apiKey = new ActionPermission();
+  daemonSet = new ActionPermission();
+  hpa = new ActionPermission();
 
-  deserialize(input) {
-    this.app = input.app ? input.app : this.app;
-    this.appUser = input.appUser ? input.appUser : this.appUser;
-    this.namespace = input.namespace ? input.namespace : this.namespace;
-    this.namespaceUser = input.namespaceUser ? input.namespaceUser : this.namespaceUser;
-    this.deployment = input.deployment ? input.deployment : this.deployment;
-    this.secret = input.secret ? input.secret : this.secret;
-    this.service = input.service ? input.service : this.service;
-    this.ingress = input.ingress ? input.ingress : this.ingress;
-    this.pvc = input.pvc ? input.pvc : this.pvc;
-    this.configmap = input.configmap ? input.configmap : this.configmap;
-    this.cronjob = input.cronjob ? input.cronjob : this.cronjob;
-    this.webHook = input.webHook ? input.webHook : this.webHook;
-    this.statefulset = input.statefulset ? input.statefulset : this.statefulset;
-    this.apiKey = input.apiKey ? input.apiKey : this.apiKey;
-    this.daemonSet = input.daemonSet ? input.daemonSet : this.daemonSet;
-    this.autoscale = input.hpa ? input.hpa : this.autoscale;
-  }
+  // Kubernetes resource permission
+  kubeConfigMap = new ActionPermission();
+  kubeDaemonSet = new ActionPermission();
+  kubeDeployment = new ActionPermission();
+  kubeEvent = new ActionPermission();
+  kubeHorizontalPodAutoscaler = new ActionPermission();
+  kubeIngress = new ActionPermission();
+  kubeJob = new ActionPermission();
+  kubeCronJob = new ActionPermission();
+  kubeNamespace = new ActionPermission();
+  kubeNode = new ActionPermission();
+  kubePersistentVolumeClaim = new ActionPermission();
+  kubePersistentVolume = new ActionPermission();
+  kubePod = new ActionPermission();
+  kubeReplicaSet = new ActionPermission();
+  kubeSecret = new ActionPermission();
+  kubeService = new ActionPermission();
+  kubeStatefulSet = new ActionPermission();
+  kubeEndpoint = new ActionPermission();
+  kubeStorageClass = new ActionPermission();
+  kubeRole = new ActionPermission();
+  kubeRoleBinding = new ActionPermission();
+  kubeClusterRole = new ActionPermission();
+  kubeClusterRoleBinding = new ActionPermission();
+  kubeServiceAccount = new ActionPermission();
+
 }

@@ -58,7 +58,7 @@
     <clr-dg-cell>{{tpl.user}}</clr-dg-cell>
     <clr-dg-cell class="col-operate">
       <button class="wayne-button text" (click)="publishPvcTpl(tpl)"
-              *ngIf="authService.currentAppPermission.pvc.deploy || authService.currentUser.admin">
+              *ngIf="authService.currentAppPermission.kubePersistentVolumeClaim.create || authService.currentUser.admin">
         {{'BUTTON.RELEASE' | translate}}
       </button>
       <button class="wayne-button text" (click)="detailPvcTpl(tpl)"
@@ -75,19 +75,21 @@
         {{'BUTTON.DELETE' | translate}}
       </button>
       <button class="wayne-button text" (click)="offlinePvcTpl(tpl)"
-              *ngIf="tpl.status && (authService.currentAppPermission.pvc.offline || authService.currentUser.admin)">
+              *ngIf="tpl.status && (authService.currentAppPermission.kubePersistentVolumeClaim.delete || authService.currentUser.admin)">
         {{'BUTTON.DROP' | translate}}
       </button>
     </clr-dg-cell>
   </clr-dg-row>
-  <wayne-paginate
-    [(currentPage)]="currentPage"
-    [total]="pageState.page.totalCount"
-    [rate]="0.5"
-    [pageSizes]="[5, 10, 25]"
-    (sizeChange)="pageSizeChange($event)"
-  >
-  </wayne-paginate>
+  <clr-dg-footer>
+    <wayne-paginate
+      [(currentPage)]="currentPage"
+      [total]="pageState.page.totalCount"
+      [rate]="0.5"
+      [pageSizes]="[5, 10, 25]"
+      (sizeChange)="pageSizeChange($event)"
+    >
+    </wayne-paginate>
+  </clr-dg-footer>
 </clr-datagrid>
 <wayne-ace-editor></wayne-ace-editor>
 <user-info></user-info>

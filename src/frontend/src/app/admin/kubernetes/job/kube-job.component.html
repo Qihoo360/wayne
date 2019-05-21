@@ -1,0 +1,51 @@
+<div class="clr-row">
+  <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
+    <div class="table-search">
+      <div class="table-search-left">
+        <button class="wayne-button normal" (click)="createResource()">
+          {{'ADMIN.KUBERNETES.JOB.CREATE' | translate}}
+        </button>
+        <button class="wayne-button normal" (click)="retrieveResource()">
+          {{'ADMIN.KUBERNETES.ACTION.REFRESH' | translate}}
+        </button>
+        <wayne-filter-box (confirm)="onConfirmEvent()" (cancel)="onCancelEvent()">
+          <wayne-checkbox-group [(ngModel)]="showList">
+            <wayne-checkbox value="name">{{'ADMIN.KUBERNETES.JOB.LIST.NAME' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="namespace">{{'ADMIN.KUBERNETES.JOB.LIST.NAMESPACE' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="label">{{'ADMIN.KUBERNETES.JOB.LIST.LABEL' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="containers">{{'ADMIN.KUBERNETES.JOB.LIST.IMAGES' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="status">{{'ADMIN.KUBERNETES.JOB.LIST.STATUS' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="age">{{'ADMIN.KUBERNETES.JOB.LIST.AGE' | translate}}</wayne-checkbox>
+          </wayne-checkbox-group>
+        </wayne-filter-box>
+        <label class="clr-col-md-3">{{'ADMIN.KUBERNETES.LABEL.CLUSTER' | translate}}</label>
+        {{cluster}}
+        <label for="namespace_name" class="clr-col-md-3">{{'ADMIN.KUBERNETES.LABEL.NAMESPACE' | translate}}</label>
+        <wayne-select [(ngModel)]="namespace" (change)="retrieveResource()"
+                      searchable
+                      name="namespace_name"
+                      [placeholder]="'PLACEHOLDER.CHOOSE' | translate"
+                      style="margin-left: 12px;">
+          <wayne-option value="">ALL</wayne-option>
+          <wayne-option *ngFor="let ns of namespaces" [value]="ns">{{ns}}</wayne-option>
+        </wayne-select>
+      </div>
+    </div>
+
+    <wayne-list-job
+      [resources]="resources"
+      [showState]="showState"
+      (delete)="onDeleteResourceEvent($event)"
+      (edit)="onEditResourceEvent($event)"
+      [page]="pageState.page"
+      [cluster]="cluster"
+      (paginate)="retrieveResource($event)">
+    </wayne-list-job>
+  </div>
+</div>
+<deletion-dialog (outputObj)="confirmDeleteEvent($event)"></deletion-dialog>
+<wayne-ace-editor (createOutputObj)="onCreateResourceEvent($event)" (outputObj)="onSaveResourceEvent($event)"></wayne-ace-editor>
+<wayne-float-window value="{{ cluster }}">
+  <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster"
+                           (click)="jumpToHref(cluster)"></wayne-float-window-item>
+</wayne-float-window>

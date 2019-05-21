@@ -1,0 +1,24 @@
+<div class="datagrid-row-flex datagrid-row-detail datagrid-container ng-star-inserted">
+  <div class="datagrid-expandable-caret datagrid-fixed-column datagrid-cell ng-star-inserted"></div>
+  <form>
+    <section *ngIf="endpoint" class="form-block">
+      <label>Endpoint Info:</label>
+      <div class="form-group">
+        <label for="id" style="font-weight: 600;">IP：</label>
+        <div *ngFor="let subset of endpoint.subsets">
+          <div *ngFor="let addresse of subset.addresses">
+            {{ addresse.ip }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="id" style="font-weight: 600;">Port：</label>
+        <div *ngFor="let subset of endpoint.subsets">
+          <div *ngFor="let port of subset.ports">
+            {{ port.port }}/{{ port.protocol }}
+          </div>
+        </div>
+      </div>
+    </section>
+  </form>
+</div>

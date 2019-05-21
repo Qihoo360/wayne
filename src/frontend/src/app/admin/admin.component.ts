@@ -129,6 +129,18 @@ export class AdminComponent implements OnInit {
     '/admin/service/tpl/trash': {
       i18nKey: 'MENU.TEMPLATE_RECYCLED',
     },
+    '/admin/ingress': {
+      i18nKey: 'MENU.INGRESS_LIST',
+    },
+    '/admin/ingress/trash': {
+      i18nKey: 'MENU.RECYCLED',
+    },
+    '/admin/ingress/tpl': {
+      i18nKey: 'MENU.TEMPLATE_LIST',
+    },
+    '/admin/ingress/tpl/trash': {
+      i18nKey: 'MENU.TEMPLATE_RECYCLED',
+    },
     '/admin/configmap': {
       i18nKey: 'MENU.CONFIGMAP_LIST',
     },
@@ -163,6 +175,18 @@ export class AdminComponent implements OnInit {
       i18nKey: 'MENU.TEMPLATE_LIST',
     },
     '/admin/persistentvolumeclaim/tpl/trash': {
+      i18nKey: 'MENU.TEMPLATE_RECYCLED',
+    },
+    '/admin/hpa': {
+      i18nKey: 'MENU.HPA_LIST',
+    },
+    '/admin/hpa/trash': {
+      i18nKey: 'MENU.RECYCLED',
+    },
+    '/admin/hpa/tpl': {
+      i18nKey: 'MENU.TEMPLATE_LIST',
+    },
+    '/admin/hpa/tpl/trash': {
       i18nKey: 'MENU.TEMPLATE_RECYCLED',
     },
     '/admin/notification': {

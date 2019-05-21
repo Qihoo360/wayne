@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ListGroupComponent } from './list-group/list-group.component';
 import { CreateEditGroupComponent } from './create-edit-group/create-edit-group.component';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -60,7 +60,7 @@ export class GroupComponent implements OnInit, OnDestroy {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }

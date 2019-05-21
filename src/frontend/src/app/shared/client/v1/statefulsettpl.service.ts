@@ -7,6 +7,7 @@ import 'rxjs/add/observable/throw';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
 import { StatefulsetTemplate } from '../../model/v1/statefulsettpl';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class StatefulsetTplService {
@@ -52,21 +53,21 @@ export class StatefulsetTplService {
     return this.http
       .get(`/api/v1/apps/${appId}/statefulsets/tpls`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(tpl: StatefulsetTemplate, appId: number): Observable<any> {
     return this.http
       .post(`/api/v1/apps/${appId}/statefulsets/tpls`, tpl)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(tpl: StatefulsetTemplate, appId: number): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${appId}/statefulsets/tpls/${tpl.id}`, tpl, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
@@ -80,14 +81,14 @@ export class StatefulsetTplService {
     return this.http
       .delete(`/api/v1/apps/${appId}/statefulsets/tpls/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, appId: number): Observable<any> {
     return this.http
       .get(`/api/v1/apps/${appId}/statefulsets/tpls/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
 }

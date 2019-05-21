@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ContainerStatus, Pod } from '../../shared/model/v1/kubernetes/pod';
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
 import { PodClient } from '../../shared/client/v1/kubernetes/pod';
 import { LogClient } from '../../shared/client/v1/kubernetes/log';
 import { ClusterService } from '../../shared/client/v1/cluster.service';
 import { Cluster } from '../../shared/model/v1/cluster';
 import { CopyService } from '../../shared/client/v1/copy.service';
+import { PageState } from '../../shared/page/page-state';
+import { Container, KubePod } from '../../shared/model/v1/kubernetes/kubepod';
 
 @Component({
   selector: 'pod-logging',
@@ -18,14 +19,14 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
   cluster: string;
   nid: string;
   namespace: string;
-  selectedPod: Pod = new Pod();
+  selectedPod = new KubePod();
   selectedContainer: string;
-  containers: ContainerStatus[];
+  containers: Container[];
   log: string;
   logTails = 10;
   resourceName: string;
   resourceType: string;
-  pods: Pod[];
+  pods: KubePod[];
   logSource: string;
   isCopied = false;
 
@@ -65,14 +66,16 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
         this.messageHandlerService.handleError(error);
       }
     );
-    this.podClient.listByResouce(this.appId, this.cluster, this.namespace, this.resourceType, this.resourceName).subscribe(
+    const pageState = new PageState();
+    pageState.page.pageSize = 1000;
+    this.podClient.listPageByResouce(pageState, this.cluster, this.namespace, this.resourceType, this.resourceName, this.appId).subscribe(
       response => {
-        this.pods = response.data;
+        this.pods = response.data.list;
         if (this.pods && this.pods.length > 0) {
           const pod = this.getPodByName(podName);
           if (!pod) {
             const url = `portal/logging/namespace/${this.nid}/app/${this.appId}/` +
-            `${this.resourceType}/${this.resourceName}/pod/${this.pods[0].name}/${this.cluster}/${this.namespace}`;
+              `${this.resourceType}/${this.resourceName}/pod/${this.pods[0].metadata.name}/${this.cluster}/${this.namespace}`;
             this.router.navigateByUrl(url);
           }
           this.selectedPod = pod;
@@ -90,8 +93,9 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
       this.messageHandlerService.showInfo('缺少机房信息，请联系管理员');
     }
     const command = this.selectedPod ?
-      `kubetool log --source ${this.logSource === undefined ? '' : this.logSource} --${this.resourceType} ` +
-      `${this.resourceName} --pod=${this.selectedPod.name} --container=${this.selectedContainer}  --layout=log` : '';
+      `kubetool log --source ${this.logSource === undefined ? '' : this.logSource}` +
+      ` --${this.resourceType === 'deployments' ? 'deployment' : this.resourceType} ` +
+      `${this.resourceName} --pod=${this.selectedPod.metadata.name} --container=${this.selectedContainer}  --layout=log` : '';
     this.copyService.copy(command);
     this.switchCopyButton();
   }
@@ -104,7 +108,7 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
   }
 
   initContainer(container: string) {
-    this.containers = this.selectedPod.containerStatus;
+    this.containers = this.selectedPod.spec.containers;
     for (const con of this.containers) {
       if (container === con.name) {
         this.selectedContainer = container;
@@ -124,13 +128,14 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
 
   containerChange() {
     const url = `portal/logging/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/` +
-    `${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/${this.cluster}/${this.namespace}`;
+      `${this.resourceName}/pod/${this.selectedPod.metadata.name}/container/${this.selectedContainer}/${this.cluster}/${this.namespace}`;
     this.router.navigateByUrl(url);
     this.refreshLog();
   }
 
   refreshLog() {
-    this.logClient.get(this.appId, this.cluster, this.namespace, this.selectedPod.name, this.selectedContainer, this.logTails).subscribe(
+    this.logClient.get(this.appId, this.cluster, this.namespace, this.selectedPod.metadata.name,
+      this.selectedContainer, this.logTails).subscribe(
       response => {
         this.log = response.data;
       },
@@ -144,7 +149,7 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
   getPodByName(podName: string) {
     if (podName) {
       for (const pod of this.pods) {
-        if (pod.name === podName) {
+        if (pod.metadata.name === podName) {
           return pod;
         }
       }
@@ -154,11 +159,11 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
 
 
   podChange() {
-    this.containers = this.selectedPod.containerStatus;
+    this.containers = this.selectedPod.spec.containers;
     if (this.containers && this.containers.length > 0) {
       this.selectedContainer = this.containers[0].name;
       const url = `portal/logging/namespace/${this.nid}/app/${this.appId}/${this.resourceType}/` +
-      `${this.resourceName}/pod/${this.selectedPod.name}/container/${this.selectedContainer}/${this.cluster}/${this.namespace}`;
+        `${this.resourceName}/pod/${this.selectedPod.metadata.name}/container/${this.selectedContainer}/${this.cluster}/${this.namespace}`;
       this.router.navigateByUrl(url);
     }
   }

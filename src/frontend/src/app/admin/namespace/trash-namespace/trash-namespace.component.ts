@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
@@ -17,7 +17,7 @@ export class TrashNamespaceComponent implements OnInit, OnDestroy {
   namespaces: Namespace[];
   pageState: PageState = new PageState();
   currentPage = 1;
-  state: State;
+  state: ClrDatagridStateInterface;
 
   subscription: Subscription;
 
@@ -59,7 +59,7 @@ export class TrashNamespaceComponent implements OnInit, OnDestroy {
     this.refresh(this.state);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});

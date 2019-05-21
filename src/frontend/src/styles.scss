@@ -212,12 +212,23 @@ a {
   border-top-width: 1px;
 }
 
+.modal{
+  padding: 0 !important;
+}
+
 .fullPage {
   width: 100% !important;
   height: 100% !important;
   overflow-y: auto;
+  .modal-content-wrapper{
+    padding: 20px;
+  }
+  .modal-content{
+    height: calc(100vh - 40px) !important;
+    border-radius: 10px !important;
+    overflow: auto;
+  }
 }
-
 .modal-content .modal-body {
   max-height: 80vh;
 }
@@ -270,3 +281,5 @@ a {
 @import "./component/pagination";
 @import "./component/dropdown";
 @import "./component/hack";
+@import "./component/form.scss";
+@import "./component/tpl.scss";

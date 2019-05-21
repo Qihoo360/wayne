@@ -14,16 +14,6 @@ export class Cronjob {
   app: App;
 }
 
-export class ClusterMeta {
-  checked: boolean;
-  value: number;
-
-  constructor(checked?: boolean) {
-    this.checked = checked;
-    this.value = 0;
-  }
-}
-
 export class LabelSelectorRequirement {
   key: string;
   operator: string;

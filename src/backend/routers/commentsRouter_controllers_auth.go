@@ -13,6 +13,7 @@ func init() {
 			Router:           `/currentuser`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/auth:AuthController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/auth:AuthController"],
@@ -21,6 +22,7 @@ func init() {
 			Router:           `/login/:type/?:name`,
 			AllowHTTPMethods: []string{"get", "post"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/auth:AuthController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/auth:AuthController"],
@@ -29,6 +31,7 @@ func init() {
 			Router:           `/logout`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 }

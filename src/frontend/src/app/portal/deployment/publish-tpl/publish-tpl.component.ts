@@ -4,7 +4,8 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { ClusterMeta, Deployment } from '../../../shared/model/v1/deployment';
+import { Deployment } from '../../../shared/model/v1/deployment';
+import { ClusterMeta } from '../../../shared/model/v1/cluster';
 import { DeploymentStatus, DeploymentTpl } from '../../../shared/model/v1/deploymenttpl';
 import { KubeDeployment } from '../../../shared/model/v1/kubernetes/deployment';
 import { CacheService } from '../../../shared/auth/cache.service';
@@ -12,7 +13,6 @@ import { defaultResources, ResourcesActionType } from '../../../shared/shared.co
 import { PublishStatusService } from '../../../shared/client/v1/publishstatus.service';
 import { DeploymentClient } from '../../../shared/client/v1/kubernetes/deployment';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'publish-tpl',

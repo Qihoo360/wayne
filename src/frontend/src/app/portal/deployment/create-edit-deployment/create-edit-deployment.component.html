@@ -1,16 +1,16 @@
 <clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'lg'">
   <h3 class="modal-title">{{title}}</h3>
   <div class="modal-body">
-    <form #deploymentForm="ngForm" style="padding-right: 30px;width: 100%">
+    <form #ngForm="ngForm" style="padding-right: 30px;width: 100%">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="deployment_name"
-                 class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
-          <label for="deployment_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
+          <label for="name"
+                 class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
+          <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <span *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</span>
-            <input type="text" id="deployment_name" [(ngModel)]="deployment.name"
-                   name="deployment_name"
+            <input type="text" id="name" [(ngModel)]="resource.name"
+                   name="name"
                    style="width: 15rem"
                    required
                    *ngIf="app && actionType==0"
@@ -18,8 +18,8 @@
                    [placeholder]="'PLACEHOLDER.APP_NAME' | translate"
                    pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
                    maxlength="64"
-                   (keyup)='handleValidation()'>
-            <span *ngIf="app && actionType==1">{{deployment.name}}</span>
+                   (keyup)='checkNameValid()'>
+            <span *ngIf="app && actionType==1">{{resource.name}}</span>
             <span class="tooltip-content">
               {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
         </span>
@@ -27,7 +27,7 @@
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label class="col-md-3 form-group-label-override required">{{'TITLE.CLUSTER' | translate}}</label>
+          <label class="clr-col-md-3 form-group-label-override required">{{'TITLE.CLUSTER' | translate}}</label>
           <span class="warning-text" *ngIf="!clusters || clusters && clusters.length === 0">{{'DEPLOYMENT.CREATE_EDIT.CLUSTER_MESSAGE' | translate}}</span>
           <div *ngFor="let cluster of clusters" class="checkbox-inline">
             <div class="checkbox">
@@ -53,8 +53,8 @@
         </div>
         <div class="form-group" style="padding-left: 135px;">
           <label for="deployment_description"
-                 class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
-          <textarea id="deployment_description" [(ngModel)]="deployment.description"
+                 class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
+          <textarea id="deployment_description" [(ngModel)]="resource.description"
                     name="deployment_description"
                     rows="3">
           </textarea>

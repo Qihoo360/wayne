@@ -8,6 +8,7 @@ import { isNotEmpty } from '../../utils';
 import { DaemonSet } from '../../model/v1/daemonset';
 import { OrderItem } from '../../model/v1/order';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class DaemonSetService {
@@ -25,7 +26,7 @@ export class DaemonSetService {
     return this.http
       .get(`/api/v1/apps/${appId}/daemonsets/names`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   listPage(pageState: PageState, appId?: number, deleted?: string): Observable<any> {
@@ -68,28 +69,28 @@ export class DaemonSetService {
     return this.http
       .get(`/api/v1/apps/${appId}/daemonsets`, {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(obj: DaemonSet): Observable<any> {
     return this.http
       .post(`/api/v1/apps/${obj.appId}/daemonsets`, obj)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(obj: DaemonSet): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${obj.appId}/daemonsets/${obj.id}`, obj, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   updateOrder(appId: number, orderList: Array<OrderItem>): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${appId}/daemonsets/updateorders`, orderList, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
@@ -103,13 +104,13 @@ export class DaemonSetService {
     return this.http
       .delete(`/api/v1/apps/${appId}/daemonsets/${id}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, appId: number): Observable<any> {
     return this.http
       .get(`/api/v1/apps/${appId}/daemonsets/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

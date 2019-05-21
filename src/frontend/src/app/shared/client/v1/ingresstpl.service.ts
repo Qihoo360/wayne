@@ -7,6 +7,7 @@ import 'rxjs/add/observable/throw';
 import { IngressTpl } from '../../model/v1/ingresstpl';
 import { isNotEmpty } from '../../utils';
 import { PageState } from '../../page/page-state';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class IngressTplService {
@@ -52,19 +53,19 @@ export class IngressTplService {
 
     return this.http
       .get(`/api/v1/apps/${appId}/ingresses/tpls`, {params: params})
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(ingressTpl: IngressTpl, appId: number): Observable<any> {
     return this.http
       .post(`/api/v1/apps/${appId}/ingresses/tpls`, ingressTpl, this.options)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(ingressTpl: IngressTpl, appId: number): Observable<any> {
     return this.http
       .put(`/api/v1/apps/${appId}/ingresses/tpls/${ingressTpl.id}`, ingressTpl, this.options)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number, appId: number, logical?: boolean): Observable<any> {
@@ -77,12 +78,12 @@ export class IngressTplService {
 
     return this.http
       .delete(`/api/v1/apps/${appId}/ingresses/tpls/${id}`, options)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number, appId: number): Observable<any> {
     return this.http
       .get(`/api/v1/apps/${appId}/ingresses/tpls/${id}`)
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 }

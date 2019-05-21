@@ -14,7 +14,7 @@
 //     Schemes: https
 //     Host: localhost
 //     BasePath: /openapi/v1/gateway/action
-//     Version: v1.2.0
+//     Version: 1.6.1
 //
 //     Consumes:
 //     - application/json
@@ -51,6 +51,7 @@ const (
 	UpgradeDeploymentAction   = "UPGRADE_DEPLOYMENT"
 	ScaleDeploymentAction     = "SCALE_DEPLOYMENT"
 	RestartDeploymentAction   = "RESTART_DEPLOYMENT"
+	GetPodListAction          = "GET_POD_LIST"
 	PermissionPrefix          = "OPENAPI_"
 )
 

@@ -1,10 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { State } from '@clr/angular';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { Secret } from '../../../shared/model/v1/secret';
-import { SecretService } from '../../../shared/client/v1/secret.service';
 import { Page } from '../../../shared/page/page-state';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
@@ -13,31 +10,20 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
   selector: 'list-secret',
   templateUrl: 'list-secret.component.html'
 })
-export class ListSecretComponent implements OnInit {
+export class ListSecretComponent {
 
   @Input() secrets: Secret[];
 
   @Input() page: Page;
   currentPage = 1;
-  state: State;
+  state: ClrDatagridStateInterface;
 
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<Secret>();
   @Output() edit = new EventEmitter<Secret>();
 
-  constructor(
-    private breadcrumbService: BreadcrumbService,
-    private secretService: SecretService,
-    private messageHandlerService: MessageHandlerService,
-    private router: Router,
-    private aceEditorService: AceEditorService
-  ) {
-    breadcrumbService.hideRoute('/admin/secret/relate-tpl');
-    breadcrumbService.hideRoute('/admin/secret/app');
-  }
+  constructor( private router: Router, private aceEditorService: AceEditorService) {}
 
-  ngOnInit(): void {
-  }
 
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;
@@ -46,7 +32,7 @@ export class ListSecretComponent implements OnInit {
     this.paginate.emit(this.state);
   }
 
-  refresh(state: State) {
+  refresh(state: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }
@@ -59,21 +45,19 @@ export class ListSecretComponent implements OnInit {
     this.edit.emit(secret);
   }
 
-  goToLink(secret: Secret, gate: string) {
-    let linkUrl = new Array();
+  goToLink(obj: Secret, gate: string) {
+    let linkUrl = '';
     switch (gate) {
       case 'tpl':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/secret/relate-tpl/[0-9]*', '[' + secret.name + ']模板列表');
-        linkUrl = ['admin', 'secret', 'relate-tpl', secret.id];
+        linkUrl = `/admin/secret/tpl?secretMapId=${obj.id}`;
         break;
       case 'app':
-        this.breadcrumbService.addFriendlyNameForRouteRegex('/admin/secret/app/[0-9]*', '[' + secret.app.name + ']项目详情');
-        linkUrl = ['admin', 'secret', 'app', secret.app.id];
+        linkUrl = `admin/app?id=${obj.app.id}`;
         break;
       default:
         break;
     }
-    this.router.navigate(linkUrl);
+    this.router.navigateByUrl(linkUrl);
   }
 
   detailMetaDataTpl(tpl: string) {

@@ -1,5 +1,5 @@
-<div class="row" [formGroup]="listBoxForm">
-  <div class="col-md-5 col-lg-5 col-sm-12">
+<div class="clr-row" [formGroup]="listBoxForm">
+  <div class="clr-col-md-5 clr-col-lg-5 clr-col-sm-12">
     <h4 class="text-center vertical-spacing-5">{{availableText}}</h4>
     <input type="text" class="form-control vertical-spacing-5" placeholder="{{availableFilterPlaceholder}}"
            formControlName="availableSearchInput"
@@ -11,27 +11,27 @@
         (dblclick)="moveAvailableItemToSelected(item)">{{item?.text}}</option>
     </select>
   </div>
-  <div class="col-md-2 col-lg-2 col-sm-12 center-block text-center">
-    <button type="button" class="btn btn-default col-md-8 col-md-offset-2 atr top80 sm-spacing" style="margin-top:50px;"
+  <div class="clr-col-md-2 clr-col-lg-2 clr-col-sm-12 center-block text-center">
+    <button type="button" class="btn btn-default clr-col-md-8 clr-col-md-offset-2 atr top80 sm-spacing" style="margin-top:50px;"
             *ngIf="moveAllButton" (click)="moveAllItemsToSelected()">
       <span style="margin-top:0px;">新增全部</span>
     </button>
-    <button type="button" class="btn btn-default col-md-8 col-md-offset-2 str vertical-spacing-5 sm-spacing"
+    <button type="button" class="btn btn-default clr-col-md-8 clr-col-md-offset-2 str vertical-spacing-5 sm-spacing"
             [disabled]="!availableListBoxControl.value?.length"
             (click)="moveMarkedAvailableItemsToSelected()">
       <span style="margin-top:0px;">新增</span>
     </button>
-    <button type="button" class="btn btn-default col-md-8 col-md-offset-2 stl vertical-spacing-5 sm-spacing"
+    <button type="button" class="btn btn-default clr-col-md-8 clr-col-md-offset-2 stl vertical-spacing-5 sm-spacing"
             [disabled]="!selectedListBoxControl.value?.length"
             (click)="moveMarkedSelectedItemsToAvailable()">
       <span style="margin-top:0px;">删除</span>
     </button>
-    <button type="button" class="btn btn-default col-md-8 col-md-offset-2 atl bottom10 sm-spacing"
+    <button type="button" class="btn btn-default clr-col-md-8 clr-col-md-offset-2 atl bottom10 sm-spacing"
             *ngIf="moveAllButton" (click)="moveAllItemsToAvailable()">
       <span style="margin-top:0px;">删除全部</span>
     </button>
   </div>
-  <div class="col-md-5 col-lg-5 col-sm-12">
+  <div class="clr-col-md-5 clr-col-lg-5 clr-col-sm-12">
     <h4 class="text-center vertical-spacing-5">{{selectedText}}</h4>
     <input type="text" class="form-control vertical-spacing-5" placeholder="{{selectedFilterPlaceholder}}"
            formControlName="selectedSearchInput"

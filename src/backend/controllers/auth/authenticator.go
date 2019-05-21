@@ -102,8 +102,8 @@ func (c *AuthController) Login() {
 	user, err := authenticator.Authenticate(authModel)
 	if err != nil {
 		logs.Warning("try to login in with user (%s) error %v. ", authModel.Username, err)
-		c.Ctx.Output.SetStatus(http.StatusInternalServerError)
-		c.Ctx.Output.Body(hack.Slice(fmt.Sprintf("try to login in with user (%s) error %v. ", authModel.Username, err)))
+		c.Ctx.Output.SetStatus(http.StatusBadRequest)
+		c.Ctx.Output.Body(hack.Slice(fmt.Sprintf("Login failed. %v", err)))
 		return
 	}
 
@@ -164,7 +164,7 @@ func (c *AuthController) CurrentUser() {
 
 	kv := strings.Split(authString, " ")
 	if len(kv) != 2 || kv[0] != "Bearer" {
-		logs.Error("AuthString invalid:", authString)
+		logs.Info("AuthString invalid:", authString)
 		c.CustomAbort(http.StatusUnauthorized, "Token Invalid ! ")
 	}
 	tokenString := kv[1]

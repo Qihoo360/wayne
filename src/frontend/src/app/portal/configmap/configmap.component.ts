@@ -1,11 +1,12 @@
 import { AfterContentInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import {
   ConfirmationButtons,
   ConfirmationState,
   ConfirmationTargets,
   httpStatusCode,
+  KubeResourceConfigMap,
   PublishType,
   syncStatusInterval,
   TemplateState
@@ -13,8 +14,7 @@ import {
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
 import { ListConfigMapComponent } from './list-configmap/list-configmap.component';
 import { CreateEditConfigMapComponent } from './create-edit-configmap/create-edit-configmap.component';
-import { Observable } from 'rxjs/Observable';
-import { ConfigMapClient } from '../../shared/client/v1/kubernetes/configmap';
+import { combineLatest } from 'rxjs';
 import { AppService } from '../../shared/client/v1/app.service';
 import { ConfigMapService } from '../../shared/client/v1/configmap.service';
 import { ConfigMapTplService } from '../../shared/client/v1/configmaptpl.service';
@@ -33,6 +33,7 @@ import { PageState } from '../../shared/page/page-state';
 import { TabDragService } from '../../shared/client/v1/tab-drag.service';
 import { OrderItem } from '../../shared/model/v1/order';
 import { TranslateService } from '@ngx-translate/core';
+import { KubernetesClient } from '../../shared/client/v1/kubernetes/kubernetes';
 
 const showState = {
   'create_time': {hidden: false},
@@ -74,7 +75,7 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
               private publishHistoryService: PublishHistoryService,
               public cacheService: CacheService,
               private appService: AppService,
-              private configMapClient: ConfigMapClient,
+              private kubernetesClient: KubernetesClient,
               private configMapService: ConfigMapService,
               private tabDragService: TabDragService,
               private el: ElementRef,
@@ -84,7 +85,9 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
               public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
     this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
-      if (over) { this.tabChange(); }
+      if (over) {
+        this.tabChange();
+      }
     });
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
@@ -118,7 +121,9 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) { this.showList.push(key); }
+      if (!this.showState[key].hidden) {
+        this.showList.push(key);
+      }
     });
   }
 
@@ -143,7 +148,9 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
         order: index
       };
     });
-    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) { return; }
+    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) {
+      return;
+    }
     this.configMapService.updateOrder(this.app.id, orderList).subscribe(
       response => {
         if (response.data === 'ok!') {
@@ -188,8 +195,11 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
         if (tpl.status && tpl.status.length > 0) {
           for (let j = 0; j < tpl.status.length; j++) {
             const status = tpl.status[j];
-            if (status.errNum > 2)  { continue; }
-            this.configMapClient.get(this.app.id, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
+            if (status.errNum > 2) {
+              continue;
+            }
+            this.kubernetesClient.get(status.cluster, KubeResourceConfigMap, tpl.name,
+              this.cacheService.kubeNamespace, this.app.id.toString()).subscribe(
               response => {
                 const code = response.statusCode || response.status;
                 if (code === httpStatusCode.NoContent) {
@@ -238,7 +248,7 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
     const appId = parseInt(this.route.parent.snapshot.params['id'], 10);
     const namespaceId = this.cacheService.namespaceId;
     this.configMapId = parseInt(this.route.snapshot.params['configMapId'], 10);
-    Observable.combineLatest(
+    combineLatest(
       this.configMapService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', appId + ''),
       this.appService.getById(appId, namespaceId)
     ).subscribe(
@@ -286,14 +296,14 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
 
   cloneConfigMapTpl(tpl: ConfigMapTpl) {
     if (tpl) {
-      this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app
-      /${this.app.id}/configmap/${this.configMapId}/tpl/${tpl.id}`]);
+      this.router.navigate([
+        `portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/configmap/${this.configMapId}/tpl/${tpl.id}`]);
     }
   }
 
   createConfigMapTpl() {
-    this.router.navigate([`portal/namespace/${this.cacheService.namespaceId}/app
-    /${this.app.id}/configmap/${this.configMapId}/tpl`]);
+    this.router.navigate([
+      `portal/namespace/${this.cacheService.namespaceId}/app/${this.app.id}/configmap/${this.configMapId}/tpl`]);
   }
 
   ngOnDestroy(): void {
@@ -302,7 +312,7 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
     this.tabScription.unsubscribe();
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (!this.configMapId) {
       return;
     }
@@ -311,7 +321,7 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
     }
     this.pageState.params['deleted'] = false;
     this.pageState.params['isOnline'] = this.isOnline;
-    Observable.combineLatest(
+    combineLatest(
       this.configMapTplService.listPage(this.pageState, this.app.id, this.configMapId.toString()),
       this.publishService.listStatus(PublishType.CONFIGMAP, this.configMapId)
     ).subscribe(
@@ -325,7 +335,7 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
               tplStatusMap[statu.templateId] = Array<PublishStatus>();
             }
             statu.errNum = 0;
-            tplStatusMap[statu.templateId].push(state);
+            tplStatusMap[statu.templateId].push(statu);
           }
         }
         this.tplStatusMap = tplStatusMap;
@@ -396,11 +406,11 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
   }
 
   openModal(): void {
-    this.createEdit.newOrEditConfigMap(this.app);
+    this.createEdit.newOrEditResource(this.app, []);
   }
 
 
   editConfigMap() {
-    this.createEdit.newOrEditConfigMap(this.app, this.configMapId);
+    this.createEdit.newOrEditResource(this.app, [], this.configMapId);
   }
 }

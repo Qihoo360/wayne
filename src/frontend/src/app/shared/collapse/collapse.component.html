@@ -1,0 +1,13 @@
+<wayne-box class="collapse-box" [disabled]="disabled">
+  <div class="collapse-header" (click)="show = !show">
+    <svg class="card-change-svg" width="14" height="14" xmlns="http://www.w3.org/2000/svg" viewBox="0, 0, 20, 20" [ngStyle]="{transform: show ? '' : 'rotate(-90deg)'}">
+      <polyline points="3,6 10,14 17,6" style="fill: white;stroke: #1e58ab;stroke-width: 2;"></polyline>
+      <circle cx="3" cy="6" r="1" style="fill: #1e58ab;"></circle>
+      <circle cx="17" cy="6" r="1" style="fill: #1e58ab;"></circle>
+    </svg>
+    <ng-content select="label"></ng-content>
+  </div>
+  <div *ngIf="show" @showContent class="content">
+    <ng-content></ng-content>
+  </div>
+</wayne-box>

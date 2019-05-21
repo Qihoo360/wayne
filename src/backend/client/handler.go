@@ -8,6 +8,7 @@ import (
 	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/kubernetes"
 
 	"github.com/Qihoo360/wayne/src/backend/client/api"
@@ -39,7 +40,7 @@ func (h *resourceHandler) Create(kind string, namespace string, object *runtime.
 	if !ok {
 		return nil, fmt.Errorf("Resource kind (%s) not support yet . ", kind)
 	}
-	kubeClient := h.getClientByGroupVersion(resource.GroupVersionResource)
+	kubeClient := h.getClientByGroupVersion(resource.GroupVersionResourceKind.GroupVersionResource)
 	req := kubeClient.Post().
 		Resource(kind).
 		SetHeader("Content-Type", "application/json").
@@ -59,7 +60,7 @@ func (h *resourceHandler) Update(kind string, namespace string, name string, obj
 		return nil, fmt.Errorf("Resource kind (%s) not support yet . ", kind)
 	}
 
-	kubeClient := h.getClientByGroupVersion(resource.GroupVersionResource)
+	kubeClient := h.getClientByGroupVersion(resource.GroupVersionResourceKind.GroupVersionResource)
 	req := kubeClient.Put().
 		Resource(kind).
 		Name(name).
@@ -80,7 +81,7 @@ func (h *resourceHandler) Delete(kind string, namespace string, name string, opt
 	if !ok {
 		return fmt.Errorf("Resource kind (%s) not support yet . ", kind)
 	}
-	kubeClient := h.getClientByGroupVersion(resource.GroupVersionResource)
+	kubeClient := h.getClientByGroupVersion(resource.GroupVersionResourceKind.GroupVersionResource)
 	req := kubeClient.Delete().
 		Resource(kind).
 		Name(name).
@@ -98,16 +99,30 @@ func (h *resourceHandler) Get(kind string, namespace string, name string) (runti
 	if !ok {
 		return nil, fmt.Errorf("Resource kind (%s) not support yet . ", kind)
 	}
-	genericInformer, err := h.cacheFactory.sharedInformerFactory.ForResource(resource.GroupVersionResource)
+	genericInformer, err := h.cacheFactory.sharedInformerFactory.ForResource(resource.GroupVersionResourceKind.GroupVersionResource)
 	if err != nil {
 		return nil, err
 	}
 	lister := genericInformer.Lister()
+	var result runtime.Object
 	if resource.Namespaced {
-		return lister.ByNamespace(namespace).Get(name)
+		result, err = lister.ByNamespace(namespace).Get(name)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		result, err = lister.Get(name)
+		if err != nil {
+			return nil, err
+		}
 	}
+	result.GetObjectKind().SetGroupVersionKind(schema.GroupVersionKind{
+		Group:   resource.GroupVersionResourceKind.Group,
+		Version: resource.GroupVersionResourceKind.Version,
+		Kind:    resource.GroupVersionResourceKind.Kind,
+	})
 
-	return lister.Get(name)
+	return result, nil
 }
 
 // Get object from cache
@@ -116,7 +131,7 @@ func (h *resourceHandler) List(kind string, namespace string, labelSelector stri
 	if !ok {
 		return nil, fmt.Errorf("Resource kind (%s) not support yet . ", kind)
 	}
-	genericInformer, err := h.cacheFactory.sharedInformerFactory.ForResource(resource.GroupVersionResource)
+	genericInformer, err := h.cacheFactory.sharedInformerFactory.ForResource(resource.GroupVersionResourceKind.GroupVersionResource)
 	if err != nil {
 		return nil, err
 	}
@@ -127,9 +142,26 @@ func (h *resourceHandler) List(kind string, namespace string, labelSelector stri
 	}
 
 	lister := genericInformer.Lister()
+	var objs []runtime.Object
 	if resource.Namespaced {
-		return lister.ByNamespace(namespace).List(selectors)
+		objs, err = lister.ByNamespace(namespace).List(selectors)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		objs, err = lister.List(selectors)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	return lister.List(selectors)
+	for i := range objs {
+		objs[i].GetObjectKind().SetGroupVersionKind(schema.GroupVersionKind{
+			Group:   resource.GroupVersionResourceKind.Group,
+			Version: resource.GroupVersionResourceKind.Version,
+			Kind:    resource.GroupVersionResourceKind.Kind,
+		})
+	}
+
+	return objs, nil
 }

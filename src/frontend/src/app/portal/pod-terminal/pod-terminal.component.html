@@ -13,14 +13,14 @@
     <div class="header-actions">
       <clr-dropdown>
         <button class="nav-text" clrDropdownTrigger>
-          {{selectedPod.name}}
+          {{selectedPod?.metadata?.name}}
           <clr-icon shape="caret down"></clr-icon>
         </button>
         <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right" style="max-width:30rem;direction: rtl;">
           <h4 class="dropdown-header">Pod</h4>
           <a *ngFor="let pod of pods" href="javascript:void(0)"
              clrDropdownItem (click)="selectedPod=pod;podChange();">
-            {{pod.name}}
+            {{pod.metadata.name}}
           </a>
         </clr-dropdown-menu>
       </clr-dropdown>

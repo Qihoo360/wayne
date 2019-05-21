@@ -6,8 +6,6 @@ import { CreateEditDeploymentComponent } from './create-edit-deployment/create-e
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateEditDeploymentTplComponent } from './create-edit-deploymenttpl/create-edit-deploymenttpl.component';
 import { PublishDeploymentTplComponent } from './publish-tpl/publish-tpl.component';
-import { ListEventComponent } from './list-event/list-event.component';
-import { ListPodComponent } from './list-pod/list-pod.component';
 import { DeploymentClient } from '../../shared/client/v1/kubernetes/deployment';
 import { PodClient } from '../../shared/client/v1/kubernetes/pod';
 import { DeploymentService } from '../../shared/client/v1/deployment.service';
@@ -41,8 +39,6 @@ import { LogClient } from '../../shared/client/v1/kubernetes/log';
     ListDeploymentComponent,
     CreateEditDeploymentTplComponent,
     PublishDeploymentTplComponent,
-    ListEventComponent,
-    ListPodComponent
   ]
 })
 

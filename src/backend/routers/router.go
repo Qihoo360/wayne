@@ -26,9 +26,11 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/controllers/hpa"
 	"github.com/Qihoo360/wayne/src/backend/controllers/ingress"
 	kconfigmap "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/configmap"
+	kcrd "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd"
 	kcronjob "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/cronjob"
 	kdaemonset "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/daemonset"
 	kdeployment "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/deployment"
+	kevent "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/event"
 	khpa "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/hpa"
 	kingress "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/ingress"
 	kjob "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/job"
@@ -279,6 +281,10 @@ func init() {
 			beego.NSInclude(
 				&kpod.KubePodController{}),
 		),
+		beego.NSNamespace("/kubernetes/apps/:appid([0-9]+)/events",
+			beego.NSInclude(
+				&kevent.KubeEventController{}),
+		),
 		beego.NSNamespace("/kubernetes/apps/:appid([0-9]+)/podlogs",
 			beego.NSInclude(
 				&klog.KubeLogController{}),
@@ -391,6 +397,21 @@ func init() {
 		beego.NSNamespace("/apps/:appid([0-9]+)/_proxy/clusters/:cluster/namespaces/:namespace/:kind",
 			beego.NSInclude(
 				&proxy.KubeProxyController{},
+			),
+		),
+		beego.NSNamespace("/apps/:appid([0-9]+)/_proxy/clusters/:cluster/customresourcedefinitions",
+			beego.NSInclude(
+				&kcrd.KubeCRDController{},
+			),
+		),
+		beego.NSNamespace("/apps/:appid([0-9]+)/_proxy/clusters/:cluster/apis/:group/:version/namespaces/:namespace/:kind",
+			beego.NSInclude(
+				&kcrd.KubeCustomCRDController{},
+			),
+		),
+		beego.NSNamespace("/apps/:appid([0-9]+)/_proxy/clusters/:cluster/apis/:group/:version/:kind",
+			beego.NSInclude(
+				&kcrd.KubeCustomCRDController{},
 			),
 		),
 		beego.NSNamespace("/apps/:appid([0-9]+)/_proxy/clusters/:cluster/:kind",

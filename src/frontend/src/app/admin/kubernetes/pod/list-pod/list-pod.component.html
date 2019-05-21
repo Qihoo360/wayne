@@ -1,0 +1,88 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)">
+  <clr-dg-column [clrDgField]="'name'">
+    <ng-container *clrDgHideableColumn="showState['name']">
+      {{'ADMIN.KUBERNETES.POD.LIST.NAME' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'namespace'">
+    <ng-container *clrDgHideableColumn="showState['namespace']">
+      {{'ADMIN.KUBERNETES.POD.LIST.NAMESPACE' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['label']">
+      {{'ADMIN.KUBERNETES.POD.LIST.LABEL' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['images']">
+      {{'ADMIN.KUBERNETES.POD.LIST.IMAGES' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['status']">
+      {{'ADMIN.KUBERNETES.POD.LIST.STATUS' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'podIP'">
+    <ng-container *clrDgHideableColumn="showState['podIP']">
+      {{'ADMIN.KUBERNETES.POD.LIST.PODIP' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'nodeName'">
+    <ng-container *clrDgHideableColumn="showState['node']">
+      {{'ADMIN.KUBERNETES.POD.LIST.NODE' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['restartCount']">
+      {{'ADMIN.KUBERNETES.POD.LIST.RESTARTCOUNT' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'creationTimestamp'">
+    <ng-container *clrDgHideableColumn="showState['age']">
+      {{'ADMIN.KUBERNETES.POD.LIST.AGE' | translate}}
+    </ng-container>
+  </clr-dg-column>
+
+
+  <clr-dg-row *ngFor="let obj of resources" [clrDgItem]="obj">
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="onEditEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.EDIT' | translate}}</button>
+      <button class="action-item" (click)="onDeleteEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.DELETE' | translate}}</button>
+      <button class="action-item" (click)="onForceDeleteEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.FORCEDELETE' | translate}}</button>
+      <button class="action-item" (click)="enterContainer(obj)">{{'ADMIN.KUBERNETES.ACTION.ENTER_CONTAINER' | translate}}</button>
+      <button class="action-item" (click)="podLog(obj)">{{'ADMIN.KUBERNETES.ACTION.LOG' | translate}}</button>
+    </clr-dg-action-overflow>
+    <clr-dg-cell> {{ obj.metadata.name }} </clr-dg-cell>
+    <clr-dg-cell> {{ obj.metadata.namespace }} </clr-dg-cell>
+    <clr-dg-cell class="col-version">
+      <div *ngFor="let label of obj.metadata.labels | keyvalue" class="version-text">
+        <a href="javascript:" (click)="versionDetail(label.key + ': ' + label.value)">{{label.key}}: {{label.value}}</a>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell class="col-version">
+      <div *ngFor="let container of obj.spec.containers" class="version-text">
+        <a href="javascript:" (click)="versionDetail(container.image)">{{container.image}}</a>
+      </div>
+    </clr-dg-cell>
+
+    <clr-dg-cell> {{ getPodStatus(obj) }}</clr-dg-cell>
+    <clr-dg-cell> {{ obj.status.podIP }} </clr-dg-cell>
+    <clr-dg-cell> {{ obj.spec.nodeName }} </clr-dg-cell>
+    <clr-dg-cell>
+      <div class="form-group" style="padding-bottom: 2px" *ngFor="let state of obj.status.containerStatuses">
+        {{state.name}}:{{state.restartCount}}
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell> {{ obj.metadata.creationTimestamp | relativeTime}} </clr-dg-cell>
+  </clr-dg-row>
+  <clr-dg-footer>
+    <wayne-paginate
+      [(currentPage)]="currentPage"
+      [total]="page.totalCount"
+      [pageSizes]="[10, 20, 50]"
+      (sizeChange)="pageSizeChange($event)">
+    </wayne-paginate>
+  </clr-dg-footer>
+</clr-datagrid>

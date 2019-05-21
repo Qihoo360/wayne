@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ListNamespaceComponent } from './list-namespace/list-namespace.component';
 import { CreateEditNamespaceComponent } from './create-edit-namespace/create-edit-namespace.component';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
@@ -72,7 +72,7 @@ export class NamespaceComponent implements OnInit, OnDestroy {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState = PageState.fromState(state, {
         totalPage: this.pageState.page.totalPage,

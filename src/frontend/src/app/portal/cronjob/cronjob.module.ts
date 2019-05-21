@@ -4,7 +4,6 @@ import { CreateEditCronjobComponent } from './create-edit-cronjob/create-edit-cr
 import { CronjobComponent } from './cronjob.component';
 import { ListCronjobComponent } from './list-cronjob/list-cronjob.component';
 import { ListJobComponent } from './list-job/list-job.component';
-import { ListPodComponent } from './list-pod/list-pod.component';
 import { CreateEditCronjobTplComponent } from './create-edit-cronjobtpl/create-edit-cronjobtpl.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PublishCronjobTplComponent } from './publish-tpl/publish-tpl.component';
@@ -15,7 +14,9 @@ import { CronjobTplService } from '../../shared/client/v1/cronjobtpl.service';
 import { PodClient } from '../../shared/client/v1/kubernetes/pod';
 import { PublicService } from '../../shared/client/v1/public.service';
 import { LogClient } from '../../shared/client/v1/kubernetes/log';
-import { ListEventComponent } from './list-event/list-event.component';
+import { ListPodComponent } from './list-pod/list-pod.component';
+import { ListEventDatagridComponent } from '../../shared/list-event-datagrid/list-event.component';
+import { EventClient } from '../../shared/client/v1/kubernetes/event';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { ListEventComponent } from './list-event/list-event.component';
     PublicService,
     PodClient,
     LogClient,
+    EventClient
   ],
   exports: [
     CronjobComponent
@@ -39,10 +41,10 @@ import { ListEventComponent } from './list-event/list-event.component';
     ListCronjobComponent,
     ListJobComponent,
     ListPodComponent,
+    ListEventDatagridComponent,
     CreateEditCronjobComponent,
     CreateEditCronjobTplComponent,
     PublishCronjobTplComponent,
-    ListEventComponent,
   ]
 })
 

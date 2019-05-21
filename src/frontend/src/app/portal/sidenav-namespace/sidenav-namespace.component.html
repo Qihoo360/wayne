@@ -1,4 +1,4 @@
-<clr-vertical-nav [clrVerticalNavCollapsible]="true">
+<clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed">
   <a
     clrVerticalNavLink
     [title]="'MENU.DEPARTMENT' | translate"
@@ -36,6 +36,7 @@
   <a
     clrVerticalNavLink
     [title]="'MENU.MEMBER' | translate"
+    *ngIf="authService.currentNamespacePermission.namespaceUser.read || authService.currentUser.admin"
     routerLink="/portal/namespace/{{cacheService.currentNamespace?.id}}/users"
     routerLinkActive="active">
     <clr-icon clrVerticalNavIcon shape="user"></clr-icon>

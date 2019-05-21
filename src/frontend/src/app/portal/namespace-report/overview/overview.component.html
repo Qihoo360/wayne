@@ -1,31 +1,31 @@
-<div class="row" style="padding-left: 1%">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<div class="clr-row" style="padding-left: 1%">
+  <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
     <form>
       <section class="form-block form-box">
-        <div class="row group">
-          <div class="col-sm-2">
+        <div class="clr-row group">
+          <div class="clr-col-sm-2">
             {{'TITLE.DEPARTMENT_NAME' | translate}}
           </div>
-          <div class="col-sm-10">
+          <div class="clr-col-sm-10">
             {{cacheService?.namespace.name}}
           </div>
         </div>
-        <div class="row group">
-          <div class="col-sm-2">
+        <div class="clr-row group">
+          <div class="clr-col-sm-2">
             {{'TITLE.CREATE_TIME' | translate}}
           </div>
-          <div class="col-sm-10">
+          <div class="clr-col-sm-10">
             {{cacheService?.namespace.createTime | date:'yyyy-MM-dd HH:mm:ss'}}
           </div>
         </div>
-        <div class="row group">
-          <div class="col-sm-2">
+        <div class="clr-row group">
+          <div class="clr-col-sm-2">
             <div class="flex" style="height:70px;flex-direction: column; justify-content:space-around;">
               <span>{{'TITLE.CPU_USAGE' | translate}}</span>
               <span>{{'TITLE.MEMORY_USAGE' | translate}}</span>
             </div>
           </div>
-          <div class="col-sm-10">
+          <div class="clr-col-sm-10">
             <ng-container *ngFor="let cluster of clusters; let i = index">
               <div *ngIf="i < showNumber"
                    style="display: inline-flex;height: 70px;width: 150px; margin-right: 10px; flex-direction: column; justify-content: space-around;">
@@ -40,7 +40,7 @@
             </div>
           </div>
         </div>
-        <div class="row group">
+        <div class="clr-row group">
           <wayne-card class="wayne-card">
             <div class="card-title">{{'MENU.DEPLOYMENT' | translate}}</div>
             <p class="card-text">
@@ -66,7 +66,7 @@
             </p>
           </wayne-card>
         </div>
-        <div class="row group">
+        <div class="clr-row group">
           <wayne-card class="wayne-card">
             <div class="card-title">{{'MENU.SERVICE' | translate}}</div>
             <p class="card-text">

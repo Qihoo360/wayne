@@ -7,6 +7,7 @@ import 'rxjs/add/observable/throw';
 import { Namespace } from '../../model/v1/namespace';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class NamespaceService {
@@ -49,28 +50,28 @@ export class NamespaceService {
     return this.http
       .get('/api/v1/namespaces', {params: params})
       //
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getNames(): Observable<any> {
     return this.http
       .get('/api/v1/namespaces/names')
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   createNamespace(ns: Namespace): Observable<any> {
     return this.http
       .post(`/api/v1/namespaces`, ns, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   updateNamespace(ns: Namespace): Observable<any> {
     return this.http
       .put(`/api/v1/namespaces/${ns.id}`, ns, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteNamespace(nsId: number, logical?: boolean): Observable<any> {
@@ -83,19 +84,30 @@ export class NamespaceService {
     return this.http
       .delete(`/api/v1/namespaces/${nsId}`, options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getNamespace(nsId: number): Observable<any> {
     return this.http
       .get(`/api/v1/namespaces/${nsId}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   initDefault(): Observable<any> {
     return this.http.get(`/api/v1/namespaces/init`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
+  }
+
+
+  getHistory(namespaceId: number, appName?: string): Observable<any> {
+    let params = new HttpParams();
+    if (appName) {
+      params = params.set('app', appName);
+    }
+    return this.http
+      .get(`/api/v1/namespaces/${namespaceId}/history`, {params: params})
+      .catch(error => throwError(error));
   }
 }

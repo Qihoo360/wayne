@@ -1,45 +1,53 @@
-<div class="row">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<div class="clr-row">
+  <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
     <div class="table-search">
       <div class="table-search-left">
-        <button class="wayne-button normal" (click)="retrieve()">
-          刷新
+        <button class="wayne-button normal" (click)="createResource()">
+          {{'ADMIN.KUBERNETES.DEPLOYMENT.CREATE' | translate}}
         </button>
-        <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
+        <button class="wayne-button normal" (click)="retrieveResource()">
+          {{'ADMIN.KUBERNETES.ACTION.REFRESH' | translate}}
+        </button>
+        <wayne-filter-box (confirm)="onConfirmEvent()" (cancel)="onCancelEvent()">
           <wayne-checkbox-group [(ngModel)]="showList">
-            <wayne-checkbox value="name">名称</wayne-checkbox>
-            <wayne-checkbox value="label">Label</wayne-checkbox>
-            <wayne-checkbox value="containers">镜像</wayne-checkbox>
-            <wayne-checkbox value="status">容器状态</wayne-checkbox>
-            <wayne-checkbox value="age">Age</wayne-checkbox>
+            <wayne-checkbox value="name">{{'ADMIN.KUBERNETES.DEPLOYMENT.LIST.NAME' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="namespace">{{'ADMIN.KUBERNETES.DEPLOYMENT.LIST.NAMESPACE' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="label">{{'ADMIN.KUBERNETES.DEPLOYMENT.LIST.LABEL' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="containers">{{'ADMIN.KUBERNETES.DEPLOYMENT.LIST.IMAGES' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="status">{{'ADMIN.KUBERNETES.DEPLOYMENT.LIST.STATUS' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="age">{{'ADMIN.KUBERNETES.DEPLOYMENT.LIST.AGE' | translate}}</wayne-checkbox>
           </wayne-checkbox-group>
         </wayne-filter-box>
-        <label for="namespace_name" class="col-md-3">Kubernetes 命名空间:</label>
-          <wayne-select [(ngModel)]="namespace"  (change)="retrieve()"
-                        searchable
-                        name="namespace_name"
-                        [placeholder]="'PLACEHOLDER.CHOOSE' | translate"
-                        style="margin-left: 12px;">
-            <wayne-option *ngFor="let ns of namespaces" [value]="ns">{{ns}}</wayne-option>
-          </wayne-select>
-
+        <label class="clr-col-md-3">{{'ADMIN.KUBERNETES.LABEL.CLUSTER' | translate}}</label>
+        {{cluster}}
+        <label for="namespace_name" class="clr-col-md-3">{{'ADMIN.KUBERNETES.LABEL.NAMESPACE' | translate}}</label>
+        <wayne-select [(ngModel)]="namespace" (change)="retrieveResource()"
+                      searchable
+                      name="namespace_name"
+                      [placeholder]="'PLACEHOLDER.CHOOSE' | translate"
+                      style="margin-left: 12px;">
+          <wayne-option value="">ALL</wayne-option>
+          <wayne-option *ngFor="let ns of namespaces" [value]="ns">{{ns}}</wayne-option>
+        </wayne-select>
       </div>
     </div>
-    <kube-list-deployment
-      [deployments]="changedDeployments"
-      [page]="pageState.page"
-      (detail)="detail($event)"
-      (migration)="migration($event)"
+
+    <wayne-list-deployment
+      [resources]="resources"
       [showState]="showState"
-      (paginate)="retrieve($event)"></kube-list-deployment>
+      (delete)="onDeleteResourceEvent($event)"
+      (edit)="onEditResourceEvent($event)"
+      [page]="pageState.page"
+      [cluster]="cluster"
+      (migration)="migration($event)"
+      (paginate)="retrieveResource($event)">
+    </wayne-list-deployment>
   </div>
 </div>
-<kube-migration-deployment></kube-migration-deployment>
-<wayne-ace-editor (outputObj)="save($event)"
-                  [warningMsg]="'通过 Wayne 管理的资源请不要在此更新，否则可能会导致与 Wayne 模版不一致，再次通过 Wayne 发布时出现异常！'">
-</wayne-ace-editor>
-<wayne-float-window value="{{cluster}}">
+<kube-migration></kube-migration>
+<deletion-dialog (outputObj)="confirmDeleteEvent($event)"></deletion-dialog>
+<wayne-ace-editor (createOutputObj)="onCreateResourceEvent($event)" (outputObj)="onSaveResourceEvent($event)"></wayne-ace-editor>
+<wayne-float-window value="{{ cluster }}">
   <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster"
-                           (click)="jumpTo(cluster)"></wayne-float-window-item>
+                           (click)="jumpToHref(cluster)"></wayne-float-window-item>
 </wayne-float-window>
-

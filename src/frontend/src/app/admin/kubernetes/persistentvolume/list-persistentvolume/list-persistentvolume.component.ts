@@ -3,7 +3,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
 import { NameComparator, NameFilter, PvcFilter, RbdImageNameFilter, TimeComparator } from './inventory';
-import { SortOrder } from '@clr/angular';
+import { ClrDatagridSortOrder } from '@clr/angular';
 import { PersistentVolume } from '../../../../shared/model/v1/kubernetes/persistentvolume';
 import { isEmpty } from '../../../../shared/utils';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../../shared/shared.const';
@@ -25,7 +25,7 @@ export class ListPersistentVolumeComponent implements OnInit, OnDestroy {
   @Input() persistentVolumes: PersistentVolume[];
   @Input() cluster: string;
   @Input() showState: object;
-  sortOrder: SortOrder = SortOrder.Unsorted;
+  sortOrder: ClrDatagridSortOrder = ClrDatagridSortOrder.UNSORTED;
   sorted = false;
   currentPage = 1;
   _pageSize = 10;

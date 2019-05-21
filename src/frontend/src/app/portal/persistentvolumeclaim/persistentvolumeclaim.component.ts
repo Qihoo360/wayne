@@ -2,7 +2,7 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets, PublishType } from '../../shared/shared.const';
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { AppService } from '../../shared/client/v1/app.service';
 import { App } from '../../shared/model/v1/app';
 import { CacheService } from '../../shared/auth/cache.service';
@@ -94,7 +94,7 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
     const namespaceId = this.cacheService.namespaceId;
     let pvcId = parseInt(this.route.snapshot.params['pvcId'], 10);
 
-    Observable.combineLatest(
+    combineLatest(
       this.pvcService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
       this.appService.getById(this.appId, namespaceId),
     ).subscribe(
@@ -171,7 +171,7 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
   }
 
   updatePvcs(): void {
-    Observable.combineLatest(
+    combineLatest(
       this.pvcService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
     ).subscribe(
       response => {
@@ -244,10 +244,10 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
   }
 
   openModal(): void {
-    this.createEdit.newOrEdit(this.app);
+    this.createEdit.newOrEditResource(this.app, []);
   }
 
   editPvc() {
-    this.createEdit.newOrEdit(this.app, this.pvcId);
+    this.createEdit.newOrEditResource(this.app, [], this.pvcId);
   }
 }

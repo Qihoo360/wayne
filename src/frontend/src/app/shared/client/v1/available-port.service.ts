@@ -7,6 +7,7 @@ import { AvailablePort } from '../../model/v1/available-port';
 import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class AvailablePortService {
@@ -20,7 +21,7 @@ export class AvailablePortService {
     return this.http
       .get(`/api/v1/services/availableports/lvs`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   list(pageState: PageState): Observable<any> {
@@ -56,42 +57,42 @@ export class AvailablePortService {
     return this.http
       .get('/api/v1/services/availableports', {params: params})
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   create(availablePort: AvailablePort): Observable<any> {
     return this.http
       .post(`/api/v1/services/availableports`, availablePort, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   update(availablePort: AvailablePort): Observable<any> {
     return this.http
       .put(`/api/v1/services/availableports/${availablePort.id}`, availablePort, this.options)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   deleteById(id: number): Observable<any> {
     return this.http
       .delete(`/api/v1/services/availableports/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getById(id: number): Observable<any> {
     return this.http
       .get(`/api/v1/services/availableports/${id}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
   getByPort(port: number): Observable<any> {
     return this.http
       .get(`/api/v1/services/availableports/port/${port}`)
 
-      .catch(error => Observable.throw(error));
+      .catch(error => throwError(error));
   }
 
 }

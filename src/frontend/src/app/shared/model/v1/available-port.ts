@@ -7,6 +7,8 @@ export class AvailablePort {
   user: string;
   deleted: boolean;
   createTime: Date;
+
+  vip: string;
 }
 
 export class PortType {

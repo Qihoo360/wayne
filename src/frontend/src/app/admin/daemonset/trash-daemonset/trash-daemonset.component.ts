@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
@@ -19,7 +19,7 @@ export class TrashDaemonsetComponent implements OnInit, OnDestroy {
 
   daemonsets: DaemonSet[];
   pageState: PageState = new PageState();
-  state: State;
+  state: ClrDatagridStateInterface;
   currentPage = 1;
 
   subscription: Subscription;
@@ -64,7 +64,7 @@ export class TrashDaemonsetComponent implements OnInit, OnDestroy {
   }
 
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});

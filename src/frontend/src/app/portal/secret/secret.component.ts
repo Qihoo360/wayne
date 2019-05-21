@@ -1,11 +1,12 @@
 import { AfterContentInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import {
   ConfirmationButtons,
   ConfirmationState,
   ConfirmationTargets,
   httpStatusCode,
+  KubeResourceSecret,
   PublishType,
   syncStatusInterval,
   TemplateState
@@ -13,7 +14,7 @@ import {
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
 import { ListSecretComponent } from './list-secret/list-secret.component';
 import { CreateEditSecretComponent } from './create-edit-secret/create-edit-secret.component';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { SecretClient } from '../../shared/client/v1/kubernetes/secret';
 import { AppService } from '../../shared/client/v1/app.service';
 import { SecretService } from '../../shared/client/v1/secret.service';
@@ -33,6 +34,7 @@ import { PageState } from '../../shared/page/page-state';
 import { TabDragService } from '../../shared/client/v1/tab-drag.service';
 import { OrderItem } from '../../shared/model/v1/order';
 import { TranslateService } from '@ngx-translate/core';
+import { KubernetesClient } from '../../shared/client/v1/kubernetes/kubernetes';
 
 const showState = {
   'create_time': {hidden: false},
@@ -74,6 +76,7 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
               private publishService: PublishService,
               private appService: AppService,
               private secretClient: SecretClient,
+              private kubernetesClient: KubernetesClient,
               private publishHistoryService: PublishHistoryService,
               public authService: AuthService,
               private deletionDialogService: ConfirmationDialogService,
@@ -85,7 +88,9 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
               public translate: TranslateService,
               private messageHandlerService: MessageHandlerService) {
     this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
-      if (over) { this.tabChange(); }
+      if (over) {
+        this.tabChange();
+      }
     });
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
@@ -119,7 +124,9 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
   initShow() {
     this.showList = [];
     Object.keys(this.showState).forEach(key => {
-      if (!this.showState[key].hidden) { this.showList.push(key); }
+      if (!this.showState[key].hidden) {
+        this.showList.push(key);
+      }
     });
   }
 
@@ -144,7 +151,9 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
         order: index
       };
     });
-    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) { return; }
+    if (this.orderCache && JSON.stringify(this.orderCache) === JSON.stringify(orderList)) {
+      return;
+    }
     this.secretService.updateOrder(this.app.id, orderList).subscribe(
       response => {
         if (response.data === 'ok!') {
@@ -193,8 +202,11 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
         if (tpl.status && tpl.status.length > 0) {
           for (let j = 0; j < tpl.status.length; j++) {
             const status = tpl.status[j];
-            if (status.errNum > 2)  { continue; }
-            this.secretClient.get(this.appId, status.cluster, this.cacheService.kubeNamespace, tpl.name).subscribe(
+            if (status.errNum > 2) {
+              continue;
+            }
+            this.kubernetesClient.get(status.cluster, KubeResourceSecret, tpl.name,
+              this.cacheService.kubeNamespace, this.appId.toString()).subscribe(
               response => {
                 const code = response.statusCode || response.status;
                 if (code === httpStatusCode.NoContent) {
@@ -239,7 +251,7 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
     this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
     this.secretId = parseInt(this.route.snapshot.params['secretId'], 10);
     const namespaceId = this.cacheService.namespaceId;
-    Observable.combineLatest(
+    combineLatest(
       this.secretService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
       this.appService.getById(this.appId, namespaceId)
     ).subscribe(
@@ -301,7 +313,7 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
     this.tabScription.unsubscribe();
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (!this.secretId) {
       return;
     }
@@ -311,7 +323,7 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
     }
     this.pageState.params['deleted'] = false;
     this.pageState.params['isOnline'] = this.isOnline;
-    Observable.combineLatest(
+    combineLatest(
       this.secretTplService.listPage(this.pageState, this.app.id, this.secretId.toString()),
       this.publishService.listStatus(PublishType.SECRET, this.secretId)
     ).subscribe(
@@ -391,10 +403,10 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
   }
 
   openModal(): void {
-    this.createEdit.newOrEditSecret(this.app);
+    this.createEdit.newOrEditResource(this.app, []);
   }
 
   editSecret() {
-    this.createEdit.newOrEditSecret(this.app, this.secretId);
+    this.createEdit.newOrEditResource(this.app, [], this.secretId);
   }
 }

@@ -14,8 +14,8 @@
       K8S命名空间
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: true}">
+  <clr-dg-column class="col-metadata">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
       {{'TITLE.METADATA' | translate}}
     </ng-container>
   </clr-dg-column>
@@ -42,17 +42,22 @@
     <clr-dg-cell class="col-id">{{ns.id}}</clr-dg-cell>
     <clr-dg-cell class="col-app-name copy"><a href="javascript:void(0)" (click)="goToLink(ns, 'app')">{{ns.name}}</a>
     </clr-dg-cell>
-    <clr-dg-cell class="copy">{{ns.metaDataObj.namespace}}</clr-dg-cell>
-    <clr-dg-cell>{{ns.metaData}}</clr-dg-cell>
+    <clr-dg-cell class="copy">{{ns.kubeNamespace}}</clr-dg-cell>
+    <clr-dg-cell class="col-metadata">
+      <div class="text-overflow">
+        <a href="javascript:;" (click)="detailMetaDataTpl(ns.metaData)">{{ns.metaData}}</a>
+      </div></clr-dg-cell>
     <clr-dg-cell>{{ns.user}}</clr-dg-cell>
     <clr-dg-cell class="col-time">{{ns.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
     <clr-dg-cell class="col-time">{{ns.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}</clr-dg-cell>
   </clr-dg-row>
-  <wayne-paginate
-    [(currentPage)]="currentPage"
-    [total]="page.totalCount"
-    [pageSizes]="[10, 20, 50]"
-    (sizeChange)="pageSizeChange($event)"
-  >
-  </wayne-paginate>
+  <clr-dg-footer>
+    <wayne-paginate
+      [(currentPage)]="currentPage"
+      [total]="page.totalCount"
+      [pageSizes]="[10, 20, 50]"
+      (sizeChange)="pageSizeChange($event)"
+    >
+    </wayne-paginate>
+  </clr-dg-footer>
 </clr-datagrid>

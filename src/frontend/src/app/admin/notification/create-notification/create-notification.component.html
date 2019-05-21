@@ -4,13 +4,13 @@
     <form>
       <section class="form-block">
         <div class="form-group">
-          <label class="col-md-3 form-group-label-override required">标题</label>
+          <label class="clr-col-md-3 form-group-label-override required">标题</label>
           <label class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" size="1024" [(ngModel)]="notify.title" [ngModelOptions]="{standalone: true}" required>
           </label>
         </div>
         <div class="form-group">
-          <label class="col-md-3 form-group-label-override required">类型</label>
+          <label class="clr-col-md-3 form-group-label-override required">类型</label>
           <div class="select">
             <select [(ngModel)]="notify.type" [ngModelOptions]="{standalone: true}" type="string">
               <option [ngValue]="'公告'">公告</option>

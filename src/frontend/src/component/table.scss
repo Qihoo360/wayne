@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   height: 50px;
-  margin-bottom: -0.8rem;
+  margin-bottom: -0.4rem;
   justify-content: space-between;
 
   button {
@@ -27,7 +27,7 @@
   }
 }
 
-.datagrid-body clr-dg-row:nth-child(even) {
+.datagrid-table clr-dg-row:nth-child(odd) {
   background: rgba(232, 237, 246, .45);
 }
 

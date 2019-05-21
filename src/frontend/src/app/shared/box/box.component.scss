@@ -1,7 +1,11 @@
 :host {
+  display: block;
+}
+:host:not(.box-disabled) {
   background: #ffffff;
-  box-shadow: 0 2px 10px 1px #dee6f3;
+  box-shadow: 0px 0px 1px 0px #ccc;
   border-radius: 8px;
   display: block;
   width: 100%;
+  transition: box-shadow 150ms ease-in;
 }

@@ -5,11 +5,11 @@ MAKEFLAGS += --warn-undefined-variables
 # Build variables
 REGISTRY_URI :=360cloud
 RELEASE_VERSION :=$(shell git describe --always --tags)
-UI_BUILD_VERSION :=v1.0.0
-SERVER_BUILD_VERSION :=v1.0.0
+UI_BUILD_VERSION :=v1.0.1
+SERVER_BUILD_VERSION :=v1.0.1
 
 
-release: update-version build-release-image push-image
+release: build-release-image push-image
 
 update-version:
 	./hack/updateversion.sh
@@ -39,7 +39,7 @@ initdata:
 	go run src/backend/database/generatedata/main.go > _dev/wayne-data.sql
 
 swagger-openapi:
-	cd src/backend && swagger generate spec -o openapi.swagger.json
+	cd src/backend && swagger generate spec -o ./swagger/openapi.swagger.json
 
 # release, requiring Docker 17.05 or higher on the daemon and client
 build-release-image:

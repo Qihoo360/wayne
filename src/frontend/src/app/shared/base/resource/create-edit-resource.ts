@@ -2,14 +2,13 @@ import { App } from '../../model/v1/app';
 import { ActionType, configKeyApiNameGenerateRule, defaultResources } from '../../shared.const';
 import { NgForm } from '@angular/forms';
 import { EventEmitter, Output, ViewChild } from '@angular/core';
-import { Cluster } from '../../model/v1/cluster';
+import { Cluster, ClusterMeta } from '../../model/v1/cluster';
 import { MessageHandlerService } from '../../message-handler/message-handler.service';
 import { AuthService } from '../../auth/auth.service';
 import { ApiNameGenerateRule } from '../../utils';
 import { Resources } from '../../model/v1/resources-limit';
 
 export class CreateEditResource {
-  ngForm: NgForm;
   @ViewChild('ngForm')
   currentForm: NgForm;
   clusters: Cluster[];
@@ -22,7 +21,10 @@ export class CreateEditResource {
   actionType: ActionType;
   modalOpened: boolean;
   app: App;
-
+  clusterMetas: {};
+  initResource: any;
+  // 限制机房数量, 用于只是机房勾选
+  defaultClusterNum = 1;
   resourceType: string;
 
   @Output() create = new EventEmitter<number>();
@@ -35,8 +37,34 @@ export class CreateEditResource {
   registResourceType(resourceType: string) {
     this.resourceType = resourceType;
   }
+
   registResource(resource: any) {
-    this.resource = resource;
+    this.initResource = resource;
+    this.resetResource(resource);
+  }
+
+  resetResource(resource: any) {
+    this.resource = Object.assign({}, resource);
+  }
+
+  setMetaData() {
+    this.resource.metaData = this.resource.metaData ? this.resource.metaData : '{}';
+    const metaData = JSON.parse(this.resource.metaData);
+    if (this.clusters && this.clusters.length > 0) {
+      if (metaData['clusters']) {
+        for (const cluster of metaData['clusters']) {
+          for (let i = 0; i < this.clusters.length; i++) {
+            if (cluster === this.clusters[i].name) {
+              this.clusterMetas[cluster] = new ClusterMeta(true, this.defaultClusterNum);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  initMetaData(): void {
+    this.resource.metaData = '{}';
   }
 
   newOrEditResource(app: App, clusters: Cluster[], id?: number) {
@@ -44,34 +72,28 @@ export class CreateEditResource {
     this.app = app;
     this.isNameValid = true;
     this.clusters = clusters;
+    this.clusterMetas = {};
+    this.resetResource(this.initResource);
+    if (this.clusters && this.clusters.length > 0) {
+      for (const clu of this.clusters) {
+        this.clusterMetas[clu.name] = new ClusterMeta(false, this.defaultClusterNum);
+      }
+    }
     if (id) {
       this.actionType = ActionType.EDIT;
-      this.title = '编辑' + this.resourceType;
+      this.title = `编辑${this.resourceType}`;
       this.resourceService.getById(id, app.id).subscribe(
         status => {
           this.resource = status.data;
-          if (!status.data.metaData) {
-            status.metaData = '{}';
-          }
-          const clusterMetas = JSON.parse(status.data.metaData);
-          if (clusterMetas['clusters']) {
-            for (const cluster of clusterMetas['clusters']) {
-              for (let i = 0; i < this.clusters.length; i++) {
-                if (cluster === this.clusters[i].name) {
-                  this.clusters[i].checked = true;
-                }
-              }
-            }
-          }
+          this.setMetaData();
         },
         error => {
           this.messageHandlerService.handleError(error);
         });
     } else {
       this.actionType = ActionType.ADD_NEW;
-      this.title = '创建' + this.resourceType;
-      this.resourcesMetas = Object.assign({}, defaultResources);
-      this.resource.metaData = '{}';
+      this.title = `创建${this.resourceType}`;
+      this.initMetaData();
     }
   }
 
@@ -88,21 +110,30 @@ export class CreateEditResource {
     this.currentForm.reset();
   }
 
+  formatMetaData() {
+    // 没有 replicas 参数，添加一个 cluster 的机房数组。
+    if (!this.resource.metaData) {
+      this.resource.metaData = '{}';
+    }
+    const metaData = JSON.parse(this.resource.metaData);
+    const clusters = [];
+    for (const clu of this.clusters) {
+      const clusterMeta = this.clusterMetas[clu.name];
+      if (clusterMeta && clusterMeta.checked && clusterMeta.value) {
+        clusters.push(clu.name);
+      }
+    }
+    metaData.clusters = clusters;
+    this.resource.metaData = JSON.stringify(metaData);
+  }
+
   onSubmit() {
     if (this.isSubmitOnGoing) {
       return;
     }
     this.isSubmitOnGoing = true;
     this.resource.appId = this.app.id;
-    const metaData = JSON.parse(this.resource.metaData);
-    const checkedCluster = Array<string>();
-    this.clusters.map(cluster => {
-      if (cluster.checked) {
-        checkedCluster.push(cluster.name);
-      }
-    });
-    metaData['clusters'] = checkedCluster;
-    this.resource.metaData = JSON.stringify(metaData);
+    this.formatMetaData();
     switch (this.actionType) {
       case ActionType.ADD_NEW:
         this.resource.name = ApiNameGenerateRule.generateName(ApiNameGenerateRule.config(
@@ -115,7 +146,6 @@ export class CreateEditResource {
           },
           error => {
             this.messageHandlerService.handleError(error);
-
           }
         );
         break;
@@ -141,12 +171,23 @@ export class CreateEditResource {
       this.authService.config[configKeyApiNameGenerateRule], this.app.metaData);
   }
 
+  isClusterValid(): boolean {
+    if (this.clusters) {
+      for (const clu of this.clusters) {
+        const clusterMeta = this.clusterMetas[clu.name];
+        if (clusterMeta && clusterMeta.checked && clusterMeta.value) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 
-  public get isValidForm(): boolean {
-    return this.currentForm &&
-      this.currentForm.valid &&
+  public get isValid(): boolean {
+    return this.currentForm.valid &&
       !this.isSubmitOnGoing &&
       this.isNameValid &&
-      !this.checkOnGoing;
+      !this.checkOnGoing &&
+      this.isClusterValid();
   }
 }

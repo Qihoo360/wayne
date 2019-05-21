@@ -1,10 +1,14 @@
 package models
 
 import (
+	"encoding/json"
 	"fmt"
 	"time"
 
 	"k8s.io/api/core/v1"
+
+	"github.com/Qihoo360/wayne/src/backend/util/hack"
+	"github.com/Qihoo360/wayne/src/backend/util/logs"
 )
 
 const (
@@ -16,16 +20,15 @@ const (
 type namespaceModel struct{}
 
 type Namespace struct {
-	Id   int64  `orm:"auto" json:"id,omitempty"`
-	Name string `orm:"index;unique;size(128)" json:"name,omitempty"`
-	// 配置对应Kubernetes的namespace  {"namespace":"default"}
-	// 配置对应namespace可使用的集群  {"clusters":"K8S"}
-	MetaData    string            `orm:"type(text)" json:"metaData,omitempty"`
-	MetaDataObj NamespaceMetaData `orm:"-" json:"-"`
-	CreateTime  *time.Time        `orm:"auto_now_add;type(datetime)" json:"createTime,omitempty"`
-	UpdateTime  *time.Time        `orm:"auto_now;type(datetime)" json:"updateTime,omitempty"`
-	User        string            `orm:"size(128)" json:"user,omitempty"`
-	Deleted     bool              `orm:"default(false)" json:"deleted,omitempty"`
+	Id            int64             `orm:"auto" json:"id,omitempty"`
+	Name          string            `orm:"index;unique;size(128)" json:"name,omitempty"`
+	KubeNamespace string            `orm:"index;size(128)" json:"kubeNamespace,omitempty"`
+	MetaData      string            `orm:"type(text)" json:"metaData,omitempty"`
+	MetaDataObj   NamespaceMetaData `orm:"-" json:"-"`
+	CreateTime    *time.Time        `orm:"auto_now_add;type(datetime)" json:"createTime,omitempty"`
+	UpdateTime    *time.Time        `orm:"auto_now;type(datetime)" json:"updateTime,omitempty"`
+	User          string            `orm:"size(128)" json:"user,omitempty"`
+	Deleted       bool              `orm:"default(false)" json:"deleted,omitempty"`
 
 	// 用于权限的关联查询
 	NamespaceUsers []*NamespaceUser `orm:"reverse(many)" json:"-"`
@@ -40,8 +43,6 @@ func (*Namespace) TableName() string {
 }
 
 type NamespaceMetaData struct {
-	// kubernetes' namespace
-	Namespace string `json:"namespace,omitempty"`
 	// key is cluster name, if the key not exist on clusterMeta
 	// means this namespace could't use the cluster
 	ClusterMetas map[string]ClusterMeta `json:"clusterMeta,omitempty"`
@@ -49,6 +50,10 @@ type NamespaceMetaData struct {
 	Env []v1.EnvVar `json:"env,omitempty"`
 	// current namespace image pull secrets, will overwrite cluster's ImagePullSecrets
 	ImagePullSecrets []v1.LocalObjectReference `json:"imagePullSecrets"`
+	// current namespace service annotation, will overwrite cluster service's Annotation
+	ServiceAnnotations map[string]string `json:"serviceAnnotations,omitempty"`
+	// current namespace ingress annotation, will overwrite cluster ingress's Annotation
+	IngressAnnotations map[string]string `json:"ingressAnnotations,omitempty"`
 }
 
 type ClusterMeta struct {
@@ -159,4 +164,26 @@ func (*namespaceModel) InitNamespace() (err error) {
 	}
 	_, _, err = Ormer().ReadOrCreate(&defaultNS, "Name")
 	return
+}
+
+func (*namespaceModel) GetNamespaceByAppId(appId int64) (*Namespace, error) {
+	app, err := AppModel.GetById(appId)
+	if err != nil {
+		logs.Warning("get app by id (%d) error. %v", appId, err)
+		return nil, err
+	}
+
+	ns, err := NamespaceModel.GetById(app.Namespace.Id)
+	if err != nil {
+		logs.Warning("get namespace by id (%d) error. %v", app.Namespace.Id, err)
+		return nil, err
+	}
+	var namespaceMetaData NamespaceMetaData
+	err = json.Unmarshal(hack.Slice(ns.MetaData), &namespaceMetaData)
+	if err != nil {
+		logs.Error("Unmarshal namespace metadata (%s) error. %v", ns.MetaData, err)
+		return nil, err
+	}
+	ns.MetaDataObj = namespaceMetaData
+	return ns, nil
 }

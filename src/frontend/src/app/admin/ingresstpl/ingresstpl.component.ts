@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { BreadcrumbService } from '../../shared/client/v1/breadcrumb.service';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { State } from '@clr/angular';
+import { ActivatedRoute } from '@angular/router';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { ConfirmationMessage } from '../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../shared/shared.const';
@@ -12,6 +11,7 @@ import { CreateEditIngressTplComponent } from './create-edit-ingresstpl/create-e
 import { IngressTplService } from '../../shared/client/v1/ingresstpl.service';
 import { IngressTpl } from '../../shared/model/v1/ingresstpl';
 import { PageState } from '../../shared/page/page-state';
+import { isNotEmpty } from '../../shared/utils';
 
 @Component({
   selector: 'wayne-ingresstpl',
@@ -32,13 +32,10 @@ export class IngressTplComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(
-    private breadcrumbService: BreadcrumbService,
     private route: ActivatedRoute,
     private ingressTplService: IngressTplService,
     private messageHandlerService: MessageHandlerService,
     private deletionDialogService: ConfirmationDialogService) {
-    breadcrumbService.addFriendlyNameForRoute('/admin/ingress/tpl', this.componentName + '列表');
-    breadcrumbService.addFriendlyNameForRoute('/admin/ingress/tpl/trash', '已删除' + this.componentName + '列表');
     this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
       if (message &&
         message.state === ConfirmationState.CONFIRMED &&
@@ -73,12 +70,20 @@ export class IngressTplComponent implements OnInit, OnDestroy {
     }
   }
 
-  retrieve(state?: State): void {
+  retrieve(state?: ClrDatagridStateInterface): void {
     if (state) {
       this.pageState =
         PageState.fromState(state, {pageSize: 10, totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     this.pageState.params['deleted'] = false;
+    if (this.route.snapshot.queryParams) {
+      Object.getOwnPropertyNames(this.route.snapshot.queryParams).map(key => {
+        const value = this.route.snapshot.queryParams[key];
+        if (isNotEmpty(value)) {
+          this.pageState.filters[key] = value;
+        }
+      });
+    }
     this.ingressTplService.listPage(this.pageState, 0, this.ingressId)
       .subscribe(
         response => {

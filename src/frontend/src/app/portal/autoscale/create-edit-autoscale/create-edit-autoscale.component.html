@@ -4,7 +4,7 @@
     <form #ngForm="ngForm">
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
-          <label for="name" class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
+          <label for="name" class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <label *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</label>
             <input type="text" id="name"  [(ngModel)]="resource.name"
@@ -22,10 +22,10 @@
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label class="col-md-3 form-group-label-override required">{{'TITLE.CLUSTER' | translate}}</label>
+          <label class="clr-col-md-3 form-group-label-override required">{{'TITLE.CLUSTER' | translate}}</label>
           <span class="warning-text" *ngIf="!clusters || clusters && clusters.length === 0">{{'HPA.CREATE_EDIT.CLUSTER_MESSAGE' | translate}}</span>
           <div *ngFor="let cluster of clusters" style="padding-right: 15px" class="checkbox-inline">
-            <input [(ngModel)]="cluster['checked']"
+            <input [(ngModel)]="clusterMetas[cluster.name].checked"
                    type="checkbox"
                    id="{{cluster.name}}-check"
                    name="{{cluster.name}}-check">
@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="description" class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
+          <label for="description" class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea id="description" [(ngModel)]="resource.description"
                     name="description"
                     rows="3">
@@ -44,7 +44,7 @@
   </div>
   <div class="modal-footer" style="padding-right: 5%">
     <button type="button" class="btn btn-outline" (click)="onCancel()">{{ 'BUTTON.CANCEL' | translate}}</button>
-    <button type="button" class="btn btn-primary" [disabled]="!isValidForm" (click)="onSubmit()">{{ 'BUTTON.SUBMIT' | translate}}</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{ 'BUTTON.SUBMIT' | translate}}</button>
   </div>
 </clr-modal>
 

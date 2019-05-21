@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
 import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
@@ -20,7 +20,7 @@ export class TrashIngressTplComponent implements OnInit, OnDestroy {
   ingressTpls: IngressTpl[];
   pageState: PageState = new PageState();
   currentPage = 1;
-  state: State;
+  state: ClrDatagridStateInterface;
 
   subscription: Subscription;
 
@@ -64,7 +64,7 @@ export class TrashIngressTplComponent implements OnInit, OnDestroy {
     this.refresh(this.state);
   }
 
-  refresh(state?: State) {
+  refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
@@ -82,9 +82,9 @@ export class TrashIngressTplComponent implements OnInit, OnDestroy {
       );
   }
 
-  deleteServiceTpl(ingressTpl: IngressTpl) {
+  deleteTemplate(ingressTpl: IngressTpl) {
     const deletionMessage = new ConfirmationMessage(
-      '删除服务确认',
+      '删除 Ingress 模板确认',
       '你确认永久删除 Ingress 模版 ' + ingressTpl.name + ' ？删除后将不可恢复！',
       ingressTpl.id,
       ConfirmationTargets.TRASH_INGRESS_TPL,
@@ -97,7 +97,7 @@ export class TrashIngressTplComponent implements OnInit, OnDestroy {
     this.aceEditorService.announceMessage(AceEditorMsg.Instance(ingressTpl.template, false, '详情'));
   }
 
-  recoverServiceTpl(ingressTpl: IngressTpl) {
+  recoverTemplate(ingressTpl: IngressTpl) {
     ingressTpl.deleted = false;
     this.ingressTplService.update(ingressTpl, 0)
       .subscribe(

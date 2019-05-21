@@ -5,7 +5,7 @@
       <section class="form-block">
         <div class="form-group" style="padding-left: 135px;">
           <label for="user_name"
-                 class="col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
+                 class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
           <label for="user_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" id="user_name" [(ngModel)]="user.name"
@@ -21,7 +21,7 @@
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="user_email" class="col-md-3 form-group-label-override required">邮箱</label>
+          <label for="user_email" class="clr-col-md-3 form-group-label-override required">邮箱</label>
           <label for="user_email" aria-haspopup="true" role="tooltip" [class.invalid]="!isEmailValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" id="user_email" [(ngModel)]="user.email"
@@ -37,7 +37,7 @@
           <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
         </div>
         <div class="form-group" style="padding-left: 135px;">
-          <label for="user_display" class="col-md-3 form-group-label-override required">展示</label>
+          <label for="user_display" class="clr-col-md-3 form-group-label-override required">展示</label>
           <label for="user_display" aria-haspopup="true" role="tooltip" [class.invalid]="!isDisplayValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <input type="text" id="user_display" [(ngModel)]="user.display"

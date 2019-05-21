@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/astaxie/beego/orm"
+	"k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	"k8s.io/client-go/kubernetes"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
@@ -44,6 +44,14 @@ func (c *APIController) Prepare() {
 	}
 }
 
+func (c *APIController) PreparePermission(methodActionMap map[string]string, method string, permissionType string) {
+	action, ok := methodActionMap[method]
+	if !ok {
+		return
+	}
+	c.CheckPermission(permissionType, action)
+}
+
 /*
  * 检查资源权限
  */
@@ -55,29 +63,44 @@ func (c *APIController) CheckPermission(perType string, perAction string) {
 	}
 
 	perName := models.PermissionModel.MergeName(perType, perAction)
-	if c.AppId != 0 {
-		// 检查App的操作权限
-		_, err := models.AppUserModel.GetOneByPermission(c.AppId, c.User.Id, perName)
-		if err == nil {
-			return
-		} else if err != nil && err != orm.ErrNoRows {
-			logs.Info("Check app permission error.%v", err)
-			c.AbortInternalServerError("Check app permission error.")
-		}
-	}
 
 	if c.NamespaceId != 0 {
 		// 检查namespace的操作权限
 		_, err := models.NamespaceUserModel.GetOneByPermission(c.NamespaceId, c.User.Id, perName)
 		if err == nil {
 			return
-		} else {
-			logs.Info("Check namespace permission error.%v", err)
-			c.AbortInternalServerError("Check namespace permission error.")
 		}
+
+		if c.AppId != 0 {
+			// 检查App的操作权限
+			_, err := models.AppUserModel.GetOneByPermission(c.AppId, c.User.Id, perName)
+			if err == nil {
+				return
+			}
+			logs.Info("User does not have current app permissions.", c.User.Name, perName, c.AppId, err)
+			c.AbortForbidden(fmt.Sprintf("User (%s) does not have current app (%d) permissions (%s).", c.User.Name,
+				c.AppId, perName))
+		}
+
+		logs.Info("User does not have current namespace permissions.", c.User.Name, perName, c.NamespaceId, err)
+		c.AbortForbidden(fmt.Sprintf("User (%s) does not have current namespace (%d) permissions (%s).", c.User.Name,
+			c.NamespaceId, perName))
+
 	}
 
 	c.AbortForbidden("Permission error")
+}
+
+func (c *APIController) ApiextensionsClient(cluster string) *clientset.Clientset {
+	manager, err := client.Manager(cluster)
+	if err != nil {
+		c.AbortBadRequestFormat(fmt.Sprintf("Get cluster (%s) manager error. %v", cluster, err))
+	}
+	cli, err := clientset.NewForConfig(manager.Config)
+	if err != nil {
+		c.AbortBadRequestFormat(fmt.Sprintf("Create (%s) apiextensions client error. %v", cluster, err))
+	}
+	return cli
 }
 
 func (c *APIController) Client(cluster string) *kubernetes.Clientset {

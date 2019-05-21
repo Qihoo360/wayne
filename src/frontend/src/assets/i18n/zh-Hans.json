@@ -27,6 +27,7 @@
     "ACTIONS": "Actions",
     "ADD_CONTAINER": "添加容器",
     "ADVANCED_CONFIG": "高级配置",
+    "EXCHANGE_EDIT_MODE":"切换编辑模式",
     "BROWSE": "Browse",
     "CANCEL": "取消",
     "CLONE": "克隆",
@@ -79,6 +80,7 @@
     "EDIT": "编辑配置集"
   },
   "HPA": {
+    "HPA": "HPA",
     "CREATE": "创建 HPA",
     "CREATE_TEMPLATE": "创建 HPA 模板",
     "DELETE": "删除 HPA",
@@ -90,12 +92,22 @@
       "VIEW_STATUS": "查看 HPA 状态"
     }
   },
+  "HPA_ADMIN": {
+    "RULE": "HPA 名称不符合规范，验证规则",
+    "CREATE_HPA": "创建 HPA",
+    "HPA_LIST": "HPA 列表",
+    "HPA_DELETE_LIST": "已删除 HPA 列表",
+    "CREATE_HPA_TEMPLATE": "创建 HPA 模板",
+    "HPA_TEMPLATE_LIST": "HPA 模板列表",
+    "HPA_TEMPLATE_DELETE_LIST": "已删除 HPA 模板列表"
+  },
   "COPY": {
     "SEARCH_COMMAND": "复制查询命令",
     "SUCCESS": "复制成功"
   },
   "CREATE": {},
   "CRONJOB": {
+    "JOB": "任务列表",
     "CONFIG": "计划任务配置",
     "CONFIG_MESSAGE": "k8s 调度任务的时区是 UTC(+0)，按小时定期执行的任务，请减去8小时调整为北京时区(+8)<br>例如想在北京时间每天11点(0 11 * * *)执行定时任务，则设置为(0 2 * * *)",
     "CREATE": "创建计划任务",
@@ -124,6 +136,7 @@
   "CRONJOB_ADMIN": {
     "CRONJOB_CREATE": "创建计划任务",
     "TPL": {
+      "LIST": "计划任务模版列表",
       "CREATE": {
         "CONFIGMAP": "配置集",
         "TEMPLATE": "模版"
@@ -211,6 +224,7 @@
     }
   },
   "LIMIT": {
+    "DEPLOYMENT": "副本份数不能超过",
     "MEMORY": "内存限制",
     "STATEFULSET": "状态副本集份数超过系统最大限制"
   },
@@ -234,7 +248,7 @@
     "DEPARTMENT": "部门概览",
     "DEPLOYMENT": "部署",
     "DEPLOYMENT_LIST": "部署列表",
-    "AUTO_POD_SCALE": "自动水平调度",
+    "AUTO_POD_SCALE": "自动水平伸缩",
     "K8S": "Kubernetes",
     "LIST": "列表",
     "MEMBER": "成员列表",
@@ -252,6 +266,7 @@
     "PV": "持久化存储",
     "PVC": "PVC",
     "PVC_LIST": "PVC 列表",
+    "HPA_LIST": "自动水平伸缩列表",
     "RECYCLED": "回收站",
     "RELEASE_RECORD": "上线记录",
     "RELEASE_STATISTICS": "上线统计",
@@ -260,6 +275,8 @@
     "SECRET_LIST": "加密字典列表",
     "SERVICE": "负载均衡",
     "SERVICE_LIST": "负载均衡列表",
+    "INGRESS": "Ingress",
+    "INGRESS_LIST": "Ingress 列表",
     "SOURCE_STAT": "资源统计",
     "STATEFULSET": "状态副本集",
     "STATEFULSET_LIST": "状态副本集列表",
@@ -268,7 +285,11 @@
     "TEMPLATE_LIST": "模版列表",
     "TEMPLATE_RECYCLED": "回收站",
     "USER_LIST": "用户列表",
-    "VIEW_MONITOR": "查看监控"
+    "VIEW_MONITOR": "查看监控",
+    "EDGE_NODE_ABOUT": "边缘节点相关",
+    "EDGE_NODE_CONFIG": "边缘节点配置",
+    "AVAILABLE_PORT_CONFIG": "可用端口配置",
+    "USED_PORT": "已分配端口"
   },
   "MESSAGE": {
     "ANNOUNCEMENT": "公告",
@@ -374,11 +395,35 @@
     "DELETE": "删除加密字典",
     "EDIT": "编辑加密字典"
   },
+  "SERVICE": {
+    "CREATE_EDIT_TEMPLATE": {
+      "CREATE_SERVICE_TEMPLATE": "创建负载均衡模版",
+      "RELEASE_DECLARE": "发布说明",
+      "USE_OUTER_IP": "启用外部IP",
+      "USE_OUTER_IP_DESCRIPTION": "如需在集群外部访问请勾选此选项,分配LVS会自动勾选此选项",
+      "USE_CONFIGMAP_IP": "启用集群IP",
+      "USE_CONFIGMAP_IP_DESCRIPTION": "如需启用内部集群DNS或者集启用外部IP请勾选此选项",
+      "PORT": "端口",
+      "TARGET_PORT": "目标端口",
+      "DELETE_PORT": "删除端口",
+      "ADD_PORT": "添加端口",
+      "PROTOCOL_TYPE": "协议类型",
+      "ALLOT_LVS": "分配LVS",
+      "LVS_PRICE": "金额: {{value}} 元",
+      "RELATE_LABEL": "关联标签",
+      "SELECTOR_NAME": "selector名称",
+      "SELECTOR_VALUE": "selector值",
+      "DELETE_LABEL": "删除标签",
+      "ADD_LABEL": "添加标签",
+      "TOTAL_PRICE": "费用总计：{{value}} 元/月",
+      "CREATE_SUCCESS": "创建负载均衡模版成功！"
+    }
+  },
   "SHARED": {
     "DIFF": {
       "CHECK_DATA": "请检查数据",
-      "TMP_LESS": "请选择俩个模板",
-      "TMP_MORE": "选择多个模板仅对比俩个",
+      "TMP_LESS": "请选择两个模板",
+      "TMP_MORE": "选择多个模板仅对比两个",
       "TRANS_ERROR": "模板切换失败，请检查数据"
     },
     "COMPONENT": {
@@ -420,6 +465,7 @@
     "ALL_CONTENT": "所有内容",
     "AVAIL_ITEM": "可选项",
     "BELONG_APP": "所属项目",
+    "CONTAINER": "容器",
     "CHOOSED_ITEM": "已选项",
     "CLUSTER": "机房",
     "COLLECTED": "已收藏",
@@ -454,30 +500,32 @@
     "SHOW_COLUMN": "展示列",
     "START_STATUS": "启用状态",
     "START_TIME": "开始时间",
+    "END_TIME": "结束时间",
     "STATUS": "状态",
     "TEMPLATE": "模板",
     "TOTAL": "总量",
     "USER": "用户",
     "VERSION": "版本",
-    "COPY_INTERVAL":"副本区间"
+    "COPY_INTERVAL": "副本区间"
   },
   "TIP": {
-    "REGULAR_NAME":"名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?"
+    "REGULAR_NAME": "名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?"
   },
   "TEMPLATE": {
     "ADD_ENVIRONMENT": "添加环境变量",
     "ADD_GROUP": "批量加载",
     "ADD_ONE": "逐个加载",
-    "CHECK_CYCLE": "检查周期",
+    "CHECK_CYCLE": "探测周期",
     "CHECK_CYCLE_MESSAGE": "单位秒，执行检查间隔",
-    "CHECK_DELAY": "检查延迟",
-    "CHECK_DELAY_MESSAGE": "单位秒，启动多久之后开始存活检查，适用于启动时间较长的服务",
+    "CHECK_DELAY": "探测延迟",
+    "CHECK_DELAY_MESSAGE": "单位秒，启动多久之后开始存活探测，适用于启动时间较长的服务",
     "CONFIGMAP_KEY": "配置集 key",
     "CONFIGMAP_NAME": "配置集名称",
     "CONTAINER": "容器",
     "CONTAINER_CONFIG": "容器配置",
     "CONTAINER_NAME": "容器名称",
     "CORE_NUM": "CPU 核数",
+    "CREATE_TMP": "创建模板",
     "DELETE_CONTAINER": "删除容器",
     "DELETE_ENVIRONMENT": "删除环境变量",
     "DELETE_UPDATE": "仅删除时更新",
@@ -493,8 +541,8 @@
     "IMAGE_CONFIG": "镜像配置",
     "LIFE_CYCLE": "生命周期",
     "LIFE_CYCLE_MESSAGE": "容器生命周期钩子，可以在 postStart/preStop 两个阶段定义额外的操作",
-    "LIVE_CHECK": "存活检查",
-    "LIVE_CHECK_MESSAGE": "定期检查容器状态，检查失败将会重启容器（适用于可能假死并需要重启的服务）",
+    "LIVENESS_PROBE_CHECK": "存活探针",
+    "LIVENESS_PROBE_CHECK_MESSAGE": "定期探测容器状态，探测失败将会重启容器（适用于可能假死并需要重启的服务）",
     "LOAD_CONFIGMAP": "从配置集加载",
     "LOAD_ENVIRONMENT": "自定义环境变量",
     "LOAD_GROUP": "批量加载",
@@ -519,16 +567,17 @@
     "TCP_PORT": "TCP 端口",
     "UPDATE_STRATEGY": "更新策略",
     "UPDATE_WAY": "更新方式",
-    "USABLE_CHECK": "可用性检查（建议开启）",
-    "USABLE_CHECK_WAY": "可用性检查方式",
-    "USABLE_MESSAGE": "定期检查服务状态，只有检查通过才会提供服务，检查失败将会从可用服务列表移除",
+    "READINESS_CHECK": "就绪探针（建议开启）",
+    "READINESS_PROBE": "就绪探针",
+    "READINESS_CHECK_WAY": "探针方式",
+    "READINESS_MESSAGE": "定期探测服务状态，只有探测通过才会提供服务，探测失败将会从可用服务列表移除",
     "RESOURCE_CONFIG": "资源配置",
     "SCHEDULING_CONFIG": "调度配置",
     "TYPE": "类型",
     "NAME": "名称",
-    "MIN_REPLICAS":"最小副本数",
-    "MAX_REPLICAS":"最小副本数",
-    "CPU_THRESHOLD":"CPU 负载阈值"
+    "MIN_REPLICAS": "最小副本数",
+    "MAX_REPLICAS": "最大副本数",
+    "CPU_THRESHOLD": "CPU 负载阈值"
   },
   "UNIT": {
     "CORE": "核",
@@ -555,5 +604,271 @@
     "CREATE": "创建新的{{ value }}",
     "FOCUS_EVENT": "关注事件",
     "TITLE": "{{ value }}列表"
+  },
+  "ADMIN": {
+    "KUBERNETES": {
+      "ACTION": {
+        "EDIT": "查看/编辑",
+        "MIGRATION": "迁移",
+        "DELETE": "删除",
+        "FORCEDELETE": "强制删除",
+        "REFRESH": "刷新",
+        "ENTER_CONTAINER": "进入容器",
+        "LOG": "查看日志"
+      },
+      "NAMESPACE_ALL": "全部",
+      "LABEL": {
+        "NAMESPACE": "命名空间:",
+        "CLUSTER": "当前集群:"
+      },
+      "TITLE": {
+        "DETAIL": "详情"
+      },
+      "MESSAGE": {
+        "CREATE": "创建成功！",
+        "DELETE": "删除成功！",
+        "UPDATE": "更新成功！"
+      },
+      "POD": {
+        "CREATE": "创建 Pod",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "LABEL": "标签",
+          "IMAGES": "镜像",
+          "STATUS": "状态",
+          "PODIP": "PodIP",
+          "NODE": "主机节点",
+          "RESTARTCOUNT": "重启次数",
+          "AGE": "启动时间"
+        }
+      },
+      "SERVICE": {
+        "CREATE": "创建 Service",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "TYPE": "类型",
+          "LABEL": "标签",
+          "CLUSTERIP": "集群 IP",
+          "PORT": "端口",
+          "EXTERNALIP": "ExternalIP",
+          "AGE": "启动时间"
+        }
+      },
+      "ENDPOINT": {
+        "CREATE": "创建 Endpoint",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "PORT": "端口",
+          "IP": "IP",
+          "AGE": "启动时间"
+        }
+      },
+      "CONFIGMAP": {
+        "CREATE": "创建 ConfigMap",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
+      },
+      "SECRET": {
+        "CREATE": "创建 Secret",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "TYPE": "类型",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
+      },
+      "INGRESS": {
+        "CREATE": "创建 Ingress",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
+      },
+      "DEPLOYMENT": {
+        "CREATE": "创建 Deployment",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "IMAGES": "镜像",
+          "STATUS": "状态"
+        }
+      },
+      "STATEFULSET": {
+        "CREATE": "创建 StatefulSet",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "IMAGES": "镜像",
+          "STATUS": "状态"
+        }
+      },
+      "DAEMONSET": {
+        "CREATE": "创建 DaemonSet",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "IMAGES": "镜像",
+          "STATUS": "状态"
+        }
+      },
+      "CRONJOB": {
+        "CREATE": "创建 CronJob",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "IMAGES": "镜像",
+          "SCHEDULE": "计划",
+          "SUSPEND": "挂起",
+          "ACTIVE": "活跃中",
+          "LAST_SCHEDULE": "最近调度",
+          "STATUS": "状态"
+        }
+      },
+      "JOB": {
+        "CREATE": "创建 Job",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "IMAGES": "镜像",
+          "STATUS": "状态"
+        }
+      },
+      "PVC": {
+        "CREATE": "创建 PVC",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "STATUS": "状态",
+          "STORAGE": "容量",
+          "ACCESSMODES": "访问模式",
+          "PV": "PV",
+          "STORAGECLASS": "StorageClass"
+        }
+      },
+      "REPLICASET": {
+        "CREATE": "创建 ReplicaSet",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "IMAGES": "镜像",
+          "STATUS": "状态"
+        }
+      },
+      "STORAGECLASS": {
+        "CREATE": "创建 StorageClass",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "PROVISIONER": "供应者",
+          "RECLAIMPOLICY": "回收策略",
+          "STATUS": "状态",
+          "AGE": "启动时间"
+        }
+      },
+      "HPA": {
+        "CREATE": "创建 HPA",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "LABEL": "标签",
+          "REFERENCE": "作用对象",
+          "TARGETS": "目标值",
+          "MINPODS": "最小数量",
+          "MAXPODS": "最大数量",
+          "REPLICAS": "当前副本数",
+          "AGE": "启动时间"
+        }
+      },
+      "ROLE": {
+        "CREATE": "创建 Role",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
+      },
+      "ROLEBINDING": {
+        "CREATE": "创建 RoleBinding",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
+      },
+      "SERVICEACCOUNT": {
+        "CREATE": "创建 ServiceAccount",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "命名空间",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "SECRET": "秘钥列表"
+        }
+      },
+      "CLUSTERROLE": {
+        "CREATE": "创建 ClusterRole",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
+      },
+      "CLUSTERROLEBINDING": {
+        "CREATE": "创建 ClusterRoleBinding",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间"
+        }
+      },
+      "NAMESPACE": {
+        "CREATE": "创建 Namespace",
+        "LIST": {
+          "NAME": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "STATUS": "状态"
+        }
+      },
+      "CRD": {
+        "CREATE": "创建 CRD",
+        "CREATE_CUSTOM": "创建自定义 CRD",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "GROUP": "资源组",
+          "VERSION": "版本",
+          "KIND": "类型"
+        }
+      }
+    }
   }
 }

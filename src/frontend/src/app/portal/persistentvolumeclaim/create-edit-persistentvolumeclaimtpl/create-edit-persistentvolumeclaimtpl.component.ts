@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { ActionType, appLabelKey, namespaceLabelKey } from '../../../shared/shared.const';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { combineLatest } from 'rxjs';
+import { EventManager } from '@angular/platform-browser';
 import { App } from '../../../shared/model/v1/app';
 import { AppService } from '../../../shared/client/v1/app.service';
 import { CacheService } from '../../../shared/auth/cache.service';
@@ -101,22 +101,19 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
     return this.currentForm.get('selectors') as FormArray;
   }
 
-  onAddSelector(index: number) {
+  onAddSelector() {
     const selectors = this.currentForm.get(`selectors`) as FormArray;
     selectors.push(this.initSelector());
   }
 
   onDeleteSelector(index: number) {
-    if (this.selectors.controls.length <= 1) {
-      return;
-    }
     this.selectors.removeAt(index);
   }
 
   initSelector() {
     return this.fb.group({
-      key: 'wayne.cloud/storage-type',
-      value: 'ceph',
+      key: '',
+      value: '',
     });
   }
 
@@ -164,7 +161,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
       this.actionType = ActionType.ADD_NEW;
     }
     this.createForm();
-    Observable.combineLatest(observables).subscribe(
+    combineLatest(observables).subscribe(
       response => {
         const clusters = response[0].data;
         for (let i = 0; i < clusters.length; i++) {
@@ -246,7 +243,8 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
     return this.currentForm &&
       this.currentForm.valid &&
       !this.isSubmitOnGoing &&
-      !this.checkOnGoing;
+      !this.checkOnGoing &&
+      this.accessModesValid;
   }
 
   buildLabels(labels: {}) {
@@ -257,6 +255,10 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
     labels[this.authService.config[namespaceLabelKey]] = this.cacheService.currentNamespace.name;
     labels['app'] = this.pvc.name;
     return labels;
+  }
+
+  get accessModesValid(): boolean {
+    return this.currentForm.value.readWriteOnce || this.currentForm.value.readOnlyMany || this.currentForm.value.readWriteMany;
   }
 
   getKubePvcByForm() {
@@ -289,11 +291,11 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
       accessModes.push('ReadWriteMany');
     }
     kubePvc.spec.accessModes = accessModes;
-    if (!kubePvc.spec.selector) {
-      kubePvc.spec.selector = new LabelSelector();
-    }
-    kubePvc.spec.selector.matchLabels = {};
     if (formValue.selectors && formValue.selectors.length > 0) {
+      if (!kubePvc.spec.selector) {
+        kubePvc.spec.selector = new LabelSelector();
+      }
+      kubePvc.spec.selector.matchLabels = {};
       for (const selector of formValue.selectors) {
         kubePvc.spec.selector.matchLabels[selector.key] = selector.value;
       }

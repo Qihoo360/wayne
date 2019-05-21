@@ -14,14 +14,14 @@
     <div class="header-actions">
       <clr-dropdown>
         <button class="nav-text" clrDropdownTrigger>
-          {{selectedPod.name}}
+          {{selectedPod?.metadata?.name}}
           <clr-icon shape="caret down"></clr-icon>
         </button>
         <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
           <h4 class="dropdown-header">Pod</h4>
           <a *ngFor="let pod of pods" href="javascript:void(0)"
              clrDropdownItem (click)="selectedPod=pod;podChange();">
-            {{pod.name}}
+            {{pod.metadata.name}}
           </a>
         </clr-dropdown-menu>
       </clr-dropdown>
@@ -55,7 +55,7 @@
         {{'ACTION.REFRESH' | translate}}
       </a>
       <a href="javascript:void(0)" *ngIf="logSource" class="nav-link nav-text" (click)="copyLogCommand()" >
-        {{(isCopied ? 'COPY.SUCCESS' : 'COPY.SUCCESS_MESSAGE') | translate}}</a>
+        {{(isCopied ? 'COPY.SUCCESS' : 'COPY.SEARCH_COMMAND') | translate}}</a>
 
     </div>
   </header>

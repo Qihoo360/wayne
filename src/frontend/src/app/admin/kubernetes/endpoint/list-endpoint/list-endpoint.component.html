@@ -1,0 +1,60 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)">
+  <clr-dg-column [clrDgField]="'name'">
+    <ng-container *clrDgHideableColumn="showState['name']">
+      {{'ADMIN.KUBERNETES.ENDPOINT.LIST.NAME' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'namespace'">
+    <ng-container *clrDgHideableColumn="showState['namespace']">
+      {{'ADMIN.KUBERNETES.ENDPOINT.LIST.NAMESPACE' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['port']">
+      {{'ADMIN.KUBERNETES.ENDPOINT.LIST.PORT' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['ip']">
+      {{'ADMIN.KUBERNETES.ENDPOINT.LIST.IP' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'creationTimestamp'">
+    <ng-container *clrDgHideableColumn="showState['age']">
+      {{'ADMIN.KUBERNETES.ENDPOINT.LIST.AGE' | translate}}
+    </ng-container>
+  </clr-dg-column>
+
+
+  <clr-dg-row *ngFor="let obj of resources" [clrDgItem]="obj">
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="onEditEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.EDIT' | translate}}</button>
+      <button class="action-item" (click)="onDeleteEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.DELETE' | translate}}</button>
+    </clr-dg-action-overflow>
+    <clr-dg-cell> {{ obj.metadata.name }} </clr-dg-cell>
+    <clr-dg-cell> {{ obj.metadata.namespace }} </clr-dg-cell>
+    <clr-dg-cell>
+      <div *ngFor="let subset of obj.subsets">
+        <div *ngFor="let port of subset.ports">
+          {{ port.port }} / {{ port.protocol }}
+        </div>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell>
+      <div *ngFor="let subset of obj.subsets">
+        <div *ngFor="let addresse of subset.addresses">
+          {{ addresse.ip }}
+        </div>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell> {{ obj.metadata.creationTimestamp | relativeTime}} </clr-dg-cell>
+  </clr-dg-row>
+  <clr-dg-footer>
+    <wayne-paginate
+      [(currentPage)]="currentPage"
+      [total]="page.totalCount"
+      [pageSizes]="[10, 20, 50]"
+      (sizeChange)="pageSizeChange($event)">
+    </wayne-paginate>
+  </clr-dg-footer>
+</clr-datagrid>

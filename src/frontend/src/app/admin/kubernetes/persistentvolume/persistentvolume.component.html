@@ -1,13 +1,13 @@
-<div class="row">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<div class="clr-row">
+  <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
 
     <div class="table-search">
       <div class="table-search-left">
-        <button class="wayne-button normal" (click)="retrieve()">
-          刷新
-        </button>
         <button class="wayne-button normal" (click)="openModal()">
           创建持久化存储
+        </button>
+        <button class="wayne-button normal" (click)="retrieve()">
+          刷新
         </button>
         <wayne-filter-box (confirm)="confirmEvent()" (cancel)="cancelEvent()">
           <wayne-checkbox-group [(ngModel)]="showList">
@@ -36,5 +36,5 @@
 </div>
 <wayne-float-window value="{{cluster}}">
   <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster"
-                           (click)="jumpTo(cluster)"></wayne-float-window-item>
+                           (click)="jumpToHref(cluster)"></wayne-float-window-item>
 </wayne-float-window>

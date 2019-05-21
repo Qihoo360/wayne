@@ -5,7 +5,6 @@ import (
 
 	"k8s.io/api/extensions/v1beta1"
 
-	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/resources/daemonset"
@@ -19,27 +18,21 @@ type KubeDaemonSetController struct {
 
 func (c *KubeDaemonSetController) URLMapping() {
 	c.Mapping("Get", c.Get)
-	c.Mapping("Offline", c.Offline)
-	c.Mapping("Deploy", c.Deploy)
+	c.Mapping("Delete", c.Delete)
+	c.Mapping("Create", c.Create)
 }
 
 func (c *KubeDaemonSetController) Prepare() {
 	// Check administration
 	c.APIController.Prepare()
 
-	perAction := ""
+	methodActionMap := map[string]string{
+		"Get":    models.PermissionRead,
+		"Delete": models.PermissionDelete,
+		"Create": models.PermissionCreate,
+	}
 	_, method := c.GetControllerAndAction()
-	switch method {
-	case "Get":
-		perAction = models.PermissionRead
-	case "Deploy":
-		perAction = models.PermissionDeploy
-	case "Offline":
-		perAction = models.PermissionOffline
-	}
-	if perAction != "" {
-		c.CheckPermission(models.PermissionTypeDaemonSet, perAction)
-	}
+	c.PreparePermission(methodActionMap, method, models.PermissionTypeKubeDaemonSet)
 }
 
 // @Title deploy
@@ -47,7 +40,7 @@ func (c *KubeDaemonSetController) Prepare() {
 // @Param	body	body 	string	true	"The tpl content"
 // @Success 200 return ok success
 // @router /:daemonSetId([0-9]+)/tpls/:tplId([0-9]+)/clusters/:cluster [post]
-func (c *KubeDaemonSetController) Deploy() {
+func (c *KubeDaemonSetController) Create() {
 	daemonSetId := c.GetIntParamFromURL(":daemonSetId")
 	tplId := c.GetIntParamFromURL(":tplId")
 
@@ -58,60 +51,56 @@ func (c *KubeDaemonSetController) Deploy() {
 	}
 
 	cluster := c.Ctx.Input.Param(":cluster")
-	cli, err := client.Client(cluster)
-	if err == nil {
-		namespaceModel, err := getNamespace(c.AppId)
-		if err != nil {
-			logs.Error("get getNamespaceMetaData error.%v", err)
-			c.HandleError(err)
-			return
-		}
-		clusterModel, err := models.ClusterModel.GetParsedMetaDataByName(cluster)
-		if err != nil {
-			logs.Error("get cluster error.%v", err)
-			c.HandleError(err)
-			return
-		}
-		DaemonSetModel, err := models.DaemonSetModel.GetParseMetaDataById(int64(daemonSetId))
-		if err != nil {
-			logs.Error("get daemonSet error.%v", err)
-			c.HandleError(err)
-			return
-		}
-		daemonSetPreDeploy(&kubeDaemonSet, DaemonSetModel, clusterModel, namespaceModel)
-
-		publishHistory := &models.PublishHistory{
-			Type:         models.PublishTypeDaemonSet,
-			ResourceId:   int64(daemonSetId),
-			ResourceName: kubeDaemonSet.Name,
-			TemplateId:   int64(tplId),
-			Cluster:      cluster,
-			User:         c.User.Name,
-		}
-
-		defer models.PublishHistoryModel.Add(publishHistory)
-
-		// 发布资源到k8s平台
-		_, err = daemonset.CreateOrUpdateDaemonSet(cli, &kubeDaemonSet)
-		if err != nil {
-			publishHistory.Status = models.ReleaseFailure
-			publishHistory.Message = err.Error()
-			logs.Error("deploy daemonSet error.%v", err)
-			c.HandleError(err)
-			return
-		} else {
-			publishHistory.Status = models.ReleaseSuccess
-			err = addDeployStatus(daemonSetId, tplId, cluster)
-			if err != nil {
-				logs.Error("add daemonSet deploy status error.%v", err)
-				c.HandleError(err)
-				return
-			}
-		}
-		c.Success("ok")
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	cli := c.Client(cluster)
+	namespaceModel, err := getNamespace(c.AppId)
+	if err != nil {
+		logs.Error("get getNamespaceMetaData error.%v", err)
+		c.HandleError(err)
+		return
 	}
+	clusterModel, err := models.ClusterModel.GetParsedMetaDataByName(cluster)
+	if err != nil {
+		logs.Error("get cluster error.%v", err)
+		c.HandleError(err)
+		return
+	}
+	DaemonSetModel, err := models.DaemonSetModel.GetParseMetaDataById(int64(daemonSetId))
+	if err != nil {
+		logs.Error("get daemonSet error.%v", err)
+		c.HandleError(err)
+		return
+	}
+	daemonSetPreDeploy(&kubeDaemonSet, DaemonSetModel, clusterModel, namespaceModel)
+
+	publishHistory := &models.PublishHistory{
+		Type:         models.PublishTypeDaemonSet,
+		ResourceId:   int64(daemonSetId),
+		ResourceName: kubeDaemonSet.Name,
+		TemplateId:   int64(tplId),
+		Cluster:      cluster,
+		User:         c.User.Name,
+	}
+
+	defer models.PublishHistoryModel.Add(publishHistory)
+
+	// 发布资源到k8s平台
+	_, err = daemonset.CreateOrUpdateDaemonSet(cli, &kubeDaemonSet)
+	if err != nil {
+		publishHistory.Status = models.ReleaseFailure
+		publishHistory.Message = err.Error()
+		logs.Error("deploy daemonSet error.%v", err)
+		c.HandleError(err)
+		return
+	} else {
+		publishHistory.Status = models.ReleaseSuccess
+		err = addDeployStatus(daemonSetId, tplId, cluster)
+		if err != nil {
+			logs.Error("add daemonSet deploy status error.%v", err)
+			c.HandleError(err)
+			return
+		}
+	}
+	c.Success("ok")
 }
 
 func addDeployStatus(daemonSetId int64, tplId int64, cluster string) error {
@@ -160,19 +149,16 @@ func (c *KubeDaemonSetController) Get() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":daemonSet")
-	manager, err := client.Manager(cluster)
-	if err == nil {
-		result, err := daemonset.GetDaemonSetDetail(manager.Client, manager.CacheFactory, name, namespace)
-		if err != nil {
-			logs.Error("get kubernetes daemonSet detail error.", cluster, namespace, name, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success(result)
+	manager := c.Manager(cluster)
+
+	result, err := daemonset.GetDaemonSetDetail(manager.Client, manager.CacheFactory, name, namespace)
+	if err != nil {
+		logs.Error("get kubernetes daemonSet detail error.", cluster, namespace, name, err)
+		c.HandleError(err)
 		return
-	} else {
-		c.AbortBadRequestFormat("Cluster")
 	}
+	c.Success(result)
+	return
 }
 
 // @Title Delete
@@ -182,20 +168,17 @@ func (c *KubeDaemonSetController) Get() {
 // @Param	daemonSet		path 	string	true		"the daemonSet name want to delete"
 // @Success 200 {string} delete success!
 // @router /:daemonSet/namespaces/:namespace/clusters/:cluster [delete]
-func (c *KubeDaemonSetController) Offline() {
+func (c *KubeDaemonSetController) Delete() {
 	cluster := c.Ctx.Input.Param(":cluster")
 	namespace := c.Ctx.Input.Param(":namespace")
 	name := c.Ctx.Input.Param(":daemonSet")
-	cli, err := client.Client(cluster)
-	if err == nil {
-		err := daemonset.DeleteDaemonSet(cli, name, namespace)
-		if err != nil {
-			logs.Error("delete daemonSet (%s) by cluster (%s) error.%v", name, cluster, err)
-			c.HandleError(err)
-			return
-		}
-		c.Success("ok!")
-	} else {
-		c.AbortBadRequestFormat("Cluster")
+	cli := c.Client(cluster)
+
+	err := daemonset.DeleteDaemonSet(cli, name, namespace)
+	if err != nil {
+		logs.Error("delete daemonSet (%s) by cluster (%s) error.%v", name, cluster, err)
+		c.HandleError(err)
+		return
 	}
+	c.Success("ok!")
 }

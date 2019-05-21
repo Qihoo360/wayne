@@ -14,7 +14,11 @@ Wayne has been serving [360 search](https://www.so.com/?src=wayne) on a large sc
 
 > Why Named **Wayne**:Most of the projects developed by the team of 360 ​​Search Private Cloud are named after DC comics, and [Wayne](https://en.wikipedia.org/wiki/Batman#Bruce_Wayne) is no exception. "Wayne" is the name of the famous superhero, Batman Bruce Wayne.
 
-![Dashboard UI workloads page](https://raw.githubusercontent.com/wiki/Qihoo360/wayne/image/dashboard-ui.png)
+![Dashboard](https://360yun.org/wayne/images/dashboard-ui.png)
+
+## Demo
+
+[https://demo.360yun.org](https://demo.360yun.org)
 
 ## Features
 
@@ -32,7 +36,7 @@ Wayne has been serving [360 search](https://www.so.com/?src=wayne) on a large sc
 ## Architecture
 
 The whole system adopts the separation of front and back ends, in which the front end uses Angular framework for data interaction and display, and the Ace editor is used for Kubernetes resource template editing. The backend uses the Beego framework for data interface processing, Client-go to interact with Kubernetes, and data for MySQL storage.
-![Dashboard UI workloads page](https://raw.githubusercontent.com/wiki/Qihoo360/wayne/image/architecture-en.png)
+![Architecture](https://360yun.org/wayne/images/architecture.png)
 
 ## Component
 

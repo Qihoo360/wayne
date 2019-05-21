@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BreadcrumbService } from '../../../shared/client/v1/breadcrumb.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { State } from '@clr/angular';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { Statefulset } from '../../../shared/model/v1/statefulset';
 import { Page } from '../../../shared/page/page-state';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
@@ -11,29 +10,19 @@ import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
   selector: 'list-statefulset',
   templateUrl: 'list-statefulset.component.html'
 })
-export class ListStatefulsetComponent implements OnInit {
+export class ListStatefulsetComponent {
 
   @Input() statefulsets: Statefulset[];
 
   @Input() page: Page;
-  state: State;
+  state: ClrDatagridStateInterface;
   currentPage = 1;
 
-  @Output() paginate = new EventEmitter<State>();
+  @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<Statefulset>();
   @Output() edit = new EventEmitter<Statefulset>();
 
-  constructor(
-    private breadcrumbService: BreadcrumbService,
-    private router: Router,
-    private aceEditorService: AceEditorService
-  ) {
-    breadcrumbService.hideRoute('/admin/statefulset/relate-tpl');
-    breadcrumbService.hideRoute('/admin/statefulset/app');
-  }
-
-  ngOnInit(): void {
-  }
+  constructor( private router: Router, private aceEditorService: AceEditorService) {}
 
   pageSizeChange(pageSize: number) {
     this.state.page.to = pageSize - 1;
@@ -43,13 +32,28 @@ export class ListStatefulsetComponent implements OnInit {
   }
 
 
-  refresh(state: State) {
+  refresh(state: ClrDatagridStateInterface) {
     this.state = state;
     this.paginate.emit(state);
   }
 
   deleteStatefulset(statefulset: Statefulset) {
     this.delete.emit(statefulset);
+  }
+
+  goToLink(obj: Statefulset, gate: string) {
+    let linkUrl = '';
+    switch (gate) {
+      case 'tpl':
+        linkUrl = `/admin/statefulset/tpl?statefulsetId=${obj.id}`;
+        break;
+      case 'app':
+        linkUrl = `admin/app?id=${obj.app.id}`;
+        break;
+      default:
+        break;
+    }
+    this.router.navigateByUrl(linkUrl);
   }
 
   editStatefulset(statefulset: Statefulset) {

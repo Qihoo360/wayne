@@ -39,6 +39,35 @@ import { IngressTplModule } from './ingresstpl/ingresstpl.module';
 import { KubeDeploymentModule } from './kubernetes/deployment/kube-deployment.module';
 import { TplDetailModule } from '../shared/tpl-detail/tpl-detail.module';
 import { KubeNamespaceModule } from './kubernetes/namespace/kube-namespace.module';
+import { AutoscaleComponent } from './autoscale/autoscale.component';
+import { AutoscaletplComponent } from './autoscaletpl/autoscaletpl.component';
+import { CreateEditAutoscaleComponent } from './autoscale/create-edit-autoscale/create-edit-autoscale.component';
+import { ListAutoscaleComponent } from './autoscale/list-autoscale/list-autoscale.component';
+import { TrashAutoscaleComponent } from './autoscale/trash-autoscale/trash-autoscale.component';
+import { CreateEditAutoscaletplComponent } from './autoscaletpl/create-edit-autoscaletpl/create-edit-autoscaletpl.component';
+import { ListAutoscaletplComponent } from './autoscaletpl/list-autoscaletpl/list-autoscaletpl.component';
+import { TrashAutoscaletplComponent } from './autoscaletpl/trash-autoscaletpl/trash-autoscaletpl.component';
+import { SidenavModule } from './sidenav/sidenav.module';
+import { KubePodModule } from './kubernetes/pod/kube-pod.module';
+import { KubeServiceModule } from './kubernetes/service/kube-service.module';
+import { KubeEndpointModule } from './kubernetes/endpoint/kube-endpoint.module';
+import { KubeConfigmapModule } from './kubernetes/configmap/kube-configmap.module';
+import { KubeSecretModule } from './kubernetes/secret/kube-secret.module';
+import { KubeIngressModule } from './kubernetes/ingress/kube-ingress.module';
+import { KubeStatefulsetModule } from './kubernetes/statefulset/kube-statefulset.module';
+import { KubeDaemonsetModule } from './kubernetes/daemonset/kube-daemonset.module';
+import { KubeCronjobModule } from './kubernetes/cronjob/kube-cronjob.module';
+import { KubeJobModule } from './kubernetes/job/kube-job.module';
+import { KubeReplicasetModule } from './kubernetes/replicaset/kube-replicaset.module';
+import { KubePvcModule } from './kubernetes/pvc/kube-pvc.module';
+import { KubeStorageclassModule } from './kubernetes/storageclass/kube-storageclass.module';
+import { KubeHpaModule } from './kubernetes/hpa/kube-hpa.module';
+import { KubeRoleModule } from './kubernetes/role/kube-role.module';
+import { KubeRolebindingModule } from './kubernetes/rolebinding/kube-rolebinding.module';
+import { KubeServiceaccountModule } from './kubernetes/serviceaccount/kube-serviceaccount.module';
+import { KubeClusterroleModule } from './kubernetes/clusterrole/kube-clusterrole.module';
+import { KubeClusterrolebindingModule } from './kubernetes/clusterrolebinding/kube-clusterrolebinding.module';
+import { KubeCrdModule } from './kubernetes/crd/kube-crd.module';
 
 @NgModule({
   imports: [
@@ -78,13 +107,38 @@ import { KubeNamespaceModule } from './kubernetes/namespace/kube-namespace.modul
     IngressModule,
     IngressTplModule,
     KubeDeploymentModule,
-    TplDetailModule
+    TplDetailModule,
+    SidenavModule,
+    KubePodModule,
+    KubeServiceModule,
+    KubeEndpointModule,
+    KubeConfigmapModule,
+    KubeSecretModule,
+    KubeIngressModule,
+    KubeStatefulsetModule,
+    KubeDaemonsetModule,
+    KubeCronjobModule,
+    KubeJobModule,
+    KubeReplicasetModule,
+    KubeJobModule,
+    KubePvcModule,
+    KubeStorageclassModule,
+    KubeHpaModule,
+    KubeRoleModule,
+    KubeRolebindingModule,
+    KubeServiceaccountModule,
+    KubeClusterroleModule,
+    KubeClusterrolebindingModule,
+    KubeNamespaceModule,
+    KubeCrdModule
   ],
   providers: [
     AdminAuthCheckGuard,
     AuthService
   ],
-  declarations: [AdminComponent]
+  declarations: [AdminComponent, AutoscaleComponent, AutoscaletplComponent,
+    CreateEditAutoscaleComponent, ListAutoscaleComponent, TrashAutoscaleComponent,
+    CreateEditAutoscaletplComponent, ListAutoscaletplComponent, TrashAutoscaletplComponent]
 })
 export class AdminModule {
 }

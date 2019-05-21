@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { Location } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import { FormBuilder, NgForm } from '@angular/forms';
-import { DOCUMENT, EventManager } from '@angular/platform-browser';
+import { EventManager } from '@angular/platform-browser';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import {
   ConfigMapEnvSource,
@@ -34,43 +34,12 @@ import { Statefulset } from '../../../shared/model/v1/statefulset';
 import { StatefulsetTplService } from '../../../shared/client/v1/statefulsettpl.service';
 import { StatefulsetTemplate } from '../../../shared/model/v1/statefulsettpl';
 import { defaultStatefulset } from '../../../shared/default-models/statefulset.const';
-import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AceEditorMsg } from '../../../shared/ace-editor/ace-editor';
 import { ResourceUnitConvertor } from '../../../shared/utils';
-
-const templateDom = [
-  {
-    id: '创建状态副本集模版',
-    child: [
-      {
-        id: '发布信息',
-      },
-      {
-        id: '更新策略'
-      }
-    ]
-  }
-];
-
-const containerDom = {
-  id: '容器配置',
-  child: [
-    {
-      id: '镜像配置'
-    },
-    {
-      id: '环境变量配置'
-    },
-    {
-      id: '可用性检查'
-    },
-    {
-      id: '存活检查'
-    }
-  ]
-};
+import { containerDom, ContainerTpl, templateDom } from '../../../shared/base/container/container-tpl';
 
 @Component({
   selector: 'create-edit-statefulsettpl',
@@ -78,7 +47,7 @@ const containerDom = {
   styleUrls: ['create-edit-statefulsettpl.scss']
 })
 
-export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CreateEditStatefulsettplComponent extends ContainerTpl implements OnInit, AfterViewInit, OnDestroy {
   ngForm: NgForm;
   @ViewChild('ngForm')
   currentForm: NgForm;
@@ -88,10 +57,8 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
   isSubmitOnGoing = false;
   app: App;
   statefulset: Statefulset;
-  kubeStatefulSet: KubeStatefulSet = new KubeStatefulSet();
   top: number;
   box: HTMLElement;
-  naviList = JSON.stringify(templateDom);
   cpuUnitPrice = 30;
   memoryUnitPrice = 10;
   eventList: any[] = Array();
@@ -108,9 +75,8 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
               private route: ActivatedRoute,
               private messageHandlerService: MessageHandlerService,
               @Inject(DOCUMENT) private document: any,
-              private eventManager: EventManager
-  ) {
-
+              private eventManager: EventManager) {
+    super(templateDom, containerDom);
   }
 
   ngAfterViewInit() {
@@ -141,32 +107,6 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
         this.top = this.box.scrollTop + this.box.offsetHeight - 48;
       }, 0);
     }
-  }
-
-  get containersLength(): number {
-    try {
-      return this.kubeStatefulSet.spec.template.spec.containers.length;
-    } catch (error) {
-      return 0;
-    }
-  }
-
-  setContainDom(i) {
-    const dom = JSON.parse(JSON.stringify(containerDom));
-    dom.id += i ? i : '';
-    dom.child.forEach(item => {
-      item.id += i ? i : '';
-    });
-    return dom;
-  }
-
-  initNavList() {
-    this.naviList = null;
-    const naviList = JSON.parse(JSON.stringify(templateDom));
-    for (let key = 0; key < this.containersLength; key++) {
-      naviList[0].child.push(this.setContainDom(key));
-    }
-    this.naviList = JSON.stringify(naviList);
   }
 
   checkIfInvalid(index: number, field: string): boolean {
@@ -225,7 +165,7 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
     } else {
       this.actionType = ActionType.ADD_NEW;
     }
-    Observable.combineLatest(observables).subscribe(
+    combineLatest(observables).subscribe(
       response => {
         this.app = response[0].data;
         this.statefulset = response[1].data;
@@ -264,61 +204,63 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
     return result;
   }
 
-  fillStatefulsetLabel(kubeStatefulSet: KubeStatefulSet): KubeStatefulSet {
-    kubeStatefulSet.metadata.name = this.statefulset.name;
-    kubeStatefulSet.metadata.labels = this.buildLabels(this.kubeStatefulSet.metadata.labels);
-    kubeStatefulSet.spec.selector.matchLabels = this.buildSelectorLabels(this.kubeStatefulSet.spec.selector.matchLabels);
-    kubeStatefulSet.spec.template.metadata.labels = this.buildLabels(this.kubeStatefulSet.spec.template.metadata.labels);
-    return kubeStatefulSet;
+  fillStatefulsetLabel(kubeResource: KubeStatefulSet): KubeStatefulSet {
+    kubeResource.metadata.name = this.statefulset.name;
+    kubeResource.metadata.labels = this.buildLabels(this.kubeResource.metadata.labels);
+    kubeResource.spec.selector.matchLabels = this.buildSelectorLabels(this.kubeResource.spec.selector.matchLabels);
+    kubeResource.spec.template.metadata.labels = this.buildLabels(this.kubeResource.spec.template.metadata.labels);
+    return kubeResource;
   }
 
   initDefaultStatefulset() {
-    this.kubeStatefulSet = JSON.parse(defaultStatefulset);
-    this.kubeStatefulSet.spec.template.spec.containers.push(this.defaultContainer());
+    this.kubeResource = JSON.parse(defaultStatefulset);
+    this.kubeResource.spec.template.spec.containers.push(this.defaultContainer());
   }
 
   onDeleteContainer(index: number) {
-    this.kubeStatefulSet.spec.template.spec.containers.splice(index, 1);
+    this.kubeResource.spec.template.spec.containers.splice(index, 1);
     this.initNavList();
   }
 
   onAddContainer() {
-    this.kubeStatefulSet.spec.template.spec.containers.push(this.defaultContainer());
+    this.kubeResource.spec.template.spec.containers.push(this.defaultContainer());
     this.initNavList();
   }
 
-  onAddEnv(index: number) {
-    if (!this.kubeStatefulSet.spec.template.spec.containers[index].env) {
-      this.kubeStatefulSet.spec.template.spec.containers[index].env = [];
+  onAddEnv(index: number, event: Event) {
+    event.stopPropagation();
+    if (!this.kubeResource.spec.template.spec.containers[index].env) {
+      this.kubeResource.spec.template.spec.containers[index].env = [];
     }
-    this.kubeStatefulSet.spec.template.spec.containers[index].env.push(this.defaultEnv(0));
+    this.kubeResource.spec.template.spec.containers[index].env.push(this.defaultEnv(0));
   }
 
-  onAddEnvFrom(index: number) {
-    if (!this.kubeStatefulSet.spec.template.spec.containers[index].envFrom) {
-      this.kubeStatefulSet.spec.template.spec.containers[index].envFrom = [];
+  onAddEnvFrom(index: number, event: Event) {
+    event.stopPropagation();
+    if (!this.kubeResource.spec.template.spec.containers[index].envFrom) {
+      this.kubeResource.spec.template.spec.containers[index].envFrom = [];
     }
-    this.kubeStatefulSet.spec.template.spec.containers[index].envFrom.push(this.defaultEnvFrom(1));
+    this.kubeResource.spec.template.spec.containers[index].envFrom.push(this.defaultEnvFrom(1));
   }
 
   onDeleteEnv(i: number, j: number) {
-    this.kubeStatefulSet.spec.template.spec.containers[i].env.splice(j, 1);
+    this.kubeResource.spec.template.spec.containers[i].env.splice(j, 1);
   }
 
   onDeleteEnvFrom(i: number, j: number) {
-    this.kubeStatefulSet.spec.template.spec.containers[i].envFrom.splice(j, 1);
+    this.kubeResource.spec.template.spec.containers[i].envFrom.splice(j, 1);
   }
 
   envChange(type: number, i: number, j: number) {
-    this.kubeStatefulSet.spec.template.spec.containers[i].env[j] = this.defaultEnv(type);
+    this.kubeResource.spec.template.spec.containers[i].env[j] = this.defaultEnv(type);
   }
 
   envFromChange(type: number, i: number, j: number) {
-    this.kubeStatefulSet.spec.template.spec.containers[i].envFrom[j] = this.defaultEnvFrom(type);
+    this.kubeResource.spec.template.spec.containers[i].envFrom[j] = this.defaultEnvFrom(type);
   }
 
   readinessProbeChange(i: number) {
-    let probe = this.kubeStatefulSet.spec.template.spec.containers[i].readinessProbe;
+    let probe = this.kubeResource.spec.template.spec.containers[i].readinessProbe;
     if (probe) {
       probe = undefined;
     } else {
@@ -326,13 +268,14 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
       probe.httpGet = new HTTPGetAction();
       probe.timeoutSeconds = 1;
       probe.periodSeconds = 10;
+      probe.initialDelaySeconds = 30;
       probe.failureThreshold = 10;
     }
-    this.kubeStatefulSet.spec.template.spec.containers[i].readinessProbe = probe;
+    this.kubeResource.spec.template.spec.containers[i].readinessProbe = probe;
   }
 
   livenessProbeChange(i: number) {
-    let probe = this.kubeStatefulSet.spec.template.spec.containers[i].livenessProbe;
+    let probe = this.kubeResource.spec.template.spec.containers[i].livenessProbe;
     if (probe) {
       probe = undefined;
     } else {
@@ -343,7 +286,7 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
       probe.failureThreshold = 10;
       probe.initialDelaySeconds = 30;
     }
-    this.kubeStatefulSet.spec.template.spec.containers[i].livenessProbe = probe;
+    this.kubeResource.spec.template.spec.containers[i].livenessProbe = probe;
   }
 
   probeTypeChange(probe: Probe, type: number) {
@@ -370,11 +313,11 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
   }
 
   livenessProbeTypeChange(type: number, i: number) {
-    this.probeTypeChange(this.kubeStatefulSet.spec.template.spec.containers[i].livenessProbe, type);
+    this.probeTypeChange(this.kubeResource.spec.template.spec.containers[i].livenessProbe, type);
   }
 
   readinessProbeTypeChange(type: number, i: number) {
-    this.probeTypeChange(this.kubeStatefulSet.spec.template.spec.containers[i].readinessProbe, type);
+    this.probeTypeChange(this.kubeResource.spec.template.spec.containers[i].readinessProbe, type);
   }
 
   trackByFn(index, item) {
@@ -387,6 +330,7 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
     container.resources.limits = {'memory': '', 'cpu': ''};
     container.env = [];
     container.envFrom = [];
+    container.imagePullPolicy = 'IfNotPresent';
     return container;
   }
 
@@ -428,7 +372,7 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
       return;
     }
     this.isSubmitOnGoing = true;
-    let newState = JSON.parse(JSON.stringify(this.kubeStatefulSet));
+    let newState = JSON.parse(JSON.stringify(this.kubeResource));
     newState = this.generateStatefulset(newState);
     this.statefulsetTpl.statefulsetId = this.statefulset.id;
     this.statefulsetTpl.template = JSON.stringify(newState);
@@ -449,7 +393,7 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
 
   }
 
-  addResourceUnit(kubeStatefulSet: KubeStatefulSet): KubeStatefulSet {
+  addResourceUnit(kubeResource: KubeStatefulSet): KubeStatefulSet {
     let cpuRequestLimitPercent = 0.5;
     let memoryRequestLimitPercent = 1;
     if (this.statefulset.metaData) {
@@ -470,7 +414,7 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
       }
     }
 
-    for (const container of kubeStatefulSet.spec.template.spec.containers) {
+    for (const container of kubeResource.spec.template.spec.containers) {
       const memoryLimit = container.resources.limits['memory'];
       const cpuLimit = container.resources.limits['cpu'];
       if (!container.resources.requests) {
@@ -485,13 +429,13 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
         container.resources.requests['cpu'] = (parseFloat(cpuLimit) * cpuRequestLimitPercent).toString();
       }
     }
-    return kubeStatefulSet;
+    return kubeResource;
   }
 
   get totalFee() {
     let fee = 0;
-    if (this.kubeStatefulSet.spec.template.spec.containers) {
-      for (const container of this.kubeStatefulSet.spec.template.spec.containers) {
+    if (this.kubeResource.spec.template.spec.containers) {
+      for (const container of this.kubeResource.spec.template.spec.containers) {
         const limit = container.resources.limits;
         const cpu = limit['cpu'];
         const memory = limit['memory'];
@@ -507,12 +451,12 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
     return fee;
   }
 
-  saveStatefulset(kubeStatefulSet: KubeStatefulSet) {
-    // this.removeResourceUnit(kubeStatefulSet);
-    this.removeUnused(kubeStatefulSet);
-    this.fillDefault(kubeStatefulSet);
-    this.convertProbeCommandToText(kubeStatefulSet);
-    this.kubeStatefulSet = kubeStatefulSet;
+  saveStatefulset(kubeResource: KubeStatefulSet) {
+    // this.removeResourceUnit(kubeResource);
+    this.removeUnused(kubeResource);
+    this.fillDefault(kubeResource);
+    this.convertProbeCommandToText(kubeResource);
+    this.kubeResource = kubeResource;
     this.initNavList();
   }
 
@@ -527,9 +471,9 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
     obj.status = undefined;
   }
 
-  convertProbeCommandToText(kubeStatefulSet: KubeStatefulSet) {
-    if (kubeStatefulSet.spec.template.spec.containers && kubeStatefulSet.spec.template.spec.containers.length > 0) {
-      for (const container of kubeStatefulSet.spec.template.spec.containers) {
+  convertProbeCommandToText(kubeResource: KubeStatefulSet) {
+    if (kubeResource.spec.template.spec.containers && kubeResource.spec.template.spec.containers.length > 0) {
+      for (const container of kubeResource.spec.template.spec.containers) {
         if (container.livenessProbe && container.livenessProbe.exec &&
           container.livenessProbe.exec.command && container.livenessProbe.exec.command.length > 0) {
           const commands = container.livenessProbe.exec.command;
@@ -545,16 +489,16 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
       }
     }
 
-    return kubeStatefulSet;
+    return kubeResource;
   }
 
-  fillDefault(kubeStatefulSet: KubeStatefulSet) {
-    if (!kubeStatefulSet.spec.updateStrategy) {
-      kubeStatefulSet.spec.updateStrategy = StatefulSetUpdateStrategy.emptyObject();
-      kubeStatefulSet.spec.updateStrategy.type = 'OnDelete';
+  fillDefault(kubeResource: KubeStatefulSet) {
+    if (!kubeResource.spec.updateStrategy) {
+      kubeResource.spec.updateStrategy = StatefulSetUpdateStrategy.emptyObject();
+      kubeResource.spec.updateStrategy.type = 'OnDelete';
     }
-    if (kubeStatefulSet.spec.template.spec.containers && kubeStatefulSet.spec.template.spec.containers.length > 0) {
-      for (const container of kubeStatefulSet.spec.template.spec.containers) {
+    if (kubeResource.spec.template.spec.containers && kubeResource.spec.template.spec.containers.length > 0) {
+      for (const container of kubeResource.spec.template.spec.containers) {
         if (!container.resources) {
           container.resources = ResourceRequirements.emptyObject();
         }
@@ -567,16 +511,16 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
     }
   }
 
-  generateStatefulset(kubeStatefulSet: KubeStatefulSet): KubeStatefulSet {
-    kubeStatefulSet = this.convertProbeCommandToArray(kubeStatefulSet);
-    kubeStatefulSet = this.addResourceUnit(kubeStatefulSet);
-    kubeStatefulSet = this.fillStatefulsetLabel(kubeStatefulSet);
-    return kubeStatefulSet;
+  generateStatefulset(kubeResource: KubeStatefulSet): KubeStatefulSet {
+    kubeResource = this.convertProbeCommandToArray(kubeResource);
+    kubeResource = this.addResourceUnit(kubeResource);
+    kubeResource = this.fillStatefulsetLabel(kubeResource);
+    return kubeResource;
   }
 
-  convertProbeCommandToArray(kubeStatefulSet: KubeStatefulSet): KubeStatefulSet {
-    if (kubeStatefulSet.spec.template.spec.containers && kubeStatefulSet.spec.template.spec.containers.length > 0) {
-      for (const container of kubeStatefulSet.spec.template.spec.containers) {
+  convertProbeCommandToArray(kubeResource: KubeStatefulSet): KubeStatefulSet {
+    if (kubeResource.spec.template.spec.containers && kubeResource.spec.template.spec.containers.length > 0) {
+      for (const container of kubeResource.spec.template.spec.containers) {
         if (container.livenessProbe && container.livenessProbe.exec &&
           container.livenessProbe.exec.command && container.livenessProbe.exec.command.length > 0) {
           container.livenessProbe.exec.command = container.livenessProbe.exec.command[0].split('\n');
@@ -588,13 +532,13 @@ export class CreateEditStatefulsettplComponent implements OnInit, AfterViewInit,
       }
     }
 
-    return kubeStatefulSet;
+    return kubeResource;
   }
 
   openModal(): void {
     // let copy = Object.assign({}, myObject).
     // but this wont work for nested objects. SO an alternative would be
-    let newState = JSON.parse(JSON.stringify(this.kubeStatefulSet));
+    let newState = JSON.parse(JSON.stringify(this.kubeResource));
     newState = this.generateStatefulset(newState);
     this.aceEditorService.announceMessage(AceEditorMsg.Instance(newState, true));
   }
