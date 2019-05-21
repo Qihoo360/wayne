@@ -13,7 +13,7 @@ type invoiceModel struct{}
 type Invoice struct {
 	Id        int64  `orm:"auto" json:"id,omitempty"`
 	Namespace string `orm:"size(1024)" json:"namespace,omitempty"`
-	App       string `orm:"index;size(1024)" json:"app,omitempty"`
+	App       string `orm:"index;size(128)" json:"app,omitempty"`
 
 	Amount float64 `orm:"digits(12);decimals(4)" json:"amount,omitempty"`
 

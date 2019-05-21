@@ -18,9 +18,9 @@ type chargeModel struct{}
 type Charge struct {
 	Id        int64  `orm:"auto" json:"id,omitempty"`
 	Namespace string `orm:"size(1024)" json:"namespace,omitempty"`
-	App       string `orm:"index;size(1024)" json:"app,omitempty"`
+	App       string `orm:"index;size(128)" json:"app,omitempty"`
 	Name      string `orm:"size(1024)" json:"name,omitempty"`
-	Type      string `orm:"index;size(1024)" json:"type,omitempty"`
+	Type      string `orm:"index;size(128)" json:"type,omitempty"`
 
 	UnitPrice float64 `orm:"digits(12);decimals(4)" json:"unitPrice,omitempty"`
 	Quantity  int     `orm:"int(11)" json:"quantity,omitempty"`
