@@ -82,13 +82,9 @@ func (c *OpenAPIController) ListNamespaceUsers() {
 //       500: responseState
 // @router /list_namespace_apps [get]
 func (c *OpenAPIController) ListNamespaceApps() {
-	//if !c.CheckoutRoutePermission(ListNamespaceApps) {
-	//	return
-	//}
-	//if c.APIKey.Type != models.NamespaceAPIKey {
-	//	c.AddErrorAndResponse("You can only use namespace APIKey in this action!", http.StatusUnauthorized)
-	//	return
-	//}
+	if !c.CheckoutRoutePermission(ListNamespaceApps) {
+		return
+	}
 	ns := c.GetString("namespace")
 	if ns == "" {
 		c.AddErrorAndResponse("Invalid namespace parameter!", http.StatusBadRequest)
