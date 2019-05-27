@@ -129,6 +129,16 @@ func (*appModel) GetNames(deleted bool) ([]App, error) {
 	return apps, nil
 }
 
+func (m *appModel) GetAppsByNamespaceId(nid int64, deleted bool) (apps []App, err error) {
+	qs := Ormer().QueryTable(TableNameApp).RelatedSel(TableNameNamespace).
+		Filter("namespace__id__exact", nid).
+		Filter("deleted__exact", deleted)
+	if _, err = qs.All(&apps); err != nil {
+		return
+	}
+	return
+}
+
 func (m *appModel) Add(a *App) (id int64, err error) {
 	// add app
 	err = Ormer().Read(a, "name", "namespace_id")
@@ -188,6 +198,14 @@ func (*appModel) DeleteById(id int64, logical bool) (err error) {
 func (*appModel) GetByName(name string) (a *App, err error) {
 	a = &App{Name: name}
 	if err = Ormer().Read(a, "name"); err == nil {
+		return a, nil
+	}
+	return nil, err
+}
+
+func (*appModel) GetByNameAndDeleted(name string, deleted bool) (a *App, err error) {
+	a = &App{Name: name, Deleted: deleted}
+	if err = Ormer().Read(a, "name", "deleted"); err == nil {
 		return a, nil
 	}
 	return nil, err
