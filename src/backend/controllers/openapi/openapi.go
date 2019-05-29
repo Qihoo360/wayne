@@ -52,7 +52,12 @@ const (
 	ScaleDeploymentAction     = "SCALE_DEPLOYMENT"
 	RestartDeploymentAction   = "RESTART_DEPLOYMENT"
 	GetPodListAction          = "GET_POD_LIST"
-	PermissionPrefix          = "OPENAPI_"
+
+	ListNamespaceUsers = "LIST_NAMESPACE_USERS"
+	ListNamespaceApps  = "LIST_NAMESPACE_APPS"
+	ListAppDeploys     = "List_APP_DEPLOYS"
+
+	PermissionPrefix = "OPENAPI_"
 )
 
 type OpenAPIController struct {
