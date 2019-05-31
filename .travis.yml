@@ -16,6 +16,7 @@ matrix:
       script:
         - pwd
         - echo '' >  /home/travis/gopath/src/github.com/Qihoo360/wayne/src/backend/conf/dev.conf
+        - export GO111MODULE=on
         - cd src/backend && go run main.go -h
     - language: node_js
       os:
