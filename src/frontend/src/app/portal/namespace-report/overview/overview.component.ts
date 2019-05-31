@@ -93,6 +93,10 @@ export class OverviewComponent implements OnInit {
   }
 
   getClusterMaxNumber() {
-    return Math.floor((this.element.nativeElement.querySelector('.form-box').offsetWidth * 0.83 - 20) / 140);
+    return Math.floor((this.element.nativeElement.querySelector('.clr-col-sm-10').offsetWidth * 0.83 - 20) / 140);
+  }
+
+  showMoreCluster() {
+    this.showNumber = this.clusters.length;
   }
 }
