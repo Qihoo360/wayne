@@ -33,8 +33,7 @@
           </ng-container>
         </div>
         <p class="card-show-p">
-          <span  (click)="changeCard()">
-            <!-- *ngIf="clusters.length >= allowNumber" -->
+          <span *ngIf="clusters.length >= allowNumber"  (click)="changeCard()">
             <span *ngIf="!allowShowAll">{{'ACTION.UNFOLD' | translate}}</span>
             <span *ngIf="allowShowAll">{{'ACTION.FOLD' | translate}}</span>
             <svg class="card-change-svg" width="12" height="12" xmlns="http://www.w3.org/2000/svg"
