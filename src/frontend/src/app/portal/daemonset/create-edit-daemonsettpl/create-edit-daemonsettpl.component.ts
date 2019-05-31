@@ -382,6 +382,7 @@ export class CreateEditDaemonSetTplComponent extends ContainerTpl implements OnI
     this.daemonSetTpl.template = JSON.stringify(newDaemonSet);
     this.daemonSetTpl.id = undefined;
     this.daemonSetTpl.name = this.daemonSet.name;
+    this.daemonSetTpl.createTime = this.daemonSetTpl.updateTime = new Date();
     this.daemonSetTplService.create(this.daemonSetTpl, this.app.id).subscribe(
       status => {
         this.isSubmitOnGoing = false;
