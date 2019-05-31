@@ -10,6 +10,7 @@ export class SecretTpl {
   deleted: boolean;
   user: string;
   createTime: Date;
+  updateTime: Date;
   secret: Secret;
   status: PublishStatus[];
   metaData: string;

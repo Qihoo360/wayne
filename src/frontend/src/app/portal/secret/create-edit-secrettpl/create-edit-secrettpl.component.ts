@@ -226,6 +226,7 @@ export class CreateEditSecretTplComponent implements OnInit, AfterViewInit, OnDe
     const kubeSecret = this.getKubeSecretByForm();
     this.secretTpl.template = JSON.stringify(kubeSecret);
     this.secretTpl.id = undefined;
+    this.secretTpl.createTime = this.secretTpl.updateTime = new Date();
     this.secretTplService.create(this.secretTpl, this.app.id).subscribe(
       status => {
         this.isSubmitOnGoing = false;

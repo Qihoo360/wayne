@@ -378,6 +378,7 @@ export class CreateEditStatefulsettplComponent extends ContainerTpl implements O
     this.statefulsetTpl.template = JSON.stringify(newState);
     this.statefulsetTpl.id = undefined;
     this.statefulsetTpl.name = this.statefulset.name;
+    this.statefulsetTpl.createTime = this.statefulsetTpl.updateTime = new Date();
     this.statefulsetTplService.create(this.statefulsetTpl, this.app.id).subscribe(
       status => {
         this.isSubmitOnGoing = false;

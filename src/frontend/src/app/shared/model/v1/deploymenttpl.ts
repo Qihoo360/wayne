@@ -11,6 +11,7 @@ export class DeploymentTpl {
   deleted: boolean;
   user: string;
   createTime: Date;
+  updateTime?: Date;
   deployment: Deployment;
 
   status: DeploymentStatus[];

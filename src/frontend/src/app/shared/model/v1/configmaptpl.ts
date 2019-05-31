@@ -11,6 +11,7 @@ export class ConfigMapTpl {
   user: string;
   metaData: string;
   createTime: Date;
+  updateTime?: Date;
   configMap: ConfigMap;
   clusters: string[];
   status: PublishStatus[];

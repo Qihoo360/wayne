@@ -225,6 +225,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
     const kubePvc = this.getKubePvcByForm();
     this.pvcTpl.template = JSON.stringify(kubePvc);
     this.pvcTpl.id = undefined;
+    this.pvcTpl.createTime = this.pvcTpl.updateTime = new Date();
     this.pvcTplService.create(this.pvcTpl, this.app.id).subscribe(
       status => {
         this.isSubmitOnGoing = false;
