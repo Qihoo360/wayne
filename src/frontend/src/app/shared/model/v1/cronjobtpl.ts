@@ -13,7 +13,7 @@ export class CronjobTpl {
   user: string;
   metaData: string;
   createTime: Date;
-  upateTime?: Date;
+  updateTime?: Date;
   cronjob: Cronjob;
   clusters: string[];
   status: CronjobStatus[];
