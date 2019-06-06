@@ -47,7 +47,7 @@ build-release-image:
 
 build-frontend-image:
 	@echo "version: $(RELEASE_VERSION)"
-	docker build --no-cache --build-arg RAVEN_DSN=$(RAVEN_DSN) -t $(REGISTRY_URI)/wayne:$(RELEASE_VERSION) -f frontend.Dockerfile .
+	docker build --no-cache --build-arg RAVEN_DSN=$(RAVEN_DSN) -t $(REGISTRY_URI)/wayne-frontend:$(RELEASE_VERSION) -f frontend.Dockerfile .
 
 push-image:
 	docker push $(REGISTRY_URI)/wayne:$(RELEASE_VERSION)
