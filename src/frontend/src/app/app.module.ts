@@ -95,7 +95,7 @@ export class WayneErrorHandler implements ErrorHandler {
     },
     {
       provide: ErrorHandler,
-      useClass: (window as any).RAVEN ? RavenErrorHandler : WayneErrorHandler
+      useClass: (window as any).CONFIG.RAVEN ? RavenErrorHandler : WayneErrorHandler
     }
   ],
   bootstrap: [AppComponent]
