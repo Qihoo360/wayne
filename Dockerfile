@@ -10,8 +10,6 @@ ARG RAVEN_DSN
 
 COPY src/frontend /workspace
 
-RUN sed -i  "s~__ravenDsn__~${RAVEN_DSN}~g" /workspace/src/environments/environment.prod.ts
-
 RUN cd /workspace && \
        npm config set registry https://registry.npm.taobao.org && \
        npm install && \
