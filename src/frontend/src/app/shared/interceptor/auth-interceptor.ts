@@ -5,7 +5,7 @@ import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } fro
 import 'rxjs/add/observable/fromPromise';
 import { LoginTokenKey } from '../shared.const';
 import { resolve } from 'url';
-import { DEV_URL, MASTER_URL } from '../../../base-url';
+
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   baseUrl = 'http://test.qihoo.cloud';
@@ -17,8 +17,8 @@ export class AuthInterceptor implements HttpInterceptor {
       url: resolve(request.url.indexOf('assets/') > -1
         ? '/'
         : process.env.NODE_ENV === 'development'
-          ? DEV_URL
-          : MASTER_URL, request.url)
+          ? (window as any).CONFIG.DEV_URL
+          : (window as any).CONFIG.MASTER_URL, request.url)
     });
     return from(this.handleAccess(apiReq, next));
   }
