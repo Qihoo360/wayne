@@ -8,7 +8,6 @@ RELEASE_VERSION :=$(shell git describe --always --tags)
 UI_BUILD_VERSION :=v1.0.1
 SERVER_BUILD_VERSION :=v1.0.1
 
-
 release: build-release-image push-image
 
 update-version:
@@ -46,9 +45,12 @@ build-release-image:
 	@echo "version: $(RELEASE_VERSION)"
 	docker build --no-cache --build-arg RAVEN_DSN=$(RAVEN_DSN) -t $(REGISTRY_URI)/wayne:$(RELEASE_VERSION) .
 
+build-frontend-image:
+	@echo "version: $(RELEASE_VERSION)"
+	docker build --no-cache --build-arg RAVEN_DSN=$(RAVEN_DSN) -t $(REGISTRY_URI)/wayne-frontend:$(RELEASE_VERSION) -f frontend.Dockerfile .
+
 push-image:
 	docker push $(REGISTRY_URI)/wayne:$(RELEASE_VERSION)
-
 
 ## server builder image
 build-server-image:
@@ -58,4 +60,3 @@ build-server-image:
 ## ui builder image
 build-ui-image:
 	docker build -f hack/build/ui/Dockerfile -t $(REGISTRY_URI)/wayne-ui-builder:$(UI_BUILD_VERSION) .
-
