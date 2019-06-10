@@ -8,7 +8,6 @@ import { resolve } from 'url';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  baseUrl = 'http://test.qihoo.cloud';
   constructor() {
   }
 
@@ -16,9 +15,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const apiReq = request.clone({
       url: resolve(request.url.indexOf('assets/') > -1
         ? '/'
-        : process.env.NODE_ENV === 'development'
-          ? (window as any).CONFIG.DEV_URL
-          : (window as any).CONFIG.MASTER_URL, request.url)
+        : (window as any).CONFIG.URL, request.url)
     });
     return from(this.handleAccess(apiReq, next));
   }
