@@ -7,9 +7,6 @@ import (
 	"net/http"
 	"path"
 
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/context"
-
 	"github.com/Qihoo360/wayne/src/backend/controllers"
 	"github.com/Qihoo360/wayne/src/backend/controllers/apikey"
 	"github.com/Qihoo360/wayne/src/backend/controllers/app"
@@ -57,6 +54,9 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/health"
 	_ "github.com/Qihoo360/wayne/src/backend/plugins"
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/context"
+	"github.com/astaxie/beego/plugins/cors"
 )
 
 func init() {
@@ -64,6 +64,14 @@ func init() {
 	if beego.BConfig.RunMode == "dev" && path.Base(beego.AppPath) == "_build" {
 		beego.AppPath = path.Join(path.Dir(beego.AppPath), "src/backend")
 	}
+
+	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
+		AllowAllOrigins:  true,
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers", "Content-Type"},
+		ExposeHeaders:    []string{"Content-Length", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers", "Content-Type"},
+		AllowCredentials: true,
+	}))
 
 	beego.Handler("/ws/pods/exec", kpod.CreateAttachHandler("/ws/pods/exec"), true)
 

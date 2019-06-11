@@ -4,6 +4,7 @@ import { from } from 'rxjs';
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import 'rxjs/add/observable/fromPromise';
 import { LoginTokenKey } from '../shared.const';
+import { resolve } from 'url';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -11,7 +12,12 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return from(this.handleAccess(request, next));
+    const apiReq = request.clone({
+      url: resolve(request.url.indexOf('assets/') > -1
+        ? '/'
+        : (window as any).CONFIG.URL, request.url)
+    });
+    return from(this.handleAccess(apiReq, next));
   }
 
   private async handleAccess(request: HttpRequest<any>, next: HttpHandler):

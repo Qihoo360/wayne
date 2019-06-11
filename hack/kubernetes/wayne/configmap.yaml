@@ -2,8 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
-    app: infra-wayne
-  name: infra-wayne
+    app: wayne-backend
+  name: wayne-backend
   namespace: default
 data:
   app.conf: |-
@@ -15,13 +15,17 @@ data:
     EnableDocs = true
     EnableAdmin = true
     StaticDir = public:static
+
     # Custom config
     ShowSql = false
+
     ## if enable username and password login
     EnableDBLogin = true
+
     # token, generate jwt token
     RsaPrivateKey = "./apikey/rsa-private.pem"
     RsaPublicKey = "./apikey/rsa-public.pem"
+
     # token end time. second
     TokenLifeTime=86400
 
@@ -36,7 +40,6 @@ data:
     DBTns = "tcp(mysql-wayne:3306)"
     DBUser = "root"
     DBPasswd = "root"
-    DBLoc = "Asia%2FShanghai"
     DBConnTTL = 30
 
     # web shell auth
@@ -66,3 +69,20 @@ data:
     EnableWebhook = true
     WebhookClientTimeout = 10
     WebhookClientWindowSize = 16
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: wayne-frontend
+  name: wayne-frontend
+  namespace: default
+data:
+  config.js: |-
+    window.CONFIG = {
+      URL: 'http://wayne.backend:8080',
+      RAVEN: false,
+      RAVEN_DSN: 'RAVEN_DSN'
+    };
