@@ -18,6 +18,8 @@ services:
     image: rabbitmq:3.7.8-management
     networks:
       - default
+    expose:
+    - "5672"
     ports:
     - "5672:5672"
   wayne-backend:
@@ -30,10 +32,9 @@ services:
     depends_on:
     - mysql
     - rabbitmq
+    restart: always
     networks:
     - default
-    expose:
-    - "8080"
     ports:
     - "8080:8080"
   wayne-frontend:
@@ -42,9 +43,8 @@ services:
     - ./conf/config.js:/usr/local/openresty/nginx/html/config.js
     depends_on:
     - wayne-backend
+    restart: always
     networks:
     - default
-    expose:
-    - "4200"
     ports:
     - "4200:80"
