@@ -5,6 +5,5 @@
 
 export const environment = {
   production: false,
-  hmr: false,
-  ravenDsn: '__ravenDsn__',
+  hmr: false
 };

@@ -223,6 +223,7 @@ export class CreateEditConfigMapTplComponent implements OnInit, AfterViewInit, O
     const kubeConfigMap = this.getKubeConfigMapByForm();
     this.configMapTpl.template = JSON.stringify(kubeConfigMap);
     this.configMapTpl.id = undefined;
+    this.configMapTpl.createTime = this.configMapTpl.updateTime = new Date();
     this.configMapTplService.create(this.configMapTpl, this.app.id).subscribe(
       status => {
         this.isSubmitOnGoing = false;

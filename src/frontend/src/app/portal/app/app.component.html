@@ -33,9 +33,9 @@
           </ng-container>
         </div>
         <p class="card-show-p">
-          <span *ngIf="clusters.length >= allowNumber" (click)="changeCard()">
-            <span *ngIf="!allowShowAll">{{'ACTION.FOLD' | translate}}</span>
-            <span *ngIf="allowShowAll">{{'ACTION.UNFOLD' | translate}}</span>
+          <span *ngIf="clusters.length >= allowNumber"  (click)="changeCard()">
+            <span *ngIf="!allowShowAll">{{'ACTION.UNFOLD' | translate}}</span>
+            <span *ngIf="allowShowAll">{{'ACTION.FOLD' | translate}}</span>
             <svg class="card-change-svg" width="12" height="12" xmlns="http://www.w3.org/2000/svg"
                  viewBox="0, 0, 20, 10" style="margin-left: 3px;transition: transform 250ms ease-in-out;">
               <polyline points="3,2 10,10 17,2" style="fill: white;stroke: #377aec;stroke-width: 2;"></polyline>

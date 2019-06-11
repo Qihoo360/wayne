@@ -360,6 +360,7 @@ export class CreateEditCronjobTplComponent extends ContainerTpl implements OnIni
 
     this.cronjobTpl.id = undefined;
     this.cronjobTpl.name = this.cronjob.name;
+    this.cronjobTpl.createTime = this.cronjobTpl.updateTime = new Date();
     this.cronjobTplService.create(this.cronjobTpl, this.app.id).subscribe(
       status => {
         this.isSubmitOnGoing = false;

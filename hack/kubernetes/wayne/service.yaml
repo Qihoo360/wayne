@@ -2,14 +2,34 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: infra-wayne
-  name: infra-wayne
+    app: wayne-backend
+  name: wayne-backend
   namespace: default
 spec:
   type: NodePort
   ports:
-  - port: 8080
+  - nodePort: 8080
     protocol: TCP
+    port: 8080
     targetPort: 8080
   selector:
-    app: infra-wayne
+    app: wayne-backend
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: wayne-frontend
+  name: wayne-frontend
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+  - nodePort: 4200
+    protocol: TCP
+    port: 80
+    targetPort: 80
+  selector:
+    app: wayne-frontend

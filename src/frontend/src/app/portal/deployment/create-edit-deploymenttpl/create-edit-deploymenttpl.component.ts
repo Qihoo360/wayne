@@ -476,6 +476,7 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
     this.deploymentTpl.template = JSON.stringify(newState);
     this.deploymentTpl.id = undefined;
     this.deploymentTpl.name = this.deployment.name;
+    this.deploymentTpl.createTime = this.deploymentTpl.updateTime = new Date();
     this.deploymentTplService.create(this.deploymentTpl, this.app.id).subscribe(
       status => {
         this.isSubmitOnGoing = false;
