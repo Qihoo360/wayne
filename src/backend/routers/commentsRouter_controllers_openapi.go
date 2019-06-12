@@ -9,6 +9,15 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/openapi:OpenAPIController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/openapi:OpenAPIController"],
 		beego.ControllerComments{
+			Method:           "ListAppDeploys",
+			Router:           `/get_app_deploys`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams:     param.Make(),
+			Filters:          nil,
+			Params:           nil})
+
+	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/openapi:OpenAPIController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/openapi:OpenAPIController"],
+		beego.ControllerComments{
 			Method:           "GetDeploymentStatus",
 			Router:           `/get_deployment_status`,
 			AllowHTTPMethods: []string{"get"},
@@ -47,6 +56,24 @@ func init() {
 		beego.ControllerComments{
 			Method:           "GetResourceInfo",
 			Router:           `/get_resource_info`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams:     param.Make(),
+			Filters:          nil,
+			Params:           nil})
+
+	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/openapi:OpenAPIController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/openapi:OpenAPIController"],
+		beego.ControllerComments{
+			Method:           "ListNamespaceApps",
+			Router:           `/list_namespace_apps`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams:     param.Make(),
+			Filters:          nil,
+			Params:           nil})
+
+	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/openapi:OpenAPIController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/openapi:OpenAPIController"],
+		beego.ControllerComments{
+			Method:           "ListNamespaceUsers",
+			Router:           `/list_namespace_users`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams:     param.Make(),
 			Filters:          nil,
