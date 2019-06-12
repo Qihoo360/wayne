@@ -72,17 +72,70 @@ data:
 
 ---
 
-apiVersion: v1
-kind: ConfigMap
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   labels:
-    app: wayne-frontend
-  name: wayne-frontend
+    app: wayne-backend
+  name: wayne-backend
   namespace: default
-data:
-  config.js: |-
-    window.CONFIG = {
-      URL: 'http://wayne.backend:8080',
-      RAVEN: false,
-      RAVEN_DSN: 'RAVEN_DSN'
-    };
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wayne-backend
+  template:
+    metadata:
+      labels:
+        app: wayne-backend
+    spec:
+      volumes:
+      - name: config
+        configMap:
+          name: wayne-backend
+      containers:
+      - name: wayne
+        image: '360cloud/wayne-backend:latest'
+        command:
+        - /opt/wayne/backend
+        - apiserver
+        env:
+        - name: GOPATH  # app.conf runmode = dev must set GOPATH
+          value: /go
+        resources:
+          limits:
+            cpu: '0.5'
+            memory: 1Gi
+          requests:
+            cpu: '0.5'
+            memory: 1Gi
+        volumeMounts:
+        - name: config
+          mountPath: /opt/wayne/conf/
+        readinessProbe:
+          httpGet:
+            path: healthz
+            port: 8080
+          timeoutSeconds: 1
+          periodSeconds: 10
+          failureThreshold: 3
+        imagePullPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: wayne-backend
+  name: wayne-backend
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+  - nodePort: 32001
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: wayne-backend
