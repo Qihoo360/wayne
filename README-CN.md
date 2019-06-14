@@ -69,7 +69,7 @@ $ go get github.com/Qihoo360/wayne
 $ docker-compose -f ./hack/docker-compose/docker-compose.yaml up
 ```
 
-通过上述命令，您可以从通过 http://127.0.0.1:8080/admin 访问本地 Wayne, 默认管理员账号 admin:admin。
+通过上述命令，您可以从通过 http://127.0.0.1:4200 访问本地 Wayne, 默认管理员账号 admin:admin。
 
 > 注意：项目启动后还需要配置集群和Namespace等信息才可正常使用。详见 [集群配置](https://360yun.org/wayne/admin/cluster.html)
 
