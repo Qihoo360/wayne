@@ -1,0 +1,91 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: wayne-frontend
+  name: wayne-frontend
+  namespace: default
+data:
+  config.js: |-
+    window.CONFIG = {
+      URL: 'http://wayne.backend:32001',
+      RAVEN: false,
+      RAVEN_DSN: 'RAVEN_DSN'
+    };
+
+  default.conf: |-
+    server {
+        listen       80;
+        server_name  localhost;
+        location / {
+            root   /usr/local/openresty/nginx/html;
+            index  index.html index.htm;
+            try_files $uri $uri/ /index.html;
+        }
+    }
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: wayne-frontend
+  name: wayne-frontend
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wayne-frontend
+  template:
+    metadata:
+      labels:
+        app: wayne-frontend
+    spec:
+      volumes:
+      - name: config
+        configMap:
+          name: wayne-frontend
+          items:
+          - key: config.js
+            path: config.js
+          - key: default.conf
+            path: default.conf
+      containers:
+      - name: wayne
+        image: '360cloud/wayne-frontend:latest'
+        resources:
+          limits:
+            cpu: '0.5'
+            memory: 1Gi
+          requests:
+            cpu: '0.5'
+            memory: 1Gi
+        volumeMounts:
+        - name: config
+          mountPath: /usr/local/openresty/nginx/html/config.js
+          subPath: config.js
+        - name: config
+          mountPath: /etc/nginx/conf.d/default.conf
+          subPath: default.conf
+        imagePullPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: wayne-frontend
+  name: wayne-frontend
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+  - nodePort: 32000
+    protocol: TCP
+    port: 80
+    targetPort: 80
+  selector:
+    app: wayne-frontend
