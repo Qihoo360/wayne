@@ -60,7 +60,7 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
   getCluster() {
     const localStorageCluster = localStorage.getItem('cluster');
     if (localStorageCluster && this.clusters.indexOf(localStorageCluster.toString()) > -1) {
-        return localStorageCluster.toString();
+      return localStorageCluster.toString();
     }
     return this.clusters[0];
   }
@@ -177,6 +177,7 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
       this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
     }
     if (this.cluster) {
+      localStorage.setItem('kubeNamespace', this.namespace);
       this.kubernetesClient.listPage(this.pageState, this.cluster, this.kubeResource, this.namespace)
         .subscribe(
           response => {
@@ -194,7 +195,11 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
     this.setCluster(cluster);
     this.kubernetesClient.getNames(this.cluster, KubeResourceNamespace).subscribe(
       resp => {
-        this.namespace = '';
+        let kubeNamespace = localStorage.getItem('kubeNamespace');
+        if (!kubeNamespace) {
+          kubeNamespace = '';
+        }
+        this.namespace = kubeNamespace;
         this.namespaces = Array<string>();
         resp.data.map(ns => {
           this.namespaces.push(ns.name);
