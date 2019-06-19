@@ -96,5 +96,5 @@ func ensureDatabase() error {
 }
 
 func addLocation(dbURL string) string {
-	return fmt.Sprintf("%s?charset=utf8&loc=%s", dbURL, beego.AppConfig.DefaultString("DBLoc", "Asia/Shanghai"))
+	return fmt.Sprintf("%s?charset=utf8&loc=%s", dbURL, beego.AppConfig.DefaultString("DBLoc", "Asia%2FShanghai"))
 }

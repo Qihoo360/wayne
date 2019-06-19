@@ -1,11 +1,11 @@
 {
   "name": "frontend",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --disable-host-check --proxy-config proxy.config.js --configuration hmr",
-    "build": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --aot --prod --build-optimizer --base-href \"/public/\"",
+    "start": "ng serve --host 0.0.0.0 --disable-host-check  --configuration hmr",
+    "build": "node --max_old_space_size=6000 ./node_modules/@angular/cli/bin/ng build --aot --prod --build-optimizer",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

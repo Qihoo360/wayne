@@ -1,0 +1,50 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.6.41
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+    networks:
+    - default
+    expose:
+    - "3306"
+    ports:
+    - "3306:3306"
+  rabbitmq:
+    environment:
+      RABBITMQ_NODENAME: "rabbit"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+    image: rabbitmq:3.7.8-management
+    networks:
+    - default
+    expose:
+    - "5672"
+    ports:
+    - "5672:5672"
+  wayne-backend:
+    image: 360cloud/wayne-backend:latest
+    command: /opt/wayne/backend apiserver
+    environment:
+      GOPATH: "/go"
+    volumes:
+    - ./conf/app.conf:/opt/wayne/conf/app.conf
+    depends_on:
+    - mysql
+    - rabbitmq
+    restart: always
+    networks:
+    - default
+    ports:
+    - "8080:8080"
+  wayne-frontend:
+    image: 360cloud/wayne-frontend:latest
+    volumes:
+    - ./conf/config.js:/usr/local/openresty/nginx/html/config.js
+    depends_on:
+    - wayne-backend
+    restart: always
+    networks:
+    - default
+    ports:
+    - "4200:80"

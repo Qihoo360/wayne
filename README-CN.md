@@ -46,7 +46,7 @@ Wayne已大规模服务于360搜索，承载了内部绝大部分业务，稳定
 
 ## 项目依赖
 
-- Golang 1.9+([installation manual](https://golang.org/dl/))
+- Golang 1.12+([installation manual](https://golang.org/dl/))
 - Docker 17.05+ ([installation manual](https://docs.docker.com/install))
 - Bee  ([installation manual](https://github.com/wilhelmguo/bee)) (请务必使用链接版本，不要使用 beego 官方版本，存在一些定制)
 - Node.js 8+ and npm 5+ ([installation with nvm](https://github.com/creationix/nvm#usage))
@@ -61,62 +61,19 @@ Wayne已大规模服务于360搜索，承载了内部绝大部分业务，稳定
 $ go get github.com/Qihoo360/wayne
 ```
 
-- 启动MySQL（可选）
+- 启动服务
 
-若您没有可用的 MySQL 服务，可以通过 docker-compose 快速创建：
+  在 Wayne 的根目录下，通过 docker-compose 创建服务
 
-```bash
-$ docker-compose up -d mysql
+```shell
+$ docker-compose -f ./hack/docker-compose/docker-compose.yaml up
 ```
 
-- 创建配置文件
+通过上述命令，您可以从通过 http://127.0.0.1:4200 访问本地 Wayne, 默认管理员账号 admin:admin。
 
-```bash
-$ cd src/backend/conf && touch dev.conf
-```
-
-- 写入数据库相关配置（请修改为数据库实际地址）
-
-```bash
-DBName = wayne
-# MySQL连接配置，默认是mysql(MySQL服务名称).
-# 如果使用docker-compose启动MySQL，同时你没有改变mysql的服务名称，那么保留默认配置即可。
-# 你也可以通过执行"docker network inspect wayne_default"(如果没有使用docker-compose
-# 的默认网络，需要将“wayne_default”替换为实际使用的网络名称)来获得mysql容器IP，然后将
-# “mysql”替换为其容器IP。当你使用自定义运行环境时，使用容器IP会更加灵活。例如：
-# "DBTns = tcp(172.17.0.2:3306)"
-DBTns = tcp(mysql:3306)
-DBUser = root
-DBPasswd = root
-```
-
-- 启动Wayne服务
-
-进入Wayne根目录，执行
-
-```bash
-$ docker-compose up -d wayne
-```
-
-通过上述命令，您可以从通过 http://127.0.0.1:8080/admin 访问本地 Wayne, 默认管理员账号 admin:admin。
-
-> 注意：项目启动后还需要配置集群和Namespace等信息才可正常使用。详见 [集群配置](https://github.com/Qihoo360/wayne/wiki/Wayne-admin-cluster)
+> 注意：项目启动后还需要配置集群和Namespace等信息才可正常使用。详见 [集群配置](https://360yun.org/wayne/admin/cluster.html)
 
 
 ## 文档
 
-- 请参照 [Wiki](https://github.com/Qihoo360/wayne/wiki)
-
-## Roadmap
-
-- 国际化
-- 支持 Kubernetes 已有项目迁移
-- 支持从 Helm 迁移
-- 支持一键从 Yaml/Json 导入对象
-- 支持 HPA 等其他对象
-- 完善运维 Kubernetes 集群功能，提供完整的 Kubectl 功能
-- 支持更完整的报表和开放 API 系统
-
-## 贡献者
-
-- 请参照 [贡献者](https://github.com/Qihoo360/wayne/wiki/contributors)
+- 请参照 [Wiki](https://360yun.org/wayne/)

@@ -8,15 +8,14 @@ RELEASE_VERSION :=$(shell git describe --always --tags)
 UI_BUILD_VERSION :=v1.0.1
 SERVER_BUILD_VERSION :=v1.0.1
 
-
-release: build-release-image push-image
+release: build-backend-image build-frontend-image push-image
 
 update-version:
 	./hack/updateversion.sh
 
 # run module
 run-backend:
-	cd src/backend/ && bee run -main=./main.go -runargs="apiserver"
+	export GO111MODULE=on && export GOPROXY=https://goproxy.io && cd src/backend/ && bee run -main=./main.go -runargs="apiserver"
 
 run-worker:
 	cd src/backend/ && bee run -main=./main.go -runargs="worker -t AuditWorker -c 2"
@@ -42,20 +41,26 @@ swagger-openapi:
 	cd src/backend && swagger generate spec -o ./swagger/openapi.swagger.json
 
 # release, requiring Docker 17.05 or higher on the daemon and client
-build-release-image:
+build-backend-image:
 	@echo "version: $(RELEASE_VERSION)"
-	docker build --no-cache --build-arg RAVEN_DSN=$(RAVEN_DSN) -t $(REGISTRY_URI)/wayne:$(RELEASE_VERSION) .
+	docker build --no-cache -t $(REGISTRY_URI)/wayne-backend:$(RELEASE_VERSION) -f Dockerfile.backend .
+
+build-frontend-image:
+	@echo "version: $(RELEASE_VERSION)"
+	docker build --no-cache -t $(REGISTRY_URI)/wayne-frontend:$(RELEASE_VERSION) -f Dockerfile.frontend .
 
 push-image:
-	docker push $(REGISTRY_URI)/wayne:$(RELEASE_VERSION)
-
+	docker tag $(REGISTRY_URI)/wayne-backend:$(RELEASE_VERSION) $(REGISTRY_URI)/wayne-backend:latest
+	docker push $(REGISTRY_URI)/wayne-backend:$(RELEASE_VERSION)
+	docker push $(REGISTRY_URI)/wayne-backend:latest
+	docker tag $(REGISTRY_URI)/wayne-frontend:$(RELEASE_VERSION) $(REGISTRY_URI)/wayne-frontend:latest
+	docker push $(REGISTRY_URI)/wayne-frontend:$(RELEASE_VERSION)
+	docker push $(REGISTRY_URI)/wayne-frontend:latest
 
 ## server builder image
 build-server-image:
-	cd hack/build/server && docker build --no-cache \
-	-t $(REGISTRY_URI)/wayne-server-builder:$(SERVER_BUILD_VERSION) .
+	cd hack/build/server && docker build --no-cache -t $(REGISTRY_URI)/wayne-server-builder:$(SERVER_BUILD_VERSION) .
 
 ## ui builder image
 build-ui-image:
 	docker build -f hack/build/ui/Dockerfile -t $(REGISTRY_URI)/wayne-ui-builder:$(UI_BUILD_VERSION) .
-

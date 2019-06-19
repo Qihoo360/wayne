@@ -45,11 +45,11 @@ The whole system adopts the separation of front and back ends, in which the fron
 
 ## Dependence
 
-- Golang 1.9+([installation manual](https://golang.org/dl/))
+- Golang 1.12+ ([installation manual](https://golang.org/dl/))
 - Docker 17.05+ ([installation manual](https://docs.docker.com/install))
-- Bee  ([installation manual](https://github.com/wilhelmguo/bee))(Be sure to use the link version, don't use the official version of beego, there are some customizations.)
+- Bee ([installation manual](https://github.com/wilhelmguo/bee)) (Be sure to use the link version, don't use the official version of beego, there are some customizations.)
 - Node.js 8+ and npm 5+ ([installation with nvm](https://github.com/creationix/nvm#usage))
-- MySQL 5.6+  (Most of the data is in MySQL.)
+- MySQL 5.6+ (Most of the data is in MySQL.)
 - RabbitMQ (Optionally, you need to deploy if you need to extend auditing features such as operational auditing and Webhooks.)
 
 ## Quickly Start
@@ -60,64 +60,19 @@ The whole system adopts the separation of front and back ends, in which the fron
 $ go get github.com/Qihoo360/wayne
 ```
 
-- Start MySQL(Optional)
-
-If you don't have a MySQL service available, you can quickly create it with docker-compose:
-
-```bash
-$ docker-compose up -d mysql
-```
-
-- Create configuration file
-
-```bash
-$ cd src/backend/conf && touch dev.conf
-```
-
-- Write database related configuration (Please modify to the actual address of the database.)
-
-```bash
-DBName = wayne
-# MySQL connection config, its mysql(service name) by default.
-# Keep it default value, if you run MySQL via docker-compose and you didn't
-# change the mysql's service name.
-# You can also run "docker network inspect wayne_default"(replace wayne_default
-# to the real docker network name if you didn't use the default network of 
-# docker-compose) to get the contianer IP of mysql, then replace `mysql`
-# to the container IP. Its more flexible when you want to customize the environment
-# of wayne running. For example "DBTns = tcp(172.17.0.2:3306)"
-DBTns = tcp(mysql:3306)
-DBUser = root
-DBPasswd = root
-```
-
 - Start Wayne
 
-cd Wayne root directory and execute
+  Start server by docker-compose at Wayne project.
 
 ```bash
-$ docker-compose up -d wayne
+$ docker-compose -f ./hack/docker-compose/docker-compose.yaml up
 ```
 
-With the above command, you can access the local Wayne from http://127.0.0.1:8080/admin, the default administrator account admin:admin.
+With the above command, you can access the local Wayne from http://127.0.0.1:4200, the default administrator account admin:admin.
 
-> Note: After Wayne is started, you need to configure information such as cluster and Namespace for normal use. See details [Cluster Configuration](https://github.com/Qihoo360/wayne/wiki/Wayne-admin-cluster)
+> Note: After Wayne is started, you need to configure information such as cluster and Namespace for normal use. See details [Cluster Configuration](https://360yun.org/wayne/admin/cluster.html)
 
 
 ## Document
 
-- Refer [Wiki](https://github.com/Qihoo360/wayne/wiki)
-
-## Roadmap
-
-- i18n
-- Support for migration of existing projects in kubernetes
-- Support for migration from Helm
-- Support for importing objects from Yaml/Json with one click
-- Support for other objects such as HPA
-- Improve operation and maintenance Kubernetes cluster function, providing complete Kubectl function
-- Support for more complete reporting and open API system
-
-## Contributors
-
-- Refer [contributors](https://github.com/Qihoo360/wayne/wiki/contributors)
+- Refer [Wiki](https://360yun.org/wayne/)
