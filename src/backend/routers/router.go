@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"path"
 
-	"github.com/Qihoo360/wayne/src/backend/controllers"
 	"github.com/Qihoo360/wayne/src/backend/controllers/apikey"
 	"github.com/Qihoo360/wayne/src/backend/controllers/app"
 	"github.com/Qihoo360/wayne/src/backend/controllers/appstarred"
@@ -442,7 +441,4 @@ func init() {
 	beego.AddNamespace(nsWithOpenAPI)
 
 	beego.AddNamespace(nsWithKubernetesProxy)
-
-	beego.Router("/*", &controllers.IndexController{})
-
 }

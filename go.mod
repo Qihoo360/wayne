@@ -3,6 +3,7 @@ module github.com/Qihoo360/wayne
 go 1.12
 
 require (
+	github.com/360yun/sockjs-go v0.0.0-20190620042557-e70edfda8e57
 	github.com/astaxie/beego v1.11.1
 	github.com/certifi/gocertifi v0.0.0-20190410005359-59a85de7f35e // indirect
 	github.com/davecgh/go-spew v1.1.1
@@ -17,7 +18,6 @@ require (
 	github.com/googleapis/gnostic v0.2.0 // indirect
 	github.com/gorilla/websocket v1.4.0 // indirect
 	github.com/hashicorp/golang-lru v0.5.1 // indirect
-	github.com/igm/sockjs-go v2.0.0+incompatible // indirect
 	github.com/imdario/mergo v0.3.7 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.6 // indirect
@@ -32,7 +32,6 @@ require (
 	golang.org/x/oauth2 v0.0.0-20190402181905-9f3314589c9a
 	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4 // indirect
 	gopkg.in/asn1-ber.v1 v1.0.0-20181015200546-f715ec2f112d // indirect
-	gopkg.in/igm/sockjs-go.v2 v2.0.0
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/ldap.v2 v2.5.1
 	k8s.io/api v0.0.0-20190413052509-3cc1b3fb6d0f

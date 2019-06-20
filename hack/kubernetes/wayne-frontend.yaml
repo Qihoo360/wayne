@@ -13,17 +13,6 @@ data:
       RAVEN_DSN: 'RAVEN_DSN'
     };
 
-  default.conf: |-
-    server {
-        listen       80;
-        server_name  localhost;
-        location / {
-            root   /usr/local/openresty/nginx/html;
-            index  index.html index.htm;
-            try_files $uri $uri/ /index.html;
-        }
-    }
-
 ---
 
 apiVersion: apps/v1
@@ -50,8 +39,6 @@ spec:
           items:
           - key: config.js
             path: config.js
-          - key: default.conf
-            path: default.conf
       containers:
       - name: wayne
         image: '360cloud/wayne-frontend:latest'
@@ -66,9 +53,6 @@ spec:
         - name: config
           mountPath: /usr/local/openresty/nginx/html/config.js
           subPath: config.js
-        - name: config
-          mountPath: /etc/nginx/conf.d/default.conf
-          subPath: default.conf
         imagePullPolicy: Always
 
 ---
