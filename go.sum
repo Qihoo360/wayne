@@ -1,4 +1,8 @@
 cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
+github.com/360yun/sockjs-go v0.0.0-20190618082940-1840ed98ab88 h1:t6V08CdB/3TZf4OdObeN2yS0Haf2cS2EDj9yd4ycAUw=
+github.com/360yun/sockjs-go v0.0.0-20190618082940-1840ed98ab88/go.mod h1:PrKs1z9kRAhPXVg4S0zxqfgmbBRu//Q84EitcZXu1UM=
+github.com/360yun/sockjs-go v0.0.0-20190620042557-e70edfda8e57 h1:4jUXsuZKNQs88HYOqguLNPgoYpXuVpOG+SMkme/DPRw=
+github.com/360yun/sockjs-go v0.0.0-20190620042557-e70edfda8e57/go.mod h1:5GVPECHzBCEeajQeridxM/xj2p9fShBZo7/kX2rl9zA=
 github.com/Knetic/govaluate v3.0.0+incompatible/go.mod h1:r7JcOSlj0wfOMncg0iLm8Leh48TZaKVeNIfJntJ2wa0=
 github.com/astaxie/beego v1.11.1 h1:6DESefxW5oMcRLFRKi53/6exzup/IR6N4EzzS1n6CnQ=
 github.com/astaxie/beego v1.11.1/go.mod h1:i69hVzgauOPSw5qeyF4GVZhn7Od0yG5bbCGzmhbWxgQ=
