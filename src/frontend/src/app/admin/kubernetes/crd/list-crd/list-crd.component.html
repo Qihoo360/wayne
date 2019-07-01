@@ -1,0 +1,59 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)">
+  <clr-dg-column class="col-app-name" [clrDgField]="'name'">
+    <ng-container *clrDgHideableColumn="showState['name']">
+      {{'ADMIN.KUBERNETES.CRD.LIST.NAME' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['label']">
+      {{'ADMIN.KUBERNETES.CRD.LIST.LABEL' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['kind']">
+      {{'ADMIN.KUBERNETES.CRD.LIST.KIND' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['group']">
+      {{'ADMIN.KUBERNETES.CRD.LIST.GROUP' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="showState['version']">
+      {{'ADMIN.KUBERNETES.CRD.LIST.VERSION' | translate}}
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'creationTimestamp'">
+    <ng-container *clrDgHideableColumn="showState['age']">
+      {{'ADMIN.KUBERNETES.CRD.LIST.AGE' | translate}}
+    </ng-container>
+  </clr-dg-column>
+
+  <clr-dg-row *ngFor="let obj of resources" [clrDgItem]="obj">
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="onEditEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.EDIT' | translate}}</button>
+      <button class="action-item" (click)="onDeleteEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.DELETE' | translate}}</button>
+    </clr-dg-action-overflow>
+    <clr-dg-cell class="col-app-name"> {{ obj.metadata.name }} </clr-dg-cell>
+    <clr-dg-cell>
+      <div *ngFor="let label of obj.metadata.labels | keyvalue" class="version-text">
+        <a href="javascript:" (click)="versionDetail(label.key + ': ' + label.value)">{{label.key}}: {{label.value}}</a>
+      </div>
+    </clr-dg-cell>
+    <clr-dg-cell> {{ obj.spec.names.kind }} </clr-dg-cell>
+    <clr-dg-cell> {{ obj.spec.group }} </clr-dg-cell>
+    <clr-dg-cell> {{ obj.spec.version }} </clr-dg-cell>
+    <clr-dg-cell> {{ obj.metadata.creationTimestamp | relativeTime}} </clr-dg-cell>
+    <crd-detail *clrIfExpanded [obj]="obj" [cluster]="cluster" ngProjectAs="clr-dg-row-detail">
+    </crd-detail>
+  </clr-dg-row>
+  <clr-dg-footer>
+    <wayne-paginate
+      [(currentPage)]="currentPage"
+      [total]="page.totalCount"
+      [pageSizes]="[10, 20, 50]"
+      (sizeChange)="pageSizeChange($event)">
+    </wayne-paginate>
+  </clr-dg-footer>
+</clr-datagrid>

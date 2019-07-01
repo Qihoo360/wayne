@@ -105,6 +105,7 @@ export class ListPodComponent implements OnDestroy {
     this.resourceType = resourceType;
     this.resourceName = resourceName;
     this.pods = null;
+    this.currentPage = 1;
     this.logSource = null;
     this.modalOpened = true;
     this.whetherHotReflash = true;
@@ -200,7 +201,8 @@ export class ListPodComponent implements OnDestroy {
       this.messageHandlerService.showInfo('缺少机房信息，请联系管理员');
     }
     const kubeToolCmd = `kubetool log --source ${this.logSource === undefined ? '' : this.logSource} ` +
-      ` --${this.resourceType} ${this.resourceName} --pod=${pod.metadata.name} --layout=log`;
+      ` --${this.resourceType === 'deployments' ? 'deployment' : this.resourceType} ${this.resourceName}` +
+      ` --pod=${pod.metadata.name} --layout=log`;
     this.copyService.copy(kubeToolCmd);
     this.switchCopyButton();
   }

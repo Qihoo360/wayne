@@ -1,70 +1,177 @@
-<clr-datagrid (clrDgRefresh)="refresh($event)" class="wayne-clr-datagrid">
-  <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      {{'TITLE.NAME' | translate}}
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      {{'CRONJOB.GROUP' | translate}}
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      {{'TITLE.STATUS' | translate}}
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      {{'CRONJOB.FAIL_REASON' | translate}}
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      {{'TITLE.START_TIME' | translate}}
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      {{'TITLE.END_TIME' | translate}}
-    </ng-container>
-  </clr-dg-column>
-  <clr-dg-row *clrDgItems="let job of jobs">
-    <clr-dg-cell class="copy">{{job.kubeJob.metadata.name}}</clr-dg-cell>
-    <clr-dg-cell>{{job.cluster}}</clr-dg-cell>
-    <clr-dg-cell>
-      <a href="javascript:void(0)" (click)="listPod(job)" class="label"
-         [class.label-success]="job.kubeJob.status.detail=='active'"
-         [class.label-warning]="job.kubeJob.status.detail=='warnings'">
-        {{job.kubeJob.status.detail}}
-      </a>
-      <a href="javascript:void(0)"
-         *ngIf="job.kubeJob.status.warnings"
-         (click)="listEvent(job.kubeJob.status.warnings)"
-         style="color:#a32100">
-        <clr-icon shape="error-standard"></clr-icon>
-      </a>
-    </clr-dg-cell>
-    <clr-dg-cell>
-      <span
-        *ngIf="job.kubeJob.status.conditions"
-      >
-      {{job.kubeJob.status.conditions[0]['message']}}
+<clr-modal *ngIf="modalOpened" [(clrModalOpen)]="modalOpened" [clrModalSize]="'xl'" #modal>
+  <h3 class="modal-title">
+    {{kubeObj.metadata.name}}[{{cluster}}]
+    <wayne-modal-operate [modal]="modal"></wayne-modal-operate>
+  </h3>
+
+  <div class="modal-body">
+    <clr-tabs>
+      <clr-tab>
+        <button clrTabLink>详情</button>
+        <clr-tab-content *clrIfActive>
+          <form>
+            <section class="form-block form-box">
+              <div class="clr-row group">
+                <div class="clr-col-sm-3" style="font-weight:600">
+                  名称
+                </div>
+                <div class="clr-col-sm-9">
+                  {{kubeObj.metadata.name}}
+                </div>
+              </div>
+              <div class="clr-row group">
+                <div class="clr-col-sm-3" style="font-weight:600">
+                  挂起
+                </div>
+                <div class="clr-col-sm-9">
+                  {{kubeObj.spec.suspend}}
+                </div>
+              </div>
+              <div class="clr-row group">
+                <div class="clr-col-sm-3" style="font-weight:600">
+                  并发策略
+                </div>
+                <div class="clr-col-sm-9">
+                  {{kubeObj.spec.concurrencyPolicy}}
+                </div>
+              </div>
+              <div class="clr-row group">
+                <div class="clr-col-sm-3" style="font-weight:600">
+                  运行周期
+                </div>
+                <div class="clr-col-sm-9">
+                  {{kubeObj.spec.schedule}}
+                </div>
+              </div>
+              <div class="clr-row group">
+                <div class="clr-col-sm-3" style="font-weight:600">
+                  最大执行时间
+                </div>
+                <div class="clr-col-sm-9">
+                  {{kubeObj.spec.jobTemplate.spec.activeDeadlineSeconds}}
+                </div>
+              </div>
+              <div class="clr-row group">
+                <div class="clr-col-sm-3" style="font-weight:600">
+                  失败重试次数
+                </div>
+                <div class="clr-col-sm-9">
+                  {{kubeObj.spec.jobTemplate.spec.backoffLimit}}
+                </div>
+              </div>
+              <div class="clr-row group">
+                <div class="clr-col-sm-3" style="font-weight:600">
+                  运行成功限制
+                </div>
+                <div class="clr-col-sm-9">
+                  {{kubeObj.spec.jobTemplate.spec.completions}}
+                </div>
+              </div>
+              <div class="clr-row group">
+                <div class="clr-col-sm-3" style="font-weight:600">
+                  允许并发数
+                </div>
+                <div class="clr-col-sm-9">
+                  {{kubeObj.spec.jobTemplate.spec.parallelism}}
+                </div>
+              </div>
+              <div class="clr-row group">
+                <div class="clr-col-sm-3" style="font-weight:600">
+                  已激活任务数
+                </div>
+                <div class="clr-col-sm-9">
+                  {{ kubeObj.status.active?.length }}
+                </div>
+              </div>
+              <div class="clr-row group">
+                <div class="clr-col-sm-3" style="font-weight:600">
+                  最后调度时间
+                </div>
+                <div class="clr-col-sm-9">
+                  {{kubeObj.status.lastScheduleTime | date:'yyyy-MM-dd HH:mm:ss' }}
+                </div>
+              </div>
+            </section>
+          </form>
+        </clr-tab-content>
+      </clr-tab>
+      <clr-tab>
+        <button clrTabLink>任务列表</button>
+        <clr-tab-content *clrIfActive>
+          <div class="toggle-switch">
+            <input type="checkbox" id="toggle_4" [(ngModel)]="whetherHotReflash">
+            <label for="toggle_4">{{'POD.DATA_UPDATE' | translate}}</label>
+          </div>
+          <clr-datagrid (clrDgRefresh)="refresh($event)" class="wayne-clr-datagrid">
+            <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
+            <clr-dg-column [clrDgField]="'name'">
+              <ng-container *clrDgHideableColumn="{hidden: false}">
+                {{'TITLE.NAME' | translate}}
+              </ng-container>
+            </clr-dg-column>
+            <clr-dg-column>
+              <ng-container *clrDgHideableColumn="{hidden: false}">
+                {{'TITLE.STATUS' | translate}}
+              </ng-container>
+            </clr-dg-column>
+            <clr-dg-column>
+              <ng-container *clrDgHideableColumn="{hidden: false}">
+                {{'CRONJOB.FAIL_REASON' | translate}}
+              </ng-container>
+            </clr-dg-column>
+            <clr-dg-column [clrDgSortBy]="'creationTimestamp'">
+              <ng-container *clrDgHideableColumn="{hidden: false}">
+                {{'TITLE.START_TIME' | translate}}
+              </ng-container>
+            </clr-dg-column>
+            <clr-dg-column>
+              <ng-container *clrDgHideableColumn="{hidden: false}">
+                {{'TITLE.END_TIME' | translate}}
+              </ng-container>
+            </clr-dg-column>
+            <clr-dg-row *ngFor="let obj of jobs" [clrDgItem]="obj">
+              <clr-dg-cell class="copy">{{obj.metadata.name}}</clr-dg-cell>
+              <clr-dg-cell>
+          <span href="javascript:void(0)" class="label"
+                [class.label-success]="isReady(obj)"
+                [class.label-warning]="!isReady(obj)">
+            {{obj.status.succeeded ? obj.status.succeeded : 0}}/{{ obj.spec.completions ? obj.spec.completions : 1 }}
+          </span>
+              </clr-dg-cell>
+              <clr-dg-cell>
+      <span *ngIf="obj.status.conditions">
+        {{obj.status.conditions[0]['message']}}
       </span>
-    </clr-dg-cell>
-    <clr-dg-cell>{{job.kubeJob.status.startTime | date: "yyyy-MM-dd HH:mm:ss"}}</clr-dg-cell>
-    <clr-dg-cell>{{job.kubeJob.status.completionTime | date: "yyyy-MM-dd HH:mm:ss"}}</clr-dg-cell>
-  </clr-dg-row>
-  <clr-dg-footer>
-    <wayne-paginate
-      [(currentPage)]="currentPage"
-      [total]="page.totalCount"
-      [rate]="0.5"
-      [pageSizes]="[5, 10, 25]"
-      (sizeChange)="pageSizeChange($event)">
-    </wayne-paginate>
-  </clr-dg-footer>
-</clr-datagrid>
-<list-pod></list-pod>
-<list-event></list-event>
+              </clr-dg-cell>
+              <clr-dg-cell>{{obj.status.startTime | date: "yyyy-MM-dd HH:mm:ss"}}</clr-dg-cell>
+              <clr-dg-cell>{{obj.status.completionTime | date: "yyyy-MM-dd HH:mm:ss"}}</clr-dg-cell>
+              <list-dg-row-pod *clrIfExpanded [resourceName]="obj.metadata.name" [cluster]="cluster"
+                               ngProjectAs="clr-dg-row-detail">
+              </list-dg-row-pod>
+            </clr-dg-row>
+            <clr-dg-footer>
+              <wayne-paginate
+                [(currentPage)]="currentPage"
+                [total]="pageState.page.totalCount"
+                [pageSizes]="[10, 20, 50]"
+                (sizeChange)="pageSizeChange($event)">
+              </wayne-paginate>
+            </clr-dg-footer>
+          </clr-datagrid>
+        </clr-tab-content>
+      </clr-tab>
+      <clr-tab>
+        <button clrTabLink>事件</button>
+        <clr-tab-content *clrIfActive>
+          <list-event-datagrid [resourceName]="kubeObj.metadata.name"
+                               [resourceType]="'cronjobs'"
+                               [cluster]="cluster"></list-event-datagrid>
+        </clr-tab-content>
+      </clr-tab>
+    </clr-tabs>
+
+
+  </div>
+</clr-modal>
+
+

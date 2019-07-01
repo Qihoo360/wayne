@@ -13,6 +13,7 @@ export class CronjobTpl {
   user: string;
   metaData: string;
   createTime: Date;
+  updateTime?: Date;
   cronjob: Cronjob;
   clusters: string[];
   status: CronjobStatus[];
@@ -29,6 +30,8 @@ export class CronjobStatus {
   desired: number;
   warnings: Event[];
   errNum: number;
+
+  kubeObj: any;
 
   constructor() {
     this.errNum = 0;

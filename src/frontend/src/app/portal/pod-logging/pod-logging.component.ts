@@ -93,7 +93,8 @@ export class PodLoggingComponent implements OnInit, OnDestroy {
       this.messageHandlerService.showInfo('缺少机房信息，请联系管理员');
     }
     const command = this.selectedPod ?
-      `kubetool log --source ${this.logSource === undefined ? '' : this.logSource} --${this.resourceType} ` +
+      `kubetool log --source ${this.logSource === undefined ? '' : this.logSource}` +
+      ` --${this.resourceType === 'deployments' ? 'deployment' : this.resourceType} ` +
       `${this.resourceName} --pod=${this.selectedPod.metadata.name} --container=${this.selectedContainer}  --layout=log` : '';
     this.copyService.copy(command);
     this.switchCopyButton();

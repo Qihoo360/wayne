@@ -105,6 +105,16 @@ func (*namespaceModel) GetByName(name string) (n *Namespace, err error) {
 	return nil, err
 }
 
+func (*namespaceModel) GetByNameAndDeleted(name string, deleted bool) (n *Namespace, err error) {
+	n = &Namespace{Name: name,
+		Deleted: deleted}
+
+	if err = Ormer().Read(n, "name", "deleted"); err == nil {
+		return n, nil
+	}
+	return nil, err
+}
+
 // Add insert a new Namespace into database and returns
 // last inserted Id on success.
 func (*namespaceModel) Add(m *Namespace) (id int64, err error) {

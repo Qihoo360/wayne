@@ -525,6 +525,7 @@
     "CONTAINER_CONFIG": "容器配置",
     "CONTAINER_NAME": "容器名称",
     "CORE_NUM": "CPU 核数",
+    "CREATE_TMP": "创建模板",
     "DELETE_CONTAINER": "删除容器",
     "DELETE_ENVIRONMENT": "删除环境变量",
     "DELETE_UPDATE": "仅删除时更新",
@@ -540,8 +541,8 @@
     "IMAGE_CONFIG": "镜像配置",
     "LIFE_CYCLE": "生命周期",
     "LIFE_CYCLE_MESSAGE": "容器生命周期钩子，可以在 postStart/preStop 两个阶段定义额外的操作",
-    "LIVE_CHECK": "存活探针",
-    "LIVE_CHECK_MESSAGE": "定期探测容器状态，探测失败将会重启容器（适用于可能假死并需要重启的服务）",
+    "LIVENESS_PROBE_CHECK": "存活探针",
+    "LIVENESS_PROBE_CHECK_MESSAGE": "定期探测容器状态，探测失败将会重启容器（适用于可能假死并需要重启的服务）",
     "LOAD_CONFIGMAP": "从配置集加载",
     "LOAD_ENVIRONMENT": "自定义环境变量",
     "LOAD_GROUP": "批量加载",
@@ -566,9 +567,10 @@
     "TCP_PORT": "TCP 端口",
     "UPDATE_STRATEGY": "更新策略",
     "UPDATE_WAY": "更新方式",
-    "USABLE_CHECK": "就绪探针（建议开启）",
-    "USABLE_CHECK_WAY": "探针方式",
-    "USABLE_MESSAGE": "定期探测服务状态，只有探测通过才会提供服务，探测失败将会从可用服务列表移除",
+    "READINESS_CHECK": "就绪探针（建议开启）",
+    "READINESS_PROBE": "就绪探针",
+    "READINESS_CHECK_WAY": "探针方式",
+    "READINESS_MESSAGE": "定期探测服务状态，只有探测通过才会提供服务，探测失败将会从可用服务列表移除",
     "RESOURCE_CONFIG": "资源配置",
     "SCHEDULING_CONFIG": "调度配置",
     "TYPE": "类型",
@@ -852,6 +854,19 @@
           "LABEL": "标签",
           "AGE": "启动时间",
           "STATUS": "状态"
+        }
+      },
+      "CRD": {
+        "CREATE": "创建 CRD",
+        "CREATE_CUSTOM": "创建自定义 CRD",
+        "LIST": {
+          "NAME": "名称",
+          "NAMESPACE": "名称",
+          "LABEL": "标签",
+          "AGE": "启动时间",
+          "GROUP": "资源组",
+          "VERSION": "版本",
+          "KIND": "类型"
         }
       }
     }

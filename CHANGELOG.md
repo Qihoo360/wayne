@@ -1,5 +1,56 @@
 # Change Log
 
+## [v1.6.1](https://github.com/Qihoo360/wayne/tree/v1.6.1) (2019-04-15)
+[Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.6.0...v1.6.1)
+
+**Merged pull requests:**
+
+- fix: deployment strategy changeto rollingupdate error [\#395](https://github.com/Qihoo360/wayne/pull/395) ([BennieMeng](https://github.com/BennieMeng))
+
+
+## [v1.6.0](https://github.com/Qihoo360/wayne/tree/v1.6.0) (2019-03-26)
+
+[Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.5.0...v1.6.0)
+
+**Implemented enhancements:**
+
+- Admin Kubernetes resource management support all namespace selection [\#336](https://github.com/Qihoo360/wayne/issues/336)
+- 项目中的资源对象 [\#316](https://github.com/Qihoo360/wayne/issues/316)
+- Portal Template support toggle [\#309](https://github.com/Qihoo360/wayne/issues/309)
+- Openapi add get\_pod\_list [\#378](https://github.com/Qihoo360/wayne/pull/378) ([wilhelmguo](https://github.com/wilhelmguo))
+- Ingress template optimization [\#375](https://github.com/Qihoo360/wayne/pull/375) ([wilhelmguo](https://github.com/wilhelmguo))
+- Pod list api default order by names [\#373](https://github.com/Qihoo360/wayne/pull/373) ([wilhelmguo](https://github.com/wilhelmguo))
+- Add template default values [\#372](https://github.com/Qihoo360/wayne/pull/372) ([wilhelmguo](https://github.com/wilhelmguo))
+- Cronjob optmization [\#371](https://github.com/Qihoo360/wayne/pull/371) ([wilhelmguo](https://github.com/wilhelmguo))
+- Admin kubernetes cluster add cache [\#364](https://github.com/Qihoo360/wayne/pull/364) ([wilhelmguo](https://github.com/wilhelmguo))
+- future: support eks image [\#363](https://github.com/Qihoo360/wayne/pull/363) ([iyacontrol](https://github.com/iyacontrol))
+- Feature/permissio
+n optimization [\#357](https://github.com/Qihoo360/wayne/pull/357) ([wilhelmguo](https://github.com/wilhelmguo))
+- Template edit form support Toggle info [\#354](https://github.com/Qihoo360/wayne/pull/354) ([BennieMeng](https://github.com/BennieMeng))
+- Update db migration workflow [\#348](https://github.com/Qihoo360/wayne/pull/348) ([wilhelmguo](https://github.com/wilhelmguo))
+- Update namespace model add kubenamespace field [\#347](https://github.com/Qihoo360/wayne/pull/347) ([wilhelmguo](https://github.com/wilhelmguo))
+- Kubernetes pod add nodeName filter [\#343](https://github.com/Qihoo360/wayne/pull/343) ([wilhelmguo](https://github.com/wilhelmguo))
+- frontend: add search enter [\#341](https://github.com/Qihoo360/wayne/pull/341) ([BennieMeng](https://github.com/BennieMeng))
+- Add kubernetes resource all namespaces selection [\#340](https://github.com/Qihoo360/wayne/pull/340) ([wilhelmguo](https://github.com/wilhelmguo))
+- Kubernetes pod list add podIP filter [\#338](https://github.com/Qihoo360/wayne/pull/338) ([wilhelmguo](https://github.com/wilhelmguo))
+
+**Fixed bugs:**
+
+- 后台管理endpoint更新无效 [\#339](https://github.com/Qihoo360/wayne/issues/339)
+- 部署中包含多个环境变量，删除一个再新增加一个环境变量，之前的环境变量名称会丢失 [\#335](https://github.com/Qihoo360/wayne/issues/335)
+- Resource statistics are inaccurate [\#331](https://github.com/Qihoo360/wayne/issues/331)
+- 创建pvc模板时，必填项的“访问模式”不选择，也可以提交 [\#208](https://github.com/Qihoo360/wayne/issues/208)
+- Portal template remove template initialDelaySeconds required [\#382](https://github.com/Qihoo360/wayne/pull/382) ([wilhelmguo](https://github.com/wilhelmguo))
+- Fix template diff display error. [\#379](https://github.com/Qihoo360/wayne/pull/379) ([wilhelmguo](https://github.com/wilhelmguo))
+- Navigation container name change with input & fix collapse overflow hidden logic & change select directioin login [\#370](https://github.com/Qihoo360/wayne/pull/370) ([BennieMeng](https://github.com/BennieMeng))
+- Fix deployment and statefulset depoy panic [\#352](https://github.com/Qihoo360/wayne/pull/352) ([wilhelmguo](https://github.com/wilhelmguo))
+- Update README-CN.md [\#350](https://github.com/Qihoo360/wayne/pull/350) ([dangzhiqiang](https://github.com/dangzhiqiang))
+- Fix deployment envs lost [\#346](https://github.com/Qihoo360/wayne/pull/346) ([wilhelmguo](https://github.com/wilhelmguo))
+- Fix endpoints update error [\#345](https://github.com/Qihoo360/wayne/pull/345) ([wilhelmguo](https://github.com/wilhelmguo))
+- Fix inaccurate resource statistics [\#344](https://github.com/Qihoo360/wayne/pull/344) ([wilhelmguo](https://github.com/wilhelmguo))
+- Feature/fix pvc create tpl save without access [\#334](https://github.com/Qihoo360/wayne/pull/334) ([BennieMeng](https://github.com/BennieMeng))
+
+
 ## [v1.5.0](https://github.com/Qihoo360/wayne/tree/v1.5.0) (2019-03-01)
 [Full Changelog](https://github.com/Qihoo360/wayne/compare/v1.4.3...v1.5.0)
 

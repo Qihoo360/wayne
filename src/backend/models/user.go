@@ -43,7 +43,7 @@ type User struct {
 	Name      string     `orm:"index;unique;size(200)" json:"name,omitempty"`
 	Password  string     `orm:"size(255)" json:"-"`
 	Salt      string     `orm:"size(32)" json:"-"`
-	Email     string     `orm:"unique;size(200)" json:"email,omitempty"`
+	Email     string     `orm:"size(200)" json:"email,omitempty"`
 	Display   string     `orm:"size(200)" json:"display,omitempty"`
 	Comment   string     `orm:"type(text)" json:"comment,omitempty"`
 	Type      UserType   `orm:"type(integer)" json:"type"`
@@ -162,8 +162,8 @@ func (*userModel) GetUserById(id int64) (v *User, err error) {
 
 func (*userModel) GetUserByName(name string) (v *User, err error) {
 	v = &User{Name: name}
-	if err = Ormer().Read(v, "Name"); err == nil {
-		return v, nil
+	if err = Ormer().Read(v, "Name"); err != nil {
+		return nil, err
 	}
 	return v, nil
 }

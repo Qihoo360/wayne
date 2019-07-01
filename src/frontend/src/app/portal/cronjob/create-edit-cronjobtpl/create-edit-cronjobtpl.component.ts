@@ -35,33 +35,7 @@ import { defaultCronJob } from '../../../shared/default-models/cronjob.const';
 import { combineLatest } from 'rxjs';
 import * as cron from 'cron-parser';
 import { ObjectMeta } from '../../../shared/model/v1/kubernetes/deployment';
-import { ContainerTpl } from '../../../shared/base/container/container-tpl';
-
-const templateDom = [
-  {
-    id: '创建计划任务模版',
-    child: [
-      {
-        id: '发布信息',
-      },
-      {
-        id: '计划任务配置'
-      }
-    ]
-  }
-];
-
-const containerDom = {
-  id: '容器配置',
-  child: [
-    {
-      id: '镜像配置'
-    },
-    {
-      id: '环境变量配置'
-    }
-  ]
-};
+import { CronjobTemplateDom, CronjobContainerDom, ContainerTpl } from '../../../shared/base/container/container-tpl';
 
 @Component({
   selector: 'create-edit-cronjobtpl',
@@ -81,7 +55,6 @@ export class CreateEditCronjobTplComponent extends ContainerTpl implements OnIni
   componentName = '计划任务模板';
   top: number;
   box: HTMLElement;
-  naviList = JSON.stringify(templateDom);
   eventList: any = new Array();
 
   constructor(private cronjobTplService: CronjobTplService,
@@ -97,7 +70,7 @@ export class CreateEditCronjobTplComponent extends ContainerTpl implements OnIni
               private messageHandlerService: MessageHandlerService,
               @Inject(DOCUMENT) private document: any,
               private eventManager: EventManager) {
-    super();
+    super(CronjobTemplateDom, CronjobContainerDom);
   }
 
   trackByFn(index: any, item: any) {
@@ -164,22 +137,12 @@ export class CreateEditCronjobTplComponent extends ContainerTpl implements OnIni
     }
   }
 
-  setContainDom(i) {
-    const dom = JSON.parse(JSON.stringify(containerDom));
-    dom.id += i ? i : '';
-    dom.child.forEach(item => {
-      item.id += i ? i : '';
-    });
-    return dom;
-  }
-
-  initNavList() {
-    this.naviList = null;
-    const naviList = JSON.parse(JSON.stringify(templateDom));
-    for (let key = 0; key < this.containersLength; key++) {
-      naviList[0].child.push(this.setContainDom(key));
+  get containers(): any {
+    try {
+      return this.kubeResource.spec.jobTemplate.spec.template.spec.containers;
+    } catch (error) {
+      return [];
     }
-    this.naviList = JSON.stringify(naviList);
   }
 
   get isScheduleValid(): boolean {
@@ -252,6 +215,7 @@ export class CreateEditCronjobTplComponent extends ContainerTpl implements OnIni
     container.resources.limits = {'memory': '', 'cpu': ''};
     container.env = [];
     container.envFrom = [];
+    container.imagePullPolicy = 'IfNotPresent';
     return container;
   }
 
@@ -396,6 +360,7 @@ export class CreateEditCronjobTplComponent extends ContainerTpl implements OnIni
 
     this.cronjobTpl.id = undefined;
     this.cronjobTpl.name = this.cronjob.name;
+    this.cronjobTpl.createTime = this.cronjobTpl.updateTime = new Date();
     this.cronjobTplService.create(this.cronjobTpl, this.app.id).subscribe(
       status => {
         this.isSubmitOnGoing = false;

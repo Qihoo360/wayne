@@ -1,0 +1,37 @@
+<div class="clr-row">
+  <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
+    <div class="table-search">
+      <div class="table-search-left">
+        <button class="wayne-button normal" (click)="createResource()">
+          {{'ADMIN.KUBERNETES.CRD.CREATE' | translate}}
+        </button>
+        <button class="wayne-button normal" (click)="retrieveResource()">
+          {{'ADMIN.KUBERNETES.ACTION.REFRESH' | translate}}
+        </button>
+        <wayne-filter-box (confirm)="onConfirmEvent()" (cancel)="onCancelEvent()">
+          <wayne-checkbox-group [(ngModel)]="showList">
+            <wayne-checkbox value="name">{{'ADMIN.KUBERNETES.CRD.LIST.NAME' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="label">{{'ADMIN.KUBERNETES.CRD.LIST.LABEL' | translate}}</wayne-checkbox>
+            <wayne-checkbox value="age">{{'ADMIN.KUBERNETES.CRD.LIST.AGE' | translate}}</wayne-checkbox>
+          </wayne-checkbox-group>
+        </wayne-filter-box>
+      </div>
+    </div>
+
+    <wayne-list-crd
+      [resources]="resources"
+      [showState]="showState"
+      (delete)="onDeleteResourceEvent($event)"
+      (edit)="onEditResourceEvent($event)"
+      [page]="pageState.page"
+      [cluster]="cluster"
+      (paginate)="retrieveResource($event)">
+    </wayne-list-crd>
+  </div>
+</div>
+<deletion-dialog (outputObj)="confirmDeleteEvent($event)"></deletion-dialog>
+<wayne-ace-editor (createOutputObj)="onCreateResourceEvent($event)" (outputObj)="onSaveResourceEvent($event)"></wayne-ace-editor>
+<wayne-float-window value="{{ cluster }}">
+  <wayne-float-window-item *ngFor="let cluster of clusters" [value]="cluster"
+                           (click)="jumpToHref(cluster)"></wayne-float-window-item>
+</wayne-float-window>

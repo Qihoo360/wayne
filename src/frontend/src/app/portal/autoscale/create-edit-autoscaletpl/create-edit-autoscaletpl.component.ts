@@ -119,6 +119,7 @@ export class CreateEditAutoscaletplComponent extends CreateEditResourceTemplate 
 
     this.template.id = undefined;
     this.template.name = this.resource.name;
+    this.template.createTime = this.template.updateTime = new Date();
     this.templateService.create(this.template, this.app.id).subscribe(
       status => {
         this.isSubmitOnGoing = false;

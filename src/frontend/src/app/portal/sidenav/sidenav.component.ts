@@ -1,26 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/auth/auth.service';
-import { ActivatedRoute } from '@angular/router';
 import { AppService } from '../../shared/client/v1/app.service';
 import { CacheService } from '../../shared/auth/cache.service';
-import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
-
+import { StorageService } from '../../shared/client/v1/storage.service';
+import { SideNavCollapse } from '../../shared/base/side-nav/side-nav-collapse';
 @Component({
   selector: 'wayne-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
 
-export class SidenavComponent implements OnInit {
+export class SidenavComponent extends SideNavCollapse {
 
-  constructor(public authService: AuthService,
-              private messageHandlerService: MessageHandlerService,
-              public cacheService: CacheService,
-              private appService: AppService,
-              private route: ActivatedRoute) {
-  }
-
-  ngOnInit() {
+  constructor(
+    public authService: AuthService,
+    public cacheService: CacheService,
+    private appService: AppService,
+    public storage: StorageService
+  ) {
+    super(storage);
   }
 
   goToMonitor() {
@@ -28,7 +26,8 @@ export class SidenavComponent implements OnInit {
   }
 
   getMonitorUri() {
-    return this.authService.config['system.monitor-uri'];
+    return this.cacheService.currentNamespace.metaDataObj['system.monitor-url']
+        || this.authService.config['system.monitor-uri'];
   }
 
 }

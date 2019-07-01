@@ -2,41 +2,132 @@
 
 export const templateDom = [
   {
-    id: '创建模版',
+    id: 'create-template',
+    text: 'TEMPLATE.CREATE_TMP',
     child: [
       {
-        id: '发布信息',
+        id: 'release-message',
+        text: 'TEMPLATE.RELEASE_MESSAGE'
       },
       {
-        id: '更新策略'
+        id: 'update-strategy',
+        text: 'TEMPLATE.UPDATE_STRATEGY'
       }
     ]
   }
 ];
 
 export const containerDom = {
-  id: '容器配置',
+  id: 'container-config',
+  text: 'TEMPLATE.CONTAINER_CONFIG',
   child: [
     {
-      id: '镜像配置'
+      id: 'image-config',
+      text: 'TEMPLATE.IMAGE_CONFIG'
     },
     {
-      id: '环境变量配置'
+      id: 'environment-var',
+      text: 'TEMPLATE.ENVIRONMENT_VAR'
     },
     {
-      id: '就绪探针'
+      id: 'readiness-check',
+      text: 'TEMPLATE.READINESS_PROBE'
     },
     {
-      id: '存活探针'
+      id: 'liveness-check',
+      text: 'TEMPLATE.LIVENESS_PROBE_CHECK'
     },
     {
-      id: '生命周期'
+      id: 'life-cycle',
+      text: 'TEMPLATE.LIFE_CYCLE'
+    }
+  ]
+};
+
+export const CronjobTemplateDom = [
+  {
+    id: 'create-tmp',
+    text: 'CRONJOB.CREATE_TMP',
+    child: [
+      {
+        id: 'release-message',
+        text: 'TEMPLATE.RELEASE_MESSAGE'
+      },
+      {
+        id: 'config',
+        text: 'CRONJOB.CONFIG'
+      }
+    ]
+  }
+];
+
+export const CronjobContainerDom = {
+  id: 'container-config',
+  text: 'TEMPLATE.CONTAINER_CONFIG',
+  child: [
+    {
+      id: 'image-config',
+      text: 'TEMPLATE.IMAGE_CONFIG'
+    },
+    {
+      id: 'environment-var',
+      text: 'TEMPLATE.ENVIRONMENT_VAR'
     }
   ]
 };
 
 export class ContainerTpl {
   kubeResource: any = {};
+  naviList: string;
+
+  constructor(
+    private template: any,
+    private container: any
+  ) {
+    this.naviList = JSON.stringify(template);
+  }
+  // navgation
+  get containersLength(): number {
+    try {
+      return this.kubeResource.spec.template.spec.containers.length;
+    } catch (error) {
+      return 0;
+    }
+  }
+
+  get containers(): any {
+    try {
+      return this.kubeResource.spec.template.spec.containers;
+    } catch (error) {
+      return [];
+    }
+  }
+
+  containerNameChange() {
+    this.initNavList();
+  }
+
+  setContainDom(i) {
+    const dom = JSON.parse(JSON.stringify(this.container));
+    if (dom.id === 'container-config') {
+      dom.text = this.containers[i].name ? this.containers[i].name : 'TEMPLATE.CONTAINER_CONFIG';
+    }
+    dom.id += i ? i : '';
+    dom.child.forEach(item => {
+      item.text = item.text;
+      item.id += i ? i : '';
+    });
+    return dom;
+  }
+
+  initNavList() {
+    this.naviList = null;
+    const naviList = JSON.parse(JSON.stringify(templateDom));
+    for (let key = 0; key < this.containersLength; key++) {
+      naviList[0].child.push(this.setContainDom(key));
+    }
+    this.naviList = JSON.stringify(naviList);
+  }
 
   onAddContainerCommand(index: number) {
     if (!this.kubeResource.spec.template.spec.containers[index].command) {

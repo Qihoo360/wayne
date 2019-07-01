@@ -25,6 +25,7 @@ interface ListValue {
   value: string;
 }
 const splitString = '#%$';
+const boxPadding = 33;
 
 @Component({
   selector: 'wayne-select',
@@ -105,7 +106,7 @@ export class SelectComponent implements OnInit, AfterViewInit, ControlValueAcces
   get read(): boolean {
     return !this.mult && (this.input || (this.readonly !== undefined && this.readonly === false)) ? false : true;
   }
-  @Input('direction') direction = 'auto';
+  @Input() direction = 'auto';
   @Input('cursor') cursor = 'pointer';
   @Input('placeholder') placeholder = '';
   @Output() change = new EventEmitter<any>();
@@ -161,8 +162,8 @@ export class SelectComponent implements OnInit, AfterViewInit, ControlValueAcces
   set showBox(show: boolean) {
     this._showBox = show;
     if (show) {
+      this.resizeEvent();
       setTimeout(() => {
-        this.resizeEvent();
         this.globalEventList.push(
           this.eventManager.addGlobalEventListener('window', 'resize', this.resizeEvent.bind(this)),
           this.eventManager.addEventListener(this.document.querySelector('.content-area'), 'scroll', this.resizeEvent.bind(this))
@@ -323,24 +324,24 @@ export class SelectComponent implements OnInit, AfterViewInit, ControlValueAcces
     }
   }
 
+  getBoxHeight(): number {
+    return (boxPadding + this._options.length * 25) > 200 ? 200 : boxPadding + this._options.length * 25;
+  }
+
   resizeEvent() {
     if (this.direction === 'auto') {
       // 去除 header 高度
       const headerHeight = 60;
       const bodyHeight = this.document.body.offsetHeight;
-      const target = this.document.querySelector('.select-box');
-      if (!target) {
-        return;
-      }
-      const height = target.offsetHeight;
-      const top = target.getBoundingClientRect().top;
-      const bottom = bodyHeight - top - height;
+      const target = this.el.nativeElement.querySelector('.select-box');
+      const { top, bottom } = this.el.nativeElement.getBoundingClientRect();
+      const targetHeight = this.getBoxHeight();
       if (this.dire === 'top') {
-        if (bottom > height + 36 && top - headerHeight <= 0) {
+        if (top - headerHeight - targetHeight <= 0 && bodyHeight - bottom - targetHeight > 0) {
           this.dire = 'bottom';
         }
       } else {
-        if (top - headerHeight > height + 36 && bottom <= 0) {
+        if (top - headerHeight - targetHeight >= 0 && bodyHeight - bottom - targetHeight < 0) {
           this.dire = 'top';
         }
       }

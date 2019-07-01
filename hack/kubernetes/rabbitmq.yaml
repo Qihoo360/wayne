@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-wayne
+  namespace: default
+  labels:
+    app: rabbitmq-wayne
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq-wayne
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-wayne
+    spec:
+      containers:
+      - name: rabbitmq
+        image: 'rabbitmq:3.7.8-management'
+        resources:
+          limits:
+            cpu: '1'
+            memory: 1Gi
+          requests:
+            cpu: '1'
+            memory: 1Gi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: rabbitmq-wayne
+  name: rabbitmq-wayne
+  namespace: default
+spec:
+  ports:
+  - port: 5672
+    protocol: TCP
+    targetPort: 5672
+  selector:
+    app: rabbitmq-wayne

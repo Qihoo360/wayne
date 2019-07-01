@@ -14,7 +14,7 @@
 //     Schemes: https
 //     Host: localhost
 //     BasePath: /openapi/v1/gateway/action
-//     Version: 1.5.0
+//     Version: 1.6.1
 //
 //     Consumes:
 //     - application/json
@@ -51,7 +51,13 @@ const (
 	UpgradeDeploymentAction   = "UPGRADE_DEPLOYMENT"
 	ScaleDeploymentAction     = "SCALE_DEPLOYMENT"
 	RestartDeploymentAction   = "RESTART_DEPLOYMENT"
-	PermissionPrefix          = "OPENAPI_"
+	GetPodListAction          = "GET_POD_LIST"
+
+	ListNamespaceUsers = "LIST_NAMESPACE_USERS"
+	ListNamespaceApps  = "LIST_NAMESPACE_APPS"
+	ListAppDeploys     = "List_APP_DEPLOYS"
+
+	PermissionPrefix = "OPENAPI_"
 )
 
 type OpenAPIController struct {

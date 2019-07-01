@@ -1,14 +1,21 @@
 package event
 
 import (
+	"fmt"
+	"sort"
 	"strings"
 
+	batchv1 "k8s.io/api/batch/v1"
 	apiv1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/types"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
+	"github.com/Qihoo360/wayne/src/backend/client/api"
+	basecommon "github.com/Qihoo360/wayne/src/backend/common"
 	"github.com/Qihoo360/wayne/src/backend/resources/common"
+	"github.com/Qihoo360/wayne/src/backend/resources/dataselector"
+	"github.com/Qihoo360/wayne/src/backend/util/slice"
 )
 
 // FailedReasonPartials  is an array of partial strings to correctly filter warning events.
@@ -57,6 +64,108 @@ func GetPodsWarningEvents(indexer *client.CacheFactory, pods []*apiv1.Pod) ([]co
 	}
 
 	return result, nil
+}
+
+func getPodsWarningEventsPage(kubeClient client.ResourceHandler, pods []*apiv1.Pod) ([]common.Event, error) {
+	eventObjs, err := kubeClient.List(api.ResourceNameEvent, "", labels.Everything().String())
+	if err != nil {
+		return nil, err
+	}
+
+	events := make([]*apiv1.Event, 0)
+	for _, obj := range eventObjs {
+		events = append(events, obj.(*apiv1.Event))
+	}
+
+	result := make([]common.Event, 0)
+
+	// Filter out only warning events
+	events = getWarningEvents(events)
+	failedPods := make([]*apiv1.Pod, 0)
+
+	// Filter out ready and successful pods
+	for _, pod := range pods {
+		if !isReadyOrSucceeded(pod) {
+			failedPods = append(failedPods, pod)
+		}
+	}
+
+	// Filter events by failed pods UID
+	events = filterEventsByPodsUID(events, failedPods)
+	events = removeDuplicates(events)
+
+	for _, event := range events {
+		result = append(result, common.Event{
+			Message:         event.Message,
+			Reason:          event.Reason,
+			Type:            event.Type,
+			FirstSeen:       event.FirstTimestamp,
+			LastSeen:        event.LastTimestamp,
+			Count:           event.Count,
+			SourceComponent: event.Source.Component,
+			Name:            event.InvolvedObject.Name,
+		})
+	}
+
+	return result, nil
+}
+
+func GetPodsEventByCronJobPage(kubeClient client.ResourceHandler, namespace, name string, q *basecommon.QueryParam) (*basecommon.Page, error) {
+	jobs, err := kubeClient.List(api.ResourceNameJob, namespace, labels.Everything().String())
+	if err != nil {
+		return nil, err
+	}
+	relateJobs := make([]string, 0)
+	for _, obj := range jobs {
+		job, ok := obj.(*batchv1.Job)
+		if !ok {
+			return nil, fmt.Errorf("Convert rs obj (%v) error. ", obj)
+		}
+		for _, ref := range job.OwnerReferences {
+			if ref.Kind == api.KindNameCronJob && ref.Name == name {
+				relateJobs = append(relateJobs, job.Name)
+			}
+		}
+
+	}
+	pods, err := kubeClient.List(api.ResourceNamePod, namespace, labels.Everything().String())
+	if err != nil {
+		return nil, err
+	}
+	relatePod := make([]*apiv1.Pod, 0)
+	for _, obj := range pods {
+		pod, ok := obj.(*apiv1.Pod)
+		if !ok {
+			return nil, fmt.Errorf("Convert pod obj (%v) error. ", obj)
+		}
+		for _, ref := range pod.OwnerReferences {
+			if ref.Kind == api.KindNameJob && slice.StrSliceContains(relateJobs, ref.Name) {
+				relatePod = append(relatePod, pod)
+			}
+		}
+
+	}
+
+	events, err := getPodsWarningEventsPage(kubeClient, relatePod)
+	if err != nil {
+		return nil, err
+	}
+
+	return pageResult(events, q), nil
+}
+
+func pageResult(events []common.Event, q *basecommon.QueryParam) *basecommon.Page {
+	commonObjs := make([]dataselector.DataCell, 0)
+	for _, event := range events {
+		commonObjs = append(commonObjs, ObjectCell(event))
+	}
+
+	sort.Slice(commonObjs, func(i, j int) bool {
+		return commonObjs[j].GetProperty(dataselector.CreationTimestampProperty).
+			Compare(commonObjs[i].GetProperty(dataselector.CreationTimestampProperty)) == -1
+	})
+
+	return dataselector.DataSelectPage(commonObjs, q)
 }
 
 // Returns filtered list of event objects.

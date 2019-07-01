@@ -62,7 +62,6 @@ export class CreateEditDaemonSetTplComponent extends ContainerTpl implements OnI
   memoryUnitPrice = 10;
   top: number;
   box: HTMLElement;
-  naviList = JSON.stringify(templateDom);
   eventList: any = Array();
 
   constructor(private daemonSetTplService: DaemonSetTplService,
@@ -79,7 +78,7 @@ export class CreateEditDaemonSetTplComponent extends ContainerTpl implements OnI
               @Inject(DOCUMENT) private document: any,
               public translate: TranslateService,
               private eventManager: EventManager) {
-    super();
+    super(templateDom, containerDom);
   }
 
   ngAfterViewInit() {
@@ -110,32 +109,6 @@ export class CreateEditDaemonSetTplComponent extends ContainerTpl implements OnI
         this.top = this.box.scrollTop + this.box.offsetHeight - 48;
       }, 0);
     }
-  }
-
-  get containersLength(): number {
-    try {
-      return this.kubeResource.spec.template.spec.containers.length;
-    } catch (error) {
-      return 0;
-    }
-  }
-
-  setContainDom(i) {
-    const dom = JSON.parse(JSON.stringify(containerDom));
-    dom.id += i ? i : '';
-    dom.child.forEach(item => {
-      item.id += i ? i : '';
-    });
-    return dom;
-  }
-
-  initNavList() {
-    this.naviList = null;
-    const naviList = JSON.parse(JSON.stringify(templateDom));
-    for (let key = 0; key < this.containersLength; key++) {
-      naviList[0].child.push(this.setContainDom(key));
-    }
-    this.naviList = JSON.stringify(naviList);
   }
 
   checkIfInvalid(index: number, field: string): boolean {
@@ -253,6 +226,7 @@ export class CreateEditDaemonSetTplComponent extends ContainerTpl implements OnI
 
   onAddContainer() {
     this.kubeResource.spec.template.spec.containers.push(this.defaultContainer());
+    this.initNavList();
   }
 
   onAddEnv(index: number, event: Event) {
@@ -309,6 +283,7 @@ export class CreateEditDaemonSetTplComponent extends ContainerTpl implements OnI
       probe.httpGet = new HTTPGetAction();
       probe.timeoutSeconds = 1;
       probe.periodSeconds = 10;
+      probe.initialDelaySeconds = 30;
       probe.failureThreshold = 10;
     }
     this.kubeResource.spec.template.spec.containers[i].readinessProbe = probe;
@@ -370,6 +345,7 @@ export class CreateEditDaemonSetTplComponent extends ContainerTpl implements OnI
     container.resources.limits = {'memory': '', 'cpu': ''};
     container.env = [];
     container.envFrom = [];
+    container.imagePullPolicy = 'IfNotPresent';
     return container;
   }
 
@@ -406,6 +382,7 @@ export class CreateEditDaemonSetTplComponent extends ContainerTpl implements OnI
     this.daemonSetTpl.template = JSON.stringify(newDaemonSet);
     this.daemonSetTpl.id = undefined;
     this.daemonSetTpl.name = this.daemonSet.name;
+    this.daemonSetTpl.createTime = this.daemonSetTpl.updateTime = new Date();
     this.daemonSetTplService.create(this.daemonSetTpl, this.app.id).subscribe(
       status => {
         this.isSubmitOnGoing = false;

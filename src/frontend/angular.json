@@ -23,7 +23,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/assets"
+              "src/assets",
+              "src/config.js"
             ],
             "styles": [
               "src/styles.scss",
@@ -31,7 +32,7 @@
               "node_modules/@clr/icons/clr-icons.min.css",
               "node_modules/prismjs/themes/prism-solarizedlight.css",
               "node_modules/diff2html/dist/diff2html.min.css",
-              "src/theme/theme.scss"
+              "node_modules/wayne-ui/lib/index.css"
             ],
             "stylePreprocessorOptions": {
               "includePaths": ["node_modules"]
@@ -113,7 +114,8 @@
             ],
             "scripts": [],
             "assets": [
-              "src/assets"
+              "src/assets",
+              "src/config.js"
             ]
           }
         },

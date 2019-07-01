@@ -1,11 +1,11 @@
 {
   "name": "frontend",
-  "version": "1.5.0",
+  "version": "1.7.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --disable-host-check --proxy-config proxy.config.js --configuration hmr",
-    "build": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --aot --prod --build-optimizer --base-href \"/public/\"",
+    "start": "ng serve --host 0.0.0.0 --disable-host-check  --configuration hmr",
+    "build": "node --max_old_space_size=6000 ./node_modules/@angular/cli/bin/ng build --aot --prod --build-optimizer",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -23,7 +23,6 @@
     "@angular/router": "^7.2.2",
     "@clr/angular": "^1.0.4",
     "@clr/icons": "^1.0.4",
-    "@clr/ui": "^1.0.4",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "@webcomponents/custom-elements": "^1.2.1",
@@ -49,6 +48,7 @@
     "rxjs-compat": "^6.2.1",
     "sockjs-client": "^1.1.4",
     "tslib": "^1.9.0",
+    "wayne-ui": "^0.1.0",
     "xterm": "^3.11.0",
     "zone.js": "^0.8.29"
   },

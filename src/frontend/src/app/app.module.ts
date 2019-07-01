@@ -38,8 +38,8 @@ export function initConfig(authService: AuthService) {
   });
 }
 
-if (environment.ravenDsn && environment.ravenDsn !== '__ravenDsn__') {
-  Raven.config(environment.ravenDsn).install();
+if (environment.production && (window as any).CONFIG.RAVEN ) {
+  Raven.config((window as any).CONFIG.RAVEN_DSN).install();
 }
 
 
@@ -54,7 +54,6 @@ export class WayneErrorHandler implements ErrorHandler {
     throw err;
   }
 }
-
 
 @NgModule({
   declarations: [
@@ -96,7 +95,7 @@ export class WayneErrorHandler implements ErrorHandler {
     },
     {
       provide: ErrorHandler,
-      useClass: environment.ravenDsn && environment.ravenDsn !== '__ravenDsn__' ? RavenErrorHandler : WayneErrorHandler
+      useClass: (window as any).CONFIG.RAVEN ? RavenErrorHandler : WayneErrorHandler
     }
   ],
   bootstrap: [AppComponent]

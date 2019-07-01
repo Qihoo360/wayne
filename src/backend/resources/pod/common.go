@@ -13,7 +13,6 @@ type ObjectCell v1.Pod
 func (cell ObjectCell) GetProperty(name dataselector.PropertyName) dataselector.ComparableValue {
 	switch name {
 	case dataselector.NameProperty:
-		cell.GetObjectKind()
 		return dataselector.StdComparableString(cell.ObjectMeta.Name)
 	case dataselector.CreationTimestampProperty:
 		return dataselector.StdComparableTime(cell.ObjectMeta.CreationTimestamp.Time)

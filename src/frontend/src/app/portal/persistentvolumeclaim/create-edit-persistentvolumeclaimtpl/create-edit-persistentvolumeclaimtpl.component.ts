@@ -101,22 +101,19 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
     return this.currentForm.get('selectors') as FormArray;
   }
 
-  onAddSelector(index: number) {
+  onAddSelector() {
     const selectors = this.currentForm.get(`selectors`) as FormArray;
     selectors.push(this.initSelector());
   }
 
   onDeleteSelector(index: number) {
-    if (this.selectors.controls.length <= 1) {
-      return;
-    }
     this.selectors.removeAt(index);
   }
 
   initSelector() {
     return this.fb.group({
-      key: 'wayne.cloud/storage-type',
-      value: 'ceph',
+      key: '',
+      value: '',
     });
   }
 
@@ -228,6 +225,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
     const kubePvc = this.getKubePvcByForm();
     this.pvcTpl.template = JSON.stringify(kubePvc);
     this.pvcTpl.id = undefined;
+    this.pvcTpl.createTime = this.pvcTpl.updateTime = new Date();
     this.pvcTplService.create(this.pvcTpl, this.app.id).subscribe(
       status => {
         this.isSubmitOnGoing = false;
@@ -294,11 +292,11 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit, Afte
       accessModes.push('ReadWriteMany');
     }
     kubePvc.spec.accessModes = accessModes;
-    if (!kubePvc.spec.selector) {
-      kubePvc.spec.selector = new LabelSelector();
-    }
-    kubePvc.spec.selector.matchLabels = {};
     if (formValue.selectors && formValue.selectors.length > 0) {
+      if (!kubePvc.spec.selector) {
+        kubePvc.spec.selector = new LabelSelector();
+      }
+      kubePvc.spec.selector.matchLabels = {};
       for (const selector of formValue.selectors) {
         kubePvc.spec.selector.matchLabels[selector.key] = selector.value;
       }

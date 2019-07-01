@@ -67,7 +67,6 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
   memoryUnitPrice = 10;
   top: number;
   box: HTMLElement;
-  naviList = JSON.stringify(templateDom);
   eventList: any[] = Array();
   defaultSafeExecCommand = 'sleep\n30';
 
@@ -84,7 +83,7 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
               private messageHandlerService: MessageHandlerService,
               @Inject(DOCUMENT) private document: any,
               private eventManager: EventManager) {
-    super();
+    super(templateDom, containerDom);
   }
 
   formValid(field: string): boolean {
@@ -165,11 +164,11 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
     return cpuLimit;
   }
 
-  get containersLength(): number {
-    try {
-      return this.kubeResource.spec.template.spec.containers.length;
-    } catch (error) {
-      return 0;
+  strategyTypeChange() {
+    if (this.kubeResource.spec.strategy.type === 'RollingUpdate' && !this.kubeResource.spec.strategy.rollingUpdate) {
+      this.kubeResource.spec.strategy.rollingUpdate = new RollingUpdateDeployment();
+      this.kubeResource.spec.strategy.rollingUpdate.maxSurge = '20%';
+      this.kubeResource.spec.strategy.rollingUpdate.maxUnavailable = 1;
     }
   }
 
@@ -184,27 +183,8 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
     container.resources.limits = {'memory': '', 'cpu': ''};
     container.env = [];
     container.envFrom = [];
+    container.imagePullPolicy = 'IfNotPresent';
     return container;
-  }
-
-  // 初始化navigation数据
-
-  setContainDom(i) {
-    const dom = JSON.parse(JSON.stringify(containerDom));
-    dom.id += i ? i : '';
-    dom.child.forEach(item => {
-      item.id += i ? i : '';
-    });
-    return dom;
-  }
-
-  initNavList() {
-    this.naviList = null;
-    const naviList = JSON.parse(JSON.stringify(templateDom));
-    for (let key = 0; key < this.containersLength; key++) {
-      naviList[0].child.push(this.setContainDom(key));
-    }
-    this.naviList = JSON.stringify(naviList);
   }
 
   ngOnInit(): void {
@@ -320,6 +300,7 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
       probe.httpGet = new HTTPGetAction();
       probe.timeoutSeconds = 1;
       probe.periodSeconds = 10;
+      probe.initialDelaySeconds = 30;
       probe.failureThreshold = 10;
     }
     this.kubeResource.spec.template.spec.containers[i].readinessProbe = probe;
@@ -495,6 +476,7 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
     this.deploymentTpl.template = JSON.stringify(newState);
     this.deploymentTpl.id = undefined;
     this.deploymentTpl.name = this.deployment.name;
+    this.deploymentTpl.createTime = this.deploymentTpl.updateTime = new Date();
     this.deploymentTplService.create(this.deploymentTpl, this.app.id).subscribe(
       status => {
         this.isSubmitOnGoing = false;
