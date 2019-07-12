@@ -18,7 +18,7 @@ export class CreateEditUserComponent {
   createUserOpened: boolean;
 
   userForm: NgForm;
-  @ViewChild('userForm')
+  @ViewChild('userForm', { static: false })
   currentForm: NgForm;
 
   user: User = new User();

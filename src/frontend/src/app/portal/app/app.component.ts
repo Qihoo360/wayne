@@ -52,9 +52,9 @@ const showState = {
 })
 export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   @HostBinding('attr.class') class = 'content-container';
-  @ViewChild(ListAppComponent)
+  @ViewChild(ListAppComponent, { static: false })
   listApp: ListAppComponent;
-  @ViewChild(CreateEditAppComponent)
+  @ViewChild(CreateEditAppComponent, { static: false })
   createEditApp: CreateEditAppComponent;
   changedApps: App[];
   namespaces: Namespace[];

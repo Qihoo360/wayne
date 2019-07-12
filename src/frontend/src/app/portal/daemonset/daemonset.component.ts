@@ -52,9 +52,9 @@ const showState = {
   styleUrls: ['./daemonset.component.scss']
 })
 export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
-  @ViewChild(ListDaemonSetComponent)
+  @ViewChild(ListDaemonSetComponent, { static: false })
   listDaemonSet: ListDaemonSetComponent;
-  @ViewChild(CreateEditDaemonSetComponent)
+  @ViewChild(CreateEditDaemonSetComponent, { static: false })
   createEditDaemonSet: CreateEditDaemonSetComponent;
 
   pageState: PageState = new PageState();

@@ -30,9 +30,9 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./persistentvolumeclaim.component.scss']
 })
 export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
-  @ViewChild(ListPersistentVolumeClaimComponent)
+  @ViewChild(ListPersistentVolumeClaimComponent, { static: false })
   list: ListPersistentVolumeClaimComponent;
-  @ViewChild(CreateEditPersistentVolumeClaimComponent)
+  @ViewChild(CreateEditPersistentVolumeClaimComponent, { static: false })
   createEdit: CreateEditPersistentVolumeClaimComponent;
   pvcId: number;
   pvcs: PersistentVolumeClaim[];

@@ -26,16 +26,16 @@ const showState = {
 })
 
 export class KubeStatefulsetComponent extends KubernetesNamespacedResource implements OnInit, OnDestroy {
-  @ViewChild(ListStatefulsetComponent)
+  @ViewChild(ListStatefulsetComponent, { static: false })
   listResourceComponent: ListStatefulsetComponent;
 
-  @ViewChild(AceEditorComponent)
+  @ViewChild(AceEditorComponent, { static: false })
   aceEditorModal: AceEditorComponent;
 
-  @ViewChild(DeletionDialogComponent)
+  @ViewChild(DeletionDialogComponent, { static: false })
   deletionDialogComponent: DeletionDialogComponent;
 
-  @ViewChild(MigrationComponent)
+  @ViewChild(MigrationComponent, { static: false })
   migrationComponent: MigrationComponent;
 
   constructor(public kubernetesClient: KubernetesClient,

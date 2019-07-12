@@ -44,7 +44,7 @@ import { CronjobTemplateDom, CronjobContainerDom, ContainerTpl } from '../../../
 })
 export class CreateEditCronjobTplComponent extends ContainerTpl implements OnInit, AfterViewInit, OnDestroy {
   ngForm: NgForm;
-  @ViewChild('ngForm')
+  @ViewChild('ngForm', { static: false })
   currentForm: NgForm;
 
   actionType: ActionType;

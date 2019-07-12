@@ -19,9 +19,9 @@ import { ApiKeyService } from '../../shared/client/v1/apikey.service';
   styleUrls: ['./apikey.component.scss']
 })
 export class ApiKeyComponent implements OnInit, OnDestroy {
-  @ViewChild(ListApiKeyComponent)
+  @ViewChild(ListApiKeyComponent, { static: false })
   listApiKey: ListApiKeyComponent;
-  @ViewChild(CreateEditApiKeyComponent)
+  @ViewChild(CreateEditApiKeyComponent, { static: false })
   createEditApiKey: CreateEditApiKeyComponent;
   changedApiKeys: ApiKey[];
   pageState: PageState = new PageState();

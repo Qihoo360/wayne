@@ -20,7 +20,7 @@ export class ProgressComponent implements OnInit {
   @Input() count: number | string;
   @Input() total: number | string;
   @Input() text = true;
-  @ViewChild('box') box: ElementRef;
+  @ViewChild('box', { static: false }) box: ElementRef;
 
   constructor(private tipService: TipService) {
 

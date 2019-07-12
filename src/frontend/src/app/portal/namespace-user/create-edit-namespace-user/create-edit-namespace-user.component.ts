@@ -25,7 +25,7 @@ export class CreateEditNamespaceUserComponent implements OnInit {
   createNamespaceUserOpened: boolean;
 
   namespaceUserForm: NgForm;
-  @ViewChild('namespaceUserForm')
+  @ViewChild('namespaceUserForm', { static: false })
   currentForm: NgForm;
 
   namespaceUser: NamespaceUser;

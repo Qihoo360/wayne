@@ -32,9 +32,9 @@ const showState = {
   styleUrls: ['./namespace-webhook.component.scss']
 })
 export class NamespaceWebHookComponent implements OnInit, OnDestroy {
-  @ViewChild(ListNamespaceWebHookComponent)
+  @ViewChild(ListNamespaceWebHookComponent, { static: false })
   listWebHook: ListNamespaceWebHookComponent;
-  @ViewChild(CreateEditNamespaceWebHookComponent)
+  @ViewChild(CreateEditNamespaceWebHookComponent, { static: false })
   createEditWebHook: CreateEditNamespaceWebHookComponent;
   showList: any[] = new Array();
   showState: object = showState;

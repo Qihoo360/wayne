@@ -19,9 +19,9 @@ import { isNotEmpty } from '../../shared/utils';
   styleUrls: ['./secrettpl.component.scss']
 })
 export class SecretTplComponent implements OnInit, OnDestroy {
-  @ViewChild(ListSecretTplComponent)
+  @ViewChild(ListSecretTplComponent, { static: false })
   listSecrettpl: ListSecretTplComponent;
-  @ViewChild(CreateEditSecretTplComponent)
+  @ViewChild(CreateEditSecretTplComponent, { static: false })
   createEditSecrettpl: CreateEditSecretTplComponent;
 
   pageState: PageState = new PageState();

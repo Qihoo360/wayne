@@ -19,7 +19,7 @@ export class CRDDgRowDetailComponent implements OnInit {
   @Input() obj: any;
 
   @Input() cluster: string;
-  @ViewChild(AceEditorComponent)
+  @ViewChild(AceEditorComponent, { static: false })
   aceEditorModal: AceEditorComponent;
 
   resources: any[];
@@ -31,7 +31,7 @@ export class CRDDgRowDetailComponent implements OnInit {
   namespaces = Array<string>();
   namespace = '';
 
-  @ViewChild(DeletionDialogComponent)
+  @ViewChild(DeletionDialogComponent, { static: false })
   deletionDialogComponent: DeletionDialogComponent;
 
   constructor(private customCRDClient: CustomCRDClient,

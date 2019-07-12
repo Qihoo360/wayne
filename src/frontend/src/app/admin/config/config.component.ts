@@ -17,9 +17,9 @@ import { ConfigService } from '../../shared/client/v1/config.service';
   styleUrls: ['./config.component.scss']
 })
 export class ConfigComponent implements OnInit, OnDestroy {
-  @ViewChild(ListConfigComponent)
+  @ViewChild(ListConfigComponent, { static: false })
   list: ListConfigComponent;
-  @ViewChild(CreateEditConfigComponent)
+  @ViewChild(CreateEditConfigComponent, { static: false })
   createEdit: CreateEditConfigComponent;
 
   pageState: PageState = new PageState();

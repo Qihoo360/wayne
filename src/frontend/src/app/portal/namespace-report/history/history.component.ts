@@ -16,7 +16,7 @@ import EChartOption = echarts.EChartOption;
 })
 
 export class HistoryComponent implements OnInit, AfterViewInit {
-  @ViewChild('basic') elementBasicView;
+  @ViewChild('basic', { static: false }) elementBasicView;
   private basicOption: EChartOption;
   private basicChart: ECharts;
   text: string;

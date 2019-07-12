@@ -54,10 +54,10 @@ const showState = {
   styleUrls: ['./cronjob.component.scss']
 })
 export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
-  @ViewChild(ListCronjobComponent)
+  @ViewChild(ListCronjobComponent, { static: false })
   listCronjob: ListCronjobComponent;
 
-  @ViewChild(CreateEditCronjobComponent)
+  @ViewChild(CreateEditCronjobComponent, { static: false })
   createEditCronjob: CreateEditCronjobComponent;
 
   pageState: PageState = new PageState();

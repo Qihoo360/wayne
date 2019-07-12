@@ -51,9 +51,9 @@ const showState = {
   styleUrls: ['./secret.component.scss']
 })
 export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
-  @ViewChild(ListSecretComponent)
+  @ViewChild(ListSecretComponent, { static: false })
   list: ListSecretComponent;
-  @ViewChild(CreateEditSecretComponent)
+  @ViewChild(CreateEditSecretComponent, { static: false })
   createEdit: CreateEditSecretComponent;
   secretId: number;
   pageState: PageState = new PageState();
