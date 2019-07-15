@@ -6,14 +6,14 @@
         <div class="form-group" style="padding-left: 135px;">
           <label for="webhook-name"
                  class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
-          <label for="webhook-name" aria-haspopup="true" role="tooltip" [class.invalid]="!validateName()"
+          <label for="webhook-name" aria-haspopup="true" role="tooltip" [class.invalid]="name.invalid && (name.dirty || name.touched)"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <input class="form-control" type="text" id="webhook-name" [(ngModel)]="webHook.name"
                    name="webhook-name"
                    required
                    size="32"
                    maxlength="32"
-                   [placeholder]="'PLACEHOLDER.NAME' | translate">
+                   [placeholder]="'PLACEHOLDER.NAME' | translate" #name="ngModel">
             <span class="tooltip-content">
               {{ 'RULE.NAME' | translate }}
             </span>
@@ -22,13 +22,13 @@
         </div>
         <div class="form-group" style="padding-left: 135px;">
           <label for="webhook-url" class="clr-col-md-3 form-group-label-override required">URL</label>
-          <label for="webhook-url" aria-haspopup="true" role="tooltip" [class.invalid]="!validateUrl()"
+          <label for="webhook-url" aria-haspopup="true" role="tooltip" [class.invalid]="url.invalid && (url.dirty || url.touched)"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <input class="form-control" type="text" id="webhook-url" [(ngModel)]="webHook.url"
                    name="webhook-url"
                    required
                    [placeholder]="'PLACEHOLDER.URL_ADDR' | translate"
-                   pattern="(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]">
+                   pattern="(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]" #url="ngModel">
             <span class="tooltip-content">
               {{'RULE.URL' | translate}}
             </span>

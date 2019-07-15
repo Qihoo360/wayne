@@ -81,7 +81,8 @@ export class CreateEditLimitResource extends CreateEditResource {
   }
 
   public get isValid(): boolean {
-    return this.currentForm.valid &&
+    return this.currentForm && 
+      this.currentForm.valid &&
       !this.isSubmitOnGoing &&
       this.isNameValid &&
       !this.checkOnGoing &&

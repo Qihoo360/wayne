@@ -53,7 +53,7 @@ const showState = {
 export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
   @ViewChild(ListSecretComponent, { static: false })
   list: ListSecretComponent;
-  @ViewChild(CreateEditSecretComponent, { static: false })
+  @ViewChild(CreateEditSecretComponent, { static: true })
   createEdit: CreateEditSecretComponent;
   secretId: number;
   pageState: PageState = new PageState();

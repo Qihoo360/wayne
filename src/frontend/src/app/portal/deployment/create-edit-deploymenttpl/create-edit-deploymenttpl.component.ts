@@ -87,6 +87,9 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
   }
 
   formValid(field: string): boolean {
+    if (!this.currentForm) {
+      return false;
+    }
     const control = this.currentForm.controls[field];
     if (control && control.dirty && !control.valid) {
       return true;
@@ -125,6 +128,9 @@ export class CreateEditDeploymentTplComponent extends ContainerTpl implements On
   }
 
   containerIsInvalid(index: number, field: string): boolean {
+    if (!this.currentForm) {
+      return false;
+    }
     const control = this.currentForm.controls[field + index];
     if (control && control.dirty && !control.valid) {
       return true;

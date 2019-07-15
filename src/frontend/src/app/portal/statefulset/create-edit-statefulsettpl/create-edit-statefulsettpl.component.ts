@@ -110,6 +110,9 @@ export class CreateEditStatefulsettplComponent extends ContainerTpl implements O
   }
 
   checkIfInvalid(index: number, field: string): boolean {
+    if (!this.currentForm) {
+      return false;
+    }
     const control = this.currentForm.controls[field + index];
     if (control && control.dirty && !control.valid) {
       return true;
