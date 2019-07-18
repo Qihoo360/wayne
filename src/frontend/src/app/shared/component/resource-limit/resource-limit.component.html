@@ -1,27 +1,57 @@
 <div class="inline-flex-box">
-  <div class="form-group inline-item">
-    <label for="cpuLimit" class="clr-col-md-4">{{'SHARED.COMPONENT.RESOURCE_LIMIT.CPU_LIMIT' | translate}}</label>
-    <input type="text" id="cpuLimit" name="cpuLimit" type="number" [(ngModel)]="resources.cpuLimit" style="width: 110px;">
-    <span class="unit">{{'SHARED.COMPONENT.RESOURCE_LIMIT.CPU_LIMIT_UNIT' | translate}}</span>
+  <div class="inline-item">
+    <div class="clr-form-control">
+      <label for="cpuLimit" class="clr-control-label clr-col-4">{{'SHARED.COMPONENT.RESOURCE_LIMIT.CPU_LIMIT' | translate}}</label>
+      <div class="clr-control-container">
+        <div class="clr-input-wrapper">
+          <input class="clr-input" type="text" id="cpuLimit" name="cpuLimit" type="number" [(ngModel)]="resources.cpuLimit" style="width: 110px;">
+          <span class="unit">{{'SHARED.COMPONENT.RESOURCE_LIMIT.CPU_LIMIT_UNIT' | translate}}</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-group inline-item">
-    <label for="cpuRequestLimitPercent" class="clr-col-md-4">{{'SHARED.COMPONENT.RESOURCE_LIMIT.CPU_LIMIT_PERCENT' | translate}}</label>
-    <input type="text" id="cpuRequestLimitPercent" name="cpuRequestLimitPercent" type="number" [(ngModel)]="resources.cpuRequestLimitPercent" style="width: 110px;">
-    <span class="unit">%</span>
+  <div class="inline-item">
+    <div class="clr-form-control">
+      <label for="cpuRequestLimitPercent" class="clr-control-label clr-col-4">{{'SHARED.COMPONENT.RESOURCE_LIMIT.CPU_LIMIT_PERCENT' | translate}}</label>
+      <div class="clr-control-container">
+        <div class="clr-input-wrapper">
+          <input class="clr-input" type="text" id="cpuRequestLimitPercent" name="cpuRequestLimitPercent" type="number" [(ngModel)]="resources.cpuRequestLimitPercent" style="width: 110px;">
+          <span class="unit">%</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-group inline-item">
-    <label for="memoryLimit" class="clr-col-md-4">{{'SHARED.COMPONENT.RESOURCE_LIMIT.MEMORY_LIMIT' | translate}}</label>
-    <input type="text" id="memoryLimit" type="number" name="memoryLimit"  [(ngModel)]="resources.memoryLimit" style="width: 110px;">
-    <span class="unit">G</span>
+  <div class="inline-item">
+    <div class="clr-form-control">
+      <label for="memoryLimit" class="clr-control-label clr-col-4">{{'SHARED.COMPONENT.RESOURCE_LIMIT.MEMORY_LIMIT' | translate}}</label>
+      <div class="clr-control-container">
+        <div class="clr-input-wrapper">
+          <input class="clr-input" type="text" id="memoryLimit" type="number" name="memoryLimit" [(ngModel)]="resources.memoryLimit" style="width: 110px;">
+          <span class="unit">G</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-group inline-item">
-    <label for="memoryRequestLimitPercent" class="clr-col-md-4">{{'SHARED.COMPONENT.RESOURCE_LIMIT.MEMORY_LIMIT_PERCENT' | translate}}</label>
-    <input type="text" id="memoryRequestLimitPercent" type="number" name="memoryRequestLimitPercent"  [(ngModel)]="resources.memoryRequestLimitPercent" style="width: 110px;">
-    <span class="unit">%</span>
+  <div class="inline-item">
+    <div class="clr-form-control">
+      <label for="memoryRequestLimitPercent" class="clr-control-label clr-col-4">{{'SHARED.COMPONENT.RESOURCE_LIMIT.MEMORY_LIMIT_PERCENT' | translate}}</label>
+      <div class="clr-control-container">
+        <div class="clr-input-wrapper">
+          <input class="clr-input" type="text" id="memoryRequestLimitPercent" type="number" name="memoryRequestLimitPercent" [(ngModel)]="resources.memoryRequestLimitPercent" style="width: 110px;">
+          <span class="unit">%</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-group inline-item">
-    <label for="replicaLimit" class="clr-col-md-4">{{'SHARED.COMPONENT.RESOURCE_LIMIT.REPLICA_LIMIT' | translate}}</label>
-    <input type="text" id="replicaLimit" type="number" name="replicaLimit"  [(ngModel)]="resources.replicaLimit" style="width: 110px;">
-    <span class="unit">{{'SHARED.COMPONENT.RESOURCE_LIMIT.REPLICA_LIMIT_UNIT' | translate}}</span>
+  <div class="inline-item">
+    <div class="clr-form-control">
+      <label for="replicaLimit" class="clr-control-label clr-col-4">{{'SHARED.COMPONENT.RESOURCE_LIMIT.REPLICA_LIMIT' | translate}}</label>
+      <div class="clr-control-container">
+        <div class="clr-input-wrapper">
+          <input class="clr-input" type="text" id="replicaLimit" type="number" name="replicaLimit" [(ngModel)]="resources.replicaLimit" style="width: 110px;">
+          <span class="unit">{{'SHARED.COMPONENT.RESOURCE_LIMIT.REPLICA_LIMIT_UNIT' | translate}}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
