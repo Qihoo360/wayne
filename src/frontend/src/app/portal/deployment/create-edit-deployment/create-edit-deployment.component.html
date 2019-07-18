@@ -9,7 +9,7 @@
           <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
             <span *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</span>
-            <input type="text" id="name" [(ngModel)]="resource.name"
+            <input type="text" clrInput id="name" [(ngModel)]="resource.name"
                    name="name"
                    style="width: 15rem"
                    required

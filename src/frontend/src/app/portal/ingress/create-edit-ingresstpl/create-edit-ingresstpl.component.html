@@ -28,7 +28,7 @@
       <div class="form-group form-group-padding" >
         <label class="clr-col-md-4 form-group-label-override required">域名</label>
         <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-          <input type="text"
+          <input type="text" clrInput
                   [ngModelOptions]="{standalone: true}"
           [(ngModel)]="kubeResource.spec.rules[i].host">
         </label>
@@ -45,11 +45,11 @@
               </wayne-select>
 
               <label class="clr-col-md-2 form-group-label-override required">端口</label>
-              <input type="number" class="clr-col-md-1"
+              <input type="number" clrInput class="clr-col-md-1"
                      [ngModelOptions]="{standalone: true}"
                      [(ngModel)]="kubeResource.spec.rules[i].http.paths[j].backend.servicePort">
               <label class="clr-col-md-2 form-group-label-override required">路由</label>
-              <input type="text" class="clr-col-md-2"
+              <input type="text" clrInput class="clr-col-md-2"
                      [ngModelOptions]="{standalone: true}"
                      [(ngModel)]="kubeResource.spec.rules[i].http.paths[j].path">
               <a href="javascript:void(0)" *ngIf="kubeResource.spec.rules[i].http.paths.length > 1">

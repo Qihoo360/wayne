@@ -26,7 +26,7 @@
       </div>
       <div class="form-group form-group-padding">
         <label class="clr-col-md-3 form-group-label-override required">{{'PVC.CONTAINER_NUM' | translate}}</label>
-        <input type="number" style="width: 200px"
+        <input type="number" clrInput style="width: 200px"
                required
                formControlName="storage"
                [placeholder]="'PVC.CONTAINER_NUM' | translate">
@@ -57,11 +57,11 @@
              [formGroupName]="i"
              class="form-group form-group-padding">
           <label class="clr-col-md-3 form-group-label-override">{{'PVC.ASSOCIATED_LABEL' | translate}}</label>
-          <input type="text" style="width: 300px"
+          <input type="text" clrInput style="width: 300px"
                  formControlName="key"
                  required
                  [placeholder]="'PLACEHOLDER.SELECTOR_NAME' | translate">
-          <input type="text" style="width: 300px"
+          <input type="text" clrInput style="width: 300px"
                  formControlName="value"
                  required
                  [placeholder]="'PLACEHOLDER.SELECTOR_VALUE' | translate">

@@ -42,7 +42,7 @@
             <div class="form-group form-group-padding" >
               <label class="clr-col-md-4 form-group-label-override required">{{'TEMPLATE.MIN_REPLICAS' | translate}}</label>
               <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-                <input type="number"
+                <input type="number" clrInput
                        [ngModelOptions]="{standalone: true}"
                        [(ngModel)]="kubeResource.spec.minReplicas">
               </label>
@@ -50,7 +50,7 @@
           <div class="form-group form-group-padding" >
             <label class="clr-col-md-4 form-group-label-override required">{{'TEMPLATE.MAX_REPLICAS' | translate}}</label>
             <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="number"
+              <input type="number" clrInput
                      [ngModelOptions]="{standalone: true}"
                      [(ngModel)]="kubeResource.spec.maxReplicas">
             </label>
@@ -58,7 +58,7 @@
           <div class="form-group form-group-padding" >
             <label class="clr-col-md-4 form-group-label-override required">{{'TEMPLATE.CPU_THRESHOLD' | translate}}</label>
             <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="number"
+              <input type="number" clrInput
                      [ngModelOptions]="{standalone: true}"
                      [(ngModel)]="kubeResource.spec.targetCPUUtilizationPercentage">
             </label>

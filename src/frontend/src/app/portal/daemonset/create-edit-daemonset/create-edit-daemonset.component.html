@@ -8,7 +8,7 @@
           <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
             <label *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</label>
-            <input type="text" [(ngModel)]="resource.name"
+            <input type="text" clrInput [(ngModel)]="resource.name"
                    name="name"
                    required
                    [placeholder]="'PLACEHOLDER.APP_NAME' | translate"
@@ -36,7 +36,7 @@
         <div class="form-group" style="padding-left: 135px;">
           <label for="description"
                  class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
-          <textarea id="description" [(ngModel)]="resource.description"
+          <textarea clrTextarea id="description" [(ngModel)]="resource.description"
                     name="description"
                     rows="3">
           </textarea>
