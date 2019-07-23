@@ -116,6 +116,18 @@
         </clr-input-container>
       </div>
 
+      <div class="container-box" style="margin-left: .5rem;">
+        <clr-select-container>
+          <label style="color: #007cbb;font-weight: 400;" class="label-level2" [id]="i ? '镜像拉取策略' + i : '镜像拉取策略'">
+            镜像拉取策略
+          </label>
+          <select clrSelect [(ngModel)]="container.imagePullPolicy" name="imagePullPolicy_{{i}}">
+            <option value="IfNotPresent">IfNotPresent</option>
+            <option value="Always">Always</option>
+            <option value="Never">Never</option>
+          </select>
+        </clr-select-container>
+      </div>
       <div class="container-box">
         <label class="label-level2" [id]="i ? '启动命令' + i : '启动命令'">启动命令
           <button (click)="onAddContainerCommand(i)" style="margin-left: 10px;" class="wayne-button primary">
@@ -128,18 +140,6 @@
             placeholder="容器 Entrypoint">
           <clr-icon style="float: right;" (click)="onDeleteContainerCommand(i,k)" shape="trash" class="is-solid"></clr-icon>
         </div>
-      </div>
-      <div class="container-box" style="margin-left: .5rem;">
-        <clr-select-container>
-          <label style="color: #007cbb;font-weight: 400;" class="label-level2" [id]="i ? '镜像拉取策略' + i : '镜像拉取策略'">
-            镜像拉取策略
-          </label>
-          <select clrSelect [(ngModel)]="container.imagePullPolicy" name="imagePullPolicy_{{i}}">
-            <option value="IfNotPresent">IfNotPresent</option>
-            <option value="Always">Always</option>
-            <option value="Never">Never</option>
-          </select>
-        </clr-select-container>
       </div>
       <div class="container-box">
         <label class="label-level2" [id]="i ? '启动参数' + i : '启动参数'">启动参数
