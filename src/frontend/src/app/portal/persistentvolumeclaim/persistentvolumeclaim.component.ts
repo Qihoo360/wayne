@@ -42,6 +42,7 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   tabScription: Subscription;
   orderCache: Array<OrderItem>;
+  isOnline = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -85,17 +86,19 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
     this.pvcService.diff();
   }
 
-  onlineChange(event) {
-    this.pvcTplService.isOnlineChange(event.target.checked);
+  onlineChange() {
+    // 这里后台需要支持
+    this.ngOnInit();
   }
 
   ngOnInit(): void {
     this.appId = parseInt(this.route.parent.snapshot.params['id'], 10);
     const namespaceId = this.cacheService.namespaceId;
     let pvcId = parseInt(this.route.snapshot.params['pvcId'], 10);
-
+    const pageState = PageState.fromState({ sort: { by: 'id', reverse: false } }, { pageSize: 1000 });
+    pageState.params['isOnline'] = this.isOnline;
     combineLatest(
-      this.pvcService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
+      this.pvcService.list(pageState, 'false', this.appId + ''),
       this.appService.getById(this.appId, namespaceId),
     ).subscribe(
       response => {

@@ -360,7 +360,7 @@ export class Resource {
   }
 
   // 监听模板列表发生变化的事件
-  onTemplateListChanged() {
+  onlineChange() {
     this.retrieveTemplates();
   }
 
