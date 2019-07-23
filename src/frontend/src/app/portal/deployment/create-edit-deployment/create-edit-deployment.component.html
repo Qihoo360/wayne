@@ -16,16 +16,11 @@
               {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
             </clr-control-error>
         </clr-input-container>
-        <!-- todo -->
         <div class="clr-form-control clr-row">
           <label class="clr-control-label required">{{'TITLE.CLUSTER' | translate}}</label>
           <span class="warning-text" *ngIf="!clusters || clusters && clusters.length === 0">{{'DEPLOYMENT.CREATE_EDIT.CLUSTER_MESSAGE'
             | translate}}</span>
           <div class="clr-control-container" *ngFor="let cluster of clusters" [class.clr-error]="!replicaValidation(cluster.name)">
-            <!-- <div class="clr-checkbox-wrapper">
-              <input class="clr-checkbox" [(ngModel)]="clusterMetas[cluster.name].checked" type="checkbox" id="{{cluster.name}}-check" name="{{cluster.name}}-check">
-              <label for="{{cluster.name}}-check">{{cluster.name}}</label>
-            </div> -->
             <div class="clr-input-wrapper">
               <label class="clr-checkbox-wrapper">
                 <input class="clr-checkbox" [(ngModel)]="clusterMetas[cluster.name].checked" type="checkbox" id="{{cluster.name}}-check"
@@ -42,14 +37,6 @@
           <label>{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea clrTextarea id="deployment_description" [(ngModel)]="resource.description" name="deployment_description" rows="3"></textarea>
         </clr-textarea-container>
-        <!-- <div class="form-group" style="padding-left: 135px;">
-          <label for="deployment_description"
-                 class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
-          <textarea clrTextarea id="deployment_description" [(ngModel)]="resource.description"
-                    name="deployment_description"
-                    rows="3">
-          </textarea>
-        </div> -->
         <resource-limit [style.display]="authService.currentUser.admin ? 'block' : 'none'"></resource-limit>
       </section>
     </form>

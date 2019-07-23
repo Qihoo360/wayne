@@ -32,7 +32,7 @@ export class PublishDeploymentTplComponent {
   clusters = Array<string>();
   isSubmitOnGoing = false;
   title: string;
-  forceOffline: boolean;
+  forceOffline: boolean = false;
   actionType: ResourcesActionType;
 
   constructor(private messageHandlerService: MessageHandlerService,
