@@ -32,7 +32,7 @@
         </div>
         <clr-textarea-container>
           <label>{{'TITLE.DESCRIPTION' | translate}}</label>
-          <textarea clrTextarea id="cronjob_description" [(ngModel)]="resource.description" name="cronjob_description"
+          <textarea clrTextarea id="description" [(ngModel)]="resource.description" name="description"
             rows="3"></textarea>
         </clr-textarea-container>
         <resource-limit [style.display]="authService.currentUser.admin ? 'block' : 'none'"></resource-limit>
