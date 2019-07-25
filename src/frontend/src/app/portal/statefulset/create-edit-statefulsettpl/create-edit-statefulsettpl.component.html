@@ -26,12 +26,12 @@
         <label class="required">{{'TEMPLATE.UPDATE_WAY' | translate}}</label>
         <clr-radio-wrapper>
           <input type="radio" clrRadio name="statefulSetStrategyType" id="statefulSetStrategyType1" value="OnDelete"
-            [(ngModel)]="kubeResource.spec.updateStrategy.type" checked (change)="strategyTypeChange()">
+            [(ngModel)]="kubeResource.spec.updateStrategy.type" checked>
           <label for="statefulSetStrategyType1">{{'TEMPLATE.DELETE_UPDATE' | translate}}</label>
         </clr-radio-wrapper>
         <clr-radio-wrapper>
           <input type="radio" clrRadio name="statefulSetStrategyType" id="statefulSetStrategyType2" value="RollingUpdate"
-            [(ngModel)]="kubeResource.spec.updateStrategy.type" (change)="strategyTypeChange()">
+            [(ngModel)]="kubeResource.spec.updateStrategy.type">
           <label for="statefulSetStrategyType2">{{'TEMPLATE.SCROLL_UPDATE' | translate}}</label>
         </clr-radio-wrapper>
       </clr-radio-container>
