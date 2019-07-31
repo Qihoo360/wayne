@@ -222,14 +222,6 @@
                 [placeholder]="'TEMPLATE.SECRET_KEY' | translate">
             </clr-input-container>
           </ng-container>
-          <!-- <div *ngIf="env.valueFrom && env.valueFrom.secretKeyRef" class="form-group form-group-padding">
-            <input type="text" clrInput size="40" required name="env.valueFrom.secretKeyRef.name_{{i}}_{{j}}"
-                    [(ngModel)]="env.valueFrom.secretKeyRef.name"
-                    [placeholder]="'TEMPLATE.SECRET_NAME' | translate">
-            <input type="text" clrInput size="40" required name="env.valueFrom.secretKeyRef.key_{{i}}_{{j}}"
-                    [(ngModel)]="env.valueFrom.secretKeyRef.key"
-                    [placeholder]="'TEMPLATE.SECRET_KEY' | translate">
-          </div> -->
         </div>
       </wayne-collapse>
 
@@ -244,18 +236,6 @@
             </a>
           </label>
         </div>
-        <!-- <div class="toggle-switch">
-          <input type="checkbox" [checked]="container.readinessProbe" (change)="readinessProbeChange(i)"
-                  id="readinessProbe{{i}}">
-          <label class="label-level2" [id]="i ? 'readiness-check' + i : 'readiness-check'"
-                  for="readinessProbe{{i}}">{{'TEMPLATE.READINESS_CHECK' | translate}}
-            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
-              <clr-icon shape="info-circle" size="24"></clr-icon>
-              <span class="tooltip-content">{{'TEMPLATE.READINESS_MESSAGE' | translate}}</span>
-            </a>
-          </label>
-        </div> -->
-
         <div *ngIf="container.readinessProbe" style="color:#000">
           <div class="form-inline">
             <clr-input-container>
@@ -295,41 +275,6 @@
                 [placeholder]="'PLACEHOLDER.SECOND' | translate">
             </clr-input-container>
           </div>
-          <!-- <div class="form-group form-group-padding">
-            <label class="clr-col-md-3 form-group-label-override">{{'TEMPLATE.EXTEND_TIME' | translate}}
-              <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
-                <clr-icon shape="info-circle" size="24"></clr-icon>
-                <span class="tooltip-content">{{'TEMPLATE.EXTEND_TIME_MESSAGE' | translate}}</span>
-              </a>
-            </label>
-            <input type="number" clrInput required name="container.readinessProbe.timeoutSeconds_{{i}}"
-                    [(ngModel)]="container.readinessProbe.timeoutSeconds"
-                    [placeholder]="'PLACEHOLDER.SECOND' | translate">
-            <label class="clr-col-md-3 form-group-label-override">{{'TEMPLATE.CHECK_CYCLE' | translate}}
-              <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
-                <clr-icon shape="info-circle" size="24"></clr-icon>
-                <span class="tooltip-content">{{'TEMPLATE.CHECK_CYCLE_MESSAGE'}}</span>
-              </a>
-            </label>
-            <input type="number" clrInput required name="container.readinessProbe.periodSeconds{{i}}"
-                    [(ngModel)]="container.readinessProbe.periodSeconds"
-                    [placeholder]="'PLACEHOLDER.SECOND' | translate">
-          </div> -->
-          <!-- <div class="form-group form-group-padding">
-            <label class="clr-col-md-3 form-group-label-override">{{'TEMPLATE.FAIL_NUM' | translate}}</label>
-            <input type="number" clrInput required name="container.readinessProbe.failureThreshold{{i}}"
-                    [(ngModel)]="container.readinessProbe.failureThreshold">
-            <label class="clr-col-md-3 form-group-label-override">{{'TEMPLATE.CHECK_DELAY' | translate}}
-              <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
-                <clr-icon shape="info-circle" size="24"></clr-icon>
-                <span class="tooltip-content">{{'TEMPLATE.CHECK_DELAY_MESSAGE' | translate}}</span>
-              </a>
-            </label>
-            <input type="number" clrInput required name="container.readinessProbe.initialDelaySeconds{{i}}"
-                   [(ngModel)]="container.readinessProbe.initialDelaySeconds"
-                   [placeholder]="'PLACEHOLDER.SECOND' | translate">
-
-          </div> -->
           <clr-select-container>
             <label class="required">{{'TEMPLATE.READINESS_CHECK_WAY' | translate}}</label>
             <select clrSelect name="readinessProbeType_{{i}}" (change)="readinessProbeTypeChange($event.target.value,i)">
@@ -338,20 +283,6 @@
               <option value="2" [selected]="container.readinessProbe.exec">{{'TEMPLATE.EXECUTE_COMMAND' | translate}}</option>
             </select>
           </clr-select-container>
-          <!-- <div class="form-group form-group-padding">
-            <label for="readinessProbeType_{{i}}"
-                    class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.READINESS_CHECK_WAY' | translate}}</label>
-            <div class="select">
-              <select name="readinessProbeType_{{i}}" (change)="readinessProbeTypeChange($event.target.value,i)">
-                <option value="0"
-                        [selected]="container.readinessProbe.httpGet">{{'TEMPLATE.HTTP_REQUEST' | translate}}</option>
-                <option value="1"
-                        [selected]="container.readinessProbe.tcpSocket">{{'TEMPLATE.TCP_PORT' | translate}}</option>
-                <option value="2"
-                        [selected]="container.readinessProbe.exec">{{'TEMPLATE.EXECUTE_COMMAND' | translate}}</option>
-              </select>
-            </div>
-          </div> -->
           <ng-container *ngIf="container.readinessProbe.httpGet">
             <clr-input-container>
               <input type="number" clrInput size="30" required name="container.readinessProbe.httpGet.port_{{i}}" [(ngModel)]="container.readinessProbe.httpGet.port"
@@ -370,28 +301,6 @@
             <textarea clrTextarea name="container.readinessProbe.exec.command_{{i}}" [(ngModel)]="container.readinessProbe.exec.command[0]"
               [placeholder]="'PLACEHOLDER.COMMAND' | translate"></textarea>
           </clr-textarea-container>
-          <!-- <div *ngIf="container.readinessProbe.httpGet" class="form-group form-group-padding">
-            <input type="number" clrInput size="30" required name="container.readinessProbe.httpGet.port_{{i}}"
-                    [(ngModel)]="container.readinessProbe.httpGet.port"
-                    [placeholder]="'TEMPLATE.REQUEST_HTTP_PORT' | translate">
-            <input type="text" clrInput size="70" required name="container.readinessProbe.httpGet.path_{{i}}"
-                    [(ngModel)]="container.readinessProbe.httpGet.path"
-                    [placeholder]="'TEMPLATE.TCP_PORT' | translate">
-          </div>
-          <div *ngIf="container.readinessProbe.tcpSocket" class="form-group form-group-padding">
-            <input type="number" clrInput size="30" required name="container.readinessProbe.tcpSocket.port_{{i}}"
-                    [(ngModel)]="container.readinessProbe.tcpSocket.port"
-                    [placeholder]="'TEMPLATE.REQUEST_TCP_PORT' | translate">
-          </div>
-          <div *ngIf="container.readinessProbe.exec">
-            <div class="form-group form-group-padding">
-              <textarea name="container.readinessProbe.exec.command_{{i}}"
-                        [(ngModel)]="container.readinessProbe.exec.command[0]"
-                        [placeholder]="'PLACEHOLDER.COMMAND' | translate"></textarea>
-            </div>
-
-
-          </div> -->
         </div>
       </div>
 
@@ -406,18 +315,6 @@
             </a>
           </label>
         </div>
-        <!-- <div class="toggle-switch">
-          <input type="checkbox" [checked]="container.livenessProbe" (change)="livenessProbeChange(i)"
-                  id="livenessProbe{{i}}">
-          <label class="label-level2" [id]="i ? 'liveness-check' + i : 'liveness-check'"
-                  for="livenessProbe{{i}}">{{'TEMPLATE.LIVENESS_PROBE_CHECK' | translate}}
-            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
-              <clr-icon shape="info-circle" size="24"></clr-icon>
-              <span class="tooltip-content">{{'TEMPLATE.LIVENESS_PROBE_CHECK_MESSAGE' | translate}}</span>
-            </a>
-          </label>
-        </div> -->
-
         <div *ngIf="container.livenessProbe" style="color:#000">
           <div class="form-inline">
             <clr-input-container>
@@ -458,40 +355,6 @@
                 [placeholder]="'PLACEHOLDER.SECOND' | translate">
             </clr-input-container>
           </div>
-          <!-- <div class="form-group form-group-padding">
-            <label class="clr-col-md-3 form-group-label-override">{{'TEMPLATE.EXTEND_TIME' | translate}}
-              <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
-                <clr-icon shape="info-circle" size="24"></clr-icon>
-                <span class="tooltip-content">{{'TEMPLATE.EXTEND_TIME_MESSAGE' | translate}}</span>
-              </a>
-            </label>
-            <input type="number" clrInput required name="container.livenessProbe.timeoutSeconds_{{i}}"
-                    [(ngModel)]="container.livenessProbe.timeoutSeconds"
-                    [placeholder]="'PLACEHOLDER.SECOND' | translate">
-            <label class="clr-col-md-3 form-group-label-override">{{'TEMPLATE.CHECK_CYCLE' | translate}}
-              <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
-                <clr-icon shape="info-circle" size="24"></clr-icon>
-                <span class="tooltip-content">{{'TEMPLATE.CHECK_CYCLE_MESSAGE'}}</span>
-              </a>
-            </label>
-            <input type="number" clrInput required name="container.livenessProbe.periodSeconds{{i}}"
-                    [(ngModel)]="container.livenessProbe.periodSeconds"
-                    [placeholder]="'PLACEHOLDER.SECOND' | translate">
-          </div>
-          <div class="form-group form-group-padding">
-            <label class="clr-col-md-3 form-group-label-override">{{'TEMPLATE.FAIL_NUM' | translate}}</label>
-            <input type="number" clrInput required name="container.livenessProbe.failureThreshold{{i}}"
-                    [(ngModel)]="container.livenessProbe.failureThreshold">
-            <label class="clr-col-md-3 form-group-label-override">{{'TEMPLATE.CHECK_DELAY' | translate}}
-              <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
-                <clr-icon shape="info-circle" size="24"></clr-icon>
-                <span class="tooltip-content">{{'TEMPLATE.CHECK_DELAY_MESSAGE' | translate}}</span>
-              </a>
-            </label>
-            <input type="number" clrInput required name="container.livenessProbe.initialDelaySeconds{{i}}"
-                    [(ngModel)]="container.livenessProbe.initialDelaySeconds"
-                    [placeholder]="'PLACEHOLDER.SECOND' | translate">
-          </div> -->
           <clr-select-container>
             <label class="required">{{'TEMPLATE.READINESS_CHECK_WAY' | translate}}</label>
             <select clrSelect name="livenessProbeType_{{i}}" (change)="livenessProbeTypeChange($event.target.value,i)">
@@ -500,20 +363,7 @@
               <option value="2" [selected]="container.livenessProbe.exec">{{'TEMPLATE.EXECUTE_COMMAND' | translate}}</option>
             </select>
           </clr-select-container>
-          <!-- <div class="form-group form-group-padding">
-            <label for="livenessProbeType_{{i}}"
-                    class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.READINESS_CHECK_WAY' | translate}}</label>
-            <div class="select">
-              <select name="livenessProbeType_{{i}}" (change)="livenessProbeTypeChange($event.target.value,i)">
-                <option value="0"
-                        [selected]="container.livenessProbe.httpGet">{{'TEMPLATE.HTTP_REQUEST' | translate}}</option>
-                <option value="1"
-                        [selected]="container.livenessProbe.tcpSocket">{{'TEMPLATE.TCP_PORT' | translate}}</option>
-                <option value="2"
-                        [selected]="container.livenessProbe.exec">{{'TEMPLATE.EXECUTE_COMMAND' | translate}}</option>
-              </select>
-            </div>
-          </div> -->
+        
           <ng-container *ngIf="container.livenessProbe.httpGet">
             <clr-input-container>
               <input type="number" clrInput size="30" required name="container.livenessProbe.httpGet.port_{{i}}" [(ngModel)]="container.livenessProbe.httpGet.port"
@@ -532,26 +382,6 @@
             <textarea clrTextarea name="container.livenessProbe.exec.command_{{i}}" [(ngModel)]="container.livenessProbe.exec.command[0]"
               [placeholder]="'PLACEHOLDER.COMMAND' | translate"></textarea>
           </clr-textarea-container>
-          <!-- <div *ngIf="container.livenessProbe.httpGet" class="form-group form-group-padding">
-            <input type="number" clrInput size="30" required name="container.livenessProbe.httpGet.port_{{i}}"
-                    [(ngModel)]="container.livenessProbe.httpGet.port"
-                    [placeholder]="'TEMPLATE.REQUEST_HTTP_PORT' | translate">
-            <input type="text" clrInput size="70" required name="container.livenessProbe.httpGet.path_{{i}}"
-                    [(ngModel)]="container.livenessProbe.httpGet.path"
-                    [placeholder]="'TEMPLATE.TCP_PORT' | translate">
-          </div>
-          <div *ngIf="container.livenessProbe.tcpSocket" class="form-group form-group-padding">
-            <input type="number" clrInput size="30" required name="container.livenessProbe.tcpSocket.port_{{i}}"
-                    [(ngModel)]="container.livenessProbe.tcpSocket.port"
-                    [placeholder]="'TEMPLATE.REQUEST_TCP_PORT' | translate">
-          </div>
-          <div *ngIf="container.livenessProbe.exec">
-            <div class="form-group form-group-padding">
-              <textarea name="container.livenessProbe.exec.command_{{i}}"
-                        [(ngModel)]="container.livenessProbe.exec.command[0]"
-                        [placeholder]="'PLACEHOLDER.COMMAND' | translate"></textarea>
-            </div>
-          </div> -->
         </div>
       </div>
     </wayne-collapse>
