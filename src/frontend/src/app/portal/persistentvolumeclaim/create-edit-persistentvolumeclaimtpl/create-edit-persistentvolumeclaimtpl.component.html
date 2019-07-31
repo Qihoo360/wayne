@@ -53,8 +53,8 @@
           <label class="clr-control-label required">{{'PVC.ASSOCIATED_LABEL' | translate}}</label>
           <div class="clr-control-container clr-col-md-10 clr-col-12">
             <div class="clr-input-wrapper">
-              <input type="text" class="clr-input" formControlName="key" required [placeholder]="'PLACEHOLDER.SELECTOR_NAME' | translate">
-              <input type="text" class="clr-input" formControlName="value" required [placeholder]="'PLACEHOLDER.SELECTOR_VALUE' | translate" style="margin-left: 15px;">
+              <input type="text" class="clr-input" style="width: 300px;" formControlName="key" required [placeholder]="'PLACEHOLDER.SELECTOR_NAME' | translate">
+              <input type="text" class="clr-input" formControlName="value" required [placeholder]="'PLACEHOLDER.SELECTOR_VALUE' | translate" style="margin-left: 15px;width: 300px;">
               <a href="javascript:void(0)">
                 <clr-icon (click)="onDeleteSelector(i)" shape="trash" [title]="'PVC.DELETE_LABEL' | translate" class="is-solid clr-icon"></clr-icon>
               </a>
