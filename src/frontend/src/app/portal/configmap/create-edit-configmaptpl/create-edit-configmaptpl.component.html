@@ -7,7 +7,7 @@
       <div class="clr-form-control clr-row" *ngIf="clusters" formArrayName="clusters">
         <label class="clr-control-label required">{{'TITLE.CLUSTER' | translate}}</label>
         <span class="warning-text" *ngIf="!clusters || clusters && clusters.length === 0">{{'CONFIGMAP.CREATE_EDIT_TMP.CLUSTER_MESSAGE' | translate}}</span>
-        <div class="clr-control-container">
+        <div class="clr-control-container clr-col-md-10 clr-col-12">
           <div class="clr-checkbox-wrapper" style="display: inline-block;" *ngFor="let cluster of clusters;let i=index" [formGroupName]="i">
             <input formControlName="checked"  class="clr-checkbox" type="checkbox" id="{{cluster.id}}-check">
             <label for="{{cluster.id}}-check">{{cluster.name}}</label>
@@ -23,7 +23,7 @@
       <ng-container formArrayName="datas">
         <div class="clr-form-control clr-row" *ngFor="let data of datas.controls; let i = index" [formGroupName]="i">
           <label class="clr-control-label required">{{'MESSAGE.DATA_CONTENT' | translate}}</label>
-          <div class="clr-control-container">
+          <div class="clr-control-container clr-col-md-10 clr-col-12">
             <div class="clr-input-wrapper">
               <input type="text" class="clr-input" size="45" formControlName="dataName" required [placeholder]="'PLACEHOLDER.CONFIG_KEY' | translate">
               <a href="javascript:void(0)">
