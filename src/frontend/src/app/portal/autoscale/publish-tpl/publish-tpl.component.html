@@ -3,12 +3,12 @@
   <div class="modal-body">
     <form #publishForm="ngForm"  clrForm clrLayout="horizontal">
       <clr-checkbox-container clrInline>
-        <label class="required">机房</label>
+        <label class="required">{{'TITLE.CLUSTER' | translate}}</label>
         <clr-checkbox-wrapper *ngFor="let cluster of clusters;let i=index">
           <input type="checkbox" clrCheckbox [(ngModel)]="cluster['checked']" name="{{i}}-check" required />
           <label>{{cluster.name}}</label>
         </clr-checkbox-wrapper>
-        <clr-control-error>This field is required!</clr-control-error>
+        <clr-control-error>{{'ERROR.CLUSTER' | translate}}</clr-control-error>
       </clr-checkbox-container>
       <clr-toggle-container *ngIf="actionType==3">
         <label class="pd-r-0">

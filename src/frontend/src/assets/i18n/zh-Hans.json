@@ -213,6 +213,9 @@
     "ERROR_MESSAGE": "错误信息",
     "FINISH_CHECK_TIME": "最后检查时间"
   },
+  "ERROR": {
+    "CLUSTER": "缺少机房信息"
+  },
   "HISTORY": {
     "RELEASE_TIME": "发布时间",
     "RELEASE_USER": "发布者",
