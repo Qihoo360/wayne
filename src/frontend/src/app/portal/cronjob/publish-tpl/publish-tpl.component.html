@@ -1,8 +1,28 @@
 <clr-modal [clrModalSize]="''" [(clrModalOpen)]="modalOpened">
   <h3 class="modal-title">{{title}}</h3>
   <div class="modal-body">
-    <form #publishForm="ngForm">
-      <section class="form-block">
+    <form #publishForm="ngForm" clrForm clrLayout="horizontal">
+      <clr-checkbox-container clrInline>
+        <label class="required">{{'TITLE.CLUSTER' | translate}}</label>
+        <clr-checkbox-wrapper *ngFor="let cluster of clusters;let i=index">
+          <input type="checkbox" clrCheckbox [(ngModel)]="clusterMetas[cluster].checked" name="{{i}}-check" required />
+          <label>{{cluster}}</label>
+        </clr-checkbox-wrapper>
+        <clr-control-error>{{'ERROR.CLUSTER' | translate}}</clr-control-error>
+      </clr-checkbox-container>
+      <clr-toggle-container *ngIf="actionType==3">
+        <label class="pd-r-0">
+          {{'ACTION.FORCE_DROP' | translate}}
+          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
+            <clr-icon shape="info-circle" size="16"></clr-icon>
+            <span class="tooltip-content">{{'MESSAGE.FORCE_DROP' | translate}}</span>
+          </a>
+        </label>
+        <clr-toggle-wrapper>
+          <input [(ngModel)]="forceOffline" clrToggle type="checkbox" name="force-offline">
+        </clr-toggle-wrapper>
+      </clr-toggle-container>
+      <!-- <section class="form-block">
         <div class="form-group" style="padding-left: 100px;">
           <label class="clr-col-md-3 form-group-label-override required">{{'TITLE.CLUSTER' | translate}}</label>
           <div *ngFor="let cluster of clusters;let i=index" class="checkbox-inline" style="margin-top: 0px">
@@ -27,7 +47,7 @@
             <label for="force-offline-id"></label>
           </div>
         </div>
-      </section>
+      </section> -->
     </form>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
