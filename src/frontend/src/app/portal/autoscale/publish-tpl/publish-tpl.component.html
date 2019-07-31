@@ -1,7 +1,7 @@
 <clr-modal [clrModalSize]="''" [(clrModalOpen)]="modalOpened">
   <h3 class="modal-title">{{title}}</h3>
   <div class="modal-body">
-    <form #publishForm="ngForm"  clrForm clrLayout="horizontal">
+    <form #publishForm="ngForm" clrForm clrLayout="horizontal">
       <clr-checkbox-container clrInline>
         <label class="required">{{'TITLE.CLUSTER' | translate}}</label>
         <clr-checkbox-wrapper *ngFor="let cluster of clusters;let i=index">
