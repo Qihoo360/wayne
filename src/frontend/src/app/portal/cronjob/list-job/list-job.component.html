@@ -98,10 +98,10 @@
       <clr-tab>
         <button clrTabLink>任务列表</button>
         <clr-tab-content *clrIfActive>
-          <div class="toggle-switch">
-            <input type="checkbox" id="toggle_4" [(ngModel)]="whetherHotReflash">
-            <label for="toggle_4">{{'POD.DATA_UPDATE' | translate}}</label>
-          </div>
+          <clr-toggle-wrapper>
+            <input type="checkbox" clrToggle [(ngModel)]="whetherHotReflash">
+            <label>{{'POD.DATA_UPDATE' | translate}}</label>
+          </clr-toggle-wrapper>
           <clr-datagrid (clrDgRefresh)="refresh($event)" class="wayne-clr-datagrid">
             <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
             <clr-dg-column [clrDgField]="'name'">

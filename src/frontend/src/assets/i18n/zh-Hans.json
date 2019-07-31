@@ -337,7 +337,7 @@
   },
   "POD": {
     "CONTAINER": "容器",
-    "DATA_UPDATE": "数据实时更新: ",
+    "DATA_UPDATE": "数据实时更新",
     "ENTER_CONTAINER": "进入容器",
     "LIST": "Pod 列表",
     "LOG": "日志",
