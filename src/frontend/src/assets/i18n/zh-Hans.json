@@ -214,7 +214,8 @@
     "FINISH_CHECK_TIME": "最后检查时间"
   },
   "ERROR": {
-    "CLUSTER": "缺少机房信息"
+    "CLUSTER": "缺少机房信息",
+    "CLUSTER_NAME": "集群名称不符合规范"
   },
   "HISTORY": {
     "RELEASE_TIME": "发布时间",
