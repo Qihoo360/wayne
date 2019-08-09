@@ -1,51 +1,24 @@
 <clr-modal [(clrModalOpen)]="createPermissionOpened" [clrModalSize]="'lg'">
   <h3 class="modal-title">{{permissionTitle}}</h3>
   <div class="modal-body">
-    <form #permissionForm="ngForm">
-      <section class="form-block">
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="permission_name"
-                 class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
-          <label for="permission_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text" id="permission_name" [(ngModel)]="permission.name"
-                   name="permission_name" size="60"
-                   required
-                   pattern="[a-zA-Z]([_A-Za-z0-9]*[A-Za-z0-9])?"
-                   maxlength="200"
-                   (keyup)='handleValidation()'>
-            <span class="tooltip-content">
-              {{'RULE.REGEXT' | translate}}[a-z]([_a-z0-9]*[a-z0-9])?
-            </span>
-          </label>
-          <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
-        </div>
-        <!-- <div class="form-group" style="padding-left: 135px;"> -->
-        <!--   <label for="permission_type" class="clr-col-md-3 form-group-label-override required">资源类别</label> -->
-        <!--   <label for="permission_type" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left"> -->
-        <!--     <input type="text" id="permission_type"  [(ngModel)]="permission.type" -->
-        <!--            name="permission_type" size="36" -->
-        <!--            required -->
-        <!--            maxlength="128" -->
-        <!--            > -->
-        <!--     <span class="tooltip-content"> -->
-        <!--       资源类别不符合规范 -->
-        <!--     </span> -->
-        <!--   </label> -->
-        <!--   <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span> -->
-        <!-- </div> -->
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="permission_comment"
-                 class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
-          <textarea type="text" id="permission_comment" [(ngModel)]="permission.comment"
-                    name="permission_comment"></textarea>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-          <button type="button" class="btn btn-primary" [disabled]="!isValid"
-                  (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
-        </div>
-      </section>
+    <form #permissionForm="ngForm" clrForm clrLayout="horizontal">
+      <clr-input-container>
+        <label class="required">{{'TITLE.NAME' | translate}}</label>
+        <input type="text" clrInput id="permission_name" [(ngModel)]="permission.name" name="permission_name" size="60" required
+          pattern="[a-zA-Z]([_A-Za-z0-9]*[A-Za-z0-9])?" maxlength="200" (keyup)='handleValidation()'>
+          <clr-control-error>{{'RULE.REGEXT' | translate}}[a-z]([_a-z0-9]*[a-z0-9])?</clr-control-error>
+      </clr-input-container>
+      
+      <clr-textarea-container>
+        <label>{{'TITLE.DESCRIPTION' | translate}}</label>
+        <textarea type="text" clrTextarea id="permission_comment" [(ngModel)]="permission.comment" name="permission_comment"></textarea>
+      </clr-textarea-container>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+        <button type="button" class="btn btn-primary" [disabled]="!isValid"
+                (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+      </div>
     </form>
   </div>
 </clr-modal>
