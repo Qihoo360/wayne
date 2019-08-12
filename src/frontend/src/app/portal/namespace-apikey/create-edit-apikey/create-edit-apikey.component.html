@@ -19,12 +19,12 @@
         </clr-select-container>
         <clr-input-container>
           <label class="required">{{'TITLE.EXPIRE_TIME' | translate}}</label>
-          <input  clrInput class="form-control" [(ngModel)]="apiKey.expireIn" type="number" required name="expire_in" id="expire_in"
+          <input  clrInput [(ngModel)]="apiKey.expireIn" type="number" required name="expire_in" id="expire_in"
             [placeholder]="'PLACEHOLDER.EXPIRE_TIME' | translate" size="45">
         </clr-input-container>
         <clr-textarea-container>
           <label>{{'TITLE.DESCRIPTION' | translate}}</label>
-          <textarea clrTextarea class="form-control" type="text" [(ngModel)]="apiKey.description" name="description" id="description" size="45"></textarea>
+          <textarea clrTextarea type="text" [(ngModel)]="apiKey.description" name="description" id="description" size="45"></textarea>
         </clr-textarea-container>
         <div class="modal-footer">
 

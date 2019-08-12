@@ -31,22 +31,24 @@
               placeholder="cephfs路径" size="45">
           </clr-input-container>
          
-          <div class="clr-form-control clr-row">
-            <label class="clr-control-label required">标签</label>
-            <div class="clr-control-container clr-col-md-10 clr-col-12">
-              <div class="clr-input-wrapper">
-                <input formControlName="key" class="clr-input" type="text" id="pv_label_key" placeholder="key" size="25">
-                <input formControlName="value" style="margin-left: 15px;" class="clr-input" type="text" id="pv_label_value" placeholder="value" size="45">
-                <a href="javascript:void(0)" style="margin-left: 15px;">
-                  <clr-icon (click)="onDeleteLabel(i)" shape="trash" [title]="'PVC.DELETE_LABEL' | translate" class="is-solid clr-icon">
-                  </clr-icon>
-                </a>
-                <a href="javascript:void(0)" style="margin-left: 15px;">
-                  <clr-icon (click)="onAddLabel(i)" shape="plus-circle" [title]="'PVC.ADD_LABEL' | translate" class="is-solid clr-icon">
-                  </clr-icon>
-                </a>
+          <div class="clr-form-control clr-row" formArrayName="labels">
+            <ng-container  *ngFor="let label of labels.controls; let i = index" [formGroupName]="i">
+              <label class="clr-control-label required">标签</label>
+              <div class="clr-control-container clr-col-md-10 clr-col-12">
+                <div class="clr-input-wrapper">
+                  <input formControlName="key" class="clr-input" type="text" id="pv_label_key" placeholder="key" size="25">
+                  <input formControlName="value" style="margin-left: 15px;" class="clr-input" type="text" id="pv_label_value" placeholder="value" size="45">
+                  <a href="javascript:void(0)" style="margin-left: 15px;">
+                    <clr-icon (click)="onDeleteLabel(i)" shape="trash" [title]="'PVC.DELETE_LABEL' | translate" class="is-solid clr-icon">
+                    </clr-icon>
+                  </a>
+                  <a href="javascript:void(0)" style="margin-left: 15px;">
+                    <clr-icon (click)="onAddLabel(i)" shape="plus-circle" [title]="'PVC.ADD_LABEL' | translate" class="is-solid clr-icon">
+                    </clr-icon>
+                  </a>
+                </div>
               </div>
-            </div>
+            </ng-container>
           </div>
         
           <clr-input-container>
