@@ -4,9 +4,6 @@
       {{'TEMPLATE.CREATE_TMP' | translate}}
     </h3>
   </div>
-  <div class="tpl-nav">
-    <!-- <wayne-navigation container=".content-area" [node]="naviList"></wayne-navigation> -->
-  </div>
   <form #ngForm="ngForm" clrForm clrLayout="horizontal" style="width: 100%;">
     <wayne-collapse>
       <label class="label-level1" id="release-message">{{'TEMPLATE.RELEASE_MESSAGE' | translate}}</label>
@@ -18,18 +15,6 @@
         <clr-control-error>description is required</clr-control-error>
       </clr-textarea-container>
     </wayne-collapse>
-    <!-- <section class="form-block wrap">
-      <label class="label-level1">{{'TEMPLATE.RELEASE_MESSAGE' | translate}}</label>
-      <div class="form-group form-group-padding">
-        <label class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.RELEASE_EXPLAIN' | translate}}</label>
-        <textarea name="description"
-                  [(ngModel)]="template.description"
-                  required
-                  rows="3"
-                  style="width: 700px;">
-        </textarea>
-      </div>
-    </section> -->
     <wayne-collapse>
       <label class="label-level1">{{'TEMPLATE.RESOURCE_CONFIG' | translate}}</label>
       <clr-input-container>
@@ -62,11 +47,6 @@
         <input type="number" clrInput [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.targetCPUUtilizationPercentage">
       </clr-input-container>
     </wayne-collapse>
-    <!-- <div class="clr-wizard-footer-buttons" style="padding-top: 30px">
-      <button type="button" class="btn btn-outline" (click)="onCancel()">{{ 'BUTTON.CANCEL' | translate}}</button>
-      <button type="button" class="btn btn-primary" (click)="onOpenModal()">{{'BUTTON.ADVANCED_CONFIG' | translate}}</button>
-      <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{ 'BUTTON.SUBMIT' | translate}}</button>
-    </div> -->
   </form>
 </div>
 <div class="clr-wizard-footer-buttons tpl-bottom" [style.top.px]="top">
