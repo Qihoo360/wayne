@@ -14,8 +14,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export class InputComponent implements ControlValueAccessor {
   @ViewChild('input', { static: false }) inputElement;
-  @Input('placeholder') placeholder = '';
-  @Input('type') type = 'text';
+  @Input() placeholder = '';
+  @Input() type = 'text';
 
   @Input()
   set search(value) {
@@ -24,7 +24,7 @@ export class InputComponent implements ControlValueAccessor {
     }
   }
 
-  @Input('cursor') cursor = 'auto';
+  @Input() cursor = 'auto';
 
   @Input()
   set readonly(value: any) {

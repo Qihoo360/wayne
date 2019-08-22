@@ -42,9 +42,9 @@ export class DropDownComponent implements OnInit {
   barTopCache: number;
   eventList: any[] = new Array();
   // size 默认为空。如果传入small，则是最小自适应，传入middle，为50%宽度。
-  @Input('size') size = '';
+  @Input() size = '';
   // 这里是处理当item是最接近右边栏时候。采用right定位，防止出现滚动条。
-  @Input('last') last;
+  @Input() last;
 
 
   get translateY() {

@@ -90,25 +90,25 @@ export class SelectComponent implements OnInit, AfterViewInit, ControlValueAcces
   listValue: any;
   dire: string;
   multText = '';
-  @Input('searchable') searchable;
+  @Input() searchable;
   get search(): boolean {
     return (this.searchable === undefined || this.searchable === false) ? false : true;
   }
-  @Input('inputable') inputable;
+  @Input() inputable;
   get input(): boolean {
     return (this.inputable === undefined || this.inputable === false) ? false : true;
   }
-  @Input('multiple') multiple;
+  @Input() multiple;
   get mult(): boolean {
     return  (this.multiple === undefined || this.multiple === false) ? false : true;
   }
-  @Input('readonly') readonly;
+  @Input() readonly;
   get read(): boolean {
     return !this.mult && (this.input || (this.readonly !== undefined && this.readonly === false)) ? false : true;
   }
   @Input() direction = 'auto';
-  @Input('cursor') cursor = 'pointer';
-  @Input('placeholder') placeholder = '';
+  @Input() cursor = 'pointer';
+  @Input() placeholder = '';
   @Output() change = new EventEmitter<any>();
   updateEmit = (_: any) => {};
 
