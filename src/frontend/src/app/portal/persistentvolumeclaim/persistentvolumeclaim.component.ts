@@ -98,8 +98,8 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
     const pageState = PageState.fromState({ sort: { by: 'id', reverse: false } }, { pageSize: 1000 });
     pageState.params['isOnline'] = this.isOnline;
     combineLatest(
-      this.pvcService.list(pageState, 'false', this.appId + ''),
-      this.appService.getById(this.appId, namespaceId),
+      [this.pvcService.list(pageState, 'false', this.appId + ''),
+      this.appService.getById(this.appId, namespaceId)]
     ).subscribe(
       response => {
         this.pvcs = response[0].data.list.sort((a, b) => a.order - b.order);
@@ -175,7 +175,7 @@ export class PersistentVolumeClaimComponent implements OnInit, OnDestroy {
 
   updatePvcs(): void {
     combineLatest(
-      this.pvcService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
+      [this.pvcService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + '')]
     ).subscribe(
       response => {
         this.pvcs = response[0].data.list.sort((a, b) => a.order - b.order);

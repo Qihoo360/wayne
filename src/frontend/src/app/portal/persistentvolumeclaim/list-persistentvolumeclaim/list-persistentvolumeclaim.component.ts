@@ -376,8 +376,8 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
     this.pageState.sort.by = 'id';
     this.pageState.sort.reverse = true;
     combineLatest(
-      this.pvcTplService.listPage(this.pageState, this.appId),
-      this.publishService.listStatus(PublishType.PERSISTENT_VOLUME_CLAIM, this.pvcId)
+      [this.pvcTplService.listPage(this.pageState, this.appId),
+      this.publishService.listStatus(PublishType.PERSISTENT_VOLUME_CLAIM, this.pvcId)]
     ).subscribe(
       response => {
         const status = response[1].data;

@@ -252,8 +252,8 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
     this.secretId = parseInt(this.route.snapshot.params['secretId'], 10);
     const namespaceId = this.cacheService.namespaceId;
     combineLatest(
-      this.secretService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
-      this.appService.getById(this.appId, namespaceId)
+      [this.secretService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
+      this.appService.getById(this.appId, namespaceId)]
     ).subscribe(
       response => {
         this.secrets = response[0].data.list.sort((a, b) => a.order - b.order);
@@ -324,8 +324,8 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
     this.pageState.params['deleted'] = false;
     this.pageState.params['isOnline'] = this.isOnline;
     combineLatest(
-      this.secretTplService.listPage(this.pageState, this.app.id, this.secretId.toString()),
-      this.publishService.listStatus(PublishType.SECRET, this.secretId)
+      [this.secretTplService.listPage(this.pageState, this.app.id, this.secretId.toString()),
+      this.publishService.listStatus(PublishType.SECRET, this.secretId)]
     ).subscribe(
       response => {
         const status = response[1].data;

@@ -267,9 +267,9 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
     const namespaceId = this.cacheService.namespaceId;
     this.daemonSetId = parseInt(this.route.snapshot.params['daemonSetId'], 10);
     combineLatest(
-      this.clusterService.getNames(),
+      [this.clusterService.getNames(),
       this.daemonSetService.listPage(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), this.appId, 'false'),
-      this.appService.getById(this.appId, namespaceId)
+      this.appService.getById(this.appId, namespaceId)]
     ).subscribe(
       response => {
         this.clusters = response[0].data;
@@ -390,8 +390,8 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
     this.pageState.params['daemonSetId'] = this.daemonSetId;
     this.pageState.params['isOnline'] = this.isOnline;
     combineLatest(
-      this.daemonSetTplService.listPage(this.pageState, this.appId),
-      this.publishService.listStatus(PublishType.DAEMONSET, this.daemonSetId)
+      [this.daemonSetTplService.listPage(this.pageState, this.appId),
+      this.publishService.listStatus(PublishType.DAEMONSET, this.daemonSetId)]
     ).subscribe(
       response => {
         const status = response[1].data;
