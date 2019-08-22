@@ -54,8 +54,8 @@
   </div>
   <list-cronjob [cronjobTpls]="changedCronjobTpls"
                 (paginate)="retrieve($event)"
-                (edit)="editCronjob($event)"
-                (createTpl)="createCronjobTpl($event)"
+                (edit)="editCronjob()"
+                (createTpl)="createCronjobTpl()"
                 (cloneTpl)="cloneCronjobTpl($event)"
                 [appId]="appId"
                 [showState]="showState"

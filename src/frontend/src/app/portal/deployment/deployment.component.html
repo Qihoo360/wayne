@@ -52,7 +52,7 @@
     </div>
   </div>
   <list-deployment [deploymentTpls]="changedDeploymentTpls" (paginate)="retrieve($event)"
-                   (edit)="editDeployment($event)" (createTpl)="createDeploymentTpl($event)" [showState]="showState"
+                   (edit)="editDeployment()" (createTpl)="createDeploymentTpl()" [showState]="showState"
                    (cloneTpl)="cloneDeploymentTpl($event)" [appId]="appId" [page]="pageState.page">
   </list-deployment>
 </div>

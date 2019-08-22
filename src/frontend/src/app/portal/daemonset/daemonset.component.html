@@ -53,8 +53,8 @@
   </div>
   <list-daemonset [daemonSetTpls]="changedDaemonSetTpls"
                   (paginate)="retrieve($event)"
-                  (edit)="editDaemonSet($event)"
-                  (createTpl)="createDaemonSetTpl($event)"
+                  (edit)="editDaemonSet()"
+                  (createTpl)="createDaemonSetTpl()"
                   (cloneTpl)="cloneDaemonSetTpl($event)"
                   [appId]="appId"
                   [page]="pageState.page"

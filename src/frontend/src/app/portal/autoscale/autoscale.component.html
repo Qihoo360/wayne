@@ -16,7 +16,7 @@
   <div class="table-search">
     <div class="table-search-left">
       <button (click)="createTemplate()" class="wayne-button normal"
-              *ngIf="template?.length <= 0 && (authService.currentAppPermission.hpa.create || authService.currentUser.admin)">
+              *ngIf="templates.length <= 0 && (authService.currentAppPermission.hpa.create || authService.currentUser.admin)">
         {{'HPA.CREATE_TEMPLATE' | translate}}
       </button>
       <button class="wayne-button normal" (click)="onShowDiffEvent()">{{'BUTTON.COMPARE_TEMPLATES' | translate}}</button>

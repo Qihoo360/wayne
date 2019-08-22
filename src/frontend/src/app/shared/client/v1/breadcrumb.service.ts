@@ -40,7 +40,7 @@ export class BreadcrumbService {
   }
 
   getFriendName(route: string) {
-    let urlInfo: object = new Object();
+    let urlInfo: any = new Object();
     const routeEnd = route.substr(route.lastIndexOf('/') + 1, route.length);
     const info: any = this.routesFriendlyNames.get(route);
     if (info !== undefined) {

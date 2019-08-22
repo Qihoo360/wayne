@@ -29,6 +29,7 @@ export class CreateEditClusterComponent {
   checkOnGoing = false;
   isSubmitOnGoing = false;
   isNameValid = true;
+  position = 'right-middle';
 
   title: string;
   actionType: ActionType;

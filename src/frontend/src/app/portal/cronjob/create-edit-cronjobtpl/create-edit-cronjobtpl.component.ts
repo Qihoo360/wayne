@@ -51,6 +51,8 @@ export class CreateEditCronjobTplComponent extends ContainerTpl implements OnIni
   cronjobTpl: CronjobTpl = new CronjobTpl();
   isSubmitOnGoing = false;
   app: App;
+  cpuUnitPrice = 30;
+  memoryUnitPrice = 10;
   cronjob: Cronjob;
   componentName = '计划任务模板';
   top: number;

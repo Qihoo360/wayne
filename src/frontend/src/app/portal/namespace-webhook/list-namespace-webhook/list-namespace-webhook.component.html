@@ -41,7 +41,7 @@
       {{'TITLE.ACTION' | translate}}
     </ng-container>
   </clr-dg-column>
-  <clr-dg-row *ngFor="let w of webHooks; let i = index" [clrDgItem]="webHook">
+  <clr-dg-row *ngFor="let w of webHooks; let i = index" [clrDgItem]="w">
     <clr-dg-cell>{{w.id}}</clr-dg-cell>
     <clr-dg-cell class="copy">{{w.name}}</clr-dg-cell>
     <clr-dg-cell>{{w.url}}</clr-dg-cell>

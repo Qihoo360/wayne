@@ -67,7 +67,7 @@
           <label class="clr-control-label">加密字典名称</label>
           <div class="clr-control-container">
             <div class="clr-input-wrapper">
-              <wayne-select style="margin-top: 6px;" inputable name="secret_name_{{i}}_{{j}}" [(ngModel)]="kubeResource.spec.tls[i].secretName"
+              <wayne-select style="margin-top: 6px;" inputable name="secret_name_{{i}}" [(ngModel)]="kubeResource.spec.tls[i].secretName"
                 searchable [placeholder]="'PLACEHOLDER.CHOOSE' | translate">
                 <wayne-option *ngFor="let secret of secrets" [value]="secret.name">{{secret.name}}</wayne-option>
               </wayne-select>

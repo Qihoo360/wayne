@@ -5,7 +5,7 @@
       <clr-select-container>
         <label class="required">命名空间</label>
         <select id="namespace_id" clrSelect [(ngModel)]="app.namespace.id" [disabled]="actionType==1" name="namespace_id">
-          <option *ngFor="let namespace of namespaces" [ngValue]="namespace.id" [selected]="namespace.id === app.namespaceId">
+          <option *ngFor="let namespace of namespaces" [ngValue]="namespace.id" [selected]="namespace.id == app.namespaceId">
             {{namespace.name}}
           </option>
         </select>

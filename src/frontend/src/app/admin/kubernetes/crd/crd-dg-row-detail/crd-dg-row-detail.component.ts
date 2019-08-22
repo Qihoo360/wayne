@@ -149,4 +149,7 @@ export class CRDDgRowDetailComponent implements OnInit {
         }
       );
   }
+  versionDetail(content: string) {
+    this.messageHandlerService.showInfo(content);
+  }
 }
