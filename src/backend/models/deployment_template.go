@@ -35,6 +35,9 @@ func (*DeploymentTemplate) TableName() string {
 
 func (*deploymentTplModel) Add(m *DeploymentTemplate) (id int64, err error) {
 	m.Deployment = &Deployment{Id: m.DeploymentId}
+	now := time.Now()
+	m.CreateTime = now
+	m.UpdateTime = now
 	id, err = Ormer().Insert(m)
 	return
 }
