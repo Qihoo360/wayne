@@ -18,7 +18,7 @@ export class CreateEditConfigComponent {
   modalOpened: boolean;
 
   ngForm: NgForm;
-  @ViewChild('ngForm')
+  @ViewChild('ngForm', { static: false })
   currentForm: NgForm;
 
   config: Config = new Config();

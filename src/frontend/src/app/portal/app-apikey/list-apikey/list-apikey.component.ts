@@ -12,7 +12,7 @@ import { AuthService } from '../../../shared/auth/auth.service';
 })
 export class ListApiKeyComponent implements OnInit {
   @Input() showState: object;
-  @ViewChild(TokenDetailComponent)
+  @ViewChild(TokenDetailComponent, { static: false })
   tokenDetailComponent: TokenDetailComponent;
 
   @Input() apiKeys: ApiKey[];

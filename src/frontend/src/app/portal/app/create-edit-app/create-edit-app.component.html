@@ -1,26 +1,21 @@
 <clr-modal [(clrModalOpen)]="createAppOpened">
   <h3 class="modal-title">{{appTitle}}</h3>
   <div class="modal-body">
-    <form #appForm="ngForm">
+    <form #appForm="ngForm" clrForm clrLayout="horizontal">
       <section class="form-block">
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="app_name" class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
-          <label for="app_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
-            <input class="form-control" type="text" id="app_name" [(ngModel)]="app.name"
-                   name="app_name" size="32"
-                   required
-                   [placeholder]="'PLACEHOLDER.APP_NAME' | translate"
-                   [readonly]="actionType==1"
-                   pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
-                   maxlength="32"
-                   (keyup)='handleValidation()'>
-            <span class="tooltip-content">
+        <clr-input-container>
+          <label class="required">{{'TITLE.NAME' | translate}}</label>
+          <input clrInput type="text" id="app_name" [(ngModel)]="app.name" name="app_name" size="32" required
+            [placeholder]="'PLACEHOLDER.APP_NAME' | translate" [readonly]="actionType==1" pattern="[a-z]([-a-z0-9]*[a-z0-9])?" maxlength="32" (keyup)='handleValidation()'>
+          <clr-control-helper>
+            <span style="color: red;" *ngIf="!isNameValid">
               {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
             </span>
-          </label>
-          <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
-        </div>
+          </clr-control-helper>
+          <clr-control-error>
+            {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
+          </clr-control-error>
+        </clr-input-container>
         <div hidden class="form-group" style="padding-left: 135px;">
           <label for="app_metadata" class="clr-col-md-3 form-group-label-override">{{'TITLE.METADATA' | translate}}</label>
           <textarea id="app_metadata" [(ngModel)]="app.metaData"
@@ -29,15 +24,10 @@
           </textarea>
 
         </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="app_description"
-                 class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
-          <textarea id="app_description" [(ngModel)]="app.description"
-                    name="app_description"
-                    rows="3">
-          </textarea>
-
-        </div>
+        <clr-textarea-container>
+          <label>{{'TITLE.DESCRIPTION' | translate}}</label>
+          <textarea clrTextarea id="app_description" [(ngModel)]="app.description" name="app_description" rows="3"> </textarea>
+        </clr-textarea-container>
         <div class="modal-footer">
 
           <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>

@@ -33,7 +33,7 @@ import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernete
   styleUrls: ['list-cronjob.scss']
 })
 export class ListCronjobComponent implements OnInit, OnDestroy {
-  @ViewChild(ListJobComponent)
+  @ViewChild(ListJobComponent, { static: false })
   listJob: ListJobComponent;
 
   selected: CronjobTpl[] = [];
@@ -46,7 +46,7 @@ export class ListCronjobComponent implements OnInit, OnDestroy {
   @Output() cloneTpl = new EventEmitter<CronjobTpl>();
   @Output() createTpl = new EventEmitter<boolean>();
 
-  @ViewChild(PublishCronjobTplComponent)
+  @ViewChild(PublishCronjobTplComponent, { static: false })
   publishCronjobTpl: PublishCronjobTplComponent;
 
   state: ClrDatagridStateInterface;

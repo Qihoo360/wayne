@@ -51,9 +51,9 @@ const showState = {
   styleUrls: ['./deployment.component.scss']
 })
 export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit {
-  @ViewChild(ListDeploymentComponent)
+  @ViewChild(ListDeploymentComponent, { static: false })
   listDeployment: ListDeploymentComponent;
-  @ViewChild(CreateEditDeploymentComponent)
+  @ViewChild(CreateEditDeploymentComponent, { static: false })
   createEditDeployment: CreateEditDeploymentComponent;
 
   pageState: PageState = new PageState();
@@ -254,9 +254,9 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
     const namespaceId = this.cacheService.namespaceId;
     this.deploymentId = parseInt(this.route.snapshot.params['deploymentId'], 10);
     combineLatest(
-      this.clusterService.getNames(),
+      [this.clusterService.getNames(),
       this.deploymentService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
-      this.appService.getById(this.appId, namespaceId)
+      this.appService.getById(this.appId, namespaceId)]
     ).subscribe(
       response => {
         this.clusters = response[0].data;
@@ -406,8 +406,8 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
     this.pageState.params['deleted'] = false;
     this.pageState.params['isOnline'] = this.isOnline;
     combineLatest(
-      this.deploymentTplService.listPage(this.pageState, this.appId, this.deploymentId.toString()),
-      this.publishService.listStatus(PublishType.DEPLOYMENT, this.deploymentId)
+      [this.deploymentTplService.listPage(this.pageState, this.appId, this.deploymentId.toString()),
+      this.publishService.listStatus(PublishType.DEPLOYMENT, this.deploymentId)]
     ).subscribe(
       response => {
         const status = response[1].data;

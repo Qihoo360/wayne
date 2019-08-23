@@ -7,7 +7,7 @@ import { AuthService } from 'app/shared/auth/auth.service';
 import { MessageHandlerService } from 'app/shared/message-handler/message-handler.service';
 
 export class CreateEditLimitResource extends CreateEditResource {
-  @ViewChild(ResourceLimitComponent)
+  @ViewChild(ResourceLimitComponent, { static: false })
   resourceLimitComponent: ResourceLimitComponent;
   defaultClusterNum = 0;
   constructor(
@@ -81,7 +81,8 @@ export class CreateEditLimitResource extends CreateEditResource {
   }
 
   public get isValid(): boolean {
-    return this.currentForm.valid &&
+    return this.currentForm &&
+      this.currentForm.valid &&
       !this.isSubmitOnGoing &&
       this.isNameValid &&
       !this.checkOnGoing &&

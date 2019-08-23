@@ -50,9 +50,9 @@ const showState = {
   styleUrls: ['./configmap.component.scss']
 })
 export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
-  @ViewChild(ListConfigMapComponent)
+  @ViewChild(ListConfigMapComponent, { static: false })
   list: ListConfigMapComponent;
-  @ViewChild(CreateEditConfigMapComponent)
+  @ViewChild(CreateEditConfigMapComponent, { static: false })
   createEdit: CreateEditConfigMapComponent;
   configMapId: number;
   pageState: PageState = new PageState();
@@ -249,8 +249,8 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
     const namespaceId = this.cacheService.namespaceId;
     this.configMapId = parseInt(this.route.snapshot.params['configMapId'], 10);
     combineLatest(
-      this.configMapService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', appId + ''),
-      this.appService.getById(appId, namespaceId)
+      [this.configMapService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', appId + ''),
+      this.appService.getById(appId, namespaceId)]
     ).subscribe(
       response => {
         this.configMaps = response[0].data.list.sort((a, b) => a.order - b.order);
@@ -322,8 +322,8 @@ export class ConfigMapComponent implements AfterContentInit, OnDestroy, OnInit {
     this.pageState.params['deleted'] = false;
     this.pageState.params['isOnline'] = this.isOnline;
     combineLatest(
-      this.configMapTplService.listPage(this.pageState, this.app.id, this.configMapId.toString()),
-      this.publishService.listStatus(PublishType.CONFIGMAP, this.configMapId)
+      [this.configMapTplService.listPage(this.pageState, this.app.id, this.configMapId.toString()),
+      this.publishService.listStatus(PublishType.CONFIGMAP, this.configMapId)]
     ).subscribe(
       response => {
         const status = response[1].data;

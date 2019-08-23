@@ -10,3 +10,64 @@ form .form-group > label:first-child.required:after, form .form-group > span:fir
   color: #c92100;
   margin-left: 0.25rem;
 }
+
+.form .form-group, form .form-group{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  .clr-row{
+    margin-top: 0 !important;
+  }
+}
+.form .form-group>label:first-child, .form .form-group>span:first-child, form .form-group>label:first-child, form .form-group>span:first-child{
+  position: absolute;
+  left: 0;
+  top: .25rem;
+  margin: 0;
+}
+label.required:after {
+  margin-left: 4px;
+  content: '*';
+  font-size:  .58479532rem;
+  line-height: .5rem;
+  color: #c92100;
+  margin-left: 0.25;
+}
+.form-inline {
+  position: relative;
+  &>.clr-row:last-child{
+    position: absolute;
+    width: 50%;
+    left: 50%;
+    top: 0;
+    margin-top: 0;
+    .clr-control-container{
+      -webkit-box-flex: 0;
+      flex: 0 0 41.66667%;
+      max-width: 41.66667%;
+    }
+    .clr-control-label{
+      -webkit-box-flex: 0;
+      flex: 0 0 33.33333%;
+      max-width: 33.33333%;
+    }
+  }
+}
+.clr-control-label{
+  margin-top: 5px;
+}
+.clr-toggle-wrapper .clr-col-md-2{
+  max-width: none;
+}
+.clr-textarea-wrapper textarea.clr-textarea {
+  width: 60%;
+}
+.modal-body {
+  outline: none;
+}
+.pd-r-0 {
+  padding-right: 0 !important;
+}
+.clr-form {
+  width: 100%;
+}

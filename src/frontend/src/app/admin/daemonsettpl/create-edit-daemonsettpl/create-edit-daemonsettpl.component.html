@@ -3,35 +3,25 @@
     <wayne-modal-operate [modal]="modal" *ngIf="modalOpened"></wayne-modal-operate>
   </h3>
   <div class="modal-body">
-    <form #ngForm="ngForm">
-
-      <section class="form-block">
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="daemonset_app_id" class="clr-col-md-3 form-group-label-override required">{{'DAEMONSET_ADMIN.TPL.CREATE.CONFIGMAP' | translate}}</label>
-          <div class="select form-control">
-            <select id="daemonset_app_id" [(ngModel)]="daemonsetTpl.daemonSetId" [disabled]="actionType==1"
-                    name="daemonset_app_id">
-              <!--这是一个坑，如果使用value获取到的是string，使用ngValue获取到的是model本身类型-->
-              <option *ngFor="let daemonset of daemonsets" [ngValue]="daemonset.id"
-                      [selected]="daemonset.id === daemonsetTpl.daemonSetId">{{daemonset.name}}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="daemonset_description"
-                 class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
-          <textarea id="daemonset_description" [(ngModel)]="daemonsetTpl.description"
-                    name="daemonset_description"
-                    rows="3">
-          </textarea>
-
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="daemonset_template" class="clr-col-md-3 form-group-label-override">{{'DAEMONSET_ADMIN.TPL.CREATE.TEMPLATE' | translate}}</label>
+    <form #ngForm="ngForm" clrForm clrLayout="horizontal">
+      <clr-select-container>
+        <label class="required">{{'DAEMONSET_ADMIN.TPL.CREATE.CONFIGMAP' | translate}}</label>
+        <select id="daemonset_app_id" clrSelect [(ngModel)]="daemonsetTpl.daemonSetId" [disabled]="actionType==1" name="daemonset_app_id">
+          <option *ngFor="let daemonset of daemonsets" [ngValue]="daemonset.id"
+            [selected]="daemonset.id === daemonsetTpl.daemonSetId">{{daemonset.name}}
+          </option>
+        </select>
+      </clr-select-container>
+      <div class="clr-form-control clr-row">
+        <label for="deployment_metadata" class="clr-control-label">{{'DAEMONSET_ADMIN.TPL.CREATE.TEMPLATE' | translate}}</label>
+        <div class="clr-control-container clr-col-md-10 clr-col-12">
           <wayne-ace-editor-box></wayne-ace-editor-box>
         </div>
-      </section>
+      </div>
+      <clr-textarea-container>
+        <label>{{'TITLE.DESCRIPTION' | translate}}</label>
+        <textarea id="daemonset_description" clrTextarea [(ngModel)]="daemonsetTpl.description" name="daemonset_description" rows="3"> </textarea>
+      </clr-textarea-container>
     </form>
   </div>
   <div class="modal-footer">

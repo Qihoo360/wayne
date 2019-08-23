@@ -15,7 +15,7 @@ import { ObjectMeta } from '../../model/v1/kubernetes/base';
 
 export class CreateEditResourceTemplate {
   ngForm: NgForm;
-  @ViewChild('ngForm')
+  @ViewChild('ngForm', { static: false })
   currentForm: NgForm;
 
 

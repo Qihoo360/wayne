@@ -10,7 +10,7 @@ import EChartOption = echarts.EChartOption;
   templateUrl: './app-reportform.component.html'
 })
 export class AppReportFormComponent implements OnInit, AfterViewInit {
-  @ViewChild('tableToMeasure') elementView;
+  @ViewChild('tableToMeasure', { static: false }) elementView;
   options: EChartOption;
   private chart: ECharts;
 

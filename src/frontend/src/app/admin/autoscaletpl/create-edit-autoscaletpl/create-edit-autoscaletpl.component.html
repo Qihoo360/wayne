@@ -3,30 +3,26 @@
     <wayne-modal-operate [modal]="modal" *ngIf="modalOpened"></wayne-modal-operate>
   </h3>
   <div class="modal-body">
-    <form #ngForm="ngForm">
-      <section class="form-block">
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="hpa_id" class="col-md-3 form-group-label-override required">HPA</label>
-          <div class="select form-control">
-            <select id="hpa_id" [(ngModel)]="template.hpaId" [disabled]="actionType==1" name="hpa_id">
-              <!--这是一个坑，如果使用value获取到的是string，使用ngValue获取到的是model本身类型-->
-              <option *ngFor="let resource of resources" [ngValue]="resource.id" [selected]="resource.id === template.hpaId">{{resource.name}}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="description" class="col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
-          <textarea id="description" [(ngModel)]="template.description"
-                    name="description"
-                    rows="3">
-          </textarea>
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="template" class="col-md-3 form-group-label-override">{{'TITLE.TEMPLATE' | translate}}</label>
+    <form #ngForm="ngForm" clrForm clrLayout="horizontal">
+      <clr-select-container>
+        <label class="required">HPA</label>
+        <select id="hpa_id" clrSelect [(ngModel)]="template.hpaId" [disabled]="actionType==1" name="hpa_id">
+          <option *ngFor="let resource of resources" [ngValue]="resource.id" [selected]="resource.id === template.hpaId">
+            {{resource.name}}
+          </option>
+        </select>
+      </clr-select-container>
+      <div class="clr-form-control clr-row">
+        <label class="clr-control-label">{{'TITLE.TEMPLATE' | translate}}</label>
+        <div class="clr-control-container clr-col-md-10 clr-col-12">
           <wayne-ace-editor-box></wayne-ace-editor-box>
         </div>
-      </section>
+      </div>
+      <clr-textarea-container>
+        <label>{{'TITLE.DESCRIPTION' | translate}}</label>
+        <textarea id="description" clrTextarea [(ngModel)]="template.description" name="description" rows="3">
+                  </textarea>
+      </clr-textarea-container>
     </form>
   </div>
   <div class="modal-footer">

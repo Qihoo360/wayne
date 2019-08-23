@@ -1,62 +1,39 @@
 <clr-modal [(clrModalOpen)]="createUserOpened" [clrModalSize]="'lg'">
   <h3 class="modal-title">{{userTitle}}</h3>
   <div class="modal-body">
-    <form #userForm="ngForm">
-      <section class="form-block">
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="user_name"
-                 class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
-          <label for="user_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text" id="user_name" [(ngModel)]="user.name"
-                   name="user_name" size="36"
-                   required
-                   pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
-                   maxlength="24"
-                   (keyup)='handleNameValidation()'>
-            <span class="tooltip-content">
-              用户名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?
-            </span>
-          </label>
-          <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="user_email" class="clr-col-md-3 form-group-label-override required">邮箱</label>
-          <label for="user_email" aria-haspopup="true" role="tooltip" [class.invalid]="!isEmailValid"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text" id="user_email" [(ngModel)]="user.email"
-                   name="user_email" size="36"
-                   required
-                   pattern="^([A-Za-z0-9_\-\.\u4e00-\u9fa5])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,15})$"
-                   maxlength="128" (keyup)='handleEmailValidation()'
-            >
-            <span class="tooltip-content">
-              用户邮箱不符合规范
-            </span>
-          </label>
-          <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="user_display" class="clr-col-md-3 form-group-label-override required">展示</label>
-          <label for="user_display" aria-haspopup="true" role="tooltip" [class.invalid]="!isDisplayValid"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text" id="user_display" [(ngModel)]="user.display"
-                   name="user_display" size="36"
-                   required
-                   maxlength="128" (keyup)='isDisplayValid = user.display.trim().length>0'
-            >
-            <span class="tooltip-content">
-              用户展示不符合规范
-            </span>
-          </label>
-          <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-          <button type="button" class="btn btn-primary" [disabled]="!isValid"
-                  (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
-        </div>
-      </section>
+    <form #userForm="ngForm"  clrForm clrLayout="horizontal">
+      <clr-input-container>
+        <label class="required">{{'TITLE.NAME' | translate}}</label>
+        <input clrInput type="text" id="user_name" [(ngModel)]="user.name" name="user_name" size="36" required
+          pattern="[a-z]([-a-z0-9]*[a-z0-9])?" maxlength="24" (keyup)='handleNameValidation()'>
+          <clr-control-error>
+            用户名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?
+          </clr-control-error>
+      </clr-input-container>
+        
+      <clr-input-container>
+        <label class="required">邮箱</label>
+        <input clrInput type="text" id="user_email" [(ngModel)]="user.email" name="user_email" size="36" required
+          pattern="^([A-Za-z0-9_\-\.\u4e00-\u9fa5])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,15})$" maxlength="128"
+          (keyup)='handleEmailValidation()'>
+          <clr-control-error>
+            用户邮箱不符合规范
+          </clr-control-error>
+      </clr-input-container>
+      
+      <clr-input-container>
+        <label class="required">展示</label>
+        <input clrInput type="text" id="user_display" [(ngModel)]="user.display" name="user_display" size="36" required maxlength="128" (keyup)='isDisplayValid = user.display.trim().length>0'>
+        <clr-control-error>
+          用户展示不符合规范
+        </clr-control-error>
+      </clr-input-container>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+        <button type="button" class="btn btn-primary" [disabled]="!isValid"
+                (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+      </div>
     </form>
   </div>
 </clr-modal>

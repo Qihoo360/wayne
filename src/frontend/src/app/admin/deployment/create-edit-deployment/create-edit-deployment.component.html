@@ -1,59 +1,44 @@
 <clr-modal [(clrModalOpen)]="createDeploymentOpened" [clrModalSize]="'lg'">
   <h3 class="modal-title">{{deploymentTitle}}</h3>
   <div class="modal-body">
-    <form #deploymentForm="ngForm">
+    <form #deploymentForm="ngForm" clrForm clrLayout="horizontal">
 
-      <section class="form-block">
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="deployment_app_id" class="clr-col-md-3 form-group-label-override required">{{'DEPLOYMENT_ADMIN.CREATE.APPLYMENT' | translate}}</label>
-          <div class="select form-control">
-            <select id="deployment_app_id" [(ngModel)]="deployment.appId" [disabled]="actionType==1"
-                    name="deployment_app_id">
-              <!--这是一个坑，如果使用value获取到的是string，使用ngValue获取到的是model本身类型-->
-              <option *ngFor="let app of apps" [ngValue]="app.id" [selected]="app.id === deployment.appId">{{app.name}}
-              </option>
-            </select>
+        <clr-select-container>
+          <label class="required">{{'DEPLOYMENT_ADMIN.CREATE.APPLYMENT' | translate}}</label>
+          <select id="deployment_app_id" clrSelect [(ngModel)]="deployment.appId" [disabled]="actionType==1" name="deployment_app_id">
+            <option *ngFor="let app of apps" [ngValue]="app.id" [selected]="app.id === deployment.appId">{{app.name}}
+            </option>
+          </select>
+        </clr-select-container>
+    
+        <clr-input-container>
+          <label class="required">{{'TITLE.NAME' | translate}}</label>
+          <input clrInput type="text" id="deployment_name" [(ngModel)]="deployment.name" name="deployment_name"
+            size="64" required [readonly]="actionType==1" pattern="[a-z]([-a-z0-9]*[a-z0-9])?" maxlength="64"
+            (keyup)='handleValidation()'>
+          <clr-control-error>
+            {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
+          </clr-control-error>
+        </clr-input-container>
+       
+        <div class="clr-form-control clr-row">
+          <label class="clr-control-label">{{'DEPLOYMENT_ADMIN.CREATE.METADATA' | translate}}</label>
+          <div class="clr-control-container clr-col-md-10 clr-col-12">
+            <wayne-ace-editor-box></wayne-ace-editor-box>
           </div>
         </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="deployment_name"
-                 class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
-          <label for="deployment_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
-            <input class="form-control" type="text" id="deployment_name" [(ngModel)]="deployment.name"
-                   name="deployment_name" size="64"
-                   required
-                   [readonly]="actionType==1"
-                   pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
-                   maxlength="64"
-                   (keyup)='handleValidation()'>
-            <span class="tooltip-content">
-              {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
-            </span>
-          </label>
-          <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="deployment_metadata" class="clr-col-md-3 form-group-label-override">{{'DEPLOYMENT_ADMIN.CREATE.METADATA' | translate}}</label>
-          <wayne-ace-editor-box></wayne-ace-editor-box>
-
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="deployment_description"
-                 class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
-          <textarea id="deployment_description" [(ngModel)]="deployment.description"
-                    name="deployment_description"
-                    rows="3">
-          </textarea>
-
-        </div>
+        <clr-textarea-container>
+          <label>{{'TITLE.DESCRIPTION' | translate}}</label>
+          <textarea clrTextarea [(ngModel)]="deployment.description" name="deployment_description" rows="3">
+                    </textarea>
+        </clr-textarea-container>
+       
         <div class="modal-footer">
 
           <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
           <button type="button" class="btn btn-primary" [disabled]="!isValid"
                   (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
         </div>
-      </section>
     </form>
   </div>
 </clr-modal>

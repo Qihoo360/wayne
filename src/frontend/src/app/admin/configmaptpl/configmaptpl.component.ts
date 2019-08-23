@@ -19,9 +19,9 @@ import { isNotEmpty } from '../../shared/utils';
   styleUrls: ['./configmaptpl.component.scss']
 })
 export class ConfigMapTplComponent implements OnInit, OnDestroy {
-  @ViewChild(ListConfigMapTplComponent)
+  @ViewChild(ListConfigMapTplComponent, { static: false })
   list: ListConfigMapTplComponent;
-  @ViewChild(CreateEditConfigMapTplComponent)
+  @ViewChild(CreateEditConfigMapTplComponent, { static: false })
   createEdit: CreateEditConfigMapTplComponent;
 
   pageState: PageState = new PageState();

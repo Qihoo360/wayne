@@ -19,9 +19,9 @@ import { StatusComponent } from '../status/status.component';
   styleUrls: ['./list-autoscale.component.scss']
 })
 export class ListAutoscaleComponent extends ListResource implements OnInit, OnDestroy {
-  @ViewChild(PublishTplComponent)
+  @ViewChild(PublishTplComponent, { static: false })
   publishTemplateComponent: PublishTplComponent;
-  @ViewChild(StatusComponent)
+  @ViewChild(StatusComponent, { static: false })
   resourceStatusComponent: StatusComponent;
 
   constructor(public autoscaleTplService: AutoscaleTplService,

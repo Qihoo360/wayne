@@ -24,7 +24,7 @@
       创建时间
     </ng-container>
   </clr-dg-column>
-  <clr-dg-row *ngFor="let ingressTpl of ingressTpls" [clrDgItem]="serviceTpl">
+  <clr-dg-row *ngFor="let ingressTpl of ingressTpls" [clrDgItem]="ingressTpl">
     <clr-dg-action-overflow>
       <button class="action-item" (click)="editIngressTpl(ingressTpl)" >{{'BUTTON.EDIT' | translate}}</button>
       <button class="action-item" (click)="deleteIngressTpl(ingressTpl)">删除</button>

@@ -26,9 +26,9 @@ import { KubernetesClient } from '../../shared/client/v1/kubernetes/kubernetes';
   styleUrls: ['./autoscale.component.scss']
 })
 export class AutoscaleComponent extends Resource implements OnInit, AfterContentInit {
-  @ViewChild(CreateEditAutoscaleComponent)
+  @ViewChild(CreateEditAutoscaleComponent, { static: false })
   createEditResourceComponent: CreateEditAutoscaleComponent;
-  @ViewChild(ListAutoscaleComponent)
+  @ViewChild(ListAutoscaleComponent, { static: false })
   listResourceComponent: ListAutoscaleComponent;
 
   constructor(public autoscaleService: AutoscaleService,

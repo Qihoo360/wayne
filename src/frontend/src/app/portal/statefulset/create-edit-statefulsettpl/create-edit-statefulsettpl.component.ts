@@ -49,7 +49,7 @@ import { containerDom, ContainerTpl, templateDom } from '../../../shared/base/co
 
 export class CreateEditStatefulsettplComponent extends ContainerTpl implements OnInit, AfterViewInit, OnDestroy {
   ngForm: NgForm;
-  @ViewChild('ngForm')
+  @ViewChild('ngForm', { static: false })
   currentForm: NgForm;
 
   actionType: ActionType;
@@ -110,6 +110,9 @@ export class CreateEditStatefulsettplComponent extends ContainerTpl implements O
   }
 
   checkIfInvalid(index: number, field: string): boolean {
+    if (!this.currentForm) {
+      return false;
+    }
     const control = this.currentForm.controls[field + index];
     if (control && control.dirty && !control.valid) {
       return true;

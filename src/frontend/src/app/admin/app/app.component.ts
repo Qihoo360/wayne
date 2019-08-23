@@ -21,9 +21,9 @@ import { isNotEmpty } from '../../shared/utils';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  @ViewChild(ListAppComponent)
+  @ViewChild(ListAppComponent, { static: false })
   listApp: ListAppComponent;
-  @ViewChild(CreateEditAppComponent)
+  @ViewChild(CreateEditAppComponent, { static: false })
   createEditApp: CreateEditAppComponent;
 
   namespaceId: string;

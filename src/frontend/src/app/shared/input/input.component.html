@@ -1,5 +1,5 @@
 <input [(ngModel)]="value" #input [placeholder]="placeholder" [readonly]="readOnly" [style.cursor]="cursor"
-       [type]="type" (focus)="focusState = true;" (blur)="focusState = false;" (input)="inputEvent($event)"
+       [type]="type" style="padding-left: 6px;" (focus)="focusState = true;" (blur)="focusState = false;" (input)="inputEvent($event)"
        (change)="changeEvent($event)" [style.padding-right.px]="showSearch ? 34 : 6">
 <svg *ngIf="showSearch" width="16" height="16"
      [ngStyle]="{'fill': focusState ? '#222' : '#666', 'stroke': focusState ? '#222' : '#666'}"
