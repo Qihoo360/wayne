@@ -37,10 +37,10 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit() {
     combineLatest(
-      this.appService.getStatistics(),
+      [this.appService.getStatistics(),
       this.userService.getStatistics(),
       this.nodeClient.getStatistics(),
-      this.podClient.getStatistics()
+      this.podClient.getStatistics()]
     ).subscribe(
       ([appRes, userRes, nodeRes, PodRes]) => {
         this.summary.appTotal = appRes.data.total || 0;

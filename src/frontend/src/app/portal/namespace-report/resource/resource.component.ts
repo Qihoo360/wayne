@@ -15,8 +15,8 @@ import EChartOption = echarts.EChartOption;
 })
 
 export class ResourceComponent implements OnInit, AfterViewInit {
-  @ViewChild('cpu') elementCpuView;
-  @ViewChild('mem') elementMemView;
+  @ViewChild('cpu', { static: false }) elementCpuView;
+  @ViewChild('mem', { static: false }) elementMemView;
 
   resources: any;
   cpu_sum = 0;

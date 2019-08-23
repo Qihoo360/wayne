@@ -44,11 +44,11 @@ export class ListDaemonSetComponent implements OnInit, OnDestroy {
   @Output() cloneTpl = new EventEmitter<DaemonSetTemplate>();
   @Output() createTpl = new EventEmitter<boolean>();
 
-  @ViewChild(ListPodComponent)
+  @ViewChild(ListPodComponent, { static: false })
   listPodComponent: ListPodComponent;
-  @ViewChild(ListEventComponent)
+  @ViewChild(ListEventComponent, { static: false })
   listEventComponent: ListEventComponent;
-  @ViewChild(PublishDaemonSetTplComponent)
+  @ViewChild(PublishDaemonSetTplComponent, { static: false })
   publishDaemonSetTpl: PublishDaemonSetTplComponent;
   state: ClrDatagridStateInterface;
   currentPage = 1;

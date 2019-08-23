@@ -5,10 +5,10 @@
 
   <div class="modal-body">
     <hr>
-    <div class="toggle-switch">
-      <input type="checkbox" id="toggle_4" [(ngModel)]="whetherHotReflash">
+    <clr-toggle-wrapper>
+      <input type="checkbox" clrToggle id="toggle_4" [(ngModel)]="whetherHotReflash">
       <label for="toggle_4">{{'POD.DATA_UPDATE' | translate}}</label>
-    </div>
+    </clr-toggle-wrapper>
     <clr-datagrid (clrDgRefresh)="refresh($event)">
       <clr-dg-placeholder>{{'MESSAGE.NO_MESSAGE' | translate}}</clr-dg-placeholder>
       <clr-dg-column [clrDgField]="'name'">

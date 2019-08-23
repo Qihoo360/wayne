@@ -19,9 +19,9 @@ import { PageState } from '../../shared/page/page-state';
 })
 export class DeploymentComponent implements OnInit, OnDestroy {
 
-  @ViewChild(ListDeploymentComponent)
+  @ViewChild(ListDeploymentComponent, { static: false })
   listDeployment: ListDeploymentComponent;
-  @ViewChild(CreateEditDeploymentComponent)
+  @ViewChild(CreateEditDeploymentComponent, { static: false })
   createEditDeployment: CreateEditDeploymentComponent;
 
   pageState: PageState = new PageState();

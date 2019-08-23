@@ -46,15 +46,7 @@
     <clr-dg-cell class="copy">{{webHook.name}}</clr-dg-cell>
     <clr-dg-cell>{{webHook.url}}</clr-dg-cell>
     <clr-dg-cell>
-      <div class="toggle-switch">
-        <input
-          type="checkbox"
-          id="webhook-toggle-{{i}}"
-          (change)="toggleWebhook(webHook)"
-          [checked]="webHook.enabled"
-        >
-        <label for="webhook-toggle-{{i}}"></label>
-      </div>
+      <input type="checkbox" (change)="toggleWebhook(webHook)" [checked]="webHook.enabled" clrToggle />
     </clr-dg-cell>
     <clr-dg-cell>{{webHook.user}}</clr-dg-cell>
     <clr-dg-cell>{{webHook.createTime | date:"yyyy-MM-dd HH:mm"}}</clr-dg-cell>

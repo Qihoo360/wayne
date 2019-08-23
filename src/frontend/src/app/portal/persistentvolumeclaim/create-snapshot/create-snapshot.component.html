@@ -1,17 +1,12 @@
 <clr-modal [(clrModalOpen)]="createAppOpened">
   <h3 class="modal-title">{{'PVC.CREATE_STORAGE_SNAPSHOT' | translate}}</h3>
   <div class="modal-body">
-    <form #snapForm="ngForm">
-      <section class="form-block">
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="version" class="clr-col-md-3 form-group-label-override required">{{'TITLE.VERSION' | translate}}</label>
-          <input class="form-control" type="text" id="version" name="version" [(ngModel)]="snapshotVersion"
-                 required
-                 [placeholder]="'PVC.SNAPSHOOT_VERSION' | translate"
-                 maxlength="32">
-        </div>
-
-      </section>
+    <form #snapForm="ngForm" clrForm clrLayout="horizontal">
+      <clr-input-container>
+        <label class="required">{{'TITLE.VERSION' | translate}}</label>
+        <input clrInput type="text" id="version" name="version" [(ngModel)]="snapshotVersion" required
+          [placeholder]="'PVC.SNAPSHOOT_VERSION' | translate" maxlength="32">
+      </clr-input-container>
     </form>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>

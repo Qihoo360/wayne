@@ -22,13 +22,13 @@ const showState = {
 })
 
 export class KubeClusterroleComponent extends KubernetesUnNamespacedResource implements OnInit, OnDestroy {
-  @ViewChild(ListClusterroleComponent)
+  @ViewChild(ListClusterroleComponent, { static: false })
   listResourceComponent: ListClusterroleComponent;
 
-  @ViewChild(AceEditorComponent)
+  @ViewChild(AceEditorComponent, { static: false })
   aceEditorModal: AceEditorComponent;
 
-  @ViewChild(DeletionDialogComponent)
+  @ViewChild(DeletionDialogComponent, { static: false })
   deletionDialogComponent: DeletionDialogComponent;
 
   constructor(public kubernetesClient: KubernetesClient,

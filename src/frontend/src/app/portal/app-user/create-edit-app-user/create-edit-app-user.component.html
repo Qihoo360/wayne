@@ -1,41 +1,24 @@
 <clr-modal [(clrModalOpen)]="createAppUserOpened" [clrModalSize]="'lg'">
-  <h3 class="modal-title">{{appUserTitle}}</h3>
+  <h3 class="modal-title">{{appUserTitle}}1</h3>
   <div class="modal-body">
-    <form #appUserForm="ngForm">
-      <section class="form-block">
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="name" class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
-          <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
-            <input class="form-control" type="text" id="app_user_name" [(ngModel)]="appUser.user.name"
-                   name="name" size="32"
-                   required
-                   [readonly]="actionType==1"
-                   maxlength="32"
-                   (keyup)='handleValidation()'>
-            <span class="tooltip-content">
-              {{'USER.NO_USER' | translate}}
-            </span>
-          </label>
-          <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
+    <form #appUserForm="ngForm" clrForm clrLayout="horizontal">
+      <clr-input-container>
+        <label class="required">{{'TITLE.NAME' | translate}}</label>
+        <input clrInput type="text" id="app_user_name" [(ngModel)]="appUser.user.name" name="name" size="32" required
+          [readonly]="actionType==1" maxlength="32" (keyup)='handleValidation()'>
+        <clr-control-helper>
+          <span class="clr-subtext" *ngIf="!isNameValid">{{'USER.NO_USER' | translate}}</span>
+        </clr-control-helper>
+        <clr-control-error>required</clr-control-error>
+      </clr-input-container>
+      <div class="clr-form-control clr-row">
+        <label class="clr-control-label required">{{'USER.GROUP' | translate}}</label>
+        <div class="clr-control-container clr-col-md-10 clr-col-12">
+          <ng2-dual-list-box name="app_user_group" [data]="allGroups" valueField="id" textField="name" [availableText]="'TITLE.AVAIL_ITEM' | translate"
+            [selectedText]="'TITLE.CHOOSED_ITEM' | translate" [(ngModel)]="selectGroups">
+          </ng2-dual-list-box>
         </div>
-        <div class="form-group" style="padding-left: 135px;height:250px;">
-          <label for="app_user_group" class="clr-col-md-3 form-group-label-override required">{{'USER.GROUP' | translate}}</label>
-          <label for="app_user_group" aria-haspopup="true" role="tooltip"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <ng2-dual-list-box name="app_user_group"
-                               [data]="allGroups"
-                               valueField="id"
-                               textField="name"
-                               [availableText]="'TITLE.AVAIL_ITEM' | translate"
-                               [selectedText]="'TITLE.CHOOSED_ITEM' | translate"
-                               [(ngModel)]="selectGroups"
-            >
-            </ng2-dual-list-box>
-          </label>
-        </div>
-
-      </section>
+      </div>
     </form>
   </div>
   <div class="modal-footer">

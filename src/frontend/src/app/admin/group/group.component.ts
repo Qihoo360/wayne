@@ -17,9 +17,9 @@ import { PageState } from '../../shared/page/page-state';
   styleUrls: ['./group.component.scss']
 })
 export class GroupComponent implements OnInit, OnDestroy {
-  @ViewChild(ListGroupComponent)
+  @ViewChild(ListGroupComponent, { static: false })
   listGroup: ListGroupComponent;
-  @ViewChild(CreateEditGroupComponent)
+  @ViewChild(CreateEditGroupComponent, { static: false })
   createEditGroup: CreateEditGroupComponent;
 
   pageState: PageState = new PageState();

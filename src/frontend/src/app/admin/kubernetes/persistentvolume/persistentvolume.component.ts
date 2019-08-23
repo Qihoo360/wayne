@@ -33,9 +33,9 @@ const showState = {
   styleUrls: ['./persistentvolume.component.scss']
 })
 export class PersistentVolumeComponent implements OnInit, OnDestroy {
-  @ViewChild(ListPersistentVolumeComponent)
+  @ViewChild(ListPersistentVolumeComponent, { static: false })
   list: ListPersistentVolumeComponent;
-  @ViewChild(CreateEditPersistentVolumeComponent)
+  @ViewChild(CreateEditPersistentVolumeComponent, { static: false })
   createEdit: CreateEditPersistentVolumeComponent;
   cluster: string;
   clusters: Array<any>;

@@ -8,7 +8,7 @@ import { Component, HostListener, HostBinding, Input } from '@angular/core';
 
 export class BoxComponent {
   enter: boolean;
-  @Input('disabled') disabled: boolean;
+  @Input() disabled: boolean;
   @HostBinding('class.box-disabled')
   get boxDisabled() {
     return this.disabled;

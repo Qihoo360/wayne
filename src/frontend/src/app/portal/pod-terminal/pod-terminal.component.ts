@@ -26,7 +26,7 @@ export class PodTerminalComponent implements OnInit, OnDestroy {
   resourceName: string;
   resourceType: string;
   pods: KubePod[];
-  @ViewChild('terminal')
+  @ViewChild('terminal', { static: false })
   terminal: ElementRef;
   xterm: Terminal;
   socket: SockJS;

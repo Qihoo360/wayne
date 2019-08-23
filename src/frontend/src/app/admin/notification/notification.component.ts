@@ -17,9 +17,9 @@ import { CreateNotificationComponent } from './create-notification/create-notifi
   styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent implements OnInit, OnDestroy {
-  @ViewChild(ListNotificationComponent)
+  @ViewChild(ListNotificationComponent, { static: false })
   listNotification: ListNotificationComponent;
-  @ViewChild(CreateNotificationComponent)
+  @ViewChild(CreateNotificationComponent, { static: false })
   createNotificationComponent: CreateNotificationComponent;
 
   pageState: PageState = new PageState();

@@ -19,9 +19,9 @@ import { Cluster } from '../../shared/model/v1/cluster';
   styleUrls: ['./namespace.component.scss']
 })
 export class NamespaceComponent implements OnInit, OnDestroy {
-  @ViewChild(ListNamespaceComponent)
+  @ViewChild(ListNamespaceComponent, { static: false })
   listNamespace: ListNamespaceComponent;
-  @ViewChild(CreateEditNamespaceComponent)
+  @ViewChild(CreateEditNamespaceComponent, { static: false })
   createEditNamespace: CreateEditNamespaceComponent;
 
   pageState: PageState = new PageState();

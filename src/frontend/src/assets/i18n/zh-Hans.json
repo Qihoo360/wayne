@@ -213,6 +213,10 @@
     "ERROR_MESSAGE": "错误信息",
     "FINISH_CHECK_TIME": "最后检查时间"
   },
+  "ERROR": {
+    "CLUSTER": "缺少机房信息",
+    "CLUSTER_NAME": "集群名称不符合规范"
+  },
   "HISTORY": {
     "RELEASE_TIME": "发布时间",
     "RELEASE_USER": "发布者",
@@ -337,7 +341,7 @@
   },
   "POD": {
     "CONTAINER": "容器",
-    "DATA_UPDATE": "数据实时更新: ",
+    "DATA_UPDATE": "数据实时更新",
     "ENTER_CONTAINER": "进入容器",
     "LIST": "Pod 列表",
     "LOG": "日志",
@@ -377,6 +381,7 @@
     "VIEW_USER_PASS": "查看用户名密码"
   },
   "RULE": {
+    "REQUIRED": "请填写完整",
     "CONTAINER": "英文，dns 域名规则",
     "CPU": "CPU 大小应该在0~{{value}}核之间",
     "MEMORY": "内存大小应该在0~{{value}}G 之间",
