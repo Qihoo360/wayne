@@ -13,7 +13,7 @@ export class PublishTemplate {
   @Input() appId: number;
   modalOpened = false;
   publishForm: NgForm;
-  @ViewChild('publishForm', { static: false })
+  @ViewChild('publishForm', { static: true })
   currentForm: NgForm;
   clusters = Array<Cluster>();
   template: any;

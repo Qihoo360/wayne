@@ -49,7 +49,7 @@ import { containerDom, ContainerTpl, templateDom } from '../../../shared/base/co
 })
 export class CreateEditDaemonSetTplComponent extends ContainerTpl implements OnInit, AfterViewInit, OnDestroy {
   ngForm: NgForm;
-  @ViewChild('ngForm', { static: false })
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
   actionType: ActionType;

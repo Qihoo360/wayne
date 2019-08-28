@@ -22,7 +22,7 @@ export class CreateEditAppComponent implements OnInit {
   createAppOpened: boolean;
 
   appForm: NgForm;
-  @ViewChild('appForm', { static: false })
+  @ViewChild('appForm', { static: true })
   currentForm: NgForm;
 
   @ViewChild(AceEditorBoxComponent, { static: false })

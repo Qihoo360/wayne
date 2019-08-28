@@ -24,7 +24,7 @@ export class CreateEditIngressTplComponent implements OnInit {
   modalOpened: boolean;
 
   ngForm: NgForm;
-  @ViewChild('ngForm', { static: false })
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
   ingressTpl: IngressTpl = new IngressTpl();

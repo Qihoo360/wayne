@@ -20,7 +20,7 @@ export class CreateEditAppComponent {
   createAppOpened: boolean;
 
   appForm: NgForm;
-  @ViewChild('appForm', { static: false })
+  @ViewChild('appForm', { static: true })
   currentForm: NgForm;
 
   app: App = new App();

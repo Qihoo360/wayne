@@ -24,7 +24,7 @@ export class CreateEditDeploymentTplComponent implements OnInit {
   createDeploymentTplOpened: boolean;
 
   deploymentTplForm: NgForm;
-  @ViewChild('deploymentTplForm', { static: false })
+  @ViewChild('deploymentTplForm', { static: true })
   currentForm: NgForm;
 
   deploymentTpl: DeploymentTpl = new DeploymentTpl();

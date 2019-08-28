@@ -18,7 +18,7 @@ export class CreateEditAppWebHookComponent implements OnInit {
   @Output() create = new EventEmitter<boolean>();
   @Output() update = new EventEmitter<boolean>();
 
-  @ViewChild('webHookForm', { static: false })
+  @ViewChild('webHookForm', { static: true })
   currentForm: NgForm;
 
   webHook: WebHook;

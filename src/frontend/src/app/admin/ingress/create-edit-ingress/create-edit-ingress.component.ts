@@ -22,7 +22,7 @@ export class CreateEditIngressComponent implements OnInit {
   modalOpened: boolean;
 
   ngForm: NgForm;
-  @ViewChild('ngForm', { static: false })
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
   @ViewChild(AceEditorBoxComponent, { static: false })

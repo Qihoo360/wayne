@@ -14,7 +14,7 @@ export class MigrationResource implements OnInit {
   modalOpened: boolean;
   kubeResource: KubeResourcesName;
 
-  @ViewChild('ngForm', { static: false })
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
   @ViewChild(AceEditorBoxComponent, { static: false })

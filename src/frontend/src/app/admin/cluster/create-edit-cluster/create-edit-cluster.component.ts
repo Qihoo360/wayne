@@ -17,7 +17,7 @@ import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box
 export class CreateEditClusterComponent {
   @Output() create = new EventEmitter<boolean>();
   modalOpened: boolean;
-  @ViewChild('ngForm', { static: false })
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
   @ViewChild('metaData', { static: false })

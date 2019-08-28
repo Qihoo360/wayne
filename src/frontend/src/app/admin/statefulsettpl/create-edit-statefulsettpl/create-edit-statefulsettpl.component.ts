@@ -24,7 +24,7 @@ export class CreateEditStatefulsettplComponent implements OnInit {
   modalOpened: boolean;
 
   ngForm: NgForm;
-  @ViewChild('ngForm', { static: false })
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
   statefulsetTpl: StatefulsetTemplate = new StatefulsetTemplate();

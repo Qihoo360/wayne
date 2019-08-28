@@ -54,7 +54,7 @@ import { containerDom, ContainerTpl, templateDom } from '../../../shared/base/co
 
 export class CreateEditDeploymentTplComponent extends ContainerTpl implements OnInit, AfterViewInit, OnDestroy {
   ngForm: NgForm;
-  @ViewChild('ngForm', { static: false })
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
   actionType: ActionType;

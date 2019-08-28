@@ -14,7 +14,7 @@ export class CreateEditResourceTemplateComponent implements OnInit {
   modalOpened: boolean;
 
   ngForm: NgForm;
-  @ViewChild('ngForm', { static: false })
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
   // template: any = new IngressTpl();

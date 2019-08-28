@@ -9,7 +9,7 @@ import { ApiNameGenerateRule } from '../../utils';
 import { Resources } from '../../model/v1/resources-limit';
 
 export class CreateEditResource {
-  @ViewChild('ngForm', { static: false })
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
   clusters: Cluster[];
   resourcesMetas = new Resources();

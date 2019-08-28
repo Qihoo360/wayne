@@ -38,7 +38,7 @@ export class CreateEditNamespaceComponent {
   aceBox: any;
 
   namespaceForm: NgForm;
-  @ViewChild('namespaceForm', { static: false })
+  @ViewChild('namespaceForm', { static: true })
   currentForm: NgForm;
   ns: Namespace = new Namespace();
   checkOnGoing = false;

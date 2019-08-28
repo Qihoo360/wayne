@@ -21,7 +21,7 @@ export class CreateEditGroupComponent implements OnInit {
   createGroupOpened: boolean;
 
   groupForm: NgForm;
-  @ViewChild('groupForm', { static: false })
+  @ViewChild('groupForm', { static: true })
   currentForm: NgForm;
 
   group: Group = new Group();
