@@ -19,19 +19,6 @@
               class="clr-subtext">{{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?</span>
           </div>
         </div>
-        <!-- <clr-input-container>
-          <label for="name" class="required">{{'TITLE.NAME' | translate}}</label>
-          <input type="text" clrInput id="name" [(ngModel)]="resource.name" name="name" style="width: 15rem" required *ngIf="app && actionType==0"
-            [readonly]="actionType==1" [placeholder]="'PLACEHOLDER.ENGLISH_NAME' | translate" pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
-            maxlength="64" (keyup)='checkNameValid()'>
-          <clr-control-helper>
-            <span *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</span>
-            <span *ngIf="app && actionType==1">{{resource.name}}</span>
-          </clr-control-helper>
-          <clr-control-error>
-            {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
-          </clr-control-error>
-        </clr-input-container> -->
         <clr-textarea-container>
           <label>{{'TITLE.DESCRIPTION' | translate}}</label>
           <textarea clrTextarea id="description" [(ngModel)]="resource.description" name="description" rows="3"></textarea>
