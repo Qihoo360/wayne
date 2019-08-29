@@ -11,7 +11,7 @@
             [class.clr-error]="name.invalid && (name.dirty || name.touched)">
             <div class="clr-input-wrapper">
               <span *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</span>
-              <input type="text" class="clr-input" id="name" [(ngModel)]="resource.name" name="name" style="width: 15rem" required
+              <input type="text" class="clr-input" id="name" [(ngModel)]="resource.name" name="name" required
                  [readonly]="actionType==1" [placeholder]="'PLACEHOLDER.APP_NAME' | translate"
                 pattern="[a-z]([-a-z0-9]*[a-z0-9])?" maxlength="64" (keyup)='checkNameValid()' #name="ngModel">
             </div>
