@@ -5,7 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --disable-host-check  --configuration hmr",
-    "build": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --output-hashing=bundles",
+    "build": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build",
+    "build:aot": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod --aot",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

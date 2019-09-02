@@ -5,15 +5,17 @@
       <section class="form-block">
         <div class="clr-form-control clr-row">
           <label class="clr-control-label required">{{'TITLE.CLUSTER' | translate}}</label>
-          <div class="clr-control-container clr-col-md-10 clr-col-12" *ngFor="let cluster of clusters;let i=index" [class.clr-error]="!replicaValidation(cluster)">
-            <div class="clr-input-wrapper">
-              <label class="clr-checkbox-wrapper">
-                <input class="clr-checkbox" [(ngModel)]="clusterMetas[cluster].checked" type="checkbox" id="{{i}}-check" name="{{i}}-check">
-                <label for="{{i}}-check">{{cluster}}</label>
-              </label>
-              <input class="clr-input" style="margin-left: 20px;" [placeholder]="'PLACEHOLDER.STATEFULSET' | translate" [(ngModel)]="clusterMetas[cluster].value" id="{{cluster}}-replica" name="{{cluster}}-replica" type="number">
+          <div class="clr-control-container">
+            <div class="clr-col-md-10 clr-col-12" *ngFor="let cluster of clusters;let i=index" [class.clr-error]="!replicaValidation(cluster)">
+              <div class="clr-input-wrapper">
+                <label class="clr-checkbox-wrapper">
+                  <input class="clr-checkbox" [(ngModel)]="clusterMetas[cluster].checked" type="checkbox" id="{{i}}-check" name="{{i}}-check">
+                  <label for="{{i}}-check">{{cluster}}</label>
+                </label>
+                <input class="clr-input" style="margin-left: 20px;" [placeholder]="'PLACEHOLDER.STATEFULSET' | translate" [(ngModel)]="clusterMetas[cluster].value" id="{{cluster}}-replica" name="{{cluster}}-replica" type="number">
+              </div>
+              <span class="clr-subtext" *ngIf="!replicaValidation(cluster)">{{'LIMIT.STATEFULSET' | translate}}{{replicaLimit}}</span>
             </div>
-            <span class="clr-subtext" *ngIf="!replicaValidation(cluster)">{{'LIMIT.STATEFULSET' | translate}}{{replicaLimit}}</span>
           </div>
         </div>
         <clr-toggle-container *ngIf="actionType==3">

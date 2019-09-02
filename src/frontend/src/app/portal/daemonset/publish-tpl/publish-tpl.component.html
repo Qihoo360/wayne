@@ -5,7 +5,7 @@
       <clr-checkbox-container clrInline>
         <label class="required">{{'TITLE.CLUSTER' | translate}}</label>
         <clr-checkbox-wrapper *ngFor="let cluster of clusters;let i=index">
-          <input type="checkbox" clrCheckbox [(ngModel)]="cluster['checked']" name="{{i}}-check" required />
+          <input type="checkbox" clrCheckbox [(ngModel)]="cluster['checked']" name="{{i}}-check"/>
           <label>{{cluster.name}}</label>
         </clr-checkbox-wrapper>
         <clr-control-error>{{'ERROR.CLUSTER' | translate}}</clr-control-error>
