@@ -60,6 +60,8 @@ export class Resource {
   confirmationTarget: ConfirmationTargets;
 
   kubeResource: KubeResourcesName;
+  // leave page
+  leave = false;
 
   constructor(public resourceService: any,
               public templateService: any,
@@ -208,7 +210,12 @@ export class Resource {
         this.pageState.page.totalCount = response[0]['data'].totalCount;
         this.publishStatus = response[1].data;
         this.generateTemplateList(response[0]['data'].list, response[1].data);
-        this.addStatusInfo();
+        setTimeout(() => {
+          if (this.leave) {
+            return;
+          }
+          this.addStatusInfo();
+        });
       },
       error => this.messageHandlerService.handleError(error)
     );
