@@ -96,6 +96,7 @@ export class IngressComponent extends Resource implements OnInit, OnDestroy, Aft
 
   ngOnDestroy(): void {
     clearInterval(this.timer);
+    this.leave = true;
     this.subscription.unsubscribe();
     this.tabScription.unsubscribe();
   }
