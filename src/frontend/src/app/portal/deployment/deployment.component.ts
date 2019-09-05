@@ -71,6 +71,7 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
   showState: object = showState;
   tabScription: Subscription;
   orderCache: Array<OrderItem>;
+  leave = false;
 
   constructor(private deploymentService: DeploymentService,
               private publishHistoryService: PublishHistoryService,
@@ -148,6 +149,7 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
 
   ngOnDestroy(): void {
     clearInterval(this.timer);
+    this.leave = true;
     this.subscription.unsubscribe();
     this.tabScription.unsubscribe();
   }
@@ -416,7 +418,12 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
         this.pageState.page.totalPage = tpls.totalPage;
         this.pageState.page.totalCount = tpls.totalCount;
         this.changedDeploymentTpls = this.buildTplList(tpls.list, status);
-        this.syncStatus();
+        setTimeout(() => {
+          if (this.leave) {
+            return;
+          }
+          this.syncStatus();
+        });
       },
       error => this.messageHandlerService.handleError(error)
     );
