@@ -276,6 +276,10 @@ a {
   }
 }
 
+.hidden{
+  display: none!important;
+}
+
 @import "./component/button";
 @import "./component/table";
 @import "./component/pagination";
