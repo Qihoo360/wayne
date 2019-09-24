@@ -58,7 +58,7 @@
               <clr-control-helper>单位 Gi</clr-control-helper>
           </clr-input-container>
         
-          <clr-checkbox-container>
+          <clr-checkbox-container  formGroupName="accessModes">
             <label class="required">{{'PVC.ACCESS_PATTERN' | translate}}</label>
             <clr-checkbox-wrapper>
               <input type="checkbox" formControlName="ReadWriteOnce" clrCheckbox name="ReadWriteOnce" value="ReadWriteOnce" />

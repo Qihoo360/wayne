@@ -72,6 +72,7 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
   orderCache: Array<OrderItem>;
   showList: any[] = new Array();
   showState: object = showState;
+  leave = false;
 
   constructor(
     private statefulsetService: StatefulsetService,
@@ -153,6 +154,7 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
 
   ngOnDestroy(): void {
     clearInterval(this.timer);
+    this.leave = true;
     this.subscription.unsubscribe();
     this.tabScription.unsubscribe();
   }
@@ -408,7 +410,12 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
         this.pageState.page.totalPage = tpls.totalPage;
         this.pageState.page.totalCount = tpls.totalCount;
         this.changedStatefulsetTpls = this.buildTplList(tpls.list, status);
-        this.syncStatus();
+        setTimeout(() => {
+          if (this.leave) {
+            return;
+          }
+          this.syncStatus();
+        });
       },
       error => this.messageHandlerService.handleError(error)
     );

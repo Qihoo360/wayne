@@ -66,6 +66,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   isOnlineObservable: Subscription;
 
   componentName = 'PVC';
+  leave = false;
 
   constructor(private pvcTplService: PersistentVolumeClaimTplService,
               private tplDetailService: TplDetailService,
@@ -307,6 +308,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.leave = true;
     this.diffscription.unsubscribe();
     this.isOnlineObservable.unsubscribe();
     clearInterval(this.timer);
@@ -398,7 +400,12 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
         this.pvcTpls = tpls.list;
         this.pageState.page.totalPage = tpls.totalPage;
         this.pageState.page.totalCount = tpls.totalCount;
-        this.syncStatus();
+        setTimeout(() => {
+          if (this.leave) {
+            return;
+          }
+          this.syncStatus();
+        });
       },
       error => this.messageHandlerService.handleError(error)
     );

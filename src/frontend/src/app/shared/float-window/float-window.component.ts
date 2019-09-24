@@ -1,4 +1,7 @@
-import { Component, ContentChildren, HostBinding, ElementRef, HostListener, Inject, Input, QueryList, AfterViewInit } from '@angular/core';
+import {
+  Component, ContentChildren,
+  HostBinding, ElementRef, HostListener, Inject, Input, QueryList, AfterViewInit, OnDestroy
+} from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FloatWindowItemComponent } from './float-window-item/float-window-item.component';
 import { EventManager } from '@angular/platform-browser';
@@ -32,9 +35,10 @@ import { StorageService } from '../client/v1/storage.service';
  <wayne-float-window-item value='4'></wayne-float-window-item>
  </wayne-float-window>
  */
-export class FloatWindowComponent implements AfterViewInit {
+export class FloatWindowComponent implements AfterViewInit, OnDestroy {
   @HostBinding('style.left') left: string;
   @HostBinding('style.top') top: string;
+  size = 60;
   constructor(
     private el: ElementRef,
     private eventManager: EventManager,
@@ -48,7 +52,7 @@ export class FloatWindowComponent implements AfterViewInit {
   boxState = 'leave';
   childs: QueryList<any>;
   eventList: any[] = new Array();
-
+  globalList: any[] = new Array();
   @ContentChildren(FloatWindowItemComponent) set items(items: QueryList<any>) {
     this.childs = items;
     items.forEach((item, index) => {
@@ -62,11 +66,24 @@ export class FloatWindowComponent implements AfterViewInit {
     if (local) {
       const localParse = JSON.parse(local);
       setTimeout(() => {
-        this.left = localParse.left;
-        this.top = localParse.top;
+        this.left = Math.min(parseFloat(localParse.left), window.innerWidth - this.size) + 'px';
+        this.top = Math.min(parseFloat(localParse.top), window.innerHeight - this.size) + 'px';
       }, 0);
     }
+    this.globalList.push(
+      this.eventManager.addGlobalEventListener('window', 'resize', this.windowResize.bind(this))
+    );
   }
+  ngOnDestroy() {
+    this.globalList.forEach(item => {
+      item();
+    });
+  }
+  windowResize() {
+    this.left = Math.min(window.innerWidth - this.size, parseFloat(this.left)) + 'px';
+    this.top = Math.min(window.innerHeight - this.size, parseFloat(this.top)) + 'px';
+  }
+
 
   @HostListener('mousedown', ['$event'])
   downEvent(evt) {
