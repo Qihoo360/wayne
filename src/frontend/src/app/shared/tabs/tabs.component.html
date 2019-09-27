@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="fold" [class.hidden]="!showFoldIcon">
-      <span (click)="changeCard($event)">
+      <span (click)="changeCard()">
         <span *ngIf="!allowShowAll" style="color: #377aec;">{{'ACTION.UNFOLD' | translate}}</span>
         <span *ngIf="allowShowAll" style="color: #377aec;">{{'ACTION.FOLD' | translate}}</span>
         <svg class="card-change-svg" width="12" height="12" xmlns="http://www.w3.org/2000/svg" viewBox="0, 0, 20, 10"
