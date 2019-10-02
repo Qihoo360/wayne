@@ -25,9 +25,9 @@ export class UnauthorizedComponent implements OnInit, OnDestroy {
         if (this.leftSeconds <= 0) {
           // 未授权重定向到登录页面
           // document.location.href
-          const currentUrl = document.location.origin;
+          const currentUrl = this.document.location.origin;
           setTimeout(() => {
-            document.location.href = `${currentUrl}/sign-in`;
+            this.document.location.href = `${currentUrl}/sign-in`;
           }, defaultLeftTime);
           clearInterval(this.timeInterval);
         }
