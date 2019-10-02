@@ -65,13 +65,13 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   pageState: PageState = new PageState();
   redDot: RedDot = new RedDot();
   subscription: Subscription;
-  resources: object = new Object();
+  resources: object = {};
   clusters: ClusterCard[] = [];
   allowNumber = 10;
   allowShowAll = false;
-  showList: any[] = new Array();
+  showList: any[] = [];
   showState: object = showState;
-  eventList: any[] = new Array();
+  eventList: any[] = [];
 
   constructor(private appService: AppService,
               public cacheService: CacheService,
