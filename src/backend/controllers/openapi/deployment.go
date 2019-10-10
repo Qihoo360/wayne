@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"k8s.io/api/apps/v1beta1"
-	"k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
 	"github.com/Qihoo360/wayne/src/backend/controllers/common"
@@ -115,6 +115,48 @@ type respdeploymentstatus struct {
 	Body struct {
 		response.ResponseBase
 		DeploymentStatus DeploymentStatus `json:"status"`
+	}
+}
+
+// swagger:parameters DeploymentStatusParam
+type deploymentDetailParam struct {
+	// in: query
+	// Required: true
+	Namespace string `json:"namespace"`
+	// Required: true
+	App string `json:"app"`
+	// Required: true
+	Deployment string `json:"deployment"`
+}
+
+// swagger:response deploymentDetail
+type deploymentDetailResponse struct {
+	// in: body
+	// Required: true
+	Body struct {
+		response.ResponseBase
+		Deployment *models.Deployment `json:"deployment"`
+	}
+}
+
+// swagger:parameters LatestDeploymentTplParam
+type latestDeploymentTplParam struct {
+	// in: query
+	// Required: true
+	Namespace string `json:"namespace"`
+	// Required: true
+	App string `json:"app"`
+	// Required: true
+	Deployment string `json:"deployment"`
+}
+
+// swagger:response deploymentDetail
+type latestDeploymentTplResponse struct {
+	// in: body
+	// Required: true
+	Body struct {
+		response.ResponseBase
+		DeploymentTpl *models.DeploymentTemplate `json:"deployment_tpl"`
 	}
 }
 
@@ -361,7 +403,7 @@ func (c *OpenAPIController) UpgradeDeployment() {
 	// 拼凑 images 升级
 	param.imageMap = make(map[string]string)
 	imageArr := strings.Split(param.Images, ",")
-	param.imageMap = make(map[string]string)
+	// param.imageMap = make(map[string]string)
 	for _, image := range imageArr {
 		arr := strings.Split(image, "=")
 		if len(arr) == 2 && arr[1] != "" {
@@ -371,7 +413,7 @@ func (c *OpenAPIController) UpgradeDeployment() {
 	// 拼凑环境变量
 	param.envMap = make(map[string]string)
 	envArr := strings.Split(param.Environments, ",")
-	param.envMap = make(map[string]string)
+	// param.envMap = make(map[string]string)
 	for _, env := range envArr {
 		arr := strings.Split(env, "=")
 		if len(arr) == 2 && arr[1] != "" {
@@ -442,7 +484,9 @@ func (c *OpenAPIController) UpgradeDeployment() {
 			continue
 		}
 		deployInfo.DeploymentTemplete.Template = string(newTpl)
-
+		//更新deploymentTpl中的CreateTime和UpdateTime,数据库中不会自动更新
+		deployInfo.DeploymentTemplete.CreateTime = time.Now()
+		deployInfo.DeploymentTemplete.UpdateTime = time.Now()
 		newtmplId, err := models.DeploymentTplModel.Add(deployInfo.DeploymentTemplete)
 		if err != nil {
 			logs.Error("Failed to save new deployment template", err)
@@ -711,4 +755,96 @@ func updateDeployment(deployObj *v1beta1.Deployment, cluster string, name string
 		}
 		return nil
 	}
+}
+
+// swagger:route GET /get_deployment_detail deploy DeploymentDetailParam
+//
+// 通过给定的namespace、app name、deployment name来查询某个具体deployment的信息
+//
+// 因为查询范围是对所有的服务进行的，因此需要绑定 全局 apikey 使用。
+//
+//     Responses:
+//       200: respresourceinfo
+//       400: responseState
+//       500: responseState
+// @router /get_deployment_detail [get]
+func (c *OpenAPIController) GetDeploymentDetail() {
+	if !c.CheckoutRoutePermission(GetDeploymentDetailAction) {
+		return
+	}
+	if c.APIKey.Type != models.GlobalAPIKey {
+		c.AddErrorAndResponse("You can only use global APIKey in this action!", http.StatusUnauthorized)
+		return
+	}
+	ns := c.GetString("namespace")
+	app := c.GetString("app")
+	deployment := c.GetString("deployment")
+	if len(ns) == 0 {
+		c.AddErrorAndResponse("Invalid namespace parameter!", http.StatusBadRequest)
+		return
+	}
+	if len(app) == 0 {
+		c.AddErrorAndResponse("Invalid app parameter!", http.StatusBadRequest)
+		return
+	}
+	if len(deployment) == 0 {
+		c.AddErrorAndResponse("Invalid deployment parameter!", http.StatusBadRequest)
+		return
+	}
+	params := deploymentDetailParam{ns, app, deployment}
+	dep, err := models.DeploymentModel.GetUniqueDepByName(params.Namespace, params.App, params.Deployment)
+	if err != nil {
+		c.AddErrorAndResponse("Failed to get deployment by name!", http.StatusBadRequest)
+		return
+	}
+	resp := new(deploymentDetailResponse)
+	resp.Body.Deployment = dep
+	resp.Body.Code = http.StatusOK
+	c.HandleResponse(resp.Body)
+}
+
+// swagger:route GET /get_latest_deployment_tpl deploy LatestDeploymentTplParam
+//
+// 通过给定的namespace、app name、deployment name来查询某个具体deployment的最新部署模板信息
+//
+// 因为查询范围是对所有的服务进行的，因此需要绑定 全局 apikey 使用。
+//
+//     Responses:
+//       200: respresourceinfo
+//       400: responseState
+//       500: responseState
+// @router /get_latest_deployment_tpl [get]
+func (c *OpenAPIController) GetLatestDeploymentTpl() {
+	if !c.CheckoutRoutePermission(GetLatestDeploymentTplAction) {
+		return
+	}
+	if c.APIKey.Type != models.GlobalAPIKey {
+		c.AddErrorAndResponse("You can only use global APIKey in this action!", http.StatusUnauthorized)
+		return
+	}
+	ns := c.GetString("namespace")
+	app := c.GetString("app")
+	deployment := c.GetString("deployment")
+	if len(ns) == 0 {
+		c.AddErrorAndResponse("Invalid namespace parameter!", http.StatusBadRequest)
+		return
+	}
+	if len(app) == 0 {
+		c.AddErrorAndResponse("Invalid app parameter!", http.StatusBadRequest)
+		return
+	}
+	if len(deployment) == 0 {
+		c.AddErrorAndResponse("Invalid deployment parameter!", http.StatusBadRequest)
+		return
+	}
+	params := latestDeploymentTplParam{ns, app, deployment}
+	dep, err := models.DeploymentTplModel.GetLatestDeptplByName(params.Namespace, params.App, params.Deployment)
+	if err != nil {
+		c.AddErrorAndResponse("Failed to get deployment by name!", http.StatusBadRequest)
+		return
+	}
+	resp := new(latestDeploymentTplResponse)
+	resp.Body.DeploymentTpl = dep
+	resp.Body.Code = http.StatusOK
+	c.HandleResponse(resp.Body)
 }

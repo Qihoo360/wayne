@@ -173,6 +173,20 @@ func (*deploymentModel) GetByName(name string) (v *Deployment, err error) {
 	return nil, err
 }
 
+func (*deploymentModel) GetUniqueDepByName(ns, app, deployment string) (v *Deployment, err error) {
+	v = &Deployment{}
+	// use orm
+	qs := Ormer().QueryTable(new(Deployment))
+	err = qs.Filter("App__Namespace__Name", ns).Filter("App__Name", app).Filter("Name", deployment).Filter("Deleted", 0).One(v)
+	// use raw sql
+	// err = Ormer().Raw("SELECT d.* FROM deployment as d left join app as a on d.app_id=a.id left join namespace as n on a.namespace_id=n.id WHERE n.name= ? and a.Name = ? and d.Name = ?", ns, app, deployment).QueryRow(v)
+	if err == nil {
+		v.AppId = v.App.Id
+		return v, nil
+	}
+	return nil, err
+}
+
 func (*deploymentModel) DeleteById(id int64, logical bool) (err error) {
 	v := Deployment{Id: id}
 	// ascertain id exists in the database
