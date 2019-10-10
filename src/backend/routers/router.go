@@ -17,6 +17,7 @@ import (
 	"github.com/Qihoo360/wayne/src/backend/controllers/config"
 	"github.com/Qihoo360/wayne/src/backend/controllers/configmap"
 	"github.com/Qihoo360/wayne/src/backend/controllers/cronjob"
+	"github.com/Qihoo360/wayne/src/backend/controllers/customlink"
 	"github.com/Qihoo360/wayne/src/backend/controllers/daemonset"
 	"github.com/Qihoo360/wayne/src/backend/controllers/deployment"
 	"github.com/Qihoo360/wayne/src/backend/controllers/hpa"
@@ -323,6 +324,17 @@ func init() {
 		beego.NSNamespace("/namespaces/:namespaceid([0-9]+)/bills",
 			beego.NSInclude(
 				&bill.BillController{},
+			),
+		),
+		beego.NSNamespace("/namespaces/:namespaceid([0-9]+)/linktypes",
+			beego.NSInclude(
+				&customlink.LinkTypeController{},
+			),
+		),
+		beego.NSNamespace("/namespaces/:namespaceid([0-9]+)/customlinks",
+			beego.NSInclude(
+				&customlink.CustomLinkController{},
+				&customlink.ShowLinkController{},
 			),
 		),
 	)

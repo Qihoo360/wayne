@@ -13,6 +13,7 @@ func init() {
 			Router:           `/`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentController"],
@@ -21,6 +22,7 @@ func init() {
 			Router:           `/`,
 			AllowHTTPMethods: []string{"post"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentController"],
@@ -29,6 +31,7 @@ func init() {
 			Router:           `/:id([0-9]+)`,
 			AllowHTTPMethods: []string{"delete"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentController"],
@@ -37,6 +40,7 @@ func init() {
 			Router:           `/:id([0-9]+)`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentController"],
@@ -45,6 +49,7 @@ func init() {
 			Router:           `/:id([0-9]+)`,
 			AllowHTTPMethods: []string{"put"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentController"],
@@ -53,6 +58,7 @@ func init() {
 			Router:           `/names`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentController"],
@@ -61,6 +67,7 @@ func init() {
 			Router:           `/updateorders`,
 			AllowHTTPMethods: []string{"put"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentTplController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentTplController"],
@@ -69,6 +76,7 @@ func init() {
 			Router:           `/`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentTplController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentTplController"],
@@ -77,6 +85,7 @@ func init() {
 			Router:           `/`,
 			AllowHTTPMethods: []string{"post"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentTplController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentTplController"],
@@ -85,6 +94,7 @@ func init() {
 			Router:           `/:id`,
 			AllowHTTPMethods: []string{"put"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentTplController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentTplController"],
@@ -93,6 +103,7 @@ func init() {
 			Router:           `/:id`,
 			AllowHTTPMethods: []string{"delete"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentTplController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/deployment:DeploymentTplController"],
@@ -101,6 +112,7 @@ func init() {
 			Router:           `/:id([0-9]+)`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 }
