@@ -44,9 +44,9 @@ import { KubernetesClient } from '../../../shared/client/v1/kubernetes/kubernete
 })
 export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   selected: PersistentVolumeClaimTpl[] = [];
-  @ViewChild(PublishPersistentVolumeClaimTplComponent)
+  @ViewChild(PublishPersistentVolumeClaimTplComponent, { static: false })
   publishTpl: PublishPersistentVolumeClaimTplComponent;
-  @ViewChild(UserInfoComponent)
+  @ViewChild(UserInfoComponent, { static: false })
   userInfoComponent: UserInfoComponent;
   appId: number;
   pvcId: number;
@@ -66,6 +66,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   isOnlineObservable: Subscription;
 
   componentName = 'PVC';
+  leave = false;
 
   constructor(private pvcTplService: PersistentVolumeClaimTplService,
               private tplDetailService: TplDetailService,
@@ -307,6 +308,7 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.leave = true;
     this.diffscription.unsubscribe();
     this.isOnlineObservable.unsubscribe();
     clearInterval(this.timer);
@@ -376,8 +378,8 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
     this.pageState.sort.by = 'id';
     this.pageState.sort.reverse = true;
     combineLatest(
-      this.pvcTplService.listPage(this.pageState, this.appId),
-      this.publishService.listStatus(PublishType.PERSISTENT_VOLUME_CLAIM, this.pvcId)
+      [this.pvcTplService.listPage(this.pageState, this.appId),
+      this.publishService.listStatus(PublishType.PERSISTENT_VOLUME_CLAIM, this.pvcId)]
     ).subscribe(
       response => {
         const status = response[1].data;
@@ -398,7 +400,12 @@ export class ListPersistentVolumeClaimComponent implements OnInit, OnDestroy {
         this.pvcTpls = tpls.list;
         this.pageState.page.totalPage = tpls.totalPage;
         this.pageState.page.totalCount = tpls.totalCount;
-        this.syncStatus();
+        setTimeout(() => {
+          if (this.leave) {
+            return;
+          }
+          this.syncStatus();
+        });
       },
       error => this.messageHandlerService.handleError(error)
     );

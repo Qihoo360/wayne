@@ -18,9 +18,9 @@ import { PageState } from '../../shared/page/page-state';
   styleUrls: ['./configmap.component.scss']
 })
 export class ConfigMapComponent implements OnInit, OnDestroy {
-  @ViewChild(ListConfigMapComponent)
+  @ViewChild(ListConfigMapComponent, { static: false })
   list: ListConfigMapComponent;
-  @ViewChild(CreateEditConfigMapComponent)
+  @ViewChild(CreateEditConfigMapComponent, { static: false })
   createEdit: CreateEditConfigMapComponent;
 
   pageState: PageState = new PageState();

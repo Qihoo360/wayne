@@ -21,7 +21,7 @@ export class SnapshotPersistentVolumeClaimComponent implements OnInit, OnDestroy
   @Input() state: PublishStatus;
   @Input() appId: number;
 
-  @ViewChild(CreateSnapshotComponent)
+  @ViewChild(CreateSnapshotComponent, { static: false })
   createSnapshot: CreateSnapshotComponent;
   subscription: Subscription;
 

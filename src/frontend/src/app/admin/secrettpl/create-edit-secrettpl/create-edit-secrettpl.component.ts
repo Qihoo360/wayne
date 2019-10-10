@@ -23,7 +23,7 @@ export class CreateEditSecretTplComponent implements OnInit {
   createSecrettplOpened: boolean;
 
   secrettplForm: NgForm;
-  @ViewChild('secrettplForm')
+  @ViewChild('secrettplForm', { static: true })
   currentForm: NgForm;
 
   secrettpl: SecretTpl = new SecretTpl();
@@ -35,7 +35,7 @@ export class CreateEditSecretTplComponent implements OnInit {
   actionType: ActionType;
   secrets: Secret[];
 
-  @ViewChild(AceEditorBoxComponent) aceBox: any;
+  @ViewChild(AceEditorBoxComponent, { static: false }) aceBox: any;
 
   constructor(
     private secrettplService: SecretTplService,

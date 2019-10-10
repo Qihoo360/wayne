@@ -1,69 +1,42 @@
 <clr-modal [(clrModalOpen)]="createGroupOpened" [clrModalSize]="'lg'">
   <h3 class="modal-title">{{groupTitle}}</h3>
   <div class="modal-body">
-    <form #groupForm="ngForm">
-      <section class="form-block">
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="group_type" class="clr-col-md-3 form-group-label-override required">类别</label>
-          <div class="select form-control">
-            <select id="group_type" [(ngModel)]="group.type" [disabled]="actionType==1" name="group_type">
-              <!--这是一个坑，如果使用value获取到的是string，使用ngValue获取到的是model本身类型-->
-              <option *ngFor="let type of groupType" [ngValue]="type.id"
-                      [selected]="type.id === group.type">{{type.name}}
-              </option>
-            </select>
-          </div>
+    <form #groupForm="ngForm" clrForm clrLayout="horizontal">
+      <clr-select-container>
+        <label class="required">类别</label>
+        <select clrSelect id="group_type" [(ngModel)]="group.type" [disabled]="actionType==1" name="group_type">
+          <option *ngFor="let type of groupType" [ngValue]="type.id" [selected]="type.id === group.type">{{type.name}}
+          </option>
+        </select>
+      </clr-select-container>
+        
+      <clr-input-container>
+        <label class="required">{{'TITLE.NAME' | translate}}</label>
+        <input type="text" clrInput id="group_name" [(ngModel)]="group.name" name="group_name" size="36" required maxlength="24" />
+        <clr-control-error>required</clr-control-error>
+      </clr-input-container>
+      
+      <clr-input-container>
+        <label class="required">{{'TITLE.DESCRIPTION' | translate}}</label>
+        <input type="text" clrInput id="group_comment" [(ngModel)]="group.comment" name="group_comment" size="36" required
+          maxlength="128">
+          <clr-control-error>群组描述不符合规范</clr-control-error>
+      </clr-input-container>
+      
+      <div class="clr-form-control clr-row">
+        <label class="clr-control-label required">权限</label>
+        <div class="clr-control-container clr-col-md-10 clr-col-12">
+          <ng2-dual-list-box name="group_permission" [data]="allPermissions" valueField="id" textField="name"
+            [availableText]="'TITLE.AVAIL_ITEM' | translate" selectedText="已选项" [(ngModel)]="selectPermissions">
+          </ng2-dual-list-box>
         </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="group_name"
-                 class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
-          <label for="group_name" aria-haspopup="true" role="tooltip"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text" id="group_name" [(ngModel)]="group.name"
-                   name="group_name" size="36"
-                   required
-                   maxlength="24"
-            >
-          </label>
-          <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="group_comment"
-                 class="clr-col-md-3 form-group-label-override required">{{'TITLE.DESCRIPTION' | translate}}</label>
-          <label for="group_comment" aria-haspopup="true" role="tooltip"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text" id="group_comment" [(ngModel)]="group.comment"
-                   name="group_comment" size="36"
-                   required
-                   maxlength="128"
-            >
-            <span class="tooltip-content">
-              群组描述不符合规范
-            </span>
-          </label>
-          <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
-        </div>
-        <div class="form-group" style="padding-left: 135px;height:250px;">
-          <label for="group_permission" class="clr-col-md-3 form-group-label-override required">权限</label>
-          <label for="group_permission" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <ng2-dual-list-box name="group_permission"
-                               [data]="allPermissions"
-                               valueField="id"
-                               textField="name"
-                               [availableText]="'TITLE.AVAIL_ITEM' | translate"
-                               selectedText="已选项"
-                               [(ngModel)]="selectPermissions"
-            >
-            </ng2-dual-list-box>
-          </label>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-          <button type="button" class="btn btn-primary" [disabled]="!isValid"
-                  (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
-        </div>
-      </section>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+        <button type="button" class="btn btn-primary" [disabled]="!isValid"
+                (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+      </div>
     </form>
   </div>
 </clr-modal>

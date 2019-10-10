@@ -18,7 +18,7 @@ export class CreateEditPermissionComponent {
   createPermissionOpened: boolean;
 
   permissionForm: NgForm;
-  @ViewChild('permissionForm')
+  @ViewChild('permissionForm', { static: true })
   currentForm: NgForm;
 
   componentName = '操作权限';

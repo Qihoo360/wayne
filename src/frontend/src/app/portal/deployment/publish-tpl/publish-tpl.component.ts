@@ -23,7 +23,7 @@ export class PublishDeploymentTplComponent {
   @Output() published = new EventEmitter<boolean>();
   modalOpened = false;
   publishForm: NgForm;
-  @ViewChild('publishForm')
+  @ViewChild('publishForm', { static: true })
   currentForm: NgForm;
 
   deployment: Deployment;
@@ -32,7 +32,7 @@ export class PublishDeploymentTplComponent {
   clusters = Array<string>();
   isSubmitOnGoing = false;
   title: string;
-  forceOffline: boolean;
+  forceOffline = false;
   actionType: ResourcesActionType;
 
   constructor(private messageHandlerService: MessageHandlerService,

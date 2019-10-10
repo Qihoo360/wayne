@@ -24,7 +24,7 @@ export class CreateEditDeploymentTplComponent implements OnInit {
   createDeploymentTplOpened: boolean;
 
   deploymentTplForm: NgForm;
-  @ViewChild('deploymentTplForm')
+  @ViewChild('deploymentTplForm', { static: true })
   currentForm: NgForm;
 
   deploymentTpl: DeploymentTpl = new DeploymentTpl();
@@ -35,7 +35,7 @@ export class CreateEditDeploymentTplComponent implements OnInit {
 
   deployments: Deployment[];
 
-  @ViewChild(AceEditorBoxComponent) aceBox: any;
+  @ViewChild(AceEditorBoxComponent, { static: false }) aceBox: any;
 
   constructor(private deploymentTplService: DeploymentTplService,
               private deploymentService: DeploymentService,

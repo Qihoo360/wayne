@@ -18,7 +18,7 @@ export class SignInComponent implements OnInit {
   password: string;
   isSubmitOnGoing: boolean;
   ngForm: NgForm;
-  @ViewChild('ngForm')
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
   constructor(private authoriseService: AuthoriseService,

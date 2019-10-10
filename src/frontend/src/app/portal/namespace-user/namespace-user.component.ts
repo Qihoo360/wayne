@@ -31,9 +31,9 @@ const showState = {
   styleUrls: ['./namespace-user.component.scss']
 })
 export class NamespaceUserComponent implements OnInit, OnDestroy {
-  @ViewChild(ListNamespaceUserComponent)
+  @ViewChild(ListNamespaceUserComponent, { static: false })
   listNamespaceUser: ListNamespaceUserComponent;
-  @ViewChild(CreateEditNamespaceUserComponent)
+  @ViewChild(CreateEditNamespaceUserComponent, { static: false })
   createEditNamespaceUser: CreateEditNamespaceUserComponent;
 
   pageState: PageState = new PageState();

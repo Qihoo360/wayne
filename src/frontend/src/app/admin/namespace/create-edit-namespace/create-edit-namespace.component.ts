@@ -34,11 +34,11 @@ export class CreateEditNamespaceComponent {
   },
   "namespace": ""
 }`;
-  @ViewChild(AceEditorBoxComponent)
+  @ViewChild(AceEditorBoxComponent, { static: false })
   aceBox: any;
 
   namespaceForm: NgForm;
-  @ViewChild('namespaceForm')
+  @ViewChild('namespaceForm', { static: true })
   currentForm: NgForm;
   ns: Namespace = new Namespace();
   checkOnGoing = false;

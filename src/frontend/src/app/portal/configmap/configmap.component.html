@@ -45,16 +45,16 @@
       </wayne-filter-box>
     </div>
     <div class="table-search-right">
-      <div class="toggle-switch">
-        <input type="checkbox" id="toggle_1" [(ngModel)]="isOnline" (change)="onlineChange()">
-        <label for="toggle_1">{{'MESSAGE.ONLY_ONLINE_TEMPLATE' | translate}}</label>
+      <div class="clr-toggle-wrapper">
+        <input type="checkbox" id="search-online" [(ngModel)]="isOnline" name="toggle-basic" class="clr-toggle" (change)="onlineChange()">
+        <label for="search-online">{{'MESSAGE.ONLY_ONLINE_TEMPLATE' | translate}}</label>
       </div>
     </div>
   </div>
   <list-configmap [configMaps]="configMaps"
                   (cloneTpl)="cloneConfigMapTpl($event)"
                   [configMapTpls]="configMapTpls"
-                  (edit)="editConfigMap($event)"
+                  (edit)="editConfigMap()"
                   (paginate)="retrieve($event)"
                   [app]="app"
                   [showState]="showState"

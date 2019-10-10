@@ -34,7 +34,7 @@ export class PageState {
     const pageState = new PageState(page);
 
     if (state.page) {
-      pageState.page.pageNo = Math.ceil((state.page.to + 1) / state.page.size);
+      pageState.page.pageNo = Math.ceil((state.page.to + 1) / state.page.size) || 1;
       pageState.page.pageSize = state.page.size;
     }
     if (state.sort) {

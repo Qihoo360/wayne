@@ -15,9 +15,9 @@ import { TranslateService } from '@ngx-translate/core';
 })
 
 export class NamespaceReportComponent implements OnInit {
-  @ViewChild(HistoryComponent)
+  @ViewChild(HistoryComponent, { static: false })
   historyComponent: HistoryComponent;
-  @ViewChild(ResourceComponent)
+  @ViewChild(ResourceComponent, { static: false })
   resourceComponent: ResourceComponent;
 
   constructor(private namespaceClient: NamespaceClient,

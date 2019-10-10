@@ -23,10 +23,10 @@ export class CreateEditSecretComponent implements OnInit {
   createSecretOpened: boolean;
 
   secretForm: NgForm;
-  @ViewChild('secretForm')
+  @ViewChild('secretForm', { static: true })
   currentForm: NgForm;
 
-  @ViewChild(AceEditorBoxComponent)
+  @ViewChild(AceEditorBoxComponent, { static: false })
   aceBox: any;
 
   secret: Secret = new Secret();

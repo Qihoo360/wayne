@@ -20,9 +20,9 @@ import { PageState } from '../../shared/page/page-state';
 })
 export class StatefulsetComponent implements OnInit, OnDestroy {
 
-  @ViewChild(ListStatefulsetComponent)
+  @ViewChild(ListStatefulsetComponent, { static: false })
   listStatefulset: ListStatefulsetComponent;
-  @ViewChild(CreateEditStatefulsetComponent)
+  @ViewChild(CreateEditStatefulsetComponent, { static: false })
   createEditStatefulset: CreateEditStatefulsetComponent;
 
   appId: number;

@@ -60,6 +60,8 @@ export class Resource {
   confirmationTarget: ConfirmationTargets;
 
   kubeResource: KubeResourcesName;
+  // leave page
+  leave = false;
 
   constructor(public resourceService: any,
               public templateService: any,
@@ -200,15 +202,20 @@ export class Resource {
     this.pageState.params['deleted'] = false;
     this.pageState.params['isOnline'] = this.isOnline;
     combineLatest(
-      this.templateService.listPage(this.pageState, this.appId, this.resourceId.toString()),
-      this.publishService.listStatus(this.publishType, this.resourceId)
+      [this.templateService.listPage(this.pageState, this.appId, this.resourceId.toString()),
+      this.publishService.listStatus(this.publishType, this.resourceId)]
     ).subscribe(
       response => {
         this.pageState.page.totalPage = response[0]['data'].totalPage;
         this.pageState.page.totalCount = response[0]['data'].totalCount;
         this.publishStatus = response[1].data;
         this.generateTemplateList(response[0]['data'].list, response[1].data);
-        this.addStatusInfo();
+        setTimeout(() => {
+          if (this.leave) {
+            return;
+          }
+          this.addStatusInfo();
+        });
       },
       error => this.messageHandlerService.handleError(error)
     );
@@ -286,9 +293,9 @@ export class Resource {
     const namespaceId = this.cacheService.namespaceId;
     this.resourceId = parseInt(this.route.snapshot.params['resourceId'], 10);
     combineLatest(
-      this.clusterService.getNames(),
+      [this.clusterService.getNames(),
       this.resourceService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
-      this.appService.getById(this.appId, namespaceId)
+      this.appService.getById(this.appId, namespaceId)]
     ).subscribe(
       response => {
         this.clusters = response[0].data;
@@ -360,7 +367,7 @@ export class Resource {
   }
 
   // 监听模板列表发生变化的事件
-  onTemplateListChanged() {
+  onlineChange() {
     this.retrieveTemplates();
   }
 
@@ -394,7 +401,7 @@ export class Resource {
       this.resourceId = id;
       this.setNavigateURI();
       combineLatest(
-        this.resourceService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
+        [this.resourceService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + '')]
       ).subscribe(
         response => {
           this.resources = response[0]['data'].list.sort((a, b) => a.order - b.order);

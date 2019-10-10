@@ -24,7 +24,7 @@ export class CreateEditCronjobTplComponent implements OnInit {
   modalOpened: boolean;
 
   ngForm: NgForm;
-  @ViewChild('ngForm')
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
   cronjobTpl: CronjobTpl = new CronjobTpl();
@@ -37,7 +37,7 @@ export class CreateEditCronjobTplComponent implements OnInit {
 
   cronjobs: Cronjob[];
 
-  @ViewChild(AceEditorBoxComponent) aceBox: any;
+  @ViewChild(AceEditorBoxComponent, { static: false }) aceBox: any;
 
   constructor(private cronjobTplService: CronjobTplService,
               private cronjobService: CronjobService,

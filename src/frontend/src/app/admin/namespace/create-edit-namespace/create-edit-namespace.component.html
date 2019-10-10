@@ -3,65 +3,35 @@
     <wayne-modal-operate [modal]="modal" *ngIf="opened"></wayne-modal-operate>
   </h3>
   <div class="modal-body">
-    <form #namespaceForm="ngForm">
-      <section class="form-block">
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="ns_name" class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
-          <label for="ns_name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text" id="ns_name" [(ngModel)]="ns.name"
-                   name="ns_name" size="36"
-                   required
-                   pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
-                   maxlength="24"
-                   (keyup)='handleValidation()'>
-            <span class="tooltip-content">
-              命名空间名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?
-            </span>
-          </label>
-          <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="kubernetes_namespace" class="clr-col-md-3 form-group-label-override required">K8S命名空间</label>
-          <input type="text"
-                 id="kubernetes_namespace"
-                 [(ngModel)]="ns.kubeNamespace"
-                 name="kubernetes_namespace"
-                 size="36"
-                 required
-                 pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
-                 maxlength="36">
-          <div class="table-search-right">
-            <div class="toggle-switch">
-              <input type="checkbox" id="toggle_1" [(ngModel)]="autoCreate" [ngModelOptions]="{standalone: true}">
-              <label for="toggle_1">自动创建</label>
-            </div>
-          </div>
-        </div>
-        <div *ngIf="!showACE">
-          <div   class="form-group" style="padding-left: 135px;" *ngFor="let cluster of clusters;let i=index">
-          <label *ngIf="i === 0" class="clr-col-md-3 form-group-label-override required">可用机房</label>
-          <div class="checkbox-inline" style="margin-top: 0.1rem;margin-bottom: 0.1rem;">
-            <div class="checkbox">
-              <input [(ngModel)]="clusterMetas[cluster.name].checked"
-                     type="checkbox"
-                     id="{{cluster.name}}-check"
-                     name="{{cluster.name}}-check">
+    <form #namespaceForm="ngForm"  clrForm clrLayout="horizontal">
+      <clr-input-container>
+        <label class="required">{{'TITLE.NAME' | translate}}</label>
+        <input type="text" clrInput id="ns_name" [(ngModel)]="ns.name" name="ns_name" size="36" required
+          pattern="[a-z]([-a-z0-9]*[a-z0-9])?" maxlength="24" (keyup)='handleValidation()'>
+          <clr-control-error>命名空间名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?</clr-control-error>
+      </clr-input-container>
+        <clr-input-container>
+          <label class="required">K8S命名空间</label>
+          <input type="text" clrInput id="kubernetes_namespace" [(ngModel)]="ns.kubeNamespace" name="kubernetes_namespace" size="36" required pattern="[a-z]([-a-z0-9]*[a-z0-9])?" maxlength="36">
+        </clr-input-container>
+        <clr-toggle-wrapper>
+          <input type="checkbox" clrToggle id="toggle_1" [(ngModel)]="autoCreate" [ngModelOptions]="{standalone: true}">
+          <label>自动创建</label>
+        </clr-toggle-wrapper>
+       
+        <div class="clr-form-control clr-row"  *ngIf="!showACE">
+          <label class="clr-control-label required">可用机房</label>
+          <div class="clr-control-container clr-col-md-10 clr-col-12">
+            <div class="clr-input-wrapper clr-checkbox-wrapper" style="margin-bottom: 15px;" *ngFor="let cluster of clusters;let i=index">
+              <input [(ngModel)]="clusterMetas[cluster.name].checked" class="clr-checkbox" type="checkbox" id="{{cluster.name}}-check"
+                name="{{cluster.name}}-check">
               <label style="width: 100px" for="{{cluster.name}}-check">{{cluster.name}}</label>
-              <input style="width: 175px" placeholder="CPU限制(核)0代表无限制"
-                     [(ngModel)]="clusterMetas[cluster.name].cpu"
-                     id="{{cluster.name}}-cpu"
-                     name="{{cluster.name}}-cpu"
-                     type="number">
-              <input style="width: 175px" placeholder="内存限制(G)0代表无限制"
-                     [(ngModel)]="clusterMetas[cluster.name].memory"
-                     id="{{cluster.name}}-memory"
-                     name="{{cluster.name}}-memory"
-                     type="number">
-            </div>
+              <input class="clr-input" style="width: 175px" placeholder="CPU限制(核)0代表无限制" [(ngModel)]="clusterMetas[cluster.name].cpu" id="{{cluster.name}}-cpu" name="{{cluster.name}}-cpu" type="number">
+              <input class="clr-input" style="width: 175px; margin-left: 15px;" placeholder="内存限制(G)0代表无限制" [(ngModel)]="clusterMetas[cluster.name].memory" id="{{cluster.name}}-memory" name="{{cluster.name}}-memory" type="number">
             </div>
           </div>
         </div>
+       
         <div *ngIf="!showACE" class="container-box">
           <label style="padding-left: 10px;color: #000;font-size: 0.65rem;padding-bottom: 20px;"
                  class="form-group-label-override">环境变量配置
@@ -70,16 +40,18 @@
               添加
             </button>
           </label>
-          <div *ngFor="let env of ns.metaDataObj.env; let i = index" class="form-group" style="padding-left: 135px;">
-            <label class="clr-col-md-3 form-group-label-override">Env</label>
+          <div *ngFor="let env of ns.metaDataObj.env; let i = index" class="form-group" style="padding-left: 135px;margin-top: 10px;margin-bottom: 5px;">
+            <label class="clr-col-md-3 form-group-label-override clr-control-label">Env</label>
             <input [(ngModel)]="env.name"
                    style="width: 200px"
                    type="text"
+                   class="clr-input"
                    placeholder="环境变量名称"
                    name="kubernetes_env_name_{{i}}">
             <input [(ngModel)]="env.value"
                    style="margin-left:30px;width: 200px"
                    type="text"
+                   class="clr-input"
                    placeholder="环境变量值"
                    name="kubernetes_env_value_{{i}}">
             <clr-icon style="margin-top: 10px" (click)="onDeleteEnv(i)" shape="trash" title="删除环境变量"
@@ -94,16 +66,18 @@
               添加
             </button>
           </label>
-          <div *ngFor="let svc of serviceAnnotations; let i = index" class="form-group" style="padding-left: 135px;">
+          <div *ngFor="let svc of serviceAnnotations; let i = index" class="form-group" style="padding-left: 135px;margin-top: 10px;margin-bottom: 5px;">
             <label class="clr-col-md-3 form-group-label-override">注解</label>
             <input [(ngModel)]="serviceAnnotations[i].key"
                    style="width: 200px"
                    type="text"
+                   class="clr-input"
                    placeholder="Service 注解名字"
                    name="kubernetes_service_annotation_key_{{i}}">
             <input [(ngModel)]="serviceAnnotations[i].value"
                    style="margin-left:30px;width: 200px"
                    type="text"
+                   class="clr-input"
                    placeholder="Service 注解值"
                    name="kubernetes_service_annotation_value_{{i}}">
             <clr-icon style="margin-top: 10px" (click)="onDeleteServiceAnnotations(i)" shape="trash" title="删除 Service 注解"
@@ -118,16 +92,18 @@
               添加
             </button>
           </label>
-          <div *ngFor="let ing of ingressAnnotations; let i = index" class="form-group" style="padding-left: 135px;">
+          <div *ngFor="let ing of ingressAnnotations; let i = index" class="form-group" style="padding-left: 135px;;margin-top: 10px;margin-bottom: 5px;">
             <label class="clr-col-md-3 form-group-label-override">注解</label>
             <input [(ngModel)]="ingressAnnotations[i].key"
                    style="width: 200px"
                    type="text"
+                   class="clr-input"
                    placeholder="Ingress 注解名称"
                    name="kubernetes_ingress_annotation_key_{{i}}">
             <input [(ngModel)]="ingressAnnotations[i].value"
                    style="margin-left:30px;width: 200px"
                    type="text"
+                   class="clr-input"
                    placeholder="Ingress 注解值"
                    name="kubernetes_ingress_annotation_value_{{i}}">
             <clr-icon style="margin-top: 10px" (click)="onDeleteIngressAnnotations(i)" shape="trash" title="删除注解"
@@ -143,11 +119,12 @@
             </button>
           </label>
           <div *ngFor="let imagePullSecret of ns.metaDataObj.imagePullSecrets; let i = index" class="form-group"
-               style="padding-left: 135px;">
+               style="padding-left: 135px;;margin-top: 10px;margin-bottom: 5px;">
             <label class="clr-col-md-3 form-group-label-override">Secret</label>
             <input [(ngModel)]="imagePullSecret.name"
                    type="text"
                    style="width: 500px"
+                   class="clr-input"
                    placeholder="Secret名称"
                    name="kubernetes_imagepullsecrets_{{i}}">
             <clr-icon style="margin-top: 10px" (click)="onDeleteSecret(i)" shape="trash" title="删除Secret"
@@ -160,7 +137,6 @@
             <wayne-ace-editor-box></wayne-ace-editor-box>
           </div>
         </div>
-      </section>
     </form>
   </div>
   <div class="modal-footer">

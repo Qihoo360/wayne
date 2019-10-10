@@ -10,6 +10,7 @@ export class App {
   user: string;
   deleted: boolean;
   createTime: Date;
+  namespaceId?: number;
 
   constructor() {
     this.namespace = new Namespace();

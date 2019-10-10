@@ -54,10 +54,10 @@ const showState = {
   styleUrls: ['./cronjob.component.scss']
 })
 export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
-  @ViewChild(ListCronjobComponent)
+  @ViewChild(ListCronjobComponent, { static: false })
   listCronjob: ListCronjobComponent;
 
-  @ViewChild(CreateEditCronjobComponent)
+  @ViewChild(CreateEditCronjobComponent, { static: false })
   createEditCronjob: CreateEditCronjobComponent;
 
   pageState: PageState = new PageState();
@@ -79,6 +79,7 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
   orderCache: Array<OrderItem>;
   showList: any[] = new Array();
   showState: object = showState;
+  leave = false;
 
   constructor(private cronjobService: CronjobService,
               private publishHistoryService: PublishHistoryService,
@@ -157,6 +158,7 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     clearInterval(this.timer);
+    this.leave = true;
     this.subscription.unsubscribe();
     this.tabScription.unsubscribe();
   }
@@ -281,9 +283,9 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
     const namespaceId = this.cacheService.namespaceId;
     this.cronjobId = parseInt(this.route.snapshot.params['cronjobId'], 10);
     combineLatest(
-      this.clusterService.getNames(),
+      [this.clusterService.getNames(),
       this.cronjobService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
-      this.appService.getById(this.appId, namespaceId),
+      this.appService.getById(this.appId, namespaceId)]
     ).subscribe(
       response => {
         this.clusters = response[0].data;
@@ -416,9 +418,9 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
     this.pageState.params['deleted'] = false;
     this.pageState.params['isOnline'] = this.isOnline;
     combineLatest(
-      this.cronjobTplService.listPage(this.pageState, this.appId, this.cronjobId.toString()),
+      [this.cronjobTplService.listPage(this.pageState, this.appId, this.cronjobId.toString()),
       this.publishService.listStatus(PublishType.CRONJOB, this.cronjobId),
-      this.cronjobService.getById(this.cronjobId, this.appId),
+      this.cronjobService.getById(this.cronjobId, this.appId)]
     ).subscribe(
       response => {
         const status = response[1].data;
@@ -428,7 +430,12 @@ export class CronjobComponent implements AfterContentInit, OnDestroy, OnInit {
         this.pageState.page.totalPage = tpls.totalPage;
         this.pageState.page.totalCount = tpls.totalCount;
         this.changedCronjobTpls = this.buildTplList(tpls.list, status);
-        this.syncStatus();
+        setTimeout(() => {
+          if (this.leave) {
+            return;
+          }
+          this.syncStatus();
+        });
       },
       error => this.messageHandlerService.handleError(error)
     );
