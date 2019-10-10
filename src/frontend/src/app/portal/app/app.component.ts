@@ -141,7 +141,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.initShow();
-    this.starredFilter = (localStorage.getItem('starred') === 'true');
+    this.starredFilter = localStorage.getItem('starred') === 'true';
     this.starredInherit = this.starredFilter;
     this.initResourceUsage();
   }
