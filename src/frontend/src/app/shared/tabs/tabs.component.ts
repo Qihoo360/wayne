@@ -149,7 +149,9 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
     this.setActive(tabs);
     if (!this.firstEnter) { this.boxResize(); }
     this.firstEnter = false;
-    this.setFoldState();
+    setTimeout(() => {
+      this.setFoldState();
+    });
   }
 
   prevEnter() {
