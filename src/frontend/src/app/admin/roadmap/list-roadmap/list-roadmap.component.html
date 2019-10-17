@@ -1,0 +1,37 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)">
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      TypeName
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      DisplayName
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      DefaultUrl
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      ParamList
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-row *clrDgItems="let config of configs" [clrDgItem]="config">
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="editConfig(config)">{{'BUTTON.EDIT' | translate}}</button>
+      <button class="action-item" (click)="deleteConfig(config)">{{'BUTTON.DELETE' | translate}}</button>
+    </clr-dg-action-overflow>
+    <clr-dg-cell>{{config.typeName}}</clr-dg-cell>
+    <clr-dg-cell>{{config.displayname}}</clr-dg-cell>
+    <clr-dg-cell>{{config.defaultUrl}}</clr-dg-cell>
+    <clr-dg-cell>{{config.paramList}}</clr-dg-cell>
+  </clr-dg-row>
+  <clr-dg-footer>
+    <wayne-paginate [(currentPage)]="currentPage" [total]="page.totalCount" [pageSizes]="[10, 20, 50]"
+      (sizeChange)="pageSizeChange($event)">
+    </wayne-paginate>
+  </clr-dg-footer>
+</clr-datagrid>

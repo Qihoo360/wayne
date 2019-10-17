@@ -63,7 +63,9 @@ const adminSideNav: any[] = [
   {
     type: SideNavType.GroupLink, icon: { title: 'MENU.CONFIGURATION', shape: 'cog' }, text: 'MENU.CONFIGURATION', child: [
       { a: { link: 'config/system', text: 'MENU.SYSTEM_CONFIGURATION', options: { exact: true } } },
-      { a: { link: 'config/database', text: 'MENU.DATABASE_CONFIGURATION', options: { exact: true } } }
+      { a: { link: 'config/database', text: 'MENU.DATABASE_CONFIGURATION', options: { exact: true } } },
+      { a: { link: 'config/roadmap', text: '链接类型列表', options: { exact: true } } },
+      { a: { link: 'config/customlink', text: '自定义链接配置', options: { exact: true } } }
     ]
   },
   {
