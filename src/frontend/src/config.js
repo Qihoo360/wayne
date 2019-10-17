@@ -1,5 +1,5 @@
 window.CONFIG = {
-  URL: 'http://10.16.111.191:8080',
+  URL: 'http://test.qihoo.cloud',
   RAVEN: true,
   RAVEN_DSN: 'RAVEN_DSN'
 };

@@ -25,9 +25,7 @@ export class RoadmapService {
   }
 
   list(pageState: PageState): Observable<any> {
-    console.log('pageState', pageState);
     let params = new HttpParams();
-    console.log('here');
     params = params.set('pageNo', pageState.page.pageNo + '');
     params = params.set('pageSize', pageState.page.pageSize + '');
     Object.getOwnPropertyNames(pageState.params).map(key => {
@@ -36,7 +34,6 @@ export class RoadmapService {
         params = params.set(key, value);
       }
     });
-    console.log('here');
     const filterList: Array<string> = [];
     Object.getOwnPropertyNames(pageState.filters).map(key => {
       const value = pageState.filters[key];
@@ -48,7 +45,6 @@ export class RoadmapService {
         }
       }
     });
-    console.log('here');
     if (filterList.length) {
       params = params.set('filter', filterList.join(','));
     }
@@ -58,7 +54,6 @@ export class RoadmapService {
       params = params.set('sortby', sortType);
     }
     params = params.set('deleted', 'false');
-    console.log('erer');
     return this.http
       .get('/api/v1/linktypes', {params: params})
 
