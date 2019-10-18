@@ -76,9 +76,18 @@ func GetImageNameAndTypeByPvc(cli *kubernetes.Clientset, name, namespace string)
 		// 获取RBD状态
 		if pvResult.Spec.RBD != nil {
 			return pvResult.Spec.RBD.RBDImage, "rbd", nil
-		} else if pvResult.Spec.CephFS != nil {
+		}
+		if pvResult.Spec.CephFS != nil {
 			paths := strings.Split(pvResult.Spec.CephFS.Path, "/")
 			return paths[len(paths)-1], "cephfs", nil
+		}
+		if pvResult.Spec.Glusterfs != nil {
+			paths := strings.Split(pvResult.Spec.Glusterfs.Path, "/")
+			return paths[len(paths)-1], "glusterfs", nil
+		}
+		if pvResult.Spec.NFS != nil {
+			paths := strings.Split(pvResult.Spec.NFS.Path, "/")
+			return paths[len(paths)-1], "nfs", nil
 		}
 	}
 	return "", "", RbdNotFoundError
