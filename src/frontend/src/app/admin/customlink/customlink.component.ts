@@ -99,11 +99,7 @@ export class CustomlinkComponent implements OnInit, OnDestroy {
   }
 
   updateConfig(config: Customlink) {
-    if (config.status === true) {
-      this.messageHandlerService.info(`${config.linkType}状态已经是开启中`);
-      return false;
-    }
-    this.configService.update({...config, status: true})
+    this.configService.updateStatus(config)
     .subscribe(res => {
       this.messageHandlerService.info(`${config.linkType}更新状态成功`);
       this.retrieve();

@@ -28,7 +28,7 @@
     <clr-dg-action-overflow>
       <button class="action-item" (click)="editConfig(config)">{{'BUTTON.EDIT' | translate}}</button>
       <button class="action-item" (click)="deleteConfig(config)">{{'BUTTON.DELETE' | translate}}</button>
-      <button class="action-item" (click)="updateConfig(config)">{{'BUTTON.USE' | translate}}</button>
+      <button class="action-item" (click)="updateConfig(config)">{{(config.status ? 'BUTTON.STOP' : 'BUTTON.USE') | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell>{{config.linkType}}</clr-dg-cell>
     <clr-dg-cell>{{config.namespace}}</clr-dg-cell>
