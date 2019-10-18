@@ -68,6 +68,8 @@ import { KubeServiceaccountModule } from './kubernetes/serviceaccount/kube-servi
 import { KubeClusterroleModule } from './kubernetes/clusterrole/kube-clusterrole.module';
 import { KubeClusterrolebindingModule } from './kubernetes/clusterrolebinding/kube-clusterrolebinding.module';
 import { KubeCrdModule } from './kubernetes/crd/kube-crd.module';
+import { RoadMapModule } from './roadmap/roadmap.module';
+import { CustomlinkModule } from './customlink/customlink.module';
 
 @NgModule({
   imports: [
@@ -130,7 +132,9 @@ import { KubeCrdModule } from './kubernetes/crd/kube-crd.module';
     KubeClusterroleModule,
     KubeClusterrolebindingModule,
     KubeNamespaceModule,
-    KubeCrdModule
+    KubeCrdModule,
+    RoadMapModule,
+    CustomlinkModule
   ],
   providers: [
     AdminAuthCheckGuard,

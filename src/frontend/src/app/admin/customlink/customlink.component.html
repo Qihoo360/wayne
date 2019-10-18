@@ -1,0 +1,18 @@
+<div class="clr-row">
+  <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
+    <div class="clr-row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
+      <h2 class="header-title">自定义链接列表</h2>
+    </div>
+    <div class="clr-row flex-items-xs-between" style="height:32px;">
+      <div class="option-left">
+        <button class="btn btn-link" (click)="openModal()">
+          <clr-icon shape="add"></clr-icon>
+          创建自定义链接
+        </button>
+        <create-edit-customlink (create)="createConfig($event)"></create-edit-customlink>
+      </div>
+    </div>
+    <list-customlink [configs]="configs" (delete)="deleteConfig($event)" (edit)="editConfig($event)" 
+    (update)="updateConfig($event)" (paginate)="retrieve($event)" [page]="pageState.page"></list-customlink>
+  </div>
+</div>
