@@ -13,8 +13,8 @@ type ShowLinkController struct {
 }
 
 type Link struct {
-	displayname string
-	url         string
+	Displayname string
+	Url         string
 }
 
 func (c *ShowLinkController) URLMapping() {
@@ -47,8 +47,8 @@ func (c *ShowLinkController) List() {
 	nameMap := make(map[string]string)
 	for _, linkType := range defaultLinks {
 		dlink := &Link{
-			displayname: linkType.Displayname,
-			url:         linkType.DefaultUrl,
+			Displayname: linkType.Displayname,
+			Url:         linkType.DefaultUrl,
 		}
 		defaults[linkType.TypeName] = dlink
 		nameMap[linkType.TypeName] = linkType.Displayname
@@ -74,20 +74,21 @@ func (c *ShowLinkController) List() {
 				curl = clink.Url
 			}
 			link := &Link{
-				displayname: clink.Displayname,
-				url:         curl,
+				Displayname: clink.Displayname,
+				Url:         curl,
 			}
 			customs[clink.LinkType] = link
 		}
 	}
-
 	var allLinks []*Link
 	for name, link := range customs {
 		defaults[name] = link
 	}
+
 	for _, link := range defaults {
 		allLinks = append(allLinks, link)
 	}
+
 	c.Success(allLinks)
 }
 
