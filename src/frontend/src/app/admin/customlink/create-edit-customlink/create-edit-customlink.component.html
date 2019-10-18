@@ -4,7 +4,7 @@
     <form #ngForm="ngForm" clrForm clrLayout="horizontal">
       <clr-select-container>
         <label class="required">类型</label>
-        <select clrSelect name="type" style="width: 370px;" [(ngModel)]="config.linkType" required>
+        <select clrSelect name="type" style="width: 370px;" [(ngModel)]="config.linkType" (change)="typeChange()" required>
           <option *ngFor="let type of linkTypes;" value="{{type?.typeName}}">{{type?.typeName}}</option>
         </select>
       </clr-select-container>
@@ -19,18 +19,15 @@
         <input clrInput type="text" [(ngModel)]="config.url" name="url" size="48" required
           [readonly]="actionType==1" maxlength="256">
       </clr-input-container>
-      <div class="clr-form-control clr-row">
-        <label class="clr-control-label clr-col-12 clr-col-md-12">参数
-          <button (click)="addParam(i)" style="margin-left: 10px;" class="wayne-button primary">
-            <clr-icon shape="add-text"></clr-icon>
-            添加参数
-          </button>
+      <div class="clr-form-control clr-row" *ngIf="paramsList.length">
+        <label class="clr-control-label clr-col-12 clr-col-md-2">参数
         </label>
-        <div *ngFor="let arg of params; let i = index; trackBy:trackByFn">
-          <input style="margin-top: 10px" type="text" size="60" name="param_{{i}}" [(ngModel)]="params[i]"
-            class="clr-input" placeholder="写入参数">
-          <clr-icon style="margin-top: 5px;margin-left: 5px;" (click)="deleteParam(i)" shape="trash"
-            class="is-solid"></clr-icon>
+        <div class="clr-control-container clr-col-md-10 clr-col-12">
+          <div class="clr-input-wrapper">
+              <wayne-select style="width: 370px;" [(ngModel)]="params" multiple name="params">
+                <wayne-option *ngFor="let option of paramsList;" [value]="option">{{option}}</wayne-option>
+              </wayne-select>
+          </div>
         </div>
       </div>
     </form>

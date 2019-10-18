@@ -54,6 +54,7 @@ export class CustomlinkService {
       const sortType: any = pageState.sort.reverse ? `-${pageState.sort.by}` : pageState.sort.by;
       params = params.set('sortby', sortType);
     }
+    params = params.set('deleted', 'false');
     return this.http
       .get('/api/v1/customlinks', {params: params})
 
@@ -70,6 +71,13 @@ export class CustomlinkService {
   update(config: Customlink): Observable<any> {
     return this.http
       .put(`/api/v1/customlinks/${config.id}`, config, this.options)
+
+      .catch(error => throwError(error));
+  }
+
+  updateStatus(config: Customlink): Observable<any> {
+    return this.http
+      .put(`/api/v1/customlinks/${config.id}/status`, null, this.options)
 
       .catch(error => throwError(error));
   }
