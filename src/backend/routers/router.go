@@ -326,14 +326,8 @@ func init() {
 				&bill.BillController{},
 			),
 		),
-		beego.NSNamespace("/namespaces/:namespaceid([0-9]+)/linktypes",
+		beego.NSNamespace("/namespaces/:namespaceid([0-9]+)/customlink",
 			beego.NSInclude(
-				&customlink.LinkTypeController{},
-			),
-		),
-		beego.NSNamespace("/namespaces/:namespaceid([0-9]+)/customlinks",
-			beego.NSInclude(
-				&customlink.CustomLinkController{},
 				&customlink.ShowLinkController{},
 			),
 		),
@@ -349,6 +343,16 @@ func init() {
 		beego.NSNamespace("/configs/base",
 			beego.NSInclude(
 				&config.BaseConfigController{},
+			),
+		),
+		beego.NSNamespace("/linktypes",
+			beego.NSInclude(
+				&customlink.LinkTypeController{},
+			),
+		),
+		beego.NSNamespace("/customlinks",
+			beego.NSInclude(
+				&customlink.CustomLinkController{},
 			),
 		),
 		beego.NSRouter("/apps/statistics", &app.AppController{}, "get:AppStatistics"),
