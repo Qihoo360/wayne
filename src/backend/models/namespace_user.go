@@ -252,3 +252,15 @@ func (n *namespaceUserModel) GetAllPermission(aid int64, uid int64) (permissions
 	}
 	return
 }
+
+// change namespaceId of namespaceUser from sourceId to targetId
+func (*namespaceUserModel) UpdateByNamespaceId(sourceId, targetId int64) (err error) {
+	var sql string
+	sql = "update " + TableNameNamespaceUser + " set namespace_id=? where namespace_id=?;"
+	args := [...]interface{} {
+		targetId,
+		sourceId,
+	}
+	_, err = orm.NewOrm().Raw(sql, args).Exec()
+	return
+}
