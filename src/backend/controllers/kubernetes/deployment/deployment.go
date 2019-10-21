@@ -264,3 +264,33 @@ func (c *KubeDeploymentController) Delete() {
 	})
 	c.Success("ok!")
 }
+
+// @Title UpdateScale
+// @Description Update the number of replica for target deployment
+// @Param	cluster		path 	string	true		"the target k8s cluster"
+// @Param	namespace		path 	string	true		"the namespace that the target deployment belong to"
+// @Param	deployment		path 	string	true		"the target deployment name"
+// @Param   replica         body        int32   true        "number of replica"
+// @Success 200 {string} ok success
+// @router /:deployment/namespaces/:namespace/clusters/:cluster/updatescale [post]
+func (c *KubeDeploymentController) UpdateScale() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	namespace := c.Ctx.Input.Param(":namespace")
+	name := c.Ctx.Input.Param(":deployment")
+	cli := c.Client(cluster)
+
+     var replica Replica
+     err := json.Unmarshal(c.Ctx.Input.RequestBody, &replica)
+	 if err != nil {
+		logs.Error("Invalid param body.%v", err)
+		c.AbortBadRequestFormat("replica num")
+	 }
+	err=deployment.UpdateScale(cli,name,namespace,replica.num)
+	if err != nil {
+		logs.Info("Update scale for deployment (%s) by cluster (%s) error.%v", name, cluster, err)
+		c.HandleError(err)
+		return
+	}
+
+	c.Success("ok!")
+}
