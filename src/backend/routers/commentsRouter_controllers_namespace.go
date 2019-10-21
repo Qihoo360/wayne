@@ -81,6 +81,15 @@ func init() {
 
     beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/namespace:NamespaceController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/namespace:NamespaceController"],
         beego.ControllerComments{
+            Method: "Migrate",
+            Router: `/migration`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/namespace:NamespaceController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/namespace:NamespaceController"],
+        beego.ControllerComments{
             Method: "GetNames",
             Router: `/names`,
             AllowHTTPMethods: []string{"get"},
