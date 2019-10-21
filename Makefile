@@ -17,12 +17,6 @@ update-version:
 run-backend:
 	export GO111MODULE=on && export GOPROXY=https://goproxy.io && cd src/backend/ && bee run -main=./main.go -runargs="apiserver"
 
-run-worker:
-	cd src/backend/ && bee run -main=./main.go -runargs="worker -t AuditWorker -c 2"
-
-run-webhook:
-	cd src/backend/ && bee run -main=./main.go -runargs="worker -t WebhookWorker -c 2"
-
 run-frontend:
 	cd src/frontend/ && npm start
 
