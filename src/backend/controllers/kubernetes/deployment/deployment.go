@@ -25,6 +25,10 @@ type KubeDeploymentController struct {
 	base.APIController
 }
 
+type Replica struct {
+	num int32
+}
+
 func (c *KubeDeploymentController) URLMapping() {
 	c.Mapping("List", c.List)
 	c.Mapping("Get", c.Get)
