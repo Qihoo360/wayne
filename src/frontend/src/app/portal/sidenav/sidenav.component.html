@@ -139,15 +139,17 @@
     <clr-icon clrVerticalNavIcon shape="pin"></clr-icon>
     Webhooks
   </a>
-  <a
-    clrVerticalNavLink
-    [title]="'MENU.VIEW_MONITOR' | translate"
-    (click)="goToMonitor()"
-    href="javascript:void(0)"
-    *ngIf="getMonitorUri() && (authService.currentAppPermission.appUser.read || authService.currentUser.admin)">
-    <clr-icon clrVerticalNavIcon shape="dashboard"></clr-icon>
-    {{'MENU.VIEW_MONITOR' | translate}}
-  </a>
+  <ng-container *ngFor="let monitor of monitors;let i = index;">
+    <a
+      clrVerticalNavLink
+      [title]="'MENU.VIEW_MONITOR' | translate"
+      (click)="goToMonitor(monitor.Url)"
+      href="javascript:void(0)"
+      *ngIf="authService.currentAppPermission.appUser.read || authService.currentUser.admin">
+      <clr-icon clrVerticalNavIcon [attr.shape]="icons[i % icons.length ]"></clr-icon>
+      {{monitor.Displayname}}
+    </a>
+  </ng-container>
   <a href="javascript:;" style="flex: 1;"></a>
   <wayne-footer></wayne-footer>
 </clr-vertical-nav>
