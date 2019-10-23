@@ -70,14 +70,14 @@
           translate}}</label>
         <clr-input-container>
           <label class="required">{{'TEMPLATE.CONTAINER_NAME' | translate}}</label>
-          <input type="text" clrInput size="90" required name="container.name_{{i}}" pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
+          <input type="text" clrInput size="60" required name="container.name_{{i}}" pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
             [(ngModel)]="container.name" [placeholder]="'RULE.CONTAINER' | translate" (input)="containerNameChange()"
             (compositionend)="containerNameChange()">
           <clr-control-error>{{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?</clr-control-error>
         </clr-input-container>
         <clr-input-container>
           <label class="required">{{'TEMPLATE.IMAGE_ADDRESS' | translate}}</label>
-          <input type="text" clrInput size="90" name="container.image_{{i}}" required pattern="{{getImagePrefixReg()}}"
+          <input type="text" clrInput size="60" name="container.image_{{i}}" required pattern="{{getImagePrefixReg()}}"
             [(ngModel)]="container.image" [placeholder]="'TEMPLATE.IMAGE_ADDRESS' | translate">
           <clr-control-error>{{'RULE.REGEXT' | translate}}{{getImagePrefixReg()}}</clr-control-error>
         </clr-input-container>

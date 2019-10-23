@@ -4,6 +4,8 @@ import { AppService } from '../../shared/client/v1/app.service';
 import { CacheService } from '../../shared/auth/cache.service';
 import { StorageService } from '../../shared/client/v1/storage.service';
 import { SideNavCollapse } from '../../shared/base/side-nav/side-nav-collapse';
+import { SideNavService } from 'app/shared/client/v1/sidenav.service';
+
 @Component({
   selector: 'wayne-sidenav',
   templateUrl: './sidenav.component.html',
@@ -12,17 +14,30 @@ import { SideNavCollapse } from '../../shared/base/side-nav/side-nav-collapse';
 
 export class SidenavComponent extends SideNavCollapse {
 
+  monitors: any[] = [];
+  icons = ['dashboard', 'world', 'bullseye'];
   constructor(
     public authService: AuthService,
     public cacheService: CacheService,
     private appService: AppService,
-    public storage: StorageService
+    public storage: StorageService,
+    private sideNavService: SideNavService
   ) {
     super(storage);
+    this.getMonitors(this.cacheService.namespace.id);
   }
 
-  goToMonitor() {
-    window.open(this.getMonitorUri().toString().replace('{{app.name}}', this.appService.app.name));
+  getMonitors(namespaceId: number) {
+    this.sideNavService.getMonitors(namespaceId)
+    .subscribe(res => {
+      this.monitors = res.data || [];
+    });
+  }
+
+  goToMonitor(url) {
+    window.open(
+      url.replace('{{app}}', this.appService.app.name)
+      .replace('{{namespace}}', this.cacheService.namespace.name));
   }
 
   getMonitorUri() {
