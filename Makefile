@@ -8,14 +8,12 @@ RELEASE_VERSION :=$(shell git describe --always --tags)
 UI_BUILD_VERSION :=v1.0.2
 SERVER_BUILD_VERSION :=v1.0.1
 
-release: build-backend-image build-frontend-image push-image
-
 update-version:
 	./hack/updateversion.sh
 
 # run module
 run-backend:
-	export GO111MODULE=on && export GOPROXY=https://goproxy.io && cd src/backend/ && bee run -main=./main.go -runargs="apiserver"
+	cd src/backend/ && go run main.go
 
 run-frontend:
 	cd src/frontend/ && npm start
@@ -57,3 +55,6 @@ push-image:
 	docker tag $(REGISTRY_URI)/wayne-frontend:$(RELEASE_VERSION) $(REGISTRY_URI)/wayne-frontend:latest
 	docker push $(REGISTRY_URI)/wayne-frontend:$(RELEASE_VERSION)
 	docker push $(REGISTRY_URI)/wayne-frontend:latest
+
+release: build-backend-image build-frontend-image push-image
+
