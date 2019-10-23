@@ -6,23 +6,23 @@ import (
 )
 
 func init() {
-
-    beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/publishstatus:PublishStatusController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/publishstatus:PublishStatusController"],
+    const ConfigMapController = "github.com/Qihoo360/wayne/src/backend/controllers/publishstatus:PublishStatusController"
+    beego.GlobalControllerRouter[ConfigMapController] = append(
+        beego.GlobalControllerRouter[ConfigMapController],
         beego.ControllerComments{
             Method: "List",
             Router: `/`,
             AllowHTTPMethods: []string{"get"},
             MethodParams: param.Make(),
             Filters: nil,
-            Params: nil})
-
-    beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/publishstatus:PublishStatusController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/publishstatus:PublishStatusController"],
+            Params: nil,
+        },
         beego.ControllerComments{
             Method: "Delete",
             Router: `/:id`,
             AllowHTTPMethods: []string{"delete"},
             MethodParams: param.Make(),
             Filters: nil,
-            Params: nil})
-
+            Params: nil,
+        })
 }

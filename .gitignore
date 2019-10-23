@@ -43,3 +43,5 @@ src/backend/swagger/swagger.yml
 ##script
 src/frontend/src/app/js-rename.js
 /src/backend/openapi.swagger.json
+
+vendor
