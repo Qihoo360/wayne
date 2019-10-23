@@ -1,4 +1,4 @@
-ckage main
+package main
 
 import (
 	"github.com/Qihoo360/wayne/src/backend/cmd"
