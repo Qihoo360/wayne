@@ -1,33 +1,31 @@
 package cmd
 
 import (
-	"fmt"
-
-	"github.com/spf13/cobra"
-
-	"github.com/Qihoo360/wayne/src/backend/cmd/apiserver"
-	"github.com/Qihoo360/wayne/src/backend/cmd/worker"
+	"github.com/Qihoo360/wayne/src/backend/initial"
+	_ "github.com/Qihoo360/wayne/src/backend/routers"
+	"github.com/astaxie/beego"
 )
 
-var Version string
 
-var RootCmd = &cobra.Command{
-	Use: "wayne",
-}
+func Run() {
 
-var VersionCmd = &cobra.Command{
-	Use:     "version",
-	Aliases: []string{"v"},
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("wayne %s \n", Version)
-	},
-}
+	// MySQL
+	initial.InitDb()
 
-func init() {
-	cobra.EnableCommandSorting = false
+	// Swagger API
+	if beego.BConfig.RunMode == "dev" {
+		beego.BConfig.WebConfig.DirectoryIndex = true
+		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
+	}
 
-	RootCmd.AddCommand(apiserver.APIServerCmd)
-	RootCmd.AddCommand(worker.WorkerCmd)
+	// K8S Client
+	initial.InitClient()
 
-	RootCmd.AddCommand(VersionCmd)
+	// 初始化RsaPrivateKey
+	initial.InitRsaKey()
+
+	// init kube labels
+	initial.InitKubeLabel()
+
+	beego.Run()
 }
