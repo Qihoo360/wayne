@@ -6,7 +6,7 @@ MAKEFLAGS += --warn-undefined-variables
 REGISTRY_URI :=360cloud
 RELEASE_VERSION :=$(shell git describe --always --tags)
 UI_BUILD_VERSION :=v1.0.2
-SERVER_BUILD_VERSION :=v1.0.1
+SERVER_BUILD_VERSION :=v1.0.2
 
 update-version:
 	./hack/updateversion.sh
