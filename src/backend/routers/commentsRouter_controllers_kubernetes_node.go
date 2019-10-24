@@ -34,6 +34,69 @@ func init() {
             Params: nil,
         },
         beego.ControllerComments{
+            Method: "AddLabel",
+            Router: `/:name/clusters/:cluster/label`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/node:KubeNodeController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/node:KubeNodeController"],
+        beego.ControllerComments{
+            Method: "DeleteLabel",
+            Router: `/:name/clusters/:cluster/label`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/node:KubeNodeController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/node:KubeNodeController"],
+        beego.ControllerComments{
+            Method: "GetLabels",
+            Router: `/:name/clusters/:cluster/labels`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/node:KubeNodeController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/node:KubeNodeController"],
+        beego.ControllerComments{
+            Method: "AddLabels",
+            Router: `/:name/clusters/:cluster/labels`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/node:KubeNodeController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/node:KubeNodeController"],
+        beego.ControllerComments{
+            Method: "DeleteLabels",
+            Router: `/:name/clusters/:cluster/labels`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/node:KubeNodeController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/node:KubeNodeController"],
+        beego.ControllerComments{
+            Method: "SetTaint",
+            Router: `/:name/clusters/:cluster/taint`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/node:KubeNodeController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/node:KubeNodeController"],
+        beego.ControllerComments{
+            Method: "DeleteTaint",
+            Router: `/:name/clusters/:cluster/taint`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/node:KubeNodeController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/node:KubeNodeController"],
+        beego.ControllerComments{
             Method: "List",
             Router: `/clusters/:cluster`,
             AllowHTTPMethods: []string{"get"},
