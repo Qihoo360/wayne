@@ -8,7 +8,7 @@ metadata:
 data:
   config.js: |-
     window.CONFIG = {
-      URL: 'http://wayne.backend:32001',
+      URL: 'http://nodeip:32001',
       RAVEN: false,
       RAVEN_DSN: 'RAVEN_DSN'
     };
