@@ -4,9 +4,9 @@
 # docker --build-arg RELEASE_VERSION=v1.0.0 -t infra/wayne:v1.0.0 .
 
 # build ui
-FROM 360cloud/wayne-ui-builder:v1.0.2 as frontend
+FROM q8sio/wayne-ui-builder:v1.0.2 as frontend
 
-COPY src/frontend /workspace
+COPY ../../../src/frontend /workspace
 
 RUN cd /workspace && \
     npm run build:aot

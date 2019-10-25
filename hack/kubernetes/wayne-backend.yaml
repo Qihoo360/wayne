@@ -62,8 +62,7 @@ data:
     EnableApiKeys = true
 
     # Bus
-    BusEnable = true
-    BusRabbitMQURL = "amqp://guest:guest@rabbitmq-wayne:5672"
+    BusEnable = false
 
     # Webhook
     EnableWebhook = true

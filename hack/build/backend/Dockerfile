@@ -6,10 +6,10 @@
 # build server
 FROM q8sio/wayne-server-builder:v1.0.2 as backend
 
-COPY go.mod /go/src/github.com/Qihoo360/wayne
-COPY go.sum /go/src/github.com/Qihoo360/wayne
+COPY ../../../go.mod /go/src/github.com/Qihoo360/wayne
+COPY ../../../go.sum /go/src/github.com/Qihoo360/wayne
 
-COPY src/backend /go/src/github.com/Qihoo360/wayne/src/backend
+COPY ../../../src/backend /go/src/github.com/Qihoo360/wayne/src/backend
 
 RUN export GO111MODULE=on && \
     export GOPROXY=https://goproxy.io && \

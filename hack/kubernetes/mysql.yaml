@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql-wayne-liuhengtao
+  name: mysql-wayne
   namespace: default
   labels:
     app: mysql-wayne
