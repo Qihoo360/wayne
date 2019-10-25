@@ -14,15 +14,14 @@ services:
     - "3306:3306"
 
   wayne-backend:
-    image: 360cloud/wayne-backend:latest
-    command: /opt/wayne/backend apiserver
+    image: q8sio/wayne-backend:v1.8.4-16-gf3a7366  
+    command: /opt/wayne/backend
     environment:
       GOPATH: "/go"
     volumes:
     - ./conf/app.conf:/opt/wayne/conf/app.conf
     depends_on:
     - mysql
-    - rabbitmq
     restart: always
     networks:
     - default
@@ -30,7 +29,7 @@ services:
     - "8080:8080"
 
   wayne-frontend:
-    image: 360cloud/wayne-frontend:latest
+    image: q8sio/wayne-frontend:latest
     volumes:
     - ./conf/config.js:/usr/local/openresty/nginx/html/config.js
     depends_on:
@@ -40,4 +39,5 @@ services:
     - default
     ports:
     - "4200:80"
+
 
