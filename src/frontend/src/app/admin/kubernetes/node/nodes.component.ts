@@ -13,11 +13,10 @@ import { NodeClient } from '../../../shared/client/v1/kubernetes/node';
 import { Inventory } from './list-nodes/inventory';
 import { KubeNode, NodeSummary } from '../../../shared/model/v1/kubernetes/node';
 import { AceEditorComponent } from '../../../shared/ace-editor/ace-editor.component';
-
 const showState = {
   'name': {hidden: false},
   'label': {hidden: false},
-  'taints': {hidden: true},
+  'taints': {hidden: false},
   'ready': {hidden: false},
   'schedulable': {hidden: false},
   'cpu': {hidden: false},
@@ -43,6 +42,8 @@ export class NodesComponent implements OnInit, OnDestroy {
 
   @ViewChild(AceEditorComponent, { static: false })
   editNodeModal: AceEditorComponent;
+
+
   showState: object = showState;
 
   cluster: string;
@@ -121,6 +122,7 @@ export class NodesComponent implements OnInit, OnDestroy {
 
   setCluster(cluster?: string) {
     this.cluster = cluster;
+    this.clusterService.cluster = cluster;
     localStorage.setItem('cluster', cluster);
   }
 

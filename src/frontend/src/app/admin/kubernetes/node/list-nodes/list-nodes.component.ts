@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
@@ -13,8 +13,10 @@ import {
   SchedulerComparator
 } from './inventory';
 import { ClrDatagridSortOrder } from '@clr/angular';
-import { Node } from '../../../../shared/model/v1/kubernetes/node-list';
+import { Node } from 'app/shared/model/v1/kubernetes/node-list';
 import { StorageService } from '../../../../shared/client/v1/storage.service';
+import { CreateEditLabelComponent } from '../create-edit-label/create-edit-label.component';
+import { CreateEditTaintComponent } from '../create-edit-taint/create-edit-taint.component';
 
 @Component({
   selector: 'list-nodes',
@@ -22,6 +24,13 @@ import { StorageService } from '../../../../shared/client/v1/storage.service';
 })
 
 export class ListNodesComponent implements OnInit {
+
+  @ViewChild(CreateEditLabelComponent, {static: false})
+  editLabelModal: CreateEditLabelComponent;
+
+  @ViewChild(CreateEditTaintComponent, {static: false})
+  editTaintModal: CreateEditTaintComponent;
+
   @Input() nodes: Node[];
   @Input() cluster: string;
   @Input() showState: object;
@@ -69,6 +78,14 @@ export class ListNodesComponent implements OnInit {
 
   editNode(node: Node) {
     this.edit.emit(node);
+  }
+
+  editLabel(node: Node) {
+    this.editLabelModal.openModal(node);
+  }
+
+  editTaint(node: Node) {
+    this.editTaintModal.openModal(node);
   }
 
   deleteNode(node: Node) {

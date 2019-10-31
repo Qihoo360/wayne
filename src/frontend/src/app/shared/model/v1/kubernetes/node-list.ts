@@ -113,6 +113,31 @@ export class Taint {
 
 }
 
+export class LabelMetaData {
+  key: string;
+  value: string;
+
+  constructor(option?: LabelMetaData) {
+    if (option && option instanceof Object) {
+      this.key = option.key;
+      this.value = option.value;
+    }
+  }
+}
+
+export class TaintMetaData {
+  effect: string;
+  key: string;
+  value: string;
+  constructor(option?: LabelMetaData) {
+    if (option && option instanceof Object) {
+      this.effect = option.key || '';
+      this.key = option.key;
+      this.value = option.value;
+    }
+  }
+}
+
 export class NodeSpec {
   unschedulable: boolean;
   taints: Taint[];
