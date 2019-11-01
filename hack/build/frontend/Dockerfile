@@ -6,7 +6,7 @@
 # build ui
 FROM q8sio/wayne-ui-builder:v1.0.2 as frontend
 
-COPY ../../../src/frontend /workspace
+COPY src/frontend /workspace
 
 RUN cd /workspace && \
     npm run build:aot
