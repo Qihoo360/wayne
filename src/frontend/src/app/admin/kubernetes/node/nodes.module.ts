@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NodeClient } from '../../../shared/client/v1/kubernetes/node';
 import { ListNodesComponent } from './list-nodes/list-nodes.component';
 import { NodeResourceComponent } from './node-resource/node-resource.component';
+import { CreateEditLabelComponent } from './create-edit-label/create-edit-label.component';
+import { CreateEditTaintComponent } from './create-edit-taint/create-edit-taint.component';
 @NgModule({
   imports: [
     SharedModule,
@@ -20,7 +22,9 @@ import { NodeResourceComponent } from './node-resource/node-resource.component';
   declarations: [
     NodesComponent,
     ListNodesComponent,
-    NodeResourceComponent
+    NodeResourceComponent,
+    CreateEditLabelComponent,
+    CreateEditTaintComponent
   ]
 })
 
