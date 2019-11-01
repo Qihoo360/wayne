@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "1.8.4",
+  "version": "1.8.5",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -22,8 +22,9 @@
     "@angular/platform-browser": "^8.1.0",
     "@angular/platform-browser-dynamic": "^8.1.0",
     "@angular/router": "^8.1.0",
-    "@clr/angular": "^2.0.2",
-    "@clr/icons": "^2.0.2",
+    "@clr/angular": "^2.0.3",
+    "@clr/icons": "^2.0.3",
+    "@clr/ui": "^2.0.3",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "@webcomponents/custom-elements": "^1.2.1",
@@ -49,7 +50,6 @@
     "rxjs-compat": "^6.2.1",
     "sockjs-client": "^1.1.4",
     "tslib": "^1.9.0",
-    "wayne-ui": "^0.2.0",
     "xterm": "3.11.0",
     "zone.js": "^0.9.1"
   },

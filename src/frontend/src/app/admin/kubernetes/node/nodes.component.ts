@@ -16,7 +16,7 @@ import { AceEditorComponent } from '../../../shared/ace-editor/ace-editor.compon
 const showState = {
   'name': {hidden: false},
   'label': {hidden: false},
-  'taints': {hidden: false},
+  'taints': {hidden: true},
   'ready': {hidden: false},
   'schedulable': {hidden: false},
   'cpu': {hidden: false},
