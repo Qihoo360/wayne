@@ -26,7 +26,7 @@ type KubeDeploymentController struct {
 }
 
 type Replica struct {
-	num int32
+	Num int32
 }
 
 func (c *KubeDeploymentController) URLMapping() {
@@ -289,7 +289,7 @@ func (c *KubeDeploymentController) UpdateScale() {
 		logs.Error("Invalid param body.%v", err)
 		c.AbortBadRequestFormat("replica num")
 	 }
-	err=deployment.UpdateScale(cli,name,namespace,replica.num)
+	err=deployment.UpdateScale(cli,name,namespace,replica.Num)
 	if err != nil {
 		logs.Info("Update scale for deployment (%s) by cluster (%s) error.%v", name, cluster, err)
 		c.HandleError(err)
