@@ -185,7 +185,8 @@
     "CREATE_TMP": "创建部署模板",
     "DELETE": "删除部署",
     "EDIT": "编辑部署",
-    "NUM": "部署份数"
+    "NUM": "部署份数",
+    "MODIFY_REPLICA": "修改副本数"
   },
   "DEPLOYMENT_ADMIN": {
     "CREATE": {

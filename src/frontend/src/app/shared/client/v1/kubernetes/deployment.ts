@@ -5,6 +5,7 @@ import { PageState } from '../../../page/page-state';
 import { BaseClient } from './base-client';
 import { KubeDeployment, ObjectMeta } from '../../../model/v1/kubernetes/deployment';
 import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class DeploymentClient {
@@ -38,5 +39,13 @@ export class DeploymentClient {
     return this.http
       .delete(`/api/v1/kubernetes/apps/${appId}/deployments/${name}/namespaces/${namespace}/clusters/${cluster}`)
       .catch(error => throwError(error));
+  }
+
+  modifyReplica(appId: number, cluster: string, name: string, namespace: string, data: any) {
+    return this.http
+      .post(`/api/v1/kubernetes/apps/${appId}/deployments/${name}/namespaces/${namespace}/clusters/${cluster}/updatescale`, data)
+      .pipe(
+        catchError(error => throwError(error))
+      );
   }
 }
