@@ -5,6 +5,7 @@ import { ListNamespaceComponent } from './list-namespace/list-namespace.componen
 import { TrashNamespaceComponent } from './trash-namespace/trash-namespace.component';
 import { SharedModule } from '../../shared/shared.module';
 import { NamespaceService } from '../../shared/client/v1/namespace.service';
+import { MigrateNamespaceComponent } from './migrate-namespace/migrate-namespace.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { NamespaceService } from '../../shared/client/v1/namespace.service';
     NamespaceComponent,
     TrashNamespaceComponent,
     ListNamespaceComponent,
-    CreateEditNamespaceComponent
+    CreateEditNamespaceComponent,
+    MigrateNamespaceComponent
   ]
 })
 

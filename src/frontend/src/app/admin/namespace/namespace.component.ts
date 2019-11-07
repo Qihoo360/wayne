@@ -12,6 +12,7 @@ import { NamespaceService } from '../../shared/client/v1/namespace.service';
 import { PageState } from '../../shared/page/page-state';
 import { ClusterService } from '../../shared/client/v1/cluster.service';
 import { Cluster } from '../../shared/model/v1/cluster';
+import { MigrateNamespaceComponent } from './migrate-namespace/migrate-namespace.component';
 
 @Component({
   selector: 'wayne-namespace',
@@ -23,6 +24,8 @@ export class NamespaceComponent implements OnInit, OnDestroy {
   listNamespace: ListNamespaceComponent;
   @ViewChild(CreateEditNamespaceComponent, { static: false })
   createEditNamespace: CreateEditNamespaceComponent;
+  @ViewChild(MigrateNamespaceComponent, {static: false})
+  migrateNamespaceComponent: MigrateNamespaceComponent;
 
   pageState: PageState = new PageState();
   changedNamespaces: Namespace[];
@@ -132,5 +135,16 @@ export class NamespaceComponent implements OnInit, OnDestroy {
 
   editNamespace(ns: Namespace): void {
     this.createEditNamespace.newOrEditNamespace(this.clusters, ns.id);
+  }
+
+  migrateNamespace(ns: Namespace): void {
+    const pageState = new PageState({
+      pageNo: 1,
+      pageSize: 10000
+    });
+    this.namespaceService.listNamespace(pageState, 'false')
+      .subscribe(res => {
+        this.migrateNamespaceComponent.open(ns, res.data.list);
+      });
   }
 }
