@@ -1,22 +1,3 @@
-<!-- <clr-modal [(clrModalOpen)]="opened" [clrModalSize]="'lg'" #modal>
-  <h3 class="modal-title">命名空间迁移
-    <wayne-modal-operate [modal]="modal" *ngIf="opened"></wayne-modal-operate>
-  </h3>
-  <div class="modal-body">
-    <form #namespaceForm="ngForm"  clrForm clrLayout="horizontal">
-      <clr-input-container>
-        <label class="required">{{'TITLE.NAME' | translate}}</label>
-        <input type="text" clrInput id="ns_name" [(ngModel)]="ns.name" name="ns_name" size="36" required
-          pattern="[a-z]([-a-z0-9]*[a-z0-9])?" maxlength="24" (keyup)='handleValidation()'>
-          <clr-control-error>命名空间名称不符合规范，验证规则[a-z]([-a-z0-9]*[a-z0-9])?</clr-control-error>
-      </clr-input-container>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
-  </div>
-</clr-modal> -->
 <wayne-modal [isValid]="isValid">
   <span header>命名空间迁移</span>
   <content>
