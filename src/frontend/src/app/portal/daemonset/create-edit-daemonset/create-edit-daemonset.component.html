@@ -1,46 +1,42 @@
 <clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'lg'">
   <h3 class="modal-title">{{title | translate}}</h3>
   <div class="modal-body">
-    <form #ngForm="ngForm">
+    <form #ngForm="ngForm" clrForm clrLayout="horizontal">
       <section class="form-block">
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="name" class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
-          <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
-            <label *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</label>
-            <input type="text" [(ngModel)]="resource.name"
-                   name="name"
-                   required
-                   [placeholder]="'PLACEHOLDER.APP_NAME' | translate"
-                   [readonly]="actionType==1"
-                   maxlength="64"
-                   pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
-                   (keyup)='checkNameValid()'>
-            <span class="tooltip-content">
-              {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
-            </span>
+        <div class="clr-form-control clr-row">
+          <label class="clr-control-label required">
+            {{'TITLE.NAME' | translate}}
           </label>
-          <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label class="clr-col-md-3 form-group-label-override required">{{'TITLE.CLUSTER' | translate}}</label>
-          <span class="warning-text" *ngIf="!clusters || clusters && clusters.length === 0">{{'DAEMONSET.CREATE_EDIT.CLUSTER_MESSAGE' | translate}}</span>
-          <div *ngFor="let cluster of clusters" style="padding-right: 15px" class="checkbox-inline">
-            <input [(ngModel)]="clusterMetas[cluster.name].checked"
-                   type="checkbox"
-                   id="{{cluster.name}}-check"
-                   name="{{cluster.name}}-check">
-            <label for="{{cluster.name}}-check">{{cluster.name}}</label>
+          <div class="clr-control-container clr-col-md-10 clr-col-12"
+            [class.clr-error]="name.invalid && (name.dirty || name.touched)">
+            <div class="clr-input-wrapper">
+              <span *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</span>
+              <input type="text" class="clr-input" id="name" [(ngModel)]="resource.name" name="name" required
+                [readonly]="actionType==1" [placeholder]="'PLACEHOLDER.APP_NAME' | translate"
+                pattern="[a-z]([-a-z0-9]*[a-z0-9])?" maxlength="64" (keyup)='checkNameValid()' #name="ngModel">
+            </div>
+            <span *ngIf="name.invalid && (name.dirty || name.touched)"
+              class="clr-subtext">{{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?</span>
           </div>
         </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="description"
-                 class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
-          <textarea id="description" [(ngModel)]="resource.description"
-                    name="description"
-                    rows="3">
-          </textarea>
+        <div class="clr-form-control clr-row">
+          <label class="clr-control-label required">{{'TITLE.CLUSTER' | translate}}</label>
+          <span class="warning-text" *ngIf="!clusters || clusters && clusters.length === 0">{{'CRONJOB.CREATE_EDIT.CLUSTER_MESSAGE'
+            | translate}}</span>
+          <div class="clr-control-container" *ngFor="let cluster of clusters">
+            <div class="clr-input-wrapper">
+              <label class="clr-checkbox-wrapper">
+                <input class="clr-checkbox" [(ngModel)]="clusterMetas[cluster.name].checked" type="checkbox" id="{{cluster.name}}-check"
+                  name="{{cluster.name}}-check">
+                <label for="{{cluster.name}}-check">{{cluster.name}}</label>
+              </label>
+            </div>
+          </div>
         </div>
+        <clr-textarea-container>
+          <label>{{'TITLE.DESCRIPTION' | translate}}</label>
+          <textarea clrTextarea id="cronjob_description" [(ngModel)]="resource.description" name="cronjob_description" rows="3"></textarea>
+        </clr-textarea-container>
         <resource-limit [style.display]="authService.currentUser.admin ? 'block' : 'none'"></resource-limit>
       </section>
     </form>

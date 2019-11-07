@@ -51,9 +51,9 @@ const showState = {
   styleUrls: ['./secret.component.scss']
 })
 export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
-  @ViewChild(ListSecretComponent)
+  @ViewChild(ListSecretComponent, { static: false })
   list: ListSecretComponent;
-  @ViewChild(CreateEditSecretComponent)
+  @ViewChild(CreateEditSecretComponent, { static: true })
   createEdit: CreateEditSecretComponent;
   secretId: number;
   pageState: PageState = new PageState();
@@ -70,6 +70,7 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
   orderCache: Array<OrderItem>;
   showList: any[] = new Array();
   showState: object = showState;
+  leave = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -252,8 +253,8 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
     this.secretId = parseInt(this.route.snapshot.params['secretId'], 10);
     const namespaceId = this.cacheService.namespaceId;
     combineLatest(
-      this.secretService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
-      this.appService.getById(this.appId, namespaceId)
+      [this.secretService.list(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), 'false', this.appId + ''),
+      this.appService.getById(this.appId, namespaceId)]
     ).subscribe(
       response => {
         this.secrets = response[0].data.list.sort((a, b) => a.order - b.order);
@@ -309,6 +310,7 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     clearInterval(this.timer);
+    this.leave = true;
     this.subscription.unsubscribe();
     this.tabScription.unsubscribe();
   }
@@ -324,8 +326,8 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
     this.pageState.params['deleted'] = false;
     this.pageState.params['isOnline'] = this.isOnline;
     combineLatest(
-      this.secretTplService.listPage(this.pageState, this.app.id, this.secretId.toString()),
-      this.publishService.listStatus(PublishType.SECRET, this.secretId)
+      [this.secretTplService.listPage(this.pageState, this.app.id, this.secretId.toString()),
+      this.publishService.listStatus(PublishType.SECRET, this.secretId)]
     ).subscribe(
       response => {
         const status = response[1].data;
@@ -347,7 +349,12 @@ export class SecretComponent implements AfterContentInit, OnDestroy, OnInit {
         this.pageState.page.totalCount = tpls.totalCount;
         this.buildTplList(tpls.list);
         this.secretTpls = tpls.list;
-        this.syncStatus();
+        setTimeout(() => {
+          if (this.leave) {
+            return;
+          }
+          this.syncStatus();
+        });
       },
       error => this.messageHandlerService.handleError(error)
     );

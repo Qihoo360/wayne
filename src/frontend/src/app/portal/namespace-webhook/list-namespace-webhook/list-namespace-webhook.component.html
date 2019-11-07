@@ -41,20 +41,12 @@
       {{'TITLE.ACTION' | translate}}
     </ng-container>
   </clr-dg-column>
-  <clr-dg-row *ngFor="let w of webHooks; let i = index" [clrDgItem]="webHook">
+  <clr-dg-row *ngFor="let w of webHooks; let i = index" [clrDgItem]="w">
     <clr-dg-cell>{{w.id}}</clr-dg-cell>
     <clr-dg-cell class="copy">{{w.name}}</clr-dg-cell>
     <clr-dg-cell>{{w.url}}</clr-dg-cell>
     <clr-dg-cell>
-      <div class="toggle-switch">
-        <input
-          type="checkbox"
-          id="webhook-toggle-{{i}}"
-          (change)="toggleWebhook(w)"
-          [checked]="w.enabled"
-        >
-        <label for="webhook-toggle-{{i}}"></label>
-      </div>
+      <input type="checkbox" clrToggle (change)="toggleWebhook(w)" [checked]="w.enabled" />
     </clr-dg-cell>
     <clr-dg-cell>{{w.user}}</clr-dg-cell>
     <clr-dg-cell>{{w.createTime | date:"yyyy-MM-dd HH:mm"}}</clr-dg-cell>

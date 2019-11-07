@@ -21,9 +21,9 @@ import { isNotEmpty } from '../../shared/utils';
   styleUrls: ['./persistentvolumeclaimtpl.component.scss']
 })
 export class PersistentVolumeClaimTplComponent implements OnInit, OnDestroy {
-  @ViewChild(ListPersistentVolumeClaimTplComponent)
+  @ViewChild(ListPersistentVolumeClaimTplComponent, { static: false })
   list: ListPersistentVolumeClaimTplComponent;
-  @ViewChild(CreateEditPersistentVolumeClaimTplComponent)
+  @ViewChild(CreateEditPersistentVolumeClaimTplComponent, { static: false })
   createEdit: CreateEditPersistentVolumeClaimTplComponent;
 
   pageState: PageState = new PageState();

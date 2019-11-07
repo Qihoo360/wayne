@@ -26,7 +26,7 @@ export class PublishStatefulsetTplComponent {
   @Output() published = new EventEmitter<boolean>();
   modalOpened = false;
   publishForm: NgForm;
-  @ViewChild('publishForm')
+  @ViewChild('publishForm', { static: true })
   currentForm: NgForm;
 
   statefulset: Statefulset;

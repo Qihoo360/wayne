@@ -23,10 +23,10 @@ export class CreateEditCronjobComponent implements OnInit {
   modalOpened: boolean;
 
   ngForm: NgForm;
-  @ViewChild('ngForm')
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
-  @ViewChild(AceEditorBoxComponent)
+  @ViewChild(AceEditorBoxComponent, { static: false })
   aceBox: any;
 
   cronjob: Cronjob = new Cronjob();

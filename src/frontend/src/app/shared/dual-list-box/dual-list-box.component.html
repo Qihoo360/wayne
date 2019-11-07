@@ -1,10 +1,10 @@
 <div class="clr-row" [formGroup]="listBoxForm">
   <div class="clr-col-md-5 clr-col-lg-5 clr-col-sm-12">
     <h4 class="text-center vertical-spacing-5">{{availableText}}</h4>
-    <input type="text" class="form-control vertical-spacing-5" placeholder="{{availableFilterPlaceholder}}"
+    <input type="text" class="clr-input vertical-spacing-5" placeholder="{{availableFilterPlaceholder}}"
            formControlName="availableSearchInput"
-           style="border: 1px solid #ccc;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0,0,0,.075);transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;"/>
-    <select class="form-control list-box" formControlName="availableListBox" multiple>
+           style="border: 1px solid #ccc;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0,0,0,.075);transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;width: 100%;margin-bottom: 0;"/>
+    <select class="clr-select list-box" formControlName="availableListBox" multiple>
       <option
         *ngFor="let item of availableItems | arrayFilter:['text', searchTermAvailable] | arraySort:['text', 'ASC'];trackBy:trackByValue"
         [value]="item?.value"
@@ -35,7 +35,7 @@
     <h4 class="text-center vertical-spacing-5">{{selectedText}}</h4>
     <input type="text" class="form-control vertical-spacing-5" placeholder="{{selectedFilterPlaceholder}}"
            formControlName="selectedSearchInput"
-           style="border: 1px solid #ccc;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0,0,0,.075);transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;"/>
+           style="border: 1px solid #ccc;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0,0,0,.075);transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;width: 100%;margin-bottom: 0;"/>
     <select class="form-control list-box" formControlName="selectedListBox" multiple>
       <option
         *ngFor="let item of selectedItems | arrayFilter:['text', searchTermSelected] | arraySort:['text', 'ASC'];trackBy:trackByValue"

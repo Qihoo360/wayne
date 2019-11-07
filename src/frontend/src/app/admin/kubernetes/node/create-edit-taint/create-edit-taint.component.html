@@ -1,0 +1,47 @@
+<clr-modal [(clrModalOpen)]="createTaintOpened" [clrModalSize]="'lg'">
+    <h3 class="modal-title">Taint 编辑</h3>
+    <div class="modal-body">
+      <form #taintForm="ngForm" clrForm clrLayout="horizontal">
+        <button (click)="addTaint()" style="margin-left: 10px;" class="wayne-button primary">
+          <clr-icon shape="add-text"></clr-icon>
+          添加Taint
+        </button>
+        <div *ngFor="let arg of taintList; let i = index; trackBy:trackByFn">
+          <clr-select-container>
+            <label class="required clr-control-label clr-col-12 clr-col-md-1">effect</label>
+            <select clrSelect name="taint_type_{{i}}" disabled [(ngModel)]="arg.effect">
+              <option value="NoSchedule">NoSchedule</option>
+              <option value="PreferNoSchedule">PreferNoSchedule</option>
+              <option value="NoExecute">NoExecute</option>
+            </select>
+          </clr-select-container>
+          <input style="margin-top: 10px" type="text" size="30" name="taint_key_{{i}}" [(ngModel)]="arg.key"
+              class="clr-input" placeholder="写入label Key 值" readonly required>
+          <input style="margin-top: 10px; margin-left: 15px;" type="text" size="30" name="taint_value_{{i}}" [(ngModel)]="arg.value" class="clr-input" placeholder="写入label Value 值" readonly required>
+          <clr-icon style="margin-top: 5px;margin-left: 5px;" (click)="deleteTaint(i)" shape="trash"
+              class="is-solid"></clr-icon>
+        </div>
+        <div *ngFor="let arg of addList; let i = index; trackBy:trackByFn">
+          <clr-select-container>
+            <label class="required clr-control-label clr-col-12 clr-col-md-1">effect</label>
+            <select clrSelect name="type_{{i}}" [(ngModel)]="arg.effect">
+              <option value="NoSchedule">NoSchedule</option>
+              <option value="PreferNoSchedule">PreferNoSchedule</option>
+              <option value="NoExecute">NoExecute</option>
+            </select>
+          </clr-select-container>
+          <input style="margin-top: 10px" type="text" size="30" name="key_{{i}}" [(ngModel)]="arg.key"
+              class="clr-input" placeholder="写入label Key 值" required>
+          <input style="margin-top: 10px; margin-left: 15px;" type="text" size="30" name="value_{{i}}" [(ngModel)]="arg.value" class="clr-input" placeholder="写入label Value 值" required>
+          <clr-icon style="margin-top: 5px;margin-left: 5px;" (click)="removeTaint(i)" shape="trash"
+              class="is-solid"></clr-icon>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+          <button type="button" class="btn btn-primary" [disabled]="!isValid"
+                  (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+        </div>
+      </form>
+    </div>
+  </clr-modal>
+  

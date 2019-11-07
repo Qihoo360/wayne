@@ -35,6 +35,9 @@ func (*DeploymentTemplate) TableName() string {
 
 func (*deploymentTplModel) Add(m *DeploymentTemplate) (id int64, err error) {
 	m.Deployment = &Deployment{Id: m.DeploymentId}
+	now := time.Now()
+	m.CreateTime = now
+	m.UpdateTime = now
 	id, err = Ormer().Insert(m)
 	return
 }
@@ -75,4 +78,16 @@ func (*deploymentTplModel) DeleteById(id int64, logical bool) (err error) {
 		return err
 	}
 	return
+}
+
+func (*deploymentTplModel) GetLatestDeptplByName(ns, app, deployment string) (v *DeploymentTemplate, err error) {
+	v = &DeploymentTemplate{}
+	// use orm
+	qs := Ormer().QueryTable(new(DeploymentTemplate))
+	err = qs.Filter("Deployment__App__Namespace__Name", ns).Filter("Deployment__App__Name", app).Filter("Name", deployment).Filter("Deleted", 0).OrderBy("-id").One(v)
+	if err == nil {
+		v.DeploymentId = v.Deployment.Id
+		return v, nil
+	}
+	return nil, err
 }

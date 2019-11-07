@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Resource } from '../../shared/base/resource/resource';
 import { MessageHandlerService } from '../../shared/message-handler/message-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -25,10 +25,10 @@ import { KubernetesClient } from '../../shared/client/v1/kubernetes/kubernetes';
   templateUrl: './autoscale.component.html',
   styleUrls: ['./autoscale.component.scss']
 })
-export class AutoscaleComponent extends Resource implements OnInit, AfterContentInit {
-  @ViewChild(CreateEditAutoscaleComponent)
+export class AutoscaleComponent extends Resource implements OnInit, AfterContentInit, OnDestroy {
+  @ViewChild(CreateEditAutoscaleComponent, { static: false })
   createEditResourceComponent: CreateEditAutoscaleComponent;
-  @ViewChild(ListAutoscaleComponent)
+  @ViewChild(ListAutoscaleComponent, { static: false })
   listResourceComponent: ListAutoscaleComponent;
 
   constructor(public autoscaleService: AutoscaleService,
@@ -82,6 +82,10 @@ export class AutoscaleComponent extends Resource implements OnInit, AfterContent
 
   ngOnInit() {
     this.initShow();
+  }
+
+  ngOnDestroy() {
+    this.leave = true;
   }
 
   ngAfterContentInit() {

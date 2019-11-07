@@ -14,7 +14,7 @@ import { PersistentVolumeClaimRobinClient } from '../../../shared/client/v1/kube
 export class CreateSnapshotComponent {
   createAppOpened: boolean;
   snapForm: NgForm;
-  @ViewChild('snapForm')
+  @ViewChild('snapForm', { static: true })
   currentForm: NgForm;
   @Input() appId: number;
 

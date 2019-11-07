@@ -9,7 +9,7 @@ import { ApiNameGenerateRule } from '../../utils';
 import { Resources } from '../../model/v1/resources-limit';
 
 export class CreateEditResource {
-  @ViewChild('ngForm')
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
   clusters: Cluster[];
   resourcesMetas = new Resources();
@@ -184,7 +184,8 @@ export class CreateEditResource {
   }
 
   public get isValid(): boolean {
-    return this.currentForm.valid &&
+    return this.currentForm &&
+      this.currentForm.valid &&
       !this.isSubmitOnGoing &&
       this.isNameValid &&
       !this.checkOnGoing &&

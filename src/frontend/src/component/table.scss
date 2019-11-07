@@ -31,6 +31,10 @@
   background: rgba(232, 237, 246, .45);
 }
 
+.datagrid-cell {
+  word-wrap: break-word;
+}
+
 div.datagrid-foot-description {
   display: flex;
   justify-content: flex-end;

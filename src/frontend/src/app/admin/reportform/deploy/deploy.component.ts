@@ -6,6 +6,7 @@ import * as moment from 'moment';
 
 @Component({
   selector: 'wayne-deploy',
+  styleUrls: ['./deploy.component.scss'],
   templateUrl: './deploy.component.html'
 })
 export class DeployComponent implements OnInit {
@@ -32,7 +33,8 @@ export class DeployComponent implements OnInit {
 
   refresh(state?: ClrDatagridStateInterface) {
     this.publishService.getDeployStatistics(
-      moment(this.startTime).format('YYYY-MM-DDTHH:mm:SS') + 'Z', moment(this.endTime).format('YYYY-MM-DDTHH:mm:SS') + 'Z').
+      moment(this.startTime, 'MM/DD/YYYY', true).format('YYYY-MM-DDTHH:mm:SS') + 'Z',
+       moment(this.endTime, 'MM/DD/YYYY', true).format('YYYY-MM-DDTHH:mm:SS') + 'Z').
     subscribe(
       resp => {
         this.datas = resp.data;

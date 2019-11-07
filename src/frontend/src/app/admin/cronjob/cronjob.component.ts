@@ -19,9 +19,9 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./cronjob.component.scss']
 })
 export class CronjobComponent implements OnInit, OnDestroy {
-  @ViewChild(ListCronjobComponent)
+  @ViewChild(ListCronjobComponent, { static: false })
   list: ListCronjobComponent;
-  @ViewChild(CreateEditCronjobComponent)
+  @ViewChild(CreateEditCronjobComponent, { static: false })
   createEdit: CreateEditCronjobComponent;
 
   pageState: PageState = new PageState();

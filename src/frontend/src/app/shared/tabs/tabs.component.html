@@ -8,10 +8,22 @@
         <span class="tabs-next" [class.disabled]="nextDisabled" (mouseenter)="nextEnter()" (mouseleave)="nextLeave()"
               (click)="next()"></span>
       </ng-container>
-      <div class="tabs-list" [style.transform]="listTransform">
+      <div class="tabs-list" [style.transform]="listTransform" [style.whiteSpace]="allowShowAll ? 'normal' : 'nowrap'">
         <!-- <div class="tabs-active-bar" [style.left.px]="barStyle.left" [style.width.px]="barStyle.width"></div> -->
         <ng-content select="wayne-tab"></ng-content>
       </div>
+    </div>
+    <div class="fold" [class.hidden]="!showFoldIcon">
+      <span (click)="changeCard()">
+        <span *ngIf="!allowShowAll" style="color: #377aec;">{{'ACTION.UNFOLD' | translate}}</span>
+        <span *ngIf="allowShowAll" style="color: #377aec;">{{'ACTION.FOLD' | translate}}</span>
+        <svg class="card-change-svg" width="12" height="12" xmlns="http://www.w3.org/2000/svg" viewBox="0, 0, 20, 10"
+          style="margin-left: 3px;transition: transform 250ms ease-in-out;" [ngStyle]="{transform: allowShowAll ? 'rotateZ(90deg)' : 'rotateZ(0)'}">
+          <polyline points="3,2 10,10 17,2" style="fill: white;stroke: #377aec;stroke-width: 2;"></polyline>
+          <circle cx="3" cy="2" r="1" style="fill: #377aec;"></circle>
+          <circle cx="17" cy="2" r="1" style="fill: #377aec;"></circle>
+        </svg>
+      </span>
     </div>
   </div>
 </div>

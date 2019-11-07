@@ -18,7 +18,7 @@ export class CreateEditAppWebHookComponent implements OnInit {
   @Output() create = new EventEmitter<boolean>();
   @Output() update = new EventEmitter<boolean>();
 
-  @ViewChild('webHookForm')
+  @ViewChild('webHookForm', { static: true })
   currentForm: NgForm;
 
   webHook: WebHook;
@@ -131,21 +131,4 @@ export class CreateEditAppWebHookComponent implements OnInit {
   public get isValid(): boolean {
     return this.currentForm && this.currentForm.valid;
   }
-
-  validateName(): boolean {
-    const ctl = this.currentForm.controls['webhook-name'];
-    if (ctl) {
-      return ctl.valid;
-    }
-    return false;
-  }
-
-  validateUrl(): boolean {
-    const ctl = this.currentForm.controls['webhook-url'];
-    if (ctl) {
-      return ctl.valid;
-    }
-    return false;
-  }
-
 }

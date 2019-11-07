@@ -1,0 +1,41 @@
+<clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'lg'">
+  <h3 class="modal-title">创建自定义链接</h3>
+  <div class="modal-body">
+    <form #ngForm="ngForm" clrForm clrLayout="horizontal">
+      <clr-select-container>
+        <label class="required">类型</label>
+        <select clrSelect name="type" style="width: 370px;" [(ngModel)]="config.linkType" (change)="typeChange()" required>
+          <option *ngFor="let type of linkTypes;" value="{{type?.typeName}}">{{type?.typeName}}</option>
+        </select>
+      </clr-select-container>
+      <clr-select-container>
+        <label class="required">部门</label>
+        <select clrSelect name="department" style="width: 370px;" [(ngModel)]="config.namespace" required>
+          <option *ngFor="let namespace of namespaces" value="{{namespace?.name}}">{{namespace?.name}}</option>
+        </select>
+      </clr-select-container>
+      <clr-input-container>
+        <label class="required">Url</label>
+        <input clrInput type="text" [(ngModel)]="config.url" name="url" size="48" required
+          [readonly]="actionType==1" maxlength="256">
+      </clr-input-container>
+      <div class="clr-form-control clr-row" *ngIf="paramsList.length">
+        <label class="clr-control-label clr-col-12 clr-col-md-2">参数
+        </label>
+        <div class="clr-control-container clr-col-md-10 clr-col-12">
+          <div class="clr-input-wrapper">
+              <wayne-select style="width: 370px;" [(ngModel)]="params" multiple name="params">
+                <wayne-option *ngFor="let option of paramsList;" [value]="option">{{option}}</wayne-option>
+              </wayne-select>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+      <button type="button" class="btn btn-primary" [disabled]="!isValid"
+              (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+    </div>
+  </div>
+
+</clr-modal>

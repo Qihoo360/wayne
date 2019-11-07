@@ -37,9 +37,9 @@ const showState = {
   styleUrls: ['./ingress.component.scss']
 })
 export class IngressComponent extends Resource implements OnInit, OnDestroy, AfterContentInit {
-  @ViewChild(CreateEditIngressComponent)
+  @ViewChild(CreateEditIngressComponent, { static: false })
   createEditResourceComponent: CreateEditIngressComponent;
-  @ViewChild(ListIngressComponent)
+  @ViewChild(ListIngressComponent, { static: false })
   listResourceComponent: ListIngressComponent;
 
   constructor(public ingressService: IngressService,
@@ -96,6 +96,7 @@ export class IngressComponent extends Resource implements OnInit, OnDestroy, Aft
 
   ngOnDestroy(): void {
     clearInterval(this.timer);
+    this.leave = true;
     this.subscription.unsubscribe();
     this.tabScription.unsubscribe();
   }

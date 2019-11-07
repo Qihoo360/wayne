@@ -1,65 +1,44 @@
 <clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'lg'">
   <h3 class="modal-title">{{webHookTitle}}</h3>
   <div class="modal-body">
-    <form #webHookForm="ngForm">
+    <form #webHookForm="ngForm" clrForm clrLayout="horizontal">
       <section class="form-block">
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="webhook-name"
-                 class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
-          <label for="webhook-name" aria-haspopup="true" role="tooltip" [class.invalid]="!validateName()"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
-            <input class="form-control" type="text" id="webhook-name" [(ngModel)]="webHook.name"
-                   name="webhook-name"
-                   required
-                   size="32"
-                   maxlength="32"
-                   [placeholder]="'PLACEHOLDER.NAME' | translate">
-            <span class="tooltip-content">
-              {{ 'RULE.NAME' | translate }}
-            </span>
-          </label>
-          <span class="spinner spinner-inline" [hidden]="!requestLocked"></span>
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="webhook-url" class="clr-col-md-3 form-group-label-override required">{{ 'WEBHOOK.ADDRESS' | translate }}</label>
-          <label for="webhook-url" aria-haspopup="true" role="tooltip" [class.invalid]="!validateUrl()"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
-            <input class="form-control" type="text" id="webhook-url" [(ngModel)]="webHook.url"
-                   name="webhook-url"
-                   required
-                   [placeholder]="'PLACEHOLDER.DELIVERY_ADDR' | translate"
-                   pattern="(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]">
-            <span class="tooltip-content">
-              {{ 'RULE.URL' | translate }} 
-            </span>
-          </label>
-          <span class="spinner spinner-inline" [hidden]="!requestLocked"></span>
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="webhook-secret" class="clr-col-md-3 form-group-label-override">{{ 'WEBHOOK.CIPHER' | translate }}</label>
-          <label for="webhook-secret" aria-haspopup="true" role="tooltip"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
-            <input class="form-control" type="text" id="webhook-secret" [(ngModel)]="webHook.secret"
-                   name="webhook-secret"
-                   maxlength="120"
-                   [placeholder]="'PLACEHOLDER.CIPHER' | translate">
-          </label>
-          <span class="spinner spinner-inline" [hidden]="!requestLocked"></span>
-        </div>
-        <div class="form-group" style="padding-left: 135px;height:250px;">
-          <label for="webhook-events" class="clr-col-md-3 form-group-label-override required">{{ 'WEBHOOK.FOCUS_EVENT' | translate }}</label>
-          <label for="webhook-events" aria-haspopup="true" role="tooltip"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <ng2-dual-list-box name="webhook-events"
-                               [data]="hookEvents"
-                               valueField="key"
-                               textField="name"
-                               [availableText]="'TITLE.AVAIL_ITEM' | translate"
-                               [selectedText]="'TITLE.CHOOSED_ITEM' | translate"
-                               [(ngModel)]="watchEventKeys"
-            >
+        <clr-input-container>
+          <label for="name" class="required">{{'TITLE.NAME' | translate}}</label>
+          <input type="text" clrInput id="name" [(ngModel)]="webHook.name" name="name" style="width: 15rem" required size="32"  maxlength="32" [placeholder]="'PLACEHOLDER.NAME' | translate" >
+          <clr-control-helper>
+          </clr-control-helper>
+          <clr-control-error>
+            {{ 'RULE.NAME' | translate }}
+          </clr-control-error>
+        </clr-input-container>
+        <clr-input-container>
+          <label for="webhook-url" class="required">{{'WEBHOOK.ADDRESS' | translate}}</label>
+          <input clrInput type="text" id="webhook-url" [(ngModel)]="webHook.url" name="webhook-url"  style="width: 15rem" required
+              [placeholder]="'PLACEHOLDER.DELIVERY_ADDR' | translate" pattern="(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]">
+          <clr-control-helper>
+          </clr-control-helper>
+          <clr-control-error>
+            {{ 'RULE.NAME' | translate }}
+          </clr-control-error>
+        </clr-input-container>
+        <clr-input-container>
+          <label for="webhook-url">{{'WEBHOOK.CIPHER' | translate}}</label>
+          <input clrInput type="text" id="webhook-secret" [(ngModel)]="webHook.secret" name="webhook-secret"
+            style="width: 15rem" maxlength="120" [placeholder]="'PLACEHOLDER.CIPHER' | translate">
+          <clr-control-helper>
+          </clr-control-helper>
+          <clr-control-error>
+            {{ 'RULE.NAME' | translate }}
+          </clr-control-error>
+        </clr-input-container>
+        <div class="clr-form-control clr-row">
+          <label class="clr-control-label required">{{ 'WEBHOOK.FOCUS_EVENT' | translate }}</label>
+          <div class="clr-control-container" style="flex: 1;">
+            <ng2-dual-list-box name="webhook-events" [data]="hookEvents" valueField="key" textField="name" [availableText]="'TITLE.AVAIL_ITEM' | translate"
+              [selectedText]="'TITLE.CHOOSED_ITEM' | translate" [(ngModel)]="watchEventKeys">
             </ng2-dual-list-box>
-          </label>
+          </div>
         </div>
       </section>
     </form>

@@ -24,7 +24,7 @@ export class CreateEditStatefulsettplComponent implements OnInit {
   modalOpened: boolean;
 
   ngForm: NgForm;
-  @ViewChild('ngForm')
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
   statefulsetTpl: StatefulsetTemplate = new StatefulsetTemplate();
@@ -35,7 +35,7 @@ export class CreateEditStatefulsettplComponent implements OnInit {
 
   statefulsets: Statefulset[];
 
-  @ViewChild(AceEditorBoxComponent) aceBox: any;
+  @ViewChild(AceEditorBoxComponent, { static: false }) aceBox: any;
 
   constructor(private statefulsetTplService: StatefulsetTplService,
               private statefulsetService: StatefulsetService,

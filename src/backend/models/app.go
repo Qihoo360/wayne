@@ -33,6 +33,7 @@ type App struct {
 	UpdateTime *time.Time `orm:"auto_now;type(datetime)" json:"updateTime,omitempty"`
 	User       string     `orm:"size(128)" json:"user,omitempty"`
 	Deleted    bool       `orm:"default(false)" json:"deleted,omitempty"`
+	Migrated   bool       `orm:"default(false)" json:"migrated,omitempty"`
 
 	// 用于权限的关联查询
 	AppUsers []*AppUser `orm:"reverse(many)" json:"-"`
@@ -209,4 +210,16 @@ func (*appModel) GetByNameAndDeleted(name string, deleted bool) (a *App, err err
 		return a, nil
 	}
 	return nil, err
+}
+
+// change namespaceId of app from sourceId to targetId
+func (*appModel) UpdateByNamespaceId(sourceId, targetId int64) (err error) {
+	var sql string
+	sql = "update " + TableNameApp + " set namespace_id=?, migrated=1 where namespace_id=?;"
+	args := [...]interface{} {
+		targetId,
+		sourceId,
+	}
+	_, err = orm.NewOrm().Raw(sql, args).Exec()
+	return
 }

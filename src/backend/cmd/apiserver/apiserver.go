@@ -6,6 +6,7 @@ import (
 
 	"github.com/Qihoo360/wayne/src/backend/initial"
 	_ "github.com/Qihoo360/wayne/src/backend/routers"
+	"github.com/Qihoo360/wayne/src/backend/workers/webhook"
 )
 
 var (
@@ -36,6 +37,11 @@ func run(cmd *cobra.Command, args []string) {
 	busEnable := beego.AppConfig.DefaultBool("BusEnable", false)
 	if busEnable {
 		initial.InitBus()
+	}
+	// register webhook event handler
+	hookenable := beego.AppConfig.DefaultBool("EnableWebhook", false)
+	if hookenable {
+		webhook.RegisterHookHandler()
 	}
 
 	// 初始化RsaPrivateKey

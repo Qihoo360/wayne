@@ -5,123 +5,128 @@
   <div class="tpl-nav">
     <wayne-navigation container=".content-area" [node]="naviList"></wayne-navigation>
   </div>
-  <form #ngForm="ngForm" style="padding-right: 30px;width: 100%">
+  <form #ngForm="ngForm" clrForm clrLayout="horizontal">
     <wayne-collapse>
       <label class="label-level1" id="release-message">{{'TEMPLATE.RELEASE_MESSAGE' | translate}}</label>
-      <div class="form-group form-group-padding">
-        <label class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.RELEASE_EXPLAIN' | translate}}</label>
-        <textarea name="description" [(ngModel)]="cronjobTpl.description" rows="3" style="width: 65%" required>
-        </textarea>
-      </div>
+      <clr-textarea-container>
+        <label class="required">{{'TEMPLATE.RELEASE_EXPLAIN' | translate}}</label>
+        <textarea clrTextarea name="deployment_description" [(ngModel)]="cronjobTpl.description" rows="3" style="width: 65%"
+          required>
+              </textarea>
+        <clr-control-error>description is required</clr-control-error>
+      </clr-textarea-container>
+  
     </wayne-collapse>
     <wayne-collapse>
       <label class="label-level1" id="config">{{'CRONJOB.CONFIG' | translate}}</label>
       <div style="padding-top:10px">
-        <label class="clr-col-md-12 form-group-label-override required">
+        <label class="clr-col-md-12 form-group-label-override">
           <span class="tooltip" style="color:red;" [innerHTML]="'CRONJOB.CONFIG_MESSAGE' | translate">
           </span>
         </label>
       </div>
-      <div style="margin-top: 15px" class="form-group form-group-padding">
-        <label class="clr-col-md-3 form-group-label-override required">{{'CRONJOB.RUN_CYCLE' | translate}}
+      <div class="clr-form-control clr-row">
+        <label class="clr-control-label">{{'CRONJOB.RUN_CYCLE' | translate}}
           <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
             <clr-icon shape="info-circle" size="24"></clr-icon>
             <span class="tooltip-content">{{'CRONJOB.RUN_CYCLE_MESSAGE' | translate}}</span>
           </a>
         </label>
-        <label aria-haspopup="true" role="tooltip" [class.invalid]="!isScheduleValid"
-                class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-          <wayne-select [(ngModel)]="kubeResource.spec.schedule"
-                        inputable
-                        name="schedule"
-                        [placeholder]="'PLACEHOLDER.CHOOSE' | translate">
+        <div class="clr-control-container" [class.clr-error]="!isScheduleValid">
+          <wayne-select [(ngModel)]="kubeResource.spec.schedule" inputable name="schedule" [placeholder]="'PLACEHOLDER.CHOOSE' | translate">
             <wayne-option value="*/1 * * * *">*/1 * * * *(每分钟)</wayne-option>
             <wayne-option value="0 * * * *">0 * * * *(每小时)</wayne-option>
             <wayne-option value="0 0 * * *">0 0 * * *(每天)</wayne-option>
             <wayne-option value="0 0 * * 0">0 0 * * 0(每周)</wayne-option>
             <wayne-option value="0 0 1 * *">0 0 1 * *(每月)</wayne-option>
           </wayne-select>
-          <span class="tooltip-content">
-            {{'CRONJOB.EXPRESSION_MESSAGE' | translate}}
+          <span class="clr-subtext">
+            <a target="_blank" href="https://en.wikipedia.org/wiki/Cron">More</a>
           </span>
-          <a target="_blank" href="https://en.wikipedia.org/wiki/Cron">More</a>
-        </label>
+        </div>
       </div>
-      <div class="form-group form-group-padding">
-        <label class="clr-col-md-3 form-group-label-override required">{{'CRONJOB.PARALLEL_STRATEGY' | translate}}
+ 
+      <clr-select-container>
+        <label class="required">
+          {{'CRONJOB.PARALLEL_STRATEGY' | translate}}
           <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
             <clr-icon shape="info-circle" size="24"></clr-icon>
             <span class="tooltip-content">{{'CRONJOB.PARALLEL_STRATEGY_MESSAGE' | translate}}</span>
           </a>
         </label>
-        <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-          <div class="select">
-            <select name="concurrencyPolicy" [(ngModel)]="kubeResource.spec.concurrencyPolicy">
-              <option value="Allow" selected>{{'ACTION.ALLOW' | translate}}</option>
-              <option value="Forbid">{{'ACTION.FORBID' | translate}}</option>
-              <option value="Replace">{{'ACTION.REPLACE' | translate}}</option>
-            </select>
-          </div>
-        </label>
-      </div>
-      <div class="form-group form-group-padding">
-        <label class="clr-col-md-3 form-group-label-override">保留成功 Job 数
-          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
-            <clr-icon shape="info-circle" size="24"></clr-icon>
-            <span class="tooltip-content">允许保留的成功的任务个数</span>
-          </a>
-        </label>
-        <input type="number" name="successfulJobsHistoryLimit"
-               [(ngModel)]="kubeResource.spec.successfulJobsHistoryLimit">
-        <label class="clr-col-md-3 form-group-label-override" style="color: #000">保留失败 Job 数
-          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
-            <clr-icon shape="info-circle" size="24"></clr-icon>
-            <span class="tooltip-content">允许保留的失败的任务个数</span>
-          </a>
-        </label>
-        <input type="number" name="failedJobsHistoryLimit"
-               [(ngModel)]="kubeResource.spec.failedJobsHistoryLimit">
-      </div>
+        <select clrSelect name="concurrencyPolicy" [(ngModel)]="kubeResource.spec.concurrencyPolicy">
+          <option value="Allow" selected>{{'ACTION.ALLOW' | translate}}</option>
+          <option value="Forbid">{{'ACTION.FORBID' | translate}}</option>
+          <option value="Replace">{{'ACTION.REPLACE' | translate}}</option>
+        </select>
+      </clr-select-container>
 
-      <div class="form-group form-group-padding">
-        <label class="clr-col-md-3 form-group-label-override">失败重试次数
-          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
-            <clr-icon shape="info-circle" size="24"></clr-icon>
-            <span class="tooltip-content">失败尝试次数，若失败次数超过该值，则任务不会继续尝试工作</span>
-          </a>
-        </label>
-        <input type="number" name="backoffLimit"
-               [(ngModel)]="kubeResource.spec.jobTemplate.spec.backoffLimit">
-        <label class="clr-col-md-3 form-group-label-override" style="color: #000">运行成功限制
-          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
-            <clr-icon shape="info-circle" size="24"></clr-icon>
-            <span class="tooltip-content">标志任务结束需要成功运行的容器组个数</span>
-          </a>
-        </label>
-        <input type="number" name="completions"
-               [(ngModel)]="kubeResource.spec.jobTemplate.spec.completions">
+      <div class="form-inline">
+        <clr-input-container>
+          <label style="padding-right: 0;">
+            保留成功 Job 数
+            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
+              <clr-icon shape="info-circle" size="20"></clr-icon>
+              <span class="tooltip-content">允许保留的成功的任务个数</span>
+            </a>
+          </label>
+          <input type="number" clrInput name="successfulJobsHistoryLimit" [(ngModel)]="kubeResource.spec.successfulJobsHistoryLimit">
+        </clr-input-container>
+        <clr-input-container>
+          <label style="padding-right: 0;">
+            保留失败 Job 数
+            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
+              <clr-icon shape="info-circle" size="20"></clr-icon>
+              <span class="tooltip-content">允许保留的失败的任务个数</span>
+            </a>
+          </label>
+          <input type="number" clrInput name="failedJobsHistoryLimit" [(ngModel)]="kubeResource.spec.failedJobsHistoryLimit">
+        </clr-input-container>
       </div>
-
-
-      <div class="form-group form-group-padding">
-        <label class="clr-col-md-3 form-group-label-override">允许并发数
-          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
-            <clr-icon shape="info-circle" size="24"></clr-icon>
-            <span class="tooltip-content">标志并行运行的容器组的个数</span>
-          </a>
-        </label>
-        <input type="number" name="parallelism"
-               [(ngModel)]="kubeResource.spec.jobTemplate.spec.parallelism">
-        <label class="clr-col-md-3 form-group-label-override" style="color: #000">{{'CRONJOB.MAX_EXECUTE_TIME' | translate}}
-          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
-            <clr-icon shape="info-circle" size="24"></clr-icon>
-            <span class="tooltip-content">{{'CRONJOB.MAX_EXECUTE_TIME_MESSAGE' | translate}}</span>
-          </a>
-        </label>
-        <input type="number" name="activeDeadlineSeconds"
-               [(ngModel)]="kubeResource.spec.jobTemplate.spec.activeDeadlineSeconds">
+      <div class="form-inline">
+        <clr-input-container>
+          <label>
+            失败重试次数
+            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
+              <clr-icon shape="info-circle" size="20"></clr-icon>
+              <span class="tooltip-content">失败尝试次数，若失败次数超过该值，则任务不会继续尝试工作</span>
+            </a>
+          </label>
+          <input type="number" clrInput name="backoffLimit" [(ngModel)]="kubeResource.spec.jobTemplate.spec.backoffLimit">
+        </clr-input-container>
+        <clr-input-container>
+          <label>
+            运行成功限制
+            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
+              <clr-icon shape="info-circle" size="20"></clr-icon>
+              <span class="tooltip-content">标志任务结束需要成功运行的容器组个数</span>
+            </a>
+          </label>
+          <input type="number" clrInput name="completions" [(ngModel)]="kubeResource.spec.jobTemplate.spec.completions">
+        </clr-input-container>
       </div>
-
+      <div class="form-inline">
+        <clr-input-container>
+          <label>
+            允许并发数
+            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
+              <clr-icon shape="info-circle" size="24"></clr-icon>
+              <span class="tooltip-content">标志并行运行的容器组的个数</span>
+            </a>
+          </label>
+          <input type="number" clrInput name="parallelism" [(ngModel)]="kubeResource.spec.jobTemplate.spec.parallelism">
+        </clr-input-container>
+        <clr-input-container>
+          <label>
+            {{'CRONJOB.MAX_EXECUTE_TIME' | translate}}
+            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
+              <clr-icon shape="info-circle" size="24"></clr-icon>
+              <span class="tooltip-content">{{'CRONJOB.MAX_EXECUTE_TIME_MESSAGE' | translate}}</span>
+            </a>
+          </label>
+          <input type="number" clrInput name="activeDeadlineSeconds" [(ngModel)]="kubeResource.spec.jobTemplate.spec.activeDeadlineSeconds">
+        </clr-input-container>
+      </div>
     </wayne-collapse>
     <wayne-collapse *ngFor="let container of kubeResource.spec.jobTemplate.spec.template.spec.containers; let i = index">
       <label class="label-level1" [id]="i ? 'container-config' + i : 'container-config'">{{'TEMPLATE.CONTAINER_CONFIG' | translate}}
@@ -129,75 +134,65 @@
       </label>
       <div class="container-box">
         <label class="label-level2" [id]="i ? 'image-config' + i : 'image-config'">{{'TEMPLATE.IMAGE_CONFIG' | translate}}</label>
-        <div class="form-group form-group-padding">
-          <label class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.CONTAINER_NAME' | translate}}</label>
-          <label aria-haspopup="true" role="tooltip" [class.invalid]="containerIsInvalid(i,'container.name_')"
-                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text" size="90" class="clr-col-sm-12" required name="container.name_{{i}}"
-                    pattern="[a-z]([-a-z0-9]*[a-z0-9])?" [(ngModel)]="container.name"
-                    [placeholder]="'RULE.CONTAINER' | translate" (input)="containerNameChange()"  (compositionend)="containerNameChange()">
-            <span class="tooltip-content">
-              {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
+        <clr-input-container>
+          <label class="required">{{'TEMPLATE.CONTAINER_NAME' | translate}}</label>
+          <input type="text" clrInput size="60" required name="container.name_{{i}}" pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
+            [(ngModel)]="container.name" [placeholder]="'RULE.CONTAINER' | translate" (input)="containerNameChange()"
+            (compositionend)="containerNameChange()">
+          <clr-control-error>{{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?</clr-control-error>
+        </clr-input-container>
+        <clr-input-container>
+          <label class="required">{{'TEMPLATE.IMAGE_ADDRESS' | translate}}</label>
+          <input type="text" clrInput size="60" name="container.image_{{i}}" required pattern="{{getImagePrefixReg()}}"
+            [(ngModel)]="container.image" [placeholder]="'TEMPLATE.IMAGE_ADDRESS' | translate">
+          <clr-control-error>{{'RULE.REGEXT' | translate}}{{getImagePrefixReg()}}</clr-control-error>
+        </clr-input-container>
+        <clr-input-container>
+          <label class="required">{{'TEMPLATE.MEMORY_NUM' | translate}}</label>
+          <input type="number" clrInput style="width:inherit" name="container.resources.limits.memory_{{i}}" required
+            [(ngModel)]="container.resources.limits.memory" size="60" [placeholder]="'UNIT.MEMORY' | translate">
+          <clr-control-helper>
+            <ng-container *ngIf="!!checkMemory(container.resources.limits.memory)">
+              price: {{container.resources.limits.memory * memoryUnitPrice | number:'1.2-2'}}{{'UNIT.PRICE' |
+              translate}}
+            </ng-container>
+            <span class="clr-error clr-subtext" [translate]="'RULE.MEMORY'" [translateParams]="{value: memoryLimit}" *ngIf="!checkMemory(container.resources.limits.memory)"></span>
+          </clr-control-helper>
+          <clr-control-error>
+            <span [translate]="'RULE.MEMORY'" [translateParams]="{value: memoryLimit}"></span>
+          </clr-control-error>
+        </clr-input-container>
+        <clr-input-container>
+          <label class="required">{{'TEMPLATE.CORE_NUM' | translate}}</label>
+          <input type="number" clrInput name="container.resources.limits.cpu_{{i}}" [(ngModel)]="container.resources.limits.cpu"
+            style="width:inherit" required [placeholder]="'UNIT.CPU' | translate">
+          <clr-control-helper>
+            <span *ngIf="!!checkCpu(container.resources.limits.cpu)">
+              price: {{container.resources.limits.cpu * cpuUnitPrice | number:'1.2-2'}}{{'UNIT.PRICE' | translate}}
             </span>
-          </label>
-        </div>
-        <div class="form-group form-group-padding">
-          <label class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.IMAGE_ADDRESS' | translate}}</label>
-          <label aria-haspopup="true" role="tooltip" [class.invalid]="containerIsInvalid(i,'container.image_')"
-                  class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="text" size="90" class="clr-col-sm-12" name="container.image_{{i}}" required
-                    pattern="{{getImagePrefixReg()}}" [(ngModel)]="container.image"
-                    [placeholder]="'TEMPLATE.IMAGE_ADDRESS' | translate">
-            <span class="tooltip-content">
-              {{'RULE.REGEXT' | translate}} {{getImagePrefixReg()}}
+            <span *ngIf="!checkCpu(container.resources.limits.cpu)" [translate]="'RULE.CPU'" translateParams="{value: cpuLimit}"
+              class="tooltip-content">
             </span>
-          </label>
-        </div>
-        <div class="form-group form-group-padding">
-          <label class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.MEMORY_NUM' | translate}}</label>
-          <label aria-haspopup="true" [class.invalid]="!checkMemory(container.resources.limits.memory)"
-                  style="padding-right: 0;margin-right: 0;padding-left: 0"
-                  role="tooltip" class="clr-col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="number" style="width:inherit" name="container.resources.limits.memory_{{i}}" required
-                    [(ngModel)]="container.resources.limits.memory"
-                    [placeholder]="'UNIT.MEMORY' | translate">
-            <span [translate]="'RULE.MEMORY'" [translateParams]="{value: memoryLimit}" class="tooltip-content">
+          </clr-control-helper>
+          <clr-control-error>
+            <span [translate]="'RULE.CPU'" translateParams="{value: cpuLimit}" class="tooltip-content">
             </span>
-          </label>
-          <label class="clr-col-md-3">G&nbsp;&nbsp;&nbsp;
-          </label>
-        </div>
-        <div class="form-group form-group-padding">
-          <label class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.CORE_NUM' | translate}}</label>
-          <label aria-haspopup="true" [class.invalid]="!checkCpu(container.resources.limits.cpu)"
-                  style="padding-right: 0;margin-right: 0;padding-left: 0"
-                  role="tooltip" class="clr-col-md-6 tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <input type="number" name="container.resources.limits.cpu_{{i}}"
-                    [(ngModel)]="container.resources.limits.cpu" style="width:inherit"
-                    required [placeholder]="'UNIT.CPU' | translate">
-            <span [translate]="'RULE.CPU' | translate" [translateParams]="{value: cpuLimit}" class="tooltip-content">
-            </span>
-          </label>
-          <label class="clr-col-md-3">{{'UNIT.CORE' | translate}}&nbsp;&nbsp;&nbsp;
-          </label>
-        </div>
-
+          </clr-control-error>
+        </clr-input-container>
       </div>
 
-      <div class="container-box">
-        <div class="form-group form-group-padding">
-          <label style="color: #007cbb" class="label-level2" [id]="i ? '镜像拉取策略' + i : '镜像拉取策略'">镜像拉取策略
+      <div class="container-box" style="margin-left: .5rem;">
+        <clr-select-container>
+          <label style="color: #007cbb;font-weight: 400;" class="label-level2" [id]="i ? '镜像拉取策略' + i : '镜像拉取策略'">
+            镜像拉取策略
           </label>
-          <div class="select">
-            <select [(ngModel)]="container.imagePullPolicy" name="imagePullPolicy_{{i}}">
-              <option value="IfNotPresent">IfNotPresent</option>
-              <option value="Always">Always</option>
-              <option value="Never">Never</option>
-            </select>
-          </div>
-        </div>
+          <select clrSelect [(ngModel)]="container.imagePullPolicy" name="imagePullPolicy_{{i}}">
+            <option value="IfNotPresent">IfNotPresent</option>
+            <option value="Always">Always</option>
+            <option value="Never">Never</option>
+          </select>
+        </clr-select-container>
       </div>
-
       <div class="container-box">
         <label class="label-level2" [id]="i ? '启动命令' + i : '启动命令'">启动命令
           <button (click)="onAddContainerCommand(i)" style="margin-left: 10px;" class="wayne-button primary">
@@ -205,12 +200,10 @@
             添加命令
           </button>
         </label>
-        <div *ngFor="let cmd of container.command; let cmdIndex = index; trackBy:trackByFn">
-          <input style="margin-top: 10px" type="text" size="60" name="command_{{i}}_{{cmdIndex}}"
-                  [(ngModel)]="container.command[cmdIndex]"
-                  placeholder="容器 Entrypoint">
-          <clr-icon style="margin-top: 5px;margin-left: 5px;" (click)="onDeleteContainerCommand(i,cmdIndex)" shape="trash"
-                    class="is-solid"></clr-icon>
+        <div *ngFor="let cmd of container.command; let k = index; trackBy:trackByFn">
+          <input class="clr-input" type="text" size="60" name="command_{{i}}_{{k}}" [(ngModel)]="container.command[k]"
+            placeholder="容器 Entrypoint">
+          <clr-icon style="float: right;" (click)="onDeleteContainerCommand(i,k)" shape="trash" class="is-solid"></clr-icon>
         </div>
       </div>
       <div class="container-box">
@@ -221,13 +214,11 @@
           </button>
         </label>
         <div *ngFor="let arg of container.args; let l = index; trackBy:trackByFn">
-          <input style="margin-top: 10px" type="text" size="60" name="args_{{i}}_{{l}}" [(ngModel)]="container.args[l]"
-                  placeholder="容器 CMD">
-          <clr-icon style="margin-top: 5px;margin-left: 5px;" (click)="onDeleteContainerArg(i,l)" shape="trash"
-                    class="is-solid"></clr-icon>
+          <input style="margin-top: 10px" type="text" size="60" name="args_{{i}}_{{l}}" [(ngModel)]="container.args[l]" class="clr-input"
+            placeholder="容器 CMD">
+          <clr-icon style="margin-top: 5px;margin-left: 5px;" (click)="onDeleteContainerArg(i,l)" shape="trash" class="is-solid"></clr-icon>
         </div>
       </div>
-
       <wayne-collapse disabled="true" style="margin-left: -28px;margin-bottom: -20px;">
         <label for="a" class="label-level2" [id]="i ? 'environment-var' + i : 'environment-var'">{{'TEMPLATE.ENVIRONMENT_VAR' | translate}}
           <button (click)="onAddEnvFrom(i, $event)" style="margin-left: 10px;" class="wayne-button primary">
@@ -237,93 +228,91 @@
             <clr-icon shape="add"></clr-icon>
             {{'TEMPLATE.ADD_ONE' | translate}}</button>
         </label>
-        <div *ngFor="let envFrom of container.envFrom; let j = index">
+
+        <div *ngFor="let envFrom of container.envFrom; let j = index; trackBy:trackByFn">
           <div class="form-group form-group-padding">
-            <label for="envFromType-{{i}}-{{j}}"
-                    class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.ADD_GROUP' | translate}}
+            <label for="envFromType-{{i}}-{{j}}" class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.LOAD_GROUP'
+              | translate}}
               <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
                 <clr-icon shape="info-circle" size="24"></clr-icon>
                 <span class="tooltip-content">{{'TEMPLATE.LOAD_GROUP_MESSAGE' | translate}}</span>
               </a>
             </label>
-            <div class="select">
-              <select id="envFromType-{{i}}-{{j}}" name="envFrom.type_{{i}}_{{j}}"
-                      (change)="envFromChange($event.target.value,i,j)">
+            <div class="clr-select-wrapper">
+              <select id="envFromType-{{i}}-{{j}}" name="envFrom.type_{{i}}_{{j}}" (change)="envFromChange($event.target.value,i,j)"
+                class="clr-select">
                 <option value="1" [selected]="envFrom.configMapRef">{{'TEMPLATE.LOAD_CONFIGMAP' | translate}}</option>
                 <option value="2" [selected]="envFrom.secretRef">{{'TEMPLATE.LOAD_SECRET' | translate}}</option>
               </select>
             </div>
-
-            <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnvFrom(i)" shape="plus-circle"
-                      [title]="'TEMPLATE.ADD_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
-            <clr-icon style="margin-top: 10px" (click)="onDeleteEnvFrom(i,j)" shape="trash"
-                      [title]="'TEMPLATE.DELETE_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
+            <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnvFrom(i, $event)" shape="plus-circle" [title]="'TEMPLATE.ADD_ENVIRONMENT' | translate"
+              class="is-solid"></clr-icon>
+            <clr-icon style="margin-top: 10px" (click)="onDeleteEnvFrom(i,j)" shape="trash" [title]="'TEMPLATE.DELETE_ENVIRONMENT' | translate"
+              class="is-solid"></clr-icon>
           </div>
-          <div *ngIf="envFrom" class="form-group form-group-padding">
-            <input type="text" size="40" name="envFrom.prefix_{{i}}_{{j}}" [(ngModel)]="envFrom.prefix"
-                    [placeholder]="'PLACEHOLDER.ENVIRONMENT' | translate">
-          </div>
-          <div *ngIf="envFrom && envFrom.configMapRef" class="form-group form-group-padding">
-            <input type="text" size="40" required name="envFrom.configMapRef.name_{{i}}_{{j}}"
-                    [(ngModel)]="envFrom.configMapRef.name"
-                    [placeholder]="'TEMPLATE.CONFIGMAP_NAME' | translate">
-          </div>
-          <div *ngIf="envFrom && envFrom.secretRef" class="form-group form-group-padding">
-            <input type="text" size="40" required name="envFrom.secretRef.name_{{i}}_{{j}}"
-                    [(ngModel)]="envFrom.secretRef.name" [placeholder]="'TEMPLATE.SECRET_NAME' | translate">
-          </div>
-
+          <clr-input-container *ngIf="envFrom">
+            <input type="text" clrInput size="40" name="envFrom.prefix_{{i}}_{{j}}" [(ngModel)]="envFrom.prefix" [placeholder]="'PLACEHOLDER.ENVIRONMENT' | translate">
+          </clr-input-container>
+          <clr-input-container *ngIf="envFrom && envFrom.configMapRef">
+            <input type="text" clrInput size="40" required name="envFrom.configMapRef.name_{{i}}_{{j}}" [(ngModel)]="envFrom.configMapRef.name"
+              [placeholder]="'TEMPLATE.CONFIGMAP_NAME' | translate">
+          </clr-input-container>
+          <clr-input-container *ngIf="envFrom && envFrom.secretRef">
+            <input type="text" clrInput size="40" required name="envFrom.secretRef.name_{{i}}_{{j}}" [(ngModel)]="envFrom.secretRef.name"
+              [placeholder]="'TEMPLATE.SECRET_NAME' | translate">
+          </clr-input-container>
         </div>
 
-        <div *ngFor="let env of container.env; let j = index">
+        <div *ngFor="let env of container.env; let j = index; trackBy:trackByFn">
           <div class="form-group form-group-padding">
-            <label for="envType-{{i}}-{{j}}"
-                    class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.ADD_ONE' | translate}}
+            <label for="envType-{{i}}-{{j}}" class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.ADD_ONE'
+              | translate}}
               <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
                 <clr-icon shape="info-circle" size="24"></clr-icon>
                 <span class="tooltip-content">{{'TEMPLATE.SUPPORT_ENVIRONMENT_MESSAGE' | translate}}</span>
               </a>
             </label>
-            <div class="select">
-              <select id="envType-{{i}}-{{j}}" name="env.type_{{i}}_{{j}}"
-                      (change)="envChange($event.target.value,i,j)">
+            <div class="clr-select-wrapper">
+              <select id="envType-{{i}}-{{j}}" name="env.type_{{i}}_{{j}}" (change)="envChange($event.target.value,i,j)" class="clr-select">
                 <option value="0" [selected]="env.value!=null">{{'TEMPLATE.LOAD_ENVIRONMENT' | translate}}</option>
-                <option value="1"
-                        [selected]="env.valueFrom?.configMapKeyRef">{{'TEMPLATE.LOAD_CONFIGMAP' | translate}}</option>
+                <option value="1" [selected]="env.valueFrom?.configMapKeyRef">{{'TEMPLATE.LOAD_CONFIGMAP' | translate}}</option>
                 <option value="2" [selected]="env.valueFrom?.secretKeyRef">{{'TEMPLATE.LOAD_SECRET' | translate}}</option>
                 <option value="3" selected>{{'OTHER' | translate}}</option>
               </select>
             </div>
-            <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnv(i)" shape="plus-circle"
-                      [title]="'TEMPLATE.ADD_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
-            <clr-icon style="margin-top: 10px" (click)="onDeleteEnv(i,j)" shape="trash"
-                      [title]="'TEMPLATE.DELETE_ENVIRONMENT' | translate" class="is-solid"></clr-icon>
+            <clr-icon style="margin-top: 10px;margin-right: 8px" (click)="onAddEnv(i, $event)" shape="plus-circle" [title]="'TEMPLATE.ADD_ENVIRONMENT' | translate"
+              class="is-solid"></clr-icon>
+            <clr-icon style="margin-top: 10px" (click)="onDeleteEnv(i,j)" shape="trash" [title]="'TEMPLATE.DELETE_ENVIRONMENT' | translate"
+              class="is-solid"></clr-icon>
           </div>
-          <div class="form-group form-group-padding">
-            <input [(ngModel)]="env.name" required name="env.name_{{i}}_{{j}}" type="text" size="45"
-                    [placeholder]="'TEMPLATE.ENVIRONMENT_NAME' | translate">
-          </div>
-          <div *ngIf="env.value != null" class="form-group form-group-padding">
-            <input [(ngModel)]="env.value" required name="env.value_{{i}}_{{j}}" type="text" size="45"
-                    [placeholder]="'TEMPLATE.ENVIRONMENT_VAR' | translate">
-          </div>
-          <div *ngIf="env.valueFrom && env.valueFrom.configMapKeyRef" class="form-group form-group-padding">
-            <input type="text" size="40" required name="env.valueFrom.configMapKeyRef.name_{{i}}_{{j}}"
-                    [(ngModel)]="env.valueFrom.configMapKeyRef.name"
-                    [placeholder]="'TEMPLATE.CONFIGMAP_NAME' | translate">
-            <input type="text" size="40" required name="env.valueFrom.configMapKeyRef.key_{{i}}_{{j}}"
-                    [(ngModel)]="env.valueFrom.configMapKeyRef.key"
-                    [placeholder]="'TEMPLATE.CONFIGMAP_KEY' | translate">
-          </div>
-          <div *ngIf="env.valueFrom && env.valueFrom.secretKeyRef" class="form-group form-group-padding">
-            <input type="text" size="40" required name="env.valueFrom.secretKeyRef.name_{{i}}_{{j}}"
-                    [(ngModel)]="env.valueFrom.secretKeyRef.name"
-                    [placeholder]="'TEMPLATE.SECRET_NAME' | translate">
-            <input type="text" size="40" required name="env.valueFrom.secretKeyRef.key_{{i}}_{{j}}"
-                    [(ngModel)]="env.valueFrom.secretKeyRef.key"
-                    [placeholder]="'TEMPLATE.SECRET_KEY' | translate">
-          </div>
+          <clr-input-container>
+            <input type="text" clrInput [(ngModel)]="env.name" required name="env.name_{{i}}_{{j}}" size="40" [placeholder]="'TEMPLATE.ENVIRONMENT_NAME' | translate">
+          </clr-input-container>
+          <clr-input-container *ngIf="env.value != null">
+            <input type="text" clrInput [(ngModel)]="env.value" required name="env.value_{{i}}_{{j}}" size="40" [placeholder]="'TEMPLATE.ENVIRONMENT_NUM' | translate">
+          </clr-input-container>
+          <ng-container *ngIf="env.valueFrom && env.valueFrom.configMapKeyRef">
+            <clr-input-container>
+              <input type="text" clrInput size="40" required name="env.valueFrom.configMapKeyRef.name_{{i}}_{{j}}" [(ngModel)]="env.valueFrom.configMapKeyRef.name"
+                [placeholder]="'TEMPLATE.CONFIGMAP_NAME' | translate">
+            </clr-input-container>
+            <clr-input-container>
+              <input type="text" clrInput size="40" required name="env.valueFrom.configMapKeyRef.key_{{i}}_{{j}}" [(ngModel)]="env.valueFrom.configMapKeyRef.key"
+                [placeholder]="'TEMPLATE.CONFIGMAP_KEY' | translate">
+            </clr-input-container>
+          </ng-container>
+          <ng-container *ngIf="env.valueFrom && env.valueFrom.secretKeyRef">
+            <clr-input-container>
+              <input type="text" clrInput size="40" required name="env.valueFrom.secretKeyRef.name_{{i}}_{{j}}" [(ngModel)]="env.valueFrom.secretKeyRef.name"
+                [placeholder]="'TEMPLATE.SECRET_NAME' | translate">
+            </clr-input-container>
+            <clr-input-container>
+              <input type="text" clrInput size="40" required name="env.valueFrom.secretKeyRef.key_{{i}}_{{j}}" [(ngModel)]="env.valueFrom.secretKeyRef.key"
+                [placeholder]="'TEMPLATE.SECRET_KEY' | translate">
+            </clr-input-container>
+          </ng-container>
         </div>
+
       </wayne-collapse>
     </wayne-collapse>
   </form>

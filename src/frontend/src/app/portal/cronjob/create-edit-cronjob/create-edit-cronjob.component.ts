@@ -34,8 +34,8 @@ export class CreateEditCronjobComponent extends CreateEditLimitResource {
     const suspends = {};
     for (const clu of this.clusters) {
       const clusterMeta = this.clusterMetas[clu.name];
-      if (clusterMeta && clusterMeta.checked && clusterMeta.value) {
-        replicas[clu.name] = clusterMeta.value;
+      if (clusterMeta && clusterMeta.checked) {
+        replicas[clu.name] = this.defaultClusterNum;
         suspends[clu.name] = false;
       }
     }

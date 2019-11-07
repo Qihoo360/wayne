@@ -1,78 +1,58 @@
-<wayne-box>
-  <div class="clr-row" style="padding-left: 5%">
-    <div class="clr-row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
-      <h3 class="header-title">{{'HPA.CREATE_TEMPLATE' | translate}}</h3>
-    </div>
-    <form #ngForm="ngForm" style="padding-right: 30px;width: 100%">
-      <section class="form-block wrap">
-        <label class="label-level1">{{'TEMPLATE.RELEASE_MESSAGE' | translate}}</label>
-        <div class="form-group form-group-padding">
-          <label class="clr-col-md-3 form-group-label-override required">{{'TEMPLATE.RELEASE_EXPLAIN' | translate}}</label>
-          <textarea name="description"
-                    [(ngModel)]="template.description"
-                    required
-                    rows="3"
-                    style="width: 700px;">
-          </textarea>
-        </div>
-      </section>
-      <section  class="form-block wrap" style="overflow:hidden">
-        <div style="float: left;width: 60%">
-          <label class="label-level1">{{'TEMPLATE.RESOURCE_CONFIG' | translate}}</label>
-          <div class="form-group form-group-padding" >
-            <label class="clr-col-md-4 form-group-label-override required">{{'TEMPLATE.TYPE' | translate}}</label>
-            <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input readonly type="text"
-                     [ngModelOptions]="{standalone: true}"
-                     [(ngModel)]="kubeResource.spec.scaleTargetRef.kind">
-            </label>
-          </div>
-          <div class="form-group form-group-padding" >
-            <label class="clr-col-md-4 form-group-label-override required">{{'TEMPLATE.NAME' | translate}}</label>
-            <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <wayne-select inputable name="deploy_name" [(ngModel)]="kubeResource.spec.scaleTargetRef.name"
-                            searchable
-                            [placeholder]="'PLACEHOLDER.CHOOSE' | translate">
-                <wayne-option *ngFor="let deploy of deploys" [value]="deploy.name">{{deploy.name}}</wayne-option>
-              </wayne-select>
-            </label>
-          </div>
-  
-          <label class="label-level1">{{'TEMPLATE.SCHEDULING_CONFIG' | translate}}</label>
-            <div class="form-group form-group-padding" >
-              <label class="clr-col-md-4 form-group-label-override required">{{'TEMPLATE.MIN_REPLICAS' | translate}}</label>
-              <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-                <input type="number"
-                       [ngModelOptions]="{standalone: true}"
-                       [(ngModel)]="kubeResource.spec.minReplicas">
-              </label>
-            </div>
-          <div class="form-group form-group-padding" >
-            <label class="clr-col-md-4 form-group-label-override required">{{'TEMPLATE.MAX_REPLICAS' | translate}}</label>
-            <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="number"
-                     [ngModelOptions]="{standalone: true}"
-                     [(ngModel)]="kubeResource.spec.maxReplicas">
-            </label>
-          </div>
-          <div class="form-group form-group-padding" >
-            <label class="clr-col-md-4 form-group-label-override required">{{'TEMPLATE.CPU_THRESHOLD' | translate}}</label>
-            <label aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-              <input type="number"
-                     [ngModelOptions]="{standalone: true}"
-                     [(ngModel)]="kubeResource.spec.targetCPUUtilizationPercentage">
-            </label>
-          </div>
-  
-  
-        </div>
-      </section>
-      <div class="clr-wizard-footer-buttons" style="padding-top: 30px">
-        <button type="button" class="btn btn-outline" (click)="onCancel()">{{ 'BUTTON.CANCEL' | translate}}</button>
-        <button type="button" class="btn btn-primary" (click)="onOpenModal()">{{'BUTTON.ADVANCED_CONFIG' | translate}}</button>
-        <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{ 'BUTTON.SUBMIT' | translate}}</button>
-      </div>
-    </form>
+<div class="clr-row tpl-container">
+  <div class="clr-row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
+    <h3 class="header-title" id="create-template">
+      {{'TEMPLATE.CREATE_TMP' | translate}}
+    </h3>
   </div>
-</wayne-box>
+  <form #ngForm="ngForm" clrForm clrLayout="horizontal" style="width: 100%;">
+    <wayne-collapse>
+      <label class="label-level1" id="release-message">{{'TEMPLATE.RELEASE_MESSAGE' | translate}}</label>
+      <clr-textarea-container>
+        <label class="required">{{'TEMPLATE.RELEASE_EXPLAIN' | translate}}</label>
+        <textarea clrTextarea name="description" [(ngModel)]="template.description" rows="3" style="width: 65%"
+          required>
+            </textarea>
+        <clr-control-error>description is required</clr-control-error>
+      </clr-textarea-container>
+    </wayne-collapse>
+    <wayne-collapse>
+      <label class="label-level1">{{'TEMPLATE.RESOURCE_CONFIG' | translate}}</label>
+      <clr-input-container>
+        <label class="required">{{'TEMPLATE.TYPE' | translate}}</label>
+        <input type="text" clrInput readonly [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.scaleTargetRef.kind">
+      </clr-input-container>
+      <div class="clr-form-control clr-row">
+        <label class="required">{{'TEMPLATE.NAME' | translate}}</label>
+        <div class="clr-control-container">
+          <div class="clr-input-container">
+            <wayne-select inputable name="deploy_name" [(ngModel)]="kubeResource.spec.scaleTargetRef.name" searchable [placeholder]="'PLACEHOLDER.CHOOSE' | translate">
+              <wayne-option *ngFor="let deploy of deploys" [value]="deploy.name">{{deploy.name}}</wayne-option>
+            </wayne-select>
+          </div>
+        </div>
+      </div>
+    </wayne-collapse>
+    <wayne-collapse>
+      <label class="label-level1">{{'TEMPLATE.SCHEDULING_CONFIG' | translate}}</label>
+      <clr-input-container>
+        <label class="required">{{'TEMPLATE.MIN_REPLICAS' | translate}}</label>
+        <input type="number" clrInput [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.minReplicas">
+      </clr-input-container>
+      <clr-input-container>
+        <label class="required">{{'TEMPLATE.MAX_REPLICAS' | translate}}</label>
+        <input type="number" clrInput [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.maxReplicas">
+      </clr-input-container>
+      <clr-input-container>
+        <label class="required">{{'TEMPLATE.CPU_THRESHOLD' | translate}}</label>
+        <input type="number" clrInput [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.targetCPUUtilizationPercentage">
+      </clr-input-container>
+    </wayne-collapse>
+  </form>
+</div>
+<div class="clr-wizard-footer-buttons tpl-bottom" [style.top.px]="top">
+  <button type="button" class="btn btn-outline" (click)="onCancel()">{{ 'BUTTON.CANCEL' | translate}}</button>
+  <button type="button" class="btn btn-primary" (click)="onOpenModal()">{{'BUTTON.ADVANCED_CONFIG' | translate}}</button>
+  <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{ 'BUTTON.SUBMIT' |
+    translate}}</button>
+</div>
 <wayne-ace-editor (outputObj)="saveResourceTemplate($event)"></wayne-ace-editor>

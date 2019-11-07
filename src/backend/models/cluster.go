@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/astaxie/beego/logs"
-	"k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
 
 	"github.com/Qihoo360/wayne/src/backend/util/hack"
 )
@@ -22,8 +22,9 @@ const (
 type clusterModel struct{}
 
 type Cluster struct {
-	Id   int64  `orm:"auto" json:"id,omitempty"`
-	Name string `orm:"unique;index;size(128)" json:"name,omitempty"`
+	Id          int64  `orm:"auto" json:"id,omitempty"`
+	Name        string `orm:"unique;index;size(128)" json:"name,omitempty"`
+	DisplayName string `orm:"size(512);column(displayname);null" json:"displayname,omitempty"`
 	/*
 		   {
 			  "robin": {

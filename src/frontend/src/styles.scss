@@ -214,6 +214,8 @@ a {
 
 .modal{
   padding: 0 !important;
+  // table action z-index 5000
+  z-index: 5001 !important;
 }
 
 .fullPage {
@@ -276,6 +278,10 @@ a {
   }
 }
 
+.hidden{
+  display: none!important;
+}
+
 @import "./component/button";
 @import "./component/table";
 @import "./component/pagination";
@@ -283,3 +289,5 @@ a {
 @import "./component/hack";
 @import "./component/form.scss";
 @import "./component/tpl.scss";
+@import './component/theme/custom.scss';
+@import '../node_modules/@clr/ui/src/utils/components.clarity';

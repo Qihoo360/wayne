@@ -1,0 +1,39 @@
+$clr-thead-bgcolor: #e8edf6;
+$clr-white: #fff;
+// header
+header.header-6, .header.header-6 {
+  background-color: #1d2143 !important;
+}
+
+// table
+$table-color: transparent;
+$clr-table-border-color: $table-color;
+$clr-table-header-border-bottom-color: $table-color;
+$clr-table-footer-border-top-color: $table-color;
+$clr-tablerow-bordercolor: $table-color;
+$clr-table-bordercolor: $table-color;
+$clr-table-borderstyle: $table-color;
+
+// nav
+$hover-color: #4a87ee;
+$bg-color: #31344c;
+$clr-vertical-nav-item-height: 1.5rem;
+$clr-vertical-nav-item-color: $clr-white;
+$clr-vertical-nav-item-active-color: $clr-white;
+$clr-vertical-nav-bg-color: $bg-color;
+$clr-vertical-nav-hover-bg-color: $bg-color;
+$clr-vertical-nav-icon-active-color: $clr-white;
+$clr-vertical-nav-toggle-icon-color: #adbbc4;
+.clr-vertical-nav .nav-link.active {
+  background: $hover-color !important;
+}
+
+.clr-vertical-nav .nav-link:not(.active):hover {
+  .nav-icon {
+    fill: $hover-color !important;
+  }
+
+  .nav-text {
+    color: $hover-color;
+  }
+}

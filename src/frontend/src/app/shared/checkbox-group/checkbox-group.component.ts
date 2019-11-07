@@ -2,6 +2,7 @@ import { Component, ContentChildren, forwardRef, QueryList } from '@angular/core
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { EventManager } from '@angular/platform-browser';
+import { CreateEditDaemonSetTplComponent } from 'app/portal/daemonset/create-edit-daemonsettpl/create-edit-daemonsettpl.component';
 
 @Component({
   selector: 'wayne-checkbox-group',
@@ -36,7 +37,9 @@ export class CheckboxGroupComponent implements ControlValueAccessor {
   writeValue(value: any): void {
     if (value) {
       this.value = value;
-      this.initDate(this._boxs);
+      if (this._boxs) {
+        this.initDate(this._boxs);
+      }
     }
   }
 

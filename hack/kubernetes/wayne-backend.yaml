@@ -62,8 +62,7 @@ data:
     EnableApiKeys = true
 
     # Bus
-    BusEnable = true
-    BusRabbitMQURL = "amqp://guest:guest@rabbitmq-wayne:5672"
+    BusEnable = false
 
     # Webhook
     EnableWebhook = true
@@ -95,10 +94,9 @@ spec:
           name: wayne-backend
       containers:
       - name: wayne
-        image: '360cloud/wayne-backend:latest'
+        image: 'q8sio/wayne-backend:v1.8.4-16-gf3a7366'
         command:
         - /opt/wayne/backend
-        - apiserver
         env:
         - name: GOPATH  # app.conf runmode = dev must set GOPATH
           value: /go

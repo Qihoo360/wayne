@@ -63,6 +63,8 @@
     "TEST_MAIL": "TEST MAIL SERVER",
     "TMP_DETAIL": "模板详情",
     "UPLOAD": "Upload",
+    "USE": "启用",
+    "STOP": "停用",
     "YES": "YES"
   },
   "CLUSTER": {
@@ -109,7 +111,7 @@
   "CRONJOB": {
     "JOB": "任务列表",
     "CONFIG": "计划任务配置",
-    "CONFIG_MESSAGE": "k8s 调度任务的时区是 UTC(+0)，按小时定期执行的任务，请减去8小时调整为北京时区(+8)<br>例如想在北京时间每天11点(0 11 * * *)执行定时任务，则设置为(0 2 * * *)",
+    "CONFIG_MESSAGE": "k8s 调度任务的时区是 UTC(+0)，按小时定期执行的任务，请减去8小时调整为北京时区(+8)<br>例如想在北京时间每天11点(0 11 * * *)执行定时任务，则设置为(0 3 * * *)",
     "CREATE": "创建计划任务",
     "CREATE_EDIT": {
       "CLUSTER_MESSAGE": "需要先在后台配置 Namespace 可用集群才可以创建计划任务"
@@ -212,6 +214,10 @@
     "ERROR": "错误事件",
     "ERROR_MESSAGE": "错误信息",
     "FINISH_CHECK_TIME": "最后检查时间"
+  },
+  "ERROR": {
+    "CLUSTER": "缺少机房信息",
+    "CLUSTER_NAME": "集群名称不符合规范"
   },
   "HISTORY": {
     "RELEASE_TIME": "发布时间",
@@ -337,7 +343,7 @@
   },
   "POD": {
     "CONTAINER": "容器",
-    "DATA_UPDATE": "数据实时更新: ",
+    "DATA_UPDATE": "数据实时更新",
     "ENTER_CONTAINER": "进入容器",
     "LIST": "Pod 列表",
     "LOG": "日志",
@@ -377,6 +383,7 @@
     "VIEW_USER_PASS": "查看用户名密码"
   },
   "RULE": {
+    "REQUIRED": "请填写完整",
     "CONTAINER": "英文，dns 域名规则",
     "CPU": "CPU 大小应该在0~{{value}}核之间",
     "MEMORY": "内存大小应该在0~{{value}}G 之间",

@@ -589,6 +589,7 @@ export class JobSpec {
   selector: LabelSelector;
   manualSelector: boolean;
   template: PodTemplateSpec;
+  backoffLimit?: any;
 }
 
 export class JobTemplateSpec {

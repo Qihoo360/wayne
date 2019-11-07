@@ -1,64 +1,46 @@
 <clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'lg'">
   <h3 class="modal-title">{{title}}</h3>
   <div class="modal-body">
-    <form #ngForm="ngForm" style="padding-right: 30px;width: 100%">
+    <form #ngForm="ngForm" clrForm clrLayout="horizontal">
       <section class="form-block">
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="name"
-                 class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
-          <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-            <span *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</span>
-            <input type="text" id="name" [(ngModel)]="resource.name"
-                   name="name"
-                   style="width: 15rem"
-                   required
-                   *ngIf="app && actionType==0"
-                   [readonly]="actionType==1"
-                   [placeholder]="'PLACEHOLDER.APP_NAME' | translate"
-                   pattern="[a-z]([-a-z0-9]*[a-z0-9])?"
-                   maxlength="64"
-                   (keyup)='checkNameValid()'>
-            <span *ngIf="app && actionType==1">{{resource.name}}</span>
-            <span class="tooltip-content">
-              {{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?
-        </span>
+        <div class="clr-form-control clr-row">
+          <label class="clr-control-label required">
+            {{'TITLE.NAME' | translate}}
           </label>
-          <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
+          <div class="clr-control-container clr-col-md-10 clr-col-12"
+            [class.clr-error]="name.invalid && (name.dirty || name.touched)">
+            <div class="clr-input-wrapper">
+              <span *ngIf="app && actionType==0 && nameGenerateRuleConfig=='join'">{{app.name}}-</span>
+              <input type="text" class="clr-input" id="name" [(ngModel)]="resource.name" name="name" required [readonly]="actionType==1" [placeholder]="'PLACEHOLDER.APP_NAME' | translate" pattern="[a-z]([-a-z0-9]*[a-z0-9])?" maxlength="64" (keyup)='checkNameValid()' #name="ngModel">
+            </div>
+            <span *ngIf="name.invalid && (name.dirty || name.touched)"
+              class="clr-subtext">{{'RULE.REGEXT' | translate}}[a-z]([-a-z0-9]*[a-z0-9])?</span>
+          </div>
         </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label class="clr-col-md-3 form-group-label-override required">{{'TITLE.CLUSTER' | translate}}</label>
+        <div class="clr-form-control clr-row">
+          <label class="clr-control-label required">{{'TITLE.CLUSTER' | translate}}</label>
           <span class="warning-text" *ngIf="!clusters || clusters && clusters.length === 0">{{'DEPLOYMENT.CREATE_EDIT.CLUSTER_MESSAGE' | translate}}</span>
-          <div *ngFor="let cluster of clusters" class="checkbox-inline">
-            <div class="checkbox">
-              <input [(ngModel)]="clusterMetas[cluster.name].checked"
-                     type="checkbox"
-                     id="{{cluster.name}}-check"
-                     name="{{cluster.name}}-check">
-              <label for="{{cluster.name}}-check">{{cluster.name}}</label>
-              <label aria-haspopup="true"
-                     role="tooltip"
-                     [class.invalid]="!replicaValidation(cluster.name)"
-                     class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-                <input [placeholder]="'DEPLOYMENT.NUM' | translate" [(ngModel)]="clusterMetas[cluster.name].value"
-                       id="{{cluster.name}}-replica"
-                       name="{{cluster.name}}-replica"
-                       type="number">
-                <span class="tooltip-content">
-                    {{'LIMIT.DEPLOYMENT' | translate}}{{replicaLimit}}
-              </span>
-              </label>
+          <div class="clr-control-container">
+            <div *ngFor="let cluster of clusters" [class.clr-error]="!replicaValidation(cluster.name)">
+              <div class="clr-input-wrapper">
+                <label class="clr-checkbox-wrapper">
+                  <input class="clr-checkbox" [(ngModel)]="clusterMetas[cluster.name].checked" type="checkbox"
+                    id="{{cluster.name}}-check" name="{{cluster.name}}-check">
+                  <label for="{{cluster.name}}-check">{{cluster.name}}</label>
+                </label>
+                <input class="clr-input" style="margin-left: 20px;" [placeholder]="'DEPLOYMENT.NUM' | translate"
+                  [(ngModel)]="clusterMetas[cluster.name].value" id="{{cluster.name}}-replica" name="{{cluster.name}}-replica"
+                  type="number">
+              </div>
+              <span class="clr-subtext"
+                *ngIf="!replicaValidation(cluster.name)">{{'LIMIT.DEPLOYMENT' | translate}}{{replicaLimit}}</span>
             </div>
           </div>
         </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="deployment_description"
-                 class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
-          <textarea id="deployment_description" [(ngModel)]="resource.description"
-                    name="deployment_description"
-                    rows="3">
-          </textarea>
-        </div>
+        <clr-textarea-container>
+          <label>{{'TITLE.DESCRIPTION' | translate}}</label>
+          <textarea clrTextarea id="deployment_description" [(ngModel)]="resource.description" name="deployment_description" rows="3"></textarea>
+        </clr-textarea-container>
         <resource-limit [style.display]="authService.currentUser.admin ? 'block' : 'none'"></resource-limit>
       </section>
     </form>

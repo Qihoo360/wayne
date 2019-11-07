@@ -3,46 +3,40 @@
     <wayne-modal-operate [modal]="modal" *ngIf="modalOpened"></wayne-modal-operate>
   </h3>
   <div class="modal-body">
-    <form #ngForm="ngForm">
+    <form #ngForm="ngForm" clrForm clrLayout="horizontal">
       <section class="form-block">
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="name" class="clr-col-md-3 form-group-label-override required">{{'TITLE.NAME' | translate}}</label>
-          <label for="name" aria-haspopup="true" role="tooltip" [class.invalid]="!isNameValid"
-                 class="tooltip tooltip-validation tooltip-md tooltip-bottom-left form-control">
-            <input class="form-control" type="text" id="name" [(ngModel)]="cluster.name"
-                   name="name" size="24"
-                   required
-                   [readonly]="actionType==1"
-                   maxlength="24"
-                   (keyup)='handleValidation()'>
-            <span class="tooltip-content">
-              集群名称不符合规范
-            </span>
-          </label>
-          <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="master" class="clr-col-md-3 form-group-label-override required">Master</label>
-          <input class="form-control" type="text" id="master" [(ngModel)]="cluster.master"
-                 name="master" size="128"
-                 required
-                 maxlength="128">
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="meta_data" class="clr-col-md-3 form-group-label-override required">KubeConfig</label>
-          <wayne-ace-editor-box #kubeConfig></wayne-ace-editor-box>
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="status" class="clr-col-md-3 form-group-label-override">集群状态</label>
-          <div class="select">
-            <select id="concurrencyPolicy" name="status" [(ngModel)]="cluster.status">
-              <option [ngValue]="0" selected>在线</option>
-              <option [ngValue]="1">维护中</option>
-            </select>
+        <clr-input-container>
+          <label class="required">{{'TITLE.NAME' | translate}}</label>
+          <input type="text" clrInput id="name" [(ngModel)]="cluster.name" name="name" size="24" required [readonly]="actionType==1"
+            maxlength="24" (keyup)='handleValidation()'>
+            <clr-control-helper>
+              <span style="color: red;" *ngIf="!isNameValid">
+                {{'ERROR.CLUSTER_NAME' | translate}}
+              </span>
+            </clr-control-helper>
+            <clr-control-error>{{'ERROR.CLUSTER_NAME' | translate}}</clr-control-error>
+        </clr-input-container>
+        <clr-input-container>
+          <label class="required">Master</label>
+          <input type="text" clrInput id="master" [(ngModel)]="cluster.master" name="master" required
+            maxlength="128">
+        </clr-input-container>
+        <div class="clr-form-control clr-row">
+          <label class="clr-control-label required">KubeConfig</label>
+          <div class="clr-control-container clr-col-md-10 clr-col-12">
+            <wayne-ace-editor-box #kubeConfig></wayne-ace-editor-box>
           </div>
         </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="meta_data" class="clr-col-md-3 form-group-label-override">MetaData
+        <clr-select-container>
+          <label>集群状态</label>
+          <select clrSelect id="concurrencyPolicy" name="status" [(ngModel)]="cluster.status">
+            <option [ngValue]="0" selected>在线</option>
+            <option [ngValue]="1">维护中</option>
+          </select>
+        </clr-select-container>
+        <div class="clr-form-control clr-row">
+          <label class="clr-control-label">
+            MetaData
             <clr-signpost>
               <clr-signpost-content [clrPosition]="position" style="min-width:25rem" *clrIfOpen>
                 <h3 style="margin-top: 0">配置说明</h3>
@@ -58,17 +52,15 @@
               </clr-signpost-content>
             </clr-signpost>
           </label>
-          <wayne-ace-editor-box #metaData></wayne-ace-editor-box>
+          <div class="clr-control-container clr-col-md-10 clr-col-12">
+            <wayne-ace-editor-box #metaData></wayne-ace-editor-box>
+          </div>
         </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="description"
-                 class="clr-col-md-3 form-group-label-override">{{'TITLE.DESCRIPTION' | translate}}</label>
-          <textarea id="description" [(ngModel)]="cluster.description"
-                    name="description"
-                    rows="3">
-          </textarea>
-        </div>
-
+        <clr-textarea-container>
+          <label>{{'TITLE.DESCRIPTION' | translate}}</label>
+          <textarea id="description" clrTextarea [(ngModel)]="cluster.description" name="description" rows="3">
+                    </textarea>
+        </clr-textarea-container>
       </section>
     </form>
     <div class="modal-footer">

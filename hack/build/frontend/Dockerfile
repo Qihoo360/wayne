@@ -4,14 +4,12 @@
 # docker --build-arg RELEASE_VERSION=v1.0.0 -t infra/wayne:v1.0.0 .
 
 # build ui
-FROM 360cloud/wayne-ui-builder:v1.0.1 as frontend
+FROM q8sio/wayne-ui-builder:v1.0.2 as frontend
 
 COPY src/frontend /workspace
 
 RUN cd /workspace && \
-    npm config set registry https://registry.npm.taobao.org && \
-    npm install && \
-    npm run build
+    npm run build:aot
 
 # build server
 FROM openresty/openresty:1.15.8.1-1-centos

@@ -6,21 +6,23 @@ import (
 )
 
 func init() {
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/appstarred:AppStarredController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/appstarred:AppStarredController"],
-		beego.ControllerComments{
-			Method:           "Create",
-			Router:           `/`,
-			AllowHTTPMethods: []string{"post"},
-			MethodParams:     param.Make(),
-			Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/appstarred:AppStarredController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/appstarred:AppStarredController"],
-		beego.ControllerComments{
-			Method:           "Delete",
-			Router:           `/:appId`,
-			AllowHTTPMethods: []string{"delete"},
-			MethodParams:     param.Make(),
-			Params:           nil})
-
+    const AppStarredController = "github.com/Qihoo360/wayne/src/backend/controllers/appstarred:AppStarredController"
+    beego.GlobalControllerRouter[AppStarredController] = append(
+        beego.GlobalControllerRouter[AppStarredController],
+        beego.ControllerComments{
+            Method: "Create",
+            Router: `/`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil,
+        },
+        beego.ControllerComments{
+            Method: "Delete",
+            Router: `/:appId`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil,
+        })
 }

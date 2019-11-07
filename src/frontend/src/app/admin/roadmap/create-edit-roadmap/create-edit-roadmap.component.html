@@ -1,0 +1,39 @@
+<clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'lg'">
+  <h3 class="modal-title">{{title}}</h3>
+  <div class="modal-body">
+    <form #ngForm="ngForm" clrForm clrLayout="horizontal">
+      <clr-input-container>
+        <label class="required">类型</label>
+        <input clrInput type="text" [(ngModel)]="config.typeName" name="typeName" size="48" required>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="required">名称</label>
+        <input clrInput type="text" [(ngModel)]="config.displayname" name="displayname" size="48" required>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="required">默认 Url</label>
+        <input clrInput type="text" [(ngModel)]="config.defaultUrl" name="defaultUrl" size="48" required>
+      </clr-input-container>
+      <div class="clr-form-control clr-row">
+        <label class="clr-control-label clr-col-12 clr-col-md-12">参数列表
+          <button (click)="addParam()" style="margin-left: 10px;" class="wayne-button primary">
+            <clr-icon shape="add-text"></clr-icon>
+            添加参数
+          </button>
+        </label>
+        <div *ngFor="let arg of paramList; let i = index; trackBy:trackByFn">
+          <input style="margin-top: 10px" type="text" size="60" name="param_{{i}}" [(ngModel)]="paramList[i]"
+            class="clr-input" placeholder="写入参数">
+          <clr-icon style="margin-top: 5px;margin-left: 5px;" (click)="deleteParam(i)" shape="trash"
+            class="is-solid"></clr-icon>
+        </div>
+      </div>
+    </form>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+      <button type="button" class="btn btn-primary" [disabled]="!isValid"
+        (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+    </div>
+  </div>
+
+</clr-modal>

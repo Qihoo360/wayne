@@ -21,7 +21,7 @@ export class CreateEditApiKeyComponent implements OnInit {
   modalOpened: boolean;
 
   apiKeyForm: NgForm;
-  @ViewChild('apiKeyForm')
+  @ViewChild('apiKeyForm', { static: true })
   currentForm: NgForm;
 
   apiKey = new ApiKey();

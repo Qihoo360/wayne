@@ -6,13 +6,15 @@ import (
 )
 
 func init() {
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/configmap:KubeConfigMapController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/configmap:KubeConfigMapController"],
-		beego.ControllerComments{
-			Method:           "Create",
-			Router:           `/:configMapId/tpls/:tplId/clusters/:cluster`,
-			AllowHTTPMethods: []string{"post"},
-			MethodParams:     param.Make(),
-			Params:           nil})
-
+    const KubeConfigMapController = "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/configmap:KubeConfigMapController"
+    beego.GlobalControllerRouter[KubeConfigMapController] = append(
+        beego.GlobalControllerRouter[KubeConfigMapController],
+        beego.ControllerComments{
+            Method: "Create",
+            Router: `/:configMapId/tpls/:tplId/clusters/:cluster`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil,
+        })
 }

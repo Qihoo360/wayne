@@ -14,7 +14,7 @@ export class CreateEditResourceTemplateComponent implements OnInit {
   modalOpened: boolean;
 
   ngForm: NgForm;
-  @ViewChild('ngForm')
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
   // template: any = new IngressTpl();
@@ -26,7 +26,7 @@ export class CreateEditResourceTemplateComponent implements OnInit {
 
   resources: any[];
 
-  @ViewChild(AceEditorBoxComponent) aceBox: any;
+  @ViewChild(AceEditorBoxComponent, { static: false }) aceBox: any;
   constructor(public resourceTemplateService: any,
               public resourceService: any,
               public messageHandlerService: MessageHandlerService,

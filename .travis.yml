@@ -1,6 +1,3 @@
-branches:
-  only:
-    - master
 matrix:
   include:
     - language: go
@@ -8,7 +5,9 @@ matrix:
         - linux
         - osx
       go:
-        - 1.12.x
+        - 1.9.x
+        - 1.10.x
+        - 1.11.x
       env:
         - DB_USER=root DB_PASSWD=''  DB_TNS='tcp(127.0.0.1:3306)'
       service:
@@ -19,17 +18,16 @@ matrix:
       script:
         - pwd
         - echo '' >  /home/travis/gopath/src/github.com/Qihoo360/wayne/src/backend/conf/dev.conf
-        - export GO111MODULE=on
         - cd src/backend && go run main.go -h
     - language: node_js
       os:
         - linux
         - osx
       node_js:
-        - 8.9.4
+        - 10.16.0
       before_install:
         - cd src/frontend && npm install
       script:
         - # npm run test Wayne 前端测试尚未编排
-        - travis_wait 30 npm run build
-        - travis_wait 30 npm run lint
+        - npm run build
+        - npm run lint

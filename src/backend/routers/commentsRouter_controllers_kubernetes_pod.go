@@ -6,21 +6,23 @@ import (
 )
 
 func init() {
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pod:KubePodController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pod:KubePodController"],
-		beego.ControllerComments{
-			Method:           "Terminal",
-			Router:           `/:pod/terminal/namespaces/:namespace/clusters/:cluster`,
-			AllowHTTPMethods: []string{"post"},
-			MethodParams:     param.Make(),
-			Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pod:KubePodController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pod:KubePodController"],
-		beego.ControllerComments{
-			Method:           "List",
-			Router:           `/namespaces/:namespace/clusters/:cluster`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams:     param.Make(),
-			Params:           nil})
-
+    const KubePodController = "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/pod:KubePodController"
+    beego.GlobalControllerRouter[KubePodController] = append(
+        beego.GlobalControllerRouter[KubePodController],
+        beego.ControllerComments{
+            Method: "Terminal",
+            Router: `/:pod/terminal/namespaces/:namespace/clusters/:cluster`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil,
+        },
+        beego.ControllerComments{
+            Method: "List",
+            Router: `/namespaces/:namespace/clusters/:cluster`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil,
+        })
 }

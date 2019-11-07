@@ -52,9 +52,9 @@ const showState = {
   styleUrls: ['./daemonset.component.scss']
 })
 export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
-  @ViewChild(ListDaemonSetComponent)
+  @ViewChild(ListDaemonSetComponent, { static: false })
   listDaemonSet: ListDaemonSetComponent;
-  @ViewChild(CreateEditDaemonSetComponent)
+  @ViewChild(CreateEditDaemonSetComponent, { static: false })
   createEditDaemonSet: CreateEditDaemonSetComponent;
 
   pageState: PageState = new PageState();
@@ -72,6 +72,7 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
   orderCache: Array<OrderItem>;
   showList: any[] = new Array();
   showState: object = showState;
+  leave = false;
 
   constructor(private daemonSetService: DaemonSetService,
               private publishHistoryService: PublishHistoryService,
@@ -145,6 +146,7 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     clearInterval(this.timer);
+    this.leave = true;
     this.subscription.unsubscribe();
     this.tabScription.unsubscribe();
   }
@@ -267,9 +269,9 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
     const namespaceId = this.cacheService.namespaceId;
     this.daemonSetId = parseInt(this.route.snapshot.params['daemonSetId'], 10);
     combineLatest(
-      this.clusterService.getNames(),
+      [this.clusterService.getNames(),
       this.daemonSetService.listPage(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), this.appId, 'false'),
-      this.appService.getById(this.appId, namespaceId)
+      this.appService.getById(this.appId, namespaceId)]
     ).subscribe(
       response => {
         this.clusters = response[0].data;
@@ -390,8 +392,8 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
     this.pageState.params['daemonSetId'] = this.daemonSetId;
     this.pageState.params['isOnline'] = this.isOnline;
     combineLatest(
-      this.daemonSetTplService.listPage(this.pageState, this.appId),
-      this.publishService.listStatus(PublishType.DAEMONSET, this.daemonSetId)
+      [this.daemonSetTplService.listPage(this.pageState, this.appId),
+      this.publishService.listStatus(PublishType.DAEMONSET, this.daemonSetId)]
     ).subscribe(
       response => {
         const status = response[1].data;
@@ -400,7 +402,12 @@ export class DaemonSetComponent implements AfterContentInit, OnDestroy, OnInit {
         this.pageState.page.totalPage = tpls.totalPage;
         this.pageState.page.totalCount = tpls.totalCount;
         this.changedDaemonSetTpls = this.buildTplList(tpls.list, status);
-        this.syncStatus();
+        setTimeout(() => {
+          if (this.leave) {
+            return;
+          }
+          this.syncStatus();
+        });
       },
       error => this.messageHandlerService.handleError(error)
     );

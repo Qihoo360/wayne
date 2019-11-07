@@ -52,9 +52,9 @@ const showState = {
   styleUrls: ['./statefulset.component.scss']
 })
 export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit {
-  @ViewChild(ListStatefulsetComponent)
+  @ViewChild(ListStatefulsetComponent, { static: false })
   listStatefulset: ListStatefulsetComponent;
-  @ViewChild(CreateEditStatefulsetComponent)
+  @ViewChild(CreateEditStatefulsetComponent, { static: false })
   createEditStatefulset: CreateEditStatefulsetComponent;
 
   pageState: PageState = new PageState();
@@ -72,6 +72,7 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
   orderCache: Array<OrderItem>;
   showList: any[] = new Array();
   showState: object = showState;
+  leave = false;
 
   constructor(
     private statefulsetService: StatefulsetService,
@@ -153,6 +154,7 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
 
   ngOnDestroy(): void {
     clearInterval(this.timer);
+    this.leave = true;
     this.subscription.unsubscribe();
     this.tabScription.unsubscribe();
   }
@@ -275,9 +277,9 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
     const namespaceId = this.cacheService.namespaceId;
     this.statefulsetId = parseInt(this.route.snapshot.params['statefulsetId'], 10);
     combineLatest(
-      this.clusterService.getNames(),
+      [this.clusterService.getNames(),
       this.statefulsetService.listPage(PageState.fromState({sort: {by: 'id', reverse: false}}, {pageSize: 1000}), this.appId, 'false'),
-      this.appService.getById(this.appId, namespaceId)
+      this.appService.getById(this.appId, namespaceId)]
     ).subscribe(
       response => {
         this.clusters = response[0].data;
@@ -398,8 +400,8 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
     this.pageState.params['statefulsetId'] = this.statefulsetId;
     this.pageState.params['isOnline'] = this.isOnline;
     combineLatest(
-      this.statefulsetTplService.listPage(this.pageState, this.appId),
-      this.publishService.listStatus(PublishType.STATEFULSET, this.statefulsetId)
+      [this.statefulsetTplService.listPage(this.pageState, this.appId),
+      this.publishService.listStatus(PublishType.STATEFULSET, this.statefulsetId)]
     ).subscribe(
       response => {
         const status = response[1].data;
@@ -408,7 +410,12 @@ export class StatefulsetComponent implements AfterContentInit, OnDestroy, OnInit
         this.pageState.page.totalPage = tpls.totalPage;
         this.pageState.page.totalCount = tpls.totalCount;
         this.changedStatefulsetTpls = this.buildTplList(tpls.list, status);
-        this.syncStatus();
+        setTimeout(() => {
+          if (this.leave) {
+            return;
+          }
+          this.syncStatus();
+        });
       },
       error => this.messageHandlerService.handleError(error)
     );

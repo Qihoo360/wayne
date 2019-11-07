@@ -28,9 +28,9 @@ const showState = {
   styleUrls: ['./app-user.component.scss']
 })
 export class AppUserComponent implements OnInit, OnDestroy {
-  @ViewChild(ListAppUserComponent)
+  @ViewChild(ListAppUserComponent, { static: false })
   listAppUser: ListAppUserComponent;
-  @ViewChild(CreateEditAppUserComponent)
+  @ViewChild(CreateEditAppUserComponent, { static: false })
   createEditAppUser: CreateEditAppUserComponent;
 
   pageState: PageState = new PageState();

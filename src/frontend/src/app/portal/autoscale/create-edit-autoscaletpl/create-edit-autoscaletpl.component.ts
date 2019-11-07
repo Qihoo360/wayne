@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, AfterViewInit, OnDestroy } from '@angular/core';
 import { AppService } from '../../../shared/client/v1/app.service';
 import { CacheService } from '../../../shared/auth/cache.service';
 import { CreateEditResourceTemplate } from '../../../shared/base/resource/create-edit-resource-template';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { defaultAutoscale } from '../../../shared/default-models/autoscale.const';
-import { Location } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import { ActionType } from '../../../shared/shared.const';
 import { combineLatest } from 'rxjs';
+import { EventManager } from '@angular/platform-browser';
 import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
 import { AceEditorService } from '../../../shared/ace-editor/ace-editor.service';
 import { AutoscaleTplService } from '../../../shared/client/v1/autoscaletpl.service';
@@ -21,10 +22,13 @@ import { Deployment } from '../../../shared/model/v1/deployment';
   templateUrl: './create-edit-autoscaletpl.component.html',
   styleUrls: ['./create-edit-autoscaletpl.component.scss']
 })
-export class CreateEditAutoscaletplComponent extends CreateEditResourceTemplate implements OnInit {
+export class CreateEditAutoscaletplComponent extends CreateEditResourceTemplate implements OnInit, AfterViewInit, OnDestroy {
   actionType: ActionType;
 
   deploys: Deployment[];
+  top: number;
+  box: HTMLElement;
+  eventList: any[] = Array();
 
   constructor(private autoscaleTplService: AutoscaleTplService,
               private autoscaleService: AutoscaleService,
@@ -36,6 +40,8 @@ export class CreateEditAutoscaletplComponent extends CreateEditResourceTemplate 
               public authService: AuthService,
               public cacheService: CacheService,
               public aceEditorService: AceEditorService,
+              @Inject(DOCUMENT) private document: any,
+              private eventManager: EventManager,
               public messageHandlerService: MessageHandlerService) {
     super(
       autoscaleTplService,
@@ -87,6 +93,36 @@ export class CreateEditAutoscaletplComponent extends CreateEditResourceTemplate 
         this.messageHandlerService.handleError(error);
       }
     );
+  }
+
+  ngAfterViewInit() {
+    this.box = this.document.querySelector('.content-area');
+    this.box.style.paddingBottom = '60px';
+    this.eventList.push(
+      this.eventManager.addEventListener(this.box, 'scroll', this.scrollEvent.bind(this, true)),
+      this.eventManager.addGlobalEventListener('window', 'resize', this.scrollEvent.bind(this, false))
+    );
+    this.scrollEvent(false);
+  }
+
+  ngOnDestroy() {
+    this.eventList.forEach(item => {
+      item();
+    });
+    this.box.style.paddingBottom = '0.75rem';
+  }
+
+  scrollEvent(scroll: boolean, event?) {
+    let top = 0;
+    if (event && scroll) {
+      top = event.target.scrollTop;
+      this.top = top + this.box.offsetHeight - 48;
+    } else {
+      // hack
+      setTimeout(() => {
+        this.top = this.box.scrollTop + this.box.offsetHeight - 48;
+      }, 0);
+    }
   }
 
   isValidResource(): boolean {

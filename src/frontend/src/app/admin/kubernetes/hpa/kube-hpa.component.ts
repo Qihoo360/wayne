@@ -29,16 +29,16 @@ const showState = {
 })
 
 export class KubeHpaComponent extends KubernetesNamespacedResource implements OnInit, OnDestroy {
-  @ViewChild(ListHpaComponent)
+  @ViewChild(ListHpaComponent, { static: false })
   listResourceComponent: ListHpaComponent;
 
-  @ViewChild(AceEditorComponent)
+  @ViewChild(AceEditorComponent, { static: false })
   aceEditorModal: AceEditorComponent;
 
-  @ViewChild(DeletionDialogComponent)
+  @ViewChild(DeletionDialogComponent, { static: false })
   deletionDialogComponent: DeletionDialogComponent;
 
-  @ViewChild(MigrationComponent)
+  @ViewChild(MigrationComponent, { static: false })
   migrationComponent: MigrationComponent;
 
   constructor(public kubernetesClient: KubernetesClient,

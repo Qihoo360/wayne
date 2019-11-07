@@ -14,7 +14,7 @@ import { UserService } from '../../../shared/client/v1/user.service';
 export class ResetPasswordComponent {
   opened: boolean;
   userForm: NgForm;
-  @ViewChild('passForm')
+  @ViewChild('passForm', { static: true })
   currentForm: NgForm;
 
   user: User = new User();

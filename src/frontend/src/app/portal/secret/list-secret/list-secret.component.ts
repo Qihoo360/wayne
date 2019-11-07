@@ -25,7 +25,7 @@ import { DiffService } from '../../../shared/diff/diff.service';
 export class ListSecretComponent implements OnInit, OnDestroy {
   selected: SecretTpl[] = [];
   @Input() showState: object;
-  @ViewChild(PublishSecretTplComponent)
+  @ViewChild(PublishSecretTplComponent, { static: false })
   publishTpl: PublishSecretTplComponent;
 
   @Input() secrets: Secret[];

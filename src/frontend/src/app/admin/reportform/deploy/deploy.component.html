@@ -3,12 +3,10 @@
     <div class="clr-row flex-items-xs-between flex-items-xs-top" style="padding-left: 15px; padding-right: 15px;">
       <h2 class="header-title">上线次数统计</h2>
     </div>
-    <div class="clr-row flex-items-xs-between" style="height:32px;margin-left: 5px">
-      <div class="option-left">
-        {{'TITLE.START_TIME' | translate}}：<input type="date" id="startTime" name="startTime" [(ngModel)]="startTime" clrDate>
-        {{'TITLE.FINISH_TIME' | translate}}：<input type="date" id="endTime" name="endTime" [(ngModel)]="endTime" clrDate>
-        <button class="btn" (click)="search()">查询</button>
-      </div>
+    <div class="clr-row flex-items-xs-between" style="margin-left: 5px">
+      <label for="startTime" class="time-label">{{'TITLE.START_TIME' | translate}}：</label><input type="date" id="startTime" name="startTime" [(ngModel)]="startTime" clrDate>
+      <label for="endTime" class="time-label">{{'TITLE.FINISH_TIME' | translate}}：</label><input type="date" id="endTime" name="endTime" [(ngModel)]="endTime" clrDate>
+      <button class="btn" (click)="search()">查询</button>
     </div>
     <clr-datagrid (clrDgRefresh)="refresh($event)">
       <clr-dg-column class="col-id">

@@ -52,9 +52,9 @@ const showState = {
 })
 export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   @HostBinding('attr.class') class = 'content-container';
-  @ViewChild(ListAppComponent)
+  @ViewChild(ListAppComponent, { static: false })
   listApp: ListAppComponent;
-  @ViewChild(CreateEditAppComponent)
+  @ViewChild(CreateEditAppComponent, { static: false })
   createEditApp: CreateEditAppComponent;
   changedApps: App[];
   namespaces: Namespace[];
@@ -65,13 +65,13 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   pageState: PageState = new PageState();
   redDot: RedDot = new RedDot();
   subscription: Subscription;
-  resources: object = new Object();
+  resources: object = {};
   clusters: ClusterCard[] = [];
   allowNumber = 10;
   allowShowAll = false;
-  showList: any[] = new Array();
+  showList: any[] = [];
   showState: object = showState;
-  eventList: any[] = new Array();
+  eventList: any[] = [];
 
   constructor(private appService: AppService,
               public cacheService: CacheService,
@@ -141,7 +141,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.initShow();
-    this.starredFilter = (localStorage.getItem('starred') === 'true');
+    this.starredFilter = localStorage.getItem('starred') === 'true';
     this.starredInherit = this.starredFilter;
     this.initResourceUsage();
   }

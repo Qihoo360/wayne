@@ -6,95 +6,91 @@ import (
 )
 
 func init() {
+    const KubeCRDController = "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCRDController"
+    beego.GlobalControllerRouter[KubeCRDController] = append(
+        beego.GlobalControllerRouter[KubeCRDController],
+        beego.ControllerComments{
+            Method: "List",
+            Router: `/`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil,
+        },
+        beego.ControllerComments{
+            Method: "Create",
+            Router: `/`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil,
+        },
+        beego.ControllerComments{
+            Method: "Get",
+            Router: `/:name`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil,
+        },
+        beego.ControllerComments{
+            Method: "Update",
+            Router: `/:name`,
+            AllowHTTPMethods: []string{"put"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil,
+        },
+        beego.ControllerComments{
+            Method: "Delete",
+            Router: `/:name`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil,
+        })
 
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCRDController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCRDController"],
-		beego.ControllerComments{
-			Method:           "List",
-			Router:           `/`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCRDController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCRDController"],
-		beego.ControllerComments{
-			Method:           "Create",
-			Router:           `/`,
-			AllowHTTPMethods: []string{"post"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCRDController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCRDController"],
-		beego.ControllerComments{
-			Method:           "Get",
-			Router:           `/:name`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCRDController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCRDController"],
-		beego.ControllerComments{
-			Method:           "Update",
-			Router:           `/:name`,
-			AllowHTTPMethods: []string{"put"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCRDController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCRDController"],
-		beego.ControllerComments{
-			Method:           "Delete",
-			Router:           `/:name`,
-			AllowHTTPMethods: []string{"delete"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCustomCRDController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCustomCRDController"],
-		beego.ControllerComments{
-			Method:           "List",
-			Router:           `/`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCustomCRDController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCustomCRDController"],
-		beego.ControllerComments{
-			Method:           "Create",
-			Router:           `/`,
-			AllowHTTPMethods: []string{"post"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCustomCRDController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCustomCRDController"],
-		beego.ControllerComments{
-			Method:           "Get",
-			Router:           `/:name`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCustomCRDController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCustomCRDController"],
-		beego.ControllerComments{
-			Method:           "Update",
-			Router:           `/:name`,
-			AllowHTTPMethods: []string{"put"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCustomCRDController"] = append(beego.GlobalControllerRouter["github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCustomCRDController"],
-		beego.ControllerComments{
-			Method:           "Delete",
-			Router:           `/:name`,
-			AllowHTTPMethods: []string{"delete"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
-
+    const KubeCustomCRDController = "github.com/Qihoo360/wayne/src/backend/controllers/kubernetes/crd:KubeCustomCRDController"
+    beego.GlobalControllerRouter[KubeCustomCRDController] = append(
+        beego.GlobalControllerRouter[KubeCustomCRDController],
+        beego.ControllerComments{
+            Method: "List",
+            Router: `/`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil,
+        },
+        beego.ControllerComments{
+            Method: "Create",
+            Router: `/`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil,
+        },
+        beego.ControllerComments{
+            Method: "Get",
+            Router: `/:name`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil,
+        },
+        beego.ControllerComments{
+            Method: "Update",
+            Router: `/:name`,
+            AllowHTTPMethods: []string{"put"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil,
+        },
+        beego.ControllerComments{
+            Method: "Delete",
+            Router: `/:name`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil,
+        })
 }

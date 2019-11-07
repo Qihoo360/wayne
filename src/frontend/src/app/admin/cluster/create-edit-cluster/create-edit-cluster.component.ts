@@ -17,18 +17,19 @@ import { AceEditorBoxComponent } from '../../../shared/ace-editor/ace-editor-box
 export class CreateEditClusterComponent {
   @Output() create = new EventEmitter<boolean>();
   modalOpened: boolean;
-  @ViewChild('ngForm')
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
-  @ViewChild('metaData')
+  @ViewChild('metaData', { static: false })
   metaData: AceEditorBoxComponent;
 
-  @ViewChild('kubeConfig')
+  @ViewChild('kubeConfig', { static: false })
   kubeConfig: AceEditorBoxComponent;
   cluster: Cluster = new Cluster();
   checkOnGoing = false;
   isSubmitOnGoing = false;
   isNameValid = true;
+  position = 'right-middle';
 
   title: string;
   actionType: ActionType;

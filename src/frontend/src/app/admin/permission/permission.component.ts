@@ -18,9 +18,9 @@ import { PageState } from '../../shared/page/page-state';
 })
 
 export class PermissionComponent implements OnInit, OnDestroy {
-  @ViewChild(ListPermissionComponent)
+  @ViewChild(ListPermissionComponent, { static: false })
   listPermission: ListPermissionComponent;
-  @ViewChild(CreateEditPermissionComponent)
+  @ViewChild(CreateEditPermissionComponent, { static: false })
   createEditPermission: CreateEditPermissionComponent;
 
   componentName = '操作权限';

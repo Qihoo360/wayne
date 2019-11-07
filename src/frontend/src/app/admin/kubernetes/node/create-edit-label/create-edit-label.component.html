@@ -1,0 +1,30 @@
+<clr-modal [(clrModalOpen)]="createLabelOpened" [clrModalSize]="'lg'">
+  <h3 class="modal-title">Label 编辑</h3>
+  <div class="modal-body">
+    <form #labelForm="ngForm" clrForm clrLayout="horizontal">
+      <button (click)="addLabel()" style="margin-left: 10px;" class="wayne-button primary">
+        <clr-icon shape="add-text"></clr-icon>
+        添加 label
+      </button>
+      <div *ngFor="let arg of labelList; let i = index; trackBy:trackByFn">
+        <input style="margin-top: 10px" type="text" size="30" name="label_key_{{i}}" [(ngModel)]="arg.key"
+          class="clr-input" placeholder="写入label Key 值" readonly required>
+        <input style="margin-top: 10px; margin-left: 15px;" type="text" readonly size="30" name="label_value_{{i}}" [(ngModel)]="arg.value" class="clr-input" placeholder="写入label Value 值" required>
+        <clr-icon style="margin-top: 5px;margin-left: 5px;" (click)="deleteLabel(i)" shape="trash"
+          class="is-solid"></clr-icon>
+      </div>
+      <div *ngFor="let arg of addList; let i = index; trackBy:trackByFn">
+          <input style="margin-top: 10px" type="text" size="30" name="key_{{i}}" [(ngModel)]="arg.key"
+            class="clr-input" placeholder="写入label Key 值" required>
+          <input style="margin-top: 10px; margin-left: 15px;" type="text" size="30" name="value_{{i}}" [(ngModel)]="arg.value" class="clr-input" placeholder="写入label Value 值" required>
+          <clr-icon style="margin-top: 5px;margin-left: 5px;" (click)="removeLabel(i)" shape="trash"
+            class="is-solid"></clr-icon>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+        <button type="button" class="btn btn-primary" [disabled]="!isValid"
+                (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+      </div>
+    </form>
+  </div>
+</clr-modal>

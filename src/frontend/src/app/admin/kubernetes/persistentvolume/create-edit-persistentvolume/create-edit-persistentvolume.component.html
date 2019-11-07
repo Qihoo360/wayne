@@ -3,106 +3,63 @@
     <div class="clr-row flex-items-xs-between flex-items-xs-top" style="padding-left: 50px;">
       <h2 class="header-title">{{title}}[{{cluster?.name}}]</h2>
     </div>
-    <form [formGroup]="currentForm">
-      <section class="form-block" style="padding:0 20px 0 40px">
-        <div class="form-group clr-row">
-          <div class="clr-col-lg-2 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
-            <label for="pv_name" class="required">PV名称</label>
+    <wayne-box style="padding: 15px;">
+      <form [formGroup]="currentForm"  clrForm clrLayout="horizontal">
+        <clr-input-container>
+          <label class="required">PV名称</label>
+          <input clrInput formControlName="name" type="text" name="pv_name" id="pv_name" placeholder="pv名称" size="45">
+        </clr-input-container>
+    
+          <clr-select-container>
+            <label class="required">PV类型</label>
+            <select clrSelect formControlName="type" id="pv_type">
+              <option value="rbd">rbd</option>
+              <option value="cephfs">cephfs</option>
+              <option value="0">其它</option>
+            </select>
+          </clr-select-container>
+
+          <clr-input-container>
+            <label class="required">RBD镜像{{'TITLE.NAME' | translate}}</label>
+            <input clrInput formControlName="rbdImage" type="text" name="rbd_name" id="rbd_name" placeholder="rbd镜像名称"
+              size="45">
+          </clr-input-container>
+
+          <clr-input-container *ngIf="currentForm.get('type').value =='cephfs'">
+            <label class="required">cephfs路径</label>
+            <input clrInput formControlName="cephfsPath" type="text" name="cephfs_path" id="cephfs_path"
+              placeholder="cephfs路径" size="45">
+          </clr-input-container>
+         
+          <div class="clr-form-control clr-row" formArrayName="labels">
+            <ng-container  *ngFor="let label of labels.controls; let i = index" [formGroupName]="i">
+              <label class="clr-control-label required">标签</label>
+              <div class="clr-control-container clr-col-md-10 clr-col-12">
+                <div class="clr-input-wrapper">
+                  <input formControlName="key" class="clr-input" type="text" id="pv_label_key" placeholder="key" size="25">
+                  <input formControlName="value" style="margin-left: 15px;" class="clr-input" type="text" id="pv_label_value" placeholder="value" size="45">
+                  <a href="javascript:void(0)" style="margin-left: 15px;">
+                    <clr-icon (click)="onDeleteLabel(i)" shape="trash" [title]="'PVC.DELETE_LABEL' | translate" class="is-solid clr-icon">
+                    </clr-icon>
+                  </a>
+                  <a href="javascript:void(0)" style="margin-left: 15px;">
+                    <clr-icon (click)="onAddLabel(i)" shape="plus-circle" [title]="'PVC.ADD_LABEL' | translate" class="is-solid clr-icon">
+                    </clr-icon>
+                  </a>
+                </div>
+              </div>
+            </ng-container>
           </div>
-          <div class="clr-col-lg-4 clr-col-md-4 clr-col-sm-12 clr-col-xs-12">
-            <input class="form-control"
-                   formControlName="name"
-                   type="text"
-                   name="pv_name"
-                   id="pv_name"
-                   placeholder="pv名称"
-                   size="45">
-          </div>
-        </div>
-        <div class="form-group clr-row">
-          <div class="clr-col-lg-2 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
-            <label for="pv_type" class="required">PV类型</label>
-          </div>
-          <div class="clr-col-lg-4 clr-col-md-8 clr-col-sm-12 clr-col-xs-12">
-            <div class="select form-control">
-              <select formControlName="type" id="pv_type">
-                <option value="rbd">rbd</option>
-                <option value="cephfs">cephfs</option>
-                <option value="0">其它</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="form-group clr-row" *ngIf="currentForm.get('type').value =='rbd'">
-          <div class="clr-col-lg-2 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
-            <label for="rbd_name" class="required">RBD镜像{{'TITLE.NAME' | translate}}</label>
-          </div>
-          <div class="clr-col-lg-4 clr-col-md-4 clr-col-sm-12 clr-col-xs-12">
-            <input class="form-control"
-                   formControlName="rbdImage"
-                   type="text"
-                   name="rbd_name"
-                   id="rbd_name"
-                   placeholder="rbd镜像名称"
-                   size="45">
-          </div>
-        </div>
-        <div class="form-group clr-row" *ngIf="currentForm.get('type').value =='cephfs'">
-          <div class="clr-col-lg-2 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
-            <label for="cephfs_path" class="required">cephfs路径</label>
-          </div>
-          <div class="clr-col-lg-4 clr-col-md-4 clr-col-sm-12 clr-col-xs-12">
-            <input class="form-control"
-                   formControlName="cephfsPath"
-                   type="text"
-                   name="cephfs_path"
-                   id="cephfs_path"
-                   placeholder="cephfs路径"
-                   size="45">
-          </div>
-        </div>
-        <div formArrayName="labels">
-          <div *ngFor="let label of labels.controls; let i = index"
-               [formGroupName]="i" class="form-group clr-row">
-            <div class="clr-col-lg-2 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
-              <label class="required">标签</label>
-            </div>
-            <div class="clr-col-lg-4 clr-col-md-5 clr-col-sm-12 clr-col-xs-12">
-              <input formControlName="key" class="form-control" type="text" id="pv_label_key" placeholder="key"
-                     size="45">
-            </div>
-            <div class="clr-col-lg-4 clr-col-md-5 clr-col-sm-12 clr-col-xs-12">
-              <input formControlName="value" class="form-control" type="text" id="pv_label_value" placeholder="value"
-                     size="45">
-            </div>
-            <a href="javascript:void(0)">
-              <clr-icon (click)="onDeleteLabel(i)"
-                        shape="trash" [title]="'PVC.DELETE_LABEL' | translate" class="is-solid clr-icon"></clr-icon>
-            </a>
-            <a href="javascript:void(0)">
-              <clr-icon (click)="onAddLabel(i)"
-                        shape="plus-circle" [title]="'PVC.ADD_LABEL' | translate" class="is-solid clr-icon"></clr-icon>
-            </a>
-          </div>
-        </div>
-        <div class="form-group clr-row">
-          <div class="clr-col-lg-2 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
-            <label for="pv_storage" class="required">{{'PVC.CONTAINER_NUM' | translate}}</label>
-          </div>
-          <div class="clr-col-lg-4 clr-col-md-5 clr-col-sm-12 clr-col-xs-12">
-            <input formControlName="storage" class="form-control" type="number" id="pv_storage"
-                   [placeholder]="'PVC.CONTAINER_NUM' | translate"
-                   size="45">
-          </div>
-          <div class="clr-col-lg-3 clr-col-md-5 clr-col-sm-12 clr-col-xs-12">
-            <span>Gi</span>
-          </div>
-        </div>
-        <div class="form-group clr-row" formGroupName="accessModes">
-          <div class="clr-col-lg-2 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
+        
+          <clr-input-container>
+            <label class="required">{{'PVC.CONTAINER_NUM' | translate}}</label>
+            <input formControlName="storage" clrInput type="number" id="pv_storage"
+              [placeholder]="'PVC.CONTAINER_NUM' | translate" size="45">
+              <clr-control-helper>单位 Gi</clr-control-helper>
+          </clr-input-container>
+        
+          <clr-checkbox-container  formGroupName="accessModes">
             <label class="required">{{'PVC.ACCESS_PATTERN' | translate}}</label>
-          </div>
-          <div class="clr-col-lg-8 clr-col-md-4 clr-col-sm-12 clr-col-xs-12">
             <clr-checkbox-wrapper>
               <input type="checkbox" formControlName="ReadWriteOnce" clrCheckbox name="ReadWriteOnce" value="ReadWriteOnce" />
               <label>ReadWriteOnce</label>
@@ -115,17 +72,17 @@
               <input type="checkbox" formControlName="ReadWriteMany" clrCheckbox name="ReadWriteMany" value="ReadWriteMany" />
               <label>ReadWriteMany</label>
             </clr-checkbox-wrapper>
+          </clr-checkbox-container>
+
+          <div class="clr-wizard-footer-buttons" style="padding-top: 30px">
+            <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+            <button type="button" class="btn btn-primary"
+                    (click)="openModal()">{{'BUTTON.ADVANCED_CONFIG' | translate}}</button>
+            <button type="button" class="btn btn-primary" [disabled]="!isValid"
+                    (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
           </div>
-        </div>
-        <div class="clr-wizard-footer-buttons" style="padding-top: 30px">
-          <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
-          <button type="button" class="btn btn-primary"
-                  (click)="openModal()">{{'BUTTON.ADVANCED_CONFIG' | translate}}</button>
-          <button type="button" class="btn btn-primary" [disabled]="!isValid"
-                  (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
-        </div>
-      </section>
-    </form>
+      </form>
+    </wayne-box>
   </div>
 </div>
 <wayne-ace-editor (outputObj)="savePv($event)"></wayne-ace-editor>

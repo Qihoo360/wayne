@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"sync"
 
-	"k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
 	utilerrors "k8s.io/apimachinery/pkg/util/errors"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
@@ -16,6 +16,15 @@ import (
 
 type KubeNodeController struct {
 	base.APIController
+}
+
+type Label struct {
+	Key   string `json:"key,omitempty"`
+	Value string `json:"value,omitempty"`
+}
+
+type LabelSet struct {
+	Labels []Label
 }
 
 func (c *KubeNodeController) URLMapping() {
@@ -172,4 +181,250 @@ func (c *KubeNodeController) Delete() {
 		return
 	}
 	c.Success("ok!")
+}
+
+// @Title list node labels
+// @Description get labels of a node
+// @router /:name/clusters/:cluster/labels [get]
+func (c *KubeNodeController) GetLabels() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	name := c.Ctx.Input.Param(":name")
+	cli := c.Client(cluster)
+
+	result, err := node.GetNodeByName(cli, name)
+	if err != nil {
+		logs.Error("get node by cluster (%s) name(%s) error.%v", cluster, name, err)
+		c.HandleError(err)
+		return
+	}
+	labels := result.ObjectMeta.Labels
+
+	c.Success(labels)
+}
+
+// @Title add label
+// @Description add a label for a node
+// @router /:name/clusters/:cluster/label [post]
+func (c *KubeNodeController) AddLabel() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	name := c.Ctx.Input.Param(":name")
+	cli := c.Client(cluster)
+	var label Label
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &label)
+	if err != nil {
+		c.AbortBadRequestFormat("label")
+	}
+
+	nodeInfo, err := node.GetNodeByName(cli, name)
+	if err != nil {
+		logs.Error("get node by cluster (%s) name(%s) error.%v", cluster, name, err)
+		c.HandleError(err)
+		return
+	}
+	if len(nodeInfo.ObjectMeta.Labels) == 0 {
+		nodeInfo.ObjectMeta.Labels = map[string]string{label.Key: label.Value}
+	} else {
+		nodeInfo.ObjectMeta.Labels[label.Key] = label.Value
+	}
+
+	newNode, err := node.UpdateNode(cli, nodeInfo)
+	if err != nil {
+		logs.Error("update node (%v) by cluster (%s) error.%v", *nodeInfo, cluster, err)
+		c.HandleError(err)
+		return
+	}
+	c.Success(newNode)
+}
+
+// @Title delete label
+// @Description delete a label of the node
+// @router /:name/clusters/:cluster/label [delete]
+func (c *KubeNodeController) DeleteLabel() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	name := c.Ctx.Input.Param(":name")
+	cli := c.Client(cluster)
+	var label Label
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &label)
+	if err != nil {
+		logs.Error("unmarshal err:(%s)", err)
+		c.AbortBadRequestFormat("label")
+	}
+
+	nodeInfo, err := node.GetNodeByName(cli, name)
+	if err != nil {
+		logs.Error("get node by cluster (%s) name(%s) error.%v", cluster, name, err)
+		c.HandleError(err)
+		return
+	}
+	if _, ok := nodeInfo.ObjectMeta.Labels[label.Key]; ok {
+		delete(nodeInfo.ObjectMeta.Labels, label.Key)
+	} else {
+		logs.Error("delete failed use the label key:(%s)", label.Key)
+		return
+	}
+
+	newNode, err := node.UpdateNode(cli, nodeInfo)
+	if err != nil {
+		logs.Error("update node (%v) by cluster (%s) error.%v", *nodeInfo, cluster, err)
+		c.HandleError(err)
+		return
+	}
+	c.Success(newNode)
+}
+
+// @Title add labels
+// @Description Add labels in bulk for node
+// @router /:name/clusters/:cluster/labels [post]
+func (c *KubeNodeController) AddLabels() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	name := c.Ctx.Input.Param(":name")
+	cli := c.Client(cluster)
+	var labels LabelSet
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &labels)
+	if err != nil {
+		logs.Error("unmarshal err:(%s)", err)
+		c.AbortBadRequestFormat("label")
+	}
+
+	result, err := node.GetNodeByName(cli, name)
+	if err != nil {
+		logs.Error("get node by cluster (%s) name(%s) error.%v", cluster, name, err)
+		c.HandleError(err)
+		return
+	}
+	if len(result.ObjectMeta.Labels) == 0 {
+		result.ObjectMeta.Labels = make(map[string]string)
+	}
+
+	for _, label := range labels.Labels {
+		result.ObjectMeta.Labels[label.Key] = label.Value
+	}
+
+	newNode, err := node.UpdateNode(cli, result)
+	if err != nil {
+		logs.Error("update node (%v) by cluster (%s) error.%v", *result, cluster, err)
+		c.HandleError(err)
+		return
+	}
+	c.Success(newNode)
+}
+
+// @Title delete labels
+// @Description Delete node labels in batches
+// @router /:name/clusters/:cluster/labels [delete]
+func (c *KubeNodeController) DeleteLabels() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	name := c.Ctx.Input.Param(":name")
+	cli := c.Client(cluster)
+	var labels LabelSet
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &labels)
+	if err != nil {
+		logs.Error("unmarshal err:(%s)", err)
+		c.AbortBadRequestFormat("label")
+	}
+
+	result, err := node.GetNodeByName(cli, name)
+	if err != nil {
+		logs.Error("get node by cluster (%s) name(%s) error.%v", cluster, name, err)
+		c.HandleError(err)
+		return
+	}
+	for _, label := range labels.Labels {
+		if _, ok := result.ObjectMeta.Labels[label.Key]; ok {
+			delete(result.ObjectMeta.Labels, label.Key)
+		} else {
+			logs.Error("delete failed use the label key:(%s)", label.Key)
+			return
+		}
+	}
+
+	newNode, err := node.UpdateNode(cli, result)
+	if err != nil {
+		logs.Error("update node (%v) by cluster (%s) error.%v", *result, cluster, err)
+		c.HandleError(err)
+		return
+	}
+	c.Success(newNode)
+}
+
+// @Title add taint
+// @Description set taint for a node
+// @router /:name/clusters/:cluster/taint [post]
+func (c *KubeNodeController) SetTaint() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	name := c.Ctx.Input.Param(":name")
+	cli := c.Client(cluster)
+
+	var taint v1.Taint
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &taint)
+	if err != nil {
+		logs.Error("unmarshal err:(%s)", err)
+		c.AbortBadRequestFormat("taint")
+	}
+
+	result, err := node.GetNodeByName(cli, name)
+	if err != nil {
+		logs.Error("get node by cluster (%s) name(%s) error.%v", cluster, name, err)
+		c.HandleError(err)
+		return
+	}
+	taints := result.Spec.Taints
+	if len(taints) == 0 {
+		taints = []v1.Taint{}
+		taints = append(taints, taint)
+	} else {
+		taints = append(taints, taint)
+	}
+	result.Spec.Taints = taints
+
+	newNode, err := node.UpdateNode(cli, result)
+	if err != nil {
+		logs.Error("update node (%v) by cluster (%s) error.%v", *result, cluster, err)
+		c.HandleError(err)
+		return
+	}
+	c.Success(newNode)
+}
+
+// @Title delete taint
+// @Description delete a taint from node
+// @router /:name/clusters/:cluster/taint [delete]
+func (c *KubeNodeController) DeleteTaint() {
+	cluster := c.Ctx.Input.Param(":cluster")
+	name := c.Ctx.Input.Param(":name")
+	cli := c.Client(cluster)
+
+	var taint v1.Taint
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &taint)
+	if err != nil {
+		logs.Error("unmarshal err:(%s)", err)
+		c.AbortBadRequestFormat("taint")
+	}
+
+	result, err := node.GetNodeByName(cli, name)
+	if err != nil {
+		logs.Error("get node by cluster (%s) name(%s) error.%v", cluster, name, err)
+		c.HandleError(err)
+		return
+	}
+	taints := result.Spec.Taints
+	if len(taints) == 0 {
+		logs.Error("delete failed,the taint does not exist ")
+		return
+	}
+	newTaints := []v1.Taint{}
+	for _, t := range taints {
+		if t.Key != taint.Key || t.Value != taint.Value || t.Effect != taint.Effect {
+			newTaints = append(newTaints, t)
+		}
+	}
+	result.Spec.Taints = newTaints
+
+	newNode, err := node.UpdateNode(cli, result)
+	if err != nil {
+		logs.Error("update node (%v) by cluster (%s) error.%v", *result, cluster, err)
+		c.HandleError(err)
+		return
+	}
+	c.Success(newNode)
 }

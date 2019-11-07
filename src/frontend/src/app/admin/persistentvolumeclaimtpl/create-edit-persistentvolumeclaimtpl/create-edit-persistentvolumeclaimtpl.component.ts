@@ -24,7 +24,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit {
   modalOpened: boolean;
 
   ngForm: NgForm;
-  @ViewChild('ngForm')
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
   pvcTpl: PersistentVolumeClaimTpl = new PersistentVolumeClaimTpl();
@@ -36,7 +36,7 @@ export class CreateEditPersistentVolumeClaimTplComponent implements OnInit {
 
   pvcs: PersistentVolumeClaim[];
 
-  @ViewChild(AceEditorBoxComponent) aceBox: any;
+  @ViewChild(AceEditorBoxComponent, { static: false }) aceBox: any;
 
   constructor(private pvcTplService: PersistentVolumeClaimTplService,
               private pvcService: PersistentVolumeClaimService,

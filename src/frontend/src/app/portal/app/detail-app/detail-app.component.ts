@@ -32,7 +32,7 @@ import { CreateEditAppComponent } from '../create-edit-app/create-edit-app.compo
   styleUrls: ['detail-app.scss']
 })
 export class DetailAppComponent implements OnInit, OnDestroy {
-  @ViewChild(CreateEditAppComponent)
+  @ViewChild(CreateEditAppComponent, { static: false })
   createEditApp: CreateEditAppComponent;
 
   appId: number;
@@ -52,7 +52,7 @@ export class DetailAppComponent implements OnInit, OnDestroy {
   readonly secret = KubeApiTypeSecret;
   readonly persistentVolumeClaim = KubeApiTypePersistentVolumeClaim;
 
-  @ViewChild(ListClusterComponent) listCluster: ListClusterComponent;
+  @ViewChild(ListClusterComponent, { static: false }) listCluster: ListClusterComponent;
 
   constructor(private route: ActivatedRoute,
               private router: Router,

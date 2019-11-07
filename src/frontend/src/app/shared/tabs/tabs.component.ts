@@ -4,6 +4,7 @@ import { EventManager } from '@angular/platform-browser';
 import { ListStyle } from './ListStyle';
 import { TabComponent } from './tab/tab.component';
 import { TabDragService } from '../client/v1/tab-drag.service';
+import { StorageService } from '../client/v1/storage.service';
 
 @Component({
   selector: 'wayne-tabs',
@@ -15,8 +16,9 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
   margin = 40;
   listStyle: ListStyle = new ListStyle();
   showViewPager = false;
-  tabsContent: Element;
-  tabsList: Element;
+  showFoldIcon = false;
+  tabsContent: HTMLElement;
+  tabsList: HTMLElement;
   tabsContentWidth: number;
   tabsListWidth: number;
   firstEnter = true;
@@ -28,11 +30,13 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
   clickList: Array<Function> = new Array();
   _searchContent: string;
   _tabs: QueryList<any>;
+  allowShowAll = false;
 
   constructor(
     private el: ElementRef,
     private eventManager: EventManager,
     private dragService: TabDragService,
+    private storage: StorageService,
     @Inject(DOCUMENT) private document: HTMLElement
   ) {
     this.dragSubscribe.push(
@@ -67,6 +71,54 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
       this.filtertabs();
     }
   }
+  // card
+  resetCardState() {
+    if (this.allowShowAll) {
+      this.showViewPager = false;
+      this.resetFoldState(true);
+    } else {
+      this.allowShowAll = false;
+      setTimeout(() => {
+        if (this.tabsContent.clientWidth < this.tabsList.scrollWidth) {
+          this.showViewPager = true;
+        }
+      });
+      this.resetFoldState(false);
+    }
+    this.tabsList.style.transition = 'none';
+    this.listStyle.translateX = 0;
+    // 触发改变
+    setTimeout(() => {
+      this.tabsList.style.transition = 'all .3s ease-in-out';
+    }, 200);
+  }
+  changeCard() {
+    this.allowShowAll = !this.allowShowAll;
+    this.resetCardState();
+  }
+  setFoldState() {
+    const fold = this.storage.get('tab-fold');
+    if (fold === 'yes') {
+      this.allowShowAll = true;
+    } else {
+      this.allowShowAll = false;
+    }
+    this.resetCardState();
+  }
+  resetFoldState(state: boolean) {
+    this.storage.save('tab-fold', state ? 'yes' : 'no');
+  }
+  judgeFoldShow() {
+    if (this.allowShowAll) {
+      if (this.tabsContent.clientHeight > 40) {
+        this.showFoldIcon = true;
+      } else {
+        this.showFoldIcon = false;
+      }
+    } else {
+      this.showFoldIcon = this.tabsContentWidth < this.tabsListWidth ? true : false;
+    }
+  }
 
   filtertabs() {
     this._tabs.forEach(item => {
@@ -97,6 +149,9 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
     this.setActive(tabs);
     if (!this.firstEnter) { this.boxResize(); }
     this.firstEnter = false;
+    setTimeout(() => {
+      this.setFoldState();
+    });
   }
 
   prevEnter() {
@@ -163,6 +218,7 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
       this.showViewPager = true;
       this.tabsContentWidth -= 2 * this.margin;
     }
+    this.judgeFoldShow();
     if (typeof window !== 'undefined') { window.onresize = this.boxResize.bind(this); }
     this.dragService.init(this.el.nativeElement);
     this.eventList.push(
@@ -181,6 +237,7 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
   }
 
   next() {
+    this.tabsListWidth = this.tabsList.scrollWidth;
     const currentWidth = this.tabsListWidth + this.listStyle.translateX;
     // 这里不用缓冲是为了解决在tab切换时候出现滚动条会遮挡最后一个tab的情况。
     this.tabsContentWidth = this.tabsContent.clientWidth;
@@ -212,6 +269,8 @@ export class TabsComponent implements AfterViewInit, OnDestroy {
           this.listStyle.translateX = this.tabsContentWidth - this.tabsListWidth;
         }
       }
+      this.judgeFoldShow();
+      this.resetCardState();
     }, slow ? 200 : 1000 / 60);
   }
 }

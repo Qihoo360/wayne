@@ -24,7 +24,7 @@ export class CreateEditDaemonsettplComponent implements OnInit {
   modalOpened: boolean;
 
   ngForm: NgForm;
-  @ViewChild('ngForm')
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
   daemonsetTpl: DaemonSetTemplate = new DaemonSetTemplate();
@@ -35,7 +35,7 @@ export class CreateEditDaemonsettplComponent implements OnInit {
 
   daemonsets: DaemonSet[];
 
-  @ViewChild(AceEditorBoxComponent) aceBox: any;
+  @ViewChild(AceEditorBoxComponent, { static: false }) aceBox: any;
 
   constructor(private daemonsetTplService: DaemonSetTplService,
               private daemonsetService: DaemonSetService,

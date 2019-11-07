@@ -22,7 +22,7 @@ export class CreateEditConfigMapTplComponent implements OnInit {
   @Output() create = new EventEmitter<boolean>();
   modalOpened: boolean;
   ngForm: NgForm;
-  @ViewChild('ngForm')
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
   configMapTpl: ConfigMapTpl = new ConfigMapTpl();
@@ -34,7 +34,7 @@ export class CreateEditConfigMapTplComponent implements OnInit {
 
   configMaps: ConfigMap[];
 
-  @ViewChild(AceEditorBoxComponent) aceBox: any;
+  @ViewChild(AceEditorBoxComponent, { static: false }) aceBox: any;
 
   constructor(private configMapTplService: ConfigMapTplService,
               private configMapService: ConfigMapService,

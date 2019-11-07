@@ -1,46 +1,35 @@
 <clr-modal [clrModalSize]="''" [(clrModalOpen)]="modalOpened">
   <h3 class="modal-title">{{title}}</h3>
   <div class="modal-body">
-    <form #publishForm="ngForm">
+    <form #publishForm="ngForm" clrForm clrLayout="horizontal">
       <section class="form-block">
-        <div class="form-group" style="padding-left: 100px;">
-          <label class="clr-col-md-3 form-group-label-override required">{{'TITLE.CLUSTER' | translate}}</label>
-          <div *ngFor="let cluster of clusters;let i=index" class="checkbox-inline" style="margin-top: 0px">
-            <div class="checkbox">
-              <input [(ngModel)]="clusterMetas[cluster].checked"
-                     type="checkbox"
-                     id="{{i}}-check"
-                     name="{{i}}-check">
-              <label for="{{i}}-check">{{cluster}}</label>
-              <label *ngIf="actionType==0"
-                     aria-haspopup="true"
-                     role="tooltip"
-                     [class.invalid]="!replicaValidation(cluster)"
-                     class="tooltip tooltip-validation tooltip-md tooltip-bottom-left">
-                <input [placeholder]="'PLACEHOLDER.STATEFULSET' | translate"
-                       [(ngModel)]="clusterMetas[cluster].value"
-                       id="{{cluster}}-replica"
-                       name="{{cluster}}-replica"
-                       type="number">
-                <span class="tooltip-content">
-                    {{'LIMIT.STATEFULSET' | translate}}{{replicaLimit}}
-              </span>
-              </label>
+        <div class="clr-form-control clr-row">
+          <label class="clr-control-label required">{{'TITLE.CLUSTER' | translate}}</label>
+          <div class="clr-control-container">
+            <div class="clr-col-md-10 clr-col-12" *ngFor="let cluster of clusters;let i=index" [class.clr-error]="!replicaValidation(cluster)">
+              <div class="clr-input-wrapper">
+                <label class="clr-checkbox-wrapper">
+                  <input class="clr-checkbox" [(ngModel)]="clusterMetas[cluster].checked" type="checkbox" id="{{i}}-check" name="{{i}}-check">
+                  <label for="{{i}}-check">{{cluster}}</label>
+                </label>
+                <input class="clr-input" style="margin-left: 20px;" [placeholder]="'PLACEHOLDER.STATEFULSET' | translate" [(ngModel)]="clusterMetas[cluster].value" id="{{cluster}}-replica" name="{{cluster}}-replica" type="number">
+              </div>
+              <span class="clr-subtext" *ngIf="!replicaValidation(cluster)">{{'LIMIT.STATEFULSET' | translate}}{{replicaLimit}}</span>
             </div>
           </div>
         </div>
-        <div *ngIf="actionType==3" class="form-group" style="padding-left: 135px;">
-          <label class="clr-col-md-3 form-group-label-override">{{'ACTION.FORCE_DROP' | translate}}
+        <clr-toggle-container *ngIf="actionType==3">
+          <label class="pd-r-0">
+            {{'ACTION.FORCE_DROP' | translate}}
             <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg">
-              <clr-icon shape="info-circle" size="24"></clr-icon>
-              <span class="tooltip-content">{{'MESSAGE.FORCE_DROP' | translate}} </span>
+              <clr-icon shape="info-circle" size="16"></clr-icon>
+              <span class="tooltip-content">{{'MESSAGE.FORCE_DROP' | translate}}</span>
             </a>
           </label>
-          <div class="toggle-switch" style="top: .25rem">
-            <input [(ngModel)]="forceOffline" type="checkbox" id="force-offline-id" name="force-offline">
-            <label for="force-offline-id"></label>
-          </div>
-        </div>
+          <clr-toggle-wrapper>
+            <input [(ngModel)]="forceOffline" clrToggle type="checkbox" name="force-offline">
+          </clr-toggle-wrapper>
+        </clr-toggle-container>
       </section>
     </form>
     <div class="modal-footer">

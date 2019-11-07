@@ -6,8 +6,8 @@ import (
 
 	"github.com/astaxie/beego"
 
-	"github.com/Qihoo360/wayne/src/backend/bus"
 	"github.com/Qihoo360/wayne/src/backend/bus/message"
+	"github.com/Qihoo360/wayne/src/backend/bus/newbus"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/models/hookevent"
 	"github.com/Qihoo360/wayne/src/backend/models/response"
@@ -81,8 +81,13 @@ func PublishEventDeployment(namespaceId int64, appId int64, user string, ip stri
 			Type: message.TypeHook,
 			Data: json.RawMessage(messageData),
 		}
-		if err := bus.Notify(msg); err != nil {
-			logs.Error(err)
+		// if err := bus.Notify(msg); err != nil {
+		// 	logs.Error(err)
+		// }
+		if newbus.UBus != nil {
+			if err := newbus.UBus.Publish(EventName, msg); err != nil {
+				logs.Error(err)
+			}
 		}
 	}
 }
@@ -110,8 +115,13 @@ func PublishEventService(namespaceId int64, appId int64, user string, ip string,
 			Type: message.TypeHook,
 			Data: json.RawMessage(messageData),
 		}
-		if err := bus.Notify(msg); err != nil {
-			logs.Error(err)
+		// if err := bus.Notify(msg); err != nil {
+		// 	logs.Error(err)
+		// }
+		if newbus.UBus != nil {
+			if err := newbus.UBus.Publish(EventName, msg); err != nil {
+				logs.Error(err)
+			}
 		}
 	}
 }
@@ -139,8 +149,13 @@ func PublishEventIngress(namespaceId int64, appId int64, user string, ip string,
 			Type: message.TypeHook,
 			Data: json.RawMessage(messageData),
 		}
-		if err := bus.Notify(msg); err != nil {
-			logs.Error(err)
+		// if err := bus.Notify(msg); err != nil {
+		// 	logs.Error(err)
+		// }
+		if newbus.UBus != nil {
+			if err := newbus.UBus.Publish(EventName, msg); err != nil {
+				logs.Error(err)
+			}
 		}
 	}
 }
@@ -170,8 +185,13 @@ func PublishEventMember(namespaceId int64, appId int64, user string, ip string, 
 			Type: message.TypeHook,
 			Data: json.RawMessage(messageData),
 		}
-		if err := bus.Notify(msg); err != nil {
-			logs.Error(err)
+		// if err := bus.Notify(msg); err != nil {
+		// 	logs.Error(err)
+		// }
+		if newbus.UBus != nil {
+			if err := newbus.UBus.Publish(EventName, msg); err != nil {
+				logs.Error(err)
+			}
 		}
 	}
 }

@@ -24,7 +24,7 @@ export class CreateEditAppUserComponent implements OnInit {
   createAppUserOpened: boolean;
 
   appUserForm: NgForm;
-  @ViewChild('appUserForm')
+  @ViewChild('appUserForm', { static: true })
   currentForm: NgForm;
 
   appUser: AppUser;

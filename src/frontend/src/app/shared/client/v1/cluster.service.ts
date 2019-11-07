@@ -8,11 +8,13 @@ import { PageState } from '../../page/page-state';
 import { isNotEmpty } from '../../utils';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { TaintMetaData } from 'app/shared/model/v1/kubernetes/node-list';
 
 @Injectable()
 export class ClusterService {
   headers = new HttpHeaders({'Content-type': 'application/json'});
   options = {'headers': this.headers};
+  cluster: string;
 
   constructor(private http: HttpClient) {
   }
@@ -92,6 +94,32 @@ export class ClusterService {
     return this.http
       .get(`/api/v1/clusters/${name}`)
 
+      .catch(error => throwError(error));
+  }
+
+  addLabels(name: string, cluster: string, label: Object) {
+    return this.http
+      .post(`/api/v1/kubernetes/nodes/${name}/clusters/${cluster}/labels`, label, this.options)
+      .catch(error => throwError(error));
+  }
+
+  deleteLabels(name: string, cluster: string, label: Object) {
+    return this.http.request('delete', `/api/v1/kubernetes/nodes/${name}/clusters/${cluster}/labels`, {
+      body: label
+    }).catch(error => throwError(error));
+  }
+
+  addTaint(name: string, cluster: string, taint: TaintMetaData) {
+    return this.http
+      .post(`/api/v1/kubernetes/nodes/${name}/clusters/${cluster}/taint`, taint)
+      .catch(error => throwError(error));
+  }
+
+  deleteTaint(name: string, cluster: string, taint: TaintMetaData) {
+    return this.http
+      .request('delete', `/api/v1/kubernetes/nodes/${name}/clusters/${cluster}/taint`, {
+        body: taint
+      })
       .catch(error => throwError(error));
   }
 

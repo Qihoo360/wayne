@@ -1,23 +1,16 @@
 <clr-modal [(clrModalOpen)]="modalOpened" [clrModalSize]="'lg'">
   <h3 class="modal-title">{{title}}</h3>
   <div class="modal-body">
-    <form #ngForm="ngForm">
-      <section class="form-block">
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="key" class="clr-col-md-3 form-group-label-override required">Key</label>
-          <input class="form-control" type="text" [(ngModel)]="config.name"
-                 name="key" size="24"
-                 required
-                 [readonly]="actionType==1"
-                 maxlength="256">
-        </div>
-        <div class="form-group" style="padding-left: 135px;">
-          <label for="value" class="clr-col-md-3 form-group-label-override required">Value</label>
-          <textarea class="form-control" type="text" [(ngModel)]="config.value"
-                    name="value"
-                    required></textarea>
-        </div>
-      </section>
+    <form #ngForm="ngForm" clrForm clrLayout="horizontal">
+      <clr-input-container>
+        <label class="required">Key</label>
+        <input clrInput type="text" [(ngModel)]="config.name" name="key" size="24" required
+          [readonly]="actionType==1" maxlength="256">
+      </clr-input-container>
+      <clr-textarea-container>
+        <label class="required">Value</label>
+        <textarea clrTextarea type="text" [(ngModel)]="config.value" name="value" required></textarea>
+      </clr-textarea-container>
     </form>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>

@@ -157,7 +157,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
     try {
       this.document.querySelector(`li.${nodeId}`).classList.add('active');
     } catch (error) {
-      console.error(`li.${nodeId}不存在`);
+      console.error(`li.${nodeId}不存在, id 为${nodeId}`);
     }
   }
 

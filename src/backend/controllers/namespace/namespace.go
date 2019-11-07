@@ -20,6 +20,7 @@ func (c *NamespaceController) URLMapping() {
 	c.Mapping("Create", c.Create)
 	c.Mapping("Get", c.Get)
 	c.Mapping("Update", c.Update)
+	c.Mapping("Migrate", c.Migrate)
 	c.Mapping("Delete", c.Delete)
 	c.Mapping("InitDefault", c.InitDefault)
 	c.Mapping("GetHistory", c.History)
@@ -36,7 +37,7 @@ func (c *NamespaceController) Prepare() {
 		perAction = models.PermissionRead
 	case "Create":
 		perAction = models.PermissionCreate
-	case "Update":
+	case "Update", "Migrate":
 		perAction = models.PermissionUpdate
 	case "Delete":
 		perAction = models.PermissionDelete
@@ -257,4 +258,46 @@ func (c *NamespaceController) Statistics() {
 	}
 
 	c.Success(result)
+}
+
+// @Title Migrate
+// @Description migrate the namespace from a to b
+// @Param	body		body 	models.NamespaceMigration	true	"The namespace migration content"
+// @router /migration [post]
+func (c *NamespaceController) Migrate() {
+	var nm models.NamespaceMigration
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &nm)
+	if err != nil {
+		logs.Error("Invalid param body.%v", err)
+		c.AbortBadRequestFormat("NamespaceMigration")
+	}
+
+	_, err = models.NamespaceModel.GetById(nm.SourceId)
+	if err != nil {
+		logs.Error("Invalid param NamespaceMigration.sourceId:%v", nm.SourceId)
+		c.AbortBadRequestFormat("NamespaceMigration.sourceId")
+	}
+
+	_, err = models.NamespaceModel.GetById(nm.TargetId)
+	if err != nil {
+		logs.Error("Invalid param NamespaceMigration.targetId:%v", nm.TargetId)
+		c.AbortBadRequestFormat("NamespaceMigration.targetId")
+	}
+
+
+	// TODO 使用事务而不是分开更新
+	err = models.AppModel.UpdateByNamespaceId(nm.SourceId, nm.TargetId)
+	if err != nil{
+		logs.Error("Error when updates app nsId. %v", err)
+		c.AbortInternalServerError("update app db error!")
+	}
+
+
+	err = models.NamespaceUserModel.UpdateByNamespaceId(nm.SourceId, nm.TargetId)
+	if err != nil{
+		logs.Error("Error when updates nsUser nsId. %v", err)
+		c.AbortInternalServerError("update nsUser db error!")
+	}
+
+	c.Success("successfully migrated namespace")
 }

@@ -24,7 +24,7 @@ export class CreateEditIngressTplComponent implements OnInit {
   modalOpened: boolean;
 
   ngForm: NgForm;
-  @ViewChild('ngForm')
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
   ingressTpl: IngressTpl = new IngressTpl();
@@ -36,7 +36,7 @@ export class CreateEditIngressTplComponent implements OnInit {
 
   ingresses: Ingress[];
 
-  @ViewChild(AceEditorBoxComponent) aceBox: any;
+  @ViewChild(AceEditorBoxComponent, { static: false }) aceBox: any;
   constructor(private ingressTplService: IngressTplService,
               private ingressService: IngressService,
               private messageHandlerService: MessageHandlerService,
