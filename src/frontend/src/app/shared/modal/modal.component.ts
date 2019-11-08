@@ -8,7 +8,7 @@ import { ModalService } from 'app/shared/modal/modal.service';
 })
 export class ModalComponent implements OnInit {
   opened = false;
-  @Input() isValid: boolean = false;
+  @Input() isValid = false;
   constructor(
     private modalService: ModalService
   ) { }
@@ -19,7 +19,7 @@ export class ModalComponent implements OnInit {
   onSubmit() {
     this.modalService.comfirm();
   }
-  
+
   onCancel() {
     this.modalService.cancel();
   }

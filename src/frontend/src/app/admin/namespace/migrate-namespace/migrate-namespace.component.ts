@@ -12,8 +12,8 @@ import { MessageHandlerService } from 'app/shared/message-handler/message-handle
   styleUrls: ['./migrate-namespace.component.scss']
 })
 export class MigrateNamespaceComponent implements OnInit, OnDestroy {
-  namespaceForm: NgForm
-  @ViewChild('namespaceForm', {static: false})
+  namespaceForm: NgForm;
+  @ViewChild('namespaceForm', { static: false })
   currentForm: NgForm;
   @ViewChild(ModalComponent, { static: false })
   modalComponent: ModalComponent;
@@ -29,10 +29,10 @@ export class MigrateNamespaceComponent implements OnInit, OnDestroy {
   ) {
     this.subscription = this.modalService.modalObservable$.subscribe(res => {
       switch (res.method) {
-        case 'cancel': 
+        case 'cancel':
           this.cancelEvent();
           break;
-        case 'confirm': 
+        case 'confirm':
           this.confirmEvent();
           break;
       }
@@ -59,7 +59,7 @@ export class MigrateNamespaceComponent implements OnInit, OnDestroy {
         this.modalComponent.opened = false;
         },
         error => this.message.error(error)
-      )
+      );
   }
 
   open(ns: Namespace, namespaceList: Namespace[]) {
