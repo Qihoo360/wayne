@@ -54,6 +54,9 @@ import { ListEventComponent } from './list-event/list-event.component';
 import { SideNavService } from './client/v1/sidenav.service';
 import { SearchSectionComponent } from './tabs/search-section/search-section.component';
 import { CollapseModule } from './collapse/collapse.module';
+import { ModalComponent } from './modal/modal.component';
+import { ModalService } from './modal/modal.service';
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -97,7 +100,8 @@ import { CollapseModule } from './collapse/collapse.module';
     DiffComponent,
     ListPodComponent,
     ListEventComponent,
-    SearchSectionComponent
+    SearchSectionComponent,
+    ModalComponent
   ],
   exports: [
     BrowserAnimationsModule,
@@ -131,6 +135,7 @@ import { CollapseModule } from './collapse/collapse.module';
     CheckboxComponent,
     CheckboxGroupComponent,
     DropDownComponent,
+    ModalComponent,
     DropdownItemComponent,
     RelativeTimeFilterPipe,
     TranslateModule,
@@ -154,7 +159,8 @@ import { CollapseModule } from './collapse/collapse.module';
     CopyService,
     TabDragService,
     SelectCopyService,
-    DiffService
+    DiffService,
+    ModalService
   ]
 })
 export class SharedModule {

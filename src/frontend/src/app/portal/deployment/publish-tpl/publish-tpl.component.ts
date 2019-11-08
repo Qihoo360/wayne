@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
-import { forkJoin } from 'rxjs';
+import { forkJoin, ObservableInput } from 'rxjs';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { NgForm } from '@angular/forms';
@@ -114,6 +114,9 @@ export class PublishDeploymentTplComponent {
       case ResourcesActionType.OFFLINE:
         this.title = '下线部署[' + this.deployment.name + ']';
         break;
+      case ResourcesActionType.MODIFY_REPLICA:
+        this.title = `修改状态副本集[${this.deployment.name}]`;
+        break;
     }
   }
 
@@ -162,6 +165,9 @@ export class PublishDeploymentTplComponent {
       case ResourcesActionType.OFFLINE:
         this.offline();
         break;
+      case ResourcesActionType.MODIFY_REPLICA:
+        this.modifyReplica();
+        break;
     }
 
     this.isSubmitOnGoing = false;
@@ -186,6 +192,24 @@ export class PublishDeploymentTplComponent {
         );
       }
     });
+  }
+
+  modifyReplica() {
+    const observables: ObservableInput<any>[] = [];
+    Object.getOwnPropertyNames(this.clusterMetas).forEach(cluster => {
+      if (this.clusterMetas[cluster].checked) {
+        observables.push(
+          this.deploymentClient.modifyReplica(this.appId, cluster, this.deployment.name, this.cacheService.kubeNamespace, {
+            num: Number(this.clusterMetas[cluster].value)
+          })
+        );
+      }
+    });
+    forkJoin(observables)
+      .subscribe(
+        res => this.messageHandlerService.showSuccess('修改成功'),
+        error => this.messageHandlerService.handleError(error)
+      );
   }
 
   deletePublishStatus(id: number) {

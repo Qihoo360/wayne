@@ -9,6 +9,7 @@
     right: -200px;
     top: -12px;
     z-index: 520;
+    filter: drop-shadow(1px 2px 4px #ccc);
 
     &:before {
       content: '';
@@ -20,7 +21,6 @@
       width: 16px;
       height: 16px;
       background: #fff;
-      box-shadow: 0 2px 8px 1px #dee6f3;
       z-index: 1;
     }
 

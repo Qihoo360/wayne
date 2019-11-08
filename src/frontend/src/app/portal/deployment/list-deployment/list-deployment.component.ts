@@ -174,6 +174,17 @@ export class ListDeploymentComponent implements OnInit, OnDestroy {
       });
   }
 
+  modifyReplicas(tpl: DeploymentTpl) {
+    this.deploymentService.getById(tpl.deploymentId, this.appId).subscribe(
+      status => {
+        const deployment = status.data;
+        this.publishDeploymentTpl.newPublishTpl(deployment, tpl, ResourcesActionType.MODIFY_REPLICA);
+      },
+      error => {
+        this.messageHandlerService.handleError(error);
+      });
+  }
+
   published(success: boolean) {
     if (success) {
       this.refresh();

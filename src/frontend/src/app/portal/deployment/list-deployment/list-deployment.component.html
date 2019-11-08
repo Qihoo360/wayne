@@ -94,6 +94,10 @@
               (click)="offlineDeployment(deploymentTpl)"
               *ngIf="deploymentTpl.status && (authService.currentAppPermission.kubeDeployment.delete || authService.currentUser.admin)">
         {{'BUTTON.DROP' | translate}}</button>
+      <button class="wayne-button text"
+            (click)="modifyReplicas(deploymentTpl)"
+            *ngIf="deploymentTpl.status && (authService.currentAppPermission.kubeDeployment.create || authService.currentUser.admin)">
+      {{'DEPLOYMENT.MODIFY_REPLICA' | translate}}</button>
     </clr-dg-cell>
   </clr-dg-row>
 

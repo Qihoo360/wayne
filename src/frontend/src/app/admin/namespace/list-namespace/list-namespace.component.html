@@ -37,6 +37,7 @@
   <clr-dg-row *ngFor="let ns of namespaces" [clrDgItem]="ns">
     <clr-dg-action-overflow>
       <button class="action-item" (click)="editNamespace(ns)">{{'BUTTON.EDIT' | translate}}</button>
+      <button class="action-item" (click)="migrateNamespace(ns)">空间迁移</button>
       <button class="action-item" (click)="deleteNamespace(ns)">{{'BUTTON.DELETE' | translate}}</button>
     </clr-dg-action-overflow>
     <clr-dg-cell class="col-id">{{ns.id}}</clr-dg-cell>

@@ -110,4 +110,13 @@ export class NamespaceService {
       .get(`/api/v1/namespaces/${namespaceId}/history`, {params: params})
       .catch(error => throwError(error));
   }
+
+  migrateNamespace(sourceId: number, targetId: number) {
+    return this.http
+      .post(`/api/v1/namespaces/migration`, {
+        sourceId,
+        targetId
+      })
+      .catch(error => throwError(error));
+  }
 }
