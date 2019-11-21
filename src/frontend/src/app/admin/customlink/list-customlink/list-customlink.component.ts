@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { Page } from '../../../shared/page/page-state';
-import { Config } from '../../../shared/model/v1/config';
+import { Customlink } from 'app/shared/model/v1/customlink';
 
 @Component({
   selector: 'list-customlink',
@@ -9,16 +9,16 @@ import { Config } from '../../../shared/model/v1/config';
 })
 export class ListCustomlinkComponent implements OnInit {
 
-  @Input() configs: Config[];
+  @Input() configs: Customlink[];
 
   @Input() page: Page;
   currentPage = 1;
   state: ClrDatagridStateInterface;
 
   @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
-  @Output() delete = new EventEmitter<Config>();
-  @Output() edit = new EventEmitter<Config>();
-  @Output() update = new EventEmitter<Config> ();
+  @Output() delete = new EventEmitter<Customlink>();
+  @Output() edit = new EventEmitter<Customlink>();
+  @Output() update = new EventEmitter<Customlink> ();
 
   constructor() {
   }
@@ -39,15 +39,15 @@ export class ListCustomlinkComponent implements OnInit {
   }
 
 
-  deleteConfig(config: Config) {
+  deleteConfig(config: Customlink) {
     this.delete.emit(config);
   }
 
-  editConfig(config: Config) {
+  editConfig(config: Customlink) {
     this.edit.emit(config);
   }
 
-  updateConfig(config: Config) {
+  updateConfig(config: Customlink) {
     this.update.emit(config);
   }
 }
