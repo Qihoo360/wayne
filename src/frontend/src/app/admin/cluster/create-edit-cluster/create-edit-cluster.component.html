@@ -17,6 +17,11 @@
             <clr-control-error>{{'ERROR.CLUSTER_NAME' | translate}}</clr-control-error>
         </clr-input-container>
         <clr-input-container>
+          <label class="required">displayname</label>
+          <input type="text" clrInput id="name" [(ngModel)]="cluster.displayname" name="displayname" size="24" required maxlength="24">
+            <clr-control-error>{{'ERROR.CLUSTER_NAME' | translate}}</clr-control-error>
+        </clr-input-container>
+        <clr-input-container>
           <label class="required">Master</label>
           <input type="text" clrInput id="master" [(ngModel)]="cluster.master" name="master" required
             maxlength="128">
