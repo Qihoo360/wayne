@@ -156,6 +156,7 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
     this.leave = true;
     this.subscription.unsubscribe();
     this.tabScription.unsubscribe();
+    this.sideNavService.setMonitorList([]);
   }
 
   onlineChange() {
