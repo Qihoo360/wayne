@@ -117,6 +117,7 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
       }
     });
     this.periodSyncStatus();
+    this.getMonitors(this.cacheService.namespace.id);
   }
 
   ngOnInit() {
@@ -240,6 +241,13 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
     this.timer = setInterval(() => {
       this.syncStatus();
     }, 5000);
+  }
+
+  getMonitors(namespaceId: number) {
+    this.sideNavService.getMonitors(namespaceId)
+      .subscribe(res => {
+        this.sideNavService.setMonitorList(res.data || []);
+      });
   }
 
   getDeploymentName(id: number): any {

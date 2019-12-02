@@ -26,7 +26,6 @@ export class SidenavComponent extends SideNavCollapse {
   ) {
     super(storage);
     this.sideNavService.monitorObservable$.subscribe(config => {
-      console.log('config', config);
       const { cluster, deploymentName } = config;
       if (cluster) {
         this.config['var-datasource'] = `prometheus-k8s-${cluster}`;
@@ -39,13 +38,8 @@ export class SidenavComponent extends SideNavCollapse {
         this.config['var-deployment'] = deploymentName;
       }
     });
-    this.getMonitors(this.cacheService.namespace.id);
-  }
-
-  getMonitors(namespaceId: number) {
-    this.sideNavService.getMonitors(namespaceId)
-    .subscribe(res => {
-      this.monitors = res.data || [];
+    this.sideNavService.monitorListObservable$.subscribe(list => {
+      this.monitors = list;
     });
   }
 
