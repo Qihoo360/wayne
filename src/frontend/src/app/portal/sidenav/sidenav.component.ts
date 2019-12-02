@@ -16,6 +16,7 @@ export class SidenavComponent extends SideNavCollapse {
 
   monitors: any[] = [];
   icons = ['dashboard', 'world', 'bullseye'];
+  config: any = {};
   constructor(
     public authService: AuthService,
     public cacheService: CacheService,
@@ -24,25 +25,31 @@ export class SidenavComponent extends SideNavCollapse {
     private sideNavService: SideNavService
   ) {
     super(storage);
-    this.getMonitors(this.cacheService.namespace.id);
-  }
-
-  getMonitors(namespaceId: number) {
-    this.sideNavService.getMonitors(namespaceId)
-    .subscribe(res => {
-      this.monitors = res.data || [];
+    this.sideNavService.monitorObservable$.subscribe(config => {
+      const { cluster, deploymentName } = config;
+      if (cluster) {
+        this.config['var-datasource'] = `prometheus-k8s-${cluster}`;
+        this.config['var-idc'] = cluster;
+      } else {
+        this.config['var-datasource'] = '';
+        this.config['var-idc'] = '';
+      }
+      if (deploymentName) {
+        this.config['var-deployment'] = deploymentName;
+      }
+    });
+    this.sideNavService.monitorListObservable$.subscribe(list => {
+      this.monitors = list;
     });
   }
 
   goToMonitor(url) {
     window.open(
-      url.replace('{{app}}', this.appService.app.name)
-      .replace('{{namespace}}', this.cacheService.namespace.name));
+      url.replace('{{var-app}}', this.appService.app.name)
+        .replace('{{var-namespace}}', this.cacheService.namespace.name)
+        .replace('{{var-datasource}}', this.config['var-datasource'])
+        .replace('{{var-idc}}', this.config['var-idc'])
+        .replace('{{var-deployment}}', this.config['var-deployment'])
+    );
   }
-
-  getMonitorUri() {
-    return this.cacheService.currentNamespace.metaDataObj['system.monitor-url']
-        || this.authService.config['system.monitor-uri'];
-  }
-
 }
