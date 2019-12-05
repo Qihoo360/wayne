@@ -57,7 +57,7 @@ export class CreateEditCustomlinkComponent implements OnInit {
     const target = this.linkTypes.filter(item => {
       return item.typeName === this.config.linkType;
     })[0];
-    if (target) {
+    if (target && target.paramList) {
       return target.paramList.split(',');
     }
     return [];
@@ -71,7 +71,7 @@ export class CreateEditCustomlinkComponent implements OnInit {
       this.configService.getById(id).subscribe(
         status => {
           this.config = status.data;
-          this.params = status.data.params.split(',');
+          this.params = this.filterParams(status.data.params, this.paramsList);
         },
         error => {
           this.messageHandlerService.handleError(error);
@@ -83,6 +83,12 @@ export class CreateEditCustomlinkComponent implements OnInit {
       this.config = new Customlink();
       this.params = [];
     }
+  }
+
+  filterParams(params, paramsList) {
+    return params.split(',').filter(param => {
+      return paramsList.indexOf(param) > -1;
+    });
   }
 
   onCancel() {
