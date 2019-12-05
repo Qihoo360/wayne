@@ -1,6 +1,7 @@
 export class Cluster {
   id: number;
   name: string;
+  displayname?: string;
   master: string;
   metaData: string;
   kubeConfig: string;

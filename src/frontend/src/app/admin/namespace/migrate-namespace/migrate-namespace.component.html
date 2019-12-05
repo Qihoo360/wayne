@@ -1,0 +1,17 @@
+<wayne-modal [isValid]="isValid">
+  <span header>命名空间迁移</span>
+  <content>
+    <form #namespaceForm="ngForm"  clrForm clrLayout="horizontal">
+      <clr-input-container>
+        <label>当前空间: </label>
+        <input type="text" clrInput id="ns_name" [(ngModel)]="currentNamespace.name" name="ns_name" size="36" readonly>
+      </clr-input-container>
+      <clr-select-container>
+        <label>目标空间: </label>
+        <select clrSelect name="target" [(ngModel)]="target">
+          <option *ngFor="let namespace of namespaces" [value]="namespace.id">{{namespace.name}}</option>
+        </select>
+      </clr-select-container>
+    </form>
+  </content>
+</wayne-modal>

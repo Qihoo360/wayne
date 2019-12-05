@@ -35,6 +35,7 @@ import { PageState } from '../../shared/page/page-state';
 import { TabDragService } from '../../shared/client/v1/tab-drag.service';
 import { OrderItem } from '../../shared/model/v1/order';
 import { TranslateService } from '@ngx-translate/core';
+import { SideNavService } from 'app/shared/client/v1/sidenav.service';
 
 const showState = {
   'create_time': {hidden: false},
@@ -73,23 +74,25 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
   orderCache: Array<OrderItem>;
   leave = false;
 
-  constructor(private deploymentService: DeploymentService,
-              private publishHistoryService: PublishHistoryService,
-              private deploymentTplService: DeploymentTplService,
-              private deploymentClient: DeploymentClient,
-              private route: ActivatedRoute,
-              public translate: TranslateService,
-              private router: Router,
-              private publishService: PublishService,
-              public cacheService: CacheService,
-              public authService: AuthService,
-              private cdr: ChangeDetectorRef,
-              private appService: AppService,
-              private deletionDialogService: ConfirmationDialogService,
-              private clusterService: ClusterService,
-              private tabDragService: TabDragService,
-              private el: ElementRef,
-              private messageHandlerService: MessageHandlerService) {
+  constructor(
+    private deploymentService: DeploymentService,
+    private publishHistoryService: PublishHistoryService,
+    private deploymentTplService: DeploymentTplService,
+    private deploymentClient: DeploymentClient,
+    private route: ActivatedRoute,
+    public translate: TranslateService,
+    private router: Router,
+    private publishService: PublishService,
+    public cacheService: CacheService,
+    public authService: AuthService,
+    private cdr: ChangeDetectorRef,
+    private appService: AppService,
+    private deletionDialogService: ConfirmationDialogService,
+    private clusterService: ClusterService,
+    private tabDragService: TabDragService,
+    private el: ElementRef,
+    private sideNavService: SideNavService,
+    private messageHandlerService: MessageHandlerService) {
     this.tabScription = this.tabDragService.tabDragOverObservable.subscribe(over => {
       if (over) {
         this.tabChange();
@@ -114,6 +117,7 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
       }
     });
     this.periodSyncStatus();
+    this.getMonitors(this.cacheService.namespace.id);
   }
 
   ngOnInit() {
@@ -152,6 +156,7 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
     this.leave = true;
     this.subscription.unsubscribe();
     this.tabScription.unsubscribe();
+    this.sideNavService.setMonitorList([]);
   }
 
   onlineChange() {
@@ -239,9 +244,26 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
     }, 5000);
   }
 
+  getMonitors(namespaceId: number) {
+    this.sideNavService.getMonitors(namespaceId)
+      .subscribe(res => {
+        this.sideNavService.setMonitorList(res.data || []);
+      });
+  }
+
+  getDeploymentName(id: number): any {
+    return this.deployments.filter(deployment => {
+      return deployment.id === id;
+    })[0] || {};
+  }
+
   tabClick(id: number) {
     if (id) {
       this.deploymentId = id;
+      const deploymentName = this.getDeploymentName(id).name;
+      if (deploymentName) {
+        this.sideNavService.setMonitorConfig({ deploymentName });
+      }
       this.navigateUri();
       this.retrieve();
     }
@@ -263,6 +285,7 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
       response => {
         this.clusters = response[0].data;
         this.deployments = response[1].data.list.sort((a, b) => a.order - b.order);
+        this.sideNavService.setMonitorConfig({ deploymentName: this.getDeploymentName(this.deploymentId).name });
         this.initOrder(this.deployments);
         this.app = response[2].data;
         if (refreshTpl) {
@@ -413,6 +436,9 @@ export class DeploymentComponent implements OnInit, OnDestroy, AfterContentInit 
     ).subscribe(
       response => {
         const status = response[1].data;
+        if (status && status.length) {
+          this.sideNavService.setMonitorConfig({ cluster: status[0].cluster });
+        }
         this.publishStatus = status;
         const tpls = response[0].data;
         this.pageState.page.totalPage = tpls.totalPage;

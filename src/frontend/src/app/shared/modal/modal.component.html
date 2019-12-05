@@ -1,0 +1,14 @@
+<clr-modal [(clrModalOpen)]="opened" [clrModalSize]="'lg'" #modal>
+  <h3 class="modal-title">
+    <ng-content select="[header]"></ng-content>
+    <wayne-modal-operate [modal]="modal" *ngIf="opened"></wayne-modal-operate>
+  </h3>
+  <div class="modal-body">
+    <ng-content select="content"></ng-content>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</button>
+    <ng-content select="button"></ng-content>
+    <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="onSubmit()">{{'BUTTON.SUBMIT' | translate}}</button>
+  </div>
+</clr-modal>

@@ -14,6 +14,11 @@
          {{'TITLE.NAME' | translate}}
         </ng-container>
       </clr-dg-column>
+      <clr-dg-column class="col-cluster-name">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+         displayname
+        </ng-container>
+      </clr-dg-column>
       <clr-dg-column class="col-host">
         <ng-container *clrDgHideableColumn="{hidden: false}">
           Master
@@ -41,6 +46,7 @@
         </clr-dg-action-overflow>
         <clr-dg-cell class="col-id">{{cluster.id}}</clr-dg-cell>
         <clr-dg-cell class="col-app-name copy">{{cluster.name}}</clr-dg-cell>
+        <clr-dg-cell class="col-cluster-name copy">{{cluster.displayname}}</clr-dg-cell>
         <clr-dg-cell class="col-host">{{cluster.master}}</clr-dg-cell>
         <clr-dg-cell>{{cluster.description}}</clr-dg-cell>
         <clr-dg-cell>{{cluster.user}}</clr-dg-cell>

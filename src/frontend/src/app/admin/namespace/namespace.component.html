@@ -11,9 +11,10 @@
         </button>
         <!-- <button class="btn btn-link" (click)="initDefault()"><clr-icon shape="add"></clr-icon>初始化默认命名空间</button> -->
         <create-edit-namespace (create)="createNamespace($event)"></create-edit-namespace>
+        <migrate-namespace></migrate-namespace>
       </div>
     </div>
     <list-namespace [namespaces]="changedNamespaces" (delete)="deleteNamespace($event)" (edit)="editNamespace($event)"
-                    (paginate)="retrieve($event)" [page]="pageState.page"></list-namespace>
+                (migrate)="migrateNamespace($event)" (paginate)="retrieve($event)" [page]="pageState.page"></list-namespace>
   </div>
 </div>

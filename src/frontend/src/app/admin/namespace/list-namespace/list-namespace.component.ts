@@ -21,6 +21,7 @@ export class ListNamespaceComponent {
   @Output() paginate = new EventEmitter<ClrDatagridStateInterface>();
   @Output() delete = new EventEmitter<Namespace>();
   @Output() edit = new EventEmitter<Namespace>();
+  @Output() migrate = new EventEmitter<Namespace>();
 
   constructor(private router: Router,
               private aceEditorService: AceEditorService) {
@@ -44,6 +45,10 @@ export class ListNamespaceComponent {
 
   editNamespace(ns: Namespace) {
     this.edit.emit(ns);
+  }
+
+  migrateNamespace(ns: Namespace) {
+    this.migrate.emit(ns);
   }
 
   goToLink(ns: Namespace, gate: string) {

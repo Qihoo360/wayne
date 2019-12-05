@@ -14,8 +14,8 @@
                   <input  class="clr-checkbox" [(ngModel)]="clusterMetas[cluster].checked" type="checkbox" id="{{i}}-check" name="{{i}}-check">
                   <label for="{{i}}-check">{{cluster}}</label>
                 </label>
-                <ng-container *ngIf="actionType==0 || actionType==2">
-                  <input class="clr-input" placeholder="部署份数" [(ngModel)]="clusterMetas[cluster].value" id="{{cluster}}-replica" [readonly]="actionType!=0"
+                <ng-container *ngIf="actionType==0 || actionType==2 || actionType == 5">
+                  <input class="clr-input" placeholder="部署份数" [(ngModel)]="clusterMetas[cluster].value" id="{{cluster}}-replica" [readonly]="actionType == 2"
                     name="{{cluster}}-replica" type="number"  style="margin-left: 20px;">
                   <span class="clr-subtext" *ngIf="!replicaValidation(cluster)">部署份数超过系统最大限制{{replicaLimit}}</span>
                 </ng-container>

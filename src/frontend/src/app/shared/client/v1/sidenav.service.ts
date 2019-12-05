@@ -7,6 +7,10 @@ import { throwError } from 'rxjs';
 @Injectable()
 export class SideNavService {
   private _routerChange: Subject<string> = new Subject<string>();
+  private monitorControl = new Subject<any>();
+  monitorObservable$ = this.monitorControl.asObservable();
+  private monitorList = new Subject<any>();
+  monitorListObservable$ = this.monitorList.asObservable();
   get routerChange(): Observable<string> {
     return this._routerChange.asObservable();
   }
@@ -28,5 +32,11 @@ export class SideNavService {
   }
   routerChangeTrigger(url: string): void {
     this._routerChange.next(url);
+  }
+  setMonitorConfig(config: any) {
+    this.monitorControl.next(config);
+  }
+  setMonitorList(list: any[]) {
+    this.monitorList.next(list);
   }
 }
