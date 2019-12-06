@@ -71,7 +71,7 @@ export class CreateEditCustomlinkComponent implements OnInit {
       this.configService.getById(id).subscribe(
         status => {
           this.config = status.data;
-          this.params = this.filterParams(status.data.params, this.paramsList);
+          this.params = this.filterParams(status.data.params || '', this.paramsList);
         },
         error => {
           this.messageHandlerService.handleError(error);

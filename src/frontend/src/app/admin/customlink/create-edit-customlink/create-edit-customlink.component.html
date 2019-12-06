@@ -16,8 +16,7 @@
       </clr-select-container>
       <clr-input-container>
         <label class="required">Url</label>
-        <input clrInput type="text" [(ngModel)]="config.url" name="url" size="48" required
-          [readonly]="actionType==1" maxlength="256">
+        <input clrInput type="text" [(ngModel)]="config.url" name="url" size="48" required maxlength="256">
       </clr-input-container>
       <div class="clr-form-control clr-row" *ngIf="paramsList.length">
         <label class="clr-control-label clr-col-12 clr-col-md-2">参数
