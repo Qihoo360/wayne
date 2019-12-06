@@ -94,7 +94,7 @@ spec:
           name: wayne-backend
       containers:
       - name: wayne
-        image: 'q8sio/wayne-backend:v1.8.4-16-gf3a7366'
+        image: '360cloud/wayne-backend:v1.8.4-16-gf3a7366'
         command:
         - /opt/wayne/backend
         env:

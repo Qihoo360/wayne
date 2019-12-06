@@ -41,7 +41,7 @@ spec:
             path: config.js
       containers:
       - name: wayne
-        image: 'q8sio/wayne-frontend:latest'
+        image: '360cloud/wayne-frontend:latest'
         resources:
           limits:
             cpu: '0.5'
