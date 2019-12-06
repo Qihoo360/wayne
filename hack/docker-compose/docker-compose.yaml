@@ -14,7 +14,7 @@ services:
     - "3306:3306"
 
   wayne-backend:
-    image: q8sio/wayne-backend:v1.8.4-16-gf3a7366  
+    image: 360cloud/wayne-backend:v1.8.4-16-gf3a7366  
     command: /opt/wayne/backend
     environment:
       GOPATH: "/go"
@@ -29,7 +29,7 @@ services:
     - "8080:8080"
 
   wayne-frontend:
-    image: q8sio/wayne-frontend:latest
+    image: 360cloud/wayne-frontend:latest
     volumes:
     - ./conf/config.js:/usr/local/openresty/nginx/html/config.js
     depends_on:
