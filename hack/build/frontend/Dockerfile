@@ -4,7 +4,7 @@
 # docker --build-arg RELEASE_VERSION=v1.0.0 -t infra/wayne:v1.0.0 .
 
 # build ui
-FROM q8sio/wayne-ui-builder:v1.0.2 as frontend
+FROM 360cloud/wayne-ui-builder:v1.0.2 as frontend
 
 COPY src/frontend /workspace
 

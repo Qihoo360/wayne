@@ -40,7 +40,7 @@ export class CreateEditRoadmapComponent {
       this.configService.getById(id).subscribe(
         status => {
           this.config = status.data;
-          this.paramList = status.data.paramList.split(',');
+          this.paramList = (status.data.paramList || '').split(',');
         },
         error => {
           this.messageHandlerService.handleError(error);

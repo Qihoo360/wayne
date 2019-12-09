@@ -64,7 +64,11 @@ func init() {
             MethodParams: param.Make(),
             Filters: nil,
             Params: nil,
-        },
+        })
+
+    const ConfigMapTplController = "github.com/Qihoo360/wayne/src/backend/controllers/configmap:ConfigMapTplController"
+    beego.GlobalControllerRouter[ConfigMapTplController] = append(
+        beego.GlobalControllerRouter[ConfigMapTplController],
         beego.ControllerComments{
             Method: "List",
             Router: `/`,

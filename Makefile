@@ -3,7 +3,7 @@
 MAKEFLAGS += --warn-undefined-variables
 
 # Build variables
-REGISTRY_URI :=q8sio
+REGISTRY_URI :=360cloud
 RELEASE_VERSION :=$(shell git describe --always --tags)
 UI_BUILD_VERSION :=v1.0.2
 SERVER_BUILD_VERSION :=v1.0.2

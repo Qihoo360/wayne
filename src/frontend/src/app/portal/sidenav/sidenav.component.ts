@@ -44,10 +44,10 @@ export class SidenavComponent extends SideNavCollapse {
 
   goToMonitor(url) {
     window.open(
-      url.replace('{{var-app}}', this.appService.app.name)
-        .replace('{{var-namespace}}', this.cacheService.namespace.name)
-        .replace('{{var-idc}}', this.config['var-idc'])
-        .replace('{{var-deployment}}', this.config['var-deployment'])
+      url.replace(/{{var-app}}/g, this.appService.app.name)
+        .replace(/{{var-namespace}}/g, this.cacheService.namespace.name)
+        .replace(/{{var-idc}}/g, this.config['var-idc'])
+        .replace(/{{var-deployment}}/g, this.config['var-deployment'])
     );
   }
 }
