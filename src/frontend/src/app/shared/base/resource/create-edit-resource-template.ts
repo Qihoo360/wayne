@@ -79,7 +79,9 @@ export class CreateEditResourceTemplate {
     kubeResource.metadata.labels = this.generateLabels(this.kubeResource.metadata.labels);
     const { rules } = kubeResource.spec;
     rules.forEach(rule => {
-      (rule.host && rule.host.trim() === '') &&  delete rule.host;
+      if (rule.host !== undefined && rule.host.trim() === '') {
+        delete rule.host;
+      }
     });
     console.log('kubeResource', kubeResource);
     return kubeResource;
