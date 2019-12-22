@@ -111,9 +111,6 @@ export class CreateEditIngressTplComponent extends CreateEditResourceTemplate im
       return false;
     }
     for (const rule of this.kubeResource.spec.rules) {
-      if (rule.host.length === 0) {
-        return false;
-      }
       if (rule.http.paths.length === 0) {
         return false;
       }

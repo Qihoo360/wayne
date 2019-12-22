@@ -3,7 +3,7 @@ package ingress
 import (
 	"encoding/json"
 	"fmt"
-
+	
 	kapiv1beta1 "k8s.io/api/extensions/v1beta1"
 
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"

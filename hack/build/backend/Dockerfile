@@ -12,7 +12,6 @@ COPY go.sum /go/src/github.com/Qihoo360/wayne
 COPY src/backend /go/src/github.com/Qihoo360/wayne/src/backend
 
 RUN export GO111MODULE=on && \
-    export GOPROXY=https://goproxy.io && \
     cd /go/src/github.com/Qihoo360/wayne/src/backend && \
     bee generate docs && \
     bee pack -o /_build

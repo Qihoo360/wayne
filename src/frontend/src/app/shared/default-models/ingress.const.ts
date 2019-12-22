@@ -5,14 +5,7 @@ export const defaultIngress = `{
     "name": ""
   },
   "spec": {
-    "tls": [
-         {
-             "hosts": [
-                 ""
-                     ],
-             "secretName": ""
-         }
-    ],
+    "tls": [],
     "rules": [
       {
         "host": "",
