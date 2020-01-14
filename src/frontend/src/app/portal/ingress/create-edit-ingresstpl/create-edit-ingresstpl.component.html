@@ -24,8 +24,8 @@
             <clr-icon shape="trash"></clr-icon>删除</button>
         </label>
         <clr-input-container>
-          <label class="required">域名</label>
-          <input type="text" clrInput required [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.rules[i].host">
+          <label>域名</label>
+          <input type="text" clrInput [ngModelOptions]="{standalone: true}" [(ngModel)]="kubeResource.spec.rules[i].host">
         </clr-input-container>
         <ng-container *ngFor="let path of kubeResource.spec.rules[i].http.paths; let j = index">
           <div class="clr-form-control clr-row">
