@@ -11,5 +11,4 @@ func main() {
 	for _, data := range initial.InitialData {
 		fmt.Println(data)
 	}
-
 }

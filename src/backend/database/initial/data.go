@@ -528,4 +528,10 @@ var InitialData = []string{
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('9', '97');`,
 	// APIKEY
 	`INSERT INTO  group_permissions  ( group_id,  permission_id ) VALUES ('8', '100');`,
+
+	// update 1.8.4 to 1.8.5
+	`CREATE TABLE 'custom_link' ( 'id' int(64) NOT NULL AUTO_INCREMENT, 'namespace' varchar(255) NOT NULL DEFAULT '', 'link_type' varchar(255) NOT NULL DEFAULT '', 'url' varchar(255) NOT NULL DEFAULT '', 'add_param' tinyint(1) NOT NULL DEFAULT '0', 'deleted' tinyint(1) NOT NULL DEFAULT '0', 'status' tinyint(1) NOT NULL DEFAULT '1', 'params' varchar(255) DEFAULT NULL, PRIMARY KEY ('id'), FULLTEXT KEY 'namespace' ('namespace') ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8`,
+	`CREATE TABLE 'link_type' ( 'id' int(64) NOT NULL AUTO_INCREMENT, 'type_name' varchar(128) NOT NULL DEFAULT '', 'displayname' varchar(255) NOT NULL DEFAULT '', 'default_url' varchar(255) NOT NULL DEFAULT '', 'param_list' varchar(255) NOT NULL DEFAULT '', 'deleted' tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY ('id'), UNIQUE KEY 'typr_name' ('type_name') ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC`,
+	`ALTER TABLE cluster ADD 'displayname' varchar(512) DEFAULT ''`,
+	`ALTER TABLE app ADD 'migrated' tinyint(1) NOT NULL DEFAULT '0'`,
 }

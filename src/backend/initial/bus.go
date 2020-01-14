@@ -13,5 +13,4 @@ func InitBus() {
 			panic(err)
 		}
 	}
-
 }
