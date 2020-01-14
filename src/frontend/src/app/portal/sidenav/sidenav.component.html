@@ -20,63 +20,12 @@
   </a>
   <a
     clrVerticalNavLink
-    [title]="'MENU.STATEFULSET' | translate"
-    routerLink="statefulset"
-    routerLinkActive="active"
-    *ngIf="authService.currentAppPermission.statefulset?.read || authService.currentUser.admin">
-    <clr-icon clrVerticalNavIcon shape="blocks-group"></clr-icon>
-    {{'MENU.STATEFULSET' | translate}}
-  </a>
-  <a
-    clrVerticalNavLink
-    [title]="'MENU.CRONJOB' | translate"
-    routerLink="cronjob"
-    routerLinkActive="active"
-    *ngIf="authService.currentAppPermission.cronjob.read || authService.currentUser.admin">
-    <clr-icon clrVerticalNavIcon shape="clock"></clr-icon>
-    {{'MENU.CRONJOB' | translate}}
-  </a>
-  <a
-    clrVerticalNavLink
-    [title]="'MENU.DAEMONSET' | translate"
-    routerLink="daemonset"
-    routerLinkActive="active"
-    *ngIf="authService.currentAppPermission.daemonSet.read || authService.currentUser.admin">
-    <clr-icon clrVerticalNavIcon shape="layers"></clr-icon>
-    {{'MENU.DAEMONSET' | translate}}
-  </a>
-  <div class="nav-divider" *ngIf="authService.currentAppPermission.deployment.read ||
-                                  authService.currentAppPermission.statefulset.read ||
-                                  authService.currentAppPermission.cronjob.read ||
-                                  authService.currentUser.admin"></div>
-  <a
-    clrVerticalNavLink
-    [title]="'MENU.AUTO_POD_SCALE' | translate"
-    routerLink="autoscale"
-    routerLinkActive="active"
-    *ngIf="authService.currentAppPermission.hpa.read || authService.currentUser.admin">
-    <clr-icon clrVerticalNavIcon shape="cloud-scale"></clr-icon>
-    {{'MENU.AUTO_POD_SCALE' | translate}}
-  </a>
-  <div class="nav-divider" *ngIf="authService.currentAppPermission.hpa.read ||
-                                  authService.currentUser.admin"></div>
-  <a
-    clrVerticalNavLink
     [title]="'MENU.SERVICE' | translate"
     routerLink="service"
     routerLinkActive="active"
     *ngIf="authService.currentAppPermission.service.read || authService.currentUser.admin">
     <clr-icon clrVerticalNavIcon shape="network-globe"></clr-icon>
     {{'MENU.SERVICE' | translate}}
-  </a>
-  <a
-    clrVerticalNavLink
-    title="Ingress"
-    routerLink="ingress"
-    routerLinkActive="active"
-    *ngIf="authService.currentAppPermission.ingress.read || authService.currentUser.admin">
-    <clr-icon clrVerticalNavIcon shape="network-switch"></clr-icon>
-    Ingress
   </a>
   <div class="nav-divider" *ngIf="authService.currentAppPermission.service.read ||
                                   authService.currentAppPermission.ingress.read ||
@@ -90,24 +39,6 @@
     <clr-icon clrVerticalNavIcon shape="file-settings"></clr-icon>
     {{'MENU.CONFIGMAP' | translate}}
   </a>
-  <a
-    clrVerticalNavLink
-    [title]="'MENU.SECRET' | translate"
-    routerLink="secret"
-    routerLinkActive="active"
-    *ngIf="authService.currentAppPermission.secret.read || authService.currentUser.admin">
-    <clr-icon clrVerticalNavIcon shape="certificate"></clr-icon>
-    {{'MENU.SECRET' | translate}}
-  </a>
-  <a
-    clrVerticalNavLink
-    title="PVC"
-    routerLink="persistentvolumeclaim"
-    routerLinkActive="active"
-    *ngIf="authService.currentAppPermission.pvc.read || authService.currentUser.admin">
-    <clr-icon clrVerticalNavIcon shape="storage"></clr-icon>
-    PVC
-  </a>
   <div class="nav-divider" *ngIf="authService.currentAppPermission.configmap.read ||
                                   authService.currentAppPermission.secret.read ||
                                   authService.currentAppPermission.pvc.read ||
@@ -120,24 +51,6 @@
     *ngIf="authService.currentAppPermission.appUser.read || authService.currentUser.admin">
     <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
     {{'MENU.MEMBER' | translate}}
-  </a>
-  <a
-    clrVerticalNavLink
-    title="APIKeys"
-    *ngIf="this.authService.config['enableApiKeys'] && (authService.currentAppPermission.apiKey.read || authService.currentUser.admin)"
-    routerLink="apikey"
-    routerLinkActive="active">
-    <clr-icon clrVerticalNavIcon shape="key"></clr-icon>
-    APIKeys
-  </a>
-  <a
-    clrVerticalNavLink
-    title="Webhooks"
-    routerLink="webhook"
-    routerLinkActive="active"
-    *ngIf="authService.currentAppPermission.webHook.read || authService.currentUser.admin">
-    <clr-icon clrVerticalNavIcon shape="pin"></clr-icon>
-    Webhooks
   </a>
   <ng-container *ngFor="let monitor of monitors;let i = index;">
     <a
