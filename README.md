@@ -47,10 +47,9 @@ The whole system adopts the separation of front and back ends, in which the fron
 
 - Golang 1.12+ ([installation manual](https://golang.org/dl/))
 - Docker 17.05+ ([installation manual](https://docs.docker.com/install))
-- Bee ([installation manual](https://github.com/wilhelmguo/bee)) (Be sure to use the link version, don't use the official version of beego, there are some customizations.)
-- Node.js 8+ and npm 5+ ([installation with nvm](https://github.com/creationix/nvm#usage))
+- Bee ([installation manual](https://github.com/beego/bee))
+- Node.js v11+ and npm 6.5+ ([installation with nvm](https://github.com/creationix/nvm#usage))
 - MySQL 5.6+ (Most of the data is in MySQL.)
-- RabbitMQ (Optionally, you need to deploy if you need to extend auditing features such as operational auditing and Webhooks.)
 
 ## Quickly Start
 
@@ -71,7 +70,6 @@ $ docker-compose -f ./hack/docker-compose/docker-compose.yaml up
 With the above command, you can access the local Wayne from http://127.0.0.1:4200, the default administrator account admin:admin.
 
 > Note: After Wayne is started, you need to configure information such as cluster and Namespace for normal use. See details [Cluster Configuration](https://360yun.org/wayne/admin/cluster.html)
-
 
 ## Document
 

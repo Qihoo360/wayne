@@ -57,4 +57,3 @@ push-image:
 	docker push $(REGISTRY_URI)/wayne-frontend:latest
 
 release: build-backend-image build-frontend-image push-image
-
