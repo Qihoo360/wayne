@@ -1,5 +1,6 @@
 package apiserver
 
+//noinspection ALL
 import (
 	"github.com/astaxie/beego"
 	"github.com/spf13/cobra"

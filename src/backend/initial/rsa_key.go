@@ -22,7 +22,6 @@ func InitRsaKey() {
 		panic(err)
 	}
 	apikey.RsaPublicKey = publicKey
-
 }
 
 func readKey(key string) []byte {

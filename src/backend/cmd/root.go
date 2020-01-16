@@ -1,12 +1,12 @@
 package cmd
 
 import (
+	"github.com/astaxie/beego"
+
 	"github.com/Qihoo360/wayne/src/backend/initial"
 	_ "github.com/Qihoo360/wayne/src/backend/routers"
 	"github.com/Qihoo360/wayne/src/backend/workers/webhook"
-	"github.com/astaxie/beego"
 )
-
 
 func Run() {
 
@@ -31,7 +31,6 @@ func Run() {
 	}
 
 	webhook.RegisterHookHandler()
-
 
 	// init kube labels
 	initial.InitKubeLabel()

@@ -29,7 +29,6 @@ CREATE TABLE `ingress_template`
   `deleted`     bool         NOT NULL DEFAULT false
 ) ENGINE=InnoDB;
 
-
 -- Indexes
 
 ALTER TABLE `ingress`

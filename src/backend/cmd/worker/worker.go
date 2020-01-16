@@ -1,5 +1,6 @@
 package worker
 
+//noinspection ALL
 import (
 	"errors"
 	"fmt"
@@ -137,5 +138,4 @@ func recoverableWorker(workerSet map[*workers.Worker]workers.Worker, workerType 
 
 	}()
 	workerSet[&worker] = worker
-
 }
