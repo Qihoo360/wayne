@@ -29,7 +29,7 @@ services:
     - "8080:8080"
 
   wayne-frontend:
-    image: 360cloud/wayne-backend:latest
+    image: 360cloud/wayne-frontend:latest
     volumes:
     - ./conf/config.js:/usr/local/openresty/nginx/html/config.js
     depends_on:
