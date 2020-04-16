@@ -1,4 +1,5 @@
-360 license agreement  
+360 license agreement
+
 Please read carefully this 360 license agreement (this "agreement"), which
 Constitutes a legally binding agreement and governs all of your use of all of
 The 360 software with which this agreement is included ("360 software")
@@ -48,8 +49,8 @@ Software
   to access and/or use the saas offering ("prohibited saas offering"), (v)
   circumvent the limitations on use of 360 software provided to you in
   object code format that are imposed or preserved by any license key, (vi)
-  alter or remove any marks and notices in the 360 software, or (vii) make use of object 
-code for any commercial purpose.  If you have any
+  alter or remove any marks and notices in the 360 software, or (vii) make use of object
+  code for any commercial purpose.  If you have any
   question as to whether a specific saas offering constitutes a prohibited saas
   offering, or are interested in obtaining 360's permission to engage in
   commercial or non-commercial distribution of the 360 software, please
@@ -82,8 +83,8 @@ code for any commercial purpose.  If you have any
   software, provided you (i) do not hack the licensing mechanism, or otherwise
   circumvent the intended limitations on the use of 360 software to enable
   features other than basic features and functions or those features you are
-  entitled to as part of a subscription, and (ii) make use of source code and 
-resulting object code only for reasonable testing purposes.
+  entitled to as part of a subscription, and (ii) make use of source code and
+  resulting object code only for reasonable testing purposes.
 
   2.2 restrictions. Nothing in section 2.1 grants you the right to (i) use the
   commercial software source code other than in accordance with section 2.1
@@ -91,8 +92,8 @@ resulting object code only for reasonable testing purposes.
   non-production environment, in any production capacity, on a temporary or
   permanent basis, (iii) transfer, sell, rent, lease, distribute, sublicense,
   loan or otherwise make available the commercial software source code, in whole
-  or in part, to any third party, or (iv)use commercial software source code or 
-resulting object code for any commercial purpose. 
+  or in part, to any third party, or (iv)use commercial software source code or
+  resulting object code for any commercial purpose. 
 
 3. termination
 
@@ -145,7 +146,7 @@ resulting object code for any commercial purpose.
   continue without said provision and be interpreted to reflect the original
   intent of the parties. This agreement and any non-contractual obligation
   arising out of or in connection with it, is governed exclusively by laws of
- People’s Republic of China. All disputes arising out of or in
+  People’s Republic of China. All disputes arising out of or in
   connection with this agreement, including its existence and validity, shall be
   resolved by the courts with jurisdiction in China,
 A breach or threatened breach, by you of section 2 may cause
@@ -172,7 +173,8 @@ A breach or threatened breach, by you of section 2 may cause
   360 software that are eligible for use under a basic license, as set forth
   At https://github.com/Qihoo360/wayne, as may be modified by 360 from time to time.
 
-  6.3 "commercial software" means the 360 software source code mentioned in directory file named backend.
+  6.3 "commercial software" means the 360 software source code mentioned in
+  directory file named backend.
 
   6.4 "derivative work of the commercial software" means, for purposes of this
   agreement, any modification(s) or enhancement(s) to the commercial software,
