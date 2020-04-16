@@ -1,0 +1,213 @@
+360 license agreement
+
+Please read carefully this 360 license agreement (this "agreement"), which
+Constitutes a legally binding agreement and governs all of your use of all of
+The 360 software with which this agreement is included ("360 software")
+That is provided in object code format, and, in accordance with section 2 below,
+Certain of the 360 software that is provided in source code format. By
+Installing or using any of the 360 software governed by this agreement, you
+are assenting to the terms and conditions of this agreement. If you do not agree
+With such terms and conditions, you may not install or use the 360 software
+Governed by this agreement. If you are installing or using the software on
+Behalf of a legal entity, you represent and warrant that you have the actual
+Authority to agree to the terms and conditions of this agreement on behalf of
+Such entity.
+
+Posted date: April 1, 2020
+
+This agreement is entered into by and between 360 Technology Group Co., Ltd. ("360") and
+You, or the legal entity on behalf of whom you are acting (as applicable,
+"you").
+
+1. object code end user licenses, restrictions  and third party open source
+Software
+
+  1.1 object code end user license. Subject to the terms and conditions of
+  section 1.2 of this agreement, 360 hereby grants to you, at no charge and
+  for so long as you are not in breach of any provision of this agreement, a
+  license to the basic features and functions of the 360 software.
+
+  1.2 reservation of rights; restrictions. As between 360 and you, 360
+  and its licensors own all right, title and interest in and to the 360
+  software, and except as expressly set forth in sections 1.1, and 2.1 of this
+  agreement, no other license to the 360 software is granted to you under
+  this agreement, by implication, estoppel or otherwise. You agree not to: (i)
+  reverse engineer or decompile, decrypt, disassemble or otherwise reduce any
+  360 software provided to you in object code, or any portion thereof, to
+  source code, except and only to the extent any such restriction is prohibited
+  by applicable law, (ii) except as expressly permitted in this agreement,
+  prepare derivative works from, modify, copy or use the 360 software object
+  code or the commercial software source code in any manner, (iii) except as
+  expressly permitted in section 1.1 above, transfer, sell, rent, lease,
+  distribute, sublicense, loan or otherwise transfer, 360 software object
+  code, in whole or in part, to any third party, (iv) use 360 software
+  object code for providing time-sharing services, any software-as-a-service,
+  service bureau services or as part of an application services provider or
+  other service offering (collectively, "saas offering") where obtaining access
+  to the 360 software or the features and functions of the 360 software
+  is a primary reason or substantial motivation for users of the saas offering
+  to access and/or use the saas offering ("prohibited saas offering"), (v)
+  circumvent the limitations on use of 360 software provided to you in
+  object code format that are imposed or preserved by any license key, (vi)
+  alter or remove any marks and notices in the 360 software, or (vii) make use of object
+  code for any commercial purpose.  If you have any
+  question as to whether a specific saas offering constitutes a prohibited saas
+  offering, or are interested in obtaining 360's permission to engage in
+  commercial or non-commercial distribution of the 360 software, please
+  contact redefine-infra@360.cn.
+
+  1.3 third party open source software. The commercial software may contain or
+  be provided with third party open source libraries, components, utilities and
+  other open source software (collectively, "open source software"), which open
+  source software may have applicable license terms as identified on a website
+  designated by 360. Notwithstanding anything to the contrary herein, use of
+  the open source software shall be subject to the license terms and conditions
+  applicable to such open source software, to the extent required by the
+  applicable licensor (which terms shall not restrict the license rights granted
+  to you hereunder, but may contain additional rights). To the extent any
+  condition of this agreement conflicts with any license to the open source
+  software, the open source software license will govern with respect to such
+  open source software only. 360 may also separately provide you with
+  certain open source software that is licensed by 360. Your use of such
+  360 open source software will not be governed by this agreement, but by
+  the applicable open source license terms.
+
+2. commercial software source code 
+
+  2.1 limited license. Subject to the terms and conditions of section 2.2 of
+  this agreement, 360 hereby grants to you, at no charge and for so long as
+  you are not in breach of any provision of this agreement, a limited,
+  non-exclusive, non-transferable, fully paid up royalty free right and license
+  to the commercial software in source code format, without the right to grant
+  or authorize sublicenses, to prepare derivative works of the commercial
+  software, provided you (i) do not hack the licensing mechanism, or otherwise
+  circumvent the intended limitations on the use of 360 software to enable
+  features other than basic features and functions or those features you are
+  entitled to as part of a subscription, and (ii) make use of source code and
+  resulting object code only for reasonable testing purposes.
+
+  2.2 restrictions. Nothing in section 2.1 grants you the right to (i) use the
+  commercial software source code other than in accordance with section 2.1
+  above, (ii) use a derivative work of the commercial software outside of a
+  non-production environment, in any production capacity, on a temporary or
+  permanent basis, (iii) transfer, sell, rent, lease, distribute, sublicense,
+  loan or otherwise make available the commercial software source code, in whole
+  or in part, to any third party, or (iv)use commercial software source code or
+  resulting object code for any commercial purpose. 
+
+3. termination
+
+  3.1 termination. This agreement will automatically terminate, whether or not
+  you receive notice of such termination from 360, if you breach any of its
+  provisions.
+
+  3.2 post termination. Upon any termination of this agreement, for any reason,
+  you shall promptly cease the use of the 360 software in object code format
+  and cease use of the commercial software in source code format. For the
+  avoidance of doubt, termination of this agreement will not affect your right
+  to use 360 software, in either object code or source code formats, made
+  available under the apache license version 2.0.
+
+  3.3 survival. Sections 1.2, 2.2. 3.3, 4 and 5 shall survive any termination or
+  expiration of this agreement.
+
+4. disclaimer of warranties and limitation of liability
+
+  4.1 disclaimer of warranties. To the maximum extent permitted under applicable
+  law, the 360 software is provided "as is" without warranty of any kind,
+  and 360 and its licensors make no warranties whether expressed, implied or
+  statutory regarding or relating to the 360 software. To the maximum extent
+  permitted under applicable law, 360 and its licensors specifically
+  disclaim all implied warranties of merchantability, fitness for a particular
+  purpose and non-infringement with respect to the 360 software, and with
+  respect to the use of the foregoing. Further, 360 does not warrant results
+  of use or that the 360 software will be error free or that the use of the
+  360 software will be uninterrupted.
+
+  4.2 limitation of liability. In no event shall 360 or its licensors be
+  liable to you or any third party for any direct or indirect damages,
+  including, without limitation, for any loss of profits, loss of use, business
+  interruption, loss of data, cost of substitute goods or services, or for any
+  special, incidental or consequential damages of any kind, in connection with
+  or arising out of the use or inability to use the 360 software, or the
+  performance of or failure to perform this agreement, whether alleged as a
+  breach of contract or tortious conduct, including negligence, even if 360
+  has been advised of the possibility of such damages.
+
+5. miscellaneous
+
+  this agreement completely and exclusively states the entire agreement of the
+  parties regarding the subject matter herein, and it supersedes, and its terms
+  govern, all prior proposals, agreements, or other communications between the
+  parties, oral or written, regarding such subject matter. This agreement may be
+  modified by 360 from time to time, and any such modifications will be
+  effective upon the "posted date" set forth at the top of the modified
+  agreement. If any provision hereof is held unenforceable, this agreement will
+  continue without said provision and be interpreted to reflect the original
+  intent of the parties. This agreement and any non-contractual obligation
+  arising out of or in connection with it, is governed exclusively by laws of
+  People’s Republic of China. All disputes arising out of or in
+  connection with this agreement, including its existence and validity, shall be
+  resolved by the courts with jurisdiction in China,
+A breach or threatened breach, by you of section 2 may cause
+  irreparable harm for which damages at law may not provide adequate relief, and
+  therefore 360 shall be entitled to seek injunctive relief without being
+  required to post a bond. You may not assign this agreement (including by
+  operation of law in connection with a merger or acquisition), in whole or in
+  part to any third party without the prior written consent of 360, which
+  may be withheld or granted by 360 in its sole and absolute discretion.
+  any assignment in violation of the preceding sentence is void. Notices to
+  360 may also be sent to redefine-infra@360.cn.
+
+6. definitions
+
+  the following terms have the meanings ascribed:
+
+  6.1 "affiliate" means, with respect to a party, any entity that controls, is
+  controlled by, or which is under common control with, such party, where
+  "control" means ownership of at least fifty percent (50%) of the outstanding
+  voting shares of the entity, or the contractual right to establish policy for,
+  and manage the operations of, the entity.
+
+  6.2 "basic features and functions"  means those features and functions of the
+  360 software that are eligible for use under a basic license, as set forth
+  At https://github.com/Qihoo360/wayne, as may be modified by 360 from time to time.
+
+  6.3 "commercial software" means the 360 software source code mentioned in
+  directory file named backend.
+
+  6.4 "derivative work of the commercial software" means, for purposes of this
+  agreement, any modification(s) or enhancement(s) to the commercial software,
+  which represent, as a whole, an original work of authorship.
+
+  6.5 "license" means a limited, non-exclusive, non-transferable, fully paid up,
+  royalty free, right and license, without the right to grant or authorize
+  sublicenses, solely for your internal business operations to (i) install and
+  use the applicable features and functions of the 360 software in object
+  code, and (ii) permit contractors and your affiliates to use the 360
+  software as set forth in (i) above, provided that such use by contractors must
+  be solely for your benefit and/or the benefit of your affiliates, and you
+  shall be responsible for all acts and omissions of such contractors and
+  affiliates in connection with their use of the 360 software that are
+  contrary to the terms and conditions of this agreement.
+
+  6.6 "license key " means a sequence of bytes, including but not limited to a
+  json blob , that is used to enable certain features and functions of the
+  360 software.
+
+  6.7 "marks and notices" means all 360 trademarks, trade names, logos and
+  notices present on the documentation as originally provided by 360.
+
+  6.8 "non-production environment" means an environment for development, testing
+  or quality assurance, where software is not used for production purposes.
+
+  6.9 "object code" means any form resulting from mechanical transformation or
+  translation of source code form, including but not limited to compiled object
+  code, generated documentation, and conversions to other media types.
+
+  6.10 "source code" means the preferred form of computer software for making
+  modifications, including but not limited to software source code,
+  documentation source, and configuration files.
+
+  6.11 "subscription"  means the right to receive support services and a license
+  to the commercial software.
