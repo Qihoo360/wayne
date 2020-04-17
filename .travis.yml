@@ -8,11 +8,13 @@ matrix:
       go:
         - 1.14.x
       env:
-        - DB_USER=root DB_PASSWD=''  DB_TNS='tcp(127.0.0.1:3306)'
+        - DB_USER=root DB_PASSWD='root'  DB_TNS='tcp(127.0.0.1:3306)'
       service:
         - mysql
       before_install:
         - mysql -e 'CREATE DATABASE wayne;'
+        - mysql -e 'USE wayne;'
+        - mysql -e 'SHOW TABLES;'
       script:
         - pwd
         - echo '' >  /home/travis/gopath/src/github.com/Qihoo360/wayne/src/backend/conf/dev.conf
