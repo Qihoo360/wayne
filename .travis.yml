@@ -14,7 +14,7 @@ matrix:
       before_install:
         - mysql -e 'CREATE DATABASE wayne;'
         - mysql -e 'USE wayne;'
-        - mysql -e 'SHOW TABLES;'
+        - mysql -e 'SHOW TABLES FROM wayne;'
       script:
         - pwd
         - echo '' >  /home/travis/gopath/src/github.com/Qihoo360/wayne/src/backend/conf/dev.conf
