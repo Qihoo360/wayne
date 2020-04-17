@@ -3,16 +3,12 @@ matrix:
     - language: go
       os:
         - linux
-        - osx
       go:
-        - 1.9.x
-        - 1.10.x
-        - 1.11.x
+        - 1.14.x
       env:
         - DB_USER=root DB_PASSWD=''  DB_TNS='tcp(127.0.0.1:3306)'
       service:
         - mysql
-        - rabbitmq
       before_install:
         - mysql -e 'CREATE DATABASE wayne;'
       script:
@@ -24,7 +20,7 @@ matrix:
         - linux
         - osx
       node_js:
-        - 10.16.0
+        - 12.16.x
       before_install:
         - cd src/frontend && npm install
       script:
