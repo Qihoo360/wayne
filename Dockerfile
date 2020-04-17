@@ -8,11 +8,10 @@ FROM 360cloud/wayne-server-builder:v1.0.2 as backend
 
 COPY go.mod /go/src/github.com/Qihoo360/wayne
 COPY go.sum /go/src/github.com/Qihoo360/wayne
-
 COPY src/backend /go/src/github.com/Qihoo360/wayne/src/backend
 
 RUN export GO111MODULE=on && \
-    export GOPROXY=https://mirrors.aliyun.com/goproxy/ && \
+    export GOPROXY=https://goproxy.io && \
     cd /go/src/github.com/Qihoo360/wayne/src/backend && \
     bee generate docs && \
     bee pack -o /_build
