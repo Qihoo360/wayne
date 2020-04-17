@@ -20,8 +20,8 @@ matrix:
         - pwd
         - echo '' >  /home/travis/gopath/src/github.com/Qihoo360/wayne/src/backend/conf/dev.conf
         - export GO111MODULE=on
-        - make syncdb && make sqlall
-        - make run-backend
+        - make syncdb
+        - make run-backend & | sleep 3 | pidof go
 
     - language: node_js
       os:
