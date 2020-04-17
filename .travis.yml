@@ -13,7 +13,7 @@ matrix:
         - mysql
       before_install:
         - mysql -e 'CREATE DATABASE wayne;'
-        - mysql -e 'UPDATE user SET Host='%' WHERE User='root' FROM mysql;'
+        - mysql -e "UPDATE user SET Host='%' WHERE User='root' FROM mysql;"
         - mysql -e 'flush privileges;'
       script:
         - pwd
