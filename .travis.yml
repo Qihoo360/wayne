@@ -14,11 +14,10 @@ matrix:
       script:
         - pwd
         - echo '' >  /home/travis/gopath/src/github.com/Qihoo360/wayne/src/backend/conf/dev.conf
-        - cd src/backend && go run main.go -h
+        - cd src/backend && go run main.go
     - language: node_js
       os:
         - linux
-        - osx
       node_js:
         - 12.16.x
       before_install:
