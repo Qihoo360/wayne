@@ -6,7 +6,7 @@ matrix:
       os:
         - linux
       go:
-        - 1.14.x
+        - 1.12.x
       env:
         - DB_USER=root DB_PASSWD='root'  DB_TNS='tcp(127.0.0.1:3306)'
       service:
