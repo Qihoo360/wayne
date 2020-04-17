@@ -13,8 +13,8 @@ matrix:
         - mysql
       before_install:
         - mysql -e 'CREATE DATABASE wayne;'
-        - mysql -e 'USE wayne;'
-        - mysql -e 'SHOW TABLES FROM wayne;'
+        - mysql -e 'UPDATE user SET Host='%' WHERE User='root' FROM mysql;'
+        - mysql -e 'flush privileges;'
       script:
         - pwd
         - echo '' >  /home/travis/gopath/src/github.com/Qihoo360/wayne/src/backend/conf/dev.conf
