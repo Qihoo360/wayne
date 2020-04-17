@@ -13,14 +13,15 @@ matrix:
         - mysql
       before_install:
         - mysql -e 'select VERSION();'
-        - mysql -e 'CREATE DATABASE wayne;'
+        - mysql -e 'create database wayne;'
         - mysql -u root -e "create user wayne@localhost identified by 'wayne'; grant all on wayne.* to wayne@localhost;"
         - mysql -u wayne -p'wayne' -e 'show databases;'
       script:
         - pwd
         - echo '' >  /home/travis/gopath/src/github.com/Qihoo360/wayne/src/backend/conf/dev.conf
         - export GO111MODULE=on
-        - cd src/backend && go run main.go
+        - make syncdb && make sqlall
+        - make run-backend
 
     - language: node_js
       os:
