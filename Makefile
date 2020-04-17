@@ -33,7 +33,7 @@ swagger-openapi:
 
 ## server builder image
 build-server-image:
-	cd hack/build/server && docker build --no-cache -t $(REGISTRY_URI)/wayne-server-builder:$(SERVER_BUILD_VERSION) .
+	docker build --no-cache -t $(REGISTRY_URI)/wayne-server-builder:$(SERVER_BUILD_VERSION) -f hack/build/server/Dockerfile .
 
 ## ui builder image
 build-ui-image:
