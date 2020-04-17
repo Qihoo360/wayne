@@ -15,7 +15,7 @@ matrix:
         - mysql -e 'select VERSION();'
         - mysql -e 'CREATE DATABASE wayne;'
         - mysql -u root -e "create user wayne@localhost identified by 'wayne'; grant all on wayne.* to wayne@localhost;"
-        - mysql -u travis_pass -p'wayne' -e 'show databases;'
+        - mysql -u wayne -p'wayne' -e 'show databases;'
       script:
         - pwd
         - echo '' >  /home/travis/gopath/src/github.com/Qihoo360/wayne/src/backend/conf/dev.conf
