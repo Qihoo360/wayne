@@ -37,16 +37,16 @@ build-server-image:
 
 ## ui builder image
 build-ui-image:
-	docker build -f hack/build/ui/Dockerfile -t $(REGISTRY_URI)/wayne-ui-builder:$(UI_BUILD_VERSION) .
+	cd hack/build/ui/ && docker build --no-cache -t $(REGISTRY_URI)/wayne-ui-builder:$(UI_BUILD_VERSION) .
 
 # release, requiring Docker 17.05 or higher on the daemon and client
 build-backend-image:
 	@echo "version: $(RELEASE_VERSION)"
-	docker build --no-cache -t $(REGISTRY_URI)/wayne-backend:$(RELEASE_VERSION) -f hack/build/backend/Dockerfile .
+	cd hack/build/backend/ && docker build --no-cache -t $(REGISTRY_URI)/wayne-backend:$(RELEASE_VERSION) .
 
 build-frontend-image:
 	@echo "version: $(RELEASE_VERSION)"
-	docker build --no-cache -t $(REGISTRY_URI)/wayne-frontend:$(RELEASE_VERSION) -f hack/build/frontend/Dockerfile .
+	cd hack/build/frontend/ && docker build --no-cache -t $(REGISTRY_URI)/wayne-frontend:$(RELEASE_VERSION) .
 
 push-image:
 	docker tag $(REGISTRY_URI)/wayne-backend:$(RELEASE_VERSION) $(REGISTRY_URI)/wayne-backend:latest
