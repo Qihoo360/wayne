@@ -23,7 +23,7 @@ matrix:
       os:
         - linux
       node_js:
-        - 12.16.x
+        - 12.16.1
       before_install:
         - cd src/frontend && npm install
       script:
