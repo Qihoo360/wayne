@@ -20,7 +20,6 @@ matrix:
         - pwd
         - echo '' >  /home/travis/gopath/src/github.com/Qihoo360/wayne/src/backend/conf/dev.conf
         - export GO111MODULE=on
-        - export GOPROXY=https://goproxy.io
         - make syncdb
         - make run-backend &
         - pidof go
