@@ -12,9 +12,10 @@ matrix:
       service:
         - mysql
       before_install:
+        - mysql -e 'select VERSION();'
         - mysql -e 'CREATE DATABASE wayne;'
-        - mysql -e "UPDATE user SET Host='%' WHERE User='root' FROM mysql;"
-        - mysql -e 'flush privileges;'
+        - mysql -u root -e "create user wayne@localhost identified by 'wayne'; grant all on wayne.* to wayne@localhost;"
+        - mysql -u travis_pass -p'wayne' -e 'show databases;'
       script:
         - pwd
         - echo '' >  /home/travis/gopath/src/github.com/Qihoo360/wayne/src/backend/conf/dev.conf
