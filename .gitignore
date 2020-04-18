@@ -1,7 +1,21 @@
+## OS files
+# Mac OS
+.DS_Store
+
+## IDE specific files
+# IntelliJ
+.idea/
+*.iml
+## VSCode
+.vscode/
+# Vim temporary files
+*.swp
+
 ## Local copies of dependencies that should stay on developers' local machines
 node_modules/
 bower_components/
 *.tmp
+
 ## Build and test artifacts
 .go_workspace/
 .sass-cache/
@@ -9,20 +23,7 @@ bower_components/
 coverage/
 dist/
 .tools/
-
-## OS files
-# Mac OS
-.DS_Store
-
-## Vs Code
-.vscode/
-
-## IDE specific files
-# IntelliJ
-.idea/
-*.iml
-# Vi temporary files
-*.swp
+vendor/
 
 ## Project
 .env
@@ -43,5 +44,3 @@ src/backend/swagger/swagger.yml
 ##script
 src/frontend/src/app/js-rename.js
 /src/backend/openapi.swagger.json
-
-vendor
