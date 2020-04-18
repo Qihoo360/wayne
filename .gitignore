@@ -41,6 +41,6 @@ src/backend/views/index.html
 src/backend/swagger/swagger.json
 src/backend/swagger/swagger.yml
 
-##script
+## Script
 src/frontend/src/app/js-rename.js
 /src/backend/openapi.swagger.json
