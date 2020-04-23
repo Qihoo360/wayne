@@ -18,7 +18,7 @@ Wayne has been serving [360 search](https://www.so.com/?src=wayne) on a large sc
 
 ## Demo
 
-[https://demo.360yun.org](https://demo.360yun.org)
+[http://demo.360yun.org](https://demo.360yun.org)
 
 ## Features
 
