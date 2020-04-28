@@ -14,11 +14,11 @@ Wayne has been serving [360 search](https://www.so.com/?src=wayne) on a large sc
 
 > Why Named **Wayne**:Most of the projects developed by the team of 360 ​​Search Private Cloud are named after DC comics, and [Wayne](https://en.wikipedia.org/wiki/Batman#Bruce_Wayne) is no exception. "Wayne" is the name of the famous superhero, Batman Bruce Wayne.
 
-![Dashboard](https://360yun.org/wayne/images/dashboard-ui.png)
+![Dashboard](http://360yun.org/wayne/images/dashboard-ui.png)
 
 ## Demo
 
-[http://demo.360yun.org](https://demo.360yun.org)
+[http://demo.360yun.org](http://demo.360yun.org)
 
 ## Features
 
@@ -36,7 +36,7 @@ Wayne has been serving [360 search](https://www.so.com/?src=wayne) on a large sc
 ## Architecture
 
 The whole system adopts the separation of front and back ends, in which the front end uses Angular framework for data interaction and display, and the Ace editor is used for Kubernetes resource template editing. The backend uses the Beego framework for data interface processing, Client-go to interact with Kubernetes, and data for MySQL storage.
-![Architecture](https://360yun.org/wayne/images/architecture.png)
+![Architecture](http://360yun.org/wayne/images/architecture.png)
 
 ## Component
 
@@ -69,17 +69,17 @@ $ docker-compose -f ./hack/docker-compose/docker-compose.yaml up
 
 With the above command, you can access the local Wayne from http://127.0.0.1:4200, the default administrator account admin:admin.
 
-> Note: After Wayne is started, you need to configure information such as cluster and Namespace for normal use. See details [Cluster Configuration](https://360yun.org/wayne/admin/cluster.html)
+> Note: After Wayne is started, you need to configure information such as cluster and Namespace for normal use. See details [Cluster Configuration](http://360yun.org/wayne/admin/cluster.html)
 
 ## Document
 
-- Refer [Wiki](https://360yun.org/wayne/)
+- Refer [Wiki](http://360yun.org/wayne/)
 
 ## Contact Us
 
 WeChat
 
-![WeChat](https://70data-net-static.smartgslb.com/upload/work/wechat.jpg)
+![WeChat](http://70data-net-static.smartgslb.com/upload/work/wechat.jpg)
 
 Mail
 
