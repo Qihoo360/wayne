@@ -139,8 +139,8 @@ func clusterChanged(clusters []models.Cluster) bool {
 			return true
 		}
 
-		if manager.Cluster.KubeConfig != manager.Cluster.KubeConfig {
-			logs.Info("cluster kubeConfig (%d) changed to (%d).", manager.Cluster.KubeConfig, cluster.KubeConfig)
+		if manager.Cluster.KubeConfig != cluster.KubeConfig {
+			logs.Info("cluster kubeConfig (%s) changed to (%s).", manager.Cluster.KubeConfig, cluster.KubeConfig)
 			return true
 		}
 	}
