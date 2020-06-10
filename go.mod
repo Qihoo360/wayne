@@ -1,6 +1,6 @@
 module github.com/Qihoo360/wayne
 
-go 1.12
+go 1.13
 
 require (
 	github.com/360yun/sockjs-go v0.0.0-20190620042557-e70edfda8e57

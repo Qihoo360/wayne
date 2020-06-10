@@ -4,7 +4,6 @@ package client
 
 import (
 	"fmt"
-
 	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -36,10 +35,11 @@ func NewResourceHandler(kubeClient *kubernetes.Clientset, cacheFactory *CacheFac
 }
 
 func (h *resourceHandler) Create(kind string, namespace string, object *runtime.Unknown) (*runtime.Unknown, error) {
-	resource, ok := api.KindToResourceMap[kind]
-	if !ok {
-		return nil, fmt.Errorf("Resource kind (%s) not support yet . ", kind)
+	resource, err := h.getResource(kind)
+	if err != nil {
+		return nil, err
 	}
+
 	kubeClient := h.getClientByGroupVersion(resource.GroupVersionResourceKind.GroupVersionResource)
 	req := kubeClient.Post().
 		Resource(kind).
@@ -49,15 +49,16 @@ func (h *resourceHandler) Create(kind string, namespace string, object *runtime.
 		req.Namespace(namespace)
 	}
 	var result runtime.Unknown
-	err := req.Do().Into(&result)
+	err = req.Do().Into(&result)
 
 	return &result, err
 }
 
 func (h *resourceHandler) Update(kind string, namespace string, name string, object *runtime.Unknown) (*runtime.Unknown, error) {
-	resource, ok := api.KindToResourceMap[kind]
-	if !ok {
-		return nil, fmt.Errorf("Resource kind (%s) not support yet . ", kind)
+
+	resource, err := h.getResource(kind)
+	if err != nil {
+		return nil, err
 	}
 
 	kubeClient := h.getClientByGroupVersion(resource.GroupVersionResourceKind.GroupVersionResource)
@@ -71,16 +72,18 @@ func (h *resourceHandler) Update(kind string, namespace string, name string, obj
 	}
 
 	var result runtime.Unknown
-	err := req.Do().Into(&result)
+	err = req.Do().Into(&result)
 
 	return &result, err
 }
 
 func (h *resourceHandler) Delete(kind string, namespace string, name string, options *meta_v1.DeleteOptions) error {
-	resource, ok := api.KindToResourceMap[kind]
-	if !ok {
-		return fmt.Errorf("Resource kind (%s) not support yet . ", kind)
+
+	resource, err := h.getResource(kind)
+	if err != nil {
+		return err
 	}
+
 	kubeClient := h.getClientByGroupVersion(resource.GroupVersionResourceKind.GroupVersionResource)
 	req := kubeClient.Delete().
 		Resource(kind).
@@ -95,10 +98,11 @@ func (h *resourceHandler) Delete(kind string, namespace string, name string, opt
 
 // Get object from cache
 func (h *resourceHandler) Get(kind string, namespace string, name string) (runtime.Object, error) {
-	resource, ok := api.KindToResourceMap[kind]
-	if !ok {
-		return nil, fmt.Errorf("Resource kind (%s) not support yet . ", kind)
+	resource, err := h.getResource(kind)
+	if err != nil {
+		return nil, err
 	}
+
 	genericInformer, err := h.cacheFactory.sharedInformerFactory.ForResource(resource.GroupVersionResourceKind.GroupVersionResource)
 	if err != nil {
 		return nil, err
@@ -127,10 +131,12 @@ func (h *resourceHandler) Get(kind string, namespace string, name string) (runti
 
 // Get object from cache
 func (h *resourceHandler) List(kind string, namespace string, labelSelector string) ([]runtime.Object, error) {
-	resource, ok := api.KindToResourceMap[kind]
-	if !ok {
-		return nil, fmt.Errorf("Resource kind (%s) not support yet . ", kind)
+
+	resource, err := h.getResource(kind)
+	if err != nil {
+		return nil, err
 	}
+
 	genericInformer, err := h.cacheFactory.sharedInformerFactory.ForResource(resource.GroupVersionResourceKind.GroupVersionResource)
 	if err != nil {
 		return nil, err
@@ -164,4 +170,17 @@ func (h *resourceHandler) List(kind string, namespace string, labelSelector stri
 	}
 
 	return objs, nil
+}
+
+func (h *resourceHandler) getResource(kind string) (resource api.ResourceMap, err error) {
+	resourceMap, err := api.GetResourceMap(h.client)
+	if err != nil {
+		return
+	}
+	resource, ok := resourceMap[kind]
+	if !ok {
+		err = fmt.Errorf("Resource kind (%s) not support yet . ", kind)
+		return
+	}
+	return
 }

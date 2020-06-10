@@ -1,5 +1,5 @@
 window.CONFIG = {
-  URL: 'http://www.360yun.org',
+  URL: 'http://localhost:8080',
   RAVEN: true,
   RAVEN_DSN: 'RAVEN_DSN'
 };

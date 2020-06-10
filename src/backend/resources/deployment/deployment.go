@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"sort"
 
-	"k8s.io/api/apps/v1beta1"
+	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
@@ -26,7 +26,7 @@ type Deployment struct {
 	Containers []string          `json:"containers"`
 }
 
-func GetDeploymentList(indexer *client.CacheFactory, namespace string) ([]*v1beta1.Deployment, error) {
+func GetDeploymentList(indexer *client.CacheFactory, namespace string) ([]*appsv1.Deployment, error) {
 	deployments, err := indexer.DeploymentLister().Deployments(namespace).List(labels.Everything())
 	if err != nil {
 		return nil, err
@@ -39,7 +39,7 @@ func GetDeploymentList(indexer *client.CacheFactory, namespace string) ([]*v1bet
 }
 
 // GetDeploymentResource get deployment resource statistics
-func GetDeploymentResource(cli client.ResourceHandler, deployment *v1beta1.Deployment) (*common.ResourceList, error) {
+func GetDeploymentResource(cli client.ResourceHandler, deployment *appsv1.Deployment) (*common.ResourceList, error) {
 	obj, err := cli.Get(api.ResourceNameDeployment, deployment.Namespace, deployment.Name)
 
 	if err != nil {
@@ -48,7 +48,7 @@ func GetDeploymentResource(cli client.ResourceHandler, deployment *v1beta1.Deplo
 		}
 		return nil, err
 	}
-	old := obj.(*v1beta1.Deployment)
+	old := obj.(*appsv1.Deployment)
 	oldResourceList := common.DeploymentResourceList(old)
 	newResourceList := common.DeploymentResourceList(deployment)
 
@@ -58,11 +58,12 @@ func GetDeploymentResource(cli client.ResourceHandler, deployment *v1beta1.Deplo
 	}, nil
 }
 
-func CreateOrUpdateDeployment(cli *kubernetes.Clientset, deployment *v1beta1.Deployment) (*v1beta1.Deployment, error) {
-	old, err := cli.AppsV1beta1().Deployments(deployment.Namespace).Get(deployment.Name, metaV1.GetOptions{})
+func CreateOrUpdateDeployment(cli *kubernetes.Clientset, deployment *appsv1.Deployment) (*appsv1.Deployment, error) {
+	//old, err := cli.AppsV1beta1().Deployments(deployment.Namespace).Get(deployment.Name, metaV1.GetOptions{})
+	old, err := cli.AppsV1().Deployments(deployment.Namespace).Get(deployment.Name, metaV1.GetOptions{})
 	if err != nil {
 		if errors.IsNotFound(err) {
-			return cli.AppsV1beta1().Deployments(deployment.Namespace).Create(deployment)
+			return cli.AppsV1().Deployments(deployment.Namespace).Create(deployment)
 		}
 		return nil, err
 	}
@@ -75,11 +76,11 @@ func CreateOrUpdateDeployment(cli *kubernetes.Clientset, deployment *v1beta1.Dep
 	old.Annotations = deployment.Annotations
 	old.Spec = deployment.Spec
 
-	return cli.AppsV1beta1().Deployments(deployment.Namespace).Update(old)
+	return cli.AppsV1().Deployments(deployment.Namespace).Update(old)
 }
 
-func UpdateDeployment(cli *kubernetes.Clientset, deployment *v1beta1.Deployment) (*v1beta1.Deployment, error) {
-	old, err := cli.AppsV1beta1().Deployments(deployment.Namespace).Get(deployment.Name, metaV1.GetOptions{})
+func UpdateDeployment(cli *kubernetes.Clientset, deployment *appsv1.Deployment) (*appsv1.Deployment, error) {
+	old, err := cli.AppsV1().Deployments(deployment.Namespace).Get(deployment.Name, metaV1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +90,7 @@ func UpdateDeployment(cli *kubernetes.Clientset, deployment *v1beta1.Deployment)
 		return nil, err
 	}
 
-	return cli.AppsV1beta1().Deployments(deployment.Namespace).Update(deployment)
+	return cli.AppsV1().Deployments(deployment.Namespace).Update(deployment)
 }
 
 // check Deployment .Spec.Selector.MatchLabels, prevent orphan ReplicaSet
@@ -97,7 +98,7 @@ func UpdateDeployment(cli *kubernetes.Clientset, deployment *v1beta1.Deployment)
 // e.g. old Deployment .Spec.Selector.MatchLabels is app = infra-wayne,wayne-app = infra
 // new Deployment .Spec.Selector.MatchLabels valid labels is
 // app = infra-wayne or wayne-app = infra or app = infra-wayne,wayne-app = infra
-func checkDeploymentLabelSelector(new *v1beta1.Deployment, old *v1beta1.Deployment) error {
+func checkDeploymentLabelSelector(new *appsv1.Deployment, old *appsv1.Deployment) error {
 	for key, value := range new.Spec.Selector.MatchLabels {
 		oldValue, ok := old.Spec.Selector.MatchLabels[key]
 		if !ok || oldValue != value {
@@ -112,12 +113,12 @@ func checkDeploymentLabelSelector(new *v1beta1.Deployment, old *v1beta1.Deployme
 	return nil
 }
 
-func GetDeployment(cli *kubernetes.Clientset, name, namespace string) (*v1beta1.Deployment, error) {
-	return cli.AppsV1beta1().Deployments(namespace).Get(name, metaV1.GetOptions{})
+func GetDeployment(cli *kubernetes.Clientset, name, namespace string) (*appsv1.Deployment, error) {
+	return cli.AppsV1().Deployments(namespace).Get(name, metaV1.GetOptions{})
 }
 
 func GetDeploymentDetail(cli *kubernetes.Clientset, indexer *client.CacheFactory, name, namespace string) (*Deployment, error) {
-	deployment, err := cli.AppsV1beta1().Deployments(namespace).Get(name, metaV1.GetOptions{})
+	deployment, err := cli.AppsV1().Deployments(namespace).Get(name, metaV1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -125,7 +126,7 @@ func GetDeploymentDetail(cli *kubernetes.Clientset, indexer *client.CacheFactory
 	return toDeployment(deployment, indexer)
 }
 
-func toDeployment(deployment *v1beta1.Deployment, indexer *client.CacheFactory) (*Deployment, error) {
+func toDeployment(deployment *appsv1.Deployment, indexer *client.CacheFactory) (*Deployment, error) {
 	result := &Deployment{
 		ObjectMeta: common.NewObjectMeta(deployment.ObjectMeta),
 	}
@@ -159,12 +160,12 @@ func toDeployment(deployment *v1beta1.Deployment, indexer *client.CacheFactory) 
 
 func DeleteDeployment(cli *kubernetes.Clientset, name, namespace string) error {
 	deletionPropagation := metaV1.DeletePropagationBackground
-	return cli.ExtensionsV1beta1().
+	return cli.AppsV1().
 		Deployments(namespace).
 		Delete(name, &metaV1.DeleteOptions{PropagationPolicy: &deletionPropagation})
 }
 
-func  UpdateScale(cli *kubernetes.Clientset, deploymentname string, namespace string,newreplica int32) error {
+func UpdateScale(cli *kubernetes.Clientset, deploymentname string, namespace string,newreplica int32) error {
 	deployments:=cli.AppsV1beta1().Deployments(namespace)
 	deployment,err:=deployments.Get(deploymentname,metaV1.GetOptions{})
 	if err != nil {

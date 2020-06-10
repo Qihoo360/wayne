@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"k8s.io/api/apps/v1beta1"
+	appsv1 "k8s.io/api/apps/v1"
 	v1 "k8s.io/api/core/v1"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
@@ -24,7 +24,7 @@ import (
 type DeploymentInfo struct {
 	Deployment         *models.Deployment
 	DeploymentTemplete *models.DeploymentTemplate
-	DeploymentObject   *v1beta1.Deployment
+	DeploymentObject   *appsv1.Deployment
 	Cluster            *models.Cluster
 	Namespace          *models.Namespace
 }
@@ -655,7 +655,7 @@ func getOnlineDeploymenetInfo(deployment, namespace, cluster string, templateId 
 		}
 	}
 
-	deployObj := v1beta1.Deployment{}
+	deployObj := appsv1.Deployment{}
 	err = json.Unmarshal(hack.Slice(deployInfo.DeploymentTemplete.Template), &deployObj)
 	if err != nil {
 		return nil, fmt.Errorf("Failed to parse deployment template: %s", err.Error())
@@ -723,7 +723,7 @@ func publishDeployment(deployInfo *DeploymentInfo, username string) error {
 	}
 }
 
-func updateDeployment(deployObj *v1beta1.Deployment, cluster string, name string, msg string, resourceId int64) error {
+func updateDeployment(deployObj *appsv1.Deployment, cluster string, name string, msg string, resourceId int64) error {
 	status, err := models.PublishStatusModel.GetByCluster(models.PublishTypeDeployment, resourceId, cluster)
 	if err != nil {
 		return fmt.Errorf("Failed to get publish status by cluster: %s", err.Error())
