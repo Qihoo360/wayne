@@ -3,7 +3,7 @@ package daemonset
 import (
 	"encoding/json"
 
-	"k8s.io/api/extensions/v1beta1"
+	appsv1 "k8s.io/api/apps/v1"
 
 	"github.com/Qihoo360/wayne/src/backend/controllers/base"
 	"github.com/Qihoo360/wayne/src/backend/models"
@@ -44,7 +44,7 @@ func (c *KubeDaemonSetController) Create() {
 	daemonSetId := c.GetIntParamFromURL(":daemonSetId")
 	tplId := c.GetIntParamFromURL(":tplId")
 
-	var kubeDaemonSet v1beta1.DaemonSet
+	var kubeDaemonSet appsv1.DaemonSet
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &kubeDaemonSet)
 	if err != nil {
 		c.AbortBadRequestFormat("KubeDaemonSet")

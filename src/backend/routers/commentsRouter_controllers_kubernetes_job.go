@@ -15,6 +15,13 @@ func init() {
             AllowHTTPMethods: []string{"get"},
             MethodParams: param.Make(),
             Filters: nil,
+            Params: nil},
+        beego.ControllerComments{
+            Method: "DeleteJob",
+            Router: `/namespaces/:namespace/clusters/:cluster`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
             Params: nil})
 
 }

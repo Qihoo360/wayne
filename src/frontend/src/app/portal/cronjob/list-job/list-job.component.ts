@@ -1,16 +1,19 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
-import { ClrDatagridStateInterface } from '@clr/angular';
-import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
-import { JobClient } from '../../../shared/client/v1/kubernetes/job';
-import { ActivatedRoute } from '@angular/router';
-import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import { Subscription } from 'rxjs/Subscription';
-import { CacheService } from '../../../shared/auth/cache.service';
-import { PageState } from '../../../shared/page/page-state';
-import { KubeJob } from '../../../shared/model/v1/kubernetes/job';
-import { ListPodComponent } from '../list-pod/list-pod.component';
-import { ListEventDatagridComponent } from '../../../shared/list-event-datagrid/list-event.component';
-import { KubeCronJob } from '../../../shared/model/v1/kubernetes/cronjob';
+import {Component, OnDestroy, ViewChild} from '@angular/core';
+import {ClrDatagridStateInterface} from '@clr/angular';
+import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
+import {JobClient} from '../../../shared/client/v1/kubernetes/job';
+import {ActivatedRoute} from '@angular/router';
+import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import {Subscription} from 'rxjs/Subscription';
+import {CacheService} from '../../../shared/auth/cache.service';
+import {PageState} from '../../../shared/page/page-state';
+import {KubeJob} from '../../../shared/model/v1/kubernetes/job';
+import {ListPodComponent} from '../list-pod/list-pod.component';
+import {ListEventDatagridComponent} from '../../../shared/list-event-datagrid/list-event.component';
+import {KubeCronJob} from '../../../shared/model/v1/kubernetes/cronjob';
+import {AuthService} from "../../../shared/auth/auth.service";
+import {ConfirmationMessage} from "../../../shared/confirmation-dialog/confirmation-message";
+import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from "../../../shared/shared.const";
 
 @Component({
   selector: 'list-job',
@@ -23,9 +26,9 @@ export class ListJobComponent implements OnDestroy {
   currentPage = 1;
   state: ClrDatagridStateInterface;
 
-  @ViewChild(ListPodComponent, { static: false })
+  @ViewChild(ListPodComponent, {static: false})
   listPodComponent: ListPodComponent;
-  @ViewChild(ListEventDatagridComponent, { static: false })
+  @ViewChild(ListEventDatagridComponent, {static: false})
   listEventDatagridComponent: ListEventDatagridComponent;
   jobs: KubeJob[];
   private timer: any = null;
@@ -39,9 +42,27 @@ export class ListJobComponent implements OnDestroy {
   constructor(
     private deletionDialogService: ConfirmationDialogService,
     private messageHandlerService: MessageHandlerService,
+    public authService: AuthService,
     public cacheService: CacheService,
     private route: ActivatedRoute,
     private jobClient: JobClient) {
+    this.subscription = deletionDialogService.confirmationConfirm$.subscribe(message => {
+      if (message &&
+        message.state === ConfirmationState.CONFIRMED &&
+        message.source === ConfirmationTargets.JOB) {
+        const name = message.data;
+        this.jobClient.deleteJobByName(this.cluster, this.cacheService.kubeNamespace, name, this.appId)
+          .subscribe(
+            response => {
+              this.messageHandlerService.showSuccess('任务' + name + '删除成功！');
+              this.refresh();
+            },
+            error => {
+              this.messageHandlerService.handleError(error);
+            }
+          );
+      }
+    });
   }
 
   get appId(): number {
@@ -95,10 +116,24 @@ export class ListJobComponent implements OnDestroy {
     return readyNumber === desiredNumber;
   }
 
+  deleteJob(obj: KubeJob): void {
+    const deletionMessage = new ConfirmationMessage(
+      '删除确认',
+      `你确认删除任务${obj.metadata.name}？`,
+      obj.metadata.name,
+      ConfirmationTargets.JOB,
+      ConfirmationButtons.DELETE_CANCEL
+    );
+    this.deletionDialogService.openComfirmDialog(deletionMessage);
+  }
+
   refresh(state?: ClrDatagridStateInterface) {
     if (state) {
       this.state = state;
-      this.pageState = PageState.fromState(state, {totalPage: this.pageState.page.totalPage, totalCount: this.pageState.page.totalCount});
+      this.pageState = PageState.fromState(state, {
+        totalPage: this.pageState.page.totalPage,
+        totalCount: this.pageState.page.totalCount
+      });
     }
     if (this.cluster) {
       this.jobClient.listJobByCronJob(this.pageState, this.cluster, this.cacheService.kubeNamespace,

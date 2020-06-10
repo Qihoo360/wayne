@@ -3,9 +3,9 @@ package deployment
 import (
 	"encoding/json"
 	"fmt"
+	v1 "k8s.io/api/apps/v1"
 	"net/http"
 
-	"k8s.io/api/apps/v1beta1"
 	"k8s.io/apimachinery/pkg/labels"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
@@ -85,7 +85,7 @@ func (c *KubeDeploymentController) Create() {
 	deploymentId := c.GetIntParamFromURL(":deploymentId")
 	tplId := c.GetIntParamFromURL(":tplId")
 
-	var kubeDeployment v1beta1.Deployment
+	var kubeDeployment v1.Deployment
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &kubeDeployment)
 	if err != nil {
 		logs.Error("Invalid deployment tpl %v", string(c.Ctx.Input.RequestBody))
@@ -177,7 +177,7 @@ func (c *KubeDeploymentController) Create() {
 	c.Success("ok")
 }
 
-func checkResourceAvailable(ns *models.Namespace, cli client.ResourceHandler, kubeDeployment *v1beta1.Deployment, cluster string) error {
+func checkResourceAvailable(ns *models.Namespace, cli client.ResourceHandler, kubeDeployment *v1.Deployment, cluster string) error {
 	// this namespace can't use current cluster.
 	clusterMetas, ok := ns.MetaDataObj.ClusterMetas[cluster]
 	if !ok {

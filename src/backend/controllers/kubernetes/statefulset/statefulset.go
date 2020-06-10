@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"k8s.io/api/apps/v1beta1"
+	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/apimachinery/pkg/labels"
 
 	"github.com/Qihoo360/wayne/src/backend/client"
@@ -49,7 +49,7 @@ func (c *KubeStatefulsetController) Create() {
 	statefulsetId := c.GetIntParamFromURL(":statefulsetId")
 	tplId := c.GetIntParamFromURL(":tplId")
 
-	var kubeStatefulset v1beta1.StatefulSet
+	var kubeStatefulset appsv1.StatefulSet
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &kubeStatefulset)
 	if err != nil {
 		logs.Error("Invalid statefulset tpl %v", string(c.Ctx.Input.RequestBody))
@@ -141,7 +141,7 @@ func addDeployStatus(statefulsetId int64, tplId int64, cluster string) error {
 	return nil
 }
 
-func checkResourceAvailable(ns *models.Namespace, cli client.ResourceHandler, kubeStatefulset *v1beta1.StatefulSet, cluster string) error {
+func checkResourceAvailable(ns *models.Namespace, cli client.ResourceHandler, kubeStatefulset *appsv1.StatefulSet, cluster string) error {
 	// this namespace can't use current cluster.
 	clusterMetas, ok := ns.MetaDataObj.ClusterMetas[cluster]
 	if !ok {
