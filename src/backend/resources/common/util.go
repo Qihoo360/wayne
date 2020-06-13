@@ -1,11 +1,11 @@
 package common
 
 import (
-	"k8s.io/api/apps/v1beta1"
+	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/api/core/v1"
 )
 
-func DeploymentResourceList(deployment *v1beta1.Deployment) *ResourceList {
+func DeploymentResourceList(deployment *appsv1.Deployment) *ResourceList {
 	replicas := *(deployment.Spec.Replicas)
 	resourceList := ContainersResourceList(deployment.Spec.Template.Spec.Containers)
 	return &ResourceList{
@@ -14,7 +14,7 @@ func DeploymentResourceList(deployment *v1beta1.Deployment) *ResourceList {
 	}
 }
 
-func StatefulsetResourceList(statefulSet *v1beta1.StatefulSet) *ResourceList {
+func StatefulsetResourceList(statefulSet *appsv1.StatefulSet) *ResourceList {
 	replicas := *(statefulSet.Spec.Replicas)
 	resourceList := ContainersResourceList(statefulSet.Spec.Template.Spec.Containers)
 	return &ResourceList{

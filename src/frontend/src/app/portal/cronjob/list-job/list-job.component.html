@@ -129,6 +129,11 @@
                 {{'TITLE.END_TIME' | translate}}
               </ng-container>
             </clr-dg-column>
+            <clr-dg-column>
+              <ng-container *clrDgHideableColumn="{hidden: false}">
+                {{'TITLE.ACTION' | translate}}
+              </ng-container>
+            </clr-dg-column>
             <clr-dg-row *ngFor="let obj of jobs" [clrDgItem]="obj">
               <clr-dg-cell class="copy">{{obj.metadata.name}}</clr-dg-cell>
               <clr-dg-cell>
@@ -145,6 +150,12 @@
               </clr-dg-cell>
               <clr-dg-cell>{{obj.status.startTime | date: "yyyy-MM-dd HH:mm:ss"}}</clr-dg-cell>
               <clr-dg-cell>{{obj.status.completionTime | date: "yyyy-MM-dd HH:mm:ss"}}</clr-dg-cell>
+              <clr-dg-cell>
+                <button class="wayne-button text"
+                        *ngIf="authService.currentAppPermission.kubeJob.delete || authService.currentUser.admin"
+                        (click)="deleteJob(obj)">
+                  {{'BUTTON.DELETE' | translate}}</button>
+              </clr-dg-cell>
               <list-dg-row-pod *clrIfExpanded [resourceName]="obj.metadata.name" [cluster]="cluster"
                                ngProjectAs="clr-dg-row-detail">
               </list-dg-row-pod>

@@ -1,7 +1,7 @@
 package daemonset
 
 import (
-	"k8s.io/api/extensions/v1beta1"
+	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
@@ -18,11 +18,11 @@ type DaemonSet struct {
 	Pods       common.PodInfo    `json:"pods"`
 }
 
-func CreateOrUpdateDaemonSet(cli *kubernetes.Clientset, daemonSet *v1beta1.DaemonSet) (*v1beta1.DaemonSet, error) {
-	old, err := cli.ExtensionsV1beta1().DaemonSets(daemonSet.Namespace).Get(daemonSet.Name, metaV1.GetOptions{})
+func CreateOrUpdateDaemonSet(cli *kubernetes.Clientset, daemonSet *appsv1.DaemonSet) (*appsv1.DaemonSet, error) {
+	old, err := cli.AppsV1().DaemonSets(daemonSet.Namespace).Get(daemonSet.Name, metaV1.GetOptions{})
 	if err != nil {
 		if errors.IsNotFound(err) {
-			return cli.ExtensionsV1beta1().DaemonSets(daemonSet.Namespace).Create(daemonSet)
+			return cli.AppsV1().DaemonSets(daemonSet.Namespace).Create(daemonSet)
 		}
 		return nil, err
 	}
@@ -31,11 +31,11 @@ func CreateOrUpdateDaemonSet(cli *kubernetes.Clientset, daemonSet *v1beta1.Daemo
 	old.Spec = daemonSet.Spec
 	old.Spec.Template.Labels = maps.MergeLabels(oldTemplateLabels, daemonSet.Spec.Template.Labels)
 
-	return cli.ExtensionsV1beta1().DaemonSets(daemonSet.Namespace).Update(old)
+	return cli.AppsV1().DaemonSets(daemonSet.Namespace).Update(old)
 }
 
 func GetDaemonSetDetail(cli *kubernetes.Clientset, indexer *client.CacheFactory, name, namespace string) (*DaemonSet, error) {
-	daemonSet, err := cli.ExtensionsV1beta1().DaemonSets(namespace).Get(name, metaV1.GetOptions{})
+	daemonSet, err := cli.AppsV1().DaemonSets(namespace).Get(name, metaV1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func GetDaemonSetDetail(cli *kubernetes.Clientset, indexer *client.CacheFactory,
 
 func DeleteDaemonSet(cli *kubernetes.Clientset, name, namespace string) error {
 	deletionPropagation := metaV1.DeletePropagationBackground
-	return cli.ExtensionsV1beta1().
+	return cli.AppsV1().
 		DaemonSets(namespace).
 		Delete(name, &metaV1.DeleteOptions{PropagationPolicy: &deletionPropagation})
 }

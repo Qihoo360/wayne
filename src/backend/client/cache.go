@@ -1,13 +1,12 @@
 package client
 
 import (
+	"github.com/Qihoo360/wayne/src/backend/client/api"
 	"k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/listers/apps/v1beta1"
+	appsv1 "k8s.io/client-go/listers/apps/v1"
 	autoscalingv1 "k8s.io/client-go/listers/autoscaling/v1"
 	"k8s.io/client-go/listers/core/v1"
-
-	"github.com/Qihoo360/wayne/src/backend/client/api"
 )
 
 type CacheFactory struct {
@@ -23,8 +22,13 @@ func buildCacheController(client *kubernetes.Clientset) (*CacheFactory, error) {
 	stop := make(chan struct{})
 	sharedInformerFactory := informers.NewSharedInformerFactory(client, defaultResyncPeriod)
 
+	rangeMap, err := api.GetResourceMap(client)
+	if err != nil {
+		return nil, err
+	}
 	// Start all Resources defined in KindToResourceMap
-	for _, value := range api.KindToResourceMap {
+	for _, value := range rangeMap {
+
 		genericInformer, err := sharedInformerFactory.ForResource(value.GroupVersionResourceKind.GroupVersionResource)
 		if err != nil {
 			return nil, err
@@ -48,8 +52,8 @@ func (c *CacheFactory) EventLister() v1.EventLister {
 	return c.sharedInformerFactory.Core().V1().Events().Lister()
 }
 
-func (c *CacheFactory) DeploymentLister() v1beta1.DeploymentLister {
-	return c.sharedInformerFactory.Apps().V1beta1().Deployments().Lister()
+func (c *CacheFactory) DeploymentLister() appsv1.DeploymentLister {
+	return c.sharedInformerFactory.Apps().V1().Deployments().Lister()
 }
 
 func (c *CacheFactory) NodeLister() v1.NodeLister {

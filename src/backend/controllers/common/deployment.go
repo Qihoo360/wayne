@@ -3,14 +3,14 @@ package common
 import (
 	"strings"
 
-	"k8s.io/api/apps/v1beta1"
+	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/api/core/v1"
 
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/util"
 )
 
-func DeploymentPreDeploy(kubeDeployment *v1beta1.Deployment, deploy *models.Deployment,
+func DeploymentPreDeploy(kubeDeployment *appsv1.Deployment, deploy *models.Deployment,
 	cluster *models.Cluster, namespace *models.Namespace) {
 	// step 1  add envs
 	for i := 0; i < len(kubeDeployment.Spec.Template.Spec.Containers); i++ {

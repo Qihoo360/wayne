@@ -3,14 +3,14 @@ package statefulset
 import (
 	"strings"
 
-	"k8s.io/api/apps/v1beta1"
+	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/api/core/v1"
 
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/util"
 )
 
-func statefulsetPreDeploy(kubeStatefulSet *v1beta1.StatefulSet, statefulSet *models.Statefulset,
+func statefulsetPreDeploy(kubeStatefulSet *appsv1.StatefulSet, statefulSet *models.Statefulset,
 	cluster *models.Cluster, namespace *models.Namespace) {
 	// step 1  add envs
 	for i := 0; i < len(kubeStatefulSet.Spec.Template.Spec.Containers); i++ {

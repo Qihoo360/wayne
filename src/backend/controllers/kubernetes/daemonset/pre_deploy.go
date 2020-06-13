@@ -3,14 +3,14 @@ package daemonset
 import (
 	"strings"
 
+	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/api/core/v1"
-	"k8s.io/api/extensions/v1beta1"
 
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/util"
 )
 
-func daemonSetPreDeploy(kubeDaemonSet *v1beta1.DaemonSet, daemonSet *models.DaemonSet,
+func daemonSetPreDeploy(kubeDaemonSet *appsv1.DaemonSet, daemonSet *models.DaemonSet,
 	cluster *models.Cluster, namespace *models.Namespace) {
 	// step 1  add envs
 	for i := 0; i < len(kubeDaemonSet.Spec.Template.Spec.Containers); i++ {

@@ -1,5 +1,5 @@
 export const defaultStatefulset = `{
-    "apiVersion": "apps/v1beta1",
+    "apiVersion": "apps/v1",
     "kind": "StatefulSet",
     "metadata": {
         "labels": {}
