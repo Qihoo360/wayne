@@ -96,9 +96,6 @@ func addDefaultNamespace(user *User) (err error) {
 	// 添加默认命名空间开发者权限
 	demoNSId := beego.AppConfig.DefaultInt64("DemoNamespaceId", 1)
 	demoGroupId := beego.AppConfig.DefaultInt64("DemoGroupId", 1)
-	if err != nil {
-		return
-	}
 	if (demoNSId <= 0) || (demoGroupId <= 0) {
 		// 如果DemoNamespaceId小于等于0,则忽略
 		return nil
