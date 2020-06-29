@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {throwError} from 'rxjs';
-import {PageState} from '../../../page/page-state';
-import {BaseClient} from './base-client';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { PageState } from '../../../page/page-state';
+import { BaseClient } from './base-client';
 
 @Injectable()
 export class JobClient {

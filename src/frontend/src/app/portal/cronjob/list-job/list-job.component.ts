@@ -1,19 +1,19 @@
-import {Component, OnDestroy, ViewChild} from '@angular/core';
-import {ClrDatagridStateInterface} from '@clr/angular';
-import {MessageHandlerService} from '../../../shared/message-handler/message-handler.service';
-import {JobClient} from '../../../shared/client/v1/kubernetes/job';
-import {ActivatedRoute} from '@angular/router';
-import {ConfirmationDialogService} from '../../../shared/confirmation-dialog/confirmation-dialog.service';
-import {Subscription} from 'rxjs/Subscription';
-import {CacheService} from '../../../shared/auth/cache.service';
-import {PageState} from '../../../shared/page/page-state';
-import {KubeJob} from '../../../shared/model/v1/kubernetes/job';
-import {ListPodComponent} from '../list-pod/list-pod.component';
-import {ListEventDatagridComponent} from '../../../shared/list-event-datagrid/list-event.component';
-import {KubeCronJob} from '../../../shared/model/v1/kubernetes/cronjob';
-import {AuthService} from "../../../shared/auth/auth.service";
-import {ConfirmationMessage} from "../../../shared/confirmation-dialog/confirmation-message";
-import {ConfirmationButtons, ConfirmationState, ConfirmationTargets} from "../../../shared/shared.const";
+import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { ClrDatagridStateInterface } from '@clr/angular';
+import { MessageHandlerService } from '../../../shared/message-handler/message-handler.service';
+import { JobClient } from '../../../shared/client/v1/kubernetes/job';
+import { ActivatedRoute } from '@angular/router';
+import { ConfirmationDialogService } from '../../../shared/confirmation-dialog/confirmation-dialog.service';
+import { Subscription } from 'rxjs/Subscription';
+import { CacheService } from '../../../shared/auth/cache.service';
+import { PageState } from '../../../shared/page/page-state';
+import { KubeJob } from '../../../shared/model/v1/kubernetes/job';
+import { ListPodComponent } from '../list-pod/list-pod.component';
+import { ListEventDatagridComponent } from '../../../shared/list-event-datagrid/list-event.component';
+import { KubeCronJob } from '../../../shared/model/v1/kubernetes/cronjob';
+import { AuthService } from '../../../shared/auth/auth.service';
+import { ConfirmationMessage } from '../../../shared/confirmation-dialog/confirmation-message';
+import { ConfirmationButtons, ConfirmationState, ConfirmationTargets } from '../../../shared/shared.const';
 
 @Component({
   selector: 'list-job',
