@@ -59,7 +59,7 @@ func (c *GroupController) List() {
 
 	total, err := models.GetTotal(new(models.Group), param)
 	if err != nil {
-		logs.Error("get total count by param (%s) error. %v", param, err)
+		logs.Error("get total count by param (%v) error. %v", param, err)
 		c.HandleError(err)
 		return
 	}
@@ -67,7 +67,7 @@ func (c *GroupController) List() {
 	groups := []models.Group{}
 	err = models.GetAll(new(models.Group), &groups, param)
 	if err != nil {
-		logs.Error("list by param (%s) error. %v", param, err)
+		logs.Error("list by param (%v) error. %v", param, err)
 		c.HandleError(err)
 		return
 	}

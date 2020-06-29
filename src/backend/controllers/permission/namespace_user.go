@@ -71,7 +71,7 @@ func (c *NamespaceUserController) List() {
 
 	total, err := models.GetTotal(new(models.NamespaceUser), param)
 	if err != nil {
-		logs.Error("get total count by param (%s) error. %v", param, err)
+		logs.Error("get total count by param (%v) error. %v", param, err)
 		c.HandleError(err)
 		return
 	}
@@ -79,7 +79,7 @@ func (c *NamespaceUserController) List() {
 
 	err = models.GetAll(new(models.NamespaceUser), &namespaceUsers, param)
 	if err != nil {
-		logs.Error("list by param (%s) error. %v", param, err)
+		logs.Error("list by param (%v) error. %v", param, err)
 		c.HandleError(err)
 		return
 	}
