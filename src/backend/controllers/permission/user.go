@@ -233,6 +233,34 @@ func (c *UserController) Update() {
 // @Success 200 {string} delete success!
 // @router /:id [delete]
 func (c *UserController) Delete() {
+	var (
+		id  int64
+		del string
+		err error
+	)
+
+	id = c.GetIDFromURL()
+	// 判断是否需要硬删除
+	del = c.Input().Get("delete")
+	if del == "true" {
+		err = models.UserModel.DeleteUser(int64(id))
+	} else {
+		err = models.UserModel.UpdateUserDeleted(int64(id))
+	}
+	if err != nil {
+		logs.Error("delete %d error.%v", id, err)
+		c.HandleError(err)
+		return
+	}
+	c.Success(nil)
+}
+
+// @Title SoftDelete
+// @Description make the user's deleted true
+// @Param	id		path 	int	true		"The id you want to delete"
+// @Success 200 {string} delete success!
+// @router /:id [delete]
+func (c *UserController) SoftDelete() {
 	id := c.GetIDFromURL()
 
 	err := models.UserModel.DeleteUser(int64(id))

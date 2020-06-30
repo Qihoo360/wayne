@@ -265,6 +265,17 @@ func (*userModel) UpdateUserById(m *User) (err error) {
 	return
 }
 
+func (*userModel) UpdateUserDeleted(id int64) (err error) {
+	v := &User{Id: id}
+	if err = Ormer().Read(v); err != nil {
+		return
+	}
+	v.Deleted = true
+	_, err = Ormer().Update(v)
+	return
+}
+
+// 数据库硬删除
 func (*userModel) DeleteUser(id int64) (err error) {
 	v := User{Id: id}
 	if err = Ormer().Read(&v); err != nil {
