@@ -2,10 +2,10 @@ package db
 
 import (
 	"fmt"
-
 	"github.com/Qihoo360/wayne/src/backend/controllers/auth"
 	"github.com/Qihoo360/wayne/src/backend/models"
 	"github.com/Qihoo360/wayne/src/backend/util/encode"
+	"github.com/astaxie/beego/orm"
 )
 
 type DBAuth struct{}
@@ -24,6 +24,9 @@ func (*DBAuth) Authenticate(m models.AuthModel) (*models.User, error) {
 	password := m.Password
 	user, err := models.UserModel.GetUserByName(username)
 	if err != nil {
+		if err == orm.ErrNoRows {
+			return nil, fmt.Errorf("username or password error!")
+		}
 		return nil, err
 	}
 
