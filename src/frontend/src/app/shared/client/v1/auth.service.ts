@@ -15,7 +15,7 @@ export class AuthoriseService {
     const encodedName = encodeURIComponent(username);
     const encodedPassword = encodeURIComponent(password);
     return this.http
-      .post(`/login/${type}?username=${encodedName}&password=${encodedPassword}`, null, this.options)
+      .post(`/login/${type}`, { 'username': encodedName, 'password': encodedPassword }, this.options)
       .catch(error => throwError(error));
   }
 }
