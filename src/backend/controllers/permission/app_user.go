@@ -72,7 +72,7 @@ func (c *AppUserController) List() {
 
 	total, err := models.GetTotal(new(models.AppUser), param)
 	if err != nil {
-		logs.Error("get total count by param (%s) error. %v", param, err)
+		logs.Error("get total count by param (%v) error. %v", param, err)
 		c.HandleError(err)
 		return
 	}
@@ -80,7 +80,7 @@ func (c *AppUserController) List() {
 
 	err = models.GetAll(new(models.AppUser), &appUsers, param)
 	if err != nil {
-		logs.Error("list by param (%s) error. %v", param, err)
+		logs.Error("list by param (%v) error. %v", param, err)
 		c.HandleError(err)
 		return
 	}

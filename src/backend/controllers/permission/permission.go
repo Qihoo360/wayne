@@ -54,7 +54,7 @@ func (c *PermissionController) List() {
 
 	total, err := models.GetTotal(new(models.Permission), param)
 	if err != nil {
-		logs.Error("get total count by param (%s) error. %v", param, err)
+		logs.Error("get total count by param (%v) error. %v", param, err)
 		c.HandleError(err)
 		return
 	}
@@ -62,7 +62,7 @@ func (c *PermissionController) List() {
 	permissions := []models.Permission{}
 	err = models.GetAll(new(models.Permission), &permissions, param)
 	if err != nil {
-		logs.Error("list by param (%s) error. %v", param, err)
+		logs.Error("list by param (%v) error. %v", param, err)
 		c.HandleError(err)
 		return
 	}

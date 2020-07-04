@@ -42,7 +42,7 @@ func (c *NotificationController) List() {
 	notifications := []models.Notification{}
 	total, err := models.GetTotal(new(models.Notification), param)
 	if err != nil {
-		logs.Error("get total count by param (%s) error. %v", param, err)
+		logs.Error("get total count by param (%v) error. %v", param, err)
 		c.HandleError(err)
 		return
 	}
@@ -50,7 +50,7 @@ func (c *NotificationController) List() {
 	param.Relate = "all"
 	err = models.GetAll(new(models.Notification), &notifications, param)
 	if err != nil {
-		logs.Error("list by param (%s) error. %v", param, err)
+		logs.Error("list by param (%v) error. %v", param, err)
 		c.HandleError(err)
 		return
 	}
