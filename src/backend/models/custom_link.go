@@ -9,7 +9,7 @@ type customLinkModel struct{}
 type CustomLink struct {
 	Id int64 `orm:"auto" json:"id,omitempty"`
 	// namespace name
-	Namespace string `orm:"index;namespace;" json:"namespace"`
+	Namespace string `orm:"index;column(namespace);" json:"namespace"`
 	// LinkType typeName
 	LinkType string `orm:"size(255)" json:"linkType,omitempty"`
 	Url      string `orm:"size(255)" json:"url,omitempty"`
