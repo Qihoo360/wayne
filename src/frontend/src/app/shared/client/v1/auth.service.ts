@@ -12,10 +12,8 @@ export class AuthoriseService {
   }
 
   Login(username: string, password: string, type: string): Observable<any> {
-    const encodedName = encodeURIComponent(username);
-    const encodedPassword = encodeURIComponent(password);
     return this.http
-      .post(`/login/${type}`, { 'username': encodedName, 'password': encodedPassword }, this.options)
+      .post(`/login/${type}`, { 'username': username, 'password': password }, this.options)
       .catch(error => throwError(error));
   }
 }

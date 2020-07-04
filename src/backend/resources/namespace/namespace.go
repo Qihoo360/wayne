@@ -52,9 +52,6 @@ func ResourcesOfAppByNamespace(cli client.ResourceHandler, namespace, selector s
 	if err != nil {
 		return nil, err
 	}
-	if err != nil {
-		return nil, err
-	}
 	result := make(map[string]*common.ResourceApp)
 	for _, obj := range objs {
 		pod := obj.(*v1.Pod)
