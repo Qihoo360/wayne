@@ -32,6 +32,7 @@ Wayne has been serving [360 search](https://www.so.com/?src=wayne) on a large sc
 ## Architecture
 
 The whole system adopts the separation of front and back ends, in which the front end uses Angular framework for data interaction and display, and the Ace editor is used for Kubernetes resource template editing. The backend uses the Beego framework for data interface processing, Client-go to interact with Kubernetes, and data for MySQL storage.
+
 ![Architecture](docs/images/architecture.png)
 
 ## Component
@@ -52,7 +53,7 @@ The whole system adopts the separation of front and back ends, in which the fron
 - Clone
 
 ```bash
-$ go get github.com/Qihoo360/wayne
+$ git clone https://github.com/Qihoo360/wayne.git
 ```
 
 - Start Wayne
