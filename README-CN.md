@@ -74,10 +74,6 @@ $ docker-compose -f ./hack/docker-compose/docker-compose.yaml up
 
 ## 联系我们
 
-微信
-
-![微信](http://70data-net-static.smartgslb.com/upload/work/wechat.jpg)
-
 邮箱
 
 redefine-infra@360.cn
