@@ -5,7 +5,9 @@ package routers
 
 import (
 	"net/http"
+	"os"
 	"path"
+	"runtime"
 
 	"github.com/Qihoo360/wayne/src/backend/controllers/apikey"
 	"github.com/Qihoo360/wayne/src/backend/controllers/app"
@@ -63,6 +65,11 @@ func init() {
 	// Beego注解路由代码生成规则和程序运行路径相关，需要改写一下避免产生不一致的文件名
 	if beego.BConfig.RunMode == "dev" && path.Base(beego.AppPath) == "_build" {
 		beego.AppPath = path.Join(path.Dir(beego.AppPath), "src/backend")
+	}
+
+	// linux 的go run 执行路径 是/tmp/go-buildxxxx,会使注解路由生成文件名很奇怪
+	if beego.BConfig.RunMode == "dev" && runtime.GOOS == "linux" {
+		beego.AppPath, _ = os.Getwd()
 	}
 
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
