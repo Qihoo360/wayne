@@ -36,8 +36,8 @@ export class DiffComponent implements OnDestroy {
   show = false;
   diffSubscription: Subscription;
   html = '';
-  inputType = 'json';
-  outStyle = 'side-by-side';
+  inputType: 'diff' | 'json' = 'json';
+  outStyle: 'side-by-side' | 'line-by-line' = 'side-by-side';
   diffTpl: DiffTpl;
   get style() {
     return this._style;
