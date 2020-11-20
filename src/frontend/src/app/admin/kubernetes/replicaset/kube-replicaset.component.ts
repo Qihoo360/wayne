@@ -47,6 +47,12 @@ export class KubeReplicasetComponent extends KubernetesNamespacedResource implem
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      const uid = params['uid'];
+      if (!!uid) {
+         this.filter = {'referenceUID' : uid};
+      }
+    });
     super.ngOnInit();
   }
 
@@ -54,4 +60,7 @@ export class KubeReplicasetComponent extends KubernetesNamespacedResource implem
     super.ngOnDestroy();
   }
 
+  jump(obj: any) {
+    this.router.navigate(['../pod'], {relativeTo: this.route, queryParams: { uid: obj.metadata.uid }});
+  }
 }

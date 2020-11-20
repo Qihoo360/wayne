@@ -63,4 +63,8 @@ export class KubeDeploymentComponent extends KubernetesNamespacedResource implem
     this.migrationComponent.openModal(this.cluster, obj);
   }
 
+  jump(obj: any) {
+    this.router.navigate(['../replicaset'], {relativeTo: this.route, queryParams: { uid: obj.metadata.uid }});
+  }
+
 }

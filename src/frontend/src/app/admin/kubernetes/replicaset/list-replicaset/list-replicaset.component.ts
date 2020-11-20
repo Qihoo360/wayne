@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component,  EventEmitter, Input, Output  } from '@angular/core';
 import { KubernetesListResource } from '../../../../shared/base/kubernetes-namespaced/kubernetes-list-resource';
 import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.service';
 
@@ -10,6 +10,7 @@ import { TplDetailService } from '../../../../shared/tpl-detail/tpl-detail.servi
 export class ListReplicasetComponent extends KubernetesListResource {
   @Input() resources: any[];
   @Input() showState: object;
+  @Output() jump = new EventEmitter<any>();
 
   constructor(public tplDetailService: TplDetailService) {
     super(tplDetailService);
@@ -21,4 +22,7 @@ export class ListReplicasetComponent extends KubernetesListResource {
     return readyNumber === desiredNumber;
   }
 
+  jumpResource(obj: any) {
+    this.jump.emit(obj);
+  }
 }

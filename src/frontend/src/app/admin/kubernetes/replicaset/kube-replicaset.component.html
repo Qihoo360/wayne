@@ -39,6 +39,7 @@
       (edit)="onEditResourceEvent($event)"
       [page]="pageState.page"
       [cluster]="cluster"
+      (jump)="jump($event)"
       (paginate)="retrieveResource($event)">
     </wayne-list-replicaset>
   </div>

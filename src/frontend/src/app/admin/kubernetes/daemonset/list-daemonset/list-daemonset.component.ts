@@ -12,13 +12,18 @@ export class ListDaemonsetComponent extends KubernetesListResource {
   @Input() showState: object;
 
   @Output() migration = new EventEmitter<any>();
+  @Output() jump = new EventEmitter<any>();
 
   constructor(public tplDetailService: TplDetailService) {
     super(tplDetailService);
   }
 
-
   migrationResource(obj: any) {
     this.migration.emit(obj);
   }
+
+  jumpResource(obj: any) {
+    this.jump.emit(obj);
+  }
 }
+

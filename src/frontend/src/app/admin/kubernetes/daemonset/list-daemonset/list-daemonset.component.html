@@ -37,7 +37,9 @@
       <button class="action-item" (click)="onDeleteEvent(obj)">{{'ADMIN.KUBERNETES.ACTION.DELETE' | translate}}</button>
       <button class="action-item" (click)="migrationResource(obj)">{{'ADMIN.KUBERNETES.ACTION.MIGRATION' | translate}}</button>
     </clr-dg-action-overflow>
-    <clr-dg-cell class="col-app-name"> {{ obj.metadata.name }} </clr-dg-cell>
+    <clr-dg-cell class="col-app-name">
+      <a href="javascript:" (click)="jumpResource(obj)"> {{ obj.metadata.name }} </a>
+     </clr-dg-cell>
     <clr-dg-cell> {{ obj.metadata.namespace }} </clr-dg-cell>
     <clr-dg-cell>
       <div *ngFor="let label of obj.metadata.labels | keyvalue" class="version-text">

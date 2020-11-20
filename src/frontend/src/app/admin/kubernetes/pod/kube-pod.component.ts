@@ -50,6 +50,12 @@ export class KubePodComponent extends KubernetesNamespacedResource implements On
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      const uid = params['uid'];
+      if (!!uid) {
+         this.filter = {'referenceUID' : uid};
+      }
+    });
     super.ngOnInit();
   }
 
