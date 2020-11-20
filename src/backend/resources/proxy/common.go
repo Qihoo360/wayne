@@ -1,7 +1,7 @@
 package proxy
 
 import (
-	"k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/Qihoo360/wayne/src/backend/resources/common"
@@ -22,6 +22,16 @@ func baseProperty(name dataselector.PropertyName, meta metav1.ObjectMeta) datase
 		return dataselector.StdComparableTime(meta.CreationTimestamp.Time)
 	case dataselector.NamespaceProperty:
 		return dataselector.StdComparableString(meta.Namespace)
+
+	case dataselector.ReferenceUIDProperty:
+		refs := meta.OwnerReferences
+		for i := range refs {
+			if refs[i].Controller != nil && *refs[i].Controller {
+				return dataselector.StdComparableString(refs[i].UID)
+			}
+		}
+		return nil
+
 	default:
 		// if name is not supported then just return a constant dummy value, sort will have no effect.
 		return nil
