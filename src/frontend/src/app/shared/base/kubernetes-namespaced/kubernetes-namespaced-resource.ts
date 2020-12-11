@@ -23,12 +23,12 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
   resourceName: string;
   resources: Array<any>;
   showList: any[] = Array();
-
   resourceType: string;
   kubeResource: KubeResourcesName;
 
   namespaces = Array<string>();
   namespace = '';
+  filter: {[key: string]: string};
 
   constructor(public kubernetesClient: KubernetesClient,
               public route: ActivatedRoute,
@@ -178,6 +178,9 @@ export class KubernetesNamespacedResource implements OnInit, OnDestroy {
     }
     if (this.cluster) {
       localStorage.setItem('kubeNamespace', this.namespace);
+      if (this.filter) {
+        this.pageState.filters = this.filter;
+      }
       this.kubernetesClient.listPage(this.pageState, this.cluster, this.kubeResource, this.namespace)
         .subscribe(
           response => {

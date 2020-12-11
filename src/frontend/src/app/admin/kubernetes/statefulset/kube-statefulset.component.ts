@@ -63,4 +63,7 @@ export class KubeStatefulsetComponent extends KubernetesNamespacedResource imple
     this.migrationComponent.openModal(this.cluster, obj);
   }
 
+  jump(obj: any) {
+    this.router.navigate(['../pod'], {relativeTo: this.route, queryParams: { uid: obj.metadata.uid }});
+  }
 }
