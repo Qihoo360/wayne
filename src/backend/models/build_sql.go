@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 
 	"github.com/astaxie/beego/orm"
@@ -57,7 +58,9 @@ func BuildGroupBy(qb orm.QueryBuilder, groupby []string) orm.QueryBuilder {
 	if len(groupby) > 0 {
 		groups := make([]string, 0)
 		for _, group := range groupby {
-			groups = append(groups, "T0."+group)
+			if checkField(group) {
+				groups = append(groups, "T0."+group)
+			}
 		}
 		qb.GroupBy(groups...)
 	}
@@ -71,6 +74,9 @@ func BuildOrder(qb orm.QueryBuilder, sort string) orm.QueryBuilder {
 			asc = false
 			sort = sort[1:]
 		}
+		if !checkField(sort) {
+			return qb
+		}
 		qb = qb.OrderBy("T0." + sort)
 		if asc {
 			qb = qb.Asc()
@@ -79,4 +85,11 @@ func BuildOrder(qb orm.QueryBuilder, sort string) orm.QueryBuilder {
 		}
 	}
 	return qb
+}
+
+// Check fields to prevent SQL injection attacks.
+func checkField(field string) bool {
+	field = strings.Trim(field, " ")
+	pass, _ := regexp.MatchString("(^_([a-zA-Z0-9]_?)*$)|(^[a-zA-Z](_?[a-zA-Z0-9])*_?$)", field)
+	return pass
 }
