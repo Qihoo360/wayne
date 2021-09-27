@@ -169,7 +169,7 @@ func Manager(cluster string) (*ClusterManager, error) {
 	// 如果不存在，则重新获取一次集群信息
 	if !exist {
 		BuildApiserverClient()
-		_, exist = clusterManagerSets.Load(cluster)
+		managerInterface, exist = clusterManagerSets.Load(cluster)
 		if !exist {
 			return nil, ErrNotExist
 		}
